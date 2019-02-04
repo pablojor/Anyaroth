@@ -1,4 +1,4 @@
-# Ignaro
+# Anyaroth
 ***********************************************************************************
 #### Género
 Bullet hell y plataforma 2D con componente JRPG
@@ -183,35 +183,59 @@ NOTA: Características de los bosses, en el apartado de personajes.
 ##### -Al acabar con todas las zonas, aparece el boss final que tendrás que derrotar para ganar el juego.
 ***********************************************************************************
 ## Historia
+Hace miles de años, el planeta Anyaroth estaba habitado por numerosos reinos que se disputaban el control absoluto del planeta y sus recursos en cruentas batallas. Angra Mainyu, un importante general de uno de los reinos más poderosos de Anyaroth, conspiró contra su propio rey hasta hacerse con el poder, y empezó una campaña de expansión del reino, iniciando la más sangrienta guerra de la historia de los anyas. Al final de esta guerra, Angra Mainyu consiguió proclamarse emperador absoluto del planeta Anyaroth. 
+
+
+Los avances científicos y tecnológicos alcanzados durante la guerra permitieron a Angra Mainyu desarrollar un artefacto con el que controlar mentalmente a todos los demás anyas, proporcionándole poder absoluto sobre todas las criaturas inteligentes de su planeta. La civilización de los anyas pasó a ser algo parecido a un hormiguero, con obreros, que se dedicaban a recolectar los recursos del planeta, trabajarlos y construir con ellos; soldados, que se encargaban de garantizar que nadie rompiera las normas; y un soberano, que pasaría a llamarse “la Reina de todos los anyas”.
+
+
+Con los anyas completamente esclavizados, empezó una época de paz que solo se vio perturbada varios siglos después del alzamiento de Angra Mainyu (que se mantenía vivo gracias al poder del artefacto que le permitía controlar a los anyas), cuando un soldado se liberó del control mental y empezó una rebelión que culminó con la muerte de Angra Mainyu. Este soldado se convirtió en la nueva Reina.
+
+
+Tras el suceso conocido como La Primera Rebelión, empezó un ciclo interminable: la actual Reina era asesinada por un soldado, que ocupaba su puesto, y vuelta a empezar. Así, la paz en Anyaroth se mantenía durante unos siglos hasta que apareciera un nuevo soldado insurrecto, y empezará una breve época de caos y violencia, aunque no todos los soldados insurrectos tuvieron éxito en su levantamiento.
+
+
+El protagonista del videojuego es uno de estos soldados insurrectos, que se deshace del control de la Reina y tratará de llegar hasta ella, en el núcleo de Anyaroth, para asesinarla.
+Cuando lo consiga, el jugador deberá tomar una decisión:  
+Ocupar el puesto como nueva Reina.
+Negarse a ocupar el puesto y dejar al mundo sin gobernante.
+
+## Resumen
 Un mundo cuyos habitantes son controlados mentalmente por una fuerza superior (líder).
 Manejas a uno de estos habitantes el cual se ha liberado del control mental y viendo el estado en el que se encuentra el mundo, decide ir a por el líder y liberar a todos de su control.
 Vas avanzando por el mundo, bajando hacia la guarida del líder y, una vez te enfrentas a él, te acabas convirtiendo en el nuevo líder
 
+
 A medida que avanzas te vas volviendo más loco y más ávido de poder.
 En un punto te encuentras con un grupo (pequeño) oculto que también ha conseguido liberarse del control pero tiene demasiado miedo a luchar y te desean suerte y te dicen que les recuerdas a otro que tambien paso por allí con el mismo objetivo (tu si re-juegas)
 
+
 De primeras el líder no se da cuenta que  te has liberado (sois muchos) pero al principio (primera zona, primer nivel) tienes que destruir algo y ya se centran en ti.
+
 ***********************************************************************************
 ## Lore
-Planeta Atar-abán visto desde el espacio.
-El juego tiene lugar en el planeta Atar-abán, que está habitado por la especie de los mainyas. La organización social de los mainyas es similar a la de las hormigas de nuestro planeta, la sociedad está dividida en obreros, soldados y reina.
+El juego tiene lugar en el planeta Anyaroth, que está habitado por la especie de los anyas. La organización social de los anyas es similar a la de las hormigas de nuestro planeta, la sociedad está dividida en obreros, soldados y reina.
+
 
 -Obreros: Viven bajo el control de la reina, y se dedican a todo tipo de trabajos en la colmena. Sus condiciones de vida son pésimas, pero nadie se atreve a hacer nada al respecto.
 El jugador podrá interactuar(hablar) con obreros en las tiendas, donde ve a los obreros descansando del trabajo. El lore del juego se desvela en estas conversaciones con los obreros, dando pistas de que el jugador acabará convirtiéndose en el reina al que odia.
 
+
 -Soldados: Al igual que los obreros, están controlados por la reina. El objetivo de los soldados es mantener el orden en la colmena y atacar a los rebeldes.
 Cada cierto tiempo, uno de los soldados inicia una rebelión contra la reina y, si tiene éxito, acaba asesinando a la reina y usurpando su puesto, dando comienzo a una nueva etapa en la colmena. El jugador es uno de estos soldados, que empezará su rebelión con la intención de liberar a su especie de la opresión de la reina, pero empezará a volverse loco hasta querer usurpar el trono de la reina y convertirse él en lo que tanto odiaba. 
 
+
 -Reina: Controla la colmena y a todos sus habitantes. Recibe el nombre de Angra Mainyu. Al convertirse un soldado en reina, se introduce en una especie de robot gigante o mecha, que al estar conectado con todos los sistemas de la colmena, le permite al soldado controlarlo todo.
+
 
 #### La colmena
 Los mainyas viven en una colmena excavada en el planeta (como un hormiguero) que llega hasta el centro del mismo. La colmena está dividida en tres capas, que corresponden a las tres zonas de juego:
 
-Corteza: Boss 1
+-Corteza: Boss 1
 
-Manto: Boss 2
+-Manto: Boss 2
 
-Núcleo: Es donde vive la reina.
+-Núcleo: Es donde vive la reina.
 ***********************************************************************************
 ## Referencias
 ##### -Metal Slug
