@@ -12,21 +12,20 @@ Futurista
 ## Mecánicas
 ### Ofensivo
 
-##### -Apuntar derecha (D), izquierda (A), arriba (W), abajo (S) y diagonales (D+W, A+W, D+S, A+S)
-##### -Disparar (Espacio) 
-*Puedes mantener pulsado y disparar.*
-*Si el arma necesita ser cargada antes de disparar se mantiene espacio hasta que sueltes/llegue al máximo de carga*
+##### -Apuntar (Movimiento de ratón)
+##### -Disparar (Click izq.) 
+*Puedes mantener pulsado y disparar en ráfaga.*
+*Si el arma necesita ser cargada antes de disparar se mantiene click izq. hasta que sueltes/llegue al máximo de carga*
 ##### -Recargar (R)
 ##### -Cambiar de arma (Q)
-##### -Cuerpo a cuerpo (F)
+##### -Cuerpo a cuerpo (Click der.)
 
 ### Movimiento
 
-##### -Andar derecha (Flecha Derecha) e izquierda (Flecha Izquierda)
-##### -Agacharse (Flecha Abajo)
-##### -Salto simple (Flecha Arriba)
-##### -Recoger munición
-##### -Pasar por encima (Automático)
+##### -Andar derecha (D) e izquierda (A)
+##### -Agacharse (S)
+##### -Salto simple (Espacio)
+##### -Recoger munición (Pasar por encima (Automático))
 
 ### Habilidades (Se podrían comprar en la tienda y equiparte una)(Opcional)
 ##### -Dash (Shift + dirección)
