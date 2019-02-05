@@ -1,8 +1,2 @@
-﻿  Game.cpp
-a:\pablo\datos\documentos\tareas\proyecto ii\anyaroth\anyaroth\anyaroth\game.cpp(125): warning C4018: '>=': no coinciden signed/unsigned
-  GameState.cpp
-  GameStateMachine.cpp
-  PlayState.cpp
-  main.cpp
-  Generando código...
-  Anyaroth.vcxproj -> A:\Pablo\Datos\Documentos\Tareas\Proyecto II\Anyaroth\Anyaroth\bin\AnyarothDebug.exe
+﻿  GameComponent.cpp
+  Anyaroth.vcxproj -> D:\gtada\Desktop\Repositorio - GitHUB\Anyaroth\Anyaroth\bin\AnyarothDebug.exe

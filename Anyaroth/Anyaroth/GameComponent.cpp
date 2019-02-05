@@ -5,23 +5,24 @@ GameComponent::GameComponent() :
 }
 
 GameComponent::~GameComponent() {
+	delete transform;
 }
 
-void GameComponent::handleInput(Uint32 time, const SDL_Event& event) {
+void GameComponent::handleEvents(/*Uint32 time, const*/ SDL_Event& event) {
 	for (InputComponent* ic : inputComp_) {
-		ic->handleInput(this, time, event);
+		ic->handleInput(this, 0/*time*/, event);
 	}
 }
 
-void GameComponent::update(Uint32 time) {
+void GameComponent::update(/*Uint32 time*/) {
 	for (PhysicsComponent* pc : physicsComp_) {
-		pc->update(this, time);
+		pc->update(this, 0/*time*/);
 	}
 }
 
-void GameComponent::render(Uint32 time) {
+void GameComponent::render(/*Uint32 time*/) const {
 	for (RenderComponent* rc : renderComp_) {
-		rc->render(this, time);
+		rc->render(/*this, time*/);
 	}
 }
 
@@ -35,6 +36,10 @@ void GameComponent::addPhysicsComponent(PhysicsComponent* pc) {
 
 void GameComponent::addRenderComponent(RenderComponent* rc) {
 	renderComp_.push_back(rc);
+}
+
+void GameComponent::addComponent(Component* c) {
+	extraComp_.push_back(c);
 }
 
 void GameComponent::delInputComponent(InputComponent* ic) {
@@ -56,4 +61,11 @@ void GameComponent::delRenderComponent(RenderComponent* rc) {
 			renderComp_.begin(), renderComp_.end(), rc);
 	if (position != renderComp_.end())
 		renderComp_.erase(position);
+}
+
+void GameComponent::delComponent(Component* c) {
+	std::vector<Component*>::iterator position = std::find(
+		extraComp_.begin(), extraComp_.end(), c);
+	if (position != extraComp_.end())
+		extraComp_.erase(position);
 }

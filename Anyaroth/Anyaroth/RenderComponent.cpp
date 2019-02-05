@@ -1,6 +1,6 @@
 #include "RenderComponent.h"
 
-RenderComponent::RenderComponent() {
+RenderComponent::RenderComponent(GameComponent* _parent) : Component(_parent) {
 	// TODO Auto-generated constructor stub
 
 }

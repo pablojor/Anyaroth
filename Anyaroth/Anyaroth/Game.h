@@ -25,9 +25,10 @@ const string INFO_PATH = "..\\files\\info\\";
 const string FONTS_PATH = "..\\font\\";
 const string FILES_PATH = "..\\files\\levels\\";
 const string SAVES_PATH = "..\\files\\saves\\";
+const string SPRITE_PATH = "..\\sprites\\";
 
 
-const int NUM_TEXTURES = 0;
+const int NUM_TEXTURES = 1;
 const int NUM_FONTS = 0;
 
 const int NUM_LEVELS = 1;
