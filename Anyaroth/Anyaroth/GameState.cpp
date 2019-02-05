@@ -8,17 +8,17 @@ GameState::~GameState()
 void GameState::render() const
 {
 	for (GameObject* o : stages)
-		o->render();
+		o->render(0);
 }
 
 void GameState::update()
 {
 	for (GameObject* o : stages)
-		o->update();
+		o->update(0);
 }
 
 void GameState::handleEvents(SDL_Event& e)
 {
 	for (GameObject* o : stages)
-		o->handleEvents(e);
+		o->handleInput(0,e);
 }

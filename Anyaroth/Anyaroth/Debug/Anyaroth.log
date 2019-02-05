@@ -1,10 +1,3 @@
-﻿  Game.cpp
-  GameState.cpp
-  GameStateMachine.cpp
-  main.cpp
-  PlayState.cpp
-  Texture.cpp
-  TTFclass.cpp
-  Vector2D.cpp
-  Generating Code...
-  Anyaroth.vcxproj -> C:\hlocal\Anyaroth\Anyaroth\bin\AnyarothDebug.exe
+﻿  Layer.cpp
+d:\uni\2 segundo\proyecto ii\bring-me-hell\anyaroth\anyaroth\layer.cpp(26): warning C4101: 'aux': variable local sin referencia
+  Anyaroth.vcxproj -> D:\Uni\2 Segundo\Proyecto II\Bring-Me-Hell\Anyaroth\bin\AnyarothDebug.exe

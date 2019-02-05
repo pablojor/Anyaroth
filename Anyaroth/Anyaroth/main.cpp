@@ -1,7 +1,10 @@
 #include "Game.h"
+#include "Layer.h"
 
 int main(int argc, char* argv[])
 {
+	Layer* l = new Layer();
+	l->LoadTilemap("Nivel1.json");
 	try
 	{
 		Game game;
