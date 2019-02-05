@@ -13,10 +13,8 @@ void Game::createVariables()
 			input >> trash; input >> value;
 			var.push_back(value);
 		}
-
 	}
 	input.close();
-
 }
 
 void Game::createTextures()
@@ -42,6 +40,7 @@ void Game::pushState(StateName nameState)
 {
 	stateMachine->pushState(states[nameState]);
 }
+
 void Game::changeState(StateName nameState)
 {
 	stateMachine->changeState(states[nameState]);
@@ -83,11 +82,10 @@ Game::Game()
 	window = SDL_CreateWindow("Anayroth", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1820, 980, SDL_WINDOW_SHOWN);
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
-//---Create textures
-
+	//---Create textures
 	createTextures();
 	
-//---Create states
+	//---Create states
 	states[Play] = new PlayState(this);
 
 	stateMachine->pushState(states[Play]);
@@ -104,7 +102,6 @@ Game::~Game()
 
 	for (int i = 0; i < NUM_STATES; i++)
 		delete states[i];
-
 
 	delete stateMachine;
 

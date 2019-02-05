@@ -11,13 +11,13 @@ Layer::~Layer()
 	tilemap.clear();
 }
 
-bool Layer::LoadTilemap(const char* filename) 
+bool Layer::LoadTilemap(string filename)
 {
 	tilemap.clear();
 
 	fstream file;
 	file.open(filename);
-	if (!file.is_open()) 
+	if (!file.is_open())
 	{
 		return false;
 	}
@@ -25,9 +25,9 @@ bool Layer::LoadTilemap(const char* filename)
 	{
 		int temp = 0;
 		file >> type;
-		for (int x = 0; x < TILES_X; x++) 
+		for (int x = 0; x < TILES_X; x++)
 		{
-			for(int y=0; y<TILES_Y; y++)
+			for (int y = 0; y < TILES_Y; y++)
 			{
 				file >> temp;
 				tilemap.push_back(new Tile(temp, x*TILES_W, y*TILES_H));

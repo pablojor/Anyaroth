@@ -8,4 +8,3 @@ RenderComponent::RenderComponent() {
 RenderComponent::~RenderComponent() {
 	// TODO Auto-generated destructor stub
 }
-

@@ -8,4 +8,3 @@ InputComponent::InputComponent() {
 InputComponent::~InputComponent() {
 	// TODO Auto-generated destructor stub
 }
-

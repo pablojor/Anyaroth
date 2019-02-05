@@ -8,4 +8,3 @@ PhysicsComponent::PhysicsComponent() {
 PhysicsComponent::~PhysicsComponent() {
 	// TODO Auto-generated destructor stub
 }
-

@@ -2,7 +2,6 @@
 
 #include <list>
 #include <vector>
-
 #include "GameObject.h"
 
 class Game;
@@ -17,9 +16,8 @@ class GameState
 		GameState() {}
 		virtual ~GameState();
 		GameState(Game* g) : 
-			gameptr(g) {}
+		gameptr(g) {}
 		virtual void render() const;
 		virtual void update();
 		virtual void handleEvents(SDL_Event& e);
 };
-

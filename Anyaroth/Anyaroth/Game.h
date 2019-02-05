@@ -47,20 +47,17 @@ const double TILES_H = 1;
 class Game
 {
 	private:
-
 		SDL_Window* window = nullptr;
 		SDL_Renderer* renderer = nullptr;
 		map <string, Texture*> textures;
 		GameState* states[NUM_STATES];
 		GameStateMachine* stateMachine = new GameStateMachine();
 		vector<string> texturesName;
-
 		bool exit = false;
 
 	public:
 		vector<int> var;
-		
-	//Metodos
+		//Metodos
 		void createVariables();
 		void createTextures();
 		void pushState(StateName);
