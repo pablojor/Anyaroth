@@ -1,0 +1,25 @@
+﻿Game.obj : error LNK2019: unresolved external symbol SDL_CreateWindow referenced in function "public: __cdecl Game::Game(void)" (??0Game@@QEAA@XZ)
+Game.obj : error LNK2019: unresolved external symbol SDL_DestroyWindow referenced in function "public: __cdecl Game::~Game(void)" (??1Game@@QEAA@XZ)
+Game.obj : error LNK2019: unresolved external symbol SDL_PollEvent referenced in function "public: void __cdecl Game::handleEvents(void)" (?handleEvents@Game@@QEAAXXZ)
+Game.obj : error LNK2019: unresolved external symbol SDL_CreateRenderer referenced in function "public: __cdecl Game::Game(void)" (??0Game@@QEAA@XZ)
+Game.obj : error LNK2019: unresolved external symbol SDL_RenderClear referenced in function "public: void __cdecl Game::render(void)const " (?render@Game@@QEBAXXZ)
+Game.obj : error LNK2019: unresolved external symbol SDL_RenderPresent referenced in function "public: void __cdecl Game::render(void)const " (?render@Game@@QEBAXXZ)
+Game.obj : error LNK2019: unresolved external symbol SDL_DestroyRenderer referenced in function "public: __cdecl Game::~Game(void)" (??1Game@@QEAA@XZ)
+Game.obj : error LNK2019: unresolved external symbol SDL_GetTicks referenced in function "public: void __cdecl Game::run(void)" (?run@Game@@QEAAXXZ)
+Game.obj : error LNK2019: unresolved external symbol SDL_Init referenced in function "public: __cdecl Game::Game(void)" (??0Game@@QEAA@XZ)
+Game.obj : error LNK2019: unresolved external symbol SDL_Quit referenced in function "public: __cdecl Game::~Game(void)" (??1Game@@QEAA@XZ)
+Game.obj : error LNK2019: unresolved external symbol TTF_Init referenced in function "public: __cdecl Game::Game(void)" (??0Game@@QEAA@XZ)
+Texture.obj : error LNK2019: unresolved external symbol SDL_FreeSurface referenced in function "public: void __cdecl Texture::load(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,unsigned int,unsigned int)" (?load@Texture@@QEAAXV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@II@Z)
+Texture.obj : error LNK2019: unresolved external symbol SDL_CreateTextureFromSurface referenced in function "public: void __cdecl Texture::load(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,unsigned int,unsigned int)" (?load@Texture@@QEAAXV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@II@Z)
+Texture.obj : error LNK2019: unresolved external symbol SDL_RenderCopyEx referenced in function "public: void __cdecl Texture::render(struct SDL_Rect const &,enum SDL_RendererFlip)const " (?render@Texture@@QEBAXAEBUSDL_Rect@@W4SDL_RendererFlip@@@Z)
+Texture.obj : error LNK2019: unresolved external symbol SDL_DestroyTexture referenced in function "public: void __cdecl Texture::free(void)" (?free@Texture@@QEAAXXZ)
+Texture.obj : error LNK2019: unresolved external symbol IMG_Load referenced in function "public: void __cdecl Texture::load(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,unsigned int,unsigned int)" (?load@Texture@@QEAAXV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@II@Z)
+TTFclass.obj : error LNK2019: unresolved external symbol TTF_OpenFont referenced in function "public: void __cdecl Font::load(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,int)" (?load@Font@@QEAAXV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@H@Z)
+TTFclass.obj : error LNK2019: unresolved external symbol TTF_RenderText_Solid referenced in function "public: struct SDL_Surface * __cdecl Font::generateSurface(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,struct SDL_Color)const " (?generateSurface@Font@@QEBAPEAUSDL_Surface@@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@USDL_Color@@@Z)
+TTFclass.obj : error LNK2019: unresolved external symbol TTF_CloseFont referenced in function "public: void __cdecl Font::free(void)" (?free@Font@@QEAAXXZ)
+MSVCRTD.lib(exe_main.obj) : error LNK2019: unresolved external symbol main referenced in function "int __cdecl invoke_main(void)" (?invoke_main@@YAHXZ)
+C:\hlocal\Anyaroth\Anyaroth\SDL2-2.0.4\lib\x86\SDL2.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
+C:\hlocal\Anyaroth\Anyaroth\SDL2-2.0.4\lib\x86\SDL2main.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
+C:\hlocal\Anyaroth\Anyaroth\SDL2_image-2.0.1\lib\x86\SDL2_image.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
+C:\hlocal\Anyaroth\Anyaroth\SDL2_ttf-2.0.14\lib\x86\SDL2_ttf.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
+C:\hlocal\Anyaroth\Anyaroth\bin\AnyarothDebug.exe : fatal error LNK1120: 20 unresolved externals

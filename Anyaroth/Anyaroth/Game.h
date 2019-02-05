@@ -48,8 +48,6 @@ class Game
 		map <string, Texture*> textures;
 		GameState* states[NUM_STATES];
 		GameStateMachine* stateMachine = new GameStateMachine();
-		Font* font = nullptr;
-		Font* font2 = nullptr;
 		vector<string> texturesName;
 
 		bool exit = false;

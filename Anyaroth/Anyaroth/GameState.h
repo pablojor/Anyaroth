@@ -10,10 +10,9 @@ class Game;
 class GameState
 {
 	protected:
-		vector <list<GameObject*>::iterator> item_ToDelete;
-
 		list <GameObject*> stages;
 		Game* gameptr;
+
 	public:
 		GameState() {}
 		virtual ~GameState();
