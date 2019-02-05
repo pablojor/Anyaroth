@@ -79,8 +79,8 @@ Game::Game()
 
 	SDL_Init(SDL_INIT_EVERYTHING);
 	TTF_Init();
-	//window = SDL_CreateWindow("Anyaroth", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, var[WIN_WIDTH], var[WIN_HEIGHT], SDL_WINDOW_SHOWN);
-	window = SDL_CreateWindow("Anayroth", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1820, 980, SDL_WINDOW_SHOWN);
+	window = SDL_CreateWindow("Anyaroth", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, var[WIN_WIDTH], var[WIN_HEIGHT], SDL_WINDOW_SHOWN);
+	
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
 //---Create textures
@@ -98,8 +98,8 @@ Game::~Game()
 	int tamV = texturesName.size();
 	for (int i = 0; i < tamV; i++)
 	{
-		//delete textures[texturesName[i]];
-		//textures.erase(texturesName[i]);
+		delete textures[texturesName[i]];
+		textures.erase(texturesName[i]);
 	}
 
 	for (int i = 0; i < NUM_STATES; i++)
@@ -122,8 +122,7 @@ void Game::run()
 	{
 		handleEvents();
 		frameTime = SDL_GetTicks() - startTime;
-		//if (frameTime >= var[FRAME_RATE])
-		if (frameTime >= 60)
+		if (frameTime >= var[FRAME_RATE])
 		{
 			update();
 			startTime = SDL_GetTicks();
