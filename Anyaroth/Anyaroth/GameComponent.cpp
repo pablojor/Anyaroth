@@ -19,7 +19,7 @@ void GameComponent::handleEvents(/*Uint32 time, const*/ SDL_Event& event) {
 
 void GameComponent::update(/*Uint32 time*/) {
 	for (PhysicsComponent* pc : physicsComp_) {
-		pc->update(this, 0/*time*/);
+		pc->update(/*this, 0*//*time*/);
 	}
 }
 

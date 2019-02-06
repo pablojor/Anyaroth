@@ -11,8 +11,8 @@ class MovingComponent : public PhysicsComponent
 		Vector2D dir;
 
 	public:
-		MovingComponent(double x, double y) :
-			MovingComponent::PhysicsComponent() { };
+		MovingComponent(TransformComponent* trans, double x, double y) :
+			transform(trans), MovingComponent::PhysicsComponent() { dir = Vector2D(x, y); };
 
 		double getDirX() { return dir.getX(); }
 		double getDirY() { return dir.getY(); }

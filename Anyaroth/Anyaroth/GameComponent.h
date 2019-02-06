@@ -13,6 +13,15 @@ using namespace std;
  *
  */
 class GameComponent: public GameObject {
+
+private:
+	vector<InputComponent*> inputComp_;
+	vector<PhysicsComponent*> physicsComp_;
+	vector<RenderComponent*> renderComp_;
+
+protected:
+	TransformComponent* transform;
+
 public:
 	GameComponent();
 	virtual ~GameComponent();
@@ -28,13 +37,6 @@ public:
 	virtual void delInputComponent(InputComponent* ic);
 	virtual void delPhysicsComponent(PhysicsComponent* pc);
 	virtual void delRenderComponent(RenderComponent* rc);
-
-private:
-	vector<InputComponent*> inputComp_;
-	vector<PhysicsComponent*> physicsComp_;
-	vector<RenderComponent*> renderComp_;
-protected:
-	TransformComponent* transform;
 };
 
 #endif /* GAMECOMPONENT_H_ */
