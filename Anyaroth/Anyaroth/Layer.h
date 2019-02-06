@@ -7,7 +7,7 @@
 
 class Layer {
 public:
-	Layer();
+	Layer(int type);
 	~Layer();
 	bool LoadTilemap(string filename);
 

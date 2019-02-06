@@ -3,8 +3,8 @@
 
 int main(int argc, char* argv[])
 {
-	Layer* l = new Layer();
-	l->LoadTilemap("Nivel1.json");
+	Layer* l = new Layer(2);
+	l->LoadTilemap("Prueba.json");
 
 	try
 	{
