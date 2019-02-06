@@ -4,7 +4,7 @@
 #include "ExampleObject.h"
 
 PlayState::PlayState(Game* g) : GameState(g){
-	stages.push_back(new ExampleObject(g->getTexture("example1"), 32, 32));
+	stages.push_back(new ExampleObject(g->getTexture("example1")));
 }
 
 void PlayState::handleEvents(SDL_Event& e)

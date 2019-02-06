@@ -24,13 +24,11 @@ class TextureComponent
 		uint fh = 0; // Frame height
 		uint numCols = 1;
 		uint numRows = 1;
-		double angle = 0;
-		SDL_Point anchor = { 0,0 };
 
 	public:
 		TextureComponent(SDL_Renderer* r) : renderer(r) {};
 		TextureComponent(SDL_Renderer* r, string filename, uint numRows = 1, uint numCols = 1, double angle = 0, SDL_Point anchor = { 0,0 }) :
-			renderer(r), angle(angle), anchor(anchor) { load(filename, numRows, numCols); };
+			renderer(r) { load(filename, numRows, numCols); };
 		TextureComponent(SDL_Renderer* r, string text, const Font* font, SDL_Color color) :
 			renderer(r) { loadFromText(text, font, color); };
 		~TextureComponent() { free(); };
@@ -43,7 +41,7 @@ class TextureComponent
 
 		void load(string filename, uint numRows = 1, uint numCols = 1);
 		void render(const SDL_Rect& rect, double angle = 0, SDL_Point anchor = {0,0}, SDL_RendererFlip flip = SDL_FLIP_NONE) const;
-		void renderFrame(const SDL_Rect& destRect, int row, int col, int angle = 0, SDL_Point anchor = {0,0}, SDL_RendererFlip flip = SDL_FLIP_NONE) const;
+		void renderFrame(const SDL_Rect& destRect, int row, int col, double angle = 0, SDL_Point anchor = {0,0}, SDL_RendererFlip flip = SDL_FLIP_NONE) const;
 		void loadFromText(string text, const Font* font, SDL_Color color);
 
 };

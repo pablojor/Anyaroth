@@ -33,7 +33,7 @@ void TextureComponent::render(const SDL_Rect& destRect, double angle, SDL_Point 
 	SDL_RenderCopyEx(renderer, texture, &srcRect, &destRect, angle, &anchor, flip);
 }
 
-void TextureComponent::renderFrame(const SDL_Rect& destRect, int row, int col, int angle, SDL_Point anchor, SDL_RendererFlip flip) const {
+void TextureComponent::renderFrame(const SDL_Rect& destRect, int row, int col, double angle, SDL_Point anchor, SDL_RendererFlip flip) const {
 	SDL_Rect srcRect;
 	srcRect.x = fw * col;
 	srcRect.y = fh * row;

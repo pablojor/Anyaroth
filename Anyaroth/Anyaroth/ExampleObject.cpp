@@ -4,15 +4,24 @@
 
 
 
-ExampleObject::ExampleObject(TextureComponent* texture, unsigned int width, unsigned int height) : GameComponent() {
+ExampleObject::ExampleObject(TextureComponent* texture) : GameComponent() {
 	transform = new TransformComponent();
-	addRenderComponent(new SpriteComponent(transform, texture, width, height));
-	addPhysicsComponent(new MovingComponent(transform, 1, 1));
-	transform->setScale(10, 10);
-	transform->setPosition(0, 0);
+	auto a = new SpriteComponent(transform, texture);
+	addRenderComponent(a);
+	//addPhysicsComponent(new MovingComponent(transform, 1, 1));
+	transform->setScale(10);
+	transform->setPosition(1820 / 2, 980 / 2);
+	transform->setAnchor(0.2, 0.7);
+	//transform->setRotation(45);
+	a->flip();
+	
 }
 
+ExampleObject::~ExampleObject() {
+}
 
-ExampleObject::~ExampleObject()
-{
+void ExampleObject::update() {
+	GameComponent::update();
+
+	//transform->setRotation(transform->getRotation() + 0.2);
 }
