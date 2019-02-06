@@ -10,8 +10,8 @@ ExampleObject::ExampleObject(TextureComponent* texture) : GameComponent() {
 	addRenderComponent(a);
 	//addPhysicsComponent(new MovingComponent(transform, 1, 1));
 	transform->setScale(10);
-	transform->setPosition(1820 / 2, 980 / 2);
-	transform->setAnchor(0.2, 0.7);
+	transform->setPosition(720 / 2, 480 / 2);
+	transform->setAnchor(0.5, 0.5);
 	//transform->setRotation(45);
 	a->flip();
 	
