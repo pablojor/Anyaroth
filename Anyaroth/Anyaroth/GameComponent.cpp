@@ -5,6 +5,9 @@ GameComponent::GameComponent() :
 }
 
 GameComponent::~GameComponent() {
+	for (RenderComponent* rc : renderComp_) delete rc;
+	for (PhysicsComponent* pc : physicsComp_) delete pc;
+	for (InputComponent* ic : inputComp_) delete ic;
 	delete transform;
 }
 
@@ -45,27 +48,35 @@ void GameComponent::addComponent(Component* c) {
 void GameComponent::delInputComponent(InputComponent* ic) {
 	std::vector<InputComponent*>::iterator position = std::find(
 			inputComp_.begin(), inputComp_.end(), ic);
-	if (position != inputComp_.end())
+	if (position != inputComp_.end()) {
 		inputComp_.erase(position);
+		delete ic;
+	}
 }
 
 void GameComponent::delPhysicsComponent(PhysicsComponent* pc) {
 	std::vector<PhysicsComponent*>::iterator position = std::find(
 			physicsComp_.begin(), physicsComp_.end(), pc);
-	if (position != physicsComp_.end())
+	if (position != physicsComp_.end()) {
 		physicsComp_.erase(position);
+		delete pc;
+	}
 }
 
 void GameComponent::delRenderComponent(RenderComponent* rc) {
 	std::vector<RenderComponent*>::iterator position = std::find(
 			renderComp_.begin(), renderComp_.end(), rc);
-	if (position != renderComp_.end())
+	if (position != renderComp_.end()) {
 		renderComp_.erase(position);
+		delete rc;
+	}
 }
 
 void GameComponent::delComponent(Component* c) {
 	std::vector<Component*>::iterator position = std::find(
 		extraComp_.begin(), extraComp_.end(), c);
-	if (position != extraComp_.end())
+	if (position != extraComp_.end()) {
 		extraComp_.erase(position);
+		delete c;
+	}
 }
