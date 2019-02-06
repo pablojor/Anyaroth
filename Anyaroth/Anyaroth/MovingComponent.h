@@ -7,20 +7,22 @@
 class MovingComponent : public PhysicsComponent
 {
 	private:
-		TranformComponent* transform;
+		TransformComponent* transform;
 		Vector2D dir;
 
 	public:
 		MovingComponent(double x, double y) :
 			MovingComponent::PhysicsComponent() { };
 
-		void getDirX() {}
-		void getDirY() {}
-		void changeDirX() {}
-		void changeDirY() {}
+		double getDirX() { return dir.getX(); }
+		double getDirY() { return dir.getY(); }
+		void changeDir(double x, double y) { dir = Vector2D(x, y); }
 
 		virtual void update() 
 		{
-			transform->x(dir.getX() + transform->getX());  transform->y(dir.getY() + transform->getY());
+			Vector2D pos = transform->getPosition();
+			double x = pos.getX();
+			double y = pos.getY();
+			transform->setPosition(dir.getX() + x, dir.getY() + y);
 		}
 };
