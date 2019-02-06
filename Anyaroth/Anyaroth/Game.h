@@ -25,9 +25,10 @@ const string INFO_PATH = "..\\files\\info\\";
 const string FONTS_PATH = "..\\font\\";
 const string FILES_PATH = "..\\files\\levels\\";
 const string SAVES_PATH = "..\\files\\saves\\";
+const string SPRITE_PATH = "..\\assets\\sprites\\";
 
 
-const int NUM_TEXTURES = 0;
+const int NUM_TEXTURES = 1;
 const int NUM_FONTS = 0;
 
 const int NUM_LEVELS = 1;
@@ -46,7 +47,7 @@ class Game
 
 		SDL_Window* window = nullptr;
 		SDL_Renderer* renderer = nullptr;
-		map <string, Texture*> textures;
+		map <string, TextureComponent*> textures;
 		GameState* states[NUM_STATES];
 		GameStateMachine* stateMachine = new GameStateMachine();
 		vector<string> texturesName;
@@ -61,7 +62,7 @@ class Game
 		void createTextures();
 		void pushState(StateName);
 		void changeState(StateName);
-		Texture* getTexture(string nameText);
+		TextureComponent* getTexture(string nameText);
 		void newGame();
 		void load();
 		void save();

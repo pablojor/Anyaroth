@@ -7,13 +7,12 @@
 class PlayState : public GameState
 {
 	private:
-
+		
 
 
 	public:
 		
-		PlayState(Game* g) :
-			GameState::GameState(g) { };
+		PlayState(Game* g);
 		virtual void update();
 		virtual void handleEvents(SDL_Event& e);
 
