@@ -4,16 +4,18 @@
 
 #include "Tile.h"
 #include <string>
+#include "Texture.h"
 
 class Layer {
 public:
-	Layer(int type);
+	Layer(int type, Texture* t);
 	~Layer();
 	bool LoadTilemap(string filename);
+	void render(Uint32 time);
 
 protected:
 	int type;
-	SDL_Surface* Surf_Tileset;
+	Texture* tileset;
 	vector<Tile*> tilemap;
 };
 #endif // Layer_H

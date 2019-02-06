@@ -3,13 +3,16 @@
 #define Tile_H
 
 #include "GameComponent.h"
+#include "Texture.h"
 
 class Tile : public GameComponent {
 	public:
-		Tile(int ID, double x, double y);
+		Tile(double x, double y, int c, int f, Texture* t);
 		~Tile();
 
 	protected:
-		int tileID;
+		int col, fil;
+		Texture* tileset;
+		
 };
 #endif // Tile_H

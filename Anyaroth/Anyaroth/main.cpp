@@ -3,7 +3,7 @@
 
 int main(int argc, char* argv[])
 {
-	Layer* l = new Layer(2);
+	Layer* l = new Layer(2, nullptr);
 	l->LoadTilemap("Prueba.json");
 
 	try

@@ -1,5 +1,5 @@
 #include "Tile.h"
 
-Tile::Tile(int ID, double x, double y) : tileID(ID) {}
+Tile::Tile(double x, double y, int c, int f, Texture* t) : col(c), fil(f), tileset(t) {}
 
 Tile::~Tile() {}
