@@ -1,8 +1,8 @@
-#include "SpriteRenderer.h"
+#include "SpriteComponent.h"
 
 
 
-SpriteRenderer::SpriteRenderer(Transform* trans, Texture* _texture, unsigned int _width, unsigned int _heigth) : RenderComponent() {
+SpriteComponent::SpriteComponent(TransformComponent* trans, TextureComponent* _texture, unsigned int _width, unsigned int _heigth) : RenderComponent() {
 	texture = _texture;
 	heigth = _heigth;
 	width = _width;
@@ -10,11 +10,11 @@ SpriteRenderer::SpriteRenderer(Transform* trans, Texture* _texture, unsigned int
 }
 
 
-SpriteRenderer::~SpriteRenderer()
+SpriteComponent::~SpriteComponent()
 {
 }
 
-void SpriteRenderer::render() const {
+void SpriteComponent::render() const {
 	SDL_Rect destRect;
 	// De momento solo la posicion y escala
 	// Mas tarde se hara la rotacion

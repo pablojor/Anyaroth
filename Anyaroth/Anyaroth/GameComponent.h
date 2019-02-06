@@ -5,7 +5,7 @@
 #include "InputComponent.h"
 #include "PhysicsComponent.h"
 #include "RenderComponent.h"
-#include "Transform.h"
+#include "TransformComponent.h"
 #include <vector>
 
 using namespace std;
@@ -34,7 +34,7 @@ private:
 	vector<PhysicsComponent*> physicsComp_;
 	vector<RenderComponent*> renderComp_;
 protected:
-	Transform* transform;
+	TransformComponent* transform;
 };
 
 #endif /* GAMECOMPONENT_H_ */

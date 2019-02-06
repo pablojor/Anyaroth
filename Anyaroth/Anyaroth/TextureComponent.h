@@ -13,7 +13,7 @@ using namespace std;
 
 typedef unsigned int uint;
 
-class TextureComponent 
+class TextureComponent
 {
 	private:
 		SDL_Texture* texture = nullptr;

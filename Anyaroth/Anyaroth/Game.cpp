@@ -31,7 +31,7 @@ void Game::createTextures()
 			string name; input >> name;
 			int fil; input >> fil;
 			int col; input >> col;
-			textures.insert(pair <string, Texture*> (id, new Texture(renderer, SPRITE_PATH + name, fil, col)));
+			textures.insert(pair <string, TextureComponent*> (id, new TextureComponent(renderer, SPRITE_PATH + name, fil, col)));
 			texturesName.push_back(id);
 		}
 	}
@@ -48,7 +48,7 @@ void Game::changeState(StateName nameState)
 }
 
 
-Texture* Game::getTexture(string nameText)
+TextureComponent* Game::getTexture(string nameText)
 {
 	return textures[nameText];
 }

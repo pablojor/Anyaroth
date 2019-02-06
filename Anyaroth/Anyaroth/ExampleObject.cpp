@@ -1,11 +1,11 @@
 #include "ExampleObject.h"
-#include "SpriteRenderer.h"
+#include "SpriteComponent.h"
 
 
 
-ExampleObject::ExampleObject(Texture* texture, unsigned int width, unsigned int height) : GameComponent() {
-	transform = new Transform();
-	addRenderComponent(new SpriteRenderer(transform, texture, width, height));
+ExampleObject::ExampleObject(TextureComponent* texture, unsigned int width, unsigned int height) : GameComponent() {
+	transform = new TransformComponent();
+	addRenderComponent(new SpriteComponent(transform, texture, width, height));
 	transform->setScale(10, 10);
 	transform->setPosition(0, 0);
 }

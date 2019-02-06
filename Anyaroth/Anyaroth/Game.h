@@ -47,7 +47,7 @@ class Game
 
 		SDL_Window* window = nullptr;
 		SDL_Renderer* renderer = nullptr;
-		map <string, Texture*> textures;
+		map <string, TextureComponent*> textures;
 		GameState* states[NUM_STATES];
 		GameStateMachine* stateMachine = new GameStateMachine();
 		vector<string> texturesName;
@@ -62,7 +62,7 @@ class Game
 		void createTextures();
 		void pushState(StateName);
 		void changeState(StateName);
-		Texture* getTexture(string nameText);
+		TextureComponent* getTexture(string nameText);
 		void newGame();
 		void load();
 		void save();

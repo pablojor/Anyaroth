@@ -1,14 +1,14 @@
 #pragma once
 #include "Vector2D.h"
 
-class Transform {
+class TransformComponent {
 private:
 	Vector2D position;
 	Vector2D scale;
 	double rotation;
 public:
-	Transform();
-	~Transform();
+	TransformComponent();
+	~TransformComponent();
 	void activate() {}
 
 	Vector2D getPosition();
