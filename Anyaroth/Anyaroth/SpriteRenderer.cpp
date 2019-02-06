@@ -2,10 +2,11 @@
 
 
 
-SpriteRenderer::SpriteRenderer(GameComponent* _parent, Texture* _texture, unsigned int _width, unsigned int _heigth) : RenderComponent(_parent) {
+SpriteRenderer::SpriteRenderer(Transform* trans, Texture* _texture, unsigned int _width, unsigned int _heigth) : RenderComponent() {
 	texture = _texture;
 	heigth = _heigth;
 	width = _width;
+	transform = trans;
 }
 
 
@@ -14,14 +15,13 @@ SpriteRenderer::~SpriteRenderer()
 }
 
 void SpriteRenderer::render() const {
-	Transform* aux = parent->getTransform();
 	SDL_Rect destRect;
 	// De momento solo la posicion y escala
 	// Mas tarde se hara la rotacion
-	destRect.x = aux->getPosition().getX();
-	destRect.y = aux->getPosition().getY();
-	destRect.w = width * aux->getScale().getX();
-	destRect.h = heigth * aux->getScale().getY();
+	destRect.x = transform->getPosition().getX();
+	destRect.y = transform->getPosition().getY();
+	destRect.w = width * transform->getScale().getX();
+	destRect.h = heigth * transform->getScale().getY();
 
 	texture->render(destRect);
 }

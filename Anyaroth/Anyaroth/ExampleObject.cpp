@@ -4,9 +4,10 @@
 
 
 ExampleObject::ExampleObject(Texture* texture, unsigned int width, unsigned int height) : GameComponent() {
-	addRenderComponent(new SpriteRenderer(this, texture, width, height));
-	getTransform()->setScale(10, 10);
-	getTransform()->setPosition(500, 500);
+	transform = new Transform();
+	addRenderComponent(new SpriteRenderer(transform, texture, width, height));
+	transform->setScale(10, 10);
+	transform->setPosition(0, 0);
 }
 
 

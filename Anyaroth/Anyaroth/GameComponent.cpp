@@ -41,10 +41,6 @@ void GameComponent::addRenderComponent(RenderComponent* rc) {
 	renderComp_.push_back(rc);
 }
 
-void GameComponent::addComponent(Component* c) {
-	extraComp_.push_back(c);
-}
-
 void GameComponent::delInputComponent(InputComponent* ic) {
 	std::vector<InputComponent*>::iterator position = std::find(
 			inputComp_.begin(), inputComp_.end(), ic);
@@ -72,11 +68,3 @@ void GameComponent::delRenderComponent(RenderComponent* rc) {
 	}
 }
 
-void GameComponent::delComponent(Component* c) {
-	std::vector<Component*>::iterator position = std::find(
-		extraComp_.begin(), extraComp_.end(), c);
-	if (position != extraComp_.end()) {
-		extraComp_.erase(position);
-		delete c;
-	}
-}

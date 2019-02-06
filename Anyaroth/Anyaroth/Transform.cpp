@@ -2,10 +2,10 @@
 
 
 
-Transform::Transform(GameComponent* _parent) : Component(_parent) {
+Transform::Transform() {
 	position = Vector2D(0, 0);
 	scale = Vector2D(1, 1);
-	rotation = Vector2D(0, 0);
+	rotation = 0, 0;
 }
 
 
@@ -21,7 +21,7 @@ Vector2D Transform::getScale() {
 	return scale;
 }
 
-Vector2D Transform::getRotation() {
+double Transform::getRotation() {
 	return rotation;
 }
 
@@ -33,6 +33,6 @@ void Transform::setScale(double x, double y) {
 	scale = Vector2D(x, y);
 }
 
-void Transform::setRotation(double x, double y) {
-	rotation = Vector2D(x, y);
+void Transform::setRotation(double rot) {
+	rotation = rot;
 }
