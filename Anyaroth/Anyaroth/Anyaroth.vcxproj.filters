@@ -75,9 +75,6 @@
     <ClCompile Include="Vector2D.cpp">
       <Filter>Archivos de recursos\Useful</Filter>
     </ClCompile>
-    <ClCompile Include="CollisionManager.cpp">
-      <Filter>Archivos de recursos\Useful</Filter>
-    </ClCompile>
     <ClCompile Include="PlayerControllerComponent.cpp">
       <Filter>Archivos de recursos\Components</Filter>
     </ClCompile>
@@ -85,6 +82,9 @@
       <Filter>Archivos de recursos\Components</Filter>
     </ClCompile>
     <ClCompile Include="BoxCollider.cpp">
+      <Filter>Archivos de recursos\Useful</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionHandler.cpp">
       <Filter>Archivos de recursos\Useful</Filter>
     </ClCompile>
   </ItemGroup>
@@ -149,14 +149,14 @@
     <ClInclude Include="SDLError.h">
       <Filter>Archivos de encabezado\Errors</Filter>
     </ClInclude>
-    <ClInclude Include="CollisionManager.h">
-      <Filter>Archivos de encabezado\Useful</Filter>
-    </ClInclude>
     <ClInclude Include="PlayerControllerComponent.h">
       <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
     <ClInclude Include="ExampleObject.h">
       <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionHandler.h">
+      <Filter>Archivos de encabezado\Useful</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

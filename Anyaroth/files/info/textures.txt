@@ -1,1 +1,2 @@
 example1 Jugador.png 1 1
+example2 Enemigo.png 1 1

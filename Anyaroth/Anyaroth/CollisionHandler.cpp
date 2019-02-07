@@ -7,9 +7,3 @@ bool CollisionHandler::AABBCollision(SDL_Rect rectA, SDL_Rect rectB)
 			rectB.x + rectB.w >= rectA.x &&
 			rectB.y + rectB.h >= rectA.y);
 }
-
-
-string CollisionHandler::Collision(GameComponent* A, GameComponent* B)
-{
-	return "";
-}
