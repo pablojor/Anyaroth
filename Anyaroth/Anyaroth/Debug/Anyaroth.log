@@ -1,2 +1,3 @@
 ﻿  Layer.cpp
-  Anyaroth.vcxproj -> D:\Uni\2 Segundo\Proyecto II\Bring-Me-Hell\Anyaroth\bin\AnyarothDebug.exe
+c:\users\ismael\documents\github\anyaroth\anyaroth\anyaroth\layer.cpp(28): warning C4552: "-": el resultado de la expresión no se usa
+  Anyaroth.vcxproj -> C:\Users\Ismael\Documents\GitHub\Anyaroth\Anyaroth\bin\AnyarothDebug.exe

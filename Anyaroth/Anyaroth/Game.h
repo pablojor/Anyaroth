@@ -39,8 +39,8 @@ const string LEVELS[NUM_LEVELS] =
 
 const int TILES_X=10;
 const int TILES_Y=10;
-const double TILES_W = 1;
-const double TILES_H = 1;
+const double TILES_W = 16;
+const double TILES_H = 16;
 
 //********************************************************************************
 //********************************************************************************

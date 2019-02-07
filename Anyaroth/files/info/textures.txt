@@ -1,1 +1,1 @@
-tileset Tileset.png  31 17
+tileset TileZona1.png  2 2

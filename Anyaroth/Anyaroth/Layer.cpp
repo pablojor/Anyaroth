@@ -19,13 +19,14 @@ Layer::Layer(int type, Texture* t, string filename) :type(type), tileset(t)
 
 		//lineas del .json que no nos importan
 		getline(file, n, '[');
-		for (int x = 0; x < TILES_X; x++)
+		for (int y = 0; y < TILES_Y; y++)
 		{
-			for (int y = 0; y < TILES_Y; y++)
+			for (int x = 0; x < TILES_X; x++)
 			{
 				getline(file, n, ',');
 				temp = stoi(n);
-				Tile* tile = new Tile(x*TILES_W, y*TILES_H, temp % TILES_X, (temp / TILES_X), tileset);
+				temp - 1;
+				Tile* tile = new Tile(x*TILES_W, y*TILES_H, temp % t->getNumCols(), (temp / t->getNumCols()), tileset);
 				//if (type == 1)
 					//tile->addPhysicsComponent();
 
