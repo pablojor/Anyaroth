@@ -2,9 +2,8 @@
 
 void MovingComponent::update()
 {
-	Vector2D pos = _transform->getPosition();
-	double x = pos.getX();
-	double y = pos.getY();
+	double x = _dir.getX() * _velocity + _transform->getPosition().getX();
+	double y = _dir.getY() * _velocity + _transform->getPosition().getY();
 
-	_transform->setPosition(_dir.getX() + x, _dir.getY() + y);
+	_transform->setPosition(x, y);
 }

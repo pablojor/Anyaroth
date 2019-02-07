@@ -82,7 +82,7 @@
       <Filter>Archivos de recursos\Components</Filter>
     </ClCompile>
     <ClCompile Include="MovingComponent.cpp">
-      <Filter>Archivos de recursos</Filter>
+      <Filter>Archivos de recursos\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

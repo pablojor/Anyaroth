@@ -10,9 +10,11 @@ class MovingComponent : public PhysicsComponent
 		TransformComponent* _transform = nullptr;
 		Vector2D _dir;
 
+		double _velocity;
+
 	public:
-		MovingComponent(TransformComponent* trans, double x, double y) :
-			_transform(trans), PhysicsComponent() { _dir = Vector2D(x, y); };
+		MovingComponent(TransformComponent* trans, Vector2D dir, double velocity) :
+			_transform(trans), _dir(dir), _velocity(velocity), PhysicsComponent() {};
 
 		double getDirX() { return _dir.getX(); }
 		double getDirY() { return _dir.getY(); }
