@@ -78,6 +78,12 @@
     <ClCompile Include="CollisionManager.cpp">
       <Filter>Archivos de recursos\Useful</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerControllerComponent.cpp">
+      <Filter>Archivos de recursos\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="MovingComponent.cpp">
+      <Filter>Archivos de recursos</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -131,9 +137,6 @@
     <ClInclude Include="AnyarothError.h">
       <Filter>Archivos de encabezado\Errors</Filter>
     </ClInclude>
-    <ClInclude Include="ExampleObject.h">
-      <Filter>Archivos de encabezado\Errors</Filter>
-    </ClInclude>
     <ClInclude Include="FileFormatError.h">
       <Filter>Archivos de encabezado\Errors</Filter>
     </ClInclude>
@@ -145,6 +148,12 @@
     </ClInclude>
     <ClInclude Include="CollisionManager.h">
       <Filter>Archivos de encabezado\Useful</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerControllerComponent.h">
+      <Filter>Archivos de encabezado\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ExampleObject.h">
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
