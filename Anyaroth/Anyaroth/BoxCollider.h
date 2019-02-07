@@ -6,15 +6,18 @@
 class BoxCollider : public PhysicsComponent
 {
 	private:
-		SDL_Rect collider;
-		TransformComponent* transform;
+		SDL_Rect _collider;
+		TransformComponent* _transform;
 
 	public:
-		BoxCollider(TransformComponent* trnsf) : transform(trnsf) {}
+		BoxCollider(TransformComponent* trnsf) : _transform(trnsf) {}
 		BoxCollider() {}
 
 		void update()
 		{
-			collider.x = transform->getPosition().getX;
+			_collider.x = _transform->getPosition().getX;
+			_collider.y = _transform->getPosition().getY;
+			_collider.w = _transform->getSize().getX * _transform->getScale().getX();
+			_collider.h = _transform->getSize().getY * _transform->getScale().getY();
 		}
 };
