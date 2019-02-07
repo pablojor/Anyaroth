@@ -13,7 +13,7 @@ GameComponent::~GameComponent() {
 
 void GameComponent::handleEvents(/*Uint32 time, const*/ SDL_Event& event) {
 	for (InputComponent* ic : inputComp_) {
-		ic->handleInput(this, 0/*time*/, event);
+		ic->handleInput(/*this, 0time*/ event);
 	}
 }
 
