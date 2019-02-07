@@ -60,10 +60,10 @@
     <ClCompile Include="SpriteComponent.cpp">
       <Filter>Archivos de recursos\Components</Filter>
     </ClCompile>
-    <ClCompile Include="TextureComponent.cpp">
+    <ClCompile Include="TransformComponent.cpp">
       <Filter>Archivos de recursos\Components</Filter>
     </ClCompile>
-    <ClCompile Include="TransformComponent.cpp">
+    <ClCompile Include="Texture.cpp">
       <Filter>Archivos de recursos\Components</Filter>
     </ClCompile>
   </ItemGroup>
@@ -78,9 +78,6 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="Vector2D.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="TTFclass.h">
@@ -119,13 +116,16 @@
     <ClInclude Include="SpriteComponent.h">
       <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
-    <ClInclude Include="TextureComponent.h">
-      <Filter>Archivos de encabezado\Components</Filter>
-    </ClInclude>
     <ClInclude Include="TransformComponent.h">
       <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
     <ClInclude Include="MovingComponent.h">
+      <Filter>Archivos de encabezado\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
       <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
   </ItemGroup>

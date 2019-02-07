@@ -2,7 +2,7 @@
 
 
 
-SpriteComponent::SpriteComponent(TransformComponent* trans, TextureComponent* text) : RenderComponent() 
+SpriteComponent::SpriteComponent(TransformComponent* trans, Texture* text) : RenderComponent()
 {
 	_texture = text;
 	_transform = trans;

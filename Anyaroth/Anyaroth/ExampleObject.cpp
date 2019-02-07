@@ -4,7 +4,7 @@
 
 
 
-ExampleObject::ExampleObject(TextureComponent* texture) : GameComponent() {
+ExampleObject::ExampleObject(Texture* texture) : GameComponent() {
 	transform = new TransformComponent();
 	auto a = new SpriteComponent(transform, texture);
 	addRenderComponent(a);

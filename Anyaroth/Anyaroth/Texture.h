@@ -13,7 +13,7 @@ using namespace std;
 
 typedef unsigned int uint;
 
-class TextureComponent 
+class Texture
 {
 	private:
 		SDL_Texture* texture = nullptr;
@@ -26,12 +26,12 @@ class TextureComponent
 		uint numRows = 1;
 
 	public:
-		TextureComponent(SDL_Renderer* r) : renderer(r) {};
-		TextureComponent(SDL_Renderer* r, string filename, uint numRows = 1, uint numCols = 1, double angle = 0, SDL_Point anchor = { 0,0 }) :
+		Texture(SDL_Renderer* r) : renderer(r) {};
+		Texture(SDL_Renderer* r, string filename, uint numRows = 1, uint numCols = 1) :
 			renderer(r) { load(filename, numRows, numCols); };
-		TextureComponent(SDL_Renderer* r, string text, const Font* font, SDL_Color color) :
+		Texture(SDL_Renderer* r, string text, const Font* font, SDL_Color color) :
 			renderer(r) { loadFromText(text, font, color); };
-		~TextureComponent() { free(); };
+		~Texture() { free(); };
 		void free();
 
 		int getW() const { return w; };

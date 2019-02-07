@@ -1,17 +1,17 @@
-#include "TextureComponent.h"
+#include "Texture.h"
 
 
 using namespace std;
 
 typedef unsigned int uint;
 
-void TextureComponent::free() {
+void Texture::free() {
 	SDL_DestroyTexture(texture);
 	texture = nullptr;
 	w = h = 0;
 }
 
-void TextureComponent::load(string filename, uint nRows, uint nCols) {
+void Texture::load(string filename, uint nRows, uint nCols) {
 	SDL_Surface* tempSurface = IMG_Load(filename.c_str());
 	if (tempSurface == nullptr) throw SDLError();
 	free();
@@ -26,14 +26,14 @@ void TextureComponent::load(string filename, uint nRows, uint nCols) {
 	SDL_FreeSurface(tempSurface);
 }
 
-void TextureComponent::render(const SDL_Rect& destRect, double angle, SDL_Point anchor,SDL_RendererFlip flip) const {
+void Texture::render(const SDL_Rect& destRect, double angle, SDL_Point anchor,SDL_RendererFlip flip) const {
 	SDL_Rect srcRect;
 	srcRect.x = 0; srcRect.y = 0;
 	srcRect.w = w; srcRect.h = h;
 	SDL_RenderCopyEx(renderer, texture, &srcRect, &destRect, angle, &anchor, flip);
 }
 
-void TextureComponent::renderFrame(const SDL_Rect& destRect, int row, int col, double angle, SDL_Point anchor, SDL_RendererFlip flip) const {
+void Texture::renderFrame(const SDL_Rect& destRect, int row, int col, double angle, SDL_Point anchor, SDL_RendererFlip flip) const {
 	SDL_Rect srcRect;
 	srcRect.x = fw * col;
 	srcRect.y = fh * row;
@@ -42,7 +42,7 @@ void TextureComponent::renderFrame(const SDL_Rect& destRect, int row, int col, d
 	SDL_RenderCopyEx(renderer, texture, &srcRect, &destRect, angle, &anchor, flip);
 }
 
-void TextureComponent::loadFromText(string text, const Font* font, SDL_Color color)
+void Texture::loadFromText(string text, const Font* font, SDL_Color color)
 {
 	SDL_Surface* textSurface = font->generateSurface(text, color);
 	if (textSurface == nullptr) throw SDLError();
