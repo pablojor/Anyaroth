@@ -29,7 +29,7 @@ void Game::createTextures()
 			string name; input >> name;
 			int fil; input >> fil;
 			int col; input >> col;
-			textures.insert(pair <string, Texture*> (id, new Texture(renderer, name, fil, col)));
+			textures.insert(pair <string, Texture*> (id, new Texture(renderer,SPRITE_PATH+name, fil, col)));
 			texturesName.push_back(id);
 		}
 	}

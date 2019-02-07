@@ -26,20 +26,20 @@ void Texture::load(string filename, uint nRows, uint nCols) {
 	SDL_FreeSurface(tempSurface);
 }
 
-void Texture::render(const SDL_Rect& destRect, SDL_RendererFlip flip) const {
+void Texture::render(const SDL_Rect& destRect, double angle, SDL_Point anchor, SDL_RendererFlip flip) const {
 	SDL_Rect srcRect;
 	srcRect.x = 0; srcRect.y = 0;
 	srcRect.w = w; srcRect.h = h;
-	SDL_RenderCopyEx(renderer, texture, &srcRect, &destRect, 0, 0, flip);
+	SDL_RenderCopyEx(renderer, texture, &srcRect, &destRect, angle, &anchor, flip);
 }
 
-void Texture::renderFrame(const SDL_Rect& destRect, int row, int col, int angle, SDL_RendererFlip flip) const {
+void Texture::renderFrame(const SDL_Rect& destRect, int row, int col, double angle, SDL_Point anchor, SDL_RendererFlip flip) const {
 	SDL_Rect srcRect;
 	srcRect.x = fw * col;
 	srcRect.y = fh * row;
 	srcRect.w = fw;
 	srcRect.h = fh;
-	SDL_RenderCopyEx(renderer, texture, &srcRect, &destRect, angle, 0, flip);
+	SDL_RenderCopyEx(renderer, texture, &srcRect, &destRect, angle, &anchor, flip);
 }
 
 void Texture::loadFromText(string text, const Font* font, SDL_Color color)

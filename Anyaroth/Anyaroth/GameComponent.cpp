@@ -21,7 +21,7 @@ void GameComponent::update(Uint32 time) {
 
 void GameComponent::render(Uint32 time) {
 	for (RenderComponent* rc : renderComp_) {
-		rc->render(this, time);
+		rc->render();
 	}
 }
 

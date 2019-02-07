@@ -7,8 +7,7 @@ class PlayState : public GameState
 
 	public:
 		
-		PlayState(Game* g) :
-			GameState::GameState(g) { };
+		PlayState(Game* g);
 		virtual void update();
 		virtual void handleEvents(SDL_Event& e);
 

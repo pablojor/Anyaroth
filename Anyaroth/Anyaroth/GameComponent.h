@@ -5,6 +5,7 @@
 #include "InputComponent.h"
 #include "PhysicsComponent.h"
 #include "RenderComponent.h"
+#include "TransformComponent.h"
 #include <vector>
 
 using namespace std;
@@ -31,6 +32,9 @@ public:
 private:
 	vector<InputComponent*> inputComp_;
 	vector<PhysicsComponent*> physicsComp_;
+
+protected:
+	TransformComponent* transform;
 	vector<RenderComponent*> renderComp_;
 };
 

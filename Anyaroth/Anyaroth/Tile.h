@@ -9,10 +9,9 @@ class Tile : public GameComponent {
 	public:
 		Tile(double x, double y, int c, int f, Texture* t);
 		~Tile();
-
+		virtual void render(Uint32 time);
 	protected:
 		int col, fil;
-		Texture* tileset;
 		
 };
 #endif // Tile_H

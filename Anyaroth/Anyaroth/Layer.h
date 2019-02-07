@@ -5,13 +5,15 @@
 #include "Tile.h"
 #include <string>
 #include "Texture.h"
+#include "GameObject.h"
 
-class Layer {
+class Layer : public GameObject{
 public:
-	Layer(int type, Texture* t);
+	Layer(int type, Texture* t, string filename);
 	~Layer();
-	bool LoadTilemap(string filename);
 	void render(Uint32 time);
+	virtual void update(Uint32 time) {};
+	virtual void handleInput(Uint32 time, const SDL_Event& event) {};
 
 protected:
 	int type;
