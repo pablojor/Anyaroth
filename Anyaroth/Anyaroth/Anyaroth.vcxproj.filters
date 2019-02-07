@@ -84,6 +84,9 @@
     <ClCompile Include="MovingComponent.cpp">
       <Filter>Archivos de recursos\Components</Filter>
     </ClCompile>
+    <ClCompile Include="BoxCollider.cpp">
+      <Filter>Archivos de recursos\Useful</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">

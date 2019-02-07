@@ -3,8 +3,8 @@
 void SpriteComponent::render() const
 {
 	SDL_Rect destRect;
-	destRect.w = _transform->getSize().getX() * _transform->getScale().getX();
-	destRect.h = _transform->getSize().getY() * _transform->getScale().getY();
+	destRect.w = _texture->getW() * _transform->getScale().getX();
+	destRect.h = _texture->getH() * _transform->getScale().getY();
 	destRect.x = _transform->getPosition().getX() - _transform->getAnchor().getX() * destRect.w;
 	destRect.y = _transform->getPosition().getY() - _transform->getAnchor().getY() * destRect.h;
 

@@ -5,11 +5,6 @@ Vector2D TransformComponent::getPosition()
 	return _position;
 }
 
-Vector2D TransformComponent::getSize()
-{
-	return _size;
-}
-
 Vector2D TransformComponent::getScale() 
 {
 	return _scale;

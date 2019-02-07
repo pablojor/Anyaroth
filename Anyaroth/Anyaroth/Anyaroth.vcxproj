@@ -119,6 +119,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="ExampleObject.cpp" />
     <ClCompile Include="Game.cpp" />
