@@ -18,11 +18,5 @@ class MovingComponent : public PhysicsComponent
 		double getDirY() { return _dir.getY(); }
 		void changeDir(double x, double y) { _dir = Vector2D(x, y); }
 
-		virtual void update() 
-		{
-			Vector2D pos = _transform->getPosition();
-			double x = pos.getX();
-			double y = pos.getY();
-			_transform->setPosition(_dir.getX() + x, _dir.getY() + y);
-		}
+		virtual void update();
 };

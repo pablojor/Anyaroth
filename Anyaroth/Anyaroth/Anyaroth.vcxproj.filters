@@ -19,6 +19,15 @@
     <Filter Include="Archivos de recursos\Components">
       <UniqueIdentifier>{be7cc405-ab93-431a-a007-ebad8d15da88}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\Useful">
+      <UniqueIdentifier>{6c6087f7-cfa3-44c5-9dfd-ab6d0d2ea381}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de recursos\Useful">
+      <UniqueIdentifier>{547ffb2c-c503-4fca-ae9e-b141579dbdda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Errors">
+      <UniqueIdentifier>{cc8ae94e-4cc9-49d3-8ac1-48fbafe93e78}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -31,12 +40,6 @@
       <Filter>Archivos de recursos</Filter>
     </ClCompile>
     <ClCompile Include="GameState.cpp">
-      <Filter>Archivos de recursos</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector2D.cpp">
-      <Filter>Archivos de recursos</Filter>
-    </ClCompile>
-    <ClCompile Include="TTFclass.cpp">
       <Filter>Archivos de recursos</Filter>
     </ClCompile>
     <ClCompile Include="PlayState.cpp">
@@ -64,7 +67,16 @@
       <Filter>Archivos de recursos\Components</Filter>
     </ClCompile>
     <ClCompile Include="Texture.cpp">
-      <Filter>Archivos de recursos\Components</Filter>
+      <Filter>Archivos de recursos\Useful</Filter>
+    </ClCompile>
+    <ClCompile Include="TTFclass.cpp">
+      <Filter>Archivos de recursos\Useful</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2D.cpp">
+      <Filter>Archivos de recursos\Useful</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>Archivos de recursos\Useful</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -77,28 +89,7 @@
     <ClInclude Include="GameState.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="Vector2D.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="TTFclass.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="SDLError.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="FileFormatError.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="FileNotFoundError.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="PlayState.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="AnyarothError.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="ExampleObject.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="GameComponent.h">
@@ -125,8 +116,35 @@
     <ClInclude Include="GameObject.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="BoxCollider.h">
+      <Filter>Archivos de encabezado\Useful</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2D.h">
+      <Filter>Archivos de encabezado\Useful</Filter>
+    </ClInclude>
+    <ClInclude Include="TTFclass.h">
+      <Filter>Archivos de encabezado\Useful</Filter>
+    </ClInclude>
     <ClInclude Include="Texture.h">
-      <Filter>Archivos de encabezado\Components</Filter>
+      <Filter>Archivos de encabezado\Useful</Filter>
+    </ClInclude>
+    <ClInclude Include="AnyarothError.h">
+      <Filter>Archivos de encabezado\Errors</Filter>
+    </ClInclude>
+    <ClInclude Include="ExampleObject.h">
+      <Filter>Archivos de encabezado\Errors</Filter>
+    </ClInclude>
+    <ClInclude Include="FileFormatError.h">
+      <Filter>Archivos de encabezado\Errors</Filter>
+    </ClInclude>
+    <ClInclude Include="FileNotFoundError.h">
+      <Filter>Archivos de encabezado\Errors</Filter>
+    </ClInclude>
+    <ClInclude Include="SDLError.h">
+      <Filter>Archivos de encabezado\Errors</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h">
+      <Filter>Archivos de encabezado\Useful</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
