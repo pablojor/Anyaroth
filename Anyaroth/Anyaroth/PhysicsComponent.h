@@ -3,14 +3,12 @@
 
 #include "GameObject.h"
 
-/*
- *
- */
-class PhysicsComponent {
-public:
-	PhysicsComponent();
-	virtual ~PhysicsComponent();
-	virtual void update() = 0;
+class PhysicsComponent 
+{
+	public:
+		PhysicsComponent();
+		virtual ~PhysicsComponent();
+		virtual void update() = 0;
 };
 
 #endif /* PHYSICSCOMPONENT_H_ */

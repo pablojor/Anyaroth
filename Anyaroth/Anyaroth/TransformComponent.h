@@ -4,16 +4,16 @@
 class TransformComponent 
 {
 	private:
-		Vector2D position = Vector2D(0, 0);
-		Vector2D size = Vector2D(16, 16);
-		Vector2D scale = Vector2D(1, 1);
-		Vector2D anchor = Vector2D(0, 0);
+		Vector2D _position = Vector2D(0, 0);
+		Vector2D _size = Vector2D(16, 16);
+		Vector2D _scale = Vector2D(1, 1);
+		Vector2D _anchor = Vector2D(0, 0);
 
-		double rotation = 0;
+		double _rotation = 0;
 
 	public:
 		TransformComponent(Vector2D position, Vector2D size, Vector2D scale = Vector2D(1, 1), Vector2D anchor = Vector2D(0, 0), double rotation = 0) :
-			position(position), size(size), scale(scale), anchor(anchor), rotation(rotation) {}
+			_position(position), _size(size), _scale(scale), _anchor(anchor), _rotation(rotation) {}
 		~TransformComponent() {}
 
 		Vector2D getAnchor();

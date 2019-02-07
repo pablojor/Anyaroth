@@ -2,57 +2,57 @@
 
 Vector2D TransformComponent::getPosition() 
 {
-	return position;
+	return _position;
 }
 
 Vector2D TransformComponent::getSize()
 {
-	return size;
+	return _size;
 }
 
 Vector2D TransformComponent::getScale() 
 {
-	return scale;
+	return _scale;
 }
 
 Vector2D TransformComponent::getAnchor()
 {
-	return anchor;
+	return _anchor;
 }
 
 double TransformComponent::getRotation() 
 {
-	return rotation;
+	return _rotation;
 }
 
 //-------------------------
 
 void TransformComponent::setPosition(double x, double y) 
 {
-	position = Vector2D(x, y);
+	_position = Vector2D(x, y);
 }
 
 void TransformComponent::setScale(double x, double y) 
 {
-	scale = Vector2D(x, y);
+	_scale = Vector2D(x, y);
 }
 
 void TransformComponent::setScale(double a) 
 {
-	scale = Vector2D(a, a);
+	_scale = Vector2D(a, a);
 }
 
 void TransformComponent::setAnchor(double x, double y)
 {
-	anchor = Vector2D(x, y);
+	_anchor = Vector2D(x, y);
 }
 
 void TransformComponent::setAnchor(double a)
 {
-	anchor = Vector2D(a, a);
+	_anchor = Vector2D(a, a);
 }
 
 void TransformComponent::setRotation(double rot) 
 {
-	rotation = rot;
+	_rotation = rot;
 }
