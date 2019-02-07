@@ -120,9 +120,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BoxCollider.cpp" />
-    <ClCompile Include="CollisionHandler.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="ExampleObject.cpp" />
+    <ClCompile Include="ExampleObject2.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameComponent.cpp" />
     <ClCompile Include="GameState.cpp" />
@@ -141,11 +141,11 @@
     <ClCompile Include="Vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CollisionHandler.h" />
     <ClInclude Include="AnyarothError.h" />
     <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="ExampleObject.h" />
+    <ClInclude Include="ExampleObject2.h" />
     <ClInclude Include="FileFormatError.h" />
     <ClInclude Include="FileNotFoundError.h" />
     <ClInclude Include="Game.h" />

@@ -6,6 +6,8 @@
 #include "PhysicsComponent.h"
 #include "RenderComponent.h"
 #include "TransformComponent.h"
+#include "BoxCollider.h"
+
 #include <vector>
 
 using namespace std;
@@ -21,6 +23,8 @@ class GameComponent: public GameObject
 		TransformComponent* _transform;
 
 	public:
+		BoxCollider* collider; //provisional
+
 		GameComponent();
 		virtual ~GameComponent();
 
