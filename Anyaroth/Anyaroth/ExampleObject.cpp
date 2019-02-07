@@ -1,19 +1,27 @@
 #include "ExampleObject.h"
 #include "SpriteComponent.h"
 #include "MovingComponent.h"
+#include "PlayerControllerComponent.h"
 
 
 
 ExampleObject::ExampleObject(Texture* texture) : GameComponent() {
+
 	transform = new TransformComponent();
-	auto a = new SpriteComponent(transform, texture);
-	addRenderComponent(a);
-	//addPhysicsComponent(new MovingComponent(transform, 1, 1));
+	addRenderComponent(new SpriteComponent(transform, texture));
+
+	MovingComponent* a = new MovingComponent(transform, 0, 0);
+
+	addPhysicsComponent(a);
+	addInputComponent(new PlayerControllerComponent(a));
+
+
+
+
 	transform->setScale(10);
 	transform->setPosition(720 / 2, 480 / 2);
 	transform->setAnchor(0.5, 0.5);
 	//transform->setRotation(45);
-	a->flip();
 	
 }
 
