@@ -7,9 +7,6 @@
 class PlayState : public GameState
 {
 	private:
-		
-
-
 	public:
 		
 		PlayState(Game* g);

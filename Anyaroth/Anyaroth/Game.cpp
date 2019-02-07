@@ -31,8 +31,8 @@ void Game::createTextures()
 			string name; input >> name;
 			int fil; input >> fil;
 			int col; input >> col;
-			textures.insert(pair <string, Texture*> (id, new Texture(renderer, SPRITE_PATH + name, fil, col)));
-			texturesName.push_back(id);
+			_textures.insert(pair <string, Texture*> (id, new Texture(_renderer, SPRITE_PATH + name, fil, col)));
+			_texturesName.push_back(id);
 		}
 	}
 	input.close();
@@ -40,17 +40,17 @@ void Game::createTextures()
 
 void Game::pushState(StateName nameState)
 {
-	stateMachine->pushState(states[nameState]);
+	_stateMachine->pushState(_states[nameState]);
 }
 void Game::changeState(StateName nameState)
 {
-	stateMachine->changeState(states[nameState]);
+	_stateMachine->changeState(_states[nameState]);
 }
 
 
 Texture* Game::getTexture(string nameText)
 {
-	return textures[nameText];
+	return _textures[nameText];
 }
 
 void Game::newGame()
@@ -79,37 +79,37 @@ Game::Game()
 
 	SDL_Init(SDL_INIT_EVERYTHING);
 	TTF_Init();
-	window = SDL_CreateWindow("Anyaroth", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, var[WIN_WIDTH], var[WIN_HEIGHT], SDL_WINDOW_SHOWN);
+	_window = SDL_CreateWindow("Anyaroth", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, var[WIN_WIDTH], var[WIN_HEIGHT], SDL_WINDOW_SHOWN);
 	
-	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+	_renderer = SDL_CreateRenderer(_window, -1, SDL_RENDERER_ACCELERATED);
 
 //---Create textures
 
 	createTextures();
 	
 //---Create states
-	states[Play] = new PlayState(this);
+	_states[Play] = new PlayState(this);
 
-	stateMachine->pushState(states[Play]);
+	_stateMachine->pushState(_states[Play]);
 }
 
 Game::~Game()
 {
-	int tamV = texturesName.size();
+	int tamV = _texturesName.size();
 	for (int i = 0; i < tamV; i++)
 	{
-		delete textures[texturesName[i]];
-		textures.erase(texturesName[i]);
+		delete _textures[_texturesName[i]];
+		_textures.erase(_texturesName[i]);
 	}
 
 	for (int i = 0; i < NUM_STATES; i++)
-		delete states[i];
+		delete _states[i];
 
 
-	delete stateMachine;
+	delete _stateMachine;
 
-	SDL_DestroyRenderer(renderer);
-	SDL_DestroyWindow(window);
+	SDL_DestroyRenderer(_renderer);
+	SDL_DestroyWindow(_window);
 	SDL_Quit();
 }
 
@@ -133,16 +133,16 @@ void Game::run()
 
 void Game::update()
 {
-	stateMachine->currentState()->update();
+	_stateMachine->currentState()->update();
 }
 
 void Game::render() const
 {
-	SDL_RenderClear(renderer);
+	SDL_RenderClear(_renderer);
 
-	stateMachine->currentState()->render();
+	_stateMachine->currentState()->render();
 
-	SDL_RenderPresent(renderer);
+	SDL_RenderPresent(_renderer);
 }
 
 void Game::handleEvents()
@@ -153,6 +153,6 @@ void Game::handleEvents()
 		if (event.type == SDL_QUIT)
 			exit = true;
 
-		stateMachine->currentState()->handleEvents(event);
+		_stateMachine->currentState()->handleEvents(event);
 	}
 }

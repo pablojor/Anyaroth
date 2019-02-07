@@ -3,12 +3,12 @@
 class Vector2D
 {
 	private:
-		double x;
-		double y;
+		double _x;
+		double _y;
 	public:
 		Vector2D();
 		Vector2D(double x, double y) : 
-			x(x), y(y){}
+			_x(x), _y(y){}
 		double getX() const;
 		double getY() const;
 		void normalize();

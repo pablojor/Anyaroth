@@ -10,8 +10,8 @@ class Game;
 class GameState
 {
 	protected:
-		list <GameObject*> stages;
-		Game* gameptr;
+		list <GameObject*> _stages;
+		Game* _gameptr;
 
 	public:
 		GameState() {}

@@ -45,12 +45,12 @@ class Game
 {
 	private:
 
-		SDL_Window* window = nullptr;
-		SDL_Renderer* renderer = nullptr;
-		map <string, Texture*> textures;
-		GameState* states[NUM_STATES];
-		GameStateMachine* stateMachine = new GameStateMachine();
-		vector<string> texturesName;
+		SDL_Window* _window = nullptr;
+		SDL_Renderer* _renderer = nullptr;
+		map <string, Texture*> _textures;
+		GameState* _states[NUM_STATES];
+		GameStateMachine* _stateMachine = new GameStateMachine();
+		vector<string> _texturesName;
 
 		bool exit = false;
 
