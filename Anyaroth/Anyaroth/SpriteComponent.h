@@ -8,6 +8,7 @@ class SpriteComponent : public RenderComponent
 	private:
 		Texture * _texture = nullptr;
 		TransformComponent* _transform;
+
 		bool _flip = false;
 
 	public:
