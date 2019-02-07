@@ -87,6 +87,9 @@
     <ClCompile Include="CollisionHandler.cpp">
       <Filter>Archivos de recursos\Useful</Filter>
     </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>Archivos de recursos\Useful</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -156,6 +159,9 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="CollisionHandler.h">
+      <Filter>Archivos de encabezado\Useful</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h">
       <Filter>Archivos de encabezado\Useful</Filter>
     </ClInclude>
   </ItemGroup>

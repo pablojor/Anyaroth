@@ -121,6 +121,7 @@
   <ItemGroup>
     <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="CollisionHandler.cpp" />
+    <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="ExampleObject.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameComponent.cpp" />
@@ -143,6 +144,7 @@
     <ClInclude Include="CollisionHandler.h" />
     <ClInclude Include="AnyarothError.h" />
     <ClInclude Include="BoxCollider.h" />
+    <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="ExampleObject.h" />
     <ClInclude Include="FileFormatError.h" />
     <ClInclude Include="FileNotFoundError.h" />
