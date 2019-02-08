@@ -1,5 +1,7 @@
 #include "CollisionManager.h"
 
+CollisionManager* CollisionManager::_collisionManager = 0;
+
 CollisionManager::~CollisionManager()
 {
 	if (_collisionManager != 0)

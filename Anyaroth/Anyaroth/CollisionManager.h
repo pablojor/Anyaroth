@@ -1,7 +1,6 @@
 #pragma once
 
 #include "GameComponent.h"
-
 #include <list>
 
 class CollisionManager
@@ -22,5 +21,3 @@ class CollisionManager
 		void addCollider(GameComponent* obj) { _colliders.push_back(obj); }
 		static bool checkCollision(GameComponent* A, GameComponent* B);
 };
-
-CollisionManager* CollisionManager::_collisionManager = 0;

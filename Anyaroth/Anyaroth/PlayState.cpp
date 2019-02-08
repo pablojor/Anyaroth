@@ -1,5 +1,6 @@
 #include "PlayState.h"
 #include "Game.h"
+#include "CollisionManager.h"
 
 PlayState::PlayState(Game* g) : GameState(g)
 {
@@ -18,6 +19,6 @@ void PlayState::update()
 {
 	GameState::update();
 
-	/*if (CollisionManager::checkCollision(_ex, _ex2))
-		cout << "Holi";*/
+	if (CollisionManager::checkCollision(_ex, _ex2))
+		cout << "Holi";
 }
