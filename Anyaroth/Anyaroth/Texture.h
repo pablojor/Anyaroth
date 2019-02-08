@@ -9,11 +9,13 @@
 #include <iostream>
 #include <fstream>
 
+#include "Component.h"
+
 using namespace std;
 
 typedef unsigned int uint;
 
-class Texture
+class Texture : public Component
 {
 	private:
 		SDL_Texture* texture = nullptr;

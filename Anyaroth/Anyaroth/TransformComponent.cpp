@@ -1,8 +1,8 @@
 #include "TransformComponent.h"
+#include "GameComponent.h"
 
 
-
-TransformComponent::TransformComponent() {
+TransformComponent::TransformComponent(GameComponent* obj) {
 	anchor = Vector2D(0, 0);
 	position = Vector2D(0, 0);
 	scale = Vector2D(1, 1);

@@ -6,7 +6,7 @@
 #include "PhysicsComponent.h"
 #include "RenderComponent.h"
 //#include "TransformComponent.h"
-#include "Component.h"
+//#include "Component.h"
 #include <vector>
 #include <map>
 
@@ -28,18 +28,21 @@ private:
 	{
 		if (_components.find(name) == _components.end())
 		{
-			Component* c = new ComponentType();
+			Component* c = new ComponentType(this);
 			_components[name] = c;
 		}
 		else cout << "Se ha intentado añadir un componente ya existente" << endl;
 	}
 
+	void add_component(Component* c, string name) {	_components[name] = c; }
+
 	template<class ComponentType>
 	ComponentType* get_component(string name)
 	{
 		auto it = _components.find(name);
-		ComponentType* c = dynamic_cast<ComponentType*>(it->second);
-		return c; //Será nullptr si no lo encuentras
+		ComponentType* c = nullptr;
+		if(it != _components.end()) c = dynamic_cast<ComponentType*>(it->second);
+		return c; //Será nullptr si no lo encuentra
 	}
 
 public:
@@ -64,11 +67,22 @@ public:
 		add_component<ComponentType>(typeid(ComponentType).name());
 	}
 
+	//De momento SOLO es para la TEXTURA
+	template<class ComponentType>
+	void addComponent(ComponentType* ct)
+	{
+		string name = typeid(*ct).name();
+		if (_components.find(name) == _components.end())
+		{
+			_components[name] = ct;
+		}
+	}
+
 	template<class ComponentType>
 	ComponentType* getComponent()
 	{
 		ComponentType* c = get_component<ComponentType>(typeid(ComponentType).name());
-		return (c == nullptr ? throw exception("Componente pedido no existente") : c);
+		return c;
 	}
 };
 

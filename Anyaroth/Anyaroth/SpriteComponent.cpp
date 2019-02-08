@@ -1,13 +1,15 @@
 #include "SpriteComponent.h"
+#include "GameComponent.h"
 
-
-
-SpriteComponent::SpriteComponent(TransformComponent* trans, Texture* text) : RenderComponent()
+SpriteComponent::SpriteComponent(GameComponent* obj) : RenderComponent(obj)
 {
-	_texture = text;
-	_transform = trans;
+	_texture = obj->getComponent<Texture>();
+	_transform = obj->getComponent<TransformComponent>();
+	if (_transform == nullptr) {
+		obj->addComponent<TransformComponent>();
+		_transform = obj->getComponent<TransformComponent>();
+	}
 }
-
 
 SpriteComponent::~SpriteComponent() 
 {
