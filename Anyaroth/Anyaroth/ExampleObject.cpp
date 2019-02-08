@@ -10,16 +10,10 @@ ExampleObject::ExampleObject(Texture* texture) : GameComponent() {
 	addComponent<Texture>(texture);
 	//Resto de componentes
 	addComponent<SpriteComponent>();		//Como depende de Transform, en su constructura crea una si no ha encontrado Transform en el objeto.
-	addComponent<TransformComponent>();		//Como en el metodo anterior se ha creado este componente, imprime por pantalla que ya existe uno.
+	auto transform = addComponent<TransformComponent>();		//Como en el metodo anterior se ha creado este componente, imprime por pantalla que ya existe uno.
 
-	//MovingComponent* a = new MovingComponent(transform, 0, 0);
 	addComponent<MovingComponent>();
 	addComponent<PlayerControllerComponent>();
-
-	//addPhysicsComponent(a);
-	//addInputComponent(new PlayerControllerComponent(a));
-
-	auto transform = getComponent<TransformComponent>();
 
 	transform->setScale(10);
 	//transform->setPosition(720 / 2, 480 / 2);
