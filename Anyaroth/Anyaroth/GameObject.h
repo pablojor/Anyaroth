@@ -10,7 +10,7 @@ class GameObject
 	private:
 	public:
 		virtual ~GameObject() {};
-		virtual void render() const = 0;
-		virtual void update() = 0;
-		virtual void handleEvents(SDL_Event& e) = 0;
+		virtual void render(Uint32 time) = 0;
+		virtual void update(Uint32 time) = 0;
+		virtual void handleInput(Uint32 time, const SDL_Event& event) = 0;
 };

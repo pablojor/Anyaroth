@@ -13,61 +13,58 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Archivos de encabezado\Components">
-      <UniqueIdentifier>{7bc9307f-e17b-414c-8ce0-68af42a39ec5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de recursos\Components">
-      <UniqueIdentifier>{be7cc405-ab93-431a-a007-ebad8d15da88}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Archivos de recursos</Filter>
-    </ClCompile>
-    <ClCompile Include="GameStateMachine.cpp">
-      <Filter>Archivos de recursos</Filter>
-    </ClCompile>
-    <ClCompile Include="GameState.cpp">
-      <Filter>Archivos de recursos</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector2D.cpp">
-      <Filter>Archivos de recursos</Filter>
-    </ClCompile>
-    <ClCompile Include="TTFclass.cpp">
-      <Filter>Archivos de recursos</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayState.cpp">
-      <Filter>Archivos de recursos</Filter>
-    </ClCompile>
-    <ClCompile Include="ExampleObject.cpp">
-      <Filter>Archivos de recursos</Filter>
-    </ClCompile>
-    <ClCompile Include="GameComponent.cpp">
-      <Filter>Archivos de recursos\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="InputComponent.cpp">
-      <Filter>Archivos de recursos\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="PhysicsComponent.cpp">
-      <Filter>Archivos de recursos\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderComponent.cpp">
-      <Filter>Archivos de recursos\Components</Filter>
-    </ClCompile>
     <ClCompile Include="SpriteComponent.cpp">
-      <Filter>Archivos de recursos\Components</Filter>
+      <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="TransformComponent.cpp">
-      <Filter>Archivos de recursos\Components</Filter>
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="GameComponent.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="GameState.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="GameStateMachine.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="InputComponent.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Layer.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsComponent.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayState.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderComponent.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Tile.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="TTFclass.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2D.cpp">
+      <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="Texture.cpp">
-      <Filter>Archivos de recursos</Filter>
+      <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerControllerComponent.cpp">
-      <Filter>Archivos de recursos\Components</Filter>
+    <ClCompile Include="FrameComponent.cpp">
+      <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -81,6 +78,9 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="Vector2D.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="TTFclass.h">
@@ -101,38 +101,35 @@
     <ClInclude Include="AnyarothError.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="ExampleObject.h">
+    <ClInclude Include="GameComponent.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="GameComponent.h">
-      <Filter>Archivos de encabezado\Components</Filter>
-    </ClInclude>
     <ClInclude Include="InputComponent.h">
-      <Filter>Archivos de encabezado\Components</Filter>
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="PhysicsComponent.h">
-      <Filter>Archivos de encabezado\Components</Filter>
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="RenderComponent.h">
-      <Filter>Archivos de encabezado\Components</Filter>
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="Layer.h">
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="SpriteComponent.h">
-      <Filter>Archivos de encabezado\Components</Filter>
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="TransformComponent.h">
-      <Filter>Archivos de encabezado\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="MovingComponent.h">
-      <Filter>Archivos de encabezado\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="Texture.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerControllerComponent.h">
-      <Filter>Archivos de encabezado\Components</Filter>
+    <ClInclude Include="FrameComponent.h">
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

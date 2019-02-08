@@ -25,7 +25,6 @@ void SpriteComponent::render() const
 
 	_texture->render(destRect, _transform->getRotation(), anchor,(_flip ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE));
 }
-
 void SpriteComponent::flip() 
 {
 	_flip = true;
