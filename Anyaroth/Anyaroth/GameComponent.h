@@ -5,8 +5,10 @@
 #include "InputComponent.h"
 #include "PhysicsComponent.h"
 #include "RenderComponent.h"
-#include "TransformComponent.h"
+//#include "TransformComponent.h"
+#include "Component.h"
 #include <vector>
+#include <map>
 
 using namespace std;
 /*
@@ -19,8 +21,26 @@ private:
 	vector<PhysicsComponent*> physicsComp_;
 	vector<RenderComponent*> renderComp_;
 
-protected:
-	TransformComponent* transform;
+	map<string, Component*> _components;
+
+	template<class ComponentType>
+	void add_component(string name)
+	{
+		if (_components.find(name) == _components.end())
+		{
+			Component* c = new ComponentType();
+			_components[name] = c;
+		}
+		else cout << "Se ha intentado añadir un componente ya existente" << endl;
+	}
+
+	template<class ComponentType>
+	ComponentType* get_component(string name)
+	{
+		auto it = _components.find(name);
+		ComponentType* c = dynamic_cast<ComponentType*>(it->second);
+		return c; //Será nullptr si no lo encuentras
+	}
 
 public:
 	GameComponent();
@@ -37,6 +57,19 @@ public:
 	virtual void delInputComponent(InputComponent* ic);
 	virtual void delPhysicsComponent(PhysicsComponent* pc);
 	virtual void delRenderComponent(RenderComponent* rc);
+
+	template<class ComponentType>
+	void addComponent() 
+	{
+		add_component<ComponentType>(typeid(ComponentType).name());
+	}
+
+	template<class ComponentType>
+	ComponentType* getComponent()
+	{
+		ComponentType* c = get_component<ComponentType>(typeid(ComponentType).name());
+		return (c == nullptr ? throw exception("Componente pedido no existente") : c);
+	}
 };
 
 #endif /* GAMECOMPONENT_H_ */

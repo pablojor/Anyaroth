@@ -1,7 +1,8 @@
 #pragma once
+#include "Component.h"
 #include "Vector2D.h"
 
-class TransformComponent {
+class TransformComponent : public Component {
 private:
 	Vector2D anchor;
 	Vector2D position;
@@ -10,7 +11,6 @@ private:
 public:
 	TransformComponent();
 	~TransformComponent();
-	void activate() {}
 
 	Vector2D getAnchor();
 	Vector2D getPosition();

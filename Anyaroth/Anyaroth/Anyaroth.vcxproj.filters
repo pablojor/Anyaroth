@@ -134,5 +134,8 @@
     <ClInclude Include="PlayerControllerComponent.h">
       <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Archivos de encabezado\Components</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

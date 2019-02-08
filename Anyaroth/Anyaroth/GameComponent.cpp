@@ -8,7 +8,7 @@ GameComponent::~GameComponent() {
 	for (RenderComponent* rc : renderComp_) delete rc;
 	for (PhysicsComponent* pc : physicsComp_) delete pc;
 	for (InputComponent* ic : inputComp_) delete ic;
-	delete transform;
+	//delete transform;
 }
 
 void GameComponent::handleEvents(/*Uint32 time, const*/ SDL_Event& event) {
@@ -67,4 +67,3 @@ void GameComponent::delRenderComponent(RenderComponent* rc) {
 		delete rc;
 	}
 }
-

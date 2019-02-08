@@ -7,20 +7,24 @@
 
 ExampleObject::ExampleObject(Texture* texture) : GameComponent() {
 
-	transform = new TransformComponent();
-	addRenderComponent(new SpriteComponent(transform, texture));
+	addComponent<TransformComponent>();
+	addComponent<TransformComponent>();
 
-	MovingComponent* a = new MovingComponent(transform, 0, 0);
+	auto a = getComponent<TransformComponent>();
 
-	addPhysicsComponent(a);
-	addInputComponent(new PlayerControllerComponent(a));
+	//addRenderComponent(new SpriteComponent(transform, texture));
+
+	//MovingComponent* a = new MovingComponent(transform, 0, 0);
+
+	//addPhysicsComponent(a);
+	//addInputComponent(new PlayerControllerComponent(a));
 
 
 
 
-	transform->setScale(10);
-	transform->setPosition(720 / 2, 480 / 2);
-	transform->setAnchor(0.5, 0.5);
+	//transform->setScale(10);
+	//transform->setPosition(720 / 2, 480 / 2);
+	//transform->setAnchor(0.5, 0.5);
 	//transform->setRotation(45);
 	
 }
