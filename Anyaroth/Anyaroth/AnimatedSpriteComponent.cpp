@@ -26,8 +26,8 @@ void AnimatedSpriteComponent::render() const
 	_texture->renderFrame(destRect, distance(begin(animations), animations.find(currentAnim)), frame, _transform->getRotation(), anchor, (_flip ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE));
 }
 
-void AnimatedSpriteComponent::update() {
-	// we update the frame every 100ms
+void AnimatedSpriteComponent::updateFrame() {
+	// we update the frame every _freq ms
 	if (SDL_GetTicks() - _lastTimeUpdated >= _freq) {
 		frame = (frame + 1) % animations[currentAnim];
 		_lastTimeUpdated = SDL_GetTicks();//time;

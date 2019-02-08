@@ -1,7 +1,7 @@
 #include "ExampleObject.h"
 #include "SpriteComponent.h"
 #include "AnimatedSpriteComponent.h"
-#include "MovingComponent.h"
+#include "AnimatedMovingComponent.h"
 #include "PlayerControllerComponent.h"
 
 
@@ -15,7 +15,7 @@ ExampleObject::ExampleObject(Texture* texture) : GameComponent() {
 	b->addAnim("Walk", 10);
 	addRenderComponent(b);
 
-	MovingComponent* a = new MovingComponent(transform, 0, 0);
+	AnimatedMovingComponent* a = new AnimatedMovingComponent(transform, 0, 0, b);
 
 	addPhysicsComponent(a);
 	addInputComponent(new PlayerControllerComponent(a, b));

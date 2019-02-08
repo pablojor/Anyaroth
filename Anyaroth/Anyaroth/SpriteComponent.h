@@ -14,7 +14,6 @@ class SpriteComponent : public RenderComponent
 		SpriteComponent(TransformComponent* trans, Texture* _texture);
 		~SpriteComponent();
 		void render() const;
-		void update() {};
 		void flip();
 		void unFlip();
 };

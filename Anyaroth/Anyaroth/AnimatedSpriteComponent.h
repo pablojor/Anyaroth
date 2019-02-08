@@ -3,7 +3,7 @@
 #include "SpriteComponent.h"
 #include <unordered_map>
 
-enum Animation { Idle, Walk };
+//enum Animation { Idle, Walk };
 
 struct AnimationState {
 	string name;
@@ -29,7 +29,7 @@ public:
 	AnimatedSpriteComponent(TransformComponent* trans, Texture* _texture);
 	virtual ~AnimatedSpriteComponent();
 	void render() const;
-	void update();
+	void updateFrame();
 
 	void addAnim(string name, int numFrames);
 	void playAnim(string name);

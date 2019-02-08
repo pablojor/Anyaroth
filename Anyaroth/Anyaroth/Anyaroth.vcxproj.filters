@@ -70,7 +70,10 @@
       <Filter>Archivos de recursos\Components</Filter>
     </ClCompile>
     <ClCompile Include="AnimatedSpriteComponent.cpp">
-      <Filter>Archivos de origen</Filter>
+      <Filter>Archivos de recursos\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimatedMovingComponent.cpp">
+      <Filter>Archivos de recursos\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -138,7 +141,10 @@
       <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
     <ClInclude Include="AnimatedSpriteComponent.h">
-      <Filter>Archivos de encabezado</Filter>
+      <Filter>Archivos de encabezado\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimatedMovingComponent.h">
+      <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
