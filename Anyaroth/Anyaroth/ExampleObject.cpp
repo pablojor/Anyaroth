@@ -14,6 +14,7 @@ ExampleObject::ExampleObject(Texture* texture) : GameComponent() {
 
 	//MovingComponent* a = new MovingComponent(transform, 0, 0);
 	addComponent<MovingComponent>();
+	addComponent<PlayerControllerComponent>();
 
 	//addPhysicsComponent(a);
 	//addInputComponent(new PlayerControllerComponent(a));
