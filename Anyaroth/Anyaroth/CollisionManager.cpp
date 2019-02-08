@@ -25,6 +25,33 @@ CollisionManager* CollisionManager::getCollisionManager()
 	return _collisionManager;
 }
 
+void CollisionManager::addEnemyBulletColliders(GameComponent* obj)
+{
+	_enemyBulletColliders.push_back(obj);
+}
+
+void CollisionManager::addPlayer(GameComponent* obj)
+{
+	player = obj;
+}
+
+vector<GameComponent*>::iterator CollisionManager::checkPlayerAndBullets()
+{
+	list<GameComponent*>::iterator it = _enemyBulletColliders.begin();
+
+	vector <list<GameComponent*>::iterator> bullets;
+
+	for (GameComponent* o : _enemyBulletColliders)
+	{
+		if (checkCollision(player, o))
+		{
+			bullets.push_back(o.get);
+		}
+	}
+
+}
+
+
 bool CollisionManager::checkCollision(GameComponent* A, GameComponent* B)
 {
 	return AABBCollision(A->collider->getCollider(), B->collider->getCollider());

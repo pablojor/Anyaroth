@@ -18,7 +18,4 @@ void PlayState::handleEvents(SDL_Event& e)
 void PlayState::update()
 {
 	GameState::update();
-
-	if (CollisionManager::checkCollision(_ex, _ex2))
-		cout << "Holi";
 }
