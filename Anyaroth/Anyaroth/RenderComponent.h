@@ -11,7 +11,6 @@ public:
 	RenderComponent();
 	virtual ~RenderComponent();
 	virtual void render(/*GameObject* o, Uint32 time*/) const = 0;
-	virtual void renderFrame(int fil, int col) const = 0;
 };
 
 #endif /* RENDERCOMPONENT_H_ */

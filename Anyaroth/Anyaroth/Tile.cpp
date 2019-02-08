@@ -1,18 +1,12 @@
 #include "Tile.h"
-#include "SpriteComponent.h"
+#include "FrameComponent.h"
 
-Tile::Tile(double x, double y, int c, int f, Texture* t) : col(c), fil(f)
+Tile::Tile(double x, double y, int c, int f, Texture* t) 
 {
 	transform = new TransformComponent();
-	auto a = new SpriteComponent(transform, t);
+	auto a = new FrameComponent(transform, t, c,f);
 	addRenderComponent(a);
 	transform->setPosition(x, y);
 }
 
 Tile::~Tile() {}
-
-void Tile::render(Uint32 time) {
-	for (RenderComponent* rc : renderComp_) {
-		rc->renderFrame(fil, col);
-	}
-}

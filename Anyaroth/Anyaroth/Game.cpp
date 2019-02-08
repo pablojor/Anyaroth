@@ -79,7 +79,7 @@ Game::Game()
 	SDL_Init(SDL_INIT_EVERYTHING);
 	TTF_Init();
 	//window = SDL_CreateWindow("Anyaroth", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, var[WIN_WIDTH], var[WIN_HEIGHT], SDL_WINDOW_SHOWN);
-	window = SDL_CreateWindow("Anayroth", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1820, 980, SDL_WINDOW_SHOWN);
+	window = SDL_CreateWindow("Anayroth", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1080, 760, SDL_WINDOW_SHOWN);
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
 	//---Create textures

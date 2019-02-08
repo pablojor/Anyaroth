@@ -1,19 +1,19 @@
-#include "SpriteComponent.h"
+#include "FrameComponent.h"
 
 
 
-SpriteComponent::SpriteComponent(TransformComponent* trans, Texture* text) : RenderComponent()
+FrameComponent::FrameComponent(TransformComponent* trans, Texture* text, int fil, int col) : RenderComponent(), fil(fil), col(col)
 {
 	_texture = text;
 	_transform = trans;
 }
 
 
-SpriteComponent::~SpriteComponent() 
+FrameComponent::~FrameComponent()
 {
 }
 
-void SpriteComponent::render() const 
+void FrameComponent::render() const
 {
 	SDL_Rect destRect;
 	destRect.w = _texture->getW() * _transform->getScale().getX();
@@ -23,14 +23,14 @@ void SpriteComponent::render() const
 
 	SDL_Point anchor = { _transform->getAnchor().getX() * destRect.w, _transform->getAnchor().getY() * destRect.h };
 
-	_texture->render(destRect, _transform->getRotation(), anchor,(_flip ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE));
+	_texture->renderFrame(destRect, fil, col, _transform->getRotation(), anchor, (_flip ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE));
 }
-void SpriteComponent::flip() 
+void FrameComponent::flip()
 {
 	_flip = true;
 }
 
-void SpriteComponent::unFlip() 
+void FrameComponent::unFlip()
 {
 	_flip = false;
 }

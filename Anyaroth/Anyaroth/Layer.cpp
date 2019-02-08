@@ -1,5 +1,6 @@
 #include "Layer.h"
 #include "Game.h"
+#include "AnyarothError.h"
 
 Layer::Layer(int type, Texture* t, string filename) :type(type), tileset(t)
 { 
@@ -12,27 +13,30 @@ Layer::Layer(int type, Texture* t, string filename) :type(type), tileset(t)
 		string n = "";
 		getline(file, n);
 		//lee el archivo hasta que encuentra la layer del tipo que se quiere
-		while (n != "type: " + to_string(type) || !file.end)
+		while (n != "type: " + to_string(type) && !file.end)
 		{
 			getline(file, n);
 		}
-
-		//lineas del .json que no nos importan
-		getline(file, n, '[');
-		for (int y = 0; y < TILES_Y; y++)
-		{
-			for (int x = 0; x < TILES_X; x++)
+		if (!file.end) {
+			//lineas del .json que no nos importan
+			getline(file, n, '[');
+			for (int y = 0; y < TILES_Y; y++)
 			{
-				getline(file, n, ',');
-				temp = stoi(n);
-				temp - 1;
-				Tile* tile = new Tile(x*TILES_W, y*TILES_H, temp % t->getNumCols(), (temp / t->getNumCols()), tileset);
-				//if (type == 1)
-					//tile->addPhysicsComponent();
+				for (int x = 0; x < TILES_X; x++)
+				{
+					getline(file, n, ',');
+					temp = stoi(n);
+					temp--;
+					Tile* tile = new Tile(x*TILES_W, y*TILES_H, temp % t->getNumCols(), (temp / t->getNumCols()), tileset);
+					//if (type == 1)
+						//tile->addPhysicsComponent();
 
-				tilemap.push_back(tile);
+					tilemap.push_back(tile);
+				}
 			}
 		}
+		else
+			throw AnyarothError("El formato del tileset no es correcto");
 		file.close();
 
 	}

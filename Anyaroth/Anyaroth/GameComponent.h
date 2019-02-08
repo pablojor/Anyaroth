@@ -32,10 +32,9 @@ public:
 private:
 	vector<InputComponent*> inputComp_;
 	vector<PhysicsComponent*> physicsComp_;
-
+	vector<RenderComponent*> renderComp_;
 protected:
 	TransformComponent* transform;
-	vector<RenderComponent*> renderComp_;
 };
 
 #endif /* GAMECOMPONENT_H_ */
