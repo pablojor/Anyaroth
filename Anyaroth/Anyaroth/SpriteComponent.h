@@ -5,7 +5,7 @@
 
 class SpriteComponent : public RenderComponent 
 {
-	private:
+	protected:
 		Texture * _texture = nullptr;
 		TransformComponent* _transform;
 		bool _flip = false;
@@ -14,6 +14,7 @@ class SpriteComponent : public RenderComponent
 		SpriteComponent(TransformComponent* trans, Texture* _texture);
 		~SpriteComponent();
 		void render() const;
+		void update() {};
 		void flip();
 		void unFlip();
 };

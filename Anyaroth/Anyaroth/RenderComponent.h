@@ -9,6 +9,7 @@ public:
 	RenderComponent();
 	virtual ~RenderComponent();
 	virtual void render(/*GameComponent* o, Uint32 time*/) const = 0;
+	virtual void update(/*GameComponent* o, Uint32 time*/) = 0;
 };
 
 #endif /* RENDERCOMPONENT_H_ */

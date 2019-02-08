@@ -69,6 +69,9 @@
     <ClCompile Include="PlayerControllerComponent.cpp">
       <Filter>Archivos de recursos\Components</Filter>
     </ClCompile>
+    <ClCompile Include="AnimatedSpriteComponent.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -133,6 +136,9 @@
     </ClInclude>
     <ClInclude Include="PlayerControllerComponent.h">
       <Filter>Archivos de encabezado\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimatedSpriteComponent.h">
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

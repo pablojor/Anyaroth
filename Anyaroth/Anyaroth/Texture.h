@@ -36,6 +36,8 @@ class Texture
 
 		int getW() const { return w; };
 		int getH() const { return h; };
+		int getFW() const { return w/numCols; }; // Frame width
+		int getFH() const { return h/numRows; }; // Frame height
 		uint getNumCols() const { return numCols; };
 		SDL_Texture* getTexture() const { return texture; };
 
