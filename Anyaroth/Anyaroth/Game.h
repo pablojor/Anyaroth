@@ -8,11 +8,10 @@
 #include "GameStateMachine.h"
 #include "PlayState.h"
 
-const int NUM_VARIABLES = 4;
+const int NUM_VARIABLES = 0;
 enum TypeVariable
 {
-	WIN_WIDTH, WIN_HEIGHT, FRAME_RATE, TIME_PER_FRAME
-
+	
 };
 
 const int NUM_STATES = 1;
@@ -29,7 +28,7 @@ const string SPRITE_PATH = "..\\assets\\sprites\\";
 const string TILEMAP_PATH = "..\\files\\tilemaps\\";
 
 
-const int NUM_TEXTURES = 1;
+const int NUM_TEXTURES = 2;
 const int NUM_FONTS = 0;
 
 const int NUM_LEVELS = 1;

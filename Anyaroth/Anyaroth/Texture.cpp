@@ -26,7 +26,7 @@ void Texture::load(string filename, uint nRows, uint nCols) {
 	SDL_FreeSurface(tempSurface);
 }
 
-void Texture::render(const SDL_Rect& destRect, double angle, SDL_Point anchor,SDL_RendererFlip flip) const {
+void Texture::render(const SDL_Rect& destRect, double angle, SDL_Point anchor, SDL_RendererFlip flip) const {
 	SDL_Rect srcRect;
 	srcRect.x = 0; srcRect.y = 0;
 	srcRect.w = w; srcRect.h = h;

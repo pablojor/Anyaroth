@@ -1,9 +1,4 @@
 #include "GameState.h"
-#include "Game.h"
-
-GameState::GameState(Game* g) {
-	gameptr = g;
-}
 
 GameState::~GameState()
 {

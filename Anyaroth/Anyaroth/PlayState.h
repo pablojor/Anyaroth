@@ -4,8 +4,6 @@
 class PlayState : public GameState
 {
 	private:
-		
-
 
 	public:
 		
