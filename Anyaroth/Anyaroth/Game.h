@@ -28,7 +28,7 @@ const string SPRITE_PATH = "..\\assets\\sprites\\";
 const string TILEMAP_PATH = "..\\files\\tilemaps\\";
 
 
-const int NUM_TEXTURES = 1;
+const int NUM_TEXTURES = 2;
 const int NUM_FONTS = 0;
 
 const int NUM_LEVELS = 1;
@@ -37,8 +37,6 @@ const string LEVELS[NUM_LEVELS] =
 
 };
 
-const int TILES_X=10;
-const int TILES_Y=10;
 const double TILES_W = 16;
 const double TILES_H = 16;
 
