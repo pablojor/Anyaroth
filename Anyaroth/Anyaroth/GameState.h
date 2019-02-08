@@ -15,8 +15,7 @@ class GameState
 	public:
 		GameState() {}
 		virtual ~GameState();
-		GameState(Game* g) : 
-		gameptr(g) {}
+		GameState(Game* g);
 		virtual void render() const;
 		virtual void update();
 		virtual void handleEvents(SDL_Event& e);

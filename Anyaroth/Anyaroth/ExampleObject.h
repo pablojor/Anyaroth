@@ -3,7 +3,7 @@
 
 class ExampleObject : public GameComponent {
 public:
-	ExampleObject(TextureComponent* texture);
+	ExampleObject(Texture* texture);
 	~ExampleObject();
 
 	void update();

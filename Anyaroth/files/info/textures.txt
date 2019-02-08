@@ -1,2 +1,3 @@
 tileset TileZona1.png  2 2
 tileset2 TileZona2.png  3 2
+example1 Jugador.png 1 1
