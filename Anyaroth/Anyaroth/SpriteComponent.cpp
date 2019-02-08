@@ -5,10 +5,7 @@ SpriteComponent::SpriteComponent(GameComponent* obj) : RenderComponent(obj)
 {
 	_texture = obj->getComponent<Texture>();
 	_transform = obj->getComponent<TransformComponent>();
-	if (_transform == nullptr) {
-		obj->addComponent<TransformComponent>();
-		_transform = obj->getComponent<TransformComponent>();
-	}
+	if (_transform == nullptr) _transform = obj->addComponent<TransformComponent>();
 }
 
 SpriteComponent::~SpriteComponent() 

@@ -1,19 +1,14 @@
-#ifndef GAMECOMPONENT_H_
-#define GAMECOMPONENT_H_
-
 #include "GameObject.h"
-#include "InputComponent.h"
-#include "PhysicsComponent.h"
-#include "RenderComponent.h"
-//#include "TransformComponent.h"
-//#include "Component.h"
 #include <vector>
 #include <map>
+#include "Component.h"
 
 using namespace std;
-/*
- *
- */
+
+class InputComponent;
+class PhysicsComponent;
+class RenderComponent;
+
 class GameComponent: public GameObject {
 
 private:
@@ -24,14 +19,16 @@ private:
 	map<string, Component*> _components;
 
 	template<class ComponentType>
-	void add_component(string name)
+	ComponentType* add_component(string name)
 	{
 		if (_components.find(name) == _components.end())
 		{
-			Component* c = new ComponentType(this);
+			ComponentType* c = new ComponentType(this);
 			_components[name] = c;
+			return c;
 		}
 		else cout << "Se ha intentado añadir un componente ya existente" << endl;
+		return nullptr;
 	}
 
 	void add_component(Component* c, string name) {	_components[name] = c; }
@@ -62,9 +59,9 @@ public:
 	virtual void delRenderComponent(RenderComponent* rc);
 
 	template<class ComponentType>
-	void addComponent() 
+	ComponentType* addComponent()
 	{
-		add_component<ComponentType>(typeid(ComponentType).name());
+		return add_component<ComponentType>(typeid(ComponentType).name());
 	}
 
 	//De momento SOLO es para la TEXTURA
@@ -85,5 +82,3 @@ public:
 		return c;
 	}
 };
-
-#endif /* GAMECOMPONENT_H_ */

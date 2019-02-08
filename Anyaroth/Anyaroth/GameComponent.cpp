@@ -1,4 +1,7 @@
 #include "GameComponent.h"
+#include "PhysicsComponent.h"
+#include "RenderComponent.h"
+#include "InputComponent.h"
 
 GameComponent::GameComponent() :
 		GameObject(), inputComp_(), physicsComp_(), renderComp_() {

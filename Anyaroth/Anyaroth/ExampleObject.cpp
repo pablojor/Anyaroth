@@ -9,10 +9,11 @@ ExampleObject::ExampleObject(Texture* texture) : GameComponent() {
 	//Siempre primero los componentes que tienen que estar SI o SI.
 	addComponent<Texture>(texture);
 	//Resto de componentes
-	addComponent<SpriteComponent>();	//Como depende de Transform, en su constructura crea una si no ha encontrado Transform en el objeto.
-	addComponent<TransformComponent>();	//Como en el metodo anterior se ha creado este componente, imprime por pantalla que ya existe uno.
+	addComponent<SpriteComponent>();		//Como depende de Transform, en su constructura crea una si no ha encontrado Transform en el objeto.
+	addComponent<TransformComponent>();		//Como en el metodo anterior se ha creado este componente, imprime por pantalla que ya existe uno.
 
 	//MovingComponent* a = new MovingComponent(transform, 0, 0);
+	addComponent<MovingComponent>();
 
 	//addPhysicsComponent(a);
 	//addInputComponent(new PlayerControllerComponent(a));

@@ -4,6 +4,5 @@
 RenderComponent::RenderComponent(GameComponent* obj) { obj->addRenderComponent(this); }
 
 RenderComponent::~RenderComponent() {
-	// TODO Auto-generated destructor stub
 }
 
