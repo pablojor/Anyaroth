@@ -67,7 +67,11 @@ Layer::Layer(string name, Texture* t, string filename) :/*type(type),*/ tileset(
 
 Layer::~Layer() 
 { 
-	//tilemap.clear();
+	for (Tile* t : tilemap) 
+	{
+		delete t;
+		//t = nullptr;
+	}
 }
 
 

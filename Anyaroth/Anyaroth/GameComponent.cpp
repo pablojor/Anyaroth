@@ -8,10 +8,19 @@ GameComponent::GameComponent() :
 }
 
 GameComponent::~GameComponent() {
-	for (RenderComponent* rc : renderComp_) delete rc;
+	/*for (RenderComponent* rc : renderComp_) delete rc;
 	for (PhysicsComponent* pc : physicsComp_) delete pc;
-	for (InputComponent* ic : inputComp_) delete ic;
+	for (InputComponent* ic : inputComp_) delete ic;*/
 	
+	for (auto it = _components.begin(); it != _components.end(); it++)
+	{
+		//No borra las Texturas porque de eso se encarga ~Game();
+		if (it->first != "class Texture")
+		{
+			delete it->second;
+			it->second = nullptr;
+		}
+	}
 }
 
 void GameComponent::handleInput(const SDL_Event& event) {
