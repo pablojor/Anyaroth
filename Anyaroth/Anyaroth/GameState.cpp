@@ -1,4 +1,10 @@
 #include "GameState.h"
+#include "Game.h"
+
+
+GameState::GameState(Game* g) {
+	gameptr = g;
+}
 
 GameState::~GameState()
 {
@@ -8,17 +14,17 @@ GameState::~GameState()
 void GameState::render() const
 {
 	for (GameObject* o : stages)
-		o->render(0);
+		o->render();
 }
 
 void GameState::update()
 {
 	for (GameObject* o : stages)
-		o->update(0);
+		o->update();
 }
 
 void GameState::handleEvents(SDL_Event& e)
 {
 	for (GameObject* o : stages)
-		o->handleInput(0,e);
+		o->handleInput(e);
 }

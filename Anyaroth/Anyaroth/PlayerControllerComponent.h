@@ -3,17 +3,17 @@
 #include "InputComponent.h"
 #include "MovingComponent.h"
 
+class GameComponent;
+
 class PlayerControllerComponent : public InputComponent
 {
 
 	private:
-		MovingComponent* movement;
+		MovingComponent* _movement = nullptr;
 		bool wPul = false, aPul = false, sPul = false, dPul = false;
 
 	public:
-		PlayerControllerComponent(MovingComponent* movement) :
-			movement(movement), InputComponent() {};
-
-		virtual void handleInput( const SDL_Event& event);
+		PlayerControllerComponent(GameComponent* obj);
+		virtual void handleInput(const SDL_Event& event);
 
 };

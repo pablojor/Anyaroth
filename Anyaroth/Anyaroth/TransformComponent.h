@@ -1,16 +1,18 @@
 #pragma once
+#include "Component.h"
 #include "Vector2D.h"
 
-class TransformComponent {
+class GameComponent;
+
+class TransformComponent : public Component {
 private:
 	Vector2D anchor;
 	Vector2D position;
 	Vector2D scale;
 	double rotation;
 public:
-	TransformComponent();
+	TransformComponent(GameComponent* obj);
 	~TransformComponent();
-	void activate() {}
 
 	Vector2D getAnchor();
 	Vector2D getPosition();

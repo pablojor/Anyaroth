@@ -1,6 +1,9 @@
 #pragma once
 #include "RenderComponent.h"
 #include "TransformComponent.h"
+#include "Texture.h"
+
+class GameComponent;
 
 class FrameComponent : public RenderComponent
 {
@@ -8,12 +11,13 @@ private:
 	Texture * _texture = nullptr;
 	TransformComponent* _transform;
 	bool _flip = false;
-	int fil, col;
+	int _fil = 1, _col = 1;
 
 public:
-	FrameComponent(TransformComponent* trans, Texture* _texture, int fil, int col);
+	FrameComponent(GameComponent* obj);
 	~FrameComponent();
 	virtual void render() const;
+	void setFilAndCol(int fil, int col);
 	void flip();
 	void unFlip();
 };

@@ -1,16 +1,10 @@
-#ifndef PHYSICSCOMPONENT_H_
-#define PHYSICSCOMPONENT_H_
+#include "Component.h"
 
-#include "GameObject.h"
+class GameComponent;
 
-/*
- *
- */
-class PhysicsComponent {
+class PhysicsComponent : public Component {
 public:
-	PhysicsComponent();
+	PhysicsComponent(GameComponent* obj);
 	virtual ~PhysicsComponent();
-	virtual void update(GameObject* o, Uint32 time) = 0;
+	virtual void update() = 0;
 };
-
-#endif /* PHYSICSCOMPONENT_H_ */

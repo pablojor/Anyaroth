@@ -1,5 +1,12 @@
 #include "PlayerControllerComponent.h"
+#include "GameComponent.h"
 
+
+PlayerControllerComponent::PlayerControllerComponent(GameComponent* obj) : InputComponent(obj) 
+{
+	_movement = obj->getComponent<MovingComponent>();
+	if (_movement == nullptr) _movement = obj->addComponent<MovingComponent>();
+}
 
 void PlayerControllerComponent::handleInput(const SDL_Event& event)
 {
@@ -10,12 +17,12 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 		else if (event.key.keysym.sym == SDLK_d)
 			dPul = true;
 
-		if(event.key.keysym.sym == SDLK_w)
+		if (event.key.keysym.sym == SDLK_w)
 			wPul = true;
 
 		if (event.key.keysym.sym == SDLK_s)
 			sPul = true;
-		
+
 	}
 
 	if (event.type == SDL_KEYUP)
@@ -34,13 +41,13 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 	}
 
 	if (aPul == dPul)
-		movement->changeDir(0, 0); //Llamo a animacion iddle
+		_movement->changeDir(0, 0); //Llamo a animacion iddle
 	else if (aPul)
-		movement->changeDir(-1, 0); //Llamo a animacion de moverse y un flip
+		_movement->changeDir(-1, 0); //Llamo a animacion de moverse y un flip
 	else if (dPul)
-		movement->changeDir(1, 0); //Llamo a animacion de moverse
+		_movement->changeDir(1, 0); //Llamo a animacion de moverse
 	else
-		movement->changeDir(0, 0); //Llamo a animacion iddle
+		_movement->changeDir(0, 0); //Llamo a animacion iddle
 
 	if (wPul /*Y no estoy saltando ya*/)
 	{

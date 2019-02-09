@@ -1,21 +1,21 @@
 #pragma once
 #include "RenderComponent.h"
-#include "GameComponent.h"
-#include "TransformComponent.h"
 #include "Texture.h"
+#include "TransformComponent.h"
+
+class GameComponent;
 
 class SpriteComponent : public RenderComponent 
 {
 	private:
 		Texture * _texture = nullptr;
-		TransformComponent* _transform;
+		TransformComponent* _transform = nullptr;
 		bool _flip = false;
 
 	public:
-		SpriteComponent(TransformComponent* trans, Texture* _texture);
+		SpriteComponent(GameComponent* obj);
 		~SpriteComponent();
 		void render() const;
-		void renderFrame(int fil, int col) const;
 		void flip();
 		void unFlip();
 };

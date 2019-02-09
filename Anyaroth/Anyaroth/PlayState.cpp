@@ -2,7 +2,7 @@
 #include "Game.h"
 #include "Layer.h"
 
-PlayState::PlayState(Game* g)  :GameState(g)
+PlayState::PlayState(Game* g) : GameState(g)
 {
 	stages.push_back(new Layer("Capa de Patrones 1", g->getTexture("tileset"), TILEMAP_PATH + "P2.json"));
 	stages.push_back(new Layer("Capa de patrones 2", g->getTexture("tileset"), TILEMAP_PATH + "P2.json"));

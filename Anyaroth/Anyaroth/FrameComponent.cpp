@@ -1,16 +1,23 @@
 #include "FrameComponent.h"
+#include "GameComponent.h"
 
 
-
-FrameComponent::FrameComponent(TransformComponent* trans, Texture* text, int fil, int col) : RenderComponent(), fil(fil), col(col)
+FrameComponent::FrameComponent(GameComponent* obj) : RenderComponent(obj)
 {
-	_texture = text;
-	_transform = trans;
+	_texture = obj->getComponent<Texture>();
+	_transform = obj->getComponent<TransformComponent>();
+	if (_transform == nullptr) _transform = obj->addComponent<TransformComponent>();
 }
 
 
 FrameComponent::~FrameComponent()
 {
+}
+
+void FrameComponent::setFilAndCol(int fil, int col)
+{
+	_fil = fil;
+	_col = col;
 }
 
 void FrameComponent::render() const
@@ -23,8 +30,9 @@ void FrameComponent::render() const
 
 	SDL_Point anchor = { _transform->getAnchor().getX() * destRect.w, _transform->getAnchor().getY() * destRect.h };
 
-	_texture->renderFrame(destRect, fil, col, _transform->getRotation(), anchor, (_flip ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE));
+	_texture->renderFrame(destRect, _fil, _col, _transform->getRotation(), anchor, (_flip ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE));
 }
+
 void FrameComponent::flip()
 {
 	_flip = true;

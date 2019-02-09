@@ -1,10 +1,14 @@
 #include "InputComponent.h"
+#include "GameComponent.h"
 
-InputComponent::InputComponent() {
-	// TODO Auto-generated constructor stub
+
+InputComponent::InputComponent(GameComponent* obj) 
+{
+	obj->addInputComponent(this);
+}
+
+InputComponent::~InputComponent() 
+{
 
 }
 
-InputComponent::~InputComponent() {
-	// TODO Auto-generated destructor stub
-}

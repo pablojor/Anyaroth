@@ -1,10 +1,13 @@
 #include "RenderComponent.h"
+#include "GameComponent.h"
 
-RenderComponent::RenderComponent() {
-	// TODO Auto-generated constructor stub
+RenderComponent::RenderComponent(GameComponent* obj) 
+{ 
+	obj->addRenderComponent(this); 
+}
+
+RenderComponent::~RenderComponent() 
+{
 
 }
 
-RenderComponent::~RenderComponent() {
-	// TODO Auto-generated destructor stub
-}
