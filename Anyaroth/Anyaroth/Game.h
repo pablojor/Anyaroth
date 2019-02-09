@@ -11,8 +11,7 @@
 const int NUM_VARIABLES = 4;
 enum TypeVariable
 {
-	WIN_WIDTH, WIN_HEIGHT, FRAME_RATE, TIME_PER_FRAME
-
+	WIN_WIDTH, WIN_HEIGHT, FRAME_RATE, TIME_PER_FRAME	
 };
 
 const int NUM_STATES = 1;
@@ -26,6 +25,7 @@ const string FONTS_PATH = "..\\font\\";
 const string FILES_PATH = "..\\files\\levels\\";
 const string SAVES_PATH = "..\\files\\saves\\";
 const string SPRITE_PATH = "..\\assets\\sprites\\";
+const string TILEMAP_PATH = "..\\files\\tilemaps\\";
 
 
 const int NUM_TEXTURES = 2;
@@ -37,6 +37,9 @@ const string LEVELS[NUM_LEVELS] =
 
 };
 
+const double TILES_W = 16;
+const double TILES_H = 16;
+
 //********************************************************************************
 //********************************************************************************
 //********************************************************************************
@@ -44,20 +47,17 @@ const string LEVELS[NUM_LEVELS] =
 class Game
 {
 	private:
-
 		SDL_Window* window = nullptr;
 		SDL_Renderer* renderer = nullptr;
 		map <string, Texture*> textures;
 		GameState* states[NUM_STATES];
 		GameStateMachine* stateMachine = new GameStateMachine();
 		vector<string> texturesName;
-
 		bool exit = false;
 
 	public:
 		vector<int> var;
-		
-	//Metodos
+		//Metodos
 		void createVariables();
 		void createTextures();
 		void pushState(StateName);

@@ -1,13 +1,12 @@
 #include "SpriteComponent.h"
+#include "GameComponent.h"
 
-
-
-SpriteComponent::SpriteComponent(TransformComponent* trans, Texture* text) : RenderComponent()
+SpriteComponent::SpriteComponent(GameComponent* obj) : RenderComponent(obj)
 {
-	_texture = text;
-	_transform = trans;
+	_texture = obj->getComponent<Texture>();
+	_transform = obj->getComponent<TransformComponent>();
+	if (_transform == nullptr) _transform = obj->addComponent<TransformComponent>();
 }
-
 
 SpriteComponent::~SpriteComponent() 
 {
@@ -25,7 +24,6 @@ void SpriteComponent::render() const
 
 	_texture->render(destRect, _transform->getRotation(), anchor,(_flip ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE));
 }
-
 void SpriteComponent::flip() 
 {
 	_flip = true;

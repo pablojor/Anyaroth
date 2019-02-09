@@ -2,22 +2,19 @@
 
 #include "InputComponent.h"
 #include "MovingComponent.h"
+//#include "AnimatedSpriteComponent.h"
 
-#include "AnimatedSpriteComponent.h"
+class GameComponent;
 
 class PlayerControllerComponent : public InputComponent
 {
 
 	private:
-		MovingComponent* movement;
-		AnimatedSpriteComponent* anim;
-
+	  //AnimatedSpriteComponent* anim;
+		MovingComponent* _movement = nullptr;
 		bool wPul = false, aPul = false, sPul = false, dPul = false;
 
 	public:
-		PlayerControllerComponent(MovingComponent* movement, AnimatedSpriteComponent* anim) :
-			movement(movement), anim(anim), InputComponent() {};
-
-		virtual void handleInput( const SDL_Event& event);
-
+		PlayerControllerComponent(GameComponent* obj);
+		virtual void handleInput(const SDL_Event& event);
 };

@@ -1,6 +1,7 @@
 #include "GameState.h"
 #include "Game.h"
 
+
 GameState::GameState(Game* g) {
 	gameptr = g;
 }
@@ -25,5 +26,5 @@ void GameState::update()
 void GameState::handleEvents(SDL_Event& e)
 {
 	for (GameObject* o : stages)
-		o->handleEvents(e);
+		o->handleInput(e);
 }

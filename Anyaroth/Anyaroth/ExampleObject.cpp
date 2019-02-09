@@ -1,32 +1,29 @@
 #include "ExampleObject.h"
 #include "SpriteComponent.h"
-#include "AnimatedSpriteComponent.h"
-#include "AnimatedMovingComponent.h"
+//#include "AnimatedSpriteComponent.h"
+//#include "AnimatedMovingComponent.h"
 #include "PlayerControllerComponent.h"
-
-
+#include "MovingComponent.h"
 
 ExampleObject::ExampleObject(Texture* texture) : GameComponent() {
+	//Siempre primero los componentes que tienen que estar SI o SI.
+	addComponent<Texture>(texture);
+	//Resto de componentes
+	addComponent<SpriteComponent>();		//Como depende de Transform, en su constructura crea una si no ha encontrado Transform en el objeto.
+	auto transform = addComponent<TransformComponent>();		//Como en el metodo anterior se ha creado este componente, imprime por pantalla que ya existe uno.
 
-	transform = new TransformComponent();
-	//addRenderComponent(new SpriteComponent(transform, texture));
-	AnimatedSpriteComponent* b = new AnimatedSpriteComponent(transform, texture);
+	/*AnimatedSpriteComponent* b = new AnimatedSpriteComponent(transform, texture);
 	b->addAnim("Idle", 16);
 	b->addAnim("Walk", 10);
-	addRenderComponent(b);
+	addRenderComponent(b);*/
 
-	AnimatedMovingComponent* a = new AnimatedMovingComponent(transform, 0, 0, b);
+	addComponent<MovingComponent>();
+	addComponent<PlayerControllerComponent>();
 
-	addPhysicsComponent(a);
-	addInputComponent(new PlayerControllerComponent(a, b));
-
-
-
-
-	transform->setScale(6,6);
-	transform->setPosition(720 / 2, 480 / 2);
+	transform->setScale(10);
+	//transform->setPosition(720 / 2, 480 / 2);
 	transform->setAnchor(0.5, 0.5);
-	//transform->setRotation(45);
+	transform->setRotation(45);	
 
 }
 

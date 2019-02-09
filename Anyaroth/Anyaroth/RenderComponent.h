@@ -1,14 +1,11 @@
-#ifndef RENDERCOMPONENT_H_
-#define RENDERCOMPONENT_H_
+#include "Component.h"
 
-/*
- *
- */
-class RenderComponent {
+class GameComponent;
+
+class RenderComponent : public Component {
+
 public:
-	RenderComponent();
+	RenderComponent(GameComponent* obj);
 	virtual ~RenderComponent();
-	virtual void render(/*GameComponent* o, Uint32 time*/) const = 0;
+	virtual void render() const = 0;
 };
-
-#endif /* RENDERCOMPONENT_H_ */

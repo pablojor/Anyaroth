@@ -1,16 +1,12 @@
-#ifndef INPUTCOMPONENT_H_
-#define INPUTCOMPONENT_H_
+#include "Component.h"
+#include "SDL.h"
 
-#include "GameObject.h"
+class GameComponent;
 
-/*
- *
- */
-class InputComponent {
+class InputComponent : public Component {
 public:
-	InputComponent();
+	InputComponent(GameComponent* obj);
 	virtual ~InputComponent();
-	virtual void handleInput(/*GameObject* o, Uint32 time,*/ const SDL_Event& event) = 0;
+	virtual void handleInput(const SDL_Event& event) = 0;
 };
 
-#endif /* INPUTCOMPONENT_H_ */

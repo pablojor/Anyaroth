@@ -1,34 +1,45 @@
 #include "GameComponent.h"
+#include "PhysicsComponent.h"
+#include "RenderComponent.h"
+#include "InputComponent.h"
 
 GameComponent::GameComponent() :
 		GameObject(), inputComp_(), physicsComp_(), renderComp_() {
 }
 
 GameComponent::~GameComponent() {
-	for (RenderComponent* rc : renderComp_) delete rc;
+	/*for (RenderComponent* rc : renderComp_) delete rc;
 	for (PhysicsComponent* pc : physicsComp_) delete pc;
-	for (InputComponent* ic : inputComp_) delete ic;
-	delete transform;
-}
-
-void GameComponent::handleEvents(/*Uint32 time, const*/ SDL_Event& event) {
-	for (InputComponent* ic : inputComp_) {
-		ic->handleInput(/*this, 0time*/ event);
+	for (InputComponent* ic : inputComp_) delete ic;*/
+	
+	for (auto it = _components.begin(); it != _components.end(); it++)
+	{
+		//No borra las Texturas porque de eso se encarga ~Game();
+		if (it->first != "class Texture")
+		{
+			delete it->second;
+			it->second = nullptr;
+		}
 	}
 }
 
-void GameComponent::update(/*Uint32 time*/) {
+void GameComponent::handleInput(const SDL_Event& event) {
+	for (InputComponent* ic : inputComp_) {
+		ic->handleInput(event);
+	}
+}
+
+void GameComponent::update() {
 	for (PhysicsComponent* pc : physicsComp_) {
-		pc->update(/*this, 0*//*time*/);
-		
+		pc->update();
 	}
 
 	
 }
 
-void GameComponent::render(/*Uint32 time*/) const {
+void GameComponent::render() const {
 	for (RenderComponent* rc : renderComp_) {
-		rc->render(/*this, time*/);
+		rc->render();
 	}
 }
 
@@ -47,27 +58,21 @@ void GameComponent::addRenderComponent(RenderComponent* rc) {
 void GameComponent::delInputComponent(InputComponent* ic) {
 	std::vector<InputComponent*>::iterator position = std::find(
 			inputComp_.begin(), inputComp_.end(), ic);
-	if (position != inputComp_.end()) {
+	if (position != inputComp_.end())
 		inputComp_.erase(position);
-		delete ic;
-	}
 }
 
 void GameComponent::delPhysicsComponent(PhysicsComponent* pc) {
 	std::vector<PhysicsComponent*>::iterator position = std::find(
 			physicsComp_.begin(), physicsComp_.end(), pc);
-	if (position != physicsComp_.end()) {
+	if (position != physicsComp_.end())
 		physicsComp_.erase(position);
-		delete pc;
-	}
 }
 
 void GameComponent::delRenderComponent(RenderComponent* rc) {
 	std::vector<RenderComponent*>::iterator position = std::find(
 			renderComp_.begin(), renderComp_.end(), rc);
-	if (position != renderComp_.end()) {
+	if (position != renderComp_.end())
 		renderComp_.erase(position);
-		delete rc;
-	}
 }
 
