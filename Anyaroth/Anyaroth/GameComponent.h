@@ -46,9 +46,9 @@ public:
 	GameComponent();
 	virtual ~GameComponent();
 
-	virtual void handleInput(Uint32 time, const SDL_Event& event);
-	virtual void update(Uint32 time);
-	virtual void render(Uint32 time);
+	virtual void handleInput(const SDL_Event& event);
+	virtual void update();
+	virtual void render() const;
 
 	virtual void addInputComponent(InputComponent* ic);
 	virtual void addPhysicsComponent(PhysicsComponent* pc);

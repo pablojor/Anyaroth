@@ -11,23 +11,22 @@ GameComponent::~GameComponent() {
 	for (RenderComponent* rc : renderComp_) delete rc;
 	for (PhysicsComponent* pc : physicsComp_) delete pc;
 	for (InputComponent* ic : inputComp_) delete ic;
-	//delete transform;
-
+	
 }
 
-void GameComponent::handleInput(Uint32 time, const SDL_Event& event) {
+void GameComponent::handleInput(const SDL_Event& event) {
 	for (InputComponent* ic : inputComp_) {
-		ic->handleInput(this, time, event);
+		ic->handleInput(event);
 	}
 }
 
-void GameComponent::update(Uint32 time) {
+void GameComponent::update() {
 	for (PhysicsComponent* pc : physicsComp_) {
-		pc->update(this, time);
+		pc->update();
 	}
 }
 
-void GameComponent::render(Uint32 time) {
+void GameComponent::render() const {
 	for (RenderComponent* rc : renderComp_) {
 		rc->render();
 	}

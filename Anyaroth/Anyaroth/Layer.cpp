@@ -1,10 +1,9 @@
 #include "Layer.h"
 #include "Game.h"
 #include "AnyarothError.h"
-
 #include <sstream>
 
-Layer::Layer(string name, Texture* t, string filename) :type(type), tileset(t)
+Layer::Layer(string name, Texture* t, string filename) :/*type(type),*/ tileset(t)
 { 
 	tilemap.clear();
 	fstream file;
@@ -54,7 +53,7 @@ Layer::Layer(string name, Texture* t, string filename) :type(type), tileset(t)
 					getline(iss, n, ',');
 					temp = stoi(n);
 					temp--;
-					Tile* tile = new Tile(x*TILES_W, y*TILES_H, (temp / t->getNumCols()), temp % t->getNumCols(), tileset);
+					Tile* tile = new Tile(x * TILES_W, y * TILES_H, (temp / t->getNumCols()), temp % t->getNumCols(), tileset);
 					tilemap.push_back(tile);
 				}
 			}
@@ -68,57 +67,14 @@ Layer::Layer(string name, Texture* t, string filename) :type(type), tileset(t)
 
 Layer::~Layer() 
 { 
-	tilemap.clear();
+	//tilemap.clear();
 }
 
 
-void Layer::render(Uint32 time)
+void Layer::render() const
 {
 	for (Tile* t : tilemap)
 	{
-		t->render(time);
-	}
-}
-
-
-void Layer::addInputComponent(InputComponent* ic) {
-	for (Tile* t : tilemap)
-	{
-		t->addInputComponent(ic);
-	}
-}
-
-void Layer::addPhysicsComponent(PhysicsComponent* pc) {
-	for (Tile* t : tilemap)
-	{
-		t->addPhysicsComponent(pc);
-	}
-}
-
-void Layer::addRenderComponent(RenderComponent* rc) {
-	for (Tile* t : tilemap)
-	{
-		t->addRenderComponent(rc);
-	}
-}
-
-void Layer::delInputComponent(InputComponent* ic) {
-	for (Tile* t : tilemap)
-	{
-		t->delInputComponent(ic);
-	}
-}
-
-void Layer::delPhysicsComponent(PhysicsComponent* pc) {
-	for (Tile* t : tilemap)
-	{
-		t->delPhysicsComponent(pc);
-	}
-}
-
-void Layer::delRenderComponent(RenderComponent* rc) {
-	for (Tile* t : tilemap)
-	{
-		t->delRenderComponent(rc);
+		t->render();
 	}
 }

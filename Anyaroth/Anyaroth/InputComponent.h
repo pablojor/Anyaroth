@@ -7,6 +7,6 @@ class InputComponent : public Component {
 public:
 	InputComponent(GameComponent* obj);
 	virtual ~InputComponent();
-	virtual void handleInput(/*GameObject* o, Uint32 time,*/const SDL_Event& event) = 0;
+	virtual void handleInput(const SDL_Event& event) = 0;
 };
 

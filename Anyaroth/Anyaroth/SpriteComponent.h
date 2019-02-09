@@ -2,7 +2,6 @@
 #include "RenderComponent.h"
 #include "Texture.h"
 #include "TransformComponent.h"
-#include "Texture.h"
 
 class GameComponent;
 
@@ -17,7 +16,6 @@ class SpriteComponent : public RenderComponent
 		SpriteComponent(GameComponent* obj);
 		~SpriteComponent();
 		void render() const;
-		void renderFrame(int fil, int col) const;
 		void flip();
 		void unFlip();
 };
