@@ -2,7 +2,7 @@
 
 class GameComponent;
 
-class RenderComponent : public Component {
+class RenderComponent : public virtual Component {
 
 public:
 	RenderComponent(GameComponent* obj);

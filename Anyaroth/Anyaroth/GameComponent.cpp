@@ -33,6 +33,8 @@ void GameComponent::update() {
 	for (PhysicsComponent* pc : physicsComp_) {
 		pc->update();
 	}
+
+	
 }
 
 void GameComponent::render() const {

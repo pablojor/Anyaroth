@@ -1,3 +1,5 @@
+#pragma once
+
 #include "GameObject.h"
 #include <vector>
 #include <map>
@@ -27,7 +29,7 @@ private:
 			_components[name] = c;
 			return c;
 		}
-		else cout << "Se ha intentado a�adir un componente ya existente" << endl;
+		else cout << "Se ha intentado anyadir un componente ya existente" << endl;
 		return nullptr;
 	}
 
@@ -39,7 +41,7 @@ private:
 		auto it = _components.find(name);
 		ComponentType* c = nullptr;
 		if(it != _components.end()) c = dynamic_cast<ComponentType*>(it->second);
-		return c; //Ser� nullptr si no lo encuentra
+		return c; //Sera nullptr si no lo encuentra
 	}
 
 public:
