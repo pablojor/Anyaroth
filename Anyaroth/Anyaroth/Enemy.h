@@ -1,7 +1,6 @@
 #pragma once
 #include "GameComponent.h"
-class Enemy :
-	public GameComponent
+class Enemy : public GameComponent
 {
 private:
 	int life;

@@ -4,8 +4,8 @@
 
 Hud::Hud(Texture* texture, Vector2D iniPos) : GameComponent()
 {
-	transform = new TransformComponent();
-	addRenderComponent(new SpriteComponent(transform, texture));
+	auto transform = addComponent<TransformComponent>();
+	addComponent<SpriteComponent>();
 
 	transform->setPosition(iniPos.getX(), iniPos.getY());
 }

@@ -1,20 +1,22 @@
 #include "Gun.h"
-#include "SpriteComponent.h"
+#include "AnimatedSpriteComponent.h"
 
 
-Gun::Gun(Texture* texture, TransformComponent* player,int maxAmmunition,int magazine) : GameComponent()
+Gun::Gun(Texture* texture, GameComponent* player, int maxAmmunition, int magazine) : GameComponent()
 {
 	//en principio su transform es el mismo que el del jugador;
-	playerTransform = player;
-	transform = new TransformComponent();
-	addRenderComponent(new SpriteComponent(transform, texture));
+	_playerTransform = player->getComponent<TransformComponent>();
 
-	maxAmmo = maxAmmunition;
-	clip = magazine;
-	ammoOnClip = magazine;
+	auto transform = addComponent<TransformComponent>(); //new TransformComponent();
+	addComponent<AnimatedSpriteComponent>();
+	//addRenderComponent(new SpriteComponent(transform, texture));
+
+	_maxAmmo = maxAmmunition;
+	_clip = magazine;
+	_ammoOnClip = magazine;
 	if (maxAmmunition > magazine * 3)
 	{
-		leftAmmo = magazine * 2;
+		_leftAmmo = magazine * 2;
 	}
 
 }
@@ -22,10 +24,10 @@ Gun::Gun(Texture* texture, TransformComponent* player,int maxAmmunition,int maga
 
 Gun::~Gun()
 {
-	playerTransform = nullptr;
+	_playerTransform = nullptr;
 }
 
 void Gun::update()
 {
-	transform->setPosition(playerTransform->getPosition().getX(), playerTransform->getPosition().getY());
+	getComponent<TransformComponent>()->setPosition(_playerTransform->getPosition().getX(), _playerTransform->getPosition().getY());
 }

@@ -1,14 +1,13 @@
 #pragma once
+
 #include "GameComponent.h"
-class Player :
-	public GameComponent
-{
+
+class Player : public GameComponent {
 private:
-	int life;
+	int _life;
 public:
 	Player(Texture* texture);
-	virtual ~Player();
+	~Player();
 
 	void update();
 };
-

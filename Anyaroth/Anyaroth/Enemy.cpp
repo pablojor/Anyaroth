@@ -2,13 +2,12 @@
 #include "SpriteComponent.h"
 
 
-Enemy::Enemy(Texture* texture, Vector2D posIni) : GameComponent() {
+Enemy::Enemy(Texture* texture, Vector2D iniPos) : GameComponent() {
 
-	transform = new TransformComponent();
-	addRenderComponent(new SpriteComponent(transform, texture));
+	auto transform = addComponent<TransformComponent>();
+	addComponent<SpriteComponent>();
 
-	transform->setPosition(posIni.getX(), posIni.getY());
-	
+	transform->setPosition(iniPos.getX(), iniPos.getY());
 
 }
 

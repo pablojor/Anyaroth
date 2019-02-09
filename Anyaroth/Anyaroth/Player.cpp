@@ -1,31 +1,30 @@
 #include "Player.h"
-#include "SpriteComponent.h"
-#include "MovingComponent.h"
 #include "PlayerControllerComponent.h"
-
-
+#include "TransformComponent.h"
+#include "MovingComponent.h"
 
 Player::Player(Texture* texture) : GameComponent() {
+	//Siempre primero los componentes que tienen que estar SI o SI.
+	addComponent<Texture>(texture);
+	//Resto de componentes
+			
+	auto transform = addComponent<TransformComponent>();		//Como en el metodo anterior se ha creado este componente, imprime por pantalla que ya existe uno.
 
-	transform = new TransformComponent();
-	addRenderComponent(new SpriteComponent(transform, texture));
-	/*
-	
-	MovingComponent* a = new MovingComponent(transform, 0, 0);
+	auto anim = addComponent<AnimatedSpriteComponent>();		//Como depende de Transform, en su constructura crea una si no ha encontrado Transform en el objeto.
 
-	addPhysicsComponent(a);
-	addInputComponent(new PlayerControllerComponent(a));
+	addComponent<MovingComponent>();
+	addComponent<PlayerControllerComponent>();
 
+	anim->addAnim("Idle", 16);
+	anim->addAnim("Walk", 10);
 
-
-
-	transform->setScale(10);
-	transform->setPosition(720 / 2, 480 / 2);
+	transform->setScale(3);
+	transform->setPosition(200, 200);
 	transform->setAnchor(0.5, 0.5);
 	//transform->setRotation(45);
-	
-	*/
-	
+
+
+
 }
 
 Player::~Player() {

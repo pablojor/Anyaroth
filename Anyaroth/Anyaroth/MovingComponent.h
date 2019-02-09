@@ -14,6 +14,8 @@ class MovingComponent : public PhysicsComponent
 
 		double _speed = 20;
 
+		double _gravity = 20;
+
 	public:
 		MovingComponent(GameComponent* obj);
 

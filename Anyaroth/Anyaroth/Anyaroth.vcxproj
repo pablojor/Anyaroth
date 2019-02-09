@@ -120,16 +120,23 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AnimatedSpriteComponent.cpp" />
-    <ClCompile Include="ExampleObject.cpp" />
+    <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="Collectable.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="FrameComponent.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameComponent.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="GameStateMachine.cpp" />
+    <ClCompile Include="Gun.cpp" />
+    <ClCompile Include="Hud.cpp" />
     <ClCompile Include="InputComponent.cpp" />
     <ClCompile Include="Layer.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MenuState.cpp" />
     <ClCompile Include="MovingComponent.cpp" />
+    <ClCompile Include="PauseState.cpp" />
     <ClCompile Include="PhysicsComponent.cpp" />
     <ClCompile Include="PlayerControllerComponent.cpp" />
     <ClCompile Include="PlayState.cpp" />
@@ -144,8 +151,12 @@
   <ItemGroup>
     <ClInclude Include="AnimatedSpriteComponent.h" />
     <ClInclude Include="AnyarothError.h" />
+    <ClInclude Include="Bullet.h" />
+    <ClInclude Include="checkML.h" />
+    <ClInclude Include="Collectable.h" />
     <ClInclude Include="Component.h" />
-    <ClInclude Include="ExampleObject.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="FileFormatError.h" />
     <ClInclude Include="FileNotFoundError.h" />
     <ClInclude Include="FrameComponent.h" />
@@ -154,9 +165,13 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GameStateMachine.h" />
+    <ClInclude Include="Gun.h" />
+    <ClInclude Include="Hud.h" />
     <ClInclude Include="InputComponent.h" />
     <ClInclude Include="Layer.h" />
+    <ClInclude Include="MenuState.h" />
     <ClInclude Include="MovingComponent.h" />
+    <ClInclude Include="PauseState.h" />
     <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="PlayerControllerComponent.h" />
     <ClInclude Include="PlayState.h" />
