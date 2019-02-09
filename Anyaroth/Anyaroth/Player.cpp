@@ -2,6 +2,7 @@
 #include "PlayerControllerComponent.h"
 #include "TransformComponent.h"
 #include "MovingComponent.h"
+#include "BoxCollider.h"
 
 Player::Player(Texture* texture) : GameComponent() {
 	//Siempre primero los componentes que tienen que estar SI o SI.
@@ -14,12 +15,13 @@ Player::Player(Texture* texture) : GameComponent() {
 
 	addComponent<MovingComponent>();
 	addComponent<PlayerControllerComponent>();
+	addComponent<BoxCollider>();
 
 	anim->addAnim("Idle", 16);
 	anim->addAnim("Walk", 10);
 
 	transform->setScale(3);
-	transform->setPosition(200, 200);
+	transform->setPosition(300, 200);
 	transform->setAnchor(0.5, 0.5);
 	//transform->setRotation(45);
 
