@@ -27,7 +27,7 @@ private:
 			_components[name] = c;
 			return c;
 		}
-		else cout << "Se ha intentado añadir un componente ya existente" << endl;
+		else cout << "Se ha intentado aï¿½adir un componente ya existente" << endl;
 		return nullptr;
 	}
 
@@ -39,16 +39,16 @@ private:
 		auto it = _components.find(name);
 		ComponentType* c = nullptr;
 		if(it != _components.end()) c = dynamic_cast<ComponentType*>(it->second);
-		return c; //Será nullptr si no lo encuentra
+		return c; //Serï¿½ nullptr si no lo encuentra
 	}
 
 public:
 	GameComponent();
 	virtual ~GameComponent();
 
-	virtual void handleEvents(/*Uint32 time, */SDL_Event& event);
-	virtual void update(/*Uint32 time*/);
-	virtual void render(/*Uint32 time*/) const;
+	virtual void handleInput(Uint32 time, const SDL_Event& event);
+	virtual void update(Uint32 time);
+	virtual void render(Uint32 time);
 
 	virtual void addInputComponent(InputComponent* ic);
 	virtual void addPhysicsComponent(PhysicsComponent* pc);
@@ -82,3 +82,4 @@ public:
 		return c;
 	}
 };
+

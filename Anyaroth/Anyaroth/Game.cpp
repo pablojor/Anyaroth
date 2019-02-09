@@ -13,10 +13,8 @@ void Game::createVariables()
 			input >> trash; input >> value;
 			var.push_back(value);
 		}
-
 	}
 	input.close();
-
 }
 
 void Game::createTextures()
@@ -31,7 +29,7 @@ void Game::createTextures()
 			string name; input >> name;
 			int fil; input >> fil;
 			int col; input >> col;
-			textures.insert(pair <string, Texture*> (id, new Texture(renderer, SPRITE_PATH + name, fil, col)));
+			textures.insert(pair <string, Texture*> (id, new Texture(renderer,SPRITE_PATH+name, fil, col)));
 			texturesName.push_back(id);
 		}
 	}
@@ -42,6 +40,7 @@ void Game::pushState(StateName nameState)
 {
 	stateMachine->pushState(states[nameState]);
 }
+
 void Game::changeState(StateName nameState)
 {
 	stateMachine->changeState(states[nameState]);
@@ -79,15 +78,14 @@ Game::Game()
 
 	SDL_Init(SDL_INIT_EVERYTHING);
 	TTF_Init();
-	window = SDL_CreateWindow("Anyaroth", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, var[WIN_WIDTH], var[WIN_HEIGHT], SDL_WINDOW_SHOWN);
-	
+	//window = SDL_CreateWindow("Anyaroth", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, var[WIN_WIDTH], var[WIN_HEIGHT], SDL_WINDOW_SHOWN);
+	window = SDL_CreateWindow("Anayroth", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1080, 760, SDL_WINDOW_SHOWN);
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
-//---Create textures
-
+	//---Create textures
 	createTextures();
 	
-//---Create states
+	//---Create states
 	states[Play] = new PlayState(this);
 
 	stateMachine->pushState(states[Play]);
@@ -98,13 +96,12 @@ Game::~Game()
 	int tamV = texturesName.size();
 	for (int i = 0; i < tamV; i++)
 	{
-		delete textures[texturesName[i]];
-		textures.erase(texturesName[i]);
+		//delete textures[texturesName[i]];
+		//textures.erase(texturesName[i]);
 	}
 
 	for (int i = 0; i < NUM_STATES; i++)
 		delete states[i];
-
 
 	delete stateMachine;
 
@@ -122,7 +119,8 @@ void Game::run()
 	{
 		handleEvents();
 		frameTime = SDL_GetTicks() - startTime;
-		if (frameTime >= var[FRAME_RATE])
+		//if (frameTime >= var[FRAME_RATE])
+		if (frameTime >= 60)
 		{
 			update();
 			startTime = SDL_GetTicks();

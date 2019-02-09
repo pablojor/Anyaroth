@@ -6,5 +6,5 @@ class PhysicsComponent : public Component {
 public:
 	PhysicsComponent(GameComponent* obj);
 	virtual ~PhysicsComponent();
-	virtual void update() = 0;
+	virtual void update(GameObject* o, Uint32 time) = 0;
 };

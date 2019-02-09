@@ -1,8 +1,6 @@
 #include "ExampleObject.h"
 #include "SpriteComponent.h"
 #include "MovingComponent.h"
-#include "PlayerControllerComponent.h"
-
 
 
 ExampleObject::ExampleObject(Texture* texture) : GameComponent() {
@@ -19,6 +17,7 @@ ExampleObject::ExampleObject(Texture* texture) : GameComponent() {
 	//transform->setPosition(720 / 2, 480 / 2);
 	transform->setAnchor(0.5, 0.5);
 	transform->setRotation(45);	
+
 }
 
 ExampleObject::~ExampleObject() {

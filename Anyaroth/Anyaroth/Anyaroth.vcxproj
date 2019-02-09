@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{60A3B899-1EDB-471B-84AB-DBCD1A6398D6}</ProjectGuid>
     <RootNamespace>Anyaroth</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -119,20 +119,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ExampleObject.cpp" />
+    <ClCompile Include="FrameComponent.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameComponent.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="GameStateMachine.cpp" />
     <ClCompile Include="InputComponent.cpp" />
+    <ClCompile Include="Layer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MovingComponent.cpp" />
     <ClCompile Include="PhysicsComponent.cpp" />
-    <ClCompile Include="PlayerControllerComponent.cpp" />
     <ClCompile Include="PlayState.cpp" />
     <ClCompile Include="RenderComponent.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TransformComponent.cpp" />
     <ClCompile Include="TTFclass.cpp" />
     <ClCompile Include="Vector2D.cpp" />
@@ -143,20 +144,21 @@
     <ClInclude Include="ExampleObject.h" />
     <ClInclude Include="FileFormatError.h" />
     <ClInclude Include="FileNotFoundError.h" />
+    <ClInclude Include="FrameComponent.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameComponent.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GameStateMachine.h" />
     <ClInclude Include="InputComponent.h" />
-    <ClInclude Include="MovingComponent.h" />
+    <ClInclude Include="Layer.h" />
     <ClInclude Include="PhysicsComponent.h" />
-    <ClInclude Include="PlayerControllerComponent.h" />
     <ClInclude Include="PlayState.h" />
     <ClInclude Include="RenderComponent.h" />
     <ClInclude Include="SDLError.h" />
     <ClInclude Include="SpriteComponent.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="Tile.h" />
     <ClInclude Include="TransformComponent.h" />
     <ClInclude Include="TTFclass.h" />
     <ClInclude Include="Vector2D.h" />

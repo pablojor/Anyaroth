@@ -1,5 +1,4 @@
 #pragma once
-
 #include "AnyarothError.h"
 
 class FileFormatError : public AnyarothError
