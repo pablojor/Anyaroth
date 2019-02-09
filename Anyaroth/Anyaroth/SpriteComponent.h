@@ -5,7 +5,7 @@
 
 class GameComponent;
 
-class SpriteComponent : public RenderComponent 
+class SpriteComponent : public virtual RenderComponent
 {
 	protected:
 		Texture * _texture = nullptr;
@@ -15,7 +15,7 @@ class SpriteComponent : public RenderComponent
 	public:
 		SpriteComponent(GameComponent* obj);
 		~SpriteComponent();
-		void render() const;
+		virtual void render() const;
 		void flip();
 		void unFlip();
 };

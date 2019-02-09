@@ -70,10 +70,13 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="AnimatedSpriteComponent.cpp">
-      <Filter>Archivos de recursos\Components</Filter>
+      <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="AnimatedMovingComponent.cpp">
-      <Filter>Archivos de recursos\Components</Filter>
+    <ClCompile Include="ExampleObject.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerControllerComponent.cpp">
+      <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -147,10 +150,13 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="AnimatedSpriteComponent.h">
-      <Filter>Archivos de encabezado\Components</Filter>
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="AnimatedMovingComponent.h">
-      <Filter>Archivos de encabezado\Components</Filter>
+    <ClInclude Include="MovingComponent.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerControllerComponent.h">
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

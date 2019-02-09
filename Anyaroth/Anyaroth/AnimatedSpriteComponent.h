@@ -1,22 +1,19 @@
 #pragma once
 
 #include "SpriteComponent.h"
+#include "PhysicsComponent.h"
 #include <unordered_map>
 
-//enum Animation { Idle, Walk };
+class GameComponent;
 
 struct AnimationState {
 	string name;
 	uint numFrames;
 };
 
-
-class AnimatedSpriteComponent : public SpriteComponent
+class AnimatedSpriteComponent: public SpriteComponent, public PhysicsComponent
 {
 protected:
-
-	//const uint NUM_ANIM = 2;
-
 	unordered_map<string, uint> animations = { /*{"Idle",16}, {"Walk",10} */};
 
 	string currentAnim = "";
@@ -26,10 +23,10 @@ protected:
 	uint _lastTimeUpdated = 0;  // last time we update a frame
 	uint _freq = 50; // the frequency of updating frames
 public:
-	AnimatedSpriteComponent(TransformComponent* trans, Texture* _texture);
+	AnimatedSpriteComponent(GameComponent* obj);
 	virtual ~AnimatedSpriteComponent();
-	void render() const;
-	void updateFrame();
+	virtual void render() const;
+	virtual void update();
 
 	void addAnim(string name, int numFrames);
 	void playAnim(string name);

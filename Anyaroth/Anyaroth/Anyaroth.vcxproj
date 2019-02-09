@@ -119,7 +119,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AnimatedMovingComponent.cpp" />
     <ClCompile Include="AnimatedSpriteComponent.cpp" />
     <ClCompile Include="ExampleObject.cpp" />
     <ClCompile Include="FrameComponent.cpp" />
@@ -132,6 +131,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MovingComponent.cpp" />
     <ClCompile Include="PhysicsComponent.cpp" />
+    <ClCompile Include="PlayerControllerComponent.cpp" />
     <ClCompile Include="PlayState.cpp" />
     <ClCompile Include="RenderComponent.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
@@ -142,7 +142,6 @@
     <ClCompile Include="Vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AnimatedMovingComponent.h" />
     <ClInclude Include="AnimatedSpriteComponent.h" />
     <ClInclude Include="AnyarothError.h" />
     <ClInclude Include="Component.h" />
@@ -157,7 +156,9 @@
     <ClInclude Include="GameStateMachine.h" />
     <ClInclude Include="InputComponent.h" />
     <ClInclude Include="Layer.h" />
+    <ClInclude Include="MovingComponent.h" />
     <ClInclude Include="PhysicsComponent.h" />
+    <ClInclude Include="PlayerControllerComponent.h" />
     <ClInclude Include="PlayState.h" />
     <ClInclude Include="RenderComponent.h" />
     <ClInclude Include="SDLError.h" />

@@ -1,8 +1,8 @@
 #include "AnimatedSpriteComponent.h"
+#include "GameComponent.h"
 
 
-
-AnimatedSpriteComponent::AnimatedSpriteComponent(TransformComponent* trans, Texture* _texture) : SpriteComponent(trans, _texture)
+AnimatedSpriteComponent::AnimatedSpriteComponent(GameComponent* obj) : SpriteComponent(obj), PhysicsComponent(obj), RenderComponent(obj), Component()
 {
 
 }
@@ -26,7 +26,7 @@ void AnimatedSpriteComponent::render() const
 	_texture->renderFrame(destRect, distance(begin(animations), animations.find(currentAnim)), frame, _transform->getRotation(), anchor, (_flip ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE));
 }
 
-void AnimatedSpriteComponent::updateFrame() {
+void AnimatedSpriteComponent::update() {
 	// we update the frame every _freq ms
 	if (SDL_GetTicks() - _lastTimeUpdated >= _freq) {
 		frame = (frame + 1) % animations[currentAnim];
@@ -35,12 +35,12 @@ void AnimatedSpriteComponent::updateFrame() {
 }
 
 
-void AnimatedSpriteComponent::addAnim(string name, int numFrames) 
+void AnimatedSpriteComponent::addAnim(string name, int numFrames)
 {
 	animations[name] = (uint)numFrames;
 }
 
-void AnimatedSpriteComponent::playAnim(string name) 
+void AnimatedSpriteComponent::playAnim(string name)
 {
 	currentAnim = name;
 }

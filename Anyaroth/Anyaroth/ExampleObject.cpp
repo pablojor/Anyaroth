@@ -1,29 +1,29 @@
 #include "ExampleObject.h"
-#include "SpriteComponent.h"
-//#include "AnimatedSpriteComponent.h"
-//#include "AnimatedMovingComponent.h"
 #include "PlayerControllerComponent.h"
+#include "TransformComponent.h"
 #include "MovingComponent.h"
 
 ExampleObject::ExampleObject(Texture* texture) : GameComponent() {
 	//Siempre primero los componentes que tienen que estar SI o SI.
 	addComponent<Texture>(texture);
 	//Resto de componentes
-	addComponent<SpriteComponent>();		//Como depende de Transform, en su constructura crea una si no ha encontrado Transform en el objeto.
+			
 	auto transform = addComponent<TransformComponent>();		//Como en el metodo anterior se ha creado este componente, imprime por pantalla que ya existe uno.
 
-	/*AnimatedSpriteComponent* b = new AnimatedSpriteComponent(transform, texture);
-	b->addAnim("Idle", 16);
-	b->addAnim("Walk", 10);
-	addRenderComponent(b);*/
+	auto anim = addComponent<AnimatedSpriteComponent>();		//Como depende de Transform, en su constructura crea una si no ha encontrado Transform en el objeto.
 
 	addComponent<MovingComponent>();
 	addComponent<PlayerControllerComponent>();
 
-	transform->setScale(10);
-	//transform->setPosition(720 / 2, 480 / 2);
+	anim->addAnim("Idle", 16);
+	anim->addAnim("Walk", 10);
+
+	transform->setScale(4);
+	transform->setPosition(200, 200);
 	transform->setAnchor(0.5, 0.5);
-	transform->setRotation(45);	
+	//transform->setRotation(45);
+
+
 
 }
 

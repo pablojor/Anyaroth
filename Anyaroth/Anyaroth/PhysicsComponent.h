@@ -1,8 +1,10 @@
+#pragma once
+
 #include "Component.h"
 
 class GameComponent;
 
-class PhysicsComponent : public Component {
+class PhysicsComponent : public virtual Component {
 public:
 	PhysicsComponent(GameComponent* obj);
 	virtual ~PhysicsComponent();
