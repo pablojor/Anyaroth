@@ -1,6 +1,6 @@
 #include "CollisionManager.h"
-
 #include "GameComponent.h"
+#include "Layer.h"
 
 CollisionManager* CollisionManager::_collisionManager = 0;
 
@@ -30,5 +30,12 @@ CollisionManager* CollisionManager::getCollisionManager()
 
 bool CollisionManager::checkCollision(GameComponent* A, GameComponent* B)
 {
-	return AABBCollision(A->getComponent<BoxCollider>()->getCollider(), B->getComponent<BoxCollider>()->getCollider());
+	/*if (dynamic_cast<Layer*>(B))
+	{
+		dynamic_cast<Layer*>(B)->getTilemap()
+	}
+	else
+	{*/
+		return AABBCollision(A->getComponent<BoxCollider>()->getCollider(), B->getComponent<BoxCollider>()->getCollider());
+	//}
 }

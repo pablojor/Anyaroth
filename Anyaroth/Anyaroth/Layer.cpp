@@ -61,7 +61,6 @@ Layer::Layer(string name, Texture* t, string filename) :/*type(type),*/ tileset(
 		else
 			throw AnyarothError("El formato del tileset no es correcto");
 		file.close();
-
 	}
 }
 
