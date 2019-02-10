@@ -2,18 +2,18 @@
 
 GameState* GameStateMachine::currentState()
 {
-	return states.top();
+	return _states.top();
 }
 void GameStateMachine::pushState(GameState* newState)
 {
-	states.push(newState);
+	_states.push(newState);
 }
 void GameStateMachine::changeState(GameState* newState)
 {
-	states.pop();
-	states.push(newState);
+	_states.pop();
+	_states.push(newState);
 }
 void GameStateMachine::popState()
 {
-	states.pop();
+	_states.pop();
 }

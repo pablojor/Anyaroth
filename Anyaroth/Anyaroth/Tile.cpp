@@ -15,5 +15,3 @@ Tile::Tile(double x, double y, int c, int f, Texture* t)
 	transform->setScale(3);
 	frame->setFilAndCol(f, c);
 }
-
-Tile::~Tile() {}

@@ -1,6 +1,7 @@
 #include "PauseState.h"
 
-PauseState::PauseState(Game* g) : GameState(g) {
+PauseState::PauseState(Game* g) : GameState(g) 
+{
 
 }
 

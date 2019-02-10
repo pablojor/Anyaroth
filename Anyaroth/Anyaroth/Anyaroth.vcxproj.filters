@@ -40,6 +40,12 @@
     <Filter Include="Archivos de origen\States">
       <UniqueIdentifier>{12e6da67-a350-4f6a-be0d-1b030b08a229}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\Components\Base">
+      <UniqueIdentifier>{e29c860d-9ed2-4382-9ed5-7b84a1f47801}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Components\Base">
+      <UniqueIdentifier>{69535549-471b-41b9-8975-607aec93bd70}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -51,22 +57,10 @@
     <ClCompile Include="AnimatedSpriteComponent.cpp">
       <Filter>Archivos de origen\Components</Filter>
     </ClCompile>
-    <ClCompile Include="CollisionManager.cpp">
-      <Filter>Archivos de origen\Components</Filter>
-    </ClCompile>
     <ClCompile Include="FrameComponent.cpp">
       <Filter>Archivos de origen\Components</Filter>
     </ClCompile>
-    <ClCompile Include="GameComponent.cpp">
-      <Filter>Archivos de origen\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="InputComponent.cpp">
-      <Filter>Archivos de origen\Components</Filter>
-    </ClCompile>
     <ClCompile Include="MovingComponent.cpp">
-      <Filter>Archivos de origen\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="PhysicsComponent.cpp">
       <Filter>Archivos de origen\Components</Filter>
     </ClCompile>
     <ClCompile Include="PlayerControllerComponent.cpp">
@@ -99,9 +93,6 @@
     <ClCompile Include="Tile.cpp">
       <Filter>Archivos de origen\Useful</Filter>
     </ClCompile>
-    <ClCompile Include="RenderComponent.cpp">
-      <Filter>Archivos de origen\Components</Filter>
-    </ClCompile>
     <ClCompile Include="SpriteComponent.cpp">
       <Filter>Archivos de origen\Components</Filter>
     </ClCompile>
@@ -132,6 +123,21 @@
     <ClCompile Include="PlayState.cpp">
       <Filter>Archivos de origen\States</Filter>
     </ClCompile>
+    <ClCompile Include="GameComponent.cpp">
+      <Filter>Archivos de origen\Components\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="InputComponent.cpp">
+      <Filter>Archivos de origen\Components\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsComponent.cpp">
+      <Filter>Archivos de origen\Components\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderComponent.cpp">
+      <Filter>Archivos de origen\Components\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>Archivos de origen\Useful</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -146,22 +152,10 @@
     <ClInclude Include="AnimatedSpriteComponent.h">
       <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
-    <ClInclude Include="GameComponent.h">
-      <Filter>Archivos de encabezado\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="InputComponent.h">
-      <Filter>Archivos de encabezado\Components</Filter>
-    </ClInclude>
     <ClInclude Include="MovingComponent.h">
       <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
-    <ClInclude Include="PhysicsComponent.h">
-      <Filter>Archivos de encabezado\Components</Filter>
-    </ClInclude>
     <ClInclude Include="PlayerControllerComponent.h">
-      <Filter>Archivos de encabezado\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderComponent.h">
       <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
     <ClInclude Include="SpriteComponent.h">
@@ -241,6 +235,18 @@
     </ClInclude>
     <ClInclude Include="PlayState.h">
       <Filter>Archivos de encabezado\States</Filter>
+    </ClInclude>
+    <ClInclude Include="GameComponent.h">
+      <Filter>Archivos de encabezado\Components\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="InputComponent.h">
+      <Filter>Archivos de encabezado\Components\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsComponent.h">
+      <Filter>Archivos de encabezado\Components\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderComponent.h">
+      <Filter>Archivos de encabezado\Components\Base</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

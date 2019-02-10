@@ -9,12 +9,12 @@ class Game;
 class GameState
 {
 	protected:
-		list <GameObject*> stages;
-		Game* gameptr;
+		list <GameObject*> _stages;
+		Game* _gameptr;
 
 	public:
+		GameState(Game* g) : _gameptr(g) {}
 		virtual ~GameState();
-		GameState(Game* g);
 		virtual void render() const;
 		virtual void update();
 		virtual void handleEvents(SDL_Event& e);

@@ -13,17 +13,17 @@ Font::~Font()
 
 void Font::load(string filename, int size)
 {
-	font = TTF_OpenFont(filename.c_str(), size);
-	if (font == NULL) throw "Error loading font from " + filename;
+	_font = TTF_OpenFont(filename.c_str(), size);
+	if (_font == NULL) throw "Error loading font from " + filename;
 }
 
 void Font::free()
 {
-	if (font != NULL) TTF_CloseFont(font);
-	font = NULL;
+	if (_font != NULL) TTF_CloseFont(_font);
+	_font = NULL;
 }
 
 SDL_Surface* Font::generateSurface(string text, SDL_Color color) const
 {
-	return TTF_RenderText_Solid(font, text.c_str(), color);
+	return TTF_RenderText_Solid(_font, text.c_str(), color);
 }

@@ -6,29 +6,30 @@
 
 class GameComponent;
 
-struct AnimationState {
+struct AnimationState 
+{
 	string name;
 	uint numFrames;
 };
 
 class AnimatedSpriteComponent: public SpriteComponent, public PhysicsComponent
 {
-protected:
-	unordered_map<string, uint> animations = { /*{"Idle",16}, {"Walk",10} */};
+	protected:
+		unordered_map<string, uint> _animations = { /*{"Idle",16}, {"Walk",10} */};
 
-	string currentAnim = "";
+		string _currentAnim = "";
 
-	uint frame;
+		uint _frame;
+		uint _lastTimeUpdated = 0;  // last time we update a frame
+		uint _freq = 50; // the frequency of updating frames
+	public:
+		AnimatedSpriteComponent(GameComponent* obj);
+		virtual ~AnimatedSpriteComponent();
 
-	uint _lastTimeUpdated = 0;  // last time we update a frame
-	uint _freq = 50; // the frequency of updating frames
-public:
-	AnimatedSpriteComponent(GameComponent* obj);
-	virtual ~AnimatedSpriteComponent();
-	virtual void render() const;
-	virtual void update();
+		virtual void render() const;
+		virtual void update();
 
-	void addAnim(string name, int numFrames);
-	void playAnim(string name);
+		void addAnim(string name, int numFrames);
+		void playAnim(string name);
 };
 

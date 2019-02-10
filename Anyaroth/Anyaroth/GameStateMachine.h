@@ -7,7 +7,7 @@
 class GameStateMachine
 {
 	private:
-		stack <GameState*> states;
+		stack <GameState*> _states;
 	public:
 		GameStateMachine() {};
 		~GameStateMachine() {};

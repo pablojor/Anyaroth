@@ -13,15 +13,15 @@ class MovingComponent : public PhysicsComponent
 		Vector2D _dir = Vector2D(0, 1);
 
 		double _speed = 20;
-
 		double _gravity = 20;
 
 	public:
 		MovingComponent(GameComponent* obj);
+		~MovingComponent() {}
+
+		virtual void update();
 
 		double getDirX() { return _dir.getX(); }
 		double getDirY() { return _dir.getY(); }
 		void changeDir(double x, double y) { _dir = Vector2D(x, y); }
-
-		virtual void update();
 };

@@ -3,11 +3,12 @@
 #include "RenderComponent.h"
 #include "InputComponent.h"
 
-GameComponent::GameComponent() :
-		GameObject(), inputComp_(), physicsComp_(), renderComp_() {
+GameComponent::GameComponent() : GameObject(), _inputComp(), _physicsComp(), _renderComp() 
+{
 }
 
-GameComponent::~GameComponent() {
+GameComponent::~GameComponent() 
+{
 	/*for (RenderComponent* rc : renderComp_) delete rc;
 	for (PhysicsComponent* pc : physicsComp_) delete pc;
 	for (InputComponent* ic : inputComp_) delete ic;*/
@@ -23,14 +24,18 @@ GameComponent::~GameComponent() {
 	}
 }
 
-void GameComponent::handleInput(const SDL_Event& event) {
-	for (InputComponent* ic : inputComp_) {
+void GameComponent::handleInput(const SDL_Event& event) 
+{
+	for (InputComponent* ic : _inputComp) 
+	{
 		ic->handleInput(event);
 	}
 }
 
-void GameComponent::update() {
-	for (PhysicsComponent* pc : physicsComp_) {
+void GameComponent::update() 
+{
+	for (PhysicsComponent* pc : _physicsComp) 
+	{
 		pc->update();
 	}
 
@@ -38,41 +43,41 @@ void GameComponent::update() {
 }
 
 void GameComponent::render() const {
-	for (RenderComponent* rc : renderComp_) {
+	for (RenderComponent* rc : _renderComp) {
 		rc->render();
 	}
 }
 
 void GameComponent::addInputComponent(InputComponent* ic) {
-	inputComp_.push_back(ic);
+	_inputComp.push_back(ic);
 }
 
 void GameComponent::addPhysicsComponent(PhysicsComponent* pc) {
-	physicsComp_.push_back(pc);
+	_physicsComp.push_back(pc);
 }
 
 void GameComponent::addRenderComponent(RenderComponent* rc) {
-	renderComp_.push_back(rc);
+	_renderComp.push_back(rc);
 }
 
 void GameComponent::delInputComponent(InputComponent* ic) {
 	std::vector<InputComponent*>::iterator position = std::find(
-			inputComp_.begin(), inputComp_.end(), ic);
-	if (position != inputComp_.end())
-		inputComp_.erase(position);
+			_inputComp.begin(), _inputComp.end(), ic);
+	if (position != _inputComp.end())
+		_inputComp.erase(position);
 }
 
 void GameComponent::delPhysicsComponent(PhysicsComponent* pc) {
 	std::vector<PhysicsComponent*>::iterator position = std::find(
-			physicsComp_.begin(), physicsComp_.end(), pc);
-	if (position != physicsComp_.end())
-		physicsComp_.erase(position);
+			_physicsComp.begin(), _physicsComp.end(), pc);
+	if (position != _physicsComp.end())
+		_physicsComp.erase(position);
 }
 
 void GameComponent::delRenderComponent(RenderComponent* rc) {
 	std::vector<RenderComponent*>::iterator position = std::find(
-			renderComp_.begin(), renderComp_.end(), rc);
-	if (position != renderComp_.end())
-		renderComp_.erase(position);
+			_renderComp.begin(), _renderComp.end(), rc);
+	if (position != _renderComp.end())
+		_renderComp.erase(position);
 }
 

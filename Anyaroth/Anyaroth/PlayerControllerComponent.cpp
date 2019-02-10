@@ -5,9 +5,12 @@
 PlayerControllerComponent::PlayerControllerComponent(GameComponent* obj) : InputComponent(obj) 
 {
 	_movement = obj->getComponent<MovingComponent>();
-	if (_movement == nullptr) _movement = obj->addComponent<MovingComponent>();
+	if (_movement == nullptr) 
+		_movement = obj->addComponent<MovingComponent>();
+
 	_anim = obj->getComponent<AnimatedSpriteComponent>();
-	if (_anim == nullptr) _anim = obj->addComponent<AnimatedSpriteComponent>();
+	if (_anim == nullptr) 
+		_anim = obj->addComponent<AnimatedSpriteComponent>();
 }
 
 void PlayerControllerComponent::handleInput(const SDL_Event& event)
@@ -15,45 +18,45 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 	if (event.type == SDL_KEYDOWN)
 	{
 		if (event.key.keysym.sym == SDLK_a)
-			aPul = true;
+			_aPul = true;
 		else if (event.key.keysym.sym == SDLK_d)
-			dPul = true;
+			_dPul = true;
 
 		if (event.key.keysym.sym == SDLK_w)
-			wPul = true;
+			_wPul = true;
 
 		if (event.key.keysym.sym == SDLK_s)
-			sPul = true;
+			_sPul = true;
 
 	}
 
 	if (event.type == SDL_KEYUP)
 	{
 		if (event.key.keysym.sym == SDLK_a)
-			aPul = false;
+			_aPul = false;
 		else if (event.key.keysym.sym == SDLK_d)
-			dPul = false;
+			_dPul = false;
 
 		if (event.key.keysym.sym == SDLK_w)
-			wPul = false;
+			_wPul = false;
 
 		if (event.key.keysym.sym == SDLK_s)
-			sPul = false;
+			_sPul = false;
 
 	}
 
-	if (aPul == dPul)
+	if (_aPul == _dPul)
 	{
 		_movement->changeDir(0, 0); //Llamo a animacion iddle
 		_anim->playAnim("Idle");
 	}
-	else if (aPul)
+	else if (_aPul)
 	{
 		_movement->changeDir(-1, 0); //Llamo a animacion de moverse y un flip
 		_anim->playAnim("Walk");
 		_anim->flip();
 	}
-	else if (dPul)
+	else if (_dPul)
 	{
 		_movement->changeDir(1, 0); //Llamo a animacion de moverse
 		_anim->playAnim("Walk");
@@ -65,12 +68,12 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 		_anim->playAnim("Idle");
 	}
 
-	if (wPul /*Y no estoy saltando ya*/)
+	if (_wPul /*Y no estoy saltando ya*/)
 	{
 		//Llamo a compoennte de salto
 	}
 
-	if (sPul)
+	if (_sPul)
 	{
 		//Llamo a compoennte de agacharse
 	}

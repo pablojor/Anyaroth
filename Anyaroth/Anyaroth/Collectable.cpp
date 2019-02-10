@@ -9,8 +9,3 @@ Collectable::Collectable(Texture* texture, Vector2D iniPos) : GameComponent()
 
 	transform->setPosition(iniPos.getX(), iniPos.getY());
 }
-
-
-Collectable::~Collectable()
-{
-}

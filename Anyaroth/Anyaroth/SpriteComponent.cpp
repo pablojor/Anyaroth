@@ -8,10 +8,6 @@ SpriteComponent::SpriteComponent(GameComponent* obj) : RenderComponent(obj)
 	if (_transform == nullptr) _transform = obj->addComponent<TransformComponent>();
 }
 
-SpriteComponent::~SpriteComponent() 
-{
-}
-
 void SpriteComponent::render() const 
 {
 	SDL_Rect destRect;
@@ -24,6 +20,7 @@ void SpriteComponent::render() const
 
 	_texture->render(destRect, _transform->getRotation(), anchor,(_flip ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE));
 }
+
 void SpriteComponent::flip() 
 {
 	_flip = true;

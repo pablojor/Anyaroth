@@ -3,9 +3,9 @@
 #include "AnyarothError.h"
 #include <sstream>
 
-Layer::Layer(string name, Texture* t, string filename) :/*type(type),*/ tileset(t)
+Layer::Layer(string name, Texture* t, string filename) :/*type(type),*/ _tileset(t)
 { 
-	tilemap.clear();
+	_tilemap.clear();
 	fstream file;
 	file.open(filename);
 	if (file.is_open())
@@ -53,8 +53,8 @@ Layer::Layer(string name, Texture* t, string filename) :/*type(type),*/ tileset(
 					getline(iss, n, ',');
 					temp = stoi(n);
 					temp--;
-					Tile* tile = new Tile(x * TILES_W, y * TILES_H, (temp / t->getNumCols()), temp % t->getNumCols(), tileset);
-					tilemap.push_back(tile);
+					Tile* tile = new Tile(x * TILES_W, y * TILES_H, (temp / t->getNumCols()), temp % t->getNumCols(), _tileset);
+					_tilemap.push_back(tile);
 				}
 			}
 		}
@@ -66,7 +66,7 @@ Layer::Layer(string name, Texture* t, string filename) :/*type(type),*/ tileset(
 
 Layer::~Layer() 
 { 
-	for (Tile* t : tilemap) 
+	for (Tile* t : _tilemap) 
 	{
 		delete t;
 		//t = nullptr;
@@ -76,7 +76,7 @@ Layer::~Layer()
 
 void Layer::render() const
 {
-	for (Tile* t : tilemap)
+	for (Tile* t : _tilemap)
 	{
 		t->render();
 	}

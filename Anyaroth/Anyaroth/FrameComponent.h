@@ -7,17 +7,18 @@ class GameComponent;
 
 class FrameComponent : public RenderComponent
 {
-private:
-	Texture * _texture = nullptr;
-	TransformComponent* _transform;
-	bool _flip = false;
-	int _fil = 1, _col = 1;
+	private:
+		Texture * _texture = nullptr;
+		TransformComponent* _transform = nullptr;
+		bool _flip = false;
+		int _fil = 1, _col = 1;
 
-public:
-	FrameComponent(GameComponent* obj);
-	~FrameComponent();
-	virtual void render() const;
-	void setFilAndCol(int fil, int col);
-	void flip();
-	void unFlip();
+	public:
+		FrameComponent(GameComponent* obj);
+		virtual ~FrameComponent() {}
+
+		virtual void render() const;
+		void setFilAndCol(int fil, int col);
+		void flip();
+		void unFlip();
 };

@@ -11,7 +11,7 @@ CollisionManager::~CollisionManager()
 }
 
 
-bool CollisionManager::AABBCollision(SDL_Rect rectA, SDL_Rect rectB)
+bool CollisionManager::_AABBCollision(SDL_Rect rectA, SDL_Rect rectB)
 {
 	return (rectA.x + rectA.w >= rectB.x &&
 			rectA.y + rectA.h >= rectB.y &&
@@ -36,6 +36,6 @@ bool CollisionManager::checkCollision(GameComponent* A, GameComponent* B)
 	}
 	else
 	{*/
-		return AABBCollision(A->getComponent<BoxCollider>()->getCollider(), B->getComponent<BoxCollider>()->getCollider());
+		return _AABBCollision(A->getComponent<BoxCollider>()->getCollider(), B->getComponent<BoxCollider>()->getCollider());
 	//}
 }

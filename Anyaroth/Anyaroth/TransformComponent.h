@@ -4,26 +4,31 @@
 
 class GameComponent;
 
-class TransformComponent : public Component {
-private:
-	Vector2D anchor;
-	Vector2D position;
-	Vector2D scale;
-	double rotation;
-public:
-	TransformComponent(GameComponent* obj);
-	~TransformComponent();
+class TransformComponent : public Component 
+{
+	private:
+		Vector2D _anchor;
+		Vector2D _position;
+		Vector2D _scale;
+		double _rotation;
 
-	Vector2D getAnchor();
-	Vector2D getPosition();
-	Vector2D getScale();
-	double getRotation();
+	public:
+		TransformComponent(GameComponent* obj);
+		~TransformComponent() {}
 
-	void setAnchor(double x, double y);
-	void setAnchor(double a);
-	void setPosition(double x, double y);
-	void setScale(double x, double y);
-	void setScale(double a);
-	void setRotation(double rot);
+		void setPosition(double x, double y) { _position = Vector2D(x, y); }
+
+		void setScale(double x, double y) { _scale = Vector2D(x, y); }
+		void setScale(double a) { _scale = Vector2D(a, a); }
+
+		void setAnchor(double x, double y) { _anchor = Vector2D(x, y); }
+		void setAnchor(double a) { _anchor = Vector2D(a, a); }
+
+		void setRotation(double rot) { _rotation = rot; }
+
+		Vector2D getPosition() { return _position; }
+		Vector2D getScale() { return _scale; }
+		Vector2D getAnchor() { return _anchor; }
+		double getRotation() { return _rotation; }
 };
 

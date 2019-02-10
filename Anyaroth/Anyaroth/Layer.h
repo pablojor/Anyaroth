@@ -4,20 +4,23 @@
 
 class Layer : public GameComponent 
 {
+	protected:
+		//int type;
+		Texture* _tileset;
+		vector<Tile*> _tilemap;
 	public:
 		Layer(string name, Texture* t, string filename);
 		~Layer();
+
 		void render() const;
 
-	protected:
-		//int type;
-		Texture* tileset;
-		vector<Tile*> tilemap;
-	public:
-		template<class ComponentType>
+		vector<Tile*> getTilemap() { return _tilemap; };
+
+
+		template<typename ComponentType>
 		ComponentType* addComponent() //Redefino addComponent() para que, en vez de anyadir el componente a la layer, lo anyade a cada tile
 		{
-			for (Tile* t : tilemap)
+			for (Tile* t : _tilemap)
 			{
 				t->addComponent<ComponentType>();
 			}
@@ -25,6 +28,4 @@ class Layer : public GameComponent
 			return nullptr;
 			//return add_component<ComponentType>(typeid(ComponentType).name());
 		}
-
-		vector<Tile*> getTilemap() { return tilemap; };
 };

@@ -9,11 +9,6 @@ FrameComponent::FrameComponent(GameComponent* obj) : RenderComponent(obj)
 	if (_transform == nullptr) _transform = obj->addComponent<TransformComponent>();
 }
 
-
-FrameComponent::~FrameComponent()
-{
-}
-
 void FrameComponent::setFilAndCol(int fil, int col)
 {
 	_fil = fil;

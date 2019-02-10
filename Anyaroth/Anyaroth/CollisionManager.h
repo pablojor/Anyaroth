@@ -12,7 +12,7 @@ class CollisionManager
 		static CollisionManager* _collisionManager;
 
 		CollisionManager() {}
-		static bool AABBCollision(SDL_Rect rectA, SDL_Rect rectB);
+		static bool _AABBCollision(SDL_Rect rectA, SDL_Rect rectB);
 
 	public:
 		~CollisionManager();

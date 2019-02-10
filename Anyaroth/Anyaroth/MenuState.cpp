@@ -1,7 +1,5 @@
 #include "MenuState.h"
 
-
-
 MenuState::MenuState(Game* g) : GameState(g) {
 	
 }

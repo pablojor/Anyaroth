@@ -14,7 +14,7 @@ class SpriteComponent : public virtual RenderComponent
 
 	public:
 		SpriteComponent(GameComponent* obj);
-		~SpriteComponent();
+		~SpriteComponent() {}
 		virtual void render() const;
 		void flip();
 		void unFlip();

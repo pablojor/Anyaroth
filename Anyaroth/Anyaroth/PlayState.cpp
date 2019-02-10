@@ -8,17 +8,17 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_colManager->getCollisionManager();
 
 	//Tilemap
-	stages.push_back(new Layer("Capa de Patrones 1", g->getTexture("tileset"), TILEMAP_PATH + "P2.json"));
-	stages.push_back(new Layer("Capa de patrones 2", g->getTexture("tileset"), TILEMAP_PATH + "P2.json"));
+	_stages.push_back(new Layer("Capa de Patrones 1", g->getTexture("tileset"), TILEMAP_PATH + "P2.json"));
+	_stages.push_back(new Layer("Capa de patrones 2", g->getTexture("tileset"), TILEMAP_PATH + "P2.json"));
 
 	_colLayer = new Layer("Capa de patrones 3", g->getTexture("tileset"), TILEMAP_PATH + "P2.json");
 	_colLayer->addComponent<BoxCollider>();
 	//_colLayer->
-	stages.push_back(_colLayer);
+	_stages.push_back(_colLayer);
 
 	//Player
 	_player = new Player(g->getTexture("Mk"));
-	stages.push_back(_player);
+	_stages.push_back(_player);
 };
 
 void PlayState::handleEvents(SDL_Event& e)
