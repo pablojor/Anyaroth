@@ -1,6 +1,5 @@
 #include "CollisionManager.h"
 #include "GameComponent.h"
-#include "Layer.h"
 
 CollisionManager* CollisionManager::_collisionManager = 0;
 
@@ -19,23 +18,17 @@ bool CollisionManager::_AABBCollision(SDL_Rect rectA, SDL_Rect rectB)
 			rectB.y + rectB.h >= rectA.y);
 }
 
-CollisionManager* CollisionManager::getCollisionManager()
-{
-	if (_collisionManager == 0)
-		_collisionManager = new CollisionManager();
-
-	return _collisionManager;
-}
+//WARNING, si se usa deja basura mistica, cuidado.
+//CollisionManager* CollisionManager::getCollisionManager()
+//{
+//	if (_collisionManager == 0)
+//		_collisionManager = new CollisionManager();
+//
+//	return _collisionManager;
+//}
 
 
 bool CollisionManager::checkCollision(GameComponent* A, GameComponent* B)
 {
-	/*if (dynamic_cast<Layer*>(B))
-	{
-		dynamic_cast<Layer*>(B)->getTilemap()
-	}
-	else
-	{*/
-		return _AABBCollision(A->getComponent<BoxCollider>()->getCollider(), B->getComponent<BoxCollider>()->getCollider());
-	//}
+	return _AABBCollision(A->getComponent<BoxCollider>()->getCollider(), B->getComponent<BoxCollider>()->getCollider());
 }

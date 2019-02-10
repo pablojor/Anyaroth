@@ -17,7 +17,7 @@ class CollisionManager
 	public:
 		~CollisionManager();
 
-		static CollisionManager* getCollisionManager();
+		//static CollisionManager* getCollisionManager();
 
 		static bool checkCollision(GameComponent* A, GameComponent* B);
 
