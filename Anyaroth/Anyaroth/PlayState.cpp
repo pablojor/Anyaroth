@@ -34,6 +34,6 @@ void PlayState::update()
 	for (int i = 0; i < _colLayer->getTilemap().size(); i++)
 	{
 		if(_colManager->checkCollision(_player, _colLayer->getTilemap()[i]))
-			cout << "collided!" << endl;
+			cout << "collided!";
 	}
 }
