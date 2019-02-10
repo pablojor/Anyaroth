@@ -18,7 +18,7 @@ bool CollisionManager::_AABBCollision(SDL_Rect rectA, SDL_Rect rectB)
 			rectB.y + rectB.h >= rectA.y);
 }
 
-//WARNING, si se usa deja basura mistica, cuidado.
+//WARNING, si se usa deja basura mistica, cuidado. <3
 //CollisionManager* CollisionManager::getCollisionManager()
 //{
 //	if (_collisionManager == 0)

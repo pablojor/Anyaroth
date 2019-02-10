@@ -13,7 +13,7 @@ class MovingComponent : public PhysicsComponent
 		Vector2D _dir = Vector2D(0, 1);
 
 		double _speed = 20;
-		double _gravity = 20;
+		double _gravity = 0;
 
 	public:
 		MovingComponent(GameComponent* obj);

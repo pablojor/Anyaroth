@@ -29,7 +29,7 @@ void Game::createTextures()
 			string name; input >> name;
 			int fil; input >> fil;
 			int col; input >> col;
-			textures.insert(pair <string, Texture*> (id, new Texture(renderer,SPRITE_PATH + name, fil, col)));
+			textures.insert(pair <string, Texture*>(id, new Texture(renderer, SPRITE_PATH + name, fil, col)));
 			texturesName.push_back(id);
 		}
 	}
@@ -54,17 +54,17 @@ Texture* Game::getTexture(string nameText)
 
 void Game::newGame()
 {
-	
+
 }
 
 void Game::load()
 {
-	
+
 }
 
 void Game::save()
 {
-	
+
 }
 
 //**************************************************************************************************************************//
@@ -78,13 +78,13 @@ Game::Game()
 
 	SDL_Init(SDL_INIT_EVERYTHING);
 	TTF_Init();
-	window = SDL_CreateWindow("Anyaroth", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, var[WIN_WIDTH], var[WIN_HEIGHT], SDL_WINDOW_SHOWN);
+	window = SDL_CreateWindow("Anyaroth", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 480 * RESOLUTION, 270 * RESOLUTION, SDL_WINDOW_SHOWN);
 	//window = SDL_CreateWindow("Anayroth", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1080, 760, SDL_WINDOW_SHOWN);
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
 	//---Create textures
 	createTextures();
-	
+
 	//---Create states
 	states[Play] = new PlayState(this);
 
