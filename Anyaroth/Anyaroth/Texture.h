@@ -46,8 +46,6 @@ public:
 	int getH() const { return h; };
 	uint getNumCols() const { return numCols; };
 	uint getNumFils() const { return numRows; };
-  int getFW() const { return w/numCols; }; // Frame width
-	int getFH() const { return h/numRows; }; // Frame height
 	SDL_Texture* getTexture() const { return texture; };
 
 	void load(string filename, uint numRows = 1, uint numCols = 1);
