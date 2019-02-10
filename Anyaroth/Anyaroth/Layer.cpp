@@ -4,17 +4,17 @@
 #include <sstream>
 
 Layer::Layer(string name, Texture* t, string filename) :/*type(type),*/ _tileset(t)
-{ 
+{
 	_tilemap.clear();
 	fstream file;
 	file.open(filename);
 	if (file.is_open())
 	{
-		int temp = 0, h=0, w=0;
+		int temp = 0, h = 0, w = 0;
 		bool found = false, cont = true;
 		string n = "", data;
 		//lee el archivo hasta que encuentra la layer que se quiere
-		while ((!found || cont)  && n!="}")
+		while ((!found || cont) && n != "}")
 		{
 			getline(file, n, ':');
 			//guardamos los datos en caso de que sea la capa que queremos
@@ -32,7 +32,7 @@ Layer::Layer(string name, Texture* t, string filename) :/*type(type),*/ _tileset
 					cont = false;
 			}
 
-			else 
+			else
 			{
 				getline(file, n);
 				if (n[0] == '[')
@@ -44,7 +44,7 @@ Layer::Layer(string name, Texture* t, string filename) :/*type(type),*/ _tileset
 		//convertimos los datos en input stream
 		istringstream iss(data);
 		//si no es el final del .json
-		if (n!="}") {
+		if (n != "}") {
 			getline(iss, n, '[');
 			for (int y = 0; y < h; y++)
 			{
@@ -53,8 +53,11 @@ Layer::Layer(string name, Texture* t, string filename) :/*type(type),*/ _tileset
 					getline(iss, n, ',');
 					temp = stoi(n);
 					temp--;
-					Tile* tile = new Tile(x * TILES_W, y * TILES_H, (temp / t->getNumCols()), temp % t->getNumCols(), _tileset);
-					_tilemap.push_back(tile);
+					if (temp > 0)
+					{
+						Tile* tile = new Tile(x * TILES_W, y * TILES_H, (temp / t->getNumCols()), temp % t->getNumCols(), _tileset);
+						_tilemap.push_back(tile);
+					}
 				}
 			}
 		}
@@ -64,9 +67,9 @@ Layer::Layer(string name, Texture* t, string filename) :/*type(type),*/ _tileset
 	}
 }
 
-Layer::~Layer() 
-{ 
-	for (Tile* t : _tilemap) 
+Layer::~Layer()
+{
+	for (Tile* t : _tilemap)
 	{
 		delete t;
 		//t = nullptr;
