@@ -8,9 +8,9 @@ PlayerControllerComponent::PlayerControllerComponent(GameComponent* obj) : Input
 	if (_movement == nullptr) 
 		_movement = obj->addComponent<MovingComponent>();
 
-	_anim = obj->getComponent<AnimatedSpriteComponent>();
+	/*_anim = obj->getComponent<AnimatedSpriteComponent>();
 	if (_anim == nullptr) 
-		_anim = obj->addComponent<AnimatedSpriteComponent>();
+		_anim = obj->addComponent<AnimatedSpriteComponent>();*/
 }
 
 void PlayerControllerComponent::handleInput(const SDL_Event& event)
@@ -48,24 +48,24 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 	if (_aPul == _dPul)
 	{
 		_movement->changeDir(0, 0); //Llamo a animacion iddle
-		_anim->playAnim("Idle");
+		//_anim->playAnim("Idle");
 	}
 	else if (_aPul)
 	{
 		_movement->changeDir(-1, 0); //Llamo a animacion de moverse y un flip
-		_anim->playAnim("Walk");
-		_anim->flip();
+		//_anim->playAnim("Walk");
+		//_anim->flip();
 	}
 	else if (_dPul)
 	{
 		_movement->changeDir(1, 0); //Llamo a animacion de moverse
-		_anim->playAnim("Walk");
-		_anim->unFlip();
+		//_anim->playAnim("Walk");
+		//_anim->unFlip();
 	}
 	else
 	{
 		_movement->changeDir(0, 0); //Llamo a animacion iddle
-		_anim->playAnim("Idle");
+		//_anim->playAnim("Idle");
 	}
 
 	if (_wPul /*Y no estoy saltando ya*/)

@@ -15,7 +15,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_stages.push_back(_colLayer);
 
 	//Player
-	_player = new Player(g->getTexture("Mk"));
+	_player = new Player(g->getTexture("example1"));
 	_stages.push_back(_player);
 }
 

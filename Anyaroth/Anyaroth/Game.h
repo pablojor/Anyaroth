@@ -9,7 +9,7 @@
 #include "PlayState.h"
 
 
-const int RESOLUTION = 4;
+const int RESOLUTION = 2;
 //1-> 480x270
 //2-> 920x540
 //3-> 1440x810

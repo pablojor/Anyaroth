@@ -2,12 +2,13 @@
 
 #include "GameComponent.h"
 
-class Player : public GameComponent {
-private:
-	int _life;
-public:
-	Player(Texture* texture);
-	~Player();
+class Player : public GameComponent 
+{
+	private:
+		int _life;
+	public:
+		Player(Texture* texture);
+		~Player();
 
-	void update();
+		void update();
 };
