@@ -10,10 +10,9 @@ class MovingComponent : public PhysicsComponent
 {
 	private:
 		TransformComponent* _transform;
-		Vector2D _dir = Vector2D(0, 1);
+		Vector2D _dir = Vector2D(0, 0);
 
 		double _speed = 20;
-		double _gravity = 0;
 
 	public:
 		MovingComponent(GameComponent* obj);

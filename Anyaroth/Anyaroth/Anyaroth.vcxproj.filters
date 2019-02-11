@@ -138,6 +138,9 @@
     <ClCompile Include="CollisionManager.cpp">
       <Filter>Archivos de origen\Useful</Filter>
     </ClCompile>
+    <ClCompile Include="IAControllerComponent.cpp">
+      <Filter>Archivos de origen\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -247,6 +250,9 @@
     </ClInclude>
     <ClInclude Include="RenderComponent.h">
       <Filter>Archivos de encabezado\Components\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="IAControllerComponent.h">
+      <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

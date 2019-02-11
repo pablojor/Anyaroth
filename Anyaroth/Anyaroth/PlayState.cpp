@@ -17,6 +17,10 @@ PlayState::PlayState(Game* g) : GameState(g)
 	//Player
 	_player = new Player(g->getTexture("Mk"));
 	_stages.push_back(_player);
+
+	//Enemy
+	_enemy = new Enemy(g->getTexture("Mk"), Vector2D(10, 100), _player);
+	_stages.push_back(_enemy);
 }
 
 void PlayState::handleEvents(SDL_Event& e)
