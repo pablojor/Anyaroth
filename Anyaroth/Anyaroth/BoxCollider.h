@@ -15,13 +15,15 @@ class BoxCollider : public PhysicsComponent
 		TransformComponent* _transform = nullptr;
 
 		Vector2D _size;
-		Vector2D _offset;
+		Vector2D _scale = Vector2D (1, 1);
+		Vector2D _offset = Vector2D (0, 0);
 
 	public:
 		BoxCollider(GameComponent* obj);
 
-		SDL_Rect getCollider() { return _collider; }
-		void setOffset();
-
 		void update();
+
+		SDL_Rect getCollider() { return _collider; }
+		void setScale(double x, double y) { _scale = Vector2D(x, y); }
+		void setOffset(double x, double y) { _offset = Vector2D(x, y); }
 };

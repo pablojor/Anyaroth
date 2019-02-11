@@ -12,7 +12,7 @@ class MovingComponent : public PhysicsComponent
 		TransformComponent* _transform;
 		Vector2D _dir = Vector2D(0, 1);
 
-		double _speed = 20;
+		double _speed = 1;
 		double _gravity = 0;
 
 	public:

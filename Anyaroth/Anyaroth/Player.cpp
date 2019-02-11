@@ -12,22 +12,24 @@ Player::Player(Texture* texture) : GameComponent() {
 
 	auto transform = addComponent<TransformComponent>();		//Como en el metodo anterior se ha creado este componente, imprime por pantalla que ya existe uno.
 
+	transform->setScale(RESOLUTION); //el 3 sería el factor de resolución!!
+	transform->setPosition(340, 100);
+	transform->setAnchor(0.5, 0.5);
+
 	//auto anim = addComponent<AnimatedSpriteComponent>();		//Como depende de Transform, en su constructura crea una si no ha encontrado Transform en el objeto.
 
 	addComponent<SpriteComponent>();
 	addComponent<MovingComponent>();
 	addComponent<PlayerControllerComponent>();
-	addComponent<BoxCollider>();
+
+	auto collider = addComponent<BoxCollider>();
+
+	collider->setOffset(16, 0);
+	collider->setScale(0.5, 1);
 
 	/*anim->addAnim("Idle", 16);
 	anim->addAnim("Walk", 10);*/
-
-	transform->setScale(RESOLUTION); //el 3 sería el factor de resolución!!
-	transform->setPosition(340, 100);
-	transform->setAnchor(0.5, 0.5);
 	//transform->setRotation(45);
-
-
 
 }
 
