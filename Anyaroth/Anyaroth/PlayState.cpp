@@ -20,6 +20,8 @@ PlayState::PlayState(Game* g) : GameState(g)
 	//Player
 	_player = new Player(g->getTexture("Mk"));
 	_stages.push_back(_player);
+
+	_stages.push_back(new Arm(g->getTexture("Arm"), _player));
 }
 
 void PlayState::handleEvents(SDL_Event& e)

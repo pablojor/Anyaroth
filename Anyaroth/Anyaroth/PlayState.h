@@ -2,6 +2,7 @@
 #include "GameState.h"
 #include "Layer.h"
 #include "Player.h"
+#include "Arm.h"
 
 class PlayState : public GameState
 {

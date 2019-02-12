@@ -35,6 +35,20 @@ class GameComponent: public GameObject
 			return nullptr;
 		}
 
+		//Following Component
+		template<class ComponentType>
+		ComponentType* add_component(string name, GameComponent* gc)
+		{
+			if (_components.find(name) == _components.end())
+			{
+				ComponentType* c = new ComponentType(this, gc);
+				_components[name] = c;
+				return c;
+			}
+			else cout << "Se ha intentado anyadir un componente ya existente" << endl;
+			return nullptr;
+		}
+
 		template<class ComponentType>
 		ComponentType* get_component(string name)
 		{
@@ -75,6 +89,13 @@ class GameComponent: public GameObject
 			{
 				_components[name] = ct;
 			}
+		}
+
+		//para el Following Component
+		template<class ComponentType>
+		ComponentType* addComponent(GameComponent* gc)
+		{
+			return add_component<ComponentType>(typeid(ComponentType).name(), gc);
 		}
 
 		template<class ComponentType>

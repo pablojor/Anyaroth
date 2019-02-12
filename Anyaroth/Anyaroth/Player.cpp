@@ -4,11 +4,15 @@
 #include "MovingComponent.h"
 #include "BoxCollider.h"
 #include "Game.h"
+#include "FollowingComponent.h"
 
-Player::Player(Texture* texture) : GameComponent() {
+Player::Player(Texture* texture) : GameComponent()
+{
 	//Siempre primero los componentes que tienen que estar SI o SI.
 	addComponent<Texture>(texture);
 	//Resto de componentes
+
+	//addComponent<FollowingComponent>(this);
 
 	auto transform = addComponent<TransformComponent>();		//Como en el metodo anterior se ha creado este componente, imprime por pantalla que ya existe uno.
 
@@ -30,10 +34,12 @@ Player::Player(Texture* texture) : GameComponent() {
 
 }
 
-Player::~Player() {
+Player::~Player() 
+{
 }
 
-void Player::update() {
+void Player::update() 
+{
 	GameComponent::update();
 
 	//transform->setRotation(transform->getRotation() + 0.2);
