@@ -7,7 +7,7 @@ FollowingComponent::FollowingComponent(GameComponent* obj, GameComponent* other)
 	_transformOther = other->getComponent<TransformComponent>();
 	_transform = obj->getComponent<TransformComponent>();
 	
-	_offset = _transformOther->getPosition() - _transform->getPosition();
+	_offset = {0,0};//_transformOther->getPosition() - _transform->getPosition();
 }
 
 

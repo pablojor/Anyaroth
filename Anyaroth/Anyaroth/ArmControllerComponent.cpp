@@ -1,6 +1,6 @@
 #include "ArmControllerComponent.h"
 #include "GameComponent.h"
-#include <math.h>
+#include <cmath>
 
 #define PI 3.14159265
 
@@ -23,7 +23,27 @@ void ArmControllerComponent::handleInput(const SDL_Event& event)
 		SDL_GetMouseState(&x, &y);
 
 		//actualizo angulo del brazo
-		_transform->setRotation(atan((_transform->getPosition().getY()-y)/(x-_transform->getPosition().getX())) * 180 / PI);
+		if (x < _transform->getPosition().getX() && !_anim->isFlipped()) //hago flip si el mouse está a la izquierda
+		{
+			_anim->flip();
+			_transform->setAnchor(1-_transform->getDefaultAnchor().getX(), _transform->getDefaultAnchor().getY());
+		}
+		else if (x > _transform->getPosition().getX() && _anim->isFlipped())
+		{
+			_anim->unFlip();
+			_transform->setAnchor(_transform->getDefaultAnchor().getX(), _transform->getDefaultAnchor().getY());
+		}
+
+
+
+		double rot = atan2((_transform->getPosition().getY() - y), (_transform->getPosition().getX() - x)) * 180.0 / PI;
+
+		if (!_anim->isFlipped()) 
+		{
+			rot -= 180;
+		}
+
+		_transform->setRotation(rot);
 	}
 
 

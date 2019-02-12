@@ -1,5 +1,5 @@
 example1 Jugador.png 1 1
 Mk mk_spritesheet.png 2 16
-Arm mk_test_arm.png 1 1
+Arm mk_test_arm_cropped.png 1 1
 tileset TileZona1.png  2 2
 tileset2 TileZona2.png  3 2

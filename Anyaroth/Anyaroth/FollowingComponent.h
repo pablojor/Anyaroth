@@ -17,5 +17,7 @@ public:
 	virtual ~FollowingComponent();
 
 	virtual void update();
+
+	void setOffset(Vector2D offset) { _offset = offset; }
 };
 

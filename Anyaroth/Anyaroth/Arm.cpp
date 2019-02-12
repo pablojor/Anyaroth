@@ -15,7 +15,7 @@ Arm::Arm(Texture* texture, GameComponent* player) : GameComponent()
 
 	_anim = addComponent<AnimatedSpriteComponent>();
 
-	addComponent<FollowingComponent>(_player);
+	auto fC = addComponent<FollowingComponent>(_player);
 
 	addComponent<ArmControllerComponent>();
 
@@ -26,8 +26,9 @@ Arm::Arm(Texture* texture, GameComponent* player) : GameComponent()
 	//anim->addAnim("Walk", 10);
 
 	_transform->setScale(RESOLUTION); //el 3 sería el factor de resolución!!
-	_transform->setPosition(340, 100);
-	_transform->setAnchor(0, 0);
+	//_transform->setPosition(340, 100);
+	_transform->setDefaultAnchor(0.17, 0.15);
+	fC->setOffset({ 56,50 });
 }
 
 
@@ -40,12 +41,12 @@ void Arm::update()
 {
 	GameComponent::update();
 
-	if (_player->getComponent<AnimatedSpriteComponent>()->isFlipped() && !_anim->isFlipped())
+	/*if (_player->getComponent<AnimatedSpriteComponent>()->isFlipped() && !_anim->isFlipped())
 	{
 		_anim->flip();
 	}
-	else if(_anim->isFlipped())
+	else if(!_player->getComponent<AnimatedSpriteComponent>()->isFlipped() && (_anim->isFlipped()))
 	{
 		_anim->unFlip();
-	}
+	}*/
 }

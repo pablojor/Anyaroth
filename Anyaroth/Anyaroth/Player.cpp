@@ -26,7 +26,7 @@ Player::Player(Texture* texture) : GameComponent()
 	anim->addAnim("Walk", 10);
 
 	transform->setScale(RESOLUTION); //el 3 sería el factor de resolución!!
-	transform->setPosition(340, 100);
+	transform->setPosition(340, 400);
 	transform->setAnchor(0, 0);
 	//transform->setRotation(45);
 
