@@ -37,21 +37,34 @@ void IAControllerComponent::update()
 	x = player.getX() - enemy.getX();
 	y = player.getY() - enemy.getY();
 
-	if (x > 100)
+	if (x > 15)
 	{
-		_movement->changeDir(1, 0);
-		_anim->playAnim("Walk");
 		_anim->unFlip();
+
+		if (x > 100)
+		{
+			_movement->changeDir(1, 0);
+			_anim->playAnim("Walk");
+		}
+		else
+		{
+			_movement->changeDir(0, 0);
+			_anim->playAnim("Idle");
+		}
 	}
-	else if (x < -100)
+	else if (x < -15)
 	{
-		_movement->changeDir(-1, 0);
-		_anim->playAnim("Walk");
 		_anim->flip();
-	}
-	else
-	{
-		_movement->changeDir(0, 0);
-		_anim->playAnim("Idle");
+		
+		if (x < -100)
+		{
+			_movement->changeDir(-1, 0);
+			_anim->playAnim("Walk");
+		}
+		else
+		{
+			_movement->changeDir(0, 0);
+			_anim->playAnim("Idle");
+		}
 	}
 }
