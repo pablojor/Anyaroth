@@ -2,8 +2,6 @@
 #include "FrameComponent.h"
 #include "TransformComponent.h"
 #include "Game.h"
-#include <Box2D/Box2D.h>
-//#include "BoxCollider.h"
 
 Tile::Tile(double x, double y, int f, int c, Texture* t)
 {
