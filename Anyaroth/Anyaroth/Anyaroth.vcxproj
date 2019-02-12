@@ -126,6 +126,7 @@
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="IAControllerComponent.cpp" />
+    <ClCompile Include="MeleeComponent.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="FrameComponent.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="Component.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="IAControllerComponent.h" />
+    <ClInclude Include="MeleeComponent.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="FileFormatError.h" />
     <ClInclude Include="FileNotFoundError.h" />

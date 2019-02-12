@@ -16,6 +16,10 @@ IAControllerComponent::IAControllerComponent(GameComponent* obj) : PhysicsCompon
 	_myTransform = obj->getComponent<TransformComponent>();
 	if (_myTransform == nullptr)
 		_myTransform = obj->addComponent<TransformComponent>();
+
+	_meleeAttack = obj->getComponent<MeleeComponent>();
+	if (_meleeAttack == nullptr)
+		_meleeAttack = obj->addComponent<MeleeComponent>();
 }
 
 void IAControllerComponent::addPlayer(Player* player)
@@ -37,34 +41,46 @@ void IAControllerComponent::update()
 	x = player.getX() - enemy.getX();
 	y = player.getY() - enemy.getY();
 
-	if (x > 15)
+	if (!_attacking && x < 400 && x > - 400)
 	{
-		_anim->unFlip();
+		if (x > 40)
+		{
+			_anim->unFlip();
 
-		if (x > 100)
-		{
-			_movement->changeDir(1, 0);
-			_anim->playAnim("Walk");
+			if (x > 100)
+			{
+				_movement->changeDir(0.3, 0);
+				_anim->playAnim("Walk");
+			}
+			else
+			{
+				_movement->changeDir(0, 0);
+				_anim->playAnim("Idle");
+				_attacking = true;
+				_meleeAttack->attack();
+			}
 		}
-		else
+		else if (x < -40)
 		{
-			_movement->changeDir(0, 0);
-			_anim->playAnim("Idle");
+			_anim->flip();
+
+			if (x < -100)
+			{
+				_movement->changeDir(-0.3, 0);
+				_anim->playAnim("Walk");
+			}
+			else
+			{
+				_movement->changeDir(0, 0);
+				_anim->playAnim("Idle");
+				_attacking = true;
+				_meleeAttack->attack();
+			}
 		}
 	}
-	else if (x < -15)
-	{
-		_anim->flip();
-		
-		if (x < -100)
-		{
-			_movement->changeDir(-1, 0);
-			_anim->playAnim("Walk");
-		}
-		else
-		{
-			_movement->changeDir(0, 0);
-			_anim->playAnim("Idle");
-		}
+	else 
+	{ 
+		_movement->changeDir(0, 0);
+		_anim->playAnim("Idle");
 	}
 }

@@ -1,5 +1,6 @@
 #include "Enemy.h"
 #include "IAControllerComponent.h"
+#include "MeleeComponent.h"
 #include "TransformComponent.h"
 #include "MovingComponent.h"
 #include "BoxCollider.h"
@@ -11,11 +12,12 @@ Enemy::Enemy(Texture* texture, Vector2D iniPos, Player* player) : GameComponent(
 	addComponent<Texture>(texture);
 
 	auto transform = addComponent<TransformComponent>();
-	auto anim = addComponent<AnimatedSpriteComponent>();		//Como depende de Transform, en su constructura crea una si no ha encontrado Transform en el objeto.
+	auto anim = addComponent<AnimatedSpriteComponent>();		
 	auto playerTrans = addComponent<IAControllerComponent>();
 
 	addComponent<MovingComponent>();
 	addComponent<BoxCollider>();
+	addComponent<MeleeComponent>();
 
 	playerTrans->addPlayer(player);
 
@@ -31,8 +33,7 @@ Enemy::Enemy(Texture* texture, Vector2D iniPos, Player* player) : GameComponent(
 Enemy::~Enemy() {
 }
 
-void Enemy::update() {
+void Enemy::update() 
+{
 	GameComponent::update();
-
-	//transform->setRotation(transform->getRotation() + 0.2);
 }

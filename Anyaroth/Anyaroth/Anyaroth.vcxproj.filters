@@ -141,6 +141,9 @@
     <ClCompile Include="IAControllerComponent.cpp">
       <Filter>Archivos de origen\Components</Filter>
     </ClCompile>
+    <ClCompile Include="MeleeComponent.cpp">
+      <Filter>Archivos de origen\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -252,6 +255,9 @@
       <Filter>Archivos de encabezado\Components\Base</Filter>
     </ClInclude>
     <ClInclude Include="IAControllerComponent.h">
+      <Filter>Archivos de encabezado\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="MeleeComponent.h">
       <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
   </ItemGroup>
