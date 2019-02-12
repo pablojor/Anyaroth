@@ -31,11 +31,4 @@ void PlayState::handleEvents(SDL_Event& e)
 void PlayState::update()
 {
 	GameState::update();
-
-
-	for (int i = 0; i < _colLayer->getTilemap().size(); i++)
-	{
-		if (CollisionManager::checkCollision(_player, _colLayer->getTilemap()[i]))
-			cout << "collided!";
-	}
 }

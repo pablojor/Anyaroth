@@ -4,27 +4,26 @@
 #include "MovingComponent.h"
 #include "AnimatedSpriteComponent.h"
 #include "TransformComponent.h"
-#include "MeleeComponent.h"
 
 class GameComponent;
 class Player;
 
-class IAControllerComponent : public PhysicsComponent
+class MeleeEnemyComponent : public PhysicsComponent
 {
 	private:
 		AnimatedSpriteComponent* _anim;
 		MovingComponent* _movement = nullptr;
 		TransformComponent* _myTransform = nullptr;
 		TransformComponent* _playerTransform = nullptr;
-		MeleeComponent* _meleeAttack = nullptr;
 
 		bool _attacking = false;
+		double _time;
+		int _vision = 300, _flipRange = 40, _attackRange = 100, _attackTime = 1500;
 	
 	public:
-		IAControllerComponent(GameComponent* obj);
+		MeleeEnemyComponent(GameComponent* obj);
 
 		void addPlayer(Player* player);
-		void addMelee();
 		void noLongerAttacking() { _attacking = false; }
 		virtual void update();
 };

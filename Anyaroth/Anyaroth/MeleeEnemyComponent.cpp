@@ -1,9 +1,9 @@
-#include "IAControllerComponent.h"
+#include "MeleeEnemyComponent.h"
 #include "GameComponent.h"
 #include "Player.h"
 
 
-IAControllerComponent::IAControllerComponent(GameComponent* obj) : PhysicsComponent(obj)
+MeleeEnemyComponent::MeleeEnemyComponent(GameComponent* obj) : PhysicsComponent(obj)
 {
 	_movement = obj->getComponent<MovingComponent>();
 	if (_movement == nullptr)
@@ -16,20 +16,16 @@ IAControllerComponent::IAControllerComponent(GameComponent* obj) : PhysicsCompon
 	_myTransform = obj->getComponent<TransformComponent>();
 	if (_myTransform == nullptr)
 		_myTransform = obj->addComponent<TransformComponent>();
-
-	_meleeAttack = obj->getComponent<MeleeComponent>();
-	if (_meleeAttack == nullptr)
-		_meleeAttack = obj->addComponent<MeleeComponent>();
 }
 
-void IAControllerComponent::addPlayer(Player* player)
+void MeleeEnemyComponent::addPlayer(Player* player)
 {
 	_playerTransform = player->getComponent<TransformComponent>();
 	if (_playerTransform == nullptr)
 		_playerTransform = player->getComponent<TransformComponent>();
 }
 
-void IAControllerComponent::update()
+void MeleeEnemyComponent::update()
 {
 	Vector2D enemy, player;
 
@@ -41,45 +37,55 @@ void IAControllerComponent::update()
 	x = player.getX() - enemy.getX();
 	y = player.getY() - enemy.getY();
 
-	if (!_attacking && x < 400 && x > - 400)
+	if (!_attacking && x < _vision && x > -_vision)
 	{
-		if (x > 40)
+		if (x > _flipRange)
 		{
 			_anim->unFlip();
 
-			if (x > 100)
+			if (x > _attackRange)
 			{
-				_movement->changeDir(0.3, 0);
+				_movement->changeDir(1, 0);
 				_anim->playAnim("Walk");
 			}
 			else
 			{
 				_movement->changeDir(0, 0);
-				_anim->playAnim("Idle");
+				_anim->playAnim("Idle"); //Llamas a animacion de ataque y resto de componentes que hagan falta
+				_time = SDL_GetTicks();
 				_attacking = true;
-				_meleeAttack->attack();
+				cout << "attacking" << endl;
 			}
 		}
-		else if (x < -40)
+		else if (x < -_flipRange)
 		{
 			_anim->flip();
 
-			if (x < -100)
+			if (x < -_attackRange)
 			{
-				_movement->changeDir(-0.3, 0);
+				_movement->changeDir(-1, 0);
 				_anim->playAnim("Walk");
 			}
 			else
 			{
 				_movement->changeDir(0, 0);
-				_anim->playAnim("Idle");
+				_anim->playAnim("Idle"); //Llamas a animacion de ataque y resto de componentes que hagan falta
+				_time = SDL_GetTicks();
 				_attacking = true;
-				_meleeAttack->attack();
+				cout << "attacking" << endl;
 			}
 		}
 	}
-	else 
+	else if(_attacking)
 	{ 
+		if (SDL_GetTicks() > _time + _attackTime)
+		{
+			_attacking = false;
+			cout << "moving again" << endl;
+		}
+	}
+	else
+	{
 		_movement->changeDir(0, 0);
 		_anim->playAnim("Idle");
 	}

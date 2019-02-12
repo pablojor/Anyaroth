@@ -1,6 +1,5 @@
 #include "Enemy.h"
-#include "IAControllerComponent.h"
-#include "MeleeComponent.h"
+#include "MeleeEnemyComponent.h"
 #include "TransformComponent.h"
 #include "MovingComponent.h"
 #include "BoxCollider.h"
@@ -13,11 +12,10 @@ Enemy::Enemy(Texture* texture, Vector2D iniPos, Player* player) : GameComponent(
 
 	auto transform = addComponent<TransformComponent>();
 	auto anim = addComponent<AnimatedSpriteComponent>();		
-	auto playerTrans = addComponent<IAControllerComponent>();
+	auto playerTrans = addComponent<MeleeEnemyComponent>();
 
 	addComponent<MovingComponent>();
 	addComponent<BoxCollider>();
-	addComponent<MeleeComponent>();
 
 	playerTrans->addPlayer(player);
 
