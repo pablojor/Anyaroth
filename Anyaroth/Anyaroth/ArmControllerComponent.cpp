@@ -13,6 +13,9 @@ ArmControllerComponent::ArmControllerComponent(GameComponent* obj) : InputCompon
 	_anim = obj->getComponent<AnimatedSpriteComponent>();
 	if (_anim == nullptr)
 		_anim = obj->addComponent<AnimatedSpriteComponent>();
+
+	_followC = obj->getComponent<FollowingComponent>();
+	_player = _followC->getOther();
 }
 
 void ArmControllerComponent::handleInput(const SDL_Event& event)
@@ -26,21 +29,28 @@ void ArmControllerComponent::handleInput(const SDL_Event& event)
 		if (x < _transform->getPosition().getX() && !_anim->isFlipped()) //hago flip si el mouse está a la izquierda
 		{
 			_anim->flip();
+			_player->getComponent<AnimatedSpriteComponent>()->flip();
 			_transform->setAnchor(1-_transform->getDefaultAnchor().getX(), _transform->getDefaultAnchor().getY());
+			//_transform->setPosition(0, 0);//_transform->getPosition().getX() - 40, _transform->getPosition().getY());
+			_followC->setOffset({ _followC->getInitialOffset().getX() - _followC->getInitialOffset().getX(), _followC->getInitialOffset().getY() });
 		}
 		else if (x > _transform->getPosition().getX() && _anim->isFlipped())
 		{
 			_anim->unFlip();
+			_player->getComponent<AnimatedSpriteComponent>()->unFlip();
 			_transform->setAnchor(_transform->getDefaultAnchor().getX(), _transform->getDefaultAnchor().getY());
+			//_transform->setPosition(_transform->getPosition().getX() + 40, _transform->getPosition().getY());
+			_followC->setOffset({ _followC->getInitialOffset().getX(), _followC->getInitialOffset().getY() });
 		}
 
 
 
-		double rot = atan2((_transform->getPosition().getY() - y), (_transform->getPosition().getX() - x)) * 180.0 / PI;
+		double rot = atan2((_transform->getPosition().getY() + _followC->getInitialOffset().getY() - y),
+			(_transform->getPosition().getX() - (x + _followC->getInitialOffset().getX()))) * 180.0 / PI;
 
 		if (!_anim->isFlipped()) 
 		{
-			rot -= 180;
+			//rot -= 180;
 		}
 
 		_transform->setRotation(rot);

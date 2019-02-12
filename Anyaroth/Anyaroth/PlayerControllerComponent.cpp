@@ -53,14 +53,14 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 	else if (_aPul)
 	{
 		_movement->changeDir(-1, 0); //Llamo a animacion de moverse y un flip
-		_anim->playAnim("Walk");
-		_anim->flip();
+		_anim->playAnim("Walk");//_anim->playAnim("WalkBack")
+		//_anim->flip();
 	}
 	else if (_dPul)
 	{
 		_movement->changeDir(1, 0); //Llamo a animacion de moverse
-		_anim->playAnim("Walk");
-		_anim->unFlip();
+		_anim->playAnim("Walk");//_anim->playAnim("WalkBack")
+		//_anim->unFlip();
 	}
 	else
 	{

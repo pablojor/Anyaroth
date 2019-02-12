@@ -27,8 +27,8 @@ Arm::Arm(Texture* texture, GameComponent* player) : GameComponent()
 
 	_transform->setScale(RESOLUTION); //el 3 sería el factor de resolución!!
 	//_transform->setPosition(340, 100);
-	_transform->setDefaultAnchor(0.17, 0.15);
-	fC->setOffset({ 56,50 });
+	_transform->setDefaultAnchor(0.17, 0.3);
+	fC->setInitialOffset({ 42,43 });
 }
 
 
