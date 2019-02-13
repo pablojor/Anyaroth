@@ -17,6 +17,8 @@ ArmControllerComponent::ArmControllerComponent(GameComponent* obj) : InputCompon
 
 	_followC = obj->getComponent<FollowingComponent>();
 	_player = _followC->getOther();
+
+	_minAimDistance = 100;
 }
 
 void ArmControllerComponent::handleInput(const SDL_Event& event)
@@ -57,13 +59,17 @@ void ArmControllerComponent::handleInput(const SDL_Event& event)
 			}
 		}
 
-		cout << (_transform->getPosition().getX()) << endl;
+		//cout << (_transform->getPosition().getX()) << endl;
 
 		
 
 
 
 		direction.normalize();
+
+		//Distancia del mouse al brazo
+		double distance = sqrt(pow(x - _transform->getPosition().getX(), 2) + pow(y - _transform->getPosition().getY(), 2));
+		cout << distance << endl;
 
 		//actualizo angulo del brazo
 		double rot = atan2(direction.getY(), direction.getX()) * 180.0 / PI;
@@ -77,14 +83,10 @@ void ArmControllerComponent::handleInput(const SDL_Event& event)
 			rot -= 10;
 		}
 
-
-		if (x > _transform->getPosition().getX() - 40 && x <= _transform->getPosition().getX() + 40
-			&& y > _transform->getPosition().getY() - 40 && y <= _transform->getPosition().getY() + 40) {
-		
-			;
-		}
-		else
+		if (distance > _minAimDistance) {
 			_transform->setRotation(rot);
+			//_transform->setRotation(rot - pow(360/distance,2));
+		}
 	}
 
 

@@ -15,6 +15,7 @@ private:
 	AnimatedSpriteComponent* _anim;
 	TransformComponent* _transform = nullptr;
 	bool _leftClickPul = false; //_rightClickPul = false;
+	double _minAimDistance;
 public:
 	ArmControllerComponent(GameComponent* obj);
 	virtual void handleInput(const SDL_Event& event);
