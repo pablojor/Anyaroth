@@ -87,7 +87,7 @@ class Game
 		Game();
 		~Game();
 		void run();
-		void update();
-		void render() const;
-		void handleEvents();
+		void update(Uint32 time);
+		void render(Uint32 time) const;
+		void handleEvents(Uint32 time);
 };

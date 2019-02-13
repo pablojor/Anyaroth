@@ -112,29 +112,25 @@ Game::~Game()
 
 void Game::run()
 {
-	uint startTime, frameTime;
-	startTime = SDL_GetTicks();
 
-	while (!exit)
-	{
-		handleEvents();
-		frameTime = SDL_GetTicks() - startTime;
-		//if (frameTime >= var[FRAME_RATE])
-		if (frameTime >= 60)
-		{
-			update();
-			startTime = SDL_GetTicks();
-		}
-		render();
+	while (!exit) {
+		Uint32 startTime = SDL_GetTicks();
+		handleEvents(startTime);
+		update(startTime);
+		render(startTime);
+
+		Uint32 frameTime = SDL_GetTicks() - startTime;
+		if (frameTime < 60)
+			SDL_Delay(60 - frameTime);
 	}
 }
 
-void Game::update()
+void Game::update(Uint32 time)
 {
 	stateMachine->currentState()->update();
 }
 
-void Game::render() const
+void Game::render(Uint32 time) const
 {
 	SDL_RenderClear(renderer);
 
@@ -143,7 +139,7 @@ void Game::render() const
 	SDL_RenderPresent(renderer);
 }
 
-void Game::handleEvents()
+void Game::handleEvents(Uint32 time)
 {
 	SDL_Event event;
 	while (SDL_PollEvent(&event) && !exit)
