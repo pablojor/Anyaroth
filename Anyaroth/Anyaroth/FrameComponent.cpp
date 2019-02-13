@@ -2,11 +2,8 @@
 #include "GameComponent.h"
 
 
-FrameComponent::FrameComponent(GameComponent* obj) : RenderComponent(obj)
+FrameComponent::FrameComponent(GameComponent* obj) : SpriteComponent(obj), RenderComponent(obj)
 {
-	_texture = obj->getComponent<Texture>();
-	_transform = obj->getComponent<TransformComponent>();
-	if (_transform == nullptr) _transform = obj->addComponent<TransformComponent>();
 }
 
 void FrameComponent::setFilAndCol(int fil, int col)
@@ -26,14 +23,4 @@ void FrameComponent::render() const
 	SDL_Point anchor = { _transform->getAnchor().getX() * destRect.w, _transform->getAnchor().getY() * destRect.h };
 
 	_texture->renderFrame(destRect, _fil, _col, _transform->getRotation(), anchor, (_flip ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE));
-}
-
-void FrameComponent::flip()
-{
-	_flip = true;
-}
-
-void FrameComponent::unFlip()
-{
-	_flip = false;
 }
