@@ -1,6 +1,7 @@
 #include "PlayState.h"
 #include "Game.h"
 #include "CollisionManager.h"
+#include "FollowingComponent.h"
 
 
 PlayState::PlayState(Game* g) : GameState(g)
@@ -18,10 +19,19 @@ PlayState::PlayState(Game* g) : GameState(g)
 
 
 	//Player
-	_player = new Player(g->getTexture("Mk"));
+	
+	//brazo de atrás
+	//auto armBack = new Arm(g->getTexture("Armback"), nullptr);
+	//_stages.push_back(armBack);
+
+	//cuerpo
+	_player = new Player(g->getTexture("Mk")); 
 	_stages.push_back(_player);
 
-	_stages.push_back(new Arm(g->getTexture("Arm"), _player));
+	//brazo de delante
+	_stages.push_back(new Arm(g->getTexture("Arm"), _player, { 42,43 }));
+
+	//armBack->setPlayer({ 72,43 }, _player);
 }
 
 void PlayState::handleEvents(SDL_Event& e)

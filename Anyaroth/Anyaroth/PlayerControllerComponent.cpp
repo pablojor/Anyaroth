@@ -48,24 +48,30 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 	if (_aPul == _dPul)
 	{
 		_movement->changeDir(0, 0); //Llamo a animacion iddle
-		_anim->playAnim("Idle");
+		_anim->playAnim(AnimatedSpriteComponent::Idle);
 	}
 	else if (_aPul)
 	{
 		_movement->changeDir(-1, 0); //Llamo a animacion de moverse y un flip
-		_anim->playAnim("Walk");//_anim->playAnim("WalkBack")
+		if (!_anim->isFlipped())
+			_anim->playAnim(AnimatedSpriteComponent::WalkBack);
+		else
+			_anim->playAnim(AnimatedSpriteComponent::Walk);
 		//_anim->flip();
 	}
 	else if (_dPul)
 	{
 		_movement->changeDir(1, 0); //Llamo a animacion de moverse
-		_anim->playAnim("Walk");//_anim->playAnim("WalkBack")
+		if (!_anim->isFlipped())
+			_anim->playAnim(AnimatedSpriteComponent::Walk);
+		else
+			_anim->playAnim(AnimatedSpriteComponent::WalkBack);
 		//_anim->unFlip();
 	}
 	else
 	{
 		_movement->changeDir(0, 0); //Llamo a animacion iddle
-		_anim->playAnim("Idle");
+		_anim->playAnim(AnimatedSpriteComponent::Idle);
 	}
 
 	if (_wPul /*Y no estoy saltando ya*/)
@@ -73,8 +79,8 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 		//Llamo a compoennte de salto
 	}
 
-	if (_sPul)
+	if (_sPul /*y estoy saltando*/)
 	{
-		//Llamo a compoennte de agacharse
+		//Llamo a compoennte de dash hacia abajo (culo)
 	}
 }

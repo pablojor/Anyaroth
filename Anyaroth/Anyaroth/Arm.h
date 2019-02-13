@@ -12,9 +12,11 @@ protected:
 	GameComponent* _player;
 	AnimatedSpriteComponent* _anim;
 public:
-	Arm(Texture* texture, GameComponent* player);
+	Arm(Texture* texture, GameComponent* player, Vector2D offset = { 0,0 });
 	virtual ~Arm();
 
 	void update();
+
+	void setPlayer(Vector2D offset, GameComponent* player);
 };
 

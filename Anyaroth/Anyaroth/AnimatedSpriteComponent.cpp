@@ -23,26 +23,26 @@ void AnimatedSpriteComponent::render() const
 
 	SDL_Point anchor = { _transform->getAnchor().getX() * destRect.w, _transform->getAnchor().getY() * destRect.h };
 
-	_texture->renderFrame(destRect, distance(begin(_animations), _animations.find(_currentAnim)), _frame, _transform->getRotation(), anchor, (_flip ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE));
+	_texture->renderFrame(destRect, _currentAnim, _frame, _transform->getRotation(), anchor, (_flip ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE));
 }
 
-void AnimatedSpriteComponent::update() 
+void AnimatedSpriteComponent::update()
 {
 	// we update the frame every _freq ms
-	if (SDL_GetTicks() - _lastTimeUpdated >= _freq) 
+	if (SDL_GetTicks() - _lastTimeUpdated >= _freq)
 	{
-		_frame = (_frame + 1) % _animations[_currentAnim];
+		_frame = (_frame + 1) % _animations[_currentAnim].second;
 		_lastTimeUpdated = SDL_GetTicks();//time;
 	}
 }
 
-
-void AnimatedSpriteComponent::addAnim(string name, int numFrames)
-{
-	_animations[name] = (uint)numFrames;
-}
-
-void AnimatedSpriteComponent::playAnim(string name)
+void AnimatedSpriteComponent::playAnim(Animations name)
 {
 	_currentAnim = name;
 }
+
+void AnimatedSpriteComponent::addAnim(Animations name, int numFrames)
+{
+	_animations.push_back({ name,(uint)numFrames });
+}
+

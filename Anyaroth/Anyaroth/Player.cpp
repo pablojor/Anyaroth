@@ -21,9 +21,11 @@ Player::Player(Texture* texture) : GameComponent()
 	addComponent<MovingComponent>();
 	addComponent<PlayerControllerComponent>();
 	addComponent<BoxCollider>();
-
-	anim->addAnim("Idle", 16);
-	anim->addAnim("Walk", 10);
+	
+	anim->addAnim(AnimatedSpriteComponent::Idle, 16);
+	anim->addAnim(AnimatedSpriteComponent::Walk, 10);
+	anim->addAnim(AnimatedSpriteComponent::WalkBack, 10);
+	
 
 	transform->setScale(RESOLUTION); //el 3 sería el factor de resolución!!
 	transform->setPosition(340, 400);
