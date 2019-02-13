@@ -51,7 +51,7 @@ void MeleeEnemyComponent::update()
 			else
 			{
 				_movement->changeDir(0, 0);
-				_anim->playAnim("Idle"); //Llamas a animacion de ataque y resto de componentes que hagan falta
+				_anim->playAnim("Idle"); //Llamas a animacion de ataque
 				_time = SDL_GetTicks();
 				_attacking = true;
 				cout << "attacking" << endl;
@@ -69,7 +69,7 @@ void MeleeEnemyComponent::update()
 			else
 			{
 				_movement->changeDir(0, 0);
-				_anim->playAnim("Idle"); //Llamas a animacion de ataque y resto de componentes que hagan falta
+				_anim->playAnim("Idle"); //Llamas a animacion de ataque
 				_time = SDL_GetTicks();
 				_attacking = true;
 				cout << "attacking" << endl;
@@ -82,6 +82,8 @@ void MeleeEnemyComponent::update()
 		{
 			_attacking = false;
 			cout << "moving again" << endl;
+			//if(colision de arma con jugador)
+			//	llamas daño al jugador
 		}
 	}
 	else
