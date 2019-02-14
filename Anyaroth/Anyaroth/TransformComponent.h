@@ -8,7 +8,6 @@ class TransformComponent : public Component
 {
 	private:
 		Vector2D _anchor;
-		Vector2D _position;
 		Vector2D _scale;
 		double _rotation;
 
@@ -16,7 +15,6 @@ class TransformComponent : public Component
 		TransformComponent(GameComponent* obj);
 		~TransformComponent() {}
 
-		void setPosition(double x, double y) { _position = Vector2D(x, y); }
 
 		void setScale(double x, double y) { _scale = Vector2D(x, y); }
 		void setScale(double a) { _scale = Vector2D(a, a); }
@@ -26,9 +24,7 @@ class TransformComponent : public Component
 
 		void setRotation(double rot) { _rotation = rot; }
 
-		Vector2D getPosition() { return _position; }
 		Vector2D getScale() { return _scale; }
 		Vector2D getAnchor() { return _anchor; }
 		double getRotation() { return _rotation; }
 };
-

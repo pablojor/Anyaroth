@@ -1,17 +1,17 @@
 #include "Enemy.h"
 #include "SpriteComponent.h"
+#include "BodyComponent.h"
 
+Enemy::Enemy(Texture* texture, b2Vec2 iniPos) : GameComponent() {
 
-Enemy::Enemy(Texture* texture, Vector2D iniPos) : GameComponent() {
-
-	auto transform = addComponent<TransformComponent>();
+	auto body = addComponent<BodyComponent>();
 	addComponent<SpriteComponent>();
 
-	transform->setPosition(iniPos.getX(), iniPos.getY());
-
+	body->getBody()->SetTransform(b2Vec2(iniPos.x, iniPos.y), body->getBodyDef().angle);
 }
 
-Enemy::~Enemy() {
+Enemy::~Enemy() 
+{
 }
 
 void Enemy::update() {

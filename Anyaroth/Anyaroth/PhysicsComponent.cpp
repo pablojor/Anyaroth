@@ -8,5 +8,5 @@ PhysicsComponent::PhysicsComponent(GameComponent* obj)
 
 PhysicsComponent::~PhysicsComponent() 
 {
-	// TODO Auto-generated destructor stub
+
 }

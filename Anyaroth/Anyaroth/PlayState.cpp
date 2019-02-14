@@ -5,7 +5,8 @@
 
 PlayState::PlayState(Game* g) : GameState(g)
 {
-
+	//World
+	_world = new b2World(b2Vec2(0, 0));
 
 	//Tilemap
 	_stages.push_back(new Layer("Capa de Patrones 1", g->getTexture("tileset"), TILEMAP_PATH + "P2.json"));
@@ -14,8 +15,6 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_colLayer = new Layer("Capa de patrones 3", g->getTexture("tileset"), TILEMAP_PATH + "P2.json");
 	_colLayer->addComponent<BoxCollider>();
 	_stages.push_back(_colLayer);
-
-
 
 	//Player
 	_player = new Player(g->getTexture("Mk"));
@@ -30,7 +29,6 @@ void PlayState::handleEvents(SDL_Event& e)
 void PlayState::update()
 {
 	GameState::update();
-
 
 	for (int i = 0; i < _colLayer->getTilemap().size(); i++)
 	{

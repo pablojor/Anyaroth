@@ -1,9 +1,10 @@
 #pragma once
 #include "GameComponent.h"
-class Hud : public GameComponent
-{
-	public:
-		Hud(Texture* texture, Vector2D iniPos);
-		virtual ~Hud() {}
-};
+#include <Box2D/Box2D.h>
 
+class HUD : public GameComponent
+{
+public:
+	HUD(Texture* texture, b2Vec2 iniPos);
+	virtual ~HUD();
+};

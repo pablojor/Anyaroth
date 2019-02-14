@@ -1,9 +1,10 @@
 #pragma once
 #include "GameComponent.h"
+#include <Box2D/Box2D.h>
+
 class Collectable : public GameComponent
 {
 	public:
-		Collectable(Texture* texture, Vector2D iniPos);
+		Collectable(Texture* texture, b2Vec2 iniPos);
 		virtual ~Collectable() {}
 };
-

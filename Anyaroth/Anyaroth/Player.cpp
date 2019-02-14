@@ -11,7 +11,7 @@ Player::Player(Texture* texture) : GameComponent() {
 	//Resto de componentes
 
 	auto transform = addComponent<TransformComponent>();		//Como en el metodo anterior se ha creado este componente, imprime por pantalla que ya existe uno.
-
+	auto body = addComponent<BodyComponent>();
 	auto anim = addComponent<AnimatedSpriteComponent>();		//Como depende de Transform, en su constructura crea una si no ha encontrado Transform en el objeto.
 
 	addComponent<MovingComponent>();
@@ -22,12 +22,9 @@ Player::Player(Texture* texture) : GameComponent() {
 	anim->addAnim("Walk", 10);
 
 	transform->setScale(RESOLUTION); //el 3 sería el factor de resolución!!
-	transform->setPosition(340, 100);
+	body->getBody()->SetTransform(b2Vec2(340, 100), body->getBodyDef().angle);
 	transform->setAnchor(0, 0);
 	//transform->setRotation(45);
-
-
-
 }
 
 Player::~Player() {

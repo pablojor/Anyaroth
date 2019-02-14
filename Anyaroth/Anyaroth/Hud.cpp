@@ -1,12 +1,15 @@
-#include "Hud.h"
+#include "HUD.h"
+#include "BodyComponent.h"
 #include "SpriteComponent.h"
 
-
-Hud::Hud(Texture* texture, Vector2D iniPos) : GameComponent()
+HUD::HUD(Texture* texture, b2Vec2 iniPos) : GameComponent()
 {
-	auto transform = addComponent<TransformComponent>();
+	auto body = addComponent<BodyComponent>();
 	addComponent<SpriteComponent>();
 
-	transform->setPosition(iniPos.getX(), iniPos.getY());
+	body->getBody()->SetTransform(b2Vec2(iniPos.x, iniPos.y), body->getBodyDef().angle);
 }
 
+HUD::~HUD()
+{
+}

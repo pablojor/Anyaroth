@@ -72,15 +72,6 @@
     <ClCompile Include="BoxCollider.cpp">
       <Filter>Archivos de origen\Useful</Filter>
     </ClCompile>
-    <ClCompile Include="Collectable.cpp">
-      <Filter>Archivos de origen\Useful</Filter>
-    </ClCompile>
-    <ClCompile Include="Hud.cpp">
-      <Filter>Archivos de origen\Useful</Filter>
-    </ClCompile>
-    <ClCompile Include="Layer.cpp">
-      <Filter>Archivos de origen\Useful</Filter>
-    </ClCompile>
     <ClCompile Include="Texture.cpp">
       <Filter>Archivos de origen\Useful</Filter>
     </ClCompile>
@@ -88,9 +79,6 @@
       <Filter>Archivos de origen\Useful</Filter>
     </ClCompile>
     <ClCompile Include="TTFclass.cpp">
-      <Filter>Archivos de origen\Useful</Filter>
-    </ClCompile>
-    <ClCompile Include="Tile.cpp">
       <Filter>Archivos de origen\Useful</Filter>
     </ClCompile>
     <ClCompile Include="SpriteComponent.cpp">
@@ -137,6 +125,21 @@
     </ClCompile>
     <ClCompile Include="CollisionManager.cpp">
       <Filter>Archivos de origen\Useful</Filter>
+    </ClCompile>
+    <ClCompile Include="BodyComponent.cpp">
+      <Filter>Archivos de origen\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="HUD.cpp">
+      <Filter>Archivos de origen\Useful</Filter>
+    </ClCompile>
+    <ClCompile Include="Collectable.cpp">
+      <Filter>Archivos de origen\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Layer.cpp">
+      <Filter>Archivos de origen\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Tile.cpp">
+      <Filter>Archivos de origen\Objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -191,9 +194,6 @@
     <ClInclude Include="Texture.h">
       <Filter>Archivos de encabezado\Useful</Filter>
     </ClInclude>
-    <ClInclude Include="Tile.h">
-      <Filter>Archivos de encabezado\Useful</Filter>
-    </ClInclude>
     <ClInclude Include="Bullet.h">
       <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
@@ -211,15 +211,6 @@
     </ClInclude>
     <ClInclude Include="FrameComponent.h">
       <Filter>Archivos de encabezado\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Layer.h">
-      <Filter>Archivos de encabezado\Useful</Filter>
-    </ClInclude>
-    <ClInclude Include="Hud.h">
-      <Filter>Archivos de encabezado\Useful</Filter>
-    </ClInclude>
-    <ClInclude Include="Collectable.h">
-      <Filter>Archivos de encabezado\Useful</Filter>
     </ClInclude>
     <ClInclude Include="GameState.h">
       <Filter>Archivos de encabezado\States</Filter>
@@ -247,6 +238,21 @@
     </ClInclude>
     <ClInclude Include="RenderComponent.h">
       <Filter>Archivos de encabezado\Components\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="BodyComponent.h">
+      <Filter>Archivos de encabezado\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="HUD.h">
+      <Filter>Archivos de encabezado\Useful</Filter>
+    </ClInclude>
+    <ClInclude Include="Collectable.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Layer.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

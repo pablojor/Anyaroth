@@ -1,7 +1,6 @@
 #pragma once
-
 #include "GameComponent.h"
-#include "TransformComponent.h"
+#include "BodyComponent.h"
 
 class Gun : public GameComponent
 {
@@ -13,10 +12,10 @@ private:
 	*/
 	int _maxAmmo, _leftAmmo;
 	int _clip, _ammoOnClip;
-	TransformComponent* _playerTransform;
+	BodyComponent* _playerTransform;
+
 public:
 	Gun(Texture* texture, GameComponent* player ,int maxAmmunition, int magazine);
 	virtual ~Gun();
 	void update();
 };
-
