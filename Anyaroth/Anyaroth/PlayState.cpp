@@ -2,13 +2,13 @@
 #include "Game.h"
 #include "CollisionManager.h"
 
+CollisionManager colManager;
 
 PlayState::PlayState(Game* g) : GameState(g)
 {
 	//World
 	_world = new b2World(b2Vec2(0.0, 9.8));
 	//Gestion de colisiones
-	CollisionManager colManager;
 	_world->SetContactListener(&colManager);
 
 	//Tilemap
@@ -21,6 +21,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	//Player
 	_player = new Player(g->getTexture("Mk"), _world);
 	_stages.push_back(_player);
+
 }
 
 void PlayState::handleEvents(SDL_Event& e)

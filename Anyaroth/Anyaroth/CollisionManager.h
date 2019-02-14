@@ -7,9 +7,10 @@
 class CollisionManager : public b2ContactListener
 {
 	public:
-		void beginContact(b2Contact* contact);
-		void endContact(b2Contact* contact);
-		void preSolve(b2Contact* contact);
-		void postSolve(b2Contact* contact);
+		virtual ~CollisionManager();
+		void BeginContact(b2Contact* contact);
+		void EndContact(b2Contact* contact);
+		void PreSolve(b2Contact* contact);
+		void PostSolve(b2Contact* contact);
 		
 };

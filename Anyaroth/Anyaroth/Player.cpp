@@ -31,6 +31,11 @@ Player::Player(Texture* texture, b2World* world) : GameComponent(world)
 Player::~Player() {
 }
 
+void Player::beginCollision(GameComponent * other)
+{
+	cout << "colision";
+}
+
 void Player::update() {
 	GameComponent::update();
 

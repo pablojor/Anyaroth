@@ -8,6 +8,6 @@ private:
 public:
 	Player(Texture* texture, b2World* world);
 	~Player();
-
+	virtual void beginCollision(GameComponent* other);
 	void update();
 };

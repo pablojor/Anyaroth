@@ -68,7 +68,7 @@ class GameComponent: public GameObject
 		virtual void beginCollision(GameComponent* other) {};
 		virtual void endCollision(GameComponent* other) {};
 		virtual void preCollision(GameComponent* other) {};
-		virtual void postCollision(GameComponent* other) {};
+		virtual void postCollision(GameComponent* other){};
 
 		template<class ComponentType>
 		ComponentType* addComponent()

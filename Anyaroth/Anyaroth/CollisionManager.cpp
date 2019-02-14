@@ -6,7 +6,7 @@ CollisionManager::~CollisionManager()
 }
 
 
-void CollisionManager::beginContact(b2Contact * contact)
+void CollisionManager::BeginContact(b2Contact * contact)
 {
 	void* bodyUserDataA = contact->GetFixtureA()->GetBody()->GetUserData();
 	void* bodyUserDataB = contact->GetFixtureA()->GetBody()->GetUserData();
@@ -19,7 +19,7 @@ void CollisionManager::beginContact(b2Contact * contact)
 	}
 }
 
-void CollisionManager::endContact(b2Contact * contact)
+void CollisionManager::EndContact(b2Contact * contact)
 {
 	void* bodyUserDataA = contact->GetFixtureA()->GetBody()->GetUserData();
 	void* bodyUserDataB = contact->GetFixtureA()->GetBody()->GetUserData();
@@ -32,7 +32,7 @@ void CollisionManager::endContact(b2Contact * contact)
 	}
 }
 
-inline void CollisionManager::preSolve(b2Contact * contact)
+inline void CollisionManager::PreSolve(b2Contact * contact)
 {
 	void* bodyUserDataA = contact->GetFixtureA()->GetBody()->GetUserData();
 	void* bodyUserDataB = contact->GetFixtureA()->GetBody()->GetUserData();
@@ -45,7 +45,7 @@ inline void CollisionManager::preSolve(b2Contact * contact)
 	}
 }
 
-inline void CollisionManager::postSolve(b2Contact * contact)
+inline void CollisionManager::PostSolve(b2Contact * contact)
 {
 	void* bodyUserDataA = contact->GetFixtureA()->GetBody()->GetUserData();
 	void* bodyUserDataB = contact->GetFixtureA()->GetBody()->GetUserData();
