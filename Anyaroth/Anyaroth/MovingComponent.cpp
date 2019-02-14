@@ -14,6 +14,5 @@ void MovingComponent::update()
 	b2Vec2 pos = _body->getBody()->GetPosition();
 	double x = pos.x;
 	double y = pos.y;
-	_body->getBody()->ApplyLinearImpulse(b2Vec2(_dir.x*_speed, _dir.y*_speed), _body->getBody()->GetLocalCenter(),true);
-	//_body->getBody()->SetTransform(b2Vec2(_dir.x*_speed + x, _dir.y*_speed + y + _gravity), _body->getBody()->GetAngle());
+	_body->getBody()->ApplyLinearImpulse(b2Vec2(_dir.x*_speed, _dir.y*_speed), _body->getBody()->GetLocalCenter(), true);
 }

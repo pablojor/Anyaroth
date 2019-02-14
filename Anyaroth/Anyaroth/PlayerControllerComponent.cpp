@@ -27,7 +27,6 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 
 		if (event.key.keysym.sym == SDLK_s)
 			_sPul = true;
-
 	}
 
 	if (event.type == SDL_KEYUP)
@@ -42,7 +41,6 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 
 		if (event.key.keysym.sym == SDLK_s)
 			_sPul = false;
-
 	}
 
 	if (_aPul == _dPul)
@@ -70,11 +68,6 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 
 	if (_wPul /*Y no estoy saltando ya*/)
 	{
-		//Llamo a compoennte de salto
-	}
-
-	if (_sPul)
-	{
-		//Llamo a compoennte de agacharse
+		_movement->changeDir(0, -1);
 	}
 }
