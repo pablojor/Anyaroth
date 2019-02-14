@@ -25,6 +25,7 @@ Player::Player(Texture* texture) : GameComponent()
 	anim->addAnim(AnimatedSpriteComponent::Idle, 16, true);
 	anim->addAnim(AnimatedSpriteComponent::Walk, 10, true);
 	anim->addAnim(AnimatedSpriteComponent::WalkBack, 10, true);
+	anim->addAnim(AnimatedSpriteComponent::MeleeKnife, 6, false);
 
 
 	transform->setScale(RESOLUTION); //el 3 sería el factor de resolución!!

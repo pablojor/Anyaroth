@@ -96,10 +96,6 @@ void ArmControllerComponent::handleInput(const SDL_Event& event)
 		{
 			_leftClickPul = true;
 		}
-		/*else if (event.button.button == SDL_BUTTON_RIGHT)
-		{
-			_rightClickPul = true;
-		}*/
 	}
 
 	if (event.type == SDL_MOUSEBUTTONUP)
@@ -108,10 +104,6 @@ void ArmControllerComponent::handleInput(const SDL_Event& event)
 		{
 			_leftClickPul = false;
 		}
-		/*else if (event.button.button == SDL_BUTTON_RIGHT)
-		{
-			_rightClickPul = true;
-		}*/
 	}
 
 	if (_leftClickPul)

@@ -28,7 +28,7 @@ protected:
 
 	bool _animationFinished = false;
 public:
-	enum Animations { Idle, Walk, WalkBack };
+	enum Animations { Idle, Walk, WalkBack, MeleeKnife };
 
 	AnimatedSpriteComponent(GameComponent* obj);
 	virtual ~AnimatedSpriteComponent();
