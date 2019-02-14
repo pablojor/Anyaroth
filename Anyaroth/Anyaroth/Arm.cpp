@@ -5,7 +5,7 @@
 #include "AnimatedSpriteComponent.h"
 #include "ArmControllerComponent.h"
 
-Arm::Arm(Texture* texture, GameComponent* player, Vector2D offset) : GameComponent()
+Arm::Arm(Texture* texture, GameComponent* player, Game* g, Vector2D offset) : _game(g), GameComponent()
 {
 
 

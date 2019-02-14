@@ -32,7 +32,8 @@ Player::Player(Texture* texture) : GameComponent()
 	transform->setAnchor(0, 0);
 	//transform->setRotation(45);
 
-
+	//Brazo con arma
+	//addChild(new Arm(g->getTexture("Arm"), this, { 42,43 }));
 
 }
 

@@ -29,7 +29,10 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_stages.push_back(_player);
 
 	//brazo de delante
-	_stages.push_back(new Arm(g->getTexture("Arm"), _player, { 42,43 }));
+	//_stages.push_back(new Arm(g->getTexture("Arm"), _player, { 42,43 }));
+	auto arm = new Arm(g->getTexture("Arm"), _player, g, { 42,43 });
+	_player->addChild(arm);
+	_player->setArm(arm); //TEMPORAL
 
 	//armBack->setPlayer({ 72,43 }, _player);
 }

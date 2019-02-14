@@ -4,6 +4,8 @@
 #include "Player.h"
 #include "Arm.h"
 
+class Player;
+
 class PlayState : public GameState
 {
 	private:

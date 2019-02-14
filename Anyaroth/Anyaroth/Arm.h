@@ -2,6 +2,7 @@
 
 #include "GameComponent.h"
 #include "TransformComponent.h"
+#include "Game.h"
 
 class AnimatedSpriteComponent;
 
@@ -11,8 +12,10 @@ protected:
 	TransformComponent* _transform;
 	GameComponent* _player;
 	AnimatedSpriteComponent* _anim;
+
+	Game* _game; //TEMPORAL
 public:
-	Arm(Texture* texture, GameComponent* player, Vector2D offset = { 0,0 });
+	Arm(Texture* texture, GameComponent* player, Game* g, Vector2D offset = { 0,0 });
 	virtual ~Arm();
 
 	void update();

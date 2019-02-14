@@ -19,6 +19,9 @@ class GameComponent: public GameObject
 		vector<RenderComponent*> _renderComp;
 		map<string, Component*> _components;
 
+		//vector de hijos del objetos 
+		vector<GameComponent*> _children; 
+
 
 		void add_component(Component* c, string name) { _components[name] = c; }
 
@@ -73,6 +76,8 @@ class GameComponent: public GameObject
 		virtual void delInputComponent(InputComponent* ic);
 		virtual void delPhysicsComponent(PhysicsComponent* pc);
 		virtual void delRenderComponent(RenderComponent* rc);
+
+		void addChild(GameComponent* obj);
 
 		template<class ComponentType>
 		ComponentType* addComponent()
