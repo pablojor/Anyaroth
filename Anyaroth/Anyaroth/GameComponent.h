@@ -1,9 +1,10 @@
 #pragma once
 
 #include "GameObject.h"
+#include "Component.h"
+#include <Box2D/Box2D.h>
 #include <vector>
 #include <map>
-#include "Component.h"
 
 using namespace std;
 
@@ -19,6 +20,7 @@ class GameComponent: public GameObject
 		vector<RenderComponent*> _renderComp;
 		map<string, Component*> _components;
 
+		b2World* _world;
 
 		void add_component(Component* c, string name) { _components[name] = c; }
 
@@ -46,6 +48,7 @@ class GameComponent: public GameObject
 
 	public:
 		GameComponent();
+		GameComponent(b2World* world);
 		virtual ~GameComponent();
 
 		virtual void handleInput(const SDL_Event& event);
@@ -59,6 +62,8 @@ class GameComponent: public GameObject
 		virtual void delInputComponent(InputComponent* ic);
 		virtual void delPhysicsComponent(PhysicsComponent* pc);
 		virtual void delRenderComponent(RenderComponent* rc);
+
+		b2World* getWorld();
 
 		template<class ComponentType>
 		ComponentType* addComponent()

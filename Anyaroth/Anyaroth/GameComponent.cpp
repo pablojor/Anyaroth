@@ -3,7 +3,10 @@
 #include "RenderComponent.h"
 #include "InputComponent.h"
 
-GameComponent::GameComponent() : GameObject(), _inputComp(), _physicsComp(), _renderComp() 
+GameComponent::GameComponent() : GameObject(), _inputComp(), _physicsComp(), _renderComp()
+{
+}
+GameComponent::GameComponent(b2World* world) : GameObject(), _inputComp(), _physicsComp(), _renderComp(), _world(world)
 {
 }
 
@@ -79,5 +82,10 @@ void GameComponent::delRenderComponent(RenderComponent* rc) {
 			_renderComp.begin(), _renderComp.end(), rc);
 	if (position != _renderComp.end())
 		_renderComp.erase(position);
+}
+
+b2World * GameComponent::getWorld()
+{
+	return _world;
 }
 

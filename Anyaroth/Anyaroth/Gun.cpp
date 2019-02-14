@@ -1,7 +1,7 @@
 #include "Gun.h"
 #include "AnimatedSpriteComponent.h"
 
-Gun::Gun(Texture* texture, GameComponent* player, int maxAmmunition, int magazine) : GameComponent()
+Gun::Gun(Texture* texture, GameComponent* player, int maxAmmunition, int magazine, b2World* world) : GameComponent(world)
 {
 	//en principio su transform es el mismo que el del jugador;
 	_playerTransform = player->getComponent<BodyComponent>();
@@ -27,5 +27,5 @@ Gun::~Gun()
 
 void Gun::update()
 {
-	getComponent<BodyComponent>()->getBody()->SetTransform(b2Vec2(_playerTransform->getBody()->GetPosition().x, _playerTransform->getBody()->GetPosition().y), _playerTransform->getBodyDef().angle);
+	getComponent<BodyComponent>()->getBody()->SetTransform(b2Vec2(_playerTransform->getBody()->GetPosition().x, _playerTransform->getBody()->GetPosition().y), _playerTransform->getBody()->GetAngle());
 }

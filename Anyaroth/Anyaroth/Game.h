@@ -9,7 +9,7 @@
 #include "PlayState.h"
 
 
-const int RESOLUTION = 4;
+const int RESOLUTION = 2;
 //1-> 480x270
 //2-> 920x540
 //3-> 1440x810
@@ -46,6 +46,8 @@ const string LEVELS[NUM_LEVELS] =
 
 const double TILES_W = 16;
 const double TILES_H = 16;
+
+const double M_TO_PIXEL = 3000;
 
 //********************************************************************************
 //********************************************************************************

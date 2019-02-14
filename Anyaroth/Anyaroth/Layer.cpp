@@ -3,7 +3,7 @@
 #include "AnyarothError.h"
 #include <sstream>
 
-Layer::Layer(string name, Texture* t, string filename) : _tileset(t)
+Layer::Layer(string name, Texture* t, string filename, b2World* world) : GameComponent(world), _tileset(t)
 {
 	_tilemap.clear();
 	fstream file;
@@ -55,7 +55,7 @@ Layer::Layer(string name, Texture* t, string filename) : _tileset(t)
 					temp--;
 					if (temp >= 0)
 					{
-						Tile* tile = new Tile(x * TILES_W, y * TILES_H, (temp / t->getNumCols()), temp % t->getNumCols(), _tileset);
+						Tile* tile = new Tile(x * TILES_W, y * TILES_H, (temp / t->getNumCols()), temp % t->getNumCols(), _tileset, getWorld());
 						_tilemap.push_back(tile);
 					}
 				}

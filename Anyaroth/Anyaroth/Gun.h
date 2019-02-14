@@ -15,7 +15,7 @@ private:
 	BodyComponent* _playerTransform;
 
 public:
-	Gun(Texture* texture, GameComponent* player ,int maxAmmunition, int magazine);
+	Gun(Texture* texture, GameComponent* player ,int maxAmmunition, int magazine, b2World* world);
 	virtual ~Gun();
 	void update();
 };

@@ -6,7 +6,7 @@ private:
 	int _life;
 
 public:
-	Player(Texture* texture);
+	Player(Texture* texture, b2World* world);
 	~Player();
 
 	void update();

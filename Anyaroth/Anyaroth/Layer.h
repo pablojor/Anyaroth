@@ -8,7 +8,7 @@ class Layer : public GameComponent
 		Texture* _tileset;
 		vector<Tile*> _tilemap;
 	public:
-		Layer(string name, Texture* t, string filename);
+		Layer(string name, Texture* t, string filename, b2World* world);
 		~Layer();
 
 		void render() const;
