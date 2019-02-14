@@ -18,12 +18,12 @@ Player::Player(Texture* texture, b2World* world) : GameComponent(world)
 	addComponent<PlayerControllerComponent>();
 	addComponent<BoxCollider>();
 	body->getBody()->SetType(b2_dynamicBody);
+	body->getBody()->SetBullet(true);
 
 	anim->addAnim("Idle", 16);
 	anim->addAnim("Walk", 10);
 
 	transform->setScale(RESOLUTION); //el 3 sería el factor de resolución!!
-	body->getBody()->SetTransform(b2Vec2(340, 100), body->getBody()->GetAngle());
 	transform->setAnchor(0, 0);
 	//transform->setRotation(45);
 }

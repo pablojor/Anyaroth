@@ -47,7 +47,7 @@ const string LEVELS[NUM_LEVELS] =
 const double TILES_W = 16;
 const double TILES_H = 16;
 
-const double M_TO_PIXEL = 3000;
+const double M_TO_PIXEL = 3;
 
 //********************************************************************************
 //********************************************************************************

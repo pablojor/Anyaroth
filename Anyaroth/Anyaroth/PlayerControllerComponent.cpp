@@ -68,6 +68,6 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 
 	if (_wPul /*Y no estoy saltando ya*/)
 	{
-		_movement->changeDir(0, -1);
+		_movement->changeDir(_movement->getDirX(), -1);
 	}
 }

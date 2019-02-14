@@ -1,6 +1,7 @@
 #include "PlayState.h"
 #include "Game.h"
 #include "CollisionManager.h"
+#include "BodyComponent.h"
 
 CollisionManager colManager;
 
@@ -16,12 +17,13 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_stages.push_back(new Layer("Capa de patrones 2", g->getTexture("tileset"), TILEMAP_PATH + "P2.json", _world));
 
 	_colLayer = new Layer("Capa de patrones 3", g->getTexture("tileset"), TILEMAP_PATH + "P2.json", _world);
+	_colLayer->addComponent<BodyComponent>();
 	_stages.push_back(_colLayer);
 
 	//Player
 	_player = new Player(g->getTexture("Mk"), _world);
 	_stages.push_back(_player);
-
+	_world->DrawDebugData();
 }
 
 void PlayState::handleEvents(SDL_Event& e)
@@ -31,6 +33,6 @@ void PlayState::handleEvents(SDL_Event& e)
 
 void PlayState::update()
 {
-	_world->Step(0.1, 1, 1);
+	_world->Step(1/20.0, 8, 3);
 	GameState::update();
 }
