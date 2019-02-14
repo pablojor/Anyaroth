@@ -12,7 +12,7 @@ class PlayerControllerComponent : public InputComponent
 		AnimatedSpriteComponent* _anim;
 		MovingComponent* _movement = nullptr;
 		bool _wPul = false, _aPul = false, _sPul = false, _dPul = false;
-		bool _rightClickPul = false;
+		bool _rightClickPul = false, isAttacking = false;
 
 	public:
 		PlayerControllerComponent(GameComponent* obj);

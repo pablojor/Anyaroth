@@ -53,13 +53,21 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 		}
 	}
 
+	if (event.type == SDL_MOUSEBUTTONUP)
+	{
+		if (event.button.button == SDL_BUTTON_RIGHT && isAttacking)
+		{
+			_rightClickPul = false;
+		}
+	}
 
-	if (_aPul == _dPul)
+
+	if (_aPul == _dPul && !isAttacking)
 	{
 		_movement->changeDir(0, 0); //Llamo a animacion idle
 		_anim->playAnim(AnimatedSpriteComponent::Idle);
 	}
-	else if (_aPul)
+	else if (_aPul && !isAttacking)
 	{
 		_movement->changeDir(-1, 0); //Llamo a animacion de moverse y un flip
 		if (!_anim->isFlipped())
@@ -67,7 +75,7 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 		else
 			_anim->playAnim(AnimatedSpriteComponent::Walk);
 	}
-	else if (_dPul)
+	else if (_dPul&&!isAttacking)
 	{
 		_movement->changeDir(1, 0); //Llamo a animacion de moverse
 		if (!_anim->isFlipped())
@@ -75,7 +83,7 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 		else
 			_anim->playAnim(AnimatedSpriteComponent::WalkBack);
 	}
-	else
+	else if (!isAttacking)
 	{
 		_movement->changeDir(0, 0); //Llamo a animacion idle
 		_anim->playAnim(AnimatedSpriteComponent::Idle);
@@ -93,6 +101,7 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 
 	if (_rightClickPul)
 	{
+		isAttacking = true;
 		//llamo a función de melee
 		//desactivo brazo
 		_anim->playAnim(AnimatedSpriteComponent::MeleeKnife);
