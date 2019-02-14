@@ -7,6 +7,9 @@ PlayState::PlayState(Game* g) : GameState(g)
 {
 	//World
 	_world = new b2World(b2Vec2(0.0, 9.8));
+	//Gestion de colisiones
+	CollisionManager colManager;
+	_world->SetContactListener(&colManager);
 
 	//Tilemap
 	_stages.push_back(new Layer("Capa de Patrones 1", g->getTexture("tileset"), TILEMAP_PATH + "P2.json", _world));

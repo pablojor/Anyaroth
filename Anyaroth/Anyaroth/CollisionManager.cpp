@@ -1,34 +1,59 @@
 #include "CollisionManager.h"
 #include "GameComponent.h"
 
-CollisionManager* CollisionManager::_collisionManager = 0;
-
 CollisionManager::~CollisionManager()
 {
-	if (_collisionManager != 0)
-		delete _collisionManager;
 }
 
 
-bool CollisionManager::_AABBCollision(SDL_Rect rectA, SDL_Rect rectB)
+void CollisionManager::beginContact(b2Contact * contact)
 {
-	return (rectA.x + rectA.w >= rectB.x &&
-			rectA.y + rectA.h >= rectB.y &&
-			rectB.x + rectB.w >= rectA.x &&
-			rectB.y + rectB.h >= rectA.y);
+	void* bodyUserDataA = contact->GetFixtureA()->GetBody()->GetUserData();
+	void* bodyUserDataB = contact->GetFixtureA()->GetBody()->GetUserData();
+	if (bodyUserDataA && bodyUserDataB)
+	{
+		GameComponent* A = static_cast<GameComponent*>(bodyUserDataA);
+		GameComponent* B = static_cast<GameComponent*>(bodyUserDataB);
+		A->beginCollision(B);
+		B->beginCollision(A);
+	}
 }
 
-//WARNING, si se usa deja basura mistica, cuidado. <3
-//CollisionManager* CollisionManager::getCollisionManager()
-//{
-//	if (_collisionManager == 0)
-//		_collisionManager = new CollisionManager();
-//
-//	return _collisionManager;
-//}
-
-
-bool CollisionManager::checkCollision(GameComponent* A, GameComponent* B)
+void CollisionManager::endContact(b2Contact * contact)
 {
-	return _AABBCollision(A->getComponent<BoxCollider>()->getCollider(), B->getComponent<BoxCollider>()->getCollider());
+	void* bodyUserDataA = contact->GetFixtureA()->GetBody()->GetUserData();
+	void* bodyUserDataB = contact->GetFixtureA()->GetBody()->GetUserData();
+	if (bodyUserDataA && bodyUserDataB)
+	{
+		GameComponent* A = static_cast<GameComponent*>(bodyUserDataA);
+		GameComponent* B = static_cast<GameComponent*>(bodyUserDataB);
+		A->endCollision(B);
+		B->endCollision(A);
+	}
+}
+
+inline void CollisionManager::preSolve(b2Contact * contact)
+{
+	void* bodyUserDataA = contact->GetFixtureA()->GetBody()->GetUserData();
+	void* bodyUserDataB = contact->GetFixtureA()->GetBody()->GetUserData();
+	if (bodyUserDataA && bodyUserDataB)
+	{
+		GameComponent* A = static_cast<GameComponent*>(bodyUserDataA);
+		GameComponent* B = static_cast<GameComponent*>(bodyUserDataB);
+		A->preCollision(B);
+		B->preCollision(A);
+	}
+}
+
+inline void CollisionManager::postSolve(b2Contact * contact)
+{
+	void* bodyUserDataA = contact->GetFixtureA()->GetBody()->GetUserData();
+	void* bodyUserDataB = contact->GetFixtureA()->GetBody()->GetUserData();
+	if (bodyUserDataA && bodyUserDataB)
+	{
+		GameComponent* A = static_cast<GameComponent*>(bodyUserDataA);
+		GameComponent* B = static_cast<GameComponent*>(bodyUserDataB);
+		A->postCollision(B);
+		B->postCollision(A);
+	}
 }

@@ -65,6 +65,11 @@ class GameComponent: public GameObject
 
 		b2World* getWorld();
 
+		virtual void beginCollision(GameComponent* other) {};
+		virtual void endCollision(GameComponent* other) {};
+		virtual void preCollision(GameComponent* other) {};
+		virtual void postCollision(GameComponent* other) {};
+
 		template<class ComponentType>
 		ComponentType* addComponent()
 		{
