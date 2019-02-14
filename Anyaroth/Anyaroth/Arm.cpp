@@ -22,7 +22,7 @@ Arm::Arm(Texture* texture, GameComponent* player, Vector2D offset) : GameCompone
 
 
 
-	_anim->addAnim(AnimatedSpriteComponent::Idle, 1);
+	_anim->addAnim(AnimatedSpriteComponent::Idle, 1, false);
 
 	_anim->playAnim(AnimatedSpriteComponent::Idle);
 	//anim->addAnim("Walk", 10);

@@ -21,11 +21,11 @@ Player::Player(Texture* texture) : GameComponent()
 	addComponent<MovingComponent>();
 	addComponent<PlayerControllerComponent>();
 	addComponent<BoxCollider>();
-	
-	anim->addAnim(AnimatedSpriteComponent::Idle, 16);
-	anim->addAnim(AnimatedSpriteComponent::Walk, 10);
-	anim->addAnim(AnimatedSpriteComponent::WalkBack, 10);
-	
+
+	anim->addAnim(AnimatedSpriteComponent::Idle, 16, true);
+	anim->addAnim(AnimatedSpriteComponent::Walk, 10, true);
+	anim->addAnim(AnimatedSpriteComponent::WalkBack, 10, true);
+
 
 	transform->setScale(RESOLUTION); //el 3 sería el factor de resolución!!
 	transform->setPosition(340, 400);
@@ -36,11 +36,11 @@ Player::Player(Texture* texture) : GameComponent()
 
 }
 
-Player::~Player() 
+Player::~Player()
 {
 }
 
-void Player::update() 
+void Player::update()
 {
 	GameComponent::update();
 

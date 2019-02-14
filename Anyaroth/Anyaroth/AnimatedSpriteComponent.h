@@ -4,34 +4,39 @@
 #include "PhysicsComponent.h"
 #include <vector>
 
+typedef unsigned int uint;
+
 class GameComponent;
 
-struct AnimationState 
+struct AnimationState
 {
 	uint name;
 	uint numFrames;
+	bool loop;
 };
 
-class AnimatedSpriteComponent: public SpriteComponent, public PhysicsComponent
+class AnimatedSpriteComponent : public SpriteComponent, public PhysicsComponent
 {
-	protected:
-		vector<pair<uint, uint>> _animations = { /*{"Idle",16}, {"Walk",10} */};
+protected:
+	vector<AnimationState> _animations = { /*{"Idle",16}, {"Walk",10} */ };
 
-		uint _currentAnim = 0;
+	uint _currentAnim = 0;
 
-		uint _frame;
-		uint _lastTimeUpdated = 0;  // last time we update a frame
-		uint _freq = 50; // the frequency of updating frames
-	public:
-		enum Animations { Idle, Walk, WalkBack };
+	uint _frame;
+	uint _lastTimeUpdated = 0;  // last time we update a frame
+	uint _freq = 50; // the frequency of updating frames
 
-		AnimatedSpriteComponent(GameComponent* obj);
-		virtual ~AnimatedSpriteComponent();
+	bool _animationFinished = false;
+public:
+	enum Animations { Idle, Walk, WalkBack };
 
-		virtual void render() const;
-		virtual void update();
+	AnimatedSpriteComponent(GameComponent* obj);
+	virtual ~AnimatedSpriteComponent();
 
-		void addAnim(Animations name, int numFrames);
-		void playAnim(Animations name);
+	virtual void render() const;
+	virtual void update();
+
+	void addAnim(Animations name, uint numFrames, bool loop);
+	void playAnim(Animations name);
 };
 
