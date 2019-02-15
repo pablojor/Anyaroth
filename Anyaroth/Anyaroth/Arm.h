@@ -4,6 +4,7 @@
 #include "TransformComponent.h"
 
 class AnimatedSpriteComponent;
+class Player;
 
 class Arm : public GameComponent
 {

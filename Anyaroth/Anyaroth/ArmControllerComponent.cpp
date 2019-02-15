@@ -23,7 +23,7 @@ ArmControllerComponent::ArmControllerComponent(GameComponent* obj) : InputCompon
 
 void ArmControllerComponent::handleInput(const SDL_Event& event)
 {
-	if (event.type == SDL_MOUSEMOTION)
+	if (true)//(event.type == SDL_MOUSEMOTION)
 	{
 		int x, y;
 		SDL_GetMouseState(&x, &y);
@@ -61,7 +61,7 @@ void ArmControllerComponent::handleInput(const SDL_Event& event)
 
 		//cout << (_transform->getPosition().getX()) << endl;
 
-		
+
 
 
 
@@ -74,7 +74,7 @@ void ArmControllerComponent::handleInput(const SDL_Event& event)
 		//actualizo angulo del brazo
 		double rot = atan2(direction.getY(), direction.getX()) * 180.0 / PI;
 
-		if (!_anim->isFlipped()) 
+		if (!_anim->isFlipped())
 		{
 			rot -= 180 - 10;
 		}

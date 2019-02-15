@@ -4,6 +4,7 @@
 #include "FollowingComponent.h"
 #include "AnimatedSpriteComponent.h"
 #include "ArmControllerComponent.h"
+//#include "PlayerControllerComponent.h"
 
 Arm::Arm(Texture* texture, GameComponent* player, Vector2D offset) : GameComponent()
 {
@@ -42,6 +43,15 @@ Arm::~Arm()
 void Arm::update()
 {
 	GameComponent::update();
+
+	if ((dynamic_cast<Player*>(_player))->getCurrentState() == Player::Attacking)
+	{
+		_anim->setActive(false);
+	}
+	else
+	{
+		_anim->setActive(true);
+	}
 }
 
 void Arm::setPlayer(Vector2D offset, GameComponent* player)

@@ -15,15 +15,18 @@ AnimatedSpriteComponent::~AnimatedSpriteComponent()
 
 void AnimatedSpriteComponent::render() const
 {
-	SDL_Rect destRect;
-	destRect.w = (_texture->getW() / _texture->getNumCols()) * _transform->getScale().getX();
-	destRect.h = (_texture->getH() / _texture->getNumFils()) * _transform->getScale().getY();
-	destRect.x = _transform->getPosition().getX()/* - _transform->getAnchor().getX() * destRect.w*/;
-	destRect.y = _transform->getPosition().getY()/* - _transform->getAnchor().getY() * destRect.h*/;
+	if (_active)
+	{
+		SDL_Rect destRect;
+		destRect.w = (_texture->getW() / _texture->getNumCols()) * _transform->getScale().getX();
+		destRect.h = (_texture->getH() / _texture->getNumFils()) * _transform->getScale().getY();
+		destRect.x = _transform->getPosition().getX()/* - _transform->getAnchor().getX() * destRect.w*/;
+		destRect.y = _transform->getPosition().getY()/* - _transform->getAnchor().getY() * destRect.h*/;
 
-	SDL_Point anchor = { _transform->getAnchor().getX() * destRect.w, _transform->getAnchor().getY() * destRect.h };
+		SDL_Point anchor = { _transform->getAnchor().getX() * destRect.w, _transform->getAnchor().getY() * destRect.h };
 
-	_texture->renderFrame(destRect, _currentAnim, _frame, _transform->getRotation(), anchor, (_flip ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE));
+		_texture->renderFrame(destRect, _currentAnim, _frame, _transform->getRotation(), anchor, (_flip ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE));
+	}
 }
 
 void AnimatedSpriteComponent::update()
@@ -35,14 +38,14 @@ void AnimatedSpriteComponent::update()
 		{
 			_frame = (_frame + 1) % _animations[_currentAnim].numFrames;
 		}
-		else if (!_animationFinished)
+		else if (!_animations[_currentAnim].animationFinished)
 		{
 			_frame++;
 
 			if (_frame == _animations[_currentAnim].numFrames)
 			{
 				cout << "animation finished!" << endl;
-				_animationFinished = true;
+				_animations[_currentAnim].animationFinished = true;
 				_frame = _animations[_currentAnim].numFrames - 1;
 			}
 		}
@@ -54,17 +57,17 @@ void AnimatedSpriteComponent::update()
 
 void AnimatedSpriteComponent::playAnim(Animations name)
 {
+	_animations[_currentAnim].animationFinished = false;
+
 	if (_currentAnim != name)
 	{
 		_currentAnim = name;
 		_frame = 0;
 	}
-
-	_animationFinished = false;
 }
 
 void AnimatedSpriteComponent::addAnim(Animations name, uint numFrames, bool loop)
 {
-	_animations.push_back({ (uint)name, numFrames,loop });
+	_animations.push_back({ (uint)name, numFrames, loop, false });
 }
 
