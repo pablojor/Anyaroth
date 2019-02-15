@@ -12,7 +12,7 @@ Player::Player(Texture* texture, b2World* world) : GameComponent(world)
 	//Resto de componentes
 
 	auto transform = addComponent<TransformComponent>();		//Como en el metodo anterior se ha creado este componente, imprime por pantalla que ya existe uno.
-	transform->setPosition(100, 0);
+	transform->setPosition(100, 50);
 	auto body = addComponent<BodyComponent>();
 	auto anim = addComponent<AnimatedSpriteComponent>();		//Como depende de Transform, en su constructura crea una si no ha encontrado Transform en el objeto.
 	addComponent<MovingComponent>();

@@ -114,9 +114,9 @@ void Game::run()
 {
 	uint startTime, frameTime;
 	startTime = SDL_GetTicks();
-
 	while (!exit)
 	{
+		render();
 		handleEvents();
 		frameTime = SDL_GetTicks() - startTime;
 		//if (frameTime >= var[FRAME_RATE])
@@ -125,7 +125,7 @@ void Game::run()
 			update();
 			startTime = SDL_GetTicks();
 		}
-		render();
+
 	}
 }
 

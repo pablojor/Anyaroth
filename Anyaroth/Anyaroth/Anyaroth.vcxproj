@@ -130,6 +130,7 @@
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Collectable.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
+    <ClCompile Include="DebugDraw.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -166,6 +167,7 @@
     <ClInclude Include="Collectable.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="DebugDraw.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="HUD.h" />
     <ClInclude Include="Player.h" />
