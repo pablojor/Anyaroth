@@ -1,7 +1,7 @@
 #include "Gun.h"
 #include "AnimatedSpriteComponent.h"
 
-Gun::Gun(Texture* texture, GameComponent* player, int maxAmmunition, int magazine, b2World* world) : GameComponent(world)
+Gun::Gun(Texture* texture, GameComponent* player, int maxAmmunition, int magazine, Game* g) : GameComponent(g)
 {
 	//en principio su transform es el mismo que el del jugador;
 	_playerTransform = player->getComponent<BodyComponent>();

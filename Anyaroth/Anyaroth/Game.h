@@ -7,6 +7,8 @@
 #include "Texture.h"
 #include "GameStateMachine.h"
 #include "PlayState.h"
+#include "DebugDraw.h"
+#include "CollisionManager.h"
 
 
 const int RESOLUTION = 2;
@@ -47,7 +49,7 @@ const string LEVELS[NUM_LEVELS] =
 const double TILES_W = 16;
 const double TILES_H = 16;
 
-const double M_TO_PIXEL = 40;
+const double M_TO_PIXEL = 8;
 
 //********************************************************************************
 //********************************************************************************
@@ -62,6 +64,9 @@ class Game
 		GameState* states[NUM_STATES];
 		GameStateMachine* stateMachine = new GameStateMachine();
 		vector<string> texturesName;
+		b2World* _world = nullptr;
+		CollisionManager colManager;
+		DebugDraw debugger;
 		bool exit = false;
 
 	public:
@@ -73,6 +78,7 @@ class Game
 		void changeState(StateName);
 		Texture* getTexture(string nameText);
 		SDL_Renderer* getRenderer() { return renderer; }
+		b2World* getWorld() { return _world; }
 		void newGame();
 		void load();
 		void save();

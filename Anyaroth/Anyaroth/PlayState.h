@@ -7,7 +7,6 @@
 class PlayState : public GameState
 {
 private:
-	b2World* _world = nullptr;
 	Player* _player = nullptr;
 	Layer* _colLayer = nullptr;
 

@@ -2,15 +2,16 @@
 
 #include "GameObject.h"
 #include "Component.h"
-#include <Box2D/Box2D.h>
 #include <vector>
 #include <map>
+#include <Box2D/Box2D.h>
 
 using namespace std;
 
 class InputComponent;
 class PhysicsComponent;
 class RenderComponent;
+class Game;
 
 class GameComponent: public GameObject 
 {
@@ -48,7 +49,7 @@ class GameComponent: public GameObject
 
 	public:
 		GameComponent();
-		GameComponent(b2World* world);
+		GameComponent(Game* g);
 		virtual ~GameComponent();
 
 		virtual void handleInput(const SDL_Event& event);

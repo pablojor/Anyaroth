@@ -2,7 +2,7 @@
 #include "SpriteComponent.h"
 #include "BodyComponent.h"
 
-Collectable::Collectable(Texture* texture, b2Vec2 iniPos, b2World* world) : GameComponent(world)
+Collectable::Collectable(Texture* texture, b2Vec2 iniPos, Game* g) : GameComponent(g)
 {
 	auto body = addComponent<BodyComponent>();
 	addComponent<SpriteComponent>();

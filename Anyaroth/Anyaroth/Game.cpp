@@ -84,11 +84,20 @@ Game::Game()
 
 	//---Create textures
 	createTextures();
-
+	_world = new b2World(b2Vec2(0.0, 9.8));
 	//---Create states
 	states[Play] = new PlayState(this);
 
 	stateMachine->pushState(states[Play]);
+	//World
+
+	
+	debugger.getRenderer(renderer);
+	debugger.SetFlags(b2Draw::e_shapeBit);
+
+	//Gestion de colisiones
+	_world->SetContactListener(&colManager);
+	_world->SetDebugDraw(&debugger);
 }
 
 Game::~Game()
@@ -132,13 +141,15 @@ void Game::run()
 void Game::update()
 {
 	stateMachine->currentState()->update();
+	_world->Step(1 / 20.0, 8, 3);
 }
 
 void Game::render() const
 {
 	SDL_RenderClear(renderer);
-
+	
 	stateMachine->currentState()->render();
+	_world->DrawDebugData();
 
 	SDL_RenderPresent(renderer);
 }

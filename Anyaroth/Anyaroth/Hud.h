@@ -5,6 +5,6 @@
 class HUD : public GameComponent
 {
 public:
-	HUD(Texture* texture, b2Vec2 iniPos, b2World* world);
+	HUD(Texture* texture, b2Vec2 iniPos, Game* g);
 	virtual ~HUD();
 };

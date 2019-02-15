@@ -1,6 +1,6 @@
 #pragma once
 #include <Box2D/Box2D.h>
-#include "Game.h"
+#include <SDL.h>
 
 class DebugDraw : public b2Draw
 {

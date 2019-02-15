@@ -2,7 +2,7 @@
 #include "SpriteComponent.h"
 #include "BodyComponent.h"
 
-Enemy::Enemy(Texture* texture, b2Vec2 iniPos, b2World* world) : GameComponent(world) {
+Enemy::Enemy(Texture* texture, b2Vec2 iniPos, Game* g) : GameComponent(g) {
 
 	auto body = addComponent<BodyComponent>();
 	addComponent<SpriteComponent>();

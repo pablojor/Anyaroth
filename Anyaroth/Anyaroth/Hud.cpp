@@ -2,7 +2,7 @@
 #include "BodyComponent.h"
 #include "SpriteComponent.h"
 
-HUD::HUD(Texture* texture, b2Vec2 iniPos, b2World* world) : GameComponent(world)
+HUD::HUD(Texture* texture, b2Vec2 iniPos, Game* g) : GameComponent(g)
 {
 	auto body = addComponent<BodyComponent>();
 	addComponent<SpriteComponent>();

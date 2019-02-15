@@ -6,14 +6,15 @@ BodyComponent::BodyComponent(GameComponent * obj) : PhysicsComponent(obj)
 {
 	_transform = obj->getComponent<TransformComponent>();
 	auto t = obj->getComponent<Texture>();
+	int c = t->getW() / t->getNumCols(), f = t->getH() / t->getNumFils();
 	_world = obj->getWorld();
 	b2BodyDef _bodydef;
 	_bodydef.type = b2_staticBody;
-	_bodydef.position = b2Vec2(_transform->getPosition().getX() / M_TO_PIXEL, _transform->getPosition().getY() / M_TO_PIXEL);
+	_bodydef.position = b2Vec2((_transform->getPosition().getX() + c) / M_TO_PIXEL, (_transform->getPosition().getY() + f )/ M_TO_PIXEL);
 	_bodydef.angle = 0.0;
 	_body = _world->CreateBody(&_bodydef);
 	b2PolygonShape shape;
-	shape.SetAsBox(((t->getW()/t->getNumCols())*RESOLUTION) / M_TO_PIXEL, ((t->getH()/t->getNumFils())*RESOLUTION) / M_TO_PIXEL);
+	shape.SetAsBox(((c)*RESOLUTION) / (M_TO_PIXEL*2), ((f)*RESOLUTION) / (M_TO_PIXEL * 2));
 	_fixture.shape = &shape;
 	_fixture.density = 1;
 	_fixture.restitution = 0;

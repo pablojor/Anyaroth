@@ -5,6 +5,6 @@
 class Collectable : public GameComponent
 {
 	public:
-		Collectable(Texture* texture, b2Vec2 iniPos, b2World* world);
+		Collectable(Texture* texture, b2Vec2 iniPos, Game* g);
 		virtual ~Collectable() {}
 };

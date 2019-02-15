@@ -6,7 +6,7 @@ private:
 	int _life;
 
 public:
-	Player(Texture* texture, b2World* world);
+	Player(Texture* texture, Game* g);
 	~Player();
 	virtual void beginCollision(GameComponent* other);
 	void update();
