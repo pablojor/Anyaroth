@@ -2,8 +2,14 @@
 #include "PhysicsComponent.h"
 #include "RenderComponent.h"
 #include "InputComponent.h"
+#include "Game.h"
 
-GameComponent::GameComponent() : GameObject(), _inputComp(), _physicsComp(), _renderComp() 
+GameComponent::GameComponent(Game* g) : _game(g), GameObject(), _inputComp(), _physicsComp(), _renderComp()
+{
+}
+
+//Constructor vacío (sin puntero a game, _game = nullptr)
+GameComponent::GameComponent() : GameObject(), _inputComp(), _physicsComp(), _renderComp()
 {
 }
 

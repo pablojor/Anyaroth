@@ -3,8 +3,10 @@
 #include "GameComponent.h"
 #include "Arm.h"
 #include "Gun.h"
+#include "Shooter.h"
 
 class Arm;
+class Game;
 
 class Player : public GameComponent {
 private:
@@ -12,13 +14,13 @@ private:
 
 	Arm* _weaponArm = nullptr;
 
-	static const int NUM_GUNS = 3; //PONER ESTO COMO CONSTANTE DE GAME
-	Gun guns[NUM_GUNS] = {Gun(this, 100, 32), Gun(this, 100, 32), Gun(this, 100, 32) };
 public:
-	Player(Texture* texture);
+	Player(Texture* texture, Game* g);
 	~Player();
 
 	void update();
 
 	void setArm(Arm* arm) { _weaponArm = arm; };
+	void equipGun(int gunIndex);
+	
 };

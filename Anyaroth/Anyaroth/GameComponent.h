@@ -10,6 +10,7 @@ using namespace std;
 class InputComponent;
 class PhysicsComponent;
 class RenderComponent;
+class Game;
 
 class GameComponent: public GameObject 
 {
@@ -21,6 +22,9 @@ class GameComponent: public GameObject
 
 		//vector de hijos del objetos 
 		vector<GameComponent*> _children; 
+
+		//puntero a game
+		Game* _game = nullptr;
 
 
 		void add_component(Component* c, string name) { _components[name] = c; }
@@ -63,6 +67,7 @@ class GameComponent: public GameObject
 
 	public:
 		GameComponent();
+		GameComponent(Game* g);
 		virtual ~GameComponent();
 
 		virtual void handleInput(const SDL_Event& event);
@@ -78,6 +83,8 @@ class GameComponent: public GameObject
 		virtual void delRenderComponent(RenderComponent* rc);
 
 		void addChild(GameComponent* obj);
+
+		Game* getGame() { return _game; }
 
 		template<class ComponentType>
 		ComponentType* addComponent()

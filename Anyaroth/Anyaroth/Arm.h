@@ -5,6 +5,7 @@
 #include "Game.h"
 
 class AnimatedSpriteComponent;
+class Gun;
 
 class Arm : public GameComponent
 {
@@ -13,7 +14,7 @@ protected:
 	GameComponent* _player;
 	AnimatedSpriteComponent* _anim;
 
-	Game* _game; //TEMPORAL
+	Gun* _currentGun = nullptr;
 public:
 	Arm(Texture* texture, GameComponent* player, Game* g, Vector2D offset = { 0,0 });
 	virtual ~Arm();
@@ -21,5 +22,8 @@ public:
 	void update();
 
 	void setPlayer(Vector2D offset, GameComponent* player);
+	void setGun(Gun* gun) { _currentGun = gun; } //Establece el arma
+	void shoot();	
+	void reload(); 
 };
 

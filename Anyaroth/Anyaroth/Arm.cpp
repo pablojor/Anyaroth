@@ -4,8 +4,9 @@
 #include "FollowingComponent.h"
 #include "AnimatedSpriteComponent.h"
 #include "ArmControllerComponent.h"
+#include "Gun.h"
 
-Arm::Arm(Texture* texture, GameComponent* player, Game* g, Vector2D offset) : _game(g), GameComponent()
+Arm::Arm(Texture* texture, GameComponent* player, Game* g, Vector2D offset) : GameComponent(g)
 {
 
 
@@ -42,6 +43,11 @@ Arm::~Arm()
 void Arm::update()
 {
 	GameComponent::update();
+	
+	/*if (_currentGun != nullptr)
+		_currentGun->debugInfo();
+	else
+		cout << "Gun Not found" << endl << endl;*/
 }
 
 void Arm::setPlayer(Vector2D offset, GameComponent* player)
@@ -50,4 +56,20 @@ void Arm::setPlayer(Vector2D offset, GameComponent* player)
 	auto fC = addComponent<FollowingComponent>(_player);
 	fC->setInitialOffset(offset);
 	addComponent<ArmControllerComponent>();
+}
+
+//Dispara el arma
+void Arm::shoot()
+{
+	if (_currentGun != nullptr)
+		_currentGun->shoot();
+	else
+		cout << "Gun Not found" << endl;
+	
+}
+
+//Recarga el arma
+void Arm::reload()
+{
+	_currentGun->reload();
 }
