@@ -15,8 +15,14 @@ void DebugDraw::DrawPolygon(const b2Vec2* vertices, int32 vertexCount, const b2C
 void DebugDraw::DrawSolidPolygon(const b2Vec2* vertices, int32 vertexCount, const b2Color& color)
 {
 	SDL_Rect poly;
+	if(vertices[0].x<vertices[2].x)
 	poly.x = vertices[0].x*M_TO_PIXEL;
+	else
+		poly.x = vertices[2].x*M_TO_PIXEL;
+	if(vertices[0].y<vertices[2].y)
 	poly.y = vertices[0].y*M_TO_PIXEL;
+	else
+		poly.y = vertices[2].y*M_TO_PIXEL;
 	poly.h = abs(vertices[0].y - vertices[2].y)*M_TO_PIXEL;
 	poly.w = abs(vertices[0].x - vertices[2].x)*M_TO_PIXEL;
 	//SDL_RenderDrawRect(_renderer, &poly);
