@@ -2,10 +2,12 @@
 #include "SpriteComponent.h"
 
 
-Collectable::Collectable(Texture* texture, Vector2D iniPos) : GameComponent()
+Collectable::Collectable(Texture* texture, Vector2D iniPos, int value) : _value(value), GameComponent()
 {
-	auto transform = addComponent<TransformComponent>();
-	addComponent<SpriteComponent>();
+	addComponent<Texture>(texture);
 
+	auto transform = addComponent<TransformComponent>();
 	transform->setPosition(iniPos.getX(), iniPos.getY());
+
+	addComponent<SpriteComponent>();
 }
