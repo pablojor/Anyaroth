@@ -10,7 +10,7 @@ private:
 	b2Body* _body = nullptr;
 	b2FixtureDef _fixture;
 	TransformComponent* _transform;
-	int textW, textH;
+	double textW, textH, aX, aY;
 
 public:
 	BodyComponent(GameComponent* obj);

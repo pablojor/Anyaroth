@@ -7,10 +7,11 @@ BodyComponent::BodyComponent(GameComponent * obj) : PhysicsComponent(obj)
 	_transform = obj->getComponent<TransformComponent>();
 	auto t = obj->getComponent<Texture>();
 	textW = (t->getW() / t->getNumCols())*RESOLUTION, textH = (t->getH() / t->getNumFils())*RESOLUTION;
+	aX = _transform->getAnchor().getX(), aY = _transform->getAnchor().getY();
 	_world = obj->getWorld();
 	b2BodyDef _bodydef;
 	_bodydef.type = b2_staticBody;
-	_bodydef.position = b2Vec2((_transform->getPosition().getX() + textW *0.5) / M_TO_PIXEL, (_transform->getPosition().getY() + textH *0.5 )/ M_TO_PIXEL);
+	_bodydef.position = b2Vec2((_transform->getPosition().getX() + textW *(0.5-aX)) / M_TO_PIXEL, (_transform->getPosition().getY() + textH *(0.5-aY) )/ M_TO_PIXEL);
 	_bodydef.angle = 0.0;
 	_body = _world->CreateBody(&_bodydef);
 	b2PolygonShape shape;
@@ -31,7 +32,7 @@ void BodyComponent::update()
 {
 
 	if (_body->GetType() != b2_staticBody)
-		_transform->setPosition(((double)_body->GetPosition().x*M_TO_PIXEL)-textW*0.5, ((double)_body->GetPosition().y*M_TO_PIXEL)-textH*0.5);
+		_transform->setPosition(((double)_body->GetPosition().x*M_TO_PIXEL)-textW*(0.5-aX), ((double)_body->GetPosition().y*M_TO_PIXEL)-textH*(0.5-aY));
 }
 
 

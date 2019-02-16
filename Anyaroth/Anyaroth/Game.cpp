@@ -113,7 +113,7 @@ Game::~Game()
 		delete states[i];
 
 	delete stateMachine;
-
+	delete _world;
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
