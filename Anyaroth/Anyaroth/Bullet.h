@@ -8,6 +8,6 @@ public:
 	Bullet(Texture* texture, Vector2D iniPos);
 	virtual ~Bullet();
 
-	
+
 };
 

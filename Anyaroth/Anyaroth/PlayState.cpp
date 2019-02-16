@@ -25,13 +25,9 @@ PlayState::PlayState(Game* g) : GameState(g)
 	//_stages.push_back(armBack);
 
 	//cuerpo
-	_player = new Player(g->getTexture("Mk")); 
+	_player = new Player(g->getTexture("Mk"), g); 
 	_stages.push_back(_player);
 
-	//brazo de delante
-	_stages.push_back(new Arm(g->getTexture("Arm"), _player, { 42,43 }));
-
-	//armBack->setPlayer({ 72,43 }, _player);
 }
 
 void PlayState::handleEvents(SDL_Event& e)

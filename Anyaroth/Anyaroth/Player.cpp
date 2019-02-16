@@ -7,7 +7,7 @@
 #include "FollowingComponent.h"
 #include "AnimatedSpriteComponent.h"
 
-Player::Player(Texture* texture) : GameComponent()
+Player::Player(Texture* texture, Game* g) : GameComponent(g)
 {
 	//Siempre primero los componentes que tienen que estar SI o SI.
 	addComponent<Texture>(texture);
@@ -34,7 +34,12 @@ Player::Player(Texture* texture) : GameComponent()
 	transform->setAnchor(0, 0);
 	//transform->setRotation(45);
 
+	//Brazo con arma
+	_weaponArm = new Arm(getGame()->getTexture("Arm"), this, getGame(), { 42,43 });
+	addChild(_weaponArm);
 
+	//Equipa el arma inicial
+	equipGun(getGame()->BasicGun);
 
 }
 
@@ -55,4 +60,17 @@ void Player::update()
 	}
 
 	//transform->setRotation(transform->getRotation() + 0.2);
+}
+
+
+//Equipa un arma utilizando el array de atributos gameGuns de Game.h
+void Player::equipGun(int gunIndex)
+{
+	Shooter* sh = &getGame()->gameGuns[gunIndex].shooter;
+	string name = getGame()->gameGuns[gunIndex].name;
+	int mA = getGame()->gameGuns[gunIndex].maxAmmo;
+	int mC= getGame()->gameGuns[gunIndex].maxClip;
+
+	_weaponArm->setGun(new Gun(this, sh, name, mA, mC));
+	//cout << "Gun equipada" << endl << endl << endl << endl << endl << endl;
 }

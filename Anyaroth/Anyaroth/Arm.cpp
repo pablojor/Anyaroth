@@ -4,9 +4,9 @@
 #include "FollowingComponent.h"
 #include "AnimatedSpriteComponent.h"
 #include "ArmControllerComponent.h"
-//#include "PlayerControllerComponent.h"
+#include "Gun.h"
 
-Arm::Arm(Texture* texture, GameComponent* player, Vector2D offset) : GameComponent()
+Arm::Arm(Texture* texture, GameComponent* player, Game* g, Vector2D offset) : GameComponent(g)
 {
 
 
@@ -28,7 +28,7 @@ Arm::Arm(Texture* texture, GameComponent* player, Vector2D offset) : GameCompone
 	_anim->playAnim(AnimatedSpriteComponent::Idle);
 	//anim->addAnim("Walk", 10);
 
-	_transform->setScale(RESOLUTION); //el 3 sería el factor de resolución!!
+	_transform->setScale(RESOLUTION); //el 3 serÃ­a el factor de resoluciÃ³n!!
 	//_transform->setPosition(340, 100);
 	_transform->setDefaultAnchor(0.17, 0.3);
 
@@ -43,6 +43,11 @@ Arm::~Arm()
 void Arm::update()
 {
 	GameComponent::update();
+	
+	/*if (_currentGun != nullptr)
+		_currentGun->debugInfo();
+	else
+		cout << "Gun Not found" << endl << endl;*/
 
 	if ((dynamic_cast<Player*>(_player))->getCurrentState() == Player::Attacking)
 	{
@@ -60,4 +65,20 @@ void Arm::setPlayer(Vector2D offset, GameComponent* player)
 	auto fC = addComponent<FollowingComponent>(_player);
 	fC->setInitialOffset(offset);
 	addComponent<ArmControllerComponent>();
+}
+
+//Dispara el arma
+void Arm::shoot()
+{
+	if (_currentGun != nullptr)
+		_currentGun->shoot();
+	else
+		cout << "Gun Not found" << endl;
+	
+}
+
+//Recarga el arma
+void Arm::reload()
+{
+	_currentGun->reload();
 }

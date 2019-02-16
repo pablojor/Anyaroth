@@ -7,6 +7,8 @@
 #include "Texture.h"
 #include "GameStateMachine.h"
 #include "PlayState.h"
+#include "Gun.h"
+#include "Shooter.h"
 
 
 
@@ -57,6 +59,18 @@ const string LEVELS[NUM_LEVELS] =
 const double TILES_W = 16;
 const double TILES_H = 16;
 
+
+//ARMAS
+const int NUM_GUNS = 2; //Número de armas en el juego
+
+struct GunAttributes
+{
+	Shooter shooter;
+	string name;
+	int maxAmmo;
+	int maxClip;
+};
+
 //********************************************************************************
 //********************************************************************************
 //********************************************************************************
@@ -74,6 +88,19 @@ class Game
 
 	public:
 		vector<int> var;
+
+		//Las armas que hay en el juego
+		enum GameGun
+		{
+			BasicGun,
+			BasicShotgun
+		};
+		GunAttributes gameGuns[NUM_GUNS] = 
+		{
+			{Shooter(),"Pistola",60,12},
+			{ Shooter(),"Escopeta",30,2 }
+		};
+
 		//Metodos
 		void createVariables();
 		void createTextures();
