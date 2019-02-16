@@ -18,6 +18,8 @@ Player::Player(Texture* texture, Game* g) : GameComponent(g)
 	addComponent<MovingComponent>();
 	addComponent<PlayerControllerComponent>();
 	body->getBody()->SetType(b2_dynamicBody);
+	body->getBody()->SetBullet(true);
+	body->getBody()->SetFixedRotation(true);
 	anim->addAnim("Idle", 16);
 	anim->addAnim("Walk", 10);
 

@@ -2,7 +2,7 @@
 
 #include "PhysicsComponent.h"
 #include "Bodycomponent.h"
-
+#include "Game.h"
 class GameComponent;
 
 class MovingComponent : public PhysicsComponent
@@ -10,7 +10,7 @@ class MovingComponent : public PhysicsComponent
 	private:
 		BodyComponent* _body;
 		b2Vec2 _dir = b2Vec2(0.0f, 0.0f);
-		double _speed = 100;
+		double _speed = 50*RESOLUTION;
 
 	public:
 		MovingComponent(GameComponent* obj);
