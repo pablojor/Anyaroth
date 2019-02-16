@@ -37,13 +37,14 @@ Arm::Arm(Texture* texture, GameComponent* player, Game* g, Vector2D offset) : Ga
 
 Arm::~Arm()
 {
-
+	delete _currentGun;
+	_currentGun = nullptr;
 }
 
 void Arm::update()
 {
 	GameComponent::update();
-	
+
 	/*if (_currentGun != nullptr)
 		_currentGun->debugInfo();
 	else
@@ -74,11 +75,19 @@ void Arm::shoot()
 		_currentGun->shoot();
 	else
 		cout << "Gun Not found" << endl;
-	
+
 }
 
 //Recarga el arma
-void Arm::reload()
+bool Arm::reload()
 {
-	_currentGun->reload();
+	return _currentGun->reload();
+}
+
+void Arm::setGun(Gun* gun)
+{
+	if (_currentGun != nullptr) //Si ya hay un arma, llama a su destructora
+		delete _currentGun;
+
+	_currentGun = gun;
 }

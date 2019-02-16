@@ -17,14 +17,19 @@ private:
 	*/
 	int _maxAmmo = 0, _ammo = 0, //Munición máxima / munición actual
 		_maxClip = 0, _clip = 0, //Munición máxima en el cargador/ munición actual en el cargador
-		_bulletsPerShot; //Balas usadas por disparo
+		_bulletsPerShot; //Balas usadas por disparo / ráfaga
 
 	string _name = ""; //El nombre del arma
 	
 	GameComponent* _shootingObj = nullptr; //El objeto que usa el arma
 	Shooter* _shooterComp; //El componente con el método shoot() del arma
 
+	/*********************************
+	//RECORDATORIO: Daño de las armas
+					Velocidad de disparo
+					Rango
 
+	/*********************************/
 
 	void useAmmo();
 	void reloadAux(int newClipValue);
@@ -37,7 +42,7 @@ public:
 	void shoot();
 
 	void addAmmo(int ammoAdded);
-	void reload();
+	bool reload();
 	void resetAmmo();
 
 	void debugInfo();

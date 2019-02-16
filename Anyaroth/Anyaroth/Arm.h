@@ -3,6 +3,7 @@
 #include "GameComponent.h"
 #include "TransformComponent.h"
 #include "Game.h"
+#include "checkML.h"
 
 class AnimatedSpriteComponent;
 class Gun;
@@ -23,8 +24,8 @@ public:
 	void update();
 
 	void setPlayer(Vector2D offset, GameComponent* player);
-	void setGun(Gun* gun) { _currentGun = gun; } //Establece el arma
+	void setGun(Gun* gun); //Establece el arma
 	void shoot();	
-	void reload(); 
+	bool reload(); 
 };
 

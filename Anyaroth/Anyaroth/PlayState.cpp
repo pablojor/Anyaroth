@@ -3,6 +3,7 @@
 #include "CollisionManager.h"
 #include "FollowingComponent.h"
 
+#include "checkML.h"
 
 PlayState::PlayState(Game* g) : GameState(g)
 {
@@ -19,13 +20,13 @@ PlayState::PlayState(Game* g) : GameState(g)
 
 
 	//Player
-	
+
 	//brazo de atrás
 	//auto armBack = new Arm(g->getTexture("Armback"), nullptr);
 	//_stages.push_back(armBack);
 
 	//cuerpo
-	_player = new Player(g->getTexture("Mk"), g); 
+	_player = new Player(g->getTexture("Mk"), g);
 	_stages.push_back(_player);
 
 }

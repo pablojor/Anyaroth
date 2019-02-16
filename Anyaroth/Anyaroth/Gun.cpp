@@ -23,17 +23,32 @@ void Gun::reloadAux(int newClipValue)
 	_ammo -= (_clip - prevClip); //resta a la munición total la munición recargada
 }
 
-void Gun::reload() 
+//Recarga la munición si puede y devuelve true si ha recargado
+bool Gun::reload()
 {
 	if (_clip < _maxClip) { //Si el cargador no está completo
-		if (_ammo >= _maxClip) reloadAux(_maxClip);
+		//llamo a animación de recargar
+
+
+
+		if (_ammo >= _maxClip)
+			reloadAux(_maxClip);
 		else if (_ammo > 0) reloadAux(min(_maxClip, _clip + _ammo));
+		else return false;
+
+		cout << "Recargando! Cubranme!" << endl;
+		cout << "Ammo: " << _ammo << "/" << _maxAmmo << endl;
+		cout << "Clip: " << _clip << "/" << _maxClip << endl;
+
+		return true;
 	}
+	else
+		return false;
 }
 
 // Suma ammoAdded a la munición y la coloca en _ammo y _clip según corresponda
 // USAR ESTE MÉTODO AL RECOGER MUNICIÓN
-void Gun::addAmmo(int ammoAdded) 
+void Gun::addAmmo(int ammoAdded)
 {
 	if (_ammo + ammoAdded > _maxAmmo) //Si sobran balas en _ammo
 	{
@@ -58,10 +73,10 @@ void Gun::resetAmmo()
 }
 
 //Reduce la munición 
-void Gun::useAmmo() 
+void Gun::useAmmo()
 {
 	/*
-	if (_clip - _bulletsPerShot >= 0) 
+	if (_clip - _bulletsPerShot >= 0)
 	{
 		_clip -= _bulletsPerShot;
 	}
@@ -75,19 +90,26 @@ void Gun::useAmmo()
 }
 
 void Gun::shoot() {
-	if(_clip >= _bulletsPerShot //Si hay suficientes balas en el cargador
-	&& _shooterComp != nullptr) //Si tiene un shooter, llama a su shoot()
+	if (_clip >= _bulletsPerShot //Si hay suficientes balas en el cargador
+		&& _shooterComp != nullptr) //Si tiene un shooter, llama a su shoot()
 	{
 		_shooterComp->shoot();
-		
 
 		//Reduce la munición actual
 		useAmmo();
+
+		//Dispara
+		cout << "Piumm!" << endl;
+		cout << "Ammo: " << _ammo << "/" << _maxAmmo << endl;
+		cout << "Clip: " << _clip << "/" << _maxClip << endl;
+
+		
 	}
 	else //Si no, recarga
 	{
 		reload();
 	}
+
 }
 
 
