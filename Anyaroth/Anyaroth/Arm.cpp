@@ -28,7 +28,7 @@ Arm::Arm(Texture* texture, GameComponent* player, Game* g, Vector2D offset) : Ga
 	_anim->playAnim(AnimatedSpriteComponent::Idle);
 	//anim->addAnim("Walk", 10);
 
-	_transform->setScale(RESOLUTION); //el 3 sería el factor de resolución!!
+	_transform->setScale(RESOLUTION); //el 3 serÃ­a el factor de resoluciÃ³n!!
 	//_transform->setPosition(340, 100);
 	_transform->setDefaultAnchor(0.17, 0.3);
 
@@ -48,6 +48,15 @@ void Arm::update()
 		_currentGun->debugInfo();
 	else
 		cout << "Gun Not found" << endl << endl;*/
+
+	if ((dynamic_cast<Player*>(_player))->getCurrentState() == Player::Attacking)
+	{
+		_anim->setActive(false);
+	}
+	else
+	{
+		_anim->setActive(true);
+	}
 }
 
 void Arm::setPlayer(Vector2D offset, GameComponent* player)

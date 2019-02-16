@@ -1,16 +1,18 @@
 #include "PlayerControllerComponent.h"
 #include "GameComponent.h"
+#include "Player.h"
 
-
-PlayerControllerComponent::PlayerControllerComponent(GameComponent* obj) : InputComponent(obj) 
+PlayerControllerComponent::PlayerControllerComponent(GameComponent* obj) : InputComponent(obj)
 {
 	_movement = obj->getComponent<MovingComponent>();
-	if (_movement == nullptr) 
+	if (_movement == nullptr)
 		_movement = obj->addComponent<MovingComponent>();
 
 	_anim = obj->getComponent<AnimatedSpriteComponent>();
-	if (_anim == nullptr) 
+	if (_anim == nullptr)
 		_anim = obj->addComponent<AnimatedSpriteComponent>();
+
+	_obj = obj;
 }
 
 void PlayerControllerComponent::handleInput(const SDL_Event& event)
@@ -45,32 +47,57 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 
 	}
 
-	if (_aPul == _dPul)
+	if (event.type == SDL_MOUSEBUTTONDOWN)
 	{
-		_movement->changeDir(0, 0); //Llamo a animacion iddle
+		if (event.button.button == SDL_BUTTON_RIGHT)
+		{
+			_rightClickPul = true;
+		}
+	}
+
+	if (event.type == SDL_MOUSEBUTTONUP)
+	{
+		if (event.button.button == SDL_BUTTON_RIGHT) //&& _isAttacking)
+		{
+			_rightClickPul = false;
+		}
+	}
+
+	if (_rightClickPul) //&& !_isAttacking)
+	{
+		_movement->changeDir(0, 0);
+		_isAttacking = true;
+		//llamo a función de melee
+		dynamic_cast<Player*>(_obj)->setCurrentState(Player::Attacking);
+		//_animArm->setActive(false);//desactivo brazo
+		_anim->playAnim(AnimatedSpriteComponent::MeleeKnife);//llamo animacion del melee dependiendo del arma cuerpo a cuerpo
+	}
+
+
+	if ((_aPul == _dPul) && !_isAttacking)
+	{
+		_movement->changeDir(0, 0); //Llamo a animacion idle
 		_anim->playAnim(AnimatedSpriteComponent::Idle);
 	}
-	else if (_aPul)
+	else if (_aPul && !_isAttacking)
 	{
 		_movement->changeDir(-1, 0); //Llamo a animacion de moverse y un flip
 		if (!_anim->isFlipped())
 			_anim->playAnim(AnimatedSpriteComponent::WalkBack);
 		else
 			_anim->playAnim(AnimatedSpriteComponent::Walk);
-		//_anim->flip();
 	}
-	else if (_dPul)
+	else if (_dPul && !_isAttacking)
 	{
 		_movement->changeDir(1, 0); //Llamo a animacion de moverse
 		if (!_anim->isFlipped())
 			_anim->playAnim(AnimatedSpriteComponent::Walk);
 		else
 			_anim->playAnim(AnimatedSpriteComponent::WalkBack);
-		//_anim->unFlip();
 	}
-	else
+	else if (!_isAttacking)
 	{
-		_movement->changeDir(0, 0); //Llamo a animacion iddle
+		_movement->changeDir(0, 0); //Llamo a animacion idle
 		_anim->playAnim(AnimatedSpriteComponent::Idle);
 	}
 
@@ -83,4 +110,6 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 	{
 		//Llamo a compoennte de dash hacia abajo (culo)
 	}
+
+	
 }

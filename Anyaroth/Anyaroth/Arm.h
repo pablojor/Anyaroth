@@ -6,6 +6,7 @@
 
 class AnimatedSpriteComponent;
 class Gun;
+class Player;
 
 class Arm : public GameComponent
 {

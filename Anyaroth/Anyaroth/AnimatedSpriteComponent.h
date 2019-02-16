@@ -13,12 +13,13 @@ struct AnimationState
 	uint name;
 	uint numFrames;
 	bool loop;
+	bool animationFinished;
 };
 
 class AnimatedSpriteComponent : public SpriteComponent, public PhysicsComponent
 {
 protected:
-	vector<AnimationState> _animations = { /*{"Idle",16}, {"Walk",10} */ };
+	vector<AnimationState> _animations = {};
 
 	uint _currentAnim = 0;
 
@@ -27,8 +28,10 @@ protected:
 	uint _freq = 50; // the frequency of updating frames
 
 	bool _animationFinished = false;
+
+	bool _active = true;
 public:
-	enum Animations { Idle, Walk, WalkBack };
+	enum Animations { Idle, Walk, WalkBack, MeleeKnife };
 
 	AnimatedSpriteComponent(GameComponent* obj);
 	virtual ~AnimatedSpriteComponent();
@@ -38,5 +41,9 @@ public:
 
 	void addAnim(Animations name, uint numFrames, bool loop);
 	void playAnim(Animations name);
+
+	bool animationFinished() { return _animations[_currentAnim].animationFinished; };
+
+	void setActive(bool b) { _active = b; };
 };
 
