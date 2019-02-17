@@ -21,7 +21,13 @@ class GameComponent: public GameObject
 		vector<RenderComponent*> _renderComp;
 		map<string, Component*> _components;
 
-		b2World* _world;
+		b2World* _world = nullptr;
+
+		//vector de hijos del objetos 
+		vector<GameComponent*> _children; 
+
+		//puntero a game
+		Game* _game = nullptr;
 
 		void add_component(Component* c, string name) { _components[name] = c; }
 
@@ -31,6 +37,20 @@ class GameComponent: public GameObject
 			if (_components.find(name) == _components.end())
 			{
 				ComponentType* c = new ComponentType(this);
+				_components[name] = c;
+				return c;
+			}
+			else cout << "Se ha intentado anyadir un componente ya existente" << endl;
+			return nullptr;
+		}
+
+		//Following Component
+		template<class ComponentType>
+		ComponentType* add_component(string name, GameComponent* gc)
+		{
+			if (_components.find(name) == _components.end())
+			{
+				ComponentType* c = new ComponentType(this, gc);
 				_components[name] = c;
 				return c;
 			}
@@ -71,6 +91,10 @@ class GameComponent: public GameObject
 		virtual void preCollision(GameComponent* other) {};
 		virtual void postCollision(GameComponent* other){};
 
+		void addChild(GameComponent* obj);
+
+		Game* getGame() { return _game; }
+
 		template<class ComponentType>
 		ComponentType* addComponent()
 		{
@@ -88,6 +112,13 @@ class GameComponent: public GameObject
 			}
 		}
 
+		//para el Following Component
+		template<class ComponentType>
+		ComponentType* addComponent(GameComponent* gc)
+		{
+			return add_component<ComponentType>(typeid(ComponentType).name(), gc);
+		}
+
 		template<class ComponentType>
 		ComponentType* getComponent()
 		{
@@ -95,4 +126,3 @@ class GameComponent: public GameObject
 			return c;
 		}
 };
-

@@ -8,8 +8,6 @@ Tile::Tile(double x, double y, int f, int c, Texture* t, Game* g) : GameComponen
 	addComponent<Texture>(t);
 	auto transform = addComponent<TransformComponent>();
 	auto frame = addComponent<FrameComponent>();
-	transform->setPosition(x* RESOLUTION, y *RESOLUTION);
-	//body->getBody()->SetTransform(b2Vec2(x* RESOLUTION, y *RESOLUTION), body->getBody()->GetAngle()); //el 3 sería el factor de resolución!!
-	transform->setScale(RESOLUTION);
+	transform->setPosition(x, y);
 	frame->setFilAndCol(f, c);
 }

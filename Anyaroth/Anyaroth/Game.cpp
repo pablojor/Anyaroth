@@ -77,10 +77,28 @@ Game::Game()
 	createVariables();
 
 	SDL_Init(SDL_INIT_EVERYTHING);
-	TTF_Init();
-	window = SDL_CreateWindow("Anyaroth", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 480 * RESOLUTION, 270 * RESOLUTION, SDL_WINDOW_SHOWN);
+	TTF_Init();//Ventana del tama�o de la pantalla de cada dispositivo
+	SDL_DisplayMode monitor;
+	SDL_GetCurrentDisplayMode(0, &monitor);
+	auto win_width = monitor.w - 50;
+	auto win_height = monitor.h - 80;
+	//----------------------------------------
+
+	window = SDL_CreateWindow("Anyaroth", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, win_width, win_height, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_MAXIMIZED);
 	//window = SDL_CreateWindow("Anayroth", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1080, 760, SDL_WINDOW_SHOWN);
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+
+	//-----------------------------------------
+	//Ajustamos el viewPort
+	/*SDL_Rect viewport;
+	viewport.x = 0;
+	viewport.y = 0;
+	viewport.w = 480 * RESOLUTION;
+	viewport.h = 270 * RESOLUTION;
+	SDL_RenderSetViewport(renderer, &viewport);*/
+	//-----------------------------------------
+	SDL_RenderSetLogicalSize(renderer, 480, 270);
+	//-----------------------------------------
 
 	//---Create textures
 	createTextures();
@@ -121,30 +139,25 @@ Game::~Game()
 
 void Game::run()
 {
-	uint startTime, frameTime;
-	startTime = SDL_GetTicks();
-	while (!exit)
-	{
-		render();
-		handleEvents();
-		frameTime = SDL_GetTicks() - startTime;
-		//if (frameTime >= var[FRAME_RATE])
-		if (frameTime >= 60)
-		{
-			update();
-			startTime = SDL_GetTicks();
-		}
+	while (!exit) {
+		Uint32 startTime = SDL_GetTicks();
+		handleEvents(startTime);
+		update(startTime);
+		render(startTime);
 
+		Uint32 frameTime = SDL_GetTicks() - startTime;
+		if (frameTime < 60)
+			SDL_Delay(60 - frameTime);
 	}
 }
 
-void Game::update()
+void Game::update(Uint32 time)
 {
 	stateMachine->currentState()->update();
 	_world->Step(1 / 20.0, 8, 3);
 }
 
-void Game::render() const
+void Game::render(Uint32 time) const
 {
 	SDL_RenderClear(renderer);
 	
@@ -154,7 +167,7 @@ void Game::render() const
 	SDL_RenderPresent(renderer);
 }
 
-void Game::handleEvents()
+void Game::handleEvents(Uint32 time)
 {
 	SDL_Event event;
 	while (SDL_PollEvent(&event) && !exit)

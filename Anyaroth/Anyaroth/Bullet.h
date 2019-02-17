@@ -1,10 +1,10 @@
 #pragma once
 #include "GameComponent.h"
-#include <Box2D/Box2D.h>
+#include "Vector2D"
 
 class Bullet : public GameComponent
 {
 public:
-	Bullet(Texture* texture, b2Vec2 iniPos, Game* g);
+	Bullet(Texture* texture, Vector2D iniPos, Game* g);
 	virtual ~Bullet();
 };

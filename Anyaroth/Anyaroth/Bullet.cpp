@@ -1,16 +1,21 @@
 #include "Bullet.h"
-#include "SpriteComponent.h"
 #include "BodyComponent.h"
+#include "SpriteComponent.h"
+#include "MovingComponent.h"
 
-Bullet::Bullet(Texture* texture, b2Vec2 iniPos, Game* g) : GameComponent(g) 
+Bullet::Bullet(Texture* texture, Vector2D iniPos, Game* g) : GameComponent(g) 
 {
-	auto body = addComponent<BodyComponent>();
-	addComponent<SpriteComponent>();
+	addComponent<Texture>(texture);
 
-	body->getBody()->SetTransform(b2Vec2(iniPos.x, iniPos.y), body->getBody()->GetAngle());
+	auto transform = addComponent<TransformComponent>();
+	transform->setPosition(iniPos.getX(), iniPos.getY());
+
+	auto body = addComponent<BodyComponent>();
+
+	addComponent<SpriteComponent>();
+	addComponent<MovingComponent>();
 }
 
 Bullet::~Bullet() 
 {
-
 }

@@ -1,13 +1,14 @@
 #pragma once
 #include "GameComponent.h"
-#include <Box2D/Box2D.h>
+
+class Player;
 
 class Enemy : public GameComponent
 {
 private:
 	int life;
 public:
-	Enemy(Texture* texture, b2Vec2 posIni, Game* g);
+	Enemy(Texture* texture,Vector2D posIni, Player* player);
 	virtual ~Enemy();
 
 	void update();

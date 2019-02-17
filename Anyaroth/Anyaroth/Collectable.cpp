@@ -1,11 +1,15 @@
 #include "Collectable.h"
-#include "SpriteComponent.h"
 #include "BodyComponent.h"
+#include "SpriteComponent.h"
 
-Collectable::Collectable(Texture* texture, b2Vec2 iniPos, Game* g) : GameComponent(g)
+Collectable::Collectable(Texture* texture, Vector2D iniPos, int value) : _value(value), GameComponent()
 {
-	auto body = addComponent<BodyComponent>();
-	addComponent<SpriteComponent>();
+	addComponent<Texture>(texture);
 
-	body->getBody()->SetTransform(b2Vec2(iniPos.x, iniPos.y), body->getBody()->GetAngle());
+	auto transform = addComponent<TransformComponent>();
+	transform->setPosition(iniPos.getX(), iniPos.getY());
+
+	auto body = addComponent<BodyComponent>();
+
+	addComponent<SpriteComponent>();
 }

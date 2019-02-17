@@ -2,34 +2,48 @@
 
 #include "SpriteComponent.h"
 #include "PhysicsComponent.h"
-#include <unordered_map>
+#include <vector>
+
+typedef unsigned int uint;
 
 class GameComponent;
 
-struct AnimationState 
+struct AnimationState
 {
-	string name;
+	uint name;
 	uint numFrames;
+	bool loop;
+	bool animationFinished;
 };
 
-class AnimatedSpriteComponent: public SpriteComponent, public PhysicsComponent
+class AnimatedSpriteComponent : public SpriteComponent, public PhysicsComponent
 {
-	protected:
-		unordered_map<string, uint> _animations = { /*{"Idle",16}, {"Walk",10} */};
+protected:
+	vector<AnimationState> _animations = {};
 
-		string _currentAnim = "";
+	uint _currentAnim = 0;
 
-		uint _frame;
-		uint _lastTimeUpdated = 0;  // last time we update a frame
-		uint _freq = 50; // the frequency of updating frames
-	public:
-		AnimatedSpriteComponent(GameComponent* obj);
-		virtual ~AnimatedSpriteComponent();
+	uint _frame;
+	uint _lastTimeUpdated = 0;  // last time we update a frame
+	uint _freq = 50; // the frequency of updating frames
 
-		virtual void render() const;
-		virtual void update();
+	bool _animationFinished = false;
 
-		void addAnim(string name, int numFrames);
-		void playAnim(string name);
+	bool _active = true;
+public:
+	enum Animations { Idle, Walk, WalkBack, MeleeKnife };
+
+	AnimatedSpriteComponent(GameComponent* obj);
+	virtual ~AnimatedSpriteComponent();
+
+	virtual void render() const;
+	virtual void update();
+
+	void addAnim(Animations name, uint numFrames, bool loop);
+	void playAnim(Animations name);
+
+	bool animationFinished() { return _animations[_currentAnim].animationFinished; };
+
+	void setActive(bool b) { _active = b; };
 };
 

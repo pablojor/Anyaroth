@@ -1,21 +1,51 @@
 #pragma once
 #include "GameComponent.h"
 #include "BodyComponent.h"
+#include "TransformComponent.h"
+#include "Game.h"
+#include "Shooter.h"
 
-class Gun : public GameComponent
+class Gun
 {
 private:
 	/*
-	Clip es el tamaño del cargador,maxAmmo es la cantidad maxima de municion que puedes tener
-	entre la que tienes actualmente en el cargador(ammoOnClip) y la que tienes fuera de él(leftAmmo)
-	es decir leftAmmo + ammoOnClip !> maxAmmo.
-	*/
-	int _maxAmmo, _leftAmmo;
-	int _clip, _ammoOnClip;
-	BodyComponent* _playerTransform;
+		_maxAmmo -> mï¿½xima municiï¿½n que almacena el arma
+		_ammo -> municiï¿½n almacenada actualmente en el arma
 
+		_maxClip -> mï¿½xima municiï¿½n que almacena el arma en el cargador
+		_clip -> municiï¿½n almacenada actualmente en el cargador
+	*/
+
+	int _maxAmmo = 0, _ammo = 0, //Municiï¿½n mï¿½xima / municiï¿½n actual
+		_maxClip = 0, _clip = 0, //Municiï¿½n mï¿½xima en el cargador/ municiï¿½n actual en el cargador
+		_bulletsPerShot; //Balas usadas por disparo / rï¿½faga
+
+	string _name = ""; //El nombre del arma
+	
+	GameComponent* _shootingObj = nullptr; //El objeto que usa el arma
+	Shooter* _shooterComp; //El componente con el mï¿½todo shoot() del arma
+
+	/*********************************
+	//RECORDATORIO: Daï¿½o de las armas
+					Velocidad de disparo
+					Rango
+
+	/*********************************/
+
+	void useAmmo();
+	void reloadAux(int newClipValue);
+	
 public:
-	Gun(Texture* texture, GameComponent* player ,int maxAmmunition, int magazine, Game* g);
+	Gun(GameComponent* shootingObj, Shooter* shooterComp, string name, int maxAmmunition, int magazine, int bulletsPerShot = 1);
 	virtual ~Gun();
-	void update();
+
+	void setShooter(Shooter* sh) { _shooterComp = sh; };
+	void shoot();
+
+	void addAmmo(int ammoAdded);
+	bool reload();
+	void resetAmmo();
+
+	void debugInfo();
+
 };

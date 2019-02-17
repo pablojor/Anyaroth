@@ -1,31 +1,113 @@
 #include "Gun.h"
 #include "AnimatedSpriteComponent.h"
+#include <algorithm>
 
-Gun::Gun(Texture* texture, GameComponent* player, int maxAmmunition, int magazine, Game* g) : GameComponent(g)
+
+Gun::Gun(GameComponent* shootingObj, Shooter* shooterComp, string name, int maxAmmo, int maxClip, int bulletsPerShot) : _shootingObj(shootingObj), _shooterComp(shooterComp), _name(name), _maxAmmo(maxAmmo), _maxClip(maxClip), _ammo(maxAmmo), _clip(maxClip), _bulletsPerShot(bulletsPerShot) {}
+
+Gun::~Gun() {}
+
+//m�todo auxiliar de reload
+void Gun::reloadAux(int newClipValue)
 {
-	//en principio su transform es el mismo que el del jugador;
-	_playerTransform = player->getComponent<BodyComponent>();
+	int prevClip = _clip; //cargador antes de recargar
+	_clip = newClipValue;
+	_ammo -= (_clip - prevClip); //resta a la munici�n total la munici�n recargada
+}
 
-	auto transform = addComponent<TransformComponent>(); //new TransformComponent();
-	addComponent<AnimatedSpriteComponent>();
-	//addRenderComponent(new SpriteComponent(transform, texture));
+//Recarga la munici�n si puede y devuelve true si ha recargado
+bool Gun::reload()
+{
+	if (_clip < _maxClip) { //Si el cargador no est� completo
+		//llamo a animaci�n de recargar
 
-	_maxAmmo = maxAmmunition;
-	_clip = magazine;
-	_ammoOnClip = magazine;
-	if (maxAmmunition > magazine * 3)
+
+
+		if (_ammo >= _maxClip)
+			reloadAux(_maxClip);
+		else if (_ammo > 0) reloadAux(min(_maxClip, _clip + _ammo));
+		else return false;
+
+		cout << "Recargando! Cubranme!" << endl;
+		cout << "Ammo: " << _ammo << "/" << _maxAmmo << endl;
+		cout << "Clip: " << _clip << "/" << _maxClip << endl;
+
+		return true;
+	}
+	else
+		return false;
+}
+
+// Suma ammoAdded a la munici�n y la coloca en _ammo y _clip seg�n corresponda
+// USAR ESTE M�TODO AL RECOGER MUNICI�N
+void Gun::addAmmo(int ammoAdded)
+{
+	if (_ammo + ammoAdded > _maxAmmo) //Si sobran balas en _ammo
 	{
-		_leftAmmo = magazine * 2;
+		int prevAmmo = _ammo;
+		_ammo = _maxAmmo;
+
+		//Suma las balas sobrantes al cargador hasta llenarlo
+		int leftAmmo = ammoAdded - (_ammo - prevAmmo);
+		_clip = min(_maxClip, _clip + (_ammo - leftAmmo));
+	}
+	else
+	{
+		_ammo += ammoAdded;
 	}
 }
 
-
-Gun::~Gun()
+//Pone al m�ximo la munici�n tanto en _ammo como en el cargador _clip
+void Gun::resetAmmo()
 {
-	_playerTransform = nullptr;
+	_ammo = _maxAmmo;
+	_clip = _maxClip;
 }
 
-void Gun::update()
+//Reduce la munici�n 
+void Gun::useAmmo()
 {
-	getComponent<BodyComponent>()->getBody()->SetTransform(b2Vec2(_playerTransform->getBody()->GetPosition().x, _playerTransform->getBody()->GetPosition().y), _playerTransform->getBody()->GetAngle());
+	/*
+	if (_clip - _bulletsPerShot >= 0)
+	{
+		_clip -= _bulletsPerShot;
+	}
+	*/
+
+	_clip = max(0, _clip - _bulletsPerShot);
+
+	/*
+	if(_clip == 0) reload();
+	*/
+}
+
+void Gun::shoot() 
+{
+	if (_clip >= _bulletsPerShot //Si hay suficientes balas en el cargador
+		&& _shooterComp != nullptr) //Si tiene un shooter, llama a su shoot()
+	{
+		_shooterComp->shoot();
+
+		//Reduce la munici�n actual
+		useAmmo();
+
+		//Dispara
+		cout << "Piumm!" << endl;
+		cout << "Ammo: " << _ammo << "/" << _maxAmmo << endl;
+		cout << "Clip: " << _clip << "/" << _maxClip << endl;
+
+		
+	}
+	else //Si no, recarga
+	{
+		reload();
+	}
+
+}
+
+
+//Muestra la informaci�n del arma por consola
+void Gun::debugInfo() 
+{
+	cout << endl << _name << endl << _maxAmmo << endl << _ammo << endl << _maxClip << endl << _clip << endl << _bulletsPerShot << endl;
 }

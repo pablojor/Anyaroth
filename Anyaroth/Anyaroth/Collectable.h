@@ -1,10 +1,14 @@
 #pragma once
 #include "GameComponent.h"
-#include <Box2D/Box2D.h>
 
-class Collectable : public GameComponent
+class Collectable : public GameComponent //Detectar colision con el coleccionable
 {
+	private:
+		int _value = 0;
+
 	public:
-		Collectable(Texture* texture, b2Vec2 iniPos, Game* g);
+		Collectable(Texture* texture, Vector2D iniPos, int value);
 		virtual ~Collectable() {}
+
+		int getValue() { return _value; }
 };
