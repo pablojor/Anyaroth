@@ -150,6 +150,9 @@
     <ClCompile Include="Shooter.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="MeleeEnemyComponent.cpp">
+      <Filter>Archivos de origen\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -271,6 +274,9 @@
     </ClInclude>
     <ClInclude Include="Shooter.h">
       <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="MeleeEnemyComponent.h">
+      <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

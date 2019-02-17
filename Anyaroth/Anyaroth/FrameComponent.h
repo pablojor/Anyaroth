@@ -1,16 +1,13 @@
 #pragma once
-#include "RenderComponent.h"
+#include "SpriteComponent.h"
 #include "TransformComponent.h"
 #include "Texture.h"
 
 class GameComponent;
 
-class FrameComponent : public RenderComponent
+class FrameComponent : virtual public SpriteComponent
 {
 	private:
-		Texture * _texture = nullptr;
-		TransformComponent* _transform = nullptr;
-		bool _flip = false;
 		int _fil = 1, _col = 1;
 
 	public:
@@ -19,6 +16,4 @@ class FrameComponent : public RenderComponent
 
 		virtual void render() const;
 		void setFilAndCol(int fil, int col);
-		void flip();
-		void unFlip();
 };

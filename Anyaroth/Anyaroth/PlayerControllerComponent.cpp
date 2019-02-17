@@ -32,6 +32,22 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 
 	}
 
+	if (event.type == SDL_MOUSEBUTTONDOWN)
+	{
+		if (event.button.button == SDL_BUTTON_RIGHT)
+		{
+			_clickDer = true;
+		}
+	}
+	if (event.type == SDL_MOUSEBUTTONUP)
+	{
+		if (event.button.button == SDL_BUTTON_RIGHT)
+		{
+			_clickDer = false;
+		}
+	}
+
+
 	if (event.type == SDL_KEYUP)
 	{
 		if (event.key.keysym.sym == SDLK_a)
@@ -99,6 +115,12 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 	{
 		_movement->changeDir(0, 0); //Llamo a animacion idle
 		_anim->playAnim(AnimatedSpriteComponent::Idle);
+	}
+
+	if (_clickDer)
+	{
+		//Llamas a animacion de melee
+		//Compruebas colisiones del melee con todos los enemigos
 	}
 
 	if (_wPul /*Y no estoy saltando ya*/)

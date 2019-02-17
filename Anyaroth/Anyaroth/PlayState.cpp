@@ -21,7 +21,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 
 	//Player
 
-	//brazo de atrás
+	//brazo de atrï¿½s
 	//auto armBack = new Arm(g->getTexture("Armback"), nullptr);
 	//_stages.push_back(armBack);
 
@@ -29,6 +29,9 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_player = new Player(g->getTexture("Mk"), g);
 	_stages.push_back(_player);
 
+	//Enemy
+	_enemy = new Enemy(g->getTexture("Mk"), Vector2D(1200, 100), _player);
+	_stages.push_back(_enemy);
 }
 
 void PlayState::handleEvents(SDL_Event& e)
@@ -39,11 +42,4 @@ void PlayState::handleEvents(SDL_Event& e)
 void PlayState::update()
 {
 	GameState::update();
-
-
-	for (int i = 0; i < _colLayer->getTilemap().size(); i++)
-	{
-		if (CollisionManager::checkCollision(_player, _colLayer->getTilemap()[i]))
-			cout << "collided!";
-	}
 }
