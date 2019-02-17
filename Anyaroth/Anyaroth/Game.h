@@ -7,9 +7,21 @@
 #include "Texture.h"
 #include "GameStateMachine.h"
 #include "PlayState.h"
+#include "Gun.h"
+#include "Shooter.h"
 
 
-const int RESOLUTION = 4;
+
+
+
+
+
+
+
+
+
+
+const int RESOLUTION = 3;
 //1-> 480x270
 //2-> 920x540
 //3-> 1440x810
@@ -35,7 +47,7 @@ const string SPRITE_PATH = "..\\assets\\sprites\\";
 const string TILEMAP_PATH = "..\\files\\tilemaps\\";
 
 
-const int NUM_TEXTURES = 4;
+const int NUM_TEXTURES = 7;
 const int NUM_FONTS = 0;
 
 const int NUM_LEVELS = 1;
@@ -46,6 +58,18 @@ const string LEVELS[NUM_LEVELS] =
 
 const double TILES_W = 16;
 const double TILES_H = 16;
+
+
+//ARMAS
+const int NUM_GUNS = 2; //Número de armas en el juego
+
+struct GunAttributes
+{
+	Shooter shooter;
+	string name;
+	int maxAmmo;
+	int maxClip;
+};
 
 //********************************************************************************
 //********************************************************************************
@@ -64,6 +88,19 @@ class Game
 
 	public:
 		vector<int> var;
+
+		//Las armas que hay en el juego
+		enum GameGun
+		{
+			BasicGun,
+			BasicShotgun
+		};
+		GunAttributes gameGuns[NUM_GUNS] = 
+		{
+			{Shooter(),"Pistola",60,12},
+			{ Shooter(),"Escopeta",30,2 }
+		};
+
 		//Metodos
 		void createVariables();
 		void createTextures();
@@ -77,7 +114,7 @@ class Game
 		Game();
 		~Game();
 		void run();
-		void update();
-		void render() const;
-		void handleEvents();
+		void update(Uint32 time);
+		void render(Uint32 time) const;
+		void handleEvents(Uint32 time);
 };

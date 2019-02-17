@@ -140,6 +140,20 @@
     </ClCompile>
     <ClCompile Include="Storage.cpp">
       <Filter>Archivos de origen\Useful</Filter>
+    <ClCompile Include="FollowingComponent.cpp">
+      <Filter>Archivos de origen\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Arm.cpp">
+      <Filter>Archivos de origen\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="ArmControllerComponent.cpp">
+      <Filter>Archivos de origen\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Shooter.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="MeleeEnemyComponent.cpp">
+      <Filter>Archivos de origen\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -259,6 +273,20 @@
     </ClInclude>
     <ClInclude Include="AmmoPackage.h">
       <Filter>Archivos de encabezado\Objects</Filter>
+    <ClInclude Include="FollowingComponent.h">
+      <Filter>Archivos de encabezado\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Arm.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="ArmControllerComponent.h">
+      <Filter>Archivos de encabezado\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Shooter.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="MeleeEnemyComponent.h">
+      <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

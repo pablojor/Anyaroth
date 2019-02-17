@@ -2,8 +2,14 @@
 #include "PhysicsComponent.h"
 #include "RenderComponent.h"
 #include "InputComponent.h"
+#include "Game.h"
 
-GameComponent::GameComponent() : GameObject(), _inputComp(), _physicsComp(), _renderComp() 
+GameComponent::GameComponent(Game* g) : _game(g), GameObject(), _inputComp(), _physicsComp(), _renderComp()
+{
+}
+
+//Constructor vacío (sin puntero a game, _game = nullptr)
+GameComponent::GameComponent() : GameObject(), _inputComp(), _physicsComp(), _renderComp()
 {
 }
 
@@ -22,6 +28,18 @@ GameComponent::~GameComponent()
 			it->second = nullptr;
 		}
 	}
+
+	//Llama a la destructora de los hijos
+	for (GameComponent* child : _children)
+	{
+		delete child;
+	}
+}
+
+//Añade un hijo al objeto
+void GameComponent::addChild(GameComponent* obj) 
+{
+	_children.push_back(obj);
 }
 
 void GameComponent::handleInput(const SDL_Event& event) 
@@ -29,6 +47,12 @@ void GameComponent::handleInput(const SDL_Event& event)
 	for (InputComponent* ic : _inputComp) 
 	{
 		ic->handleInput(event);
+	}
+
+	//Llama al handleInput de los hijos
+	for (GameComponent* child : _children)
+	{
+		child->handleInput(event);
 	}
 }
 
@@ -39,12 +63,22 @@ void GameComponent::update()
 		pc->update();
 	}
 
-	
+	//Llama al update de los hijos
+	for (GameComponent* child : _children)
+	{
+		child->update();
+	}
 }
 
 void GameComponent::render() const {
 	for (RenderComponent* rc : _renderComp) {
 		rc->render();
+	}
+
+	//Llama al render de los hijos
+	for (GameComponent* child : _children)
+	{
+		child->render();
 	}
 }
 
