@@ -149,6 +149,7 @@
     <ClCompile Include="RenderComponent.cpp" />
     <ClCompile Include="Shooter.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
+    <ClCompile Include="Storage.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TransformComponent.cpp" />
@@ -156,6 +157,7 @@
     <ClCompile Include="Vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AmmoPackage.h" />
     <ClInclude Include="AnimatedSpriteComponent.h" />
     <ClInclude Include="AnyarothError.h" />
     <ClInclude Include="Arm.h" />
@@ -163,6 +165,7 @@
     <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="checkML.h" />
+    <ClInclude Include="Coin.h" />
     <ClInclude Include="Collectable.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Component.h" />
@@ -192,6 +195,7 @@
     <ClInclude Include="SDLError.h" />
     <ClInclude Include="Shooter.h" />
     <ClInclude Include="SpriteComponent.h" />
+    <ClInclude Include="Storage.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="TransformComponent.h" />
