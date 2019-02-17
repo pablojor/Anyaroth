@@ -18,4 +18,6 @@ class SpriteComponent : public virtual RenderComponent
 		virtual void render() const;
 		void flip();
 		void unFlip();
+
+		bool isFlipped() { return _flip; };
 };
