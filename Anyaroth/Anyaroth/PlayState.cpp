@@ -20,6 +20,10 @@ PlayState::PlayState(Game* g) : GameState(g)
 	//Player
 	_player = new Player(g->getTexture("Mk"));
 	_stages.push_back(_player);
+
+	//Enemy
+	_enemy = new Enemy(g->getTexture("Mk"), Vector2D(1200, 100), _player);
+	_stages.push_back(_enemy);
 }
 
 void PlayState::handleEvents(SDL_Event& e)
@@ -30,11 +34,4 @@ void PlayState::handleEvents(SDL_Event& e)
 void PlayState::update()
 {
 	GameState::update();
-
-
-	for (int i = 0; i < _colLayer->getTilemap().size(); i++)
-	{
-		if (CollisionManager::checkCollision(_player, _colLayer->getTilemap()[i]))
-			cout << "collided!";
-	}
 }
