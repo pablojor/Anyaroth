@@ -29,13 +29,12 @@ Player::Player(Texture* texture, Game* g) : GameComponent(g)
 	_anim->addAnim(AnimatedSpriteComponent::MeleeKnife, 6, false);
 
 
-	transform->setScale(RESOLUTION); //el 3 sería el factor de resolución!!
-	transform->setPosition(340, 400);
+	transform->setPosition(340, 200);
 	transform->setAnchor(0, 0);
 	//transform->setRotation(45);
 
 	//Brazo con arma
-	_weaponArm = new Arm(getGame()->getTexture("Arm"), this, getGame(), { 42,43 });
+	_weaponArm = new Arm(getGame()->getTexture("Arm"), this, getGame(), { 10,12 });
 	addChild(_weaponArm);
 
 	//Equipa el arma inicial

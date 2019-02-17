@@ -28,7 +28,6 @@ Arm::Arm(Texture* texture, GameComponent* player, Game* g, Vector2D offset) : Ga
 	_anim->playAnim(AnimatedSpriteComponent::Idle);
 	//anim->addAnim("Walk", 10);
 
-	_transform->setScale(RESOLUTION); //el 3 sería el factor de resolución!!
 	//_transform->setPosition(340, 100);
 	_transform->setDefaultAnchor(0.17, 0.3);
 

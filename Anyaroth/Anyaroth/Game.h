@@ -11,22 +11,6 @@
 #include "Shooter.h"
 
 
-
-
-
-
-
-
-
-
-
-
-const int RESOLUTION = 4;
-//1-> 480x270
-//2-> 920x540
-//3-> 1440x810
-//4-> 1920x1080 (1080p)
-
 const int NUM_VARIABLES = 4;
 enum TypeVariable
 {

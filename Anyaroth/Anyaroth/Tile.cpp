@@ -11,7 +11,6 @@ Tile::Tile(double x, double y, int f, int c, Texture* t) : GameComponent()
 	auto frame = addComponent<FrameComponent>();
 
 
-	transform->setPosition(x* RESOLUTION, y *RESOLUTION); //el 3 sería el factor de resolución!!
-	transform->setScale(RESOLUTION);
+	transform->setPosition(x, y);
 	frame->setFilAndCol(f, c);
 }

@@ -77,10 +77,28 @@ Game::Game()
 	createVariables();
 
 	SDL_Init(SDL_INIT_EVERYTHING);
-	TTF_Init();
-	window = SDL_CreateWindow("Anyaroth", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 480 * RESOLUTION, 270 * RESOLUTION, SDL_WINDOW_SHOWN);
+	TTF_Init();//Ventana del tamaño de la pantalla de cada dispositivo
+	SDL_DisplayMode monitor;
+	SDL_GetCurrentDisplayMode(0, &monitor);
+	auto win_width = monitor.w - 50;
+	auto win_height = monitor.h - 80;
+	//----------------------------------------
+
+	window = SDL_CreateWindow("Anyaroth", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, win_width, win_height, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_MAXIMIZED);
 	//window = SDL_CreateWindow("Anayroth", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1080, 760, SDL_WINDOW_SHOWN);
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+
+	//-----------------------------------------
+	//Ajustamos el viewPort
+	/*SDL_Rect viewport;
+	viewport.x = 0;
+	viewport.y = 0;
+	viewport.w = 480 * RESOLUTION;
+	viewport.h = 270 * RESOLUTION;
+	SDL_RenderSetViewport(renderer, &viewport);*/
+	//-----------------------------------------
+	SDL_RenderSetLogicalSize(renderer, 480, 270);
+	//-----------------------------------------
 
 	//---Create textures
 	createTextures();

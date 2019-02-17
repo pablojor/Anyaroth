@@ -27,7 +27,6 @@ Enemy::Enemy(Texture* texture, Vector2D iniPos, Player* player) : GameComponent(
 	anim->playAnim(AnimatedSpriteComponent::Idle);
 
 	transform->setPosition(iniPos.getX(), iniPos.getY());
-	transform->setScale(RESOLUTION);
 
 }
 
