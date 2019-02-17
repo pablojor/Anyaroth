@@ -6,7 +6,7 @@ BodyComponent::BodyComponent(GameComponent * obj) : PhysicsComponent(obj)
 {
 	_transform = obj->getComponent<TransformComponent>();
 	auto t = obj->getComponent<Texture>();
-	textW = (t->getW() / t->getNumCols())*RESOLUTION, textH = (t->getH() / t->getNumFils())*RESOLUTION;
+	textW = (t->getW() / t->getNumCols()), textH = (t->getH() / t->getNumFils());
 	aX = _transform->getAnchor().getX(), aY = _transform->getAnchor().getY();
 	_world = obj->getWorld();
 	b2BodyDef _bodydef;

@@ -6,7 +6,7 @@
 #include "Game.h"
 #include "Player.h"
 
-Enemy::Enemy(Texture* texture, Vector2D iniPos, Player* player) : GameComponent() {
+Enemy::Enemy(Texture* texture, Vector2D iniPos, Player* player, Game* g) : GameComponent(g) {
 
 	addComponent<Texture>(texture);
 
