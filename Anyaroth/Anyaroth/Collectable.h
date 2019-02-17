@@ -5,6 +5,7 @@ class Collectable : public GameComponent //Detectar colision con el coleccionabl
 {
 	private:
 		int _value = 0;
+		//BodyComponent* _body = nullptr;
 
 	public:
 		Collectable(Texture* texture, Vector2D iniPos, int value);
