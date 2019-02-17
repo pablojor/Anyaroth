@@ -128,7 +128,6 @@
     <ClCompile Include="BodyComponent.cpp" />
     <ClCompile Include="Arm.cpp" />
     <ClCompile Include="ArmControllerComponent.cpp" />
-    <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Collectable.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
@@ -170,7 +169,6 @@
     <ClInclude Include="BodyComponent.h" />
     <ClInclude Include="Arm.h" />
     <ClInclude Include="ArmControllerComponent.h" />
-    <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="checkML.h" />
     <ClInclude Include="Coin.h" />
