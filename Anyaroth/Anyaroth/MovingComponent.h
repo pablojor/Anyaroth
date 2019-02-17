@@ -10,7 +10,7 @@ class MovingComponent : public PhysicsComponent
 	private:
 		BodyComponent* _body;
 		b2Vec2 _dir = b2Vec2(0.0f, 0.0f);
-		double _speed = 50*RESOLUTION;
+		double _speed = 50 * RESOLUTION, _jumpForce = 200 * RESOLUTION;
 
 	public:
 		MovingComponent(GameComponent* obj);

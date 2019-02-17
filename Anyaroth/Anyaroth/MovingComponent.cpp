@@ -14,5 +14,5 @@ void MovingComponent::update()
 	b2Vec2 pos = _body->getBody()->GetPosition();
 	double x = pos.x;
 	double y = pos.y;
-	_body->getBody()->ApplyLinearImpulse(b2Vec2(_dir.x*_speed, _dir.y*_speed), _body->getBody()->GetWorldCenter(), true);
+	_body->getBody()->ApplyLinearImpulse(b2Vec2(_dir.x*_speed, _dir.y*_jumpForce), _body->getBody()->GetWorldCenter(), true);
 }

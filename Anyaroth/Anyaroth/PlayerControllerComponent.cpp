@@ -1,7 +1,6 @@
 #include "PlayerControllerComponent.h"
 #include "GameComponent.h"
 
-
 PlayerControllerComponent::PlayerControllerComponent(GameComponent* obj) : InputComponent(obj) 
 {
 	_movement = obj->getComponent<MovingComponent>();
@@ -62,12 +61,18 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 	}
 	else
 	{
-		_movement->changeDir(0, 0); //Llamo a animacion iddle
+		_movement->changeDir(0, _movement->getDirY()); //Llamo a animacion iddle
 		_anim->playAnim("Idle");
 	}
 
-	if (_wPul /*Y no estoy saltando ya*/)
+	if (_wPul && !jump)
 	{
 		_movement->changeDir(_movement->getDirX(), -1);
+		jump = true;
 	}
+}
+
+void PlayerControllerComponent::changeJump()
+{
+	jump = false;
 }

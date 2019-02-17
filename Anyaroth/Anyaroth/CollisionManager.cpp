@@ -10,7 +10,7 @@ void CollisionManager::BeginContact(b2Contact * contact)
 {
 	cout << "colision" << endl;
 	void* bodyUserDataA = contact->GetFixtureA()->GetBody()->GetUserData();
-	void* bodyUserDataB = contact->GetFixtureA()->GetBody()->GetUserData();
+	void* bodyUserDataB = contact->GetFixtureB()->GetBody()->GetUserData();
 	if (bodyUserDataA && bodyUserDataB)
 	{
 		GameComponent* A = static_cast<GameComponent*>(bodyUserDataA);
@@ -18,13 +18,12 @@ void CollisionManager::BeginContact(b2Contact * contact)
 		A->beginCollision(B);
 		B->beginCollision(A);
 	}
-	
 }
 
 void CollisionManager::EndContact(b2Contact * contact)
 {
 	void* bodyUserDataA = contact->GetFixtureA()->GetBody()->GetUserData();
-	void* bodyUserDataB = contact->GetFixtureA()->GetBody()->GetUserData();
+	void* bodyUserDataB = contact->GetFixtureB()->GetBody()->GetUserData();
 	if (bodyUserDataA && bodyUserDataB)
 	{
 		GameComponent* A = static_cast<GameComponent*>(bodyUserDataA);
@@ -37,7 +36,7 @@ void CollisionManager::EndContact(b2Contact * contact)
 inline void CollisionManager::PreSolve(b2Contact * contact)
 {
 	void* bodyUserDataA = contact->GetFixtureA()->GetBody()->GetUserData();
-	void* bodyUserDataB = contact->GetFixtureA()->GetBody()->GetUserData();
+	void* bodyUserDataB = contact->GetFixtureB()->GetBody()->GetUserData();
 	if (bodyUserDataA && bodyUserDataB)
 	{
 		GameComponent* A = static_cast<GameComponent*>(bodyUserDataA);
@@ -50,7 +49,7 @@ inline void CollisionManager::PreSolve(b2Contact * contact)
 inline void CollisionManager::PostSolve(b2Contact * contact)
 {
 	void* bodyUserDataA = contact->GetFixtureA()->GetBody()->GetUserData();
-	void* bodyUserDataB = contact->GetFixtureA()->GetBody()->GetUserData();
+	void* bodyUserDataB = contact->GetFixtureB()->GetBody()->GetUserData();
 	if (bodyUserDataA && bodyUserDataB)
 	{
 		GameComponent* A = static_cast<GameComponent*>(bodyUserDataA);
