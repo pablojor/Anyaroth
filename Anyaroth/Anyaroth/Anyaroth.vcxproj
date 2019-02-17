@@ -152,11 +152,13 @@
     <ClCompile Include="Vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AmmoPackage.h" />
     <ClInclude Include="AnimatedSpriteComponent.h" />
     <ClInclude Include="AnyarothError.h" />
     <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="checkML.h" />
+    <ClInclude Include="Coin.h" />
     <ClInclude Include="Collectable.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Component.h" />

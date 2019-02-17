@@ -254,5 +254,11 @@
     <ClInclude Include="Storage.h">
       <Filter>Archivos de encabezado\Useful</Filter>
     </ClInclude>
+    <ClInclude Include="Coin.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="AmmoPackage.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
