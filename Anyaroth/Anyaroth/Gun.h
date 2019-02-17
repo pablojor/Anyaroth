@@ -1,6 +1,6 @@
 #pragma once
-
 #include "GameComponent.h"
+#include "BodyComponent.h"
 #include "TransformComponent.h"
 #include "Game.h"
 #include "Shooter.h"
@@ -9,23 +9,24 @@ class Gun
 {
 private:
 	/*
-		_maxAmmo -> máxima munición que almacena el arma
-		_ammo -> munición almacenada actualmente en el arma
+		_maxAmmo -> mï¿½xima municiï¿½n que almacena el arma
+		_ammo -> municiï¿½n almacenada actualmente en el arma
 
-		_maxClip -> máxima munición que almacena el arma en el cargador
-		_clip -> munición almacenada actualmente en el cargador
+		_maxClip -> mï¿½xima municiï¿½n que almacena el arma en el cargador
+		_clip -> municiï¿½n almacenada actualmente en el cargador
 	*/
-	int _maxAmmo = 0, _ammo = 0, //Munición máxima / munición actual
-		_maxClip = 0, _clip = 0, //Munición máxima en el cargador/ munición actual en el cargador
-		_bulletsPerShot; //Balas usadas por disparo / ráfaga
+
+	int _maxAmmo = 0, _ammo = 0, //Municiï¿½n mï¿½xima / municiï¿½n actual
+		_maxClip = 0, _clip = 0, //Municiï¿½n mï¿½xima en el cargador/ municiï¿½n actual en el cargador
+		_bulletsPerShot; //Balas usadas por disparo / rï¿½faga
 
 	string _name = ""; //El nombre del arma
 	
 	GameComponent* _shootingObj = nullptr; //El objeto que usa el arma
-	Shooter* _shooterComp; //El componente con el método shoot() del arma
+	Shooter* _shooterComp; //El componente con el mï¿½todo shoot() del arma
 
 	/*********************************
-	//RECORDATORIO: Daño de las armas
+	//RECORDATORIO: Daï¿½o de las armas
 					Velocidad de disparo
 					Rango
 
@@ -48,4 +49,3 @@ public:
 	void debugInfo();
 
 };
-

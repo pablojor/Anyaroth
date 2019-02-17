@@ -1,16 +1,15 @@
 #include "Collectable.h"
+#include "BodyComponent.h"
 #include "SpriteComponent.h"
 
-
-Collectable::Collectable(Texture* texture, Vector2D iniPos, int value) : _value(value), GameComponent()
+Collectable::Collectable(Texture* texture, Vector2D iniPos, int value, Game* g) : _value(value), GameComponent(g)
 {
 	addComponent<Texture>(texture);
 
 	auto transform = addComponent<TransformComponent>();
 	transform->setPosition(iniPos.getX(), iniPos.getY());
 
-	addComponent<SpriteComponent>();
+	auto body = addComponent<BodyComponent>();
 
-	//auto body = addComponente<BodyComponent>();
-	//Modificacion del body (si es que necesita).
+	addComponent<SpriteComponent>();
 }

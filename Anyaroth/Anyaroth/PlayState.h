@@ -12,10 +12,9 @@ class PlayState : public GameState
 		Player* _player = nullptr;
 		Layer* _colLayer = nullptr;
 		Enemy* _enemy = nullptr;
+
 	public:
-		
 		PlayState(Game* g);
 		virtual void update();
 		virtual void handleEvents(SDL_Event& e);
-
 };

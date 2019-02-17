@@ -8,8 +8,8 @@ class TransformComponent : public Component
 {
 	private:
 		Vector2D _anchor;
-		Vector2D _position;
 		Vector2D _scale;
+		Vector2D _position;
 		double _rotation;
 		Vector2D _defaultAnchor; //el anchor inicial (necesario en caso de que el anchor cambie en ejecución)
 
@@ -18,7 +18,6 @@ class TransformComponent : public Component
 		~TransformComponent() {}
 
 		void setPosition(double x, double y) { _position = Vector2D(x, y); }
-
 		void setScale(double x, double y) { _scale = Vector2D(x, y); }
 		void setScale(double a) { _scale = Vector2D(a, a); }
 
@@ -37,4 +36,3 @@ class TransformComponent : public Component
 		Vector2D getDefaultAnchor() { return _defaultAnchor; }
 		double getRotation() { return _rotation; }
 };
-

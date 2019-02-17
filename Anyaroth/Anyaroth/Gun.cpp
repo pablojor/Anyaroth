@@ -3,31 +3,23 @@
 #include <algorithm>
 
 
-Gun::Gun(GameComponent* shootingObj, Shooter* shooterComp, string name, int maxAmmo, int maxClip, int bulletsPerShot) : _shootingObj(shootingObj), _shooterComp(shooterComp), _name(name), _maxAmmo(maxAmmo), _maxClip(maxClip), _ammo(maxAmmo), _clip(maxClip), _bulletsPerShot(bulletsPerShot)
-{
+Gun::Gun(GameComponent* shootingObj, Shooter* shooterComp, string name, int maxAmmo, int maxClip, int bulletsPerShot) : _shootingObj(shootingObj), _shooterComp(shooterComp), _name(name), _maxAmmo(maxAmmo), _maxClip(maxClip), _ammo(maxAmmo), _clip(maxClip), _bulletsPerShot(bulletsPerShot) {}
 
-}
+Gun::~Gun() {}
 
-
-Gun::~Gun()
-{
-
-}
-
-
-//método auxiliar de reload
+//mï¿½todo auxiliar de reload
 void Gun::reloadAux(int newClipValue)
 {
 	int prevClip = _clip; //cargador antes de recargar
 	_clip = newClipValue;
-	_ammo -= (_clip - prevClip); //resta a la munición total la munición recargada
+	_ammo -= (_clip - prevClip); //resta a la municiï¿½n total la municiï¿½n recargada
 }
 
-//Recarga la munición si puede y devuelve true si ha recargado
+//Recarga la municiï¿½n si puede y devuelve true si ha recargado
 bool Gun::reload()
 {
-	if (_clip < _maxClip) { //Si el cargador no está completo
-		//llamo a animación de recargar
+	if (_clip < _maxClip) { //Si el cargador no estï¿½ completo
+		//llamo a animaciï¿½n de recargar
 
 
 
@@ -46,8 +38,8 @@ bool Gun::reload()
 		return false;
 }
 
-// Suma ammoAdded a la munición y la coloca en _ammo y _clip según corresponda
-// USAR ESTE MÉTODO AL RECOGER MUNICIÓN
+// Suma ammoAdded a la municiï¿½n y la coloca en _ammo y _clip segï¿½n corresponda
+// USAR ESTE Mï¿½TODO AL RECOGER MUNICIï¿½N
 void Gun::addAmmo(int ammoAdded)
 {
 	if (_ammo + ammoAdded > _maxAmmo) //Si sobran balas en _ammo
@@ -65,14 +57,14 @@ void Gun::addAmmo(int ammoAdded)
 	}
 }
 
-//Pone al máximo la munición tanto en _ammo como en el cargador _clip
+//Pone al mï¿½ximo la municiï¿½n tanto en _ammo como en el cargador _clip
 void Gun::resetAmmo()
 {
 	_ammo = _maxAmmo;
 	_clip = _maxClip;
 }
 
-//Reduce la munición 
+//Reduce la municiï¿½n 
 void Gun::useAmmo()
 {
 	/*
@@ -89,13 +81,14 @@ void Gun::useAmmo()
 	*/
 }
 
-void Gun::shoot() {
+void Gun::shoot() 
+{
 	if (_clip >= _bulletsPerShot //Si hay suficientes balas en el cargador
 		&& _shooterComp != nullptr) //Si tiene un shooter, llama a su shoot()
 	{
 		_shooterComp->shoot();
 
-		//Reduce la munición actual
+		//Reduce la municiï¿½n actual
 		useAmmo();
 
 		//Dispara
@@ -113,7 +106,8 @@ void Gun::shoot() {
 }
 
 
-//Muestra la información del arma por consola
-void Gun::debugInfo() {
+//Muestra la informaciï¿½n del arma por consola
+void Gun::debugInfo() 
+{
 	cout << endl << _name << endl << _maxAmmo << endl << _ammo << endl << _maxClip << endl << _clip << endl << _bulletsPerShot << endl;
 }

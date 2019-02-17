@@ -3,18 +3,16 @@
 
 MovingComponent::MovingComponent(GameComponent* obj) : PhysicsComponent(obj)
 {
-	_transform = obj->getComponent<TransformComponent>();
-	if (_transform == nullptr) _transform = obj->addComponent<TransformComponent>();
+	_body = obj->getComponent<BodyComponent>();
+	if (_body == nullptr) _body = obj->addComponent<BodyComponent>();
 	/*_anim = obj->getComponent<AnimatedSpriteComponent>();
 	if (_anim == nullptr) _anim = obj->addComponent<AnimatedSpriteComponent>();*/
 }
 
 void MovingComponent::update() 
 {
-	Vector2D pos = _transform->getPosition();
-	double x = pos.getX();
-	double y = pos.getY();
-	_transform->setPosition(_dir.getX()*_speed + x, _dir.getY()*_speed + y);
-
-
+	b2Vec2 pos = _body->getBody()->GetPosition();
+	double x = pos.x;
+	double y = pos.y;
+	_body->getBody()->ApplyLinearImpulse(b2Vec2(_dir.x*_speed, _dir.y*_jumpForce), _body->getBody()->GetWorldCenter(), true);
 }

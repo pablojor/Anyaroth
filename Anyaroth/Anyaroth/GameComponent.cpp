@@ -4,14 +4,13 @@
 #include "InputComponent.h"
 #include "Game.h"
 
-GameComponent::GameComponent(Game* g) : _game(g), GameObject(), _inputComp(), _physicsComp(), _renderComp()
+GameComponent::GameComponent(Game* g) : _game(g), GameObject(), _inputComp(), _physicsComp(), _renderComp() 
 {
+	_world = g->getWorld();
 }
 
-//Constructor vacío (sin puntero a game, _game = nullptr)
-GameComponent::GameComponent() : GameObject(), _inputComp(), _physicsComp(), _renderComp()
-{
-}
+//Constructor vacï¿½o (sin puntero a game, _game = nullptr)
+GameComponent::GameComponent() : GameObject(), _inputComp(), _physicsComp(), _renderComp() {}
 
 GameComponent::~GameComponent() 
 {
@@ -36,7 +35,7 @@ GameComponent::~GameComponent()
 	}
 }
 
-//Añade un hijo al objeto
+//Aï¿½ade un hijo al objeto
 void GameComponent::addChild(GameComponent* obj) 
 {
 	_children.push_back(obj);
@@ -115,3 +114,7 @@ void GameComponent::delRenderComponent(RenderComponent* rc) {
 		_renderComp.erase(position);
 }
 
+b2World * GameComponent::getWorld()
+{
+	return _world;
+}

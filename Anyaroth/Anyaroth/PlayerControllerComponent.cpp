@@ -29,7 +29,6 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 
 		if (event.key.keysym.sym == SDLK_s)
 			_sPul = true;
-
 	}
 
 	if (event.type == SDL_KEYUP)
@@ -44,7 +43,6 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 
 		if (event.key.keysym.sym == SDLK_s)
 			_sPul = false;
-
 	}
 
 	if (event.type == SDL_MOUSEBUTTONDOWN)
@@ -67,12 +65,11 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 	{
 		_movement->changeDir(0, 0);
 		_isAttacking = true;
-		//llamo a función de melee
+		//llamo a funciï¿½n de melee
 		dynamic_cast<Player*>(_obj)->setCurrentState(Player::Attacking);
 		//_animArm->setActive(false);//desactivo brazo
 		_anim->playAnim(AnimatedSpriteComponent::MeleeKnife);//llamo animacion del melee dependiendo del arma cuerpo a cuerpo
 	}
-
 
 	if ((_aPul == _dPul) && !_isAttacking)
 	{
@@ -101,15 +98,19 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 		_anim->playAnim(AnimatedSpriteComponent::Idle);
 	}
 
-	if (_wPul /*Y no estoy saltando ya*/)
+	if (_wPul && !jump)
 	{
-		//Llamo a compoennte de salto
+		_movement->changeDir(_movement->getDirX(), -1);
+		jump = true;
 	}
-
+	
 	if (_sPul /*y estoy saltando*/)
 	{
-		//Llamo a compoennte de dash hacia abajo (culo)
+		//Llamo a componente de dash hacia abajo (culo)
 	}
+}
 
-	
+void PlayerControllerComponent::changeJump()
+{
+	jump = false;
 }

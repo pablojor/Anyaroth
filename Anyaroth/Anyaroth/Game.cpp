@@ -77,7 +77,7 @@ Game::Game()
 	createVariables();
 
 	SDL_Init(SDL_INIT_EVERYTHING);
-	TTF_Init();//Ventana del tamaño de la pantalla de cada dispositivo
+	TTF_Init();//Ventana del tamaï¿½o de la pantalla de cada dispositivo
 	SDL_DisplayMode monitor;
 	SDL_GetCurrentDisplayMode(0, &monitor);
 	auto win_width = monitor.w - 50;
@@ -102,11 +102,20 @@ Game::Game()
 
 	//---Create textures
 	createTextures();
-
+	_world = new b2World(b2Vec2(0.0, 9.8));
 	//---Create states
 	states[Play] = new PlayState(this);
 
 	stateMachine->pushState(states[Play]);
+	//World
+
+	
+	debugger.getRenderer(renderer);
+	debugger.SetFlags(b2Draw::e_shapeBit);
+
+	//Gestion de colisiones
+	_world->SetContactListener(&colManager);
+	_world->SetDebugDraw(&debugger);
 }
 
 Game::~Game()
@@ -122,7 +131,7 @@ Game::~Game()
 		delete states[i];
 
 	delete stateMachine;
-
+	delete _world;
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
@@ -130,7 +139,6 @@ Game::~Game()
 
 void Game::run()
 {
-
 	while (!exit) {
 		Uint32 startTime = SDL_GetTicks();
 		handleEvents(startTime);
@@ -146,13 +154,15 @@ void Game::run()
 void Game::update(Uint32 time)
 {
 	stateMachine->currentState()->update();
+	_world->Step(1 / 20.0, 8, 3);
 }
 
 void Game::render(Uint32 time) const
 {
 	SDL_RenderClear(renderer);
-
+	
 	stateMachine->currentState()->render();
+	_world->DrawDebugData();
 
 	SDL_RenderPresent(renderer);
 }

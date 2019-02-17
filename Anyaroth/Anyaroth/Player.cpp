@@ -2,7 +2,6 @@
 #include "PlayerControllerComponent.h"
 #include "TransformComponent.h"
 #include "MovingComponent.h"
-#include "BoxCollider.h"
 #include "Game.h"
 #include "FollowingComponent.h"
 #include "AnimatedSpriteComponent.h"
@@ -11,27 +10,26 @@ Player::Player(Texture* texture, Game* g) : GameComponent(g)
 {
 	//Siempre primero los componentes que tienen que estar SI o SI.
 	addComponent<Texture>(texture);
-	//Resto de componentes
 
+	//Resto de componentes
 	//addComponent<FollowingComponent>(this);
 
 	auto transform = addComponent<TransformComponent>();		//Como en el metodo anterior se ha creado este componente, imprime por pantalla que ya existe uno.
+	transform->setPosition(0, 50);
+
+	auto body = addComponent<BodyComponent>();
+	body->getBody()->SetType(b2_dynamicBody);
+	body->getBody()->SetBullet(true);
+	body->getBody()->SetFixedRotation(true);
 
 	_anim = addComponent<AnimatedSpriteComponent>();		//Como depende de Transform, en su constructura crea una si no ha encontrado Transform en el objeto.
-
-	addComponent<MovingComponent>();
-	_controller = addComponent<PlayerControllerComponent>();
-	addComponent<BoxCollider>();
-
 	_anim->addAnim(AnimatedSpriteComponent::Idle, 16, true);
 	_anim->addAnim(AnimatedSpriteComponent::Walk, 10, true);
 	_anim->addAnim(AnimatedSpriteComponent::WalkBack, 10, true);
 	_anim->addAnim(AnimatedSpriteComponent::MeleeKnife, 6, false);
 
-
-	transform->setPosition(340, 200);
-	transform->setAnchor(0, 0);
-	//transform->setRotation(45);
+	addComponent<MovingComponent>();
+	addComponent<PlayerControllerComponent>();
 
 	//Brazo con arma
 	_weaponArm = new Arm(getGame()->getTexture("Arm"), this, getGame(), { 10,12 });
@@ -39,11 +37,21 @@ Player::Player(Texture* texture, Game* g) : GameComponent(g)
 
 	//Equipa el arma inicial
 	equipGun(getGame()->BasicGun);
-
 }
 
 Player::~Player()
 {
+}
+
+void Player::beginCollision(GameComponent * other)
+{
+	auto myTransform = this->getComponent<TransformComponent>();
+	auto myControler = this->getComponent<PlayerControllerComponent>();
+
+	auto otherTransform = other->getComponent<TransformComponent>();
+
+	if (myTransform->getPosition().getY() < otherTransform->getPosition().getY())
+		myControler->changeJump();
 }
 
 void Player::update()
@@ -57,10 +65,7 @@ void Player::update()
 
 		_currentState = Idle;
 	}
-
-	//transform->setRotation(transform->getRotation() + 0.2);
 }
-
 
 //Equipa un arma utilizando el array de atributos gameGuns de Game.h
 void Player::equipGun(int gunIndex)

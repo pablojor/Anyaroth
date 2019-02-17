@@ -1,21 +1,22 @@
 #include "Enemy.h"
-#include "MeleeEnemyComponent.h"
 #include "TransformComponent.h"
+#include "BodyComponent.h"
+#include "MeleeEnemyComponent.h"
 #include "MovingComponent.h"
-#include "BoxCollider.h"
 #include "Game.h"
 #include "Player.h"
 
-Enemy::Enemy(Texture* texture, Vector2D iniPos, Player* player) : GameComponent() {
+Enemy::Enemy(Texture* texture, Vector2D iniPos, Player* player, Game* g) : GameComponent(g) {
 
 	addComponent<Texture>(texture);
 
 	auto transform = addComponent<TransformComponent>();
+	transform->setPosition(iniPos.getX(), iniPos.getY());
+
 	auto anim = addComponent<AnimatedSpriteComponent>();
 	auto playerTrans = addComponent<MeleeEnemyComponent>();
-
+	auto body = addComponent<BodyComponent>();
 	addComponent<MovingComponent>();
-	addComponent<BoxCollider>();
 
 	playerTrans->addPlayer(player);
 
@@ -25,12 +26,10 @@ Enemy::Enemy(Texture* texture, Vector2D iniPos, Player* player) : GameComponent(
 	anim->addAnim(AnimatedSpriteComponent::MeleeKnife, 6, false);
 
 	anim->playAnim(AnimatedSpriteComponent::Idle);
-
-	transform->setPosition(iniPos.getX(), iniPos.getY());
-
 }
 
-Enemy::~Enemy() {
+Enemy::~Enemy() 
+{
 }
 
 void Enemy::update()

@@ -1,5 +1,4 @@
 #pragma once
-
 #include "GameComponent.h"
 #include "Arm.h"
 #include "Gun.h"
@@ -11,23 +10,23 @@ class Game;
 class AnimatedSpriteComponent;
 class PlayerControllerComponent;
 
-class Player : public GameComponent {
+class Player : public GameComponent
+{
 private:
 	int _life;
-	Arm* _weaponArm = nullptr;
 
 public:
   	enum states { Idle, Attacking };
-  
-	Player(Texture* texture, Game* g);
-  ~Player();
-  
+  	uint _currentState = 0;
+	Arm* _weaponArm = nullptr;
 	AnimatedSpriteComponent* _anim;
 	PlayerControllerComponent* _controller;
   
-  uint _currentState = 0;
+	Player(Texture* texture, Game* g);
+  	~Player();
 
 	void update();
+	virtual void beginCollision(GameComponent* other);
   
 	void setArm(Arm* arm) { _weaponArm = arm; };
 	void equipGun(int gunIndex);

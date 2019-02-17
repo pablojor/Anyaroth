@@ -2,24 +2,15 @@
 
 #include <list>
 #include <vector>
-#include "BoxCollider.h"
+#include <Box2D/Box2D.h>
 
-class GameComponent;
-
-class CollisionManager
+class CollisionManager : public b2ContactListener
 {
-	private:
-		static CollisionManager* _collisionManager;
-
-		CollisionManager() {}
-		static bool _AABBCollision(SDL_Rect rectA, SDL_Rect rectB);
-
 	public:
-		~CollisionManager();
-
-		//static CollisionManager* getCollisionManager();
-
-		static bool checkCollision(GameComponent* A, GameComponent* B);
-
+		virtual ~CollisionManager();
+		void BeginContact(b2Contact* contact);
+		void EndContact(b2Contact* contact);
+		void PreSolve(b2Contact* contact);
+		void PostSolve(b2Contact* contact);
 		
 };
