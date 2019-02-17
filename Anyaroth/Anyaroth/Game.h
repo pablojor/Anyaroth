@@ -21,7 +21,7 @@
 
 
 
-const int RESOLUTION = 3;
+const int RESOLUTION = 4;
 //1-> 480x270
 //2-> 920x540
 //3-> 1440x810

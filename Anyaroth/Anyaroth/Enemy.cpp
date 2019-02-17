@@ -11,7 +11,7 @@ Enemy::Enemy(Texture* texture, Vector2D iniPos, Player* player) : GameComponent(
 	addComponent<Texture>(texture);
 
 	auto transform = addComponent<TransformComponent>();
-	auto anim = addComponent<AnimatedSpriteComponent>();		
+	auto anim = addComponent<AnimatedSpriteComponent>();
 	auto playerTrans = addComponent<MeleeEnemyComponent>();
 
 	addComponent<MovingComponent>();
@@ -19,9 +19,12 @@ Enemy::Enemy(Texture* texture, Vector2D iniPos, Player* player) : GameComponent(
 
 	playerTrans->addPlayer(player);
 
-	anim->addAnim("Idle", 16);
-	anim->addAnim("Walk", 10);
-	anim->playAnim("Idle");
+	anim->addAnim(AnimatedSpriteComponent::Idle, 16, true);
+	anim->addAnim(AnimatedSpriteComponent::Walk, 10, true);
+	anim->addAnim(AnimatedSpriteComponent::WalkBack, 10, true); //esta en realidad es opcional
+	anim->addAnim(AnimatedSpriteComponent::MeleeKnife, 6, false);
+
+	anim->playAnim(AnimatedSpriteComponent::Idle);
 
 	transform->setPosition(iniPos.getX(), iniPos.getY());
 	transform->setScale(RESOLUTION);
@@ -31,7 +34,7 @@ Enemy::Enemy(Texture* texture, Vector2D iniPos, Player* player) : GameComponent(
 Enemy::~Enemy() {
 }
 
-void Enemy::update() 
+void Enemy::update()
 {
 	GameComponent::update();
 }

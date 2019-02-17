@@ -46,12 +46,12 @@ void MeleeEnemyComponent::update()
 			if (x > _attackRange)
 			{
 				_movement->changeDir(1, 0);
-				_anim->playAnim("Walk");
+				_anim->playAnim(AnimatedSpriteComponent::Walk);
 			}
 			else
 			{
 				_movement->changeDir(0, 0);
-				_anim->playAnim("Idle"); //Llamas a animacion de ataque
+				_anim->playAnim(AnimatedSpriteComponent::MeleeKnife); //Llamas a animacion de ataque
 				_time = SDL_GetTicks();
 				_attacking = true;
 				cout << "attacking" << endl;
@@ -64,12 +64,12 @@ void MeleeEnemyComponent::update()
 			if (x < -_attackRange)
 			{
 				_movement->changeDir(-1, 0);
-				_anim->playAnim("Walk");
+				_anim->playAnim(AnimatedSpriteComponent::Walk);
 			}
 			else
 			{
 				_movement->changeDir(0, 0);
-				_anim->playAnim("Idle"); //Llamas a animacion de ataque
+				_anim->playAnim(AnimatedSpriteComponent::MeleeKnife); //Llamas a animacion de ataque
 				_time = SDL_GetTicks();
 				_attacking = true;
 				cout << "attacking" << endl;
@@ -89,6 +89,6 @@ void MeleeEnemyComponent::update()
 	else
 	{
 		_movement->changeDir(0, 0);
-		_anim->playAnim("Idle");
+		_anim->playAnim(AnimatedSpriteComponent::Idle);
 	}
 }
