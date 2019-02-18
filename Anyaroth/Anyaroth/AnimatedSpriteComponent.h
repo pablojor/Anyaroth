@@ -31,7 +31,9 @@ protected:
 
 	bool _active = true;
 public:
-	enum Animations { Idle, Walk, WalkBack, MeleeKnife };
+	enum Player { Idle, Walk, WalkBack, MeleeKnife };
+	enum Gun { None, Shoot, NoAmmo };
+
 
 	AnimatedSpriteComponent(GameComponent* obj);
 	virtual ~AnimatedSpriteComponent();
@@ -39,8 +41,8 @@ public:
 	virtual void render() const;
 	virtual void update();
 
-	void addAnim(Animations name, uint numFrames, bool loop);
-	void playAnim(Animations name);
+	void addAnim(uint name, uint numFrames, bool loop);
+	void playAnim(uint name);
 
 	bool animationFinished() { return _animations[_currentAnim].animationFinished; };
 

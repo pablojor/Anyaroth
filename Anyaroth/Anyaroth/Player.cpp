@@ -32,7 +32,10 @@ Player::Player(Texture* texture, Game* g) : GameComponent(g)
 	_controller = addComponent<PlayerControllerComponent>();
 
 	//Brazo con arma
-	_weaponArm = new Arm(getGame()->getTexture("Arm"), this, getGame(), { 10,12 });
+	
+	//_weaponArm = new Arm(getGame()->getTexture("ArmPistol"), this, getGame(), { 10,12 }); 
+
+	_weaponArm = new Arm(getGame()->getTexture("ArmPistol"), this, getGame(), { 10,4 }); //Parámetros para la pistola
 	addChild(_weaponArm);
 
 	//Equipa el arma inicial

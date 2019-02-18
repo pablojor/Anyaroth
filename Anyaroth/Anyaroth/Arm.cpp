@@ -23,14 +23,17 @@ Arm::Arm(Texture* texture, GameComponent* player, Game* g, Vector2D offset) : Ga
 
 
 
-	_anim->addAnim(AnimatedSpriteComponent::Idle, 1, false);
+	_anim->addAnim(AnimatedSpriteComponent::None, 1, false);
+	_anim->addAnim(AnimatedSpriteComponent::Shoot, 3, false);
+	_anim->addAnim(AnimatedSpriteComponent::NoAmmo, 2, false);
 
-	_anim->playAnim(AnimatedSpriteComponent::Idle);
+	_anim->playAnim(AnimatedSpriteComponent::None);
 	//anim->addAnim("Walk", 10);
 
 	//_transform->setPosition(340, 100);
-	_transform->setDefaultAnchor(0.17, 0.3);
 
+	//_transform->setDefaultAnchor(0.17, 0.3);
+	_transform->setDefaultAnchor(0.1, 0.6); //Parámetros para la pistola
 }
 
 
@@ -57,6 +60,15 @@ void Arm::update()
 	{
 		_anim->setActive(true);
 	}
+
+
+	if (_anim->animationFinished())
+	{
+		_anim->playAnim(AnimatedSpriteComponent::Idle);
+		//_controller->setIsAttacking(false);
+
+		//_currentState = Idle;
+	}
 }
 
 void Arm::setPlayer(Vector2D offset, GameComponent* player)
@@ -71,7 +83,16 @@ void Arm::setPlayer(Vector2D offset, GameComponent* player)
 void Arm::shoot()
 {
 	if (_currentGun != nullptr)
-		_currentGun->shoot();
+	{
+		if(_currentGun->shoot())
+		{
+			_anim->playAnim(AnimatedSpriteComponent::Shoot);
+		}
+		else
+		{
+			_anim->playAnim(AnimatedSpriteComponent::NoAmmo);
+		}
+	}
 	else
 		cout << "Gun Not found" << endl;
 

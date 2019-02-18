@@ -40,7 +40,7 @@ public:
 	virtual ~Gun();
 
 	void setShooter(Shooter* sh) { _shooterComp = sh; };
-	void shoot();
+	bool shoot();
 
 	void addAmmo(int ammoAdded);
 	bool reload();
