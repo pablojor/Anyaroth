@@ -10,7 +10,8 @@ private:
 	b2Body* _body = nullptr;
 	b2FixtureDef _fixture;
 	TransformComponent* _transform;
-	double textW, textH, aX, aY;
+	double _textW, _textH, _aX, _aY, _width, _height;
+	b2PolygonShape _shape;
 
 public:
 	BodyComponent(GameComponent* obj);
@@ -18,4 +19,7 @@ public:
 
 	virtual void update();
 	b2Body* getBody();
+	void setW(double w);
+	void setH(double h);
+	void filterCollisions(uint16 ownCategory, uint16 collidesWith);
 };
