@@ -21,16 +21,20 @@ ArmControllerComponent::ArmControllerComponent(GameComponent* obj) : InputCompon
 
 	_obj = obj;
 
-	_minAimDistance = 100;
+	_minAimDistance = 32;
 }
 
 void ArmControllerComponent::handleInput(const SDL_Event& event)
 {
+	
+		
+
 	if (true)//(event.type == SDL_MOUSEMOTION)
 	{
 		int x, y;
-		SDL_GetMouseState(&x, &y);
 
+		x = event.motion.x;
+		y = event.motion.y;
 
 		Vector2D direction = { (_transform->getPosition().getX() + _followC->getInitialOffset().getX() - (x)),
 			(_transform->getPosition().getY() + _followC->getInitialOffset().getY() - y) };
@@ -39,12 +43,13 @@ void ArmControllerComponent::handleInput(const SDL_Event& event)
 		{
 			//direction = direction + Vector2D(42, 0);
 
-
+			//cout << x << " " << _transform->getPosition().getX() << endl;
 			if (x < _transform->getPosition().getX()) { //hago flip si el mouse está a la izquierda
+				//cout << x << " " << _transform->getPosition().getX()<<endl;
 				_anim->flip();
 				_player->getComponent<AnimatedSpriteComponent>()->flip();
 				_transform->setAnchor(1 - _transform->getDefaultAnchor().getX(), _transform->getDefaultAnchor().getY());
-				_player->getComponent<TransformComponent>()->setPosition(_player->getComponent<TransformComponent>()->getPosition().getX()- magicNumber, _player->getComponent<TransformComponent>()->getPosition().getY());
+				_player->getComponent<TransformComponent>()->setPosition(_player->getComponent<TransformComponent>()->getPosition().getX() - magicNumber, _player->getComponent<TransformComponent>()->getPosition().getY());
 				//_transform->setPosition(0, 0);//_transform->getPosition().getX() - 40, _transform->getPosition().getY());
 				_followC->setOffset({ _followC->getInitialOffset().getX() + 18/*_followC->getInitialOffset().getX()*/, _followC->getInitialOffset().getY() });
 			}
@@ -89,7 +94,7 @@ void ArmControllerComponent::handleInput(const SDL_Event& event)
 			rot -= 10;
 		}
 
-		if ((!_anim->isFlipped() && distance > _minAimDistance) 
+		if ((!_anim->isFlipped() && distance > _minAimDistance)
 			|| _anim->isFlipped() && distance > _minAimDistance - 70) {
 			_transform->setRotation(rot);
 			//_transform->setRotation(rot - pow(360/distance,2));
@@ -137,7 +142,7 @@ void ArmControllerComponent::handleInput(const SDL_Event& event)
 
 	if (_rPul && !isReloading)
 	{
-		
+
 
 		if (dynamic_cast<Arm*>(_obj)->reload())   //llamo a función de recargar
 		{

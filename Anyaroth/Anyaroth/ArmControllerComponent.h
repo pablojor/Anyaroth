@@ -22,6 +22,7 @@ private:
 	double magicNumber = 64;
 
 	bool isReloading = false;
+	int _resolutionMultiplier = 0;
 public:
 	ArmControllerComponent(GameComponent* obj);
 	virtual void handleInput(const SDL_Event& event);
