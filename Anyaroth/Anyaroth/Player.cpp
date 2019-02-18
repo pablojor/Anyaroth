@@ -29,7 +29,7 @@ Player::Player(Texture* texture, Game* g) : GameComponent(g)
 	_anim->addAnim(AnimatedSpriteComponent::MeleeKnife, 6, false);
 
 	addComponent<MovingComponent>();
-	addComponent<PlayerControllerComponent>();
+	_controller = addComponent<PlayerControllerComponent>();
 
 	//Brazo con arma
 	_weaponArm = new Arm(getGame()->getTexture("Arm"), this, getGame(), { 10,12 });
