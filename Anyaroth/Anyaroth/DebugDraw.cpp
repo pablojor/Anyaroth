@@ -1,6 +1,5 @@
 #include "DebugDraw.h"
 #include "Game.h"
-#include "Texture.h"
 
 void DebugDraw::DrawPolygon(const b2Vec2* vertices, int32 vertexCount, const b2Color& color)
 {
@@ -25,9 +24,7 @@ void DebugDraw::DrawSolidPolygon(const b2Vec2* vertices, int32 vertexCount, cons
 		poly.y = vertices[2].y*M_TO_PIXEL;
 	poly.h = abs(vertices[0].y - vertices[2].y)*M_TO_PIXEL;
 	poly.w = abs(vertices[0].x - vertices[2].x)*M_TO_PIXEL;
-	//SDL_RenderDrawRect(_renderer, &poly);
-	Texture t = Texture(_renderer, SPRITE_PATH + "Body.png");
-	t.render(poly);
+	_texture->render(poly);
 }
 
 void DebugDraw::DrawCircle(const b2Vec2& center, float32 radius, const b2Color& color)
@@ -73,4 +70,9 @@ void DebugDraw::DrawAABB(b2AABB* aabb, const b2Color& c)
 void DebugDraw::getRenderer(SDL_Renderer* renderer)
 {
 	_renderer = renderer;
+}
+
+void DebugDraw::getTexture(Texture* t)
+{
+	_texture = t;
 }
