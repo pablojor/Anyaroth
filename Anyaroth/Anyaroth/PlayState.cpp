@@ -23,7 +23,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_stages.push_back(_player);
 
 	//Enemy
-	_enemy = new Enemy(g->getTexture("Mk"), Vector2D(400, 200), _player, g);
+	_enemy = new MeleeEnemyComponent(_player, g, g->getTexture("Mk"), Vector2D(50, 100));
 	_stages.push_back(_enemy);
 }
 
