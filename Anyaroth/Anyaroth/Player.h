@@ -27,6 +27,7 @@ public:
 
 	void update();
 	virtual void beginCollision(GameComponent* other);
+	virtual void endCollision(GameComponent* other);
   
 	void setArm(Arm* arm) { _weaponArm = arm; };
 	void equipGun(int gunIndex);

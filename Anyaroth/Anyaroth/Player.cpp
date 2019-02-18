@@ -51,6 +51,17 @@ void Player::beginCollision(GameComponent * other)
 	auto otherTransform = other->getComponent<TransformComponent>();
 
 	if (myTransform->getPosition().getY() < otherTransform->getPosition().getY())
+		myControler->ableJump();
+}
+
+void Player::endCollision(GameComponent * other)
+{
+	auto myTransform = this->getComponent<TransformComponent>();
+	auto myControler = this->getComponent<PlayerControllerComponent>();
+
+	auto otherTransform = other->getComponent<TransformComponent>();
+
+	if (myTransform->getPosition().getY() < otherTransform->getPosition().getY())
 		myControler->changeJump();
 }
 

@@ -71,7 +71,7 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 		_anim->playAnim(AnimatedSpriteComponent::MeleeKnife);//llamo animacion del melee dependiendo del arma cuerpo a cuerpo
 	}
 
-	if ((_aPul == _dPul) && !_isAttacking)
+	if ((_aPul &&_dPul) && !_isAttacking)
 	{
 		_movement->changeDir(0, 0); //Llamo a animacion idle
 		_anim->playAnim(AnimatedSpriteComponent::Idle);
@@ -92,17 +92,17 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 		else
 			_anim->playAnim(AnimatedSpriteComponent::WalkBack);
 	}
+	else if (_wPul && !_isAttacking && jump)
+	{
+		_movement->changeDir(_movement->getDirX(), -1);
+	}
 	else if (!_isAttacking)
 	{
 		_movement->changeDir(0, 0); //Llamo a animacion idle
 		_anim->playAnim(AnimatedSpriteComponent::Idle);
 	}
 
-	if (_wPul && !jump)
-	{
-		_movement->changeDir(_movement->getDirX(), -1);
-		jump = true;
-	}
+	
 	
 	if (_sPul /*y estoy saltando*/)
 	{
@@ -113,4 +113,10 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 void PlayerControllerComponent::changeJump()
 {
 	jump = false;
+	_movement->changeDir(_movement->getDirX(), 0);
+}
+
+void PlayerControllerComponent::ableJump()
+{
+	jump = true;
 }

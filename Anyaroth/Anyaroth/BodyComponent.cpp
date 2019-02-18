@@ -19,7 +19,7 @@ BodyComponent::BodyComponent(GameComponent * obj) : PhysicsComponent(obj)
 	_fixture.shape = &shape;
 	_fixture.density = 1;
 	_fixture.restitution = 0;
-	_fixture.friction = 1;
+	_fixture.friction = 1.5;
 	_body->CreateFixture(&_fixture);
 	_body->SetUserData(obj);
 }
@@ -32,7 +32,7 @@ BodyComponent::~BodyComponent()
 void BodyComponent::update()
 {
 
-	if (_body->GetType() != b2_staticBody)
+	//if (_body->GetType() != b2_staticBody)
 		_transform->setPosition(((double)_body->GetPosition().x*M_TO_PIXEL)-textW*(0.5-aX), ((double)_body->GetPosition().y*M_TO_PIXEL)-textH*(0.5-aY));
 }
 

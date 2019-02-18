@@ -20,6 +20,7 @@ class PlayerControllerComponent : public InputComponent
 		virtual void handleInput(const SDL_Event& event);
 		
 		void changeJump();
+		void ableJump();
 		bool isAttacking() { return _isAttacking; };
 		void setIsAttacking(bool b) { _isAttacking = b; };
 };
