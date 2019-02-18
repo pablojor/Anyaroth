@@ -1,19 +1,19 @@
-#include "MeleeEnemyComponent.h"
+#include "MartyrEnemy.h"
 #include "GameComponent.h"
 #include "AnimatedSpriteComponent.h"
 #include "Player.h"
 
 
-MeleeEnemyComponent::MeleeEnemyComponent(Player* player, Game* g, Texture* texture, Vector2D posIni) : Enemy(player, g, texture, posIni)
+MartyrEnemy::MartyrEnemy(Player* player, Game* g, PlayState* play,Texture* texture, Vector2D posIni) : Enemy(player, g, play,texture, posIni)
 {
 	_vision = 300;
 	_flipRange = 5;
-	_attackRange = 25;
-	_attackTime = 1500;
+	_attackRange = 25; //No se puede poner mas pequeño que la velocidad
+	_attackTime = 1000;
 	_life = 50;
 }
 
-void MeleeEnemyComponent::update()
+void MartyrEnemy::update()
 {
 	Enemy::update();
 
@@ -70,10 +70,9 @@ void MeleeEnemyComponent::update()
 	{ 
 		if (SDL_GetTicks() > _time + _attackTime)
 		{
-			_attacking = false;
-			cout << "moving again" << endl;
-			_anim->playAnim(AnimatedSpriteComponent::Idle);
-			//if(colision de arma con jugador)
+			_play->KillObject(_itList);
+			//Implosion
+			//if(colision de explosion con jugador)
 			//	llamas daño al jugador
 		}
 	}

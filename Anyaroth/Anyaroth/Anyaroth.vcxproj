@@ -135,7 +135,8 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="FollowingComponent.cpp" />
-    <ClCompile Include="MeleeEnemyComponent.cpp" />
+    <ClCompile Include="MartyrEnemy.cpp" />
+    <ClCompile Include="MeleeEnemy.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="FrameComponent.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -179,7 +180,8 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="HUD.h" />
     <ClInclude Include="FollowingComponent.h" />
-    <ClInclude Include="MeleeEnemyComponent.h" />
+    <ClInclude Include="MartyrEnemy.h" />
+    <ClInclude Include="MeleeEnemy.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="FileFormatError.h" />
     <ClInclude Include="FileNotFoundError.h" />

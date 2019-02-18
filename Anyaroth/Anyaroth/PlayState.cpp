@@ -23,9 +23,19 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_stages.push_back(_player);
 
 	//Enemy
-	_enemy = new MeleeEnemyComponent(_player, g, g->getTexture("Mk"), Vector2D(50, 100));
+	_enemy = new MartyrEnemy(_player, g,this, g->getTexture("Mk"), Vector2D(50, 100));
 	_stages.push_back(_enemy);
+
+	auto itFR = --(_stages.end());
+	_enemy->setItList(itFR);
 }
+
+void PlayState::KillObject(list<GameObject*>::iterator itList)
+{
+	delete *itList;
+	items_ToDelete.push_back(itList);
+}
+
 
 void PlayState::handleEvents(SDL_Event& e)
 {
@@ -35,4 +45,12 @@ void PlayState::handleEvents(SDL_Event& e)
 void PlayState::update()
 {
 	GameState::update();
+
+	int i = items_ToDelete.size() - 1;
+	while (i >= 0)
+	{
+		_stages.erase(items_ToDelete[i]);
+		items_ToDelete.pop_back();
+		i--;
+	}
 }

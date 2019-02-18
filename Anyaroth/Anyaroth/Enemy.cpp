@@ -6,7 +6,7 @@
 #include "Game.h"
 #include "Player.h"
 
-Enemy::Enemy(Player* player, Game* g, Texture* texture, Vector2D posIni) : _playerTransform(player->getComponent<TransformComponent>()), GameComponent(g)
+Enemy::Enemy(Player* player, Game* g, PlayState* play,Texture* texture, Vector2D posIni) : _playerTransform(player->getComponent<TransformComponent>()), _play(play), GameComponent(g)
 {
 	addComponent<Texture>(texture);
 
@@ -27,7 +27,10 @@ Enemy::Enemy(Player* player, Game* g, Texture* texture, Vector2D posIni) : _play
 
 	_movement = addComponent<MovingComponent>();
 }
-
+void Enemy::setItList(list<GameObject*>::iterator itFR)
+{
+	_itList = itFR;
+}
 void Enemy::update()
 {
 	GameComponent::update();
