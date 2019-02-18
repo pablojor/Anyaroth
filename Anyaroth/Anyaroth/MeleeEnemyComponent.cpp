@@ -82,6 +82,7 @@ void MeleeEnemyComponent::update()
 		{
 			_attacking = false;
 			cout << "moving again" << endl;
+			_anim->playAnim(AnimatedSpriteComponent::Idle);
 			//if(colision de arma con jugador)
 			//	llamas daño al jugador
 		}
