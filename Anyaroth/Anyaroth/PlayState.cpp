@@ -14,9 +14,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_colLayer->addComponent<BodyComponent>();
 	_stages.push_back(_colLayer);
 
-	//brazo de atr�s
-	//auto armBack = new Arm(g->getTexture("Armback"), nullptr);
-	//_stages.push_back(armBack);
+	
 
 	//cuerpo
 	_player = new Player(g->getTexture("Mk"), g);
