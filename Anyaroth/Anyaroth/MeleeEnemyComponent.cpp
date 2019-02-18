@@ -1,35 +1,25 @@
 #include "MeleeEnemyComponent.h"
 #include "GameComponent.h"
+#include "AnimatedSpriteComponent.h"
 #include "Player.h"
 
 
-MeleeEnemyComponent::MeleeEnemyComponent(GameComponent* obj) : PhysicsComponent(obj)
+MeleeEnemyComponent::MeleeEnemyComponent(Player* player, Game* g, Texture* texture, Vector2D posIni) : Enemy(player, g, texture, posIni)
 {
-	_movement = obj->getComponent<MovingComponent>();
-	if (_movement == nullptr)
-		_movement = obj->addComponent<MovingComponent>();
-
-	_anim = obj->getComponent<AnimatedSpriteComponent>();
-	if (_anim == nullptr)
-		_anim = obj->addComponent<AnimatedSpriteComponent>();
-
-	_myTransform = obj->getComponent<TransformComponent>();
-	if (_myTransform == nullptr)
-		_myTransform = obj->addComponent<TransformComponent>();
-}
-
-void MeleeEnemyComponent::addPlayer(Player* player)
-{
-	_playerTransform = player->getComponent<TransformComponent>();
-	if (_playerTransform == nullptr)
-		_playerTransform = player->getComponent<TransformComponent>();
+	_vision = 300;
+	_flipRange = 5;
+	_attackRange = 25;
+	_attackTime = 1500;
+	_life = 50;
 }
 
 void MeleeEnemyComponent::update()
 {
+	Enemy::update();
+
 	Vector2D enemy, player;
 
-	enemy = _myTransform->getPosition();
+	enemy = _transform->getPosition();
 	player = _playerTransform->getPosition();
 
 	double x, y;
