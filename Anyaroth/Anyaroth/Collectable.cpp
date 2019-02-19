@@ -2,7 +2,7 @@
 #include "BodyComponent.h"
 #include "SpriteComponent.h"
 
-Collectable::Collectable(Texture* texture, Vector2D iniPos, int value, Game* g) : _value(value), GameComponent(g)
+Collectable::Collectable(Game* g, Texture* texture, Vector2D iniPos, int value) : _value(value), GameComponent(g)
 {
 	addComponent<Texture>(texture);
 

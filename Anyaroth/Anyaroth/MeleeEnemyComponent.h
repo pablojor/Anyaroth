@@ -7,7 +7,7 @@
 class MeleeEnemyComponent : public Enemy
 {
 	public:
-		MeleeEnemyComponent(Player* player, Game* g, Texture* texture, Vector2D posIni);
+		MeleeEnemyComponent(Game* g, Texture* texture, Vector2D posIni, Player* player);
 
 		void noLongerAttacking() { _attacking = false; }
 		virtual void update();

@@ -4,7 +4,7 @@
 #include "Player.h"
 
 
-MeleeEnemyComponent::MeleeEnemyComponent(Player* player, Game* g, Texture* texture, Vector2D posIni) : Enemy(player, g, texture, posIni)
+MeleeEnemyComponent::MeleeEnemyComponent(Game* g, Texture* texture, Vector2D posIni, Player* player) : Enemy(g, texture, posIni, player)
 {
 	_vision = 300;
 	_flipRange = 5;

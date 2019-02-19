@@ -6,7 +6,7 @@
 #include "FollowingComponent.h"
 #include "AnimatedSpriteComponent.h"
 
-Player::Player(Texture* texture, Game* g) : GameComponent(g)
+Player::Player(Texture* texture, Game* g, Vector2D posIni) : GameComponent(g)
 {
 	//Siempre primero los componentes que tienen que estar SI o SI.
 	addComponent<Texture>(texture);
@@ -15,7 +15,7 @@ Player::Player(Texture* texture, Game* g) : GameComponent(g)
 	//addComponent<FollowingComponent>(this);
 
 	auto transform = addComponent<TransformComponent>();		//Como en el metodo anterior se ha creado este componente, imprime por pantalla que ya existe uno.
-	transform->setPosition(0, 50);
+	transform->setPosition(posIni.getX(), posIni.getY());
 
 	auto body = addComponent<BodyComponent>();
 	body->getBody()->SetType(b2_dynamicBody);

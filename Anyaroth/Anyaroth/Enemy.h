@@ -25,7 +25,7 @@ class Enemy : public GameComponent
 		int _vision, _flipRange, _attackRange, _attackTime, _life;
 
 	public:
-		Enemy(Player* player, Game* g, Texture* texture,Vector2D posIni);
+		Enemy(Game* g, Texture* texture,Vector2D posIni, Player* player);
 		virtual ~Enemy() {}
 
 		virtual void update();

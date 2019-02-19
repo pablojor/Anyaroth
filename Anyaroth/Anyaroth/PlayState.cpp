@@ -18,12 +18,17 @@ PlayState::PlayState(Game* g) : GameState(g)
 	//_stages.push_back(armBack);
 
 	//cuerpo
-	_player = new Player(g->getTexture("Mk"), g);
+	_player = new Player(g->getTexture("Mk"), g, Vector2D(50,0));
 	_stages.push_back(_player);
 
 	//Enemy
-	_stages.push_back(new ObjectLayer<Player>("Capa de Objetos 1", g->getTexture("Mk"), TILEMAP_PATH + "level.json", g));
-	_enemy = new MeleeEnemyComponent(_player, g, g->getTexture("Mk"), Vector2D(50, 100));
+	 auto oL= new ObjectLayer<MeleeEnemyComponent,Player*>("Capa de Objetos 1", g->getTexture("Mk"), TILEMAP_PATH + "level.json", g, _player);
+	 for (int i = 0; i < oL->getNumObjects(); i++)
+	 {
+		 _stages.push_back(oL->getObject(i));
+	 }
+	 delete oL;
+	 _enemy = new MeleeEnemyComponent(g, g->getTexture("Mk"), Vector2D(50, 100), _player);
 	_stages.push_back(_enemy);
 }
 

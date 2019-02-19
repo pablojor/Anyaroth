@@ -4,7 +4,7 @@
 class Coin : public Collectable
 {
 	public:
-		Coin(Texture* texture, Vector2D iniPos, int value) : Collectable(texture, iniPos, value) {};
+		Coin(Game* g, Texture* texture, Vector2D iniPos, int value=1) : Collectable(g, texture, iniPos, value) {};
 		~Coin() {};
 };
 

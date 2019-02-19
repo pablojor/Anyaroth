@@ -22,7 +22,7 @@ public:
 	AnimatedSpriteComponent* _anim;
 	PlayerControllerComponent* _controller;
   
-	Player(Texture* texture, Game* g);
+	Player(Texture* texture, Game* g, Vector2D posIni);
   	~Player();
 
 	void update();

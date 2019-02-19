@@ -1,11 +1,11 @@
 #pragma once
 #include "GameComponent.h"
 
-template<typename Object>
+template<typename Object, typename Parameter1>
 class ObjectLayer :	public GameComponent
 {
 public:
-	ObjectLayer(string name, Texture* t, string filename, Game* g) : GameComponent(g)
+	ObjectLayer(string name, Texture* t, string filename, Game* g, Parameter1 p = Parameter1()) : GameComponent(g)
 	{
 		fstream file;
 		file.open(filename);
@@ -25,49 +25,61 @@ public:
 			}
 			//convertimos los datos en input stream
 			//si no es el final del .json
-			while (n != "}],")
+			bool cont = true;
+
+			while (n != "                }],")
 			{
 				getline(file, n, '{');
-				while (n != "}")
+				while (cont)
 				{
 					getline(file, n, ':');
-					if (n == "\n         \"height\"")
+					if (n == "                 \"height\"")
 					{
 						getline(file, n, ',');
 						temp = stoi(n);
 						h = temp;
 					}
-					else if (n == "\n         \"width\"")
+					else if (n == "                 \"width\"")
 					{
 						getline(file, n, ',');
 						temp = stoi(n);
 						w = temp;
 					}
-					else if (n == "\n         \"x\"")
+					else if (n == "                 \"x\"")
 					{
 						getline(file, n, ',');
 						temp = stoi(n);
 						x = temp;
 					}
-					else if (n == "\n         \"y\"")
+					else if (n == "                 \"y\"")
 					{
-						getline(file, n, ',');
+						getline(file, n);
 						temp = stoi(n);
 						y = temp;
+						cont = false;
 					}
 					else
 						getline(file, n, ',');
+					getline(file, n);
 				}
-				new Object(t, g);
+				
+				_objects.push_back(new Object(g, t, Vector2D(x, y), p));
+
+				cont = true;
 			}
 		}
 		else
 			throw AnyarothError("El formato del tileset no es correcto");
 		file.close();
 	}
-	virtual ~ObjectLayer() {};
+	virtual ~ObjectLayer() { for (int i = 0; i < _objects.size(); i++) _objects.pop_back(); };
+
+	int getNumObjects() { return _objects.size(); };
+	Object* getObject(int i) { return _objects.at(i); };
 
 	private:
 		double x, y, h, w;
+		vector<Object*> _objects;
+		
 };
 

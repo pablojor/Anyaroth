@@ -6,7 +6,7 @@
 #include "Game.h"
 #include "Player.h"
 
-Enemy::Enemy(Player* player, Game* g, Texture* texture, Vector2D posIni) : _playerTransform(player->getComponent<TransformComponent>()), GameComponent(g)
+Enemy::Enemy(Game* g, Texture* texture, Vector2D posIni, Player* player) : _playerTransform(player->getComponent<TransformComponent>()), GameComponent(g)
 {
 	addComponent<Texture>(texture);
 
