@@ -5,6 +5,7 @@
 #include "Game.h"
 #include "FollowingComponent.h"
 #include "AnimatedSpriteComponent.h"
+#include "Coin.h"
 
 Player::Player(Texture* texture, Game* g, string tag) : GameComponent(g, tag)
 {
@@ -15,7 +16,7 @@ Player::Player(Texture* texture, Game* g, string tag) : GameComponent(g, tag)
 	//addComponent<FollowingComponent>(this);
 
 	auto transform = addComponent<TransformComponent>();		//Como en el metodo anterior se ha creado este componente, imprime por pantalla que ya existe uno.
-	transform->setPosition(0, 50);
+	transform->setPosition(50, 50);
 
 	auto body = addComponent<BodyComponent>();
 	body->getBody()->SetType(b2_dynamicBody);
@@ -38,6 +39,9 @@ Player::Player(Texture* texture, Game* g, string tag) : GameComponent(g, tag)
 
 	//Equipa el arma inicial
 	equipGun(getGame()->BasicGun);
+
+	//Monedore
+	_money = new Money();
 }
 
 Player::~Player()
@@ -53,6 +57,16 @@ void Player::beginCollision(GameComponent * other)
 
 	if (myTransform->getPosition().getY() < otherTransform->getPosition().getY())
 		myControler->ableJump();
+
+	if(other->getTag() == "Moneda")
+	{
+		auto coin = dynamic_cast<Coin*>(other);
+		auto cant = coin->getValue();
+		_money->store(cant);
+		//coin->destroy();	//Se destruirá la moneda de alguna manera
+		cout << "Moneda cogida" << endl;
+		cout << "Cantidad monedero: " << _money->getWallet() << endl;
+	}
 }
 
 void Player::endCollision(GameComponent * other)

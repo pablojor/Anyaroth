@@ -23,7 +23,7 @@ Enemy::Enemy(Player* player, Game* g, Texture* texture, Vector2D posIni, string 
 
 	auto anim = addComponent<AnimatedSpriteComponent>();
 	
-	auto playerTrans = addComponent<MeleeEnemyComponent>();
+	//auto playerTrans = addComponent<MeleeEnemyComponent>();
 
 	addComponent<MovingComponent>();
 

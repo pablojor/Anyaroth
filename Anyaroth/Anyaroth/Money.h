@@ -15,4 +15,6 @@ class Money
 		void store(int s) { _wallet += s; }
 
 		bool spend(int n);
+
+		int getWallet() { return _wallet; }
 };

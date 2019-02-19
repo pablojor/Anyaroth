@@ -17,5 +17,5 @@ void MovingComponent::update()
 	double y = pos.y;
 	_body->getBody()->SetLinearVelocity(b2Vec2(_dir.x*_speed, _body->getBody()->GetLinearVelocity().y));
 	_body->getBody()->ApplyLinearImpulse(b2Vec2(0, _dir.y*_jumpForce), _body->getBody()->GetWorldCenter(), true);
-	cout << _dir.y << endl;
+	//cout << _dir.y << endl;
 }

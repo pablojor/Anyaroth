@@ -1,10 +1,10 @@
-#include "MeleeEnemyComponent.h"
+#include "MeleeEnemy.h"
 #include "GameComponent.h"
 #include "AnimatedSpriteComponent.h"
 #include "Player.h"
 
 
-MeleeEnemyComponent::MeleeEnemyComponent(Player* player, Game* g, Texture* texture, Vector2D posIni) : Enemy(player, g, texture, posIni)
+MeleeEnemy::MeleeEnemy(Player* player, Game* g, Texture* texture, Vector2D posIni) : Enemy(player, g, texture, posIni, "MeleeEnemy")
 {
 	_vision = 300;
 	_flipRange = 5;
@@ -13,7 +13,7 @@ MeleeEnemyComponent::MeleeEnemyComponent(Player* player, Game* g, Texture* textu
 	_life = 50;
 }
 
-void MeleeEnemyComponent::update()
+void MeleeEnemy::update()
 {
 	Enemy::update();
 

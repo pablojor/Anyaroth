@@ -3,6 +3,7 @@
 #include "Arm.h"
 #include "Gun.h"
 #include "Shooter.h"
+#include "Money.h"
 
 class Arm;
 class Game;
@@ -16,6 +17,7 @@ class Player : public GameComponent
 		Arm* _weaponArm = nullptr;
 		AnimatedSpriteComponent* _anim = nullptr;
 		PlayerControllerComponent* _controller = nullptr;
+		Money* _money = nullptr;
 
 		uint _currentState = 0;
 

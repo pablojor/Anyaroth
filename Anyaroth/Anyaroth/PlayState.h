@@ -2,7 +2,7 @@
 #include "GameState.h"
 #include "Layer.h"
 #include "Player.h"
-#include "MeleeEnemyComponent.h"
+#include "MeleeEnemy.h"
 
 class Player;
 

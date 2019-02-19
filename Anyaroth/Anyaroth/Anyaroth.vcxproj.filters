@@ -25,9 +25,6 @@
     <ClCompile Include="InputComponent.cpp">
       <Filter>Archivos de origen\Components</Filter>
     </ClCompile>
-    <ClCompile Include="MeleeEnemyComponent.cpp">
-      <Filter>Archivos de origen\Components</Filter>
-    </ClCompile>
     <ClCompile Include="MovingComponent.cpp">
       <Filter>Archivos de origen\Components</Filter>
     </ClCompile>
@@ -115,6 +112,10 @@
     <ClCompile Include="AmmoPackage.cpp">
       <Filter>Archivos de origen\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="MeleeEnemy.cpp">
+      <Filter>Archivos de origen\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Coin.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -145,9 +146,6 @@
       <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
     <ClInclude Include="InputComponent.h">
-      <Filter>Archivos de encabezado\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="MeleeEnemyComponent.h">
       <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
     <ClInclude Include="MovingComponent.h">
@@ -250,6 +248,9 @@
       <Filter>Archivos de encabezado\Useful</Filter>
     </ClInclude>
     <ClInclude Include="Money.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="MeleeEnemy.h">
       <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
   </ItemGroup>

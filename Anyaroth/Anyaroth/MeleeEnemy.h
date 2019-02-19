@@ -4,10 +4,11 @@
 #include "MovingComponent.h"
 
 
-class MeleeEnemyComponent : public Enemy
+class MeleeEnemy : public Enemy
 {
 	public:
-		MeleeEnemyComponent(Player* player, Game* g, Texture* texture, Vector2D posIni);
+		MeleeEnemy(Player* player, Game* g, Texture* texture, Vector2D posIni);
+		~MeleeEnemy() {};
 
 		void noLongerAttacking() { _attacking = false; }
 		virtual void update();
