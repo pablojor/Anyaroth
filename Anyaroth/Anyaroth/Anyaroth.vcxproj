@@ -180,6 +180,7 @@
     <ClInclude Include="HUD.h" />
     <ClInclude Include="FollowingComponent.h" />
     <ClInclude Include="MeleeEnemyComponent.h" />
+    <ClInclude Include="ObjectLayer.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="FileFormatError.h" />
     <ClInclude Include="FileNotFoundError.h" />

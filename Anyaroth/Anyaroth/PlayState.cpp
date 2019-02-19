@@ -3,6 +3,7 @@
 #include "BodyComponent.h"
 #include "FollowingComponent.h"
 #include "checkML.h"
+#include "ObjectLayer.h"
 
 PlayState::PlayState(Game* g) : GameState(g)
 {
@@ -21,6 +22,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_stages.push_back(_player);
 
 	//Enemy
+	_stages.push_back(new ObjectLayer<Player>("Capa de Objetos 1", g->getTexture("Mk"), TILEMAP_PATH + "level.json", g));
 	_enemy = new MeleeEnemyComponent(_player, g, g->getTexture("Mk"), Vector2D(50, 100));
 	_stages.push_back(_enemy);
 }

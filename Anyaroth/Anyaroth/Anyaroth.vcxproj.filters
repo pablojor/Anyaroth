@@ -249,6 +249,7 @@
     <ClInclude Include="checkML.h">
       <Filter>Archivos de encabezado\Useful</Filter>
     </ClInclude>
+    <ClInclude Include="ObjectLayer.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de encabezado">
