@@ -8,7 +8,7 @@ SpriteComponent::SpriteComponent(GameComponent* obj) : RenderComponent(obj)
 	if (_transform == nullptr) cout << "No se ha podido cargar TransformComponent en SpriteComponent.";
 }
 
-void SpriteComponent::render() const 
+void SpriteComponent::render(Camera* c) const
 {
 	SDL_Rect destRect;
 	destRect.w = _texture->getW() * _transform->getScale().getX();

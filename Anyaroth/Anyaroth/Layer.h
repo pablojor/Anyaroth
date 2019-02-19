@@ -11,7 +11,7 @@ class Layer : public GameComponent
 		Layer(string name, Texture* t, string filename, Game* g);
 		~Layer();
 
-		void render() const;
+		void render(Camera* c) const;
 
 		vector<Tile*> getTilemap() { return _tilemap; };
 

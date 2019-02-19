@@ -12,7 +12,7 @@ void FrameComponent::setFilAndCol(int fil, int col)
 	_col = col;
 }
 
-void FrameComponent::render() const
+void FrameComponent::render(Camera* c) const
 {
 	SDL_Rect destRect;
 	destRect.w = (_texture->getW()/_texture->getNumCols()) * _transform->getScale().getX();

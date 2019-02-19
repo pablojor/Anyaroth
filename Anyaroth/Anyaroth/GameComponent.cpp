@@ -69,15 +69,15 @@ void GameComponent::update()
 	}
 }
 
-void GameComponent::render() const {
+void GameComponent::render(Camera* c) const {
 	for (RenderComponent* rc : _renderComp) {
-		rc->render();
+		rc->render(c);
 	}
 
 	//Llama al render de los hijos
 	for (GameComponent* child : _children)
 	{
-		child->render();
+		child->render(c);
 	}
 }
 

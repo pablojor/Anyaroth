@@ -13,7 +13,7 @@ AnimatedSpriteComponent::~AnimatedSpriteComponent()
 
 }
 
-void AnimatedSpriteComponent::render() const
+void AnimatedSpriteComponent::render(Camera* c) const
 {
 	if (_active)
 	{

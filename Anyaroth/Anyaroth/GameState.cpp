@@ -9,7 +9,7 @@ GameState::~GameState()
 void GameState::render() const
 {
 	for (GameObject* o : _stages)
-		o->render();
+		o->render(_mainCamera);
 }
 
 void GameState::update()
