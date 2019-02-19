@@ -2,9 +2,10 @@
 #include "GameComponent.h"
 #include "AnimatedSpriteComponent.h"
 #include "Player.h"
+#include "BodyComponent.h"
 
 
-MartyrEnemy::MartyrEnemy(Player* player, Game* g, PlayState* play,Texture* texture, Vector2D posIni) : Enemy(player, g, play,texture, posIni)
+MartyrEnemy::MartyrEnemy(Player* player, Game* g, PlayState* play,Texture* texture, Vector2D posIni) : _player(player), Enemy(player, g, play,texture, posIni)
 {
 	_vision = 300;
 	_flipRange = 5;
@@ -70,10 +71,14 @@ void MartyrEnemy::update()
 	{ 
 		if (SDL_GetTicks() > _time + _attackTime)
 		{
+			
+			if ((x < _explosionRange && x > 0) || (x > -_explosionRange && x < 0) && (y < _explosionRange && y > 0) || (y > -_explosionRange && y < 0))
+			{
+				auto body = _player->getComponent<BodyComponent>()->getBody();
+				body->ApplyLinearImpulseToCenter(b2Vec2(_impulse * x, _impulse * y), true);
+			}
+
 			_play->KillObject(_itList);
-			//Implosion
-			//if(colision de explosion con jugador)
-			//	llamas daño al jugador
 		}
 	}
 	else
