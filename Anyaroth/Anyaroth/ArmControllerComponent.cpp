@@ -101,7 +101,6 @@ void ArmControllerComponent::handleInput(const SDL_Event& event)
 		}
 	}
 
-
 	if (event.type == SDL_MOUSEBUTTONDOWN)
 	{
 		if (event.button.button == SDL_BUTTON_LEFT)
@@ -118,37 +117,8 @@ void ArmControllerComponent::handleInput(const SDL_Event& event)
 		}
 	}
 
-	if (event.type == SDL_KEYDOWN)
-	{
-		if (event.key.keysym.sym == SDLK_r && !isReloading)
-		{
-			_rPul = true;
-		}
-	}
-
-	if (event.type == SDL_KEYUP)
-	{
-		if (event.key.keysym.sym == SDLK_r)
-		{
-			_rPul = false;
-			isReloading = false;
-		}
-	}
-
 	if (_leftClickPul)
 	{
 		(dynamic_cast<Arm*>(_obj))->shoot();   //llamo a función de disparar
-	}
-
-	if (_rPul && !isReloading)
-	{
-
-
-		if (dynamic_cast<Arm*>(_obj)->reload())   //llamo a función de recargar
-		{
-			isReloading = true;
-			//Animación de reload
-		}
-
 	}
 }

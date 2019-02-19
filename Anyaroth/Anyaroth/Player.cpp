@@ -27,6 +27,7 @@ Player::Player(Texture* texture, Game* g) : GameComponent(g)
 	_anim->addAnim(AnimatedSpriteComponent::Walk, 10, true);
 	_anim->addAnim(AnimatedSpriteComponent::WalkBack, 10, true);
 	_anim->addAnim(AnimatedSpriteComponent::MeleeKnife, 6, false);
+	_anim->addAnim(AnimatedSpriteComponent::ReloadPistol, 13, false);
 
 	addComponent<MovingComponent>();
 	_controller = addComponent<PlayerControllerComponent>();
@@ -68,6 +69,7 @@ void Player::update()
 	{
 		_anim->playAnim(AnimatedSpriteComponent::Idle);
 		_controller->setIsAttacking(false);
+		_controller->setIsReloading(false);
 
 		_currentState = Idle;
 	}
@@ -83,4 +85,9 @@ void Player::equipGun(int gunIndex)
 
 	_weaponArm->setGun(new Gun(this, sh, name, mA, mC));
 	//cout << "Gun equipada" << endl << endl << endl << endl << endl << endl;
+}
+
+void Player::reload()
+{
+	_controller->reload();
 }

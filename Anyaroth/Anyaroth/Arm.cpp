@@ -24,7 +24,7 @@ Arm::Arm(Texture* texture, GameComponent* player, Game* g, Vector2D offset) : Ga
 
 
 	_anim->addAnim(AnimatedSpriteComponent::None, 1, false);
-	_anim->addAnim(AnimatedSpriteComponent::Shoot, 3, false);
+	_anim->addAnim(AnimatedSpriteComponent::Shoot, 2, false);
 	_anim->addAnim(AnimatedSpriteComponent::NoAmmo, 2, false);
 
 	_anim->playAnim(AnimatedSpriteComponent::None);
@@ -52,7 +52,8 @@ void Arm::update()
 	else
 		cout << "Gun Not found" << endl << endl;*/
 
-	if ((dynamic_cast<Player*>(_player))->getCurrentState() == Player::Attacking)
+	if ((static_cast<Player*>(_player))->getCurrentState() == Player::Attacking ||
+		(static_cast<Player*>(_player))->getCurrentState() == Player::Reloading)
 	{
 		_anim->setActive(false);
 	}
@@ -65,9 +66,6 @@ void Arm::update()
 	if (_anim->animationFinished())
 	{
 		_anim->playAnim(AnimatedSpriteComponent::Idle);
-		//_controller->setIsAttacking(false);
-
-		//_currentState = Idle;
 	}
 }
 
@@ -90,7 +88,15 @@ void Arm::shoot()
 		}
 		else
 		{
-			_anim->playAnim(AnimatedSpriteComponent::NoAmmo);
+			if (_currentGun->getAmmo() > 0)
+			{
+				static_cast<Player*>(_player)->reload();
+			}
+			else
+			{
+				_anim->playAnim(AnimatedSpriteComponent::NoAmmo);
+			}
+			
 		}
 	}
 	else
@@ -102,6 +108,7 @@ void Arm::shoot()
 bool Arm::reload()
 {
 	return _currentGun->reload();
+	
 }
 
 void Arm::setGun(Gun* gun)

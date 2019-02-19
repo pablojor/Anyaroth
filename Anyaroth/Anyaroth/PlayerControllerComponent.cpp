@@ -29,6 +29,12 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 
 		if (event.key.keysym.sym == SDLK_s)
 			_sPul = true;
+
+
+		if (event.key.keysym.sym == SDLK_r)
+		{
+			_rPul = true;
+		}
 	}
 
 	if (event.type == SDL_KEYUP)
@@ -43,6 +49,13 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 
 		if (event.key.keysym.sym == SDLK_s)
 			_sPul = false;
+
+
+		if (event.key.keysym.sym == SDLK_r)
+		{
+			_rPul = false;
+			//_isReloading = false;
+		}
 	}
 
 	if (event.type == SDL_MOUSEBUTTONDOWN)
@@ -55,36 +68,35 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 
 	if (event.type == SDL_MOUSEBUTTONUP)
 	{
-		if (event.button.button == SDL_BUTTON_RIGHT) //&& _isAttacking)
+		if (event.button.button == SDL_BUTTON_RIGHT)
 		{
 			_rightClickPul = false;
 		}
 	}
 
-	if (_rightClickPul) //&& !_isAttacking)
+	if (_rightClickPul)
 	{
 		_movement->changeDir(0, 0);
 		_isAttacking = true;
 		//llamo a funci�n de melee
-		dynamic_cast<Player*>(_obj)->setCurrentState(Player::Attacking);
-		//_animArm->setActive(false);//desactivo brazo
+		static_cast<Player*>(_obj)->setCurrentState(Player::Attacking);
 		_anim->playAnim(AnimatedSpriteComponent::MeleeKnife);//llamo animacion del melee dependiendo del arma cuerpo a cuerpo
 	}
 
-	if ((_aPul &&_dPul) && !_isAttacking)
+	if ((_aPul &&_dPul) && !_isAttacking && !_isReloading)
 	{
 		_movement->changeDir(0, 0); //Llamo a animacion idle
 		_anim->playAnim(AnimatedSpriteComponent::Idle);
 	}
-	else if (_aPul && !_isAttacking)
+	else if (_aPul && !_isAttacking && !_isReloading)
 	{
-		_movement->changeDir(-1, 0); //Llamo a animacion de moverse y un flip
+		_movement->changeDir(-1, 0); //Llamo a animacion de moverse
 		if (!_anim->isFlipped())
 			_anim->playAnim(AnimatedSpriteComponent::WalkBack);
 		else
 			_anim->playAnim(AnimatedSpriteComponent::Walk);
 	}
-	else if (_dPul && !_isAttacking)
+	else if (_dPul && !_isAttacking && !_isReloading)
 	{
 		_movement->changeDir(1, 0); //Llamo a animacion de moverse
 		if (!_anim->isFlipped())
@@ -92,14 +104,22 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 		else
 			_anim->playAnim(AnimatedSpriteComponent::WalkBack);
 	}
-	else if (_wPul && !_isAttacking && jump)
+	else if (_wPul && !_isAttacking && !_isReloading && jump)
 	{
 		_movement->changeDir(_movement->getDirX(), -1);
 	}
-	else if (!_isAttacking)
+	else if (!_isAttacking && !_isReloading)
 	{
 		_movement->changeDir(0, 0); //Llamo a animacion idle
 		_anim->playAnim(AnimatedSpriteComponent::Idle);
+	}
+
+	if (_rPul) //&& !isReloading)
+	{
+		if (static_cast<Player*>(_obj)->_weaponArm->reload())   //llamo a función de recargar
+		{
+			reload();
+		}
 	}
 
 
@@ -119,4 +139,12 @@ void PlayerControllerComponent::changeJump()
 void PlayerControllerComponent::ableJump()
 {
 	jump = true;
+}
+
+void PlayerControllerComponent::reload()
+{
+	_movement->changeDir(0, 0);
+	_isReloading = true;
+	static_cast<Player*>(_obj)->setCurrentState(Player::Reloading);
+	_anim->playAnim(AnimatedSpriteComponent::ReloadPistol); //llamo animacion de recargar
 }

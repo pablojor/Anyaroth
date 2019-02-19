@@ -63,6 +63,7 @@ void AnimatedSpriteComponent::playAnim(uint name)
 	{
 		_currentAnim = name;
 		_frame = 0;
+		//cout << "animation changed to: " << _currentAnim << endl << endl;
 	}
 }
 

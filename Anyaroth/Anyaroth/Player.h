@@ -16,7 +16,7 @@ private:
 	int _life;
 
 public:
-  	enum states { Idle, Attacking };
+  	enum states { Idle, Attacking, Reloading };
   	uint _currentState = 0;
 	Arm* _weaponArm = nullptr;
 	AnimatedSpriteComponent* _anim;
@@ -31,6 +31,8 @@ public:
 	void setArm(Arm* arm) { _weaponArm = arm; };
 	void equipGun(int gunIndex);
   
+	void reload();
+
 	uint getCurrentState() { return _currentState; };
 	void setCurrentState(uint n) { _currentState = n; };
 };

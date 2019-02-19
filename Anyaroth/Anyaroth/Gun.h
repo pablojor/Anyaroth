@@ -46,6 +46,8 @@ public:
 	bool reload();
 	void resetAmmo();
 
+	int getAmmo() { return _ammo; };
+
 	void debugInfo();
 
 };
