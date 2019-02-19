@@ -3,7 +3,7 @@
 #include "SpriteComponent.h"
 #include "MovingComponent.h"
 
-Bullet::Bullet(Texture* texture, Vector2D iniPos, Game* g) : GameComponent(g) 
+Bullet::Bullet(Texture* texture, Vector2D iniPos, Game* g, string tag) : GameComponent(g, tag) 
 {
 	addComponent<Texture>(texture);
 

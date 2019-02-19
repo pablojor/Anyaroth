@@ -101,9 +101,7 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 		_movement->changeDir(0, 0); //Llamo a animacion idle
 		_anim->playAnim(AnimatedSpriteComponent::Idle);
 	}
-
-
-
+		
 	if (_sPul /*y estoy saltando*/)
 	{
 		//Llamo a componente de dash hacia abajo (culo)

@@ -24,12 +24,12 @@ class Player : public GameComponent
 	public:
   		enum states { Idle, Attacking };
   
-		Player(Texture* texture, Game* g);
-  		~Player();
+		Player(Texture* texture, Game* g, string tag);
+		~Player();
 
 		void update();
-
 		virtual void beginCollision(GameComponent* other);
+		virtual void endCollision(GameComponent* other);
   
 		void setArm(Arm* arm) { _weaponArm = arm; };
 		void equipGun(int gunIndex);

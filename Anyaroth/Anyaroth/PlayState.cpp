@@ -8,7 +8,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 {
 	//Tilemap
 
-	_colLayer = new Layer("Capa de Patrones 1", g->getTexture("tileset"), TILEMAP_PATH + "level.json", g);
+	_colLayer = new Layer("Capa de Patrones 1", g->getTexture("tileset"), TILEMAP_PATH + "level.json", g, "Suelo");
 	_colLayer->addComponent<BodyComponent>();
 	_stages.push_back(_colLayer);
 
@@ -17,11 +17,11 @@ PlayState::PlayState(Game* g) : GameState(g)
 	//_stages.push_back(armBack);
 
 	//cuerpo
-	_player = new Player(g->getTexture("Mk"), g);
+	_player = new Player(g->getTexture("Mk"), g, "Player");
 	_stages.push_back(_player);
 
 	//Enemy
-	_enemy = new MeleeEnemyComponent(_player, g, g->getTexture("Mk"), Vector2D(50, 100));
+	_enemy = new Enemy(_player, g, g->getTexture("Mk"), Vector2D(50, 10), "Enemy");
 	_stages.push_back(_enemy);
 }
 
