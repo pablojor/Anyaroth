@@ -36,6 +36,8 @@ class Player : public GameComponent
 		void setArm(Arm* arm) { _weaponArm = arm; };
 		void equipGun(int gunIndex);
   
+		void reload();
+
 		uint getCurrentState() { return _currentState; };
 		void setCurrentState(uint n) { _currentState = n; };
 };

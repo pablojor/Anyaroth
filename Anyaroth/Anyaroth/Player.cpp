@@ -1,4 +1,4 @@
-#include "Player.h"
+﻿#include "Player.h"
 #include "PlayerControllerComponent.h"
 #include "TransformComponent.h"
 #include "MovingComponent.h"
@@ -29,12 +29,19 @@ Player::Player(Texture* texture, Game* g, string tag) : GameComponent(g, tag)
 	_anim->addAnim(AnimatedSpriteComponent::Walk, 10, true);
 	_anim->addAnim(AnimatedSpriteComponent::WalkBack, 10, true);
 	_anim->addAnim(AnimatedSpriteComponent::MeleeKnife, 6, false);
+	_anim->addAnim(AnimatedSpriteComponent::ReloadPistol, 13, false);
 
 	addComponent<MovingComponent>();
 	_controller = addComponent<PlayerControllerComponent>();
 
+	/*//brazo de atr�s
+	auto armBack = new Arm(g->getTexture("Armback"), this, getGame(), { 11,5 });
+	addChild(armBack);*/
+
 	//Brazo con arma
-	_weaponArm = new Arm(getGame()->getTexture("Arm"), this, getGame(), { 10,12 });
+	//_weaponArm = new Arm(getGame()->getTexture("ArmPistol"), this, getGame(), { 10,12 }); 
+
+	_weaponArm = new Arm(getGame()->getTexture("ArmPistol"), this, getGame(), { 11,5 }); //Parámetros para la pistola
 	addChild(_weaponArm);
 
 	//Equipa el arma inicial
@@ -88,6 +95,7 @@ void Player::update()
 	{
 		_anim->playAnim(AnimatedSpriteComponent::Idle);
 		_controller->setIsAttacking(false);
+		_controller->setIsReloading(false);
 
 		_currentState = Idle;
 	}
@@ -103,4 +111,9 @@ void Player::equipGun(int gunIndex)
 
 	_weaponArm->setGun(new Gun(this, sh, name, mA, mC));
 	//cout << "Gun equipada" << endl << endl << endl << endl << endl << endl;
+}
+
+void Player::reload()
+{
+	_controller->reload();
 }

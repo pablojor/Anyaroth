@@ -1,19 +1,20 @@
-#include "MeleeEnemy.h"
+#include "MartyrEnemy.h"
 #include "GameComponent.h"
 #include "AnimatedSpriteComponent.h"
 #include "Player.h"
+#include "BodyComponent.h"
 
 
-MeleeEnemy::MeleeEnemy(Player* player, Game* g, PlayState* play,Texture* texture, Vector2D posIni) : Enemy(player, g, play,texture, posIni, "MeleeEnemy")
+MartyrEnemy::MartyrEnemy(Player* player, Game* g, PlayState* play,Texture* texture, Vector2D posIni) : _player(player), Enemy(player, g, play,texture, posIni)
 {
 	_vision = 300;
 	_flipRange = 5;
-	_attackRange = 25; //No se puede poner mas pequeï¿½o que la velocidad
-	_attackTime = 1000; //La animacion tarda unos 450
+	_attackRange = 25; //No se puede poner mas pequeño que la velocidad
+	_attackTime = 1000;
 	_life = 50;
 }
 
-void MeleeEnemy::update()
+void MartyrEnemy::update()
 {
 	Enemy::update();
 
@@ -44,6 +45,7 @@ void MeleeEnemy::update()
 				_anim->playAnim(AnimatedSpriteComponent::MeleeKnife); //Llamas a animacion de ataque
 				_time = SDL_GetTicks();
 				_attacking = true;
+				cout << "attacking" << endl;
 			}
 		}
 		else if (x < -_flipRange)
@@ -61,6 +63,7 @@ void MeleeEnemy::update()
 				_anim->playAnim(AnimatedSpriteComponent::MeleeKnife); //Llamas a animacion de ataque
 				_time = SDL_GetTicks();
 				_attacking = true;
+				cout << "attacking" << endl;
 			}
 		}
 	}
@@ -68,10 +71,14 @@ void MeleeEnemy::update()
 	{ 
 		if (SDL_GetTicks() > _time + _attackTime)
 		{
-			_attacking = false;
-			_anim->playAnim(AnimatedSpriteComponent::Idle);
-			//if(colision de arma con jugador)
-			//	llamas daï¿½o al jugador
+			
+			if ((x < _explosionRange && x > 0) || (x > -_explosionRange && x < 0) && (y < _explosionRange && y > 0) || (y > -_explosionRange && y < 0))
+			{
+				auto body = _player->getComponent<BodyComponent>()->getBody();
+				body->ApplyLinearImpulseToCenter(b2Vec2(_impulse * x, _impulse * y), true);
+			}
+
+			_play->KillObject(_itList);
 		}
 	}
 	else

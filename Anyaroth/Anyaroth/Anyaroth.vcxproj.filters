@@ -79,9 +79,6 @@
     <ClCompile Include="Collectable.cpp">
       <Filter>Archivos de origen\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>Archivos de origen\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="Gun.cpp">
       <Filter>Archivos de origen\Objects</Filter>
     </ClCompile>
@@ -112,10 +109,16 @@
     <ClCompile Include="AmmoPackage.cpp">
       <Filter>Archivos de origen\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="MeleeEnemy.cpp">
-      <Filter>Archivos de origen\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="Coin.cpp" />
+    <ClCompile Include="MartyrEnemy.cpp">
+      <Filter>Archivos de origen\Objects\Enemys</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Archivos de origen\Objects\Enemys</Filter>
+    </ClCompile>
+    <ClCompile Include="MeleeEnemy.cpp">
+      <Filter>Archivos de origen\Objects\Enemys</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -193,9 +196,6 @@
     <ClInclude Include="Collectable.h">
       <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>Archivos de encabezado\Objects</Filter>
-    </ClInclude>
     <ClInclude Include="Gun.h">
       <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
@@ -250,8 +250,14 @@
     <ClInclude Include="Money.h">
       <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Archivos de encabezado\Objects\Enemys</Filter>
+    </ClInclude>
+    <ClInclude Include="MartyrEnemy.h">
+      <Filter>Archivos de encabezado\Objects\Enemys</Filter>
+    </ClInclude>
     <ClInclude Include="MeleeEnemy.h">
-      <Filter>Archivos de encabezado\Objects</Filter>
+      <Filter>Archivos de encabezado\Objects\Enemys</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -293,6 +299,12 @@
     </Filter>
     <Filter Include="Archivos de origen\Objects">
       <UniqueIdentifier>{3187a49c-eb7e-48ff-91cc-0cfef58c6ca9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Objects\Enemys">
+      <UniqueIdentifier>{df4b3fae-26a3-4c9a-b719-5b1104674e27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Objects\Enemys">
+      <UniqueIdentifier>{002526e4-015a-4a18-9225-2348333f0ac8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
