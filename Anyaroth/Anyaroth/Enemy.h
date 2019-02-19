@@ -25,7 +25,7 @@ class Enemy : public GameComponent
 
 		bool _attacking = false;
 		double _time;
-		int _vision, _flipRange, _attackRange, _attackTime, _life;
+		int _vision, _attackRange, _attackTime, _life;
 
 	public:
 		Enemy(Player* player, Game* g, PlayState* play, Texture* texture,Vector2D posIni);

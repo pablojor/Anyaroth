@@ -8,7 +8,6 @@
 MartyrEnemy::MartyrEnemy(Player* player, Game* g, PlayState* play,Texture* texture, Vector2D posIni) : _player(player), Enemy(player, g, play,texture, posIni)
 {
 	_vision = 300;
-	_flipRange = 5;
 	_attackRange = 25; //No se puede poner mas pequeño que la velocidad
 	_attackTime = 1000;
 	_life = 50;
@@ -30,7 +29,7 @@ void MartyrEnemy::update()
 
 	if (!_attacking && x < _vision && x > -_vision)
 	{
-		if (x > _flipRange)
+		if (x > 0)
 		{
 			_anim->unFlip();
 
@@ -48,7 +47,7 @@ void MartyrEnemy::update()
 				cout << "attacking" << endl;
 			}
 		}
-		else if (x < -_flipRange)
+		else if (x < 0)
 		{
 			_anim->flip();
 
