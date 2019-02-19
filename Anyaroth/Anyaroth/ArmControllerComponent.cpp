@@ -26,13 +26,10 @@ ArmControllerComponent::ArmControllerComponent(GameComponent* obj) : InputCompon
 
 void ArmControllerComponent::handleInput(const SDL_Event& event)
 {
-	
-		
-
-	if (true)//(event.type == SDL_MOUSEMOTION)
+	if /*(true)*/(event.type == SDL_MOUSEMOTION)
 	{
 		int x, y;
-
+		
 		x = event.motion.x;
 		y = event.motion.y;
 
@@ -49,9 +46,9 @@ void ArmControllerComponent::handleInput(const SDL_Event& event)
 				_anim->flip();
 				_player->getComponent<AnimatedSpriteComponent>()->flip();
 				_transform->setAnchor(1 - _transform->getDefaultAnchor().getX(), _transform->getDefaultAnchor().getY());
-				_player->getComponent<TransformComponent>()->setPosition(_player->getComponent<TransformComponent>()->getPosition().getX() - magicNumber, _player->getComponent<TransformComponent>()->getPosition().getY());
+				_player->getComponent<TransformComponent>()->setPosition(_player->getComponent<TransformComponent>()->getPosition().getX(), _player->getComponent<TransformComponent>()->getPosition().getY());
 				//_transform->setPosition(0, 0);//_transform->getPosition().getX() - 40, _transform->getPosition().getY());
-				_followC->setOffset({ _followC->getInitialOffset().getX() + 18/*_followC->getInitialOffset().getX()*/, _followC->getInitialOffset().getY() });
+				_followC->setOffset({ _followC->getInitialOffset().getX()/* + 18/*_followC->getInitialOffset().getX()*/, _followC->getInitialOffset().getY() });
 			}
 
 		}
@@ -95,7 +92,7 @@ void ArmControllerComponent::handleInput(const SDL_Event& event)
 		}
 
 		if ((!_anim->isFlipped() && distance > _minAimDistance)
-			|| _anim->isFlipped() && distance > _minAimDistance - 70) {
+			|| _anim->isFlipped() && distance > _minAimDistance - 20) {
 			_transform->setRotation(rot);
 			//_transform->setRotation(rot - pow(360/distance,2));
 		}
