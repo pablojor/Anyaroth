@@ -8,10 +8,8 @@ PlayState::PlayState(Game* g) : GameState(g)
 {
 	initializeCamera();
 	//Tilemap
-	//_stages.push_back(new Layer("Capa de Patrones 1", g->getTexture("tileset"), TILEMAP_PATH + "P2.json", g));
-	//_stages.push_back(new Layer("Capa de patrones 2", g->getTexture("tileset"), TILEMAP_PATH + "P2.json", g));
 
-	_colLayer = new Layer("Capa de patrones 3", g->getTexture("tileset"), TILEMAP_PATH + "P2.json", g);
+	_colLayer = new Layer("Capa de Patrones 1", g->getTexture("tileset"), TILEMAP_PATH + "level.json", g);
 	_colLayer->addComponent<BodyComponent>();
 	_stages.push_back(_colLayer);
 

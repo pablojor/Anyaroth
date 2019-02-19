@@ -1,6 +1,7 @@
 #pragma once
 #include <Box2D/Box2D.h>
 #include <SDL.h>
+#include "Texture.h"
 
 class DebugDraw : public b2Draw
 {
@@ -24,7 +25,11 @@ public:
 	void DrawAABB(b2AABB* aabb, const b2Color& color);
 
 	void getRenderer(SDL_Renderer* renderer);
+
+	void getTexture(Texture* t);
 private:
 	SDL_Renderer* _renderer;
+
+	Texture* _texture;
 };
 
