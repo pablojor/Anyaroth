@@ -6,6 +6,7 @@
 
 PlayState::PlayState(Game* g) : GameState(g)
 {
+	initializeCamera();
 	//Tilemap
 	//_stages.push_back(new Layer("Capa de Patrones 1", g->getTexture("tileset"), TILEMAP_PATH + "P2.json", g));
 	//_stages.push_back(new Layer("Capa de patrones 2", g->getTexture("tileset"), TILEMAP_PATH + "P2.json", g));
@@ -21,6 +22,8 @@ PlayState::PlayState(Game* g) : GameState(g)
 	//cuerpo
 	_player = new Player(g->getTexture("Mk"), g);
 	_stages.push_back(_player);
+
+	_mainCamera->fixCameraToObject(_player);
 
 	//Enemy
 	_enemy = new MeleeEnemyComponent(_player, g, g->getTexture("Mk"), Vector2D(50, 100));

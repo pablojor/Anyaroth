@@ -21,6 +21,6 @@ class GameState
 		virtual void update();
 		virtual void handleEvents(SDL_Event& e);
 
-		virtual void initializeCamera() { _mainCamera = new Camera(); };
+		virtual void initializeCamera();
 		virtual Camera* getMainCamera() { return _mainCamera; };
 };
