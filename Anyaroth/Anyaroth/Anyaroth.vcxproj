@@ -124,6 +124,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AmmoPackage.cpp" />
     <ClCompile Include="AnimatedSpriteComponent.cpp" />
     <ClCompile Include="BodyComponent.cpp" />
     <ClCompile Include="Arm.cpp" />
@@ -155,7 +156,7 @@
     <ClCompile Include="RenderComponent.cpp" />
     <ClCompile Include="Shooter.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
-    <ClCompile Include="Storage.cpp" />
+    <ClCompile Include="Money.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TransformComponent.cpp" />
@@ -202,7 +203,7 @@
     <ClInclude Include="SDLError.h" />
     <ClInclude Include="Shooter.h" />
     <ClInclude Include="SpriteComponent.h" />
-    <ClInclude Include="Storage.h" />
+    <ClInclude Include="Money.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="TransformComponent.h" />

@@ -55,9 +55,6 @@
     <ClCompile Include="Shooter.cpp">
       <Filter>Archivos de origen\Systems</Filter>
     </ClCompile>
-    <ClCompile Include="Storage.cpp">
-      <Filter>Archivos de origen\Systems</Filter>
-    </ClCompile>
     <ClCompile Include="HUD.cpp">
       <Filter>Archivos de origen\Systems</Filter>
     </ClCompile>
@@ -111,6 +108,12 @@
     </ClCompile>
     <ClCompile Include="GameComponent.cpp">
       <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Money.cpp">
+      <Filter>Archivos de origen\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="AmmoPackage.cpp">
+      <Filter>Archivos de origen\Objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -231,9 +234,6 @@
     <ClInclude Include="Tile.h">
       <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="Storage.h">
-      <Filter>Archivos de encabezado\Systems</Filter>
-    </ClInclude>
     <ClInclude Include="Shooter.h">
       <Filter>Archivos de encabezado\Systems</Filter>
     </ClInclude>
@@ -248,6 +248,9 @@
     </ClInclude>
     <ClInclude Include="checkML.h">
       <Filter>Archivos de encabezado\Useful</Filter>
+    </ClInclude>
+    <ClInclude Include="Money.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
