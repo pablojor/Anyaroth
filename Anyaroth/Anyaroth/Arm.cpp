@@ -6,6 +6,8 @@
 #include "ArmControllerComponent.h"
 #include "Gun.h"
 
+#define PI 3.14159265
+
 Arm::Arm(Texture* texture, GameComponent* player, Game* g, Vector2D offset) : GameComponent(g)
 {
 
@@ -52,6 +54,71 @@ void Arm::update()
 	else
 		cout << "Gun Not found" << endl << endl;*/
 
+
+		//------------Movimiento del brazo---------------------
+	Vector2D direction = { (_transform->getPosition().getX() + _followC->getInitialOffset().getX() - (_controller->mouseX)),
+			(_transform->getPosition().getY() + _followC->getInitialOffset().getY() - _controller->mouseY) };
+
+	if (!_anim->isFlipped())
+	{
+		//direction = direction + Vector2D(42, 0);
+
+		//cout << x << " " << _transform->getPosition().getX() << endl;
+		if (_controller->mouseX < _transform->getPosition().getX()) { //hago flip si el mouse está a la izquierda
+			//cout << x << " " << _transform->getPosition().getX()<<endl;
+			_anim->flip();
+			_player->getComponent<AnimatedSpriteComponent>()->flip();
+			_transform->setAnchor(1 - _transform->getDefaultAnchor().getX(), _transform->getDefaultAnchor().getY());
+			_player->getComponent<TransformComponent>()->setPosition(_player->getComponent<TransformComponent>()->getPosition().getX(), _player->getComponent<TransformComponent>()->getPosition().getY());
+			//_transform->setPosition(0, 0);//_transform->getPosition().getX() - 40, _transform->getPosition().getY());
+			_followC->setOffset({ _followC->getInitialOffset().getX()/* + 18/*_followC->getInitialOffset().getX()*/, _followC->getInitialOffset().getY() });
+		}
+
+	}
+	else if (_anim->isFlipped())
+	{
+		//direction = direction + Vector2D(42, 0);
+
+		if (_controller->mouseX > _transform->getPosition().getX() + _followC->getInitialOffset().getX()) {
+			_anim->unFlip();
+			_player->getComponent<AnimatedSpriteComponent>()->unFlip();
+			_transform->setAnchor(_transform->getDefaultAnchor().getX(), _transform->getDefaultAnchor().getY());
+			_player->getComponent<TransformComponent>()->setPosition(_player->getComponent<TransformComponent>()->getPosition().getX() + _magicNumber, _player->getComponent<TransformComponent>()->getPosition().getY());
+			//_transform->setPosition(_transform->getPosition().getX() + 40, _transform->getPosition().getY());
+			_followC->setOffset({ _followC->getInitialOffset().getX(), _followC->getInitialOffset().getY() });
+		}
+	}
+
+	//cout << (_transform->getPosition().getX()) << endl;
+
+	direction.normalize();
+
+	//Distancia del mouse al brazo
+	double distance = sqrt(pow(_controller->mouseX - _transform->getPosition().getX(), 2) + pow(_controller->mouseY - _transform->getPosition().getY(), 2));
+
+	//cout << distance << endl;
+
+	//actualizo angulo del brazo
+	double rot = atan2(direction.getY(), direction.getX()) * 180.0 / PI;
+
+	if (!_anim->isFlipped())
+	{
+		rot -= 180 - 10;
+	}
+	else
+	{
+		rot -= 10;
+	}
+
+	if ((!_anim->isFlipped() && distance > _minAimDistance)
+		|| _anim->isFlipped() && distance > _minAimDistance - 20) {
+		_transform->setRotation(rot);
+		//_transform->setRotation(rot - pow(360/distance,2));
+	}
+	//-----------------------------------------------------------
+
+
+
 	if ((static_cast<Player*>(_player))->getCurrentState() == Player::Attacking ||
 		(static_cast<Player*>(_player))->getCurrentState() == Player::Reloading)
 	{
@@ -72,9 +139,9 @@ void Arm::update()
 void Arm::setPlayer(Vector2D offset, GameComponent* player)
 {
 	_player = player;
-	auto fC = addComponent<FollowingComponent>(_player);
-	fC->setInitialOffset(offset);
-	addComponent<ArmControllerComponent>();
+	_followC = addComponent<FollowingComponent>(_player);
+	_followC->setInitialOffset(offset);
+	_controller = addComponent<ArmControllerComponent>();
 }
 
 //Dispara el arma

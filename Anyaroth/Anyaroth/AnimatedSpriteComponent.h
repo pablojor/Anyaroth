@@ -25,7 +25,7 @@ protected:
 
 	uint _frame;
 	uint _lastTimeUpdated = 0;  // last time we update a frame
-	uint _freq = 50; // the frequency of updating frames
+	uint _freq = 100; // the frequency of updating frames
 
 	bool _animationFinished = false;
 
