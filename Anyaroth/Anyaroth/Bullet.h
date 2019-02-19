@@ -5,6 +5,6 @@
 class Bullet : public GameComponent
 {
 public:
-	Bullet(Texture* texture, Vector2D iniPos, Game* g);
+	Bullet();
 	virtual ~Bullet();
 };

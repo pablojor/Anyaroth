@@ -129,6 +129,7 @@
     <ClCompile Include="Arm.cpp" />
     <ClCompile Include="ArmControllerComponent.cpp" />
     <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="BulletPool.cpp" />
     <ClCompile Include="Collectable.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="DebugDraw.cpp" />
@@ -137,6 +138,7 @@
     <ClCompile Include="FollowingComponent.cpp" />
     <ClCompile Include="MartyrEnemy.cpp" />
     <ClCompile Include="MeleeEnemy.cpp" />
+    <ClCompile Include="ObjectPool.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="FrameComponent.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -171,6 +173,7 @@
     <ClInclude Include="Arm.h" />
     <ClInclude Include="ArmControllerComponent.h" />
     <ClInclude Include="Bullet.h" />
+    <ClInclude Include="BulletPool.h" />
     <ClInclude Include="checkML.h" />
     <ClInclude Include="Coin.h" />
     <ClInclude Include="Collectable.h" />
@@ -182,6 +185,7 @@
     <ClInclude Include="FollowingComponent.h" />
     <ClInclude Include="MartyrEnemy.h" />
     <ClInclude Include="MeleeEnemy.h" />
+    <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="FileFormatError.h" />
     <ClInclude Include="FileNotFoundError.h" />

@@ -3,8 +3,9 @@
 #include "SpriteComponent.h"
 #include "MovingComponent.h"
 
-Bullet::Bullet(Texture* texture, Vector2D iniPos, Game* g) : GameComponent(g) 
+Bullet::Bullet() : GameComponent() 
 {
+	/*
 	addComponent<Texture>(texture);
 
 	auto transform = addComponent<TransformComponent>();
@@ -13,7 +14,7 @@ Bullet::Bullet(Texture* texture, Vector2D iniPos, Game* g) : GameComponent(g)
 	auto body = addComponent<BodyComponent>();
 
 	addComponent<SpriteComponent>();
-	addComponent<MovingComponent>();
+	addComponent<MovingComponent>();*/
 }
 
 Bullet::~Bullet() 

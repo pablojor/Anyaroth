@@ -20,7 +20,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_player = new Player(g->getTexture("Mk"), g);
 	_stages.push_back(_player);
 
-	//Enemy
+	//Enemy 
 	_enemy = new MartyrEnemy(_player, g,this, g->getTexture("Mk"), Vector2D(50, 100));
 	_stages.push_back(_enemy);
 

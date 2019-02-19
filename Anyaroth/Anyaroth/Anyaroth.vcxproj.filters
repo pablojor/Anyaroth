@@ -115,6 +115,8 @@
     <ClCompile Include="MeleeEnemy.cpp">
       <Filter>Archivos de origen\Objects\Enemys</Filter>
     </ClCompile>
+    <ClCompile Include="ObjectPool.cpp" />
+    <ClCompile Include="BulletPool.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -255,6 +257,8 @@
     <ClInclude Include="MeleeEnemy.h">
       <Filter>Archivos de encabezado\Objects\Enemys</Filter>
     </ClInclude>
+    <ClInclude Include="ObjectPool.h" />
+    <ClInclude Include="BulletPool.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de encabezado">

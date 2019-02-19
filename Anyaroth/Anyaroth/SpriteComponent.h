@@ -19,4 +19,7 @@ class SpriteComponent : public virtual RenderComponent
 		void flip();
 		void unFlip();
 		bool isFlipped() { return _flip; };
+
+		Texture* getTexture() { return _texture; };
+		void setTexture(Texture* texture) { _texture = texture; };
 };
