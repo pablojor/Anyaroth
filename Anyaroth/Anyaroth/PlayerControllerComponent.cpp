@@ -71,20 +71,24 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 		_anim->playAnim(AnimatedSpriteComponent::MeleeKnife);//llamo animacion del melee dependiendo del arma cuerpo a cuerpo
 	}
 
-	if ((_aPul &&_dPul) && !_isAttacking)
+	cout << "input" << endl;
+
+	if ((_aPul &&_dPul ) && !_isAttacking)
 	{
 		_movement->changeDir(0, 0); //Llamo a animacion idle
 		_anim->playAnim(AnimatedSpriteComponent::Idle);
 	}
-	else if (_aPul && !_isAttacking)
+	else if (_aPul && !_isAttacking&&!_wallOnL)
 	{
 		_movement->changeDir(-1, 0); //Llamo a animacion de moverse y un flip
 		if (!_anim->isFlipped())
 			_anim->playAnim(AnimatedSpriteComponent::WalkBack);
 		else
 			_anim->playAnim(AnimatedSpriteComponent::Walk);
+
+		cout << "moviendome" << endl;
 	}
-	else if (_dPul && !_isAttacking)
+	else if (_dPul && !_isAttacking&&!_wallOnR)
 	{
 		_movement->changeDir(1, 0); //Llamo a animacion de moverse
 		if (!_anim->isFlipped())
@@ -92,16 +96,18 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 		else
 			_anim->playAnim(AnimatedSpriteComponent::WalkBack);
 	}
-	else if (_wPul && !_isAttacking && jump)
-	{
-		_movement->changeDir(_movement->getDirX(), -1);
-	}
 	else if (!_isAttacking)
 	{
 		_movement->changeDir(0, 0); //Llamo a animacion idle
 		_anim->playAnim(AnimatedSpriteComponent::Idle);
+		cout << " quieto" << endl;
 	}
-
+	
+	if (_wPul && !_isAttacking && !jumping)
+	{
+		_movement->changeDir(_movement->getDirX(), -1);
+		jump = false;
+	}
 	
 	
 	if (_sPul /*y estoy saltando*/)
@@ -112,11 +118,28 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 
 void PlayerControllerComponent::changeJump()
 {
-	jump = false;
-	_movement->changeDir(_movement->getDirX(), 0);
+	if (!jump)
+	{
+		jumping = true;
+		_movement->changeDir(_movement->getDirX(), 0);
+	}
+	
 }
 
 void PlayerControllerComponent::ableJump()
 {
 	jump = true;
+	jumping = false;
+}
+
+void PlayerControllerComponent::wallOnLeft(bool yes)
+{
+	_wallOnL = yes;
+	_movement->changeDir(0, 0);
+}
+
+void PlayerControllerComponent::wallOnRight(bool yes)
+{
+	_wallOnR = yes;
+	_movement->changeDir(0, 0);
 }

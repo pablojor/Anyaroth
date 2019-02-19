@@ -73,6 +73,16 @@ void BodyComponent::setH(double h)
 	_body->CreateFixture(&_fixture);
 }
 
+double BodyComponent::getW()
+{
+	return _width;
+}
+
+double BodyComponent::getH()
+{
+	return _height;
+}
+
 //recive la categoria a la que pertenece y las categorias con las que colisiona (del enum _Category)
 void BodyComponent::filterCollisions(uint16 ownCategory, uint16 collidesWith)
 {

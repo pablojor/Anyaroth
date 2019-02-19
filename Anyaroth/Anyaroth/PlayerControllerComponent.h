@@ -14,6 +14,7 @@ class PlayerControllerComponent : public InputComponent
 		MovingComponent* _movement = nullptr;
 		bool _wPul = false, _aPul = false, _sPul = false, _dPul = false;
 		bool _rightClickPul = false, _isAttacking = false, jump = false;
+		bool jumping = false, _wallOnR = false, _wallOnL = false;
 
 	public:
 		PlayerControllerComponent(GameComponent* obj);
@@ -21,6 +22,10 @@ class PlayerControllerComponent : public InputComponent
 		
 		void changeJump();
 		void ableJump();
+		void wallOnLeft(bool yes);
+		void wallOnRight(bool yes);
+
+		bool currYDir() { return _wPul; }
 		bool isAttacking() { return _isAttacking; };
 		void setIsAttacking(bool b) { _isAttacking = b; };
 };

@@ -50,9 +50,23 @@ void Player::beginCollision(GameComponent * other)
 	auto myControler = this->getComponent<PlayerControllerComponent>();
 
 	auto otherTransform = other->getComponent<TransformComponent>();
+	auto body = this->getComponent<BodyComponent>();
+	auto otherBody = other->getComponent<BodyComponent>();
 
-	if (myTransform->getPosition().getY() < otherTransform->getPosition().getY())
+	double myH = body->getH(), myW = body->getW();
+	double otherH = otherBody->getH(), otherW = otherBody->getW();
+
+	cout << myTransform->getPosition().getY() + myH * (M_TO_PIXEL) << " " << otherTransform->getPosition().getY() - otherH * (M_TO_PIXEL * 2) << endl;
+	if (myTransform->getPosition().getY() + myH * (M_TO_PIXEL) < otherTransform->getPosition().getY() - otherH * (M_TO_PIXEL * 2))
 		myControler->ableJump();
+	else if (myTransform->getPosition().getY() - myH * (M_TO_PIXEL) < otherTransform->getPosition().getY() + otherH * (M_TO_PIXEL * 2))
+	{
+		if (myTransform->getPosition().getX() + myW * (M_TO_PIXEL) < otherTransform->getPosition().getX() - otherW * (M_TO_PIXEL * 2))
+		{
+			myControler->wallOnRight(true);
+		}
+		else myControler->wallOnLeft(true);
+	}
 }
 
 void Player::endCollision(GameComponent * other)
@@ -62,7 +76,16 @@ void Player::endCollision(GameComponent * other)
 
 	auto otherTransform = other->getComponent<TransformComponent>();
 
-	if (myTransform->getPosition().getY() < otherTransform->getPosition().getY())
+	auto body = this->getComponent<BodyComponent>();
+	auto otherBody = other->getComponent<BodyComponent>();
+
+	double myH = body->getH();
+	double otherH = otherBody->getH();
+
+	myControler->wallOnLeft(false);
+	myControler->wallOnRight(false);
+
+	if (myTransform->getPosition().getY() + myH * (M_TO_PIXEL ) < otherTransform->getPosition().getY()-otherH*(M_TO_PIXEL *2))
 		myControler->changeJump();
 }
 
