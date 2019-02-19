@@ -6,16 +6,25 @@
 #include "Game.h"
 #include "Player.h"
 
-Enemy::Enemy(Texture* texture, Vector2D iniPos, Player* player, Game* g) : GameComponent(g) {
-
+Enemy::Enemy(Texture* texture, Vector2D iniPos, Player* player, Game* g, string tag) : GameComponent(g, tag)
+{
 	addComponent<Texture>(texture);
 
 	auto transform = addComponent<TransformComponent>();
 	transform->setPosition(iniPos.getX(), iniPos.getY());
 
-	auto anim = addComponent<AnimatedSpriteComponent>();
-	auto playerTrans = addComponent<MeleeEnemyComponent>();
 	auto body = addComponent<BodyComponent>();
+
+	body->getBody()->SetType(b2_dynamicBody);
+	body->getBody()->SetBullet(true);
+	body->getBody()->SetFixedRotation(true);
+	body->setW(20);
+	body->filterCollisions(ENEMIES, FLOOR);
+
+	auto anim = addComponent<AnimatedSpriteComponent>();
+	
+	auto playerTrans = addComponent<MeleeEnemyComponent>();
+
 	addComponent<MovingComponent>();
 
 	playerTrans->addPlayer(player);

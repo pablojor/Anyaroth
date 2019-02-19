@@ -8,7 +8,7 @@ class Enemy : public GameComponent
 private:
 	int life;
 public:
-	Enemy(Texture* texture,Vector2D posIni, Player* player, Game* g);
+	Enemy(Texture* texture,Vector2D posIni, Player* player, Game* g, string tag);
 	virtual ~Enemy();
 
 	void update();
