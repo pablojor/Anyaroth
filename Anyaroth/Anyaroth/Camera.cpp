@@ -19,16 +19,6 @@ void Camera::setCameraSize(double w, double h)
 	_cameraRect.h = h;
 }
 
-Vector2D Camera::getCameraPosition()
-{
-	return Vector2D(_cameraRect.x, _cameraRect.y);
-}
-
-Vector2D Camera::getCameraSize()
-{
-	return Vector2D(_cameraRect.w, _cameraRect.h);
-}
-
 void Camera::fixCameraToObject(GameComponent * object)
 {
 	auto a = getComponent<CameraBehaivourComponent>();

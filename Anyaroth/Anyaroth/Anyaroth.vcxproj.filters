@@ -237,9 +237,6 @@
     <ClInclude Include="Tile.h">
       <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="Storage.h">
-      <Filter>Archivos de encabezado\Systems</Filter>
-    </ClInclude>
     <ClInclude Include="Shooter.h">
       <Filter>Archivos de encabezado\Systems</Filter>
     </ClInclude>
@@ -260,6 +257,9 @@
     </ClInclude>
     <ClInclude Include="CameraBehaivourComponent.h">
       <Filter>Archivos de encabezado\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Storage.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

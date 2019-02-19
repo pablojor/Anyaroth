@@ -9,6 +9,7 @@ class CameraBehaivourComponent : public PhysicsComponent
 	private:
 		GameComponent * _followedObject = nullptr;
 		SDL_Rect* _cameraRectRef;
+
 	public:
 		CameraBehaivourComponent(GameComponent* obj);
 		~CameraBehaivourComponent() {};

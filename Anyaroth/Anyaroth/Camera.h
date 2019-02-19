@@ -10,14 +10,13 @@ class Camera : public GameComponent
 		Camera(SDL_Rect rect) : _cameraRect(rect) {};
 		~Camera() {};
 
-		void setCameraRect(SDL_Rect rect) { _cameraRect = rect; }
 		SDL_Rect* getCameraRect() { return &_cameraRect; }
 
 		void setCameraPosition(double x, double y);
 		void setCameraSize(double w, double h);
 
-		Vector2D getCameraPosition();
-		Vector2D getCameraSize();
+		Vector2D getCameraPosition() { return Vector2D(_cameraRect.x, _cameraRect.y); }
+		Vector2D getCameraSize() { return Vector2D(_cameraRect.w, _cameraRect.h); }
 
 		void fixCameraToObject(GameComponent* object);
 		void looseFixedObject();
