@@ -104,9 +104,11 @@ Game::Game()
 	createTextures();
 	_world = new b2World(b2Vec2(0.0, 9.8));
 	//---Create states
+	states[Menu] = new MenuState(this);
 	states[Play] = new PlayState(this);
+	states[Pause] = new PauseState(this);
 
-	stateMachine->pushState(states[Play]);
+	stateMachine->pushState(states[Menu]);
 	//World
 
 	

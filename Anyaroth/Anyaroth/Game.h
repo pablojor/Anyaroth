@@ -1,12 +1,13 @@
 #pragma once
-
 #include <list>
 #include <vector>
 #include <map>
 
 #include "Texture.h"
 #include "GameStateMachine.h"
+#include "MenuState.h"
 #include "PlayState.h"
+#include "PauseState.h"
 #include "DebugDraw.h"
 #include "CollisionManager.h"
 #include "Gun.h"
@@ -19,10 +20,10 @@ enum TypeVariable
 	WIN_WIDTH, WIN_HEIGHT, FRAME_RATE, TIME_PER_FRAME	
 };
 
-const int NUM_STATES = 1;
+const int NUM_STATES = 3;
 enum StateName
 {
-	Play
+	Menu, Play, Pause
 };
 
 const string INFO_PATH = "..\\files\\info\\";
@@ -33,7 +34,7 @@ const string SPRITE_PATH = "..\\assets\\sprites\\";
 const string TILEMAP_PATH = "..\\files\\tilemaps\\";
 
 
-const int NUM_TEXTURES = 7;
+const int NUM_TEXTURES = 8;
 const int NUM_FONTS = 0;
 
 const int NUM_LEVELS = 1;

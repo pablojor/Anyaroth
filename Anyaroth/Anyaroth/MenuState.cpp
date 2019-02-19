@@ -1,15 +1,21 @@
 #include "MenuState.h"
 
-MenuState::MenuState(Game* g) : GameState(g) {
-	
+MenuState::MenuState(Game* g) : GameState(g)
+{
+	_stages.push_back(new MenuButton(Vector2D(WIN_WIDTH / 2, 100), 100, 50, g->getTexture("button"), g, startGame));
+	_stages.push_back(new MenuButton(Vector2D(WIN_WIDTH / 2 + 200, 100), 100, 50, g->getTexture("button"), g, exitGame));
 }
 
-void MenuState::handleEvents(SDL_Event& e)
+MenuState::~MenuState()
 {
-	GameState::handleEvents(e);
 }
 
-void MenuState::update()
+void MenuState::startGame(Game * g)
 {
-	GameState::update();
+	g->changeState(Play);
+}
+
+void MenuState::exitGame(Game * g)
+{
+	g->changeState(Menu);
 }

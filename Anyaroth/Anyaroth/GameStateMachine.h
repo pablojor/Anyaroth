@@ -10,7 +10,7 @@ class GameStateMachine
 		stack <GameState*> _states;
 	public:
 		GameStateMachine() {};
-		~GameStateMachine() {};
+		~GameStateMachine();
 		GameState* currentState();
 		void pushState(GameState* newState);
 		void changeState(GameState* newState);
