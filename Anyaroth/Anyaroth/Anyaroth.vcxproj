@@ -155,6 +155,7 @@
     <ClCompile Include="PhysicsComponent.cpp" />
     <ClCompile Include="PlayerControllerComponent.cpp" />
     <ClCompile Include="PlayState.cpp" />
+    <ClCompile Include="PoolWrapper.cpp" />
     <ClCompile Include="RenderComponent.cpp" />
     <ClCompile Include="Shooter.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
@@ -204,6 +205,7 @@
     <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="PlayerControllerComponent.h" />
     <ClInclude Include="PlayState.h" />
+    <ClInclude Include="PoolWrapper.h" />
     <ClInclude Include="RenderComponent.h" />
     <ClInclude Include="SDLError.h" />
     <ClInclude Include="Shooter.h" />

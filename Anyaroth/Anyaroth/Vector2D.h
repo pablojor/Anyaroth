@@ -16,4 +16,5 @@ class Vector2D
 		Vector2D operator-(const Vector2D& v) const;
 		Vector2D operator*(double d) const;
 		double operator*(const Vector2D& d) const;
+		Vector2D rotate(double degrees);
 };

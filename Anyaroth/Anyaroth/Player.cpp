@@ -5,8 +5,9 @@
 #include "Game.h"
 #include "FollowingComponent.h"
 #include "AnimatedSpriteComponent.h"
+#include "PoolWrapper.h"
 
-Player::Player(Texture* texture, Game* g) : GameComponent(g)
+Player::Player(Texture* texture, Game* g, PlayState* play) : _play(play), GameComponent(g)
 {
 	//Siempre primero los componentes que tienen que estar SI o SI.
 	addComponent<Texture>(texture);
@@ -76,14 +77,18 @@ void Player::update()
 }
 
 //Equipa un arma utilizando el array de atributos gameGuns de Game.h
-void Player::equipGun(int gunIndex)
+void Player::equipGun(int gunIndex, int bulletPoolIndex)
 {
 	Shooter* sh = &getGame()->gameGuns[gunIndex].shooter;
 	string name = getGame()->gameGuns[gunIndex].name;
 	int mA = getGame()->gameGuns[gunIndex].maxAmmo;
 	int mC= getGame()->gameGuns[gunIndex].maxClip;
 
-	_weaponArm->setGun(new Gun(this, sh, name, mA, mC));
+	// TEMPORAL
+	PoolWrapper* bp = _play->getBulletPool();
+	//
+
+	_weaponArm->setGun(new Gun(this, sh, bp, name, mA, mC));
 	//cout << "Gun equipada" << endl << endl << endl << endl << endl << endl;
 }
 

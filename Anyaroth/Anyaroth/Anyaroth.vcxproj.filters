@@ -49,9 +49,6 @@
     <ClCompile Include="DebugDraw.cpp">
       <Filter>Archivos de origen\Systems</Filter>
     </ClCompile>
-    <ClCompile Include="Shooter.cpp">
-      <Filter>Archivos de origen\Systems</Filter>
-    </ClCompile>
     <ClCompile Include="Storage.cpp">
       <Filter>Archivos de origen\Systems</Filter>
     </ClCompile>
@@ -115,8 +112,18 @@
     <ClCompile Include="MeleeEnemy.cpp">
       <Filter>Archivos de origen\Objects\Enemys</Filter>
     </ClCompile>
-    <ClCompile Include="ObjectPool.cpp" />
-    <ClCompile Include="BulletPool.cpp" />
+    <ClCompile Include="ObjectPool.cpp">
+      <Filter>Archivos de origen\Useful</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletPool.cpp">
+      <Filter>Archivos de origen\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Shooter.cpp">
+      <Filter>Archivos de origen\Components\ShooterComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="PoolWrapper.cpp">
+      <Filter>Archivos de origen\Useful</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -233,9 +240,6 @@
     <ClInclude Include="Storage.h">
       <Filter>Archivos de encabezado\Systems</Filter>
     </ClInclude>
-    <ClInclude Include="Shooter.h">
-      <Filter>Archivos de encabezado\Systems</Filter>
-    </ClInclude>
     <ClInclude Include="Vector2D.h">
       <Filter>Archivos de encabezado\Useful</Filter>
     </ClInclude>
@@ -257,8 +261,18 @@
     <ClInclude Include="MeleeEnemy.h">
       <Filter>Archivos de encabezado\Objects\Enemys</Filter>
     </ClInclude>
-    <ClInclude Include="ObjectPool.h" />
-    <ClInclude Include="BulletPool.h" />
+    <ClInclude Include="ObjectPool.h">
+      <Filter>Archivos de encabezado\Useful</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletPool.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Shooter.h">
+      <Filter>Archivos de encabezado\Components\ShooterComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="PoolWrapper.h">
+      <Filter>Archivos de encabezado\Useful</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de encabezado">
@@ -305,6 +319,12 @@
     </Filter>
     <Filter Include="Archivos de origen\Objects\Enemys">
       <UniqueIdentifier>{002526e4-015a-4a18-9225-2348333f0ac8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Components\ShooterComponents">
+      <UniqueIdentifier>{65bf1218-2e0a-4dcc-83a5-ca7aba07d11a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Components\ShooterComponents">
+      <UniqueIdentifier>{b0ca563c-0588-45b2-84d8-ca3da1846125}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

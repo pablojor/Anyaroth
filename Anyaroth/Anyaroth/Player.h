@@ -3,17 +3,20 @@
 #include "Arm.h"
 #include "Gun.h"
 #include "Shooter.h"
+#include "PlayState.h"
 
 class Arm;
 class Game;
 
 class AnimatedSpriteComponent;
 class PlayerControllerComponent;
+class PlayState;
 
 class Player : public GameComponent
 {
 private:
 	int _life;
+	PlayState* _play = nullptr;
 
 public:
   	enum states { Idle, Attacking, Reloading };
@@ -22,14 +25,14 @@ public:
 	AnimatedSpriteComponent* _anim;
 	PlayerControllerComponent* _controller;
   
-	Player(Texture* texture, Game* g);
+	Player(Texture* texture, Game* g, PlayState* play);
   	~Player();
 
 	void update();
 	virtual void beginCollision(GameComponent* other);
   
 	void setArm(Arm* arm) { _weaponArm = arm; };
-	void equipGun(int gunIndex);
+	void equipGun(int gunIndex, int bulletPoolIndex = 0);
   
 	void reload();
 

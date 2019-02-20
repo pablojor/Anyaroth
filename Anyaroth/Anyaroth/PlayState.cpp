@@ -14,10 +14,14 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_colLayer->addComponent<BodyComponent>();
 	_stages.push_back(_colLayer);
 
+	//----Pools de balas
+
+	//Pool arma básica
+	_examplePool = new BulletPool<100>(g->getTexture("example1"), 10, 10);
 	
 
 	//cuerpo
-	_player = new Player(g->getTexture("Mk"), g);
+	_player = new Player(g->getTexture("Mk"), g, this);
 	_stages.push_back(_player);
 
 	//Enemy 
