@@ -5,19 +5,16 @@
 
 typedef void callback(Game*);
 
-class MenuButton :
-	public GameComponent
+class MenuButton : public GameComponent
 {
 private:
-	double _height;
-	double _width;
 	Vector2D _pos;
-
+	Texture* _texture;
 	Game* g;
 	callback* cb;
 
 public:
-	MenuButton(Vector2D pos, double height, double width, Texture* texture, Game* g, callback* cb);
+	MenuButton(Vector2D pos, Texture* texture, Game* g, callback* cb);
 	virtual ~MenuButton();
 
 	SDL_Rect getRect();

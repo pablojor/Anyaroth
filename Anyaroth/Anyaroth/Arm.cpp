@@ -49,14 +49,14 @@ void Arm::update()
 	else
 		cout << "Gun Not found" << endl << endl;*/
 
-	/*if ((dynamic_cast<Player*>(_player))->getCurrentState() == Player::Attacking)
+	if ((dynamic_cast<Player*>(_player))->getCurrentState() == Player::Attacking)
 	{
 		_anim->setActive(false);
 	}
 	else
 	{
 		_anim->setActive(true);
-	}*/
+	}
 }
 
 void Arm::setPlayer(Vector2D offset, GameComponent* player)

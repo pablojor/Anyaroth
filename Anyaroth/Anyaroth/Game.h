@@ -8,8 +8,6 @@
 #include "MenuState.h"
 #include "PlayState.h"
 #include "PauseState.h"
-#include "DebugDraw.h"
-#include "CollisionManager.h"
 #include "Gun.h"
 #include "Shooter.h"
 
@@ -34,7 +32,7 @@ const string SPRITE_PATH = "..\\assets\\sprites\\";
 const string TILEMAP_PATH = "..\\files\\tilemaps\\";
 
 
-const int NUM_TEXTURES = 8;
+const int NUM_TEXTURES = 10;
 const int NUM_FONTS = 0;
 
 const int NUM_LEVELS = 1;
@@ -43,10 +41,11 @@ const string LEVELS[NUM_LEVELS] =
 
 };
 
-const double TILES_W = 16;
-const double TILES_H = 16;
+const int TILES_W = 16;
+const int TILES_H = 16;
 
 const double M_TO_PIXEL = 8;
+const double BUTTON_SCALE = 0.25;
 
 //ARMAS
 const int NUM_GUNS = 2; //N�mero de armas en el juego
@@ -74,8 +73,6 @@ class Game
 		GameStateMachine* stateMachine = new GameStateMachine();
 		vector<string> texturesName;
 		b2World* _world = nullptr;
-		CollisionManager colManager;
-		DebugDraw debugger;
 		bool exit = false;
 
 	public:
@@ -84,7 +81,6 @@ class Game
 		// Resolución interna del juego
 		const int GAME_RESOLUTION_X = 480;
 		const int GAME_RESOLUTION_Y = 270;
-		//
 
 		//Las armas que hay en el juego
 		enum GameGun
@@ -94,18 +90,20 @@ class Game
 		};
 		GunAttributes gameGuns[NUM_GUNS] = 
 		{
-			{Shooter(),"Pistola",60,12},
+			{ Shooter(),"Pistola",60,12 },
 			{ Shooter(),"Escopeta",30,2 }
 		};
 
 		//Metodos
 		void createVariables();
 		void createTextures();
-		void pushState(StateName);
-		void changeState(StateName);
+		void pushState(StateName state);
+		void changeState(StateName state);
+		void popState();
 		Texture* getTexture(string nameText);
 		SDL_Renderer* getRenderer() { return renderer; }
 		b2World* getWorld() { return _world; }
+		void setExit(bool quit) { exit = quit; }
 		void newGame();
 		void load();
 		void save();

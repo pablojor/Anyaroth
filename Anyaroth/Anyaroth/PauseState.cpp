@@ -2,20 +2,23 @@
 
 PauseState::PauseState(Game* g) : GameState(g) 
 {
-	_stages.push_back(new MenuButton(Vector2D(WIN_WIDTH / 2, 100), 100, 50, g->getTexture("button"), g, MainMenu));
-	_stages.push_back(new MenuButton(Vector2D(WIN_WIDTH / 2 + 200, 100), 100, 50, g->getTexture("button"), g, Continue));
+	int buttonH = g->getTexture("Continue")->getH()*BUTTON_SCALE;
+	int buttonW = g->getTexture("Continue")->getW()*BUTTON_SCALE;
+
+	_stages.push_back(new MenuButton(Vector2D(g->GAME_RESOLUTION_X / 2 - buttonW / 2, g->GAME_RESOLUTION_Y / 2 - buttonH), g->getTexture("Continue"), g, Continue));
+	_stages.push_back(new MenuButton(Vector2D(g->GAME_RESOLUTION_X / 2 - buttonW / 2, g->GAME_RESOLUTION_Y / 2 + buttonH), g->getTexture("Menu"), g, MainMenu));
 }
 
 PauseState::~PauseState()
 {
 }
 
+void PauseState::Continue(Game * g)
+{
+	g->popState();
+}
+
 void PauseState::MainMenu(Game * g)
 {
 	g->changeState(Menu);
-}
-
-void PauseState::Continue(Game * g)
-{
-	g->changeState(Play);
 }

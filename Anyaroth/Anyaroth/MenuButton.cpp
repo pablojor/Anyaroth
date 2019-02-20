@@ -1,12 +1,16 @@
 #include "MenuButton.h"
 #include "TransformComponent.h"
+#include "SpriteComponent.h"
 
-MenuButton::MenuButton(Vector2D pos, double height, double width, Texture* texture, Game* g, callback* cb) : _pos(pos), _height(height), _width(width), g(g), cb(cb)
+MenuButton::MenuButton(Vector2D pos, Texture* texture, Game* g, callback* cb) : _pos(pos), _texture(texture), g(g), cb(cb)
 {
-	addComponent<Texture>(texture);
+	addComponent<Texture>(_texture);
 
 	auto transform = addComponent<TransformComponent>();
 	transform->setPosition(_pos.getX(), _pos.getY());
+	transform->setScale(BUTTON_SCALE);
+
+	addComponent<SpriteComponent>();
 }
 
 MenuButton::~MenuButton()
@@ -18,9 +22,9 @@ SDL_Rect MenuButton::getRect()
 	SDL_Rect rect;
 	rect.x = _pos.getX();
 	rect.y = _pos.getY();
-	rect.h = _height;
-	rect.w = _width;
-	return SDL_Rect();
+	rect.h = _texture->getH()*BUTTON_SCALE;
+	rect.w = _texture->getW()*BUTTON_SCALE;
+	return rect;
 }
 
 void MenuButton::handleInput(const SDL_Event & event)

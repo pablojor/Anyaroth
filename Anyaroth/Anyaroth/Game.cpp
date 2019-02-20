@@ -36,16 +36,20 @@ void Game::createTextures()
 	input.close();
 }
 
-void Game::pushState(StateName nameState)
+void Game::pushState(StateName state)
 {
-	stateMachine->pushState(states[nameState]);
+	stateMachine->pushState(states[state]);
 }
 
-void Game::changeState(StateName nameState)
+void Game::changeState(StateName state)
 {
-	stateMachine->changeState(states[nameState]);
+	stateMachine->changeState(states[state]);
 }
 
+void Game::popState()
+{
+	stateMachine->popState();
+}
 
 Texture* Game::getTexture(string nameText)
 {
@@ -109,16 +113,6 @@ Game::Game()
 	states[Pause] = new PauseState(this);
 
 	stateMachine->pushState(states[Menu]);
-	//World
-
-	
-	debugger.getRenderer(renderer);
-	debugger.getTexture(getTexture("body"));
-	debugger.SetFlags(b2Draw::e_shapeBit);
-
-	//Gestion de colisiones
-	_world->SetContactListener(&colManager);
-	_world->SetDebugDraw(&debugger);
 }
 
 Game::~Game()

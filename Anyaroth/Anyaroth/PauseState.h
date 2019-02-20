@@ -4,10 +4,11 @@
 
 class PauseState : public GameState
 {
+	private:
+		static void Continue(Game* g);
+		static void MainMenu(Game* g);
+
 	public:
 		PauseState(Game* g);
 		~PauseState();
-
-		static void MainMenu(Game* g);
-		static void Continue(Game* g);
 };
