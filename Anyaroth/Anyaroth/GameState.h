@@ -9,18 +9,20 @@ class Game;
 
 class GameState
 {
+	private:
+		void initializeCamera();
+
 	protected:
 		list <GameObject*> _stages;
 		Game* _gameptr;
 		Camera* _mainCamera = nullptr;
 
 	public:
-		GameState(Game* g) : _gameptr(g) {}
+		GameState(Game* g) : _gameptr(g) { initializeCamera(); }
 		virtual ~GameState();
 		virtual void render() const;
 		virtual void update();
 		virtual void handleEvents(SDL_Event& e);
 
-		virtual void initializeCamera();
 		virtual Camera* getMainCamera() { return _mainCamera; };
 };

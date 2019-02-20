@@ -12,10 +12,10 @@ SpriteComponent::SpriteComponent(GameComponent* obj) : RenderComponent(obj)
 void SpriteComponent::render(Camera* c) const
 {
 	SDL_Rect destRect;
-	destRect.w = _texture->getW() * _transform->getScale().getX() - c->getCameraPosition().getX();
-	destRect.h = _texture->getH() * _transform->getScale().getY() - c->getCameraPosition().getY();
-	destRect.x = _transform->getPosition().getX() - _transform->getAnchor().getX() * destRect.w;
-	destRect.y = _transform->getPosition().getY() - _transform->getAnchor().getY() * destRect.h;
+	destRect.w = _texture->getW() * _transform->getScale().getX();
+	destRect.h = _texture->getH() * _transform->getScale().getY();
+	destRect.x = _transform->getPosition().getX() - _transform->getAnchor().getX() * destRect.w - c->getCameraPosition().getX();
+	destRect.y = _transform->getPosition().getY() - _transform->getAnchor().getY() * destRect.h - c->getCameraPosition().getY();
 
 	SDL_Point anchor = { _transform->getAnchor().getX() * destRect.w, _transform->getAnchor().getY() * destRect.h };
 

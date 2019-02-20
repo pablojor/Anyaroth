@@ -27,6 +27,7 @@ void GameState::handleEvents(SDL_Event& e)
 void GameState::initializeCamera()
 {
 	_mainCamera = new Camera();
+	_mainCamera->setCameraPosition(0, 0);
 	_mainCamera->setCameraSize(GAME_RESOLUTION_X, GAME_RESOLUTION_Y);
 	_stages.push_back(_mainCamera);
 }

@@ -6,18 +6,13 @@
 
 PlayState::PlayState(Game* g) : GameState(g)
 {
-	initializeCamera();
 	//Tilemap
 
 	_colLayer = new Layer("Capa de Patrones 1", g->getTexture("tileset"), TILEMAP_PATH + "level.json", g);
 	_colLayer->addComponent<BodyComponent>();
 	_stages.push_back(_colLayer);
 
-	//brazo de atr�s
-	//auto armBack = new Arm(g->getTexture("Armback"), nullptr);
-	//_stages.push_back(armBack);
-
-	//cuerpo
+	//Player
 	_player = new Player(g->getTexture("Mk"), g);
 	_stages.push_back(_player);
 
