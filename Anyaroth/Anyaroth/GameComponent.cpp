@@ -4,13 +4,13 @@
 #include "InputComponent.h"
 #include "Game.h"
 
-GameComponent::GameComponent(Game* g) : _game(g), GameObject(), _inputComp(), _physicsComp(), _renderComp() 
+GameComponent::GameComponent(Game* g, string tag) : _game(g), GameObject(), _inputComp(), _physicsComp(), _renderComp(), _tag(tag)
 {
 	_world = g->getWorld();
 }
 
 //Constructor vac�o (sin puntero a game, _game = nullptr)
-GameComponent::GameComponent() : GameObject(), _inputComp(), _physicsComp(), _renderComp() {}
+GameComponent::GameComponent() : GameObject(), _inputComp(), _physicsComp(), _renderComp(), _tag() {}
 
 GameComponent::~GameComponent() 
 {

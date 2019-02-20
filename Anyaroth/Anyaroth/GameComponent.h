@@ -22,7 +22,7 @@ class GameComponent: public GameObject
 		map<string, Component*> _components;
 
 		b2World* _world = nullptr;
-
+		string _tag;
 		//vector de hijos del objetos 
 		vector<GameComponent*> _children; 
 
@@ -69,7 +69,7 @@ class GameComponent: public GameObject
 
 	public:
 		GameComponent();
-		GameComponent(Game* g);
+		GameComponent(Game* g, string tag="");
 		virtual ~GameComponent();
 
 		virtual void handleInput(const SDL_Event& event);
@@ -94,6 +94,8 @@ class GameComponent: public GameObject
 		void addChild(GameComponent* obj);
 
 		Game* getGame() { return _game; }
+
+		string getTag() { return _tag; }
 
 		template<class ComponentType>
 		ComponentType* addComponent()
