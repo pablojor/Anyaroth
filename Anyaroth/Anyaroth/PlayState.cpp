@@ -8,7 +8,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 {
 	//Tilemap
 
-	_colLayer = new Layer("Capa de patrones 3", g->getTexture("tileset"), TILEMAP_PATH + "P2.json", g, "Suelo");
+	_colLayer = new Layer("Capa de Patrones 1", g->getTexture("tileset"), TILEMAP_PATH + "level.json", g, "Suelo");
 	_colLayer->addComponent<BodyComponent>();
 	_stages.push_back(_colLayer);
 
@@ -23,8 +23,8 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_mainCamera->fixCameraToObject(_player);
 
 	//Enemy
-	_enemy = new Enemy(g->getTexture("Mk"), Vector2D(50, 10), _player, g, "Enemy");
-	_stages.push_back(_enemy);
+	//_enemy = new Enemy(g->getTexture("Mk"), Vector2D(50, 10), _player, g, "Enemy");
+	//_stages.push_back(_enemy);
 }
 
 void PlayState::handleEvents(SDL_Event& e)

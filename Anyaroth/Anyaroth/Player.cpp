@@ -15,7 +15,7 @@ Player::Player(Texture* texture, Game* g, string tag) : GameComponent(g, tag)
 	//addComponent<FollowingComponent>(this);
 
 	auto transform = addComponent<TransformComponent>();		//Como en el metodo anterior se ha creado este componente, imprime por pantalla que ya existe uno.
-	transform->setPosition(0, 50);
+	transform->setPosition(100, 75);
 
 	auto body = addComponent<BodyComponent>();
 	body->getBody()->SetType(b2_dynamicBody);
@@ -33,11 +33,11 @@ Player::Player(Texture* texture, Game* g, string tag) : GameComponent(g, tag)
 	_controller = addComponent<PlayerControllerComponent>();
 
 	//Brazo con arma
-	_weaponArm = new Arm(getGame()->getTexture("Arm"), this, getGame(), { 10,12 });
-	addChild(_weaponArm);
+	/*_weaponArm = new Arm(getGame()->getTexture("Arm"), this, getGame(), { 10,12 });
+	addChild(_weaponArm);*/
 
 	//Equipa el arma inicial
-	equipGun(getGame()->BasicGun);
+	//equipGun(getGame()->BasicGun);
 }
 
 Player::~Player()

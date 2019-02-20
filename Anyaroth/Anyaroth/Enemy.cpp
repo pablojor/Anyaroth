@@ -6,7 +6,7 @@
 #include "Game.h"
 #include "Player.h"
 
-Enemy::Enemy(Texture* texture, Vector2D iniPos, Player* player, Game* g, string tag) : GameComponent(g, tag)
+Enemy::Enemy(Game* g, Player* player, Texture* texture, Vector2D posIni, string tag) : GameComponent(g, tag)
 {
 	addComponent<Texture>(texture);
 
@@ -22,9 +22,6 @@ Enemy::Enemy(Texture* texture, Vector2D iniPos, Player* player, Game* g, string 
 	body->filterCollisions(ENEMIES, FLOOR);
 
 	auto anim = addComponent<AnimatedSpriteComponent>();
-	
-	auto playerTrans = addComponent<MeleeEnemyComponent>();
-
 	addComponent<MovingComponent>();
 
 	_anim = addComponent<AnimatedSpriteComponent>();
