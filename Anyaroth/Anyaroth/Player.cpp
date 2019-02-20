@@ -70,7 +70,7 @@ void Player::beginCollision(GameComponent * other)
 		auto coin = dynamic_cast<Coin*>(other);
 		auto cant = coin->getValue();
 		_money->store(cant);
-		//coin->destroy();	//Se destruirá la moneda de alguna manera
+		coin->destroy();
 		cout << "Moneda cogida" << endl;
 		cout << "Cantidad monedero: " << _money->getWallet() << endl;
 	}

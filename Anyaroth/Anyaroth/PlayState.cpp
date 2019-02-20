@@ -23,12 +23,16 @@ PlayState::PlayState(Game* g) : GameState(g)
 	//_enemy = new Enemy(_player, g, g->getTexture("Mk"), Vector2D(50, 10), "Enemy");
 	//_stages.push_back(_enemy);
 
-	Coin* coin = new Coin(g, g->getTexture("body"), Vector2D(75, 75), 20);
+	Coin* coin = new Coin(this, g, g->getTexture("body"), Vector2D(75, 75), 20);
 	_stages.push_back(coin);
-	_enemy = new MartyrEnemy(_player, g,this, g->getTexture("Mk"), Vector2D(50, 100));
-	_stages.push_back(_enemy);
 
 	auto itFR = --(_stages.end());
+	coin->setItList(itFR);
+
+	_enemy = new MartyrEnemy(_player, g, this, g->getTexture("Mk"), Vector2D(50, 100));
+	_stages.push_back(_enemy);
+
+	itFR = --(_stages.end());
 	_enemy->setItList(itFR);
 }
 
