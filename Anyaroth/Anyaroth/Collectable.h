@@ -8,7 +8,7 @@ class Collectable : public GameComponent //Detectar colision con el coleccionabl
 {
 	private:
 		list<GameObject*>::iterator _itList;
-		PlayState* _play;
+		PlayState* _play = nullptr;
 
 		int _value = 0;
 
