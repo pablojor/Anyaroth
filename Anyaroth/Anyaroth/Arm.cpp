@@ -38,7 +38,6 @@ Arm::Arm(Texture* texture, GameComponent* player, Game* g, Vector2D offset) : Ga
 	_transform->setDefaultAnchor(0.1, 0.6); //Parámetros para la pistola
 }
 
-
 Arm::~Arm()
 {
 	delete _currentGun;
@@ -49,47 +48,9 @@ void Arm::update()
 {
 	GameComponent::update();
 
-	/*if (_currentGun != nullptr)
-		_currentGun->debugInfo();
-	else
-		cout << "Gun Not found" << endl << endl;*/
-
-
-		//------------Movimiento del brazo---------------------
+		//------------Rotación del brazo---------------------
 	Vector2D direction = { (_transform->getPosition().getX() + _followC->getInitialOffset().getX() - (_controller->mouseX)),
 			(_transform->getPosition().getY() + _followC->getInitialOffset().getY() - _controller->mouseY) };
-
-	if (!_anim->isFlipped())
-	{
-		//direction = direction + Vector2D(42, 0);
-
-		//cout << x << " " << _transform->getPosition().getX() << endl;
-		if (_controller->mouseX < _transform->getPosition().getX()) { //hago flip si el mouse está a la izquierda
-			//cout << x << " " << _transform->getPosition().getX()<<endl;
-			_anim->flip();
-			_player->getComponent<AnimatedSpriteComponent>()->flip();
-			_transform->setAnchor(1 - _transform->getDefaultAnchor().getX(), _transform->getDefaultAnchor().getY());
-			_player->getComponent<TransformComponent>()->setPosition(_player->getComponent<TransformComponent>()->getPosition().getX(), _player->getComponent<TransformComponent>()->getPosition().getY());
-			//_transform->setPosition(0, 0);//_transform->getPosition().getX() - 40, _transform->getPosition().getY());
-			_followC->setOffset({ _followC->getInitialOffset().getX()/* + 18/*_followC->getInitialOffset().getX()*/, _followC->getInitialOffset().getY() });
-		}
-
-	}
-	else if (_anim->isFlipped())
-	{
-		//direction = direction + Vector2D(42, 0);
-
-		if (_controller->mouseX > _transform->getPosition().getX() + _followC->getInitialOffset().getX()) {
-			_anim->unFlip();
-			_player->getComponent<AnimatedSpriteComponent>()->unFlip();
-			_transform->setAnchor(_transform->getDefaultAnchor().getX(), _transform->getDefaultAnchor().getY());
-			_player->getComponent<TransformComponent>()->setPosition(_player->getComponent<TransformComponent>()->getPosition().getX() + _magicNumber, _player->getComponent<TransformComponent>()->getPosition().getY());
-			//_transform->setPosition(_transform->getPosition().getX() + 40, _transform->getPosition().getY());
-			_followC->setOffset({ _followC->getInitialOffset().getX(), _followC->getInitialOffset().getY() });
-		}
-	}
-
-	//cout << (_transform->getPosition().getX()) << endl;
 
 	direction.normalize();
 

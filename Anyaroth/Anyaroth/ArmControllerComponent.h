@@ -17,14 +17,8 @@ private:
 	TransformComponent* _transform = nullptr;
 	bool _leftClickPul = false;
 	bool _rPul = false;
-	
-
-	
-
-	
 
 	bool isReloading = false;
-	int _resolutionMultiplier = 0;
 public:
 	ArmControllerComponent(GameComponent* obj);
 	virtual void handleInput(const SDL_Event& event);
