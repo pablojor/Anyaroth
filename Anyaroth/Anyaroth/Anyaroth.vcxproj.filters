@@ -115,9 +115,6 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Archivos de origen\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="CameraBehaivourComponent.cpp">
-      <Filter>Archivos de origen\Components</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -254,9 +251,6 @@
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Archivos de encabezado\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="CameraBehaivourComponent.h">
-      <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
     <ClInclude Include="Storage.h">
       <Filter>Archivos de encabezado\Objects</Filter>

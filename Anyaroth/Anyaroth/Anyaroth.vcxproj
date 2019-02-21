@@ -130,7 +130,6 @@
     <ClCompile Include="ArmControllerComponent.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="CameraBehaivourComponent.cpp" />
     <ClCompile Include="Collectable.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="DebugDraw.cpp" />
@@ -173,7 +172,6 @@
     <ClInclude Include="ArmControllerComponent.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Camera.h" />
-    <ClInclude Include="CameraBehaivourComponent.h" />
     <ClInclude Include="checkML.h" />
     <ClInclude Include="Coin.h" />
     <ClInclude Include="Collectable.h" />
