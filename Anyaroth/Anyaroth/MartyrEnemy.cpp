@@ -5,7 +5,7 @@
 #include "BodyComponent.h"
 
 
-MartyrEnemy::MartyrEnemy(Player* player, Game* g, PlayState* play,Texture* texture, Vector2D posIni) : _player(player), Enemy(player, g, play,texture, posIni)
+MartyrEnemy::MartyrEnemy(Player* player, Game* g, PlayState* play,Texture* texture, Vector2D posIni) : _player(player), Enemy(player, g, play,texture, posIni, "MartyrEnemy")
 {
 	_vision = 300;
 	_flipRange = 5;

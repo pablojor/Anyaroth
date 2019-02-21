@@ -116,7 +116,7 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 
 	if (_rPul) //&& !isReloading)
 	{
-		if (static_cast<Player*>(_obj)->_weaponArm->reload())   //llamo a función de recargar
+		if (static_cast<Player*>(_obj)->getWeaponArm()->reload())   //llamo a función de recargar
 		{
 			reload();
 		}

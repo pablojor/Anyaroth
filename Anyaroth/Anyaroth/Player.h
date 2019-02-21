@@ -24,16 +24,17 @@ class Player : public GameComponent
 		int _life;
 
 	public:
-  		enum states { Idle, Attacking };
+  		enum states { Idle, Attacking, Reloading };
   
 		Player(Texture* texture, Game* g, string tag);
-		~Player();
+		~Player() {}
 
 		void update();
 		virtual void beginCollision(GameComponent* other);
 		virtual void endCollision(GameComponent* other);
   
 		void setArm(Arm* arm) { _weaponArm = arm; };
+		Arm* getWeaponArm() { return _weaponArm; }
 		void equipGun(int gunIndex);
   
 		void reload();

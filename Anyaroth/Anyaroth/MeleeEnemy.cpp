@@ -4,7 +4,7 @@
 #include "Player.h"
 
 
-MeleeEnemy::MeleeEnemy(Player* player, Game* g, PlayState* play,Texture* texture, Vector2D posIni) : Enemy(player, g, play,texture, posIni, "MeleeEnemy")
+MeleeEnemy::MeleeEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni) : Enemy(player, g, play,texture, posIni, "MeleeEnemy")
 {
 	_vision = 300;
 	_flipRange = 5;

@@ -13,19 +13,14 @@ Enemy::Enemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2
 	_transform = addComponent<TransformComponent>();
 	_transform->setPosition(posIni.getX(), posIni.getY());
 
-	auto body = addComponent<BodyComponent>();
-
-	body->getBody()->SetType(b2_dynamicBody);
-	body->getBody()->SetBullet(true);
-	body->getBody()->SetFixedRotation(true);
-	body->setW(20);
-	body->filterCollisions(ENEMIES, FLOOR);
-
-	auto anim = addComponent<AnimatedSpriteComponent>();
+	_body = addComponent<BodyComponent>();
+	_body->getBody()->SetType(b2_dynamicBody);
+	_body->getBody()->SetBullet(true);
+	_body->getBody()->SetFixedRotation(true);
+	_body->setW(20);
+	_body->filterCollisions(ENEMIES, FLOOR);
 	
 	//auto playerTrans = addComponent<MeleeEnemyComponent>();
-
-	addComponent<MovingComponent>();
 
 	_anim = addComponent<AnimatedSpriteComponent>();
 	_anim->addAnim(AnimatedSpriteComponent::Idle, 16, true);
