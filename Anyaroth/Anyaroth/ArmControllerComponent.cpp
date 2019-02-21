@@ -49,7 +49,7 @@ void ArmControllerComponent::handleInput(const SDL_Event& event)
 				_anim->flip();
 				_player->getComponent<AnimatedSpriteComponent>()->flip();
 				_transform->setAnchor(1 - _transform->getDefaultAnchor().getX(), _transform->getDefaultAnchor().getY());
-				_player->getComponent<TransformComponent>()->setPosition(_player->getComponent<TransformComponent>()->getPosition().getX() - magicNumber, _player->getComponent<TransformComponent>()->getPosition().getY());
+				//_player->getComponent<TransformComponent>()->setPosition(_player->getComponent<TransformComponent>()->getPosition().getX() - magicNumber, _player->getComponent<TransformComponent>()->getPosition().getY());
 				//_transform->setPosition(0, 0);//_transform->getPosition().getX() - 40, _transform->getPosition().getY());
 				_followC->setOffset({ _followC->getInitialOffset().getX() + 18/*_followC->getInitialOffset().getX()*/, _followC->getInitialOffset().getY() });
 			}
@@ -63,7 +63,7 @@ void ArmControllerComponent::handleInput(const SDL_Event& event)
 				_anim->unFlip();
 				_player->getComponent<AnimatedSpriteComponent>()->unFlip();
 				_transform->setAnchor(_transform->getDefaultAnchor().getX(), _transform->getDefaultAnchor().getY());
-				_player->getComponent<TransformComponent>()->setPosition(_player->getComponent<TransformComponent>()->getPosition().getX() + magicNumber, _player->getComponent<TransformComponent>()->getPosition().getY());
+				//_player->getComponent<TransformComponent>()->setPosition(_player->getComponent<TransformComponent>()->getPosition().getX() + magicNumber, _player->getComponent<TransformComponent>()->getPosition().getY());
 				//_transform->setPosition(_transform->getPosition().getX() + 40, _transform->getPosition().getY());
 				_followC->setOffset({ _followC->getInitialOffset().getX(), _followC->getInitialOffset().getY() });
 			}
