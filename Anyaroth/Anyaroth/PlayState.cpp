@@ -23,11 +23,12 @@ PlayState::PlayState(Game* g) : GameState(g)
 
 	//Enemy
 	 auto oL= new ObjectLayer<MeleeEnemyComponent,Player*>("Capa de Objetos 1", g->getTexture("Mk"), TILEMAP_PATH + "level.json", g, _player);
-	 for (int i = 0; i < oL->getNumObjects(); i++)
-	 {
-		 _stages.push_back(oL->getObject(i));
-	 }
+	 vector < MeleeEnemyComponent* > enemies = oL->getObjects();
 	 delete oL;
+	 for (int i = 0; i < enemies.size(); i++)
+	 {
+		 _stages.push_back(enemies[i]);
+	 }
 	 _enemy = new MeleeEnemyComponent(g, g->getTexture("Mk"), Vector2D(50, 100), _player);
 	_stages.push_back(_enemy);
 }

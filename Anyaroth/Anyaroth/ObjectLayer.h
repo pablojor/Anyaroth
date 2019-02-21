@@ -69,13 +69,14 @@ public:
 			}
 		}
 		else
-			throw AnyarothError("El formato del tileset no es correcto");
+			throw AnyarothError("No se ha encontrado la capa de objetos");
 		file.close();
 	}
 	virtual ~ObjectLayer() { for (int i = 0; i < _objects.size(); i++) _objects.pop_back(); };
 
 	int getNumObjects() { return _objects.size(); };
 	Object* getObject(int i) { return _objects.at(i); };
+	vector<Object*> getObjects() { return _objects; };
 
 	private:
 		double x, y, h, w;
