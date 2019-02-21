@@ -5,3 +5,4 @@ ArmUp mk_arm_up.png 1 1
 Armback mk_armback.png 1 1
 tileset TileZona1.png  2 2
 tileset2 TileZona2.png  3 2
+body Body.png 1 1

@@ -112,6 +112,7 @@ Game::Game()
 	
 	debugger.getRenderer(renderer);
 	debugger.SetFlags(b2Draw::e_shapeBit);
+	debugger.getTexture(getTexture("body"));
 
 	//Gestion de colisiones
 	_world->SetContactListener(&colManager);
