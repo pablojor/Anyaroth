@@ -29,7 +29,7 @@ Arm::Arm(Texture* texture, GameComponent* player, Game* g, Vector2D offset) : Ga
 	//anim->addAnim("Walk", 10);
 
 	//_transform->setPosition(340, 100);
-	_transform->setDefaultAnchor(0.5, 0.5);
+	_transform->setDefaultAnchor(0.17, 0.3);
 
 }
 

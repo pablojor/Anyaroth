@@ -4,7 +4,9 @@
 class Camera : public GameComponent
 {
 	private:
+		GameComponent * _followedObject = nullptr;
 		SDL_Rect _cameraRect;
+
 	public:
 		Camera() {};
 		Camera(GameComponent* followObject);
@@ -19,7 +21,9 @@ class Camera : public GameComponent
 		Vector2D getCameraPosition() { return Vector2D(_cameraRect.x, _cameraRect.y); }
 		Vector2D getCameraSize() { return Vector2D(_cameraRect.w, _cameraRect.h); }
 
-		void fixCameraToObject(GameComponent* object);
+		void fixCameraToObject(GameComponent* object) { _followedObject = object; };
 		void looseFixedObject();
+
+		void update();
 };
 
