@@ -20,10 +20,10 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_stages.push_back(_player);
 
 	//Enemy
-	//_enemy = new Enemy(_player, g, g->getTexture("Mk"), Vector2D(50, 10), "Enemy");
-	//_stages.push_back(_enemy);
+	/*_enemy = new Enemy(_player, g, g->getTexture("Mk"), Vector2D(50, 10), "Enemy");
+	_stages.push_back(_enemy);*/
 
-	Coin* coin = new Coin(this, g, g->getTexture("body"), Vector2D(75, 75), 20);
+	Coin* coin = new Coin(this, g, g->getTexture("body"), Vector2D(100, 75), 20);
 	_stages.push_back(coin);
 
 	auto itFR = --(_stages.end());
@@ -38,7 +38,6 @@ PlayState::PlayState(Game* g) : GameState(g)
 
 void PlayState::KillObject(list<GameObject*>::iterator itList)
 {
-	delete *itList;
 	items_ToDelete.push_back(itList);
 }
 
@@ -55,6 +54,7 @@ void PlayState::update()
 	int i = items_ToDelete.size() - 1;
 	while (i >= 0)
 	{
+		delete *items_ToDelete[i];
 		_stages.erase(items_ToDelete[i]);
 		items_ToDelete.pop_back();
 		i--;

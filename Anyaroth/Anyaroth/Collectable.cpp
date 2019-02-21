@@ -17,5 +17,5 @@ Collectable::Collectable(PlayState* play, Game* g, Texture* texture, Vector2D in
 
 void Collectable::destroy() 
 { 
-	_play->KillObject(_itList); 
+	_play->KillObject(_itList);
 }
