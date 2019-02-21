@@ -109,7 +109,6 @@
     <ClCompile Include="AmmoPackage.cpp">
       <Filter>Archivos de origen\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="Coin.cpp" />
     <ClCompile Include="MartyrEnemy.cpp">
       <Filter>Archivos de origen\Objects\Enemys</Filter>
     </ClCompile>
@@ -118,6 +117,9 @@
     </ClCompile>
     <ClCompile Include="MeleeEnemy.cpp">
       <Filter>Archivos de origen\Objects\Enemys</Filter>
+    </ClCompile>
+    <ClCompile Include="Coin.cpp">
+      <Filter>Archivos de origen\Objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -12,7 +12,7 @@ Collectable::Collectable(PlayState* play, Game* g, Texture* texture, Vector2D in
 
 	auto body = addComponent<BodyComponent>();
 
-	addComponent<SpriteComponent>();
+	//addComponent<SpriteComponent>();
 }
 
 void Collectable::destroy() 

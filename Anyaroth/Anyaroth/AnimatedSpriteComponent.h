@@ -33,6 +33,7 @@ protected:
 public:
 	enum Player { Idle, Walk, WalkBack, MeleeKnife, ReloadPistol };
 	enum Gun { None, Shoot, NoAmmo };
+	enum Coin { Main };
 
 
 	AnimatedSpriteComponent(GameComponent* obj);
