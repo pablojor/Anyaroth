@@ -14,6 +14,7 @@ class Player : public GameComponent
 {
 private:
 	int _life;
+	int AmountOfCollision;
 
 public:
   	enum states { Idle, Attacking };
@@ -21,6 +22,10 @@ public:
 	Arm* _weaponArm = nullptr;
 	AnimatedSpriteComponent* _anim;
 	PlayerControllerComponent* _controller;
+	TransformComponent * _transform;
+	BodyComponent * _body;
+
+
   
 	Player(Texture* texture, Game* g, string tag);
   	~Player();

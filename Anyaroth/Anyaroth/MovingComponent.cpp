@@ -16,6 +16,14 @@ void MovingComponent::update()
 	double x = pos.x;
 	double y = pos.y;
 	//_body->getBody()->SetLinearVelocity(b2Vec2(_dir.x*_speed, _body->getBody()->GetLinearVelocity().y));
-	_body->getBody()->ApplyLinearImpulse(b2Vec2(_dir.x*_speed, _dir.y*_jumpForce), _body->getBody()->GetWorldCenter(), true);
-	//cout << _dir.y << endl;
+	
+	if (((_body->getBody()->GetLinearVelocity().x > _speed || abs(_body->getBody()->GetLinearVelocity().x) < -1*_speed) && _dir.x != 0)&& _body->getBody()->GetLinearVelocity().x/_dir.x!=-abs(_body->getBody()->GetLinearVelocity().x))
+	{
+
+		_body->getBody()->SetLinearVelocity(b2Vec2(_dir.x*_speed, _body->getBody()->GetLinearVelocity().y));
+	}
+	else
+		_body->getBody()->ApplyLinearImpulse(b2Vec2(_dir.x*_speed*3, 0), _body->getBody()->GetWorldCenter(), true);
+	_body->getBody()->ApplyLinearImpulse(b2Vec2(0, _dir.y*_jumpForce), _body->getBody()->GetWorldCenter(), true);
+	
 }

@@ -14,15 +14,15 @@ Player::Player(Texture* texture, Game* g, string tag) : GameComponent(g, tag)
 	//Resto de componentes
 	//addComponent<FollowingComponent>(this);
 
-	auto transform = addComponent<TransformComponent>();		//Como en el metodo anterior se ha creado este componente, imprime por pantalla que ya existe uno.
-	transform->setPosition(0, 50);
+	 _transform = addComponent<TransformComponent>();		//Como en el metodo anterior se ha creado este componente, imprime por pantalla que ya existe uno.
+	 _transform->setPosition(0, 50);
 
-	auto body = addComponent<BodyComponent>();
-	body->getBody()->SetType(b2_dynamicBody);
-	body->getBody()->SetBullet(true);
-	body->getBody()->SetFixedRotation(true);
-	body->setW(20);
-	body->filterCollisions(PLAYER, OBJECTS | FLOOR);
+	 _body = addComponent<BodyComponent>();
+	 _body->getBody()->SetType(b2_dynamicBody);
+	 _body->getBody()->SetBullet(true);
+	 _body->getBody()->SetFixedRotation(true);
+	 _body->setW(20);
+	 _body->filterCollisions(PLAYER, OBJECTS | FLOOR);
 	_anim = addComponent<AnimatedSpriteComponent>();		//Como depende de Transform, en su constructura crea una si no ha encontrado Transform en el objeto.
 	_anim->addAnim(AnimatedSpriteComponent::Idle, 16, true);
 	_anim->addAnim(AnimatedSpriteComponent::Walk, 10, true);
@@ -38,6 +38,8 @@ Player::Player(Texture* texture, Game* g, string tag) : GameComponent(g, tag)
 
 	//Equipa el arma inicial
 	equipGun(getGame()->BasicGun);
+
+	AmountOfCollision = 0;
 }
 
 Player::~Player()
@@ -46,51 +48,65 @@ Player::~Player()
 
 void Player::beginCollision(GameComponent * other)
 {
-	auto myTransform = this->getComponent<TransformComponent>();
-	auto myControler = this->getComponent<PlayerControllerComponent>();
-
+	
 	auto otherTransform = other->getComponent<TransformComponent>();
-	auto body = this->getComponent<BodyComponent>();
 	auto otherBody = other->getComponent<BodyComponent>();
 
-	double myH = body->getH(), myW = body->getW();
+	double myH = _body->getH(), myW = _body->getW();
 	double otherH = otherBody->getH(), otherW = otherBody->getW();
-
-	cout << myTransform->getPosition().getY() + myH * (M_TO_PIXEL) << " " << otherTransform->getPosition().getY() - otherH * (M_TO_PIXEL * 2) << endl;
-	if (myTransform->getPosition().getY() + myH * (M_TO_PIXEL) < otherTransform->getPosition().getY() - otherH * (M_TO_PIXEL * 2))
-		myControler->ableJump();
-	else if (myTransform->getPosition().getY() - myH * (M_TO_PIXEL) < otherTransform->getPosition().getY() + otherH * (M_TO_PIXEL * 2))
+	AmountOfCollision += 1;
+	//cout << _transform->getPosition().getY() + myH * (M_TO_PIXEL) << " " << otherTransform->getPosition().getY() - otherH * (M_TO_PIXEL * 2) << endl;
+	if (_transform->getPosition().getY() + myH * (M_TO_PIXEL) < otherTransform->getPosition().getY() - otherH * (M_TO_PIXEL * 2))
 	{
-		if (myTransform->getPosition().getX() + myW * (M_TO_PIXEL) < otherTransform->getPosition().getX() - otherW * (M_TO_PIXEL * 2))
+		_controller->ableJump();
+		
+	}
+	else if (_transform->getPosition().getY() + myH * (M_TO_PIXEL) > otherTransform->getPosition().getY() - otherH * (M_TO_PIXEL * 2))
+	{
+		if (_transform->getPosition().getX() + myW * (M_TO_PIXEL) < otherTransform->getPosition().getX() - otherW * (M_TO_PIXEL * 2))
 		{
-			myControler->wallOnRight(true);
+			_controller->wallOnRight(true);
 		}
-		else myControler->wallOnLeft(true);
+		else _controller->wallOnLeft(true);
 	}
 }
 
 void Player::endCollision(GameComponent * other)
 {
-	auto myTransform = this->getComponent<TransformComponent>();
-	auto myControler = this->getComponent<PlayerControllerComponent>();
+	
+	
 
 	auto otherTransform = other->getComponent<TransformComponent>();
-
-	auto body = this->getComponent<BodyComponent>();
 	auto otherBody = other->getComponent<BodyComponent>();
 
-	double myH = body->getH();
-	double otherH = otherBody->getH();
+	double myH = _body->getH(), myW = _body->getW();
+	double otherH = otherBody->getH(), otherW = otherBody->getW();
 
-	myControler->wallOnLeft(false);
-	myControler->wallOnRight(false);
+	AmountOfCollision -= 1;
 
-	if (myTransform->getPosition().getY() + myH * (M_TO_PIXEL ) < otherTransform->getPosition().getY()-otherH*(M_TO_PIXEL *2))
-		myControler->changeJump();
+	if (_transform->getPosition().getY() + myH * (M_TO_PIXEL) < otherTransform->getPosition().getY() - otherH * (M_TO_PIXEL * 2))
+	{
+
+		
+		if ((_body->getBody()->GetLinearVelocity().y < -0.5))
+		{
+			_controller->changeJump();
+		}
+	}
+	if (_transform->getPosition().getY() + myH * (M_TO_PIXEL) > otherTransform->getPosition().getY() - otherH * (M_TO_PIXEL * 2)||
+		(_transform->getPosition().getY() + myH * (M_TO_PIXEL) < otherTransform->getPosition().getY() - otherH * (M_TO_PIXEL * 2))&& (_body->getBody()->GetLinearVelocity().y < -0.5))
+	{
+		if (_transform->getPosition().getX() + myW * (M_TO_PIXEL) < otherTransform->getPosition().getX() - otherW * (M_TO_PIXEL * 2))
+		{
+			_controller->wallOnRight(false);
+		}
+		else _controller->wallOnLeft(false);
+	}
 }
 
 void Player::update()
 {
+	
 	GameComponent::update();
 
 	if (_anim->animationFinished())
@@ -100,6 +116,12 @@ void Player::update()
 
 		_currentState = Idle;
 	}
+	cout << AmountOfCollision<<endl;
+	if (AmountOfCollision<=0)
+	{
+		_controller->changeJump();
+	}
+	
 }
 
 //Equipa un arma utilizando el array de atributos gameGuns de Game.h

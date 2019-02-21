@@ -29,7 +29,7 @@ BodyComponent::BodyComponent(GameComponent * obj) : PhysicsComponent(obj)
 	_fixture.shape = &_shape;
 	_fixture.density = 1;
 	_fixture.restitution = 0;
-	_fixture.friction = 1.5;
+	_fixture.friction = 3.5;
 	
 
 	_body->CreateFixture(&_fixture);
