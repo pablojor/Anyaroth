@@ -46,6 +46,9 @@ Arm::~Arm()
 
 void Arm::update()
 {
+		/*cout << "ARM_X: " << getComponent<TransformComponent>()->getPosition().getX() << "	ARM_Y: " << getComponent<TransformComponent>()->getPosition().getY() << endl << endl;*/
+	
+
 	GameComponent::update();
 
 		//------------Rotación del brazo---------------------

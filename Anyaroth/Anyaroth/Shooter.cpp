@@ -34,5 +34,5 @@ void Shooter::shoot()
 	bulletDir = bulletDir * 3;
 
 
-	_bPool->addBullet(bulletPosition, bulletDir);
+	_bPool->addBullet(bulletPosition/*{62, 112}*/, bulletDir);
 }

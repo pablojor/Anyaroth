@@ -17,8 +17,8 @@ PlayState::PlayState(Game* g) : GameState(g)
 	//----Pools de balas
 
 	//Pool arma básica
-	_examplePool = new BulletPool<100>(g->getTexture("example1"), 10, 10);
-	
+	_examplePool = new BulletPool<100>(g, g->getTexture("example1"), 10, 10);
+	_stages.push_back(_examplePool);
 
 	//cuerpo
 	_player = new Player(g->getTexture("Mk"), g, this);

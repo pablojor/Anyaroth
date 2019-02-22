@@ -86,7 +86,7 @@ void Player::equipGun(int gunIndex, int bulletPoolIndex)
 	PoolWrapper* bp = _play->getBulletPool();
 	//
 
-	_weaponArm->setGun(new Gun(this, sh, bp, name, mA, mC));
+	_weaponArm->setGun(new Gun(_weaponArm, sh, bp, name, mA, mC));
 	//cout << "Gun equipada" << endl << endl << endl << endl << endl << endl;
 }
 
