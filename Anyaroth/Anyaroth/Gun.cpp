@@ -96,15 +96,15 @@ void Gun::useAmmo()
 	*/
 }
 
-bool Gun::shoot() 
+bool Gun::shoot(Vector2D bulletPosition, Vector2D bulletDir)
 {
 	if (_clip >= _bulletsPerShot //Si hay suficientes balas en el cargador
 		&& _shooterComp != nullptr) //Si tiene un shooter, llama a su shoot()
 	{
-		_shooterComp->shoot();
+		_shooterComp->shoot( bulletPosition,  bulletDir);
 
 		//Reduce la munici�n actual
-		useAmmo();
+		//useAmmo();
 
 		//Dispara
 		cout << "Piumm!" << endl;

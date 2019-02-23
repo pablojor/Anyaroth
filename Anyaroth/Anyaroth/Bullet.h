@@ -17,6 +17,10 @@ private:
 	double _speed = 0;
 	int _damage = 0;
 
+	Vector2D _velocity = { 0,0 };
+
+	TransformComponent* _trans = nullptr;
+
 	//Texture* _texture = nullptr;
 public:
 	Bullet();
@@ -24,13 +28,16 @@ public:
 
 	void setSpeed(double speed) { _speed = speed; };
 	void setDamage(double damage) { _damage = damage; };
-	void init(Texture* texture, double speed, int damage, int range = 20);
+	int getDamage() { return _damage; };
+	void setVelocity(Vector2D vel) { _velocity = vel; };
+
+	void init(Texture* texture, double speed, int damage, int range = 5);
 	
-	virtual void render() const
+	/*virtual void render() const
 	{
 		GameComponent::render();
 		
-	}
+	}*/
 
 	virtual void update();
 

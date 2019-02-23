@@ -20,19 +20,7 @@ void Shooter::init(GameComponent* shootingObject, PoolWrapper* bPool)
 }
 
 
-void Shooter::shoot() 
+void Shooter::shoot(Vector2D bulletPosition, Vector2D bulletDir)
 {
-	//Posición inicial de la bala
-	Vector2D bulletPosition = _shootingObject->getComponent<TransformComponent>()->getPosition()
-		+ Vector2D(_shootingObject->getComponent<AnimatedSpriteComponent>()->getTexture()->getW() / 2, _shootingObject->getComponent<AnimatedSpriteComponent>()->getTexture()->getH() / 2)
-		+ (Vector2D(0, -1).rotate(_shootingObject->getComponent<TransformComponent>()->getRotation()))*(_shootingObject->getComponent<AnimatedSpriteComponent>()->getTexture()->getH() / 2 + 10);
-
-	//Dirección de la bala
-	Vector2D bulletDir = /*velocity_
-						 + */(Vector2D(0, -1).rotate(_shootingObject->getComponent<TransformComponent>()->getRotation()));
-	bulletDir.normalize();
-	bulletDir = bulletDir * 3;
-
-
-	_bPool->addBullet(bulletPosition/*{62, 112}*/, bulletDir);
+	_bPool->addBullet(bulletPosition, bulletDir);
 }

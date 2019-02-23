@@ -40,7 +40,7 @@ void ArmControllerComponent::handleInput(const SDL_Event& event)
 		//_player->getComponent<TransformComponent>()->setPosition(_player->getComponent<TransformComponent>()->getPosition().getX(), _player->getComponent<TransformComponent>()->getPosition().getY());
 		//_transform->setPosition (_transform->getPosition().getX() - 40, _transform->getPosition().getY());
 		_followC->setOffset({ _followC->getInitialOffset().getX() - 14/*_followC->getInitialOffset().getX()*/, _followC->getInitialOffset().getY() });
-		cout << _followC->getOffset().getX() << endl;
+		//cout << _followC->getOffset().getX() << endl;
 	}
 	else if (_anim->isFlipped() && mouseX > _transform->getPosition().getX() + _followC->getInitialOffset().getX())
 	{
@@ -50,7 +50,7 @@ void ArmControllerComponent::handleInput(const SDL_Event& event)
 		//_player->getComponent<TransformComponent>()->setPosition(_player->getComponent<TransformComponent>()->getPosition().getX() + _magicNumber, _player->getComponent<TransformComponent>()->getPosition().getY());
 		//_transform->setPosition(_transform->getPosition().getX() + 40, _transform->getPosition().getY());
 		_followC->setOffset({ _followC->getInitialOffset().getX(), _followC->getInitialOffset().getY() });
-		cout << _followC->getOffset().getX() << endl;
+		//cout << _followC->getOffset().getX() << endl;
 	}
 
 	if (event.type == SDL_MOUSEBUTTONDOWN)

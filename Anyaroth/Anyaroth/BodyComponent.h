@@ -11,7 +11,6 @@ private:
 	b2FixtureDef _fixture;
 	TransformComponent* _transform;
 	double textW, textH, aX, aY;
-
 public:
 	BodyComponent(GameComponent* obj);
 	virtual ~BodyComponent();

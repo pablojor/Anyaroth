@@ -113,7 +113,37 @@ void Arm::shoot()
 {
 	if (_currentGun != nullptr)
 	{
-		if(_currentGun->shoot())
+		//----------Posición inicial de la bala
+
+		//Distinción flip-unflip
+		int bulletXOffset = _anim->isFlipped() ? -12 : 28;
+		int bulletYOffset = _anim->isFlipped() ? -8 : 2;
+		double aimAuxY = _anim->isFlipped() ? 1 : -1;
+
+		Vector2D bulletPosition =
+		{
+			_transform->getPosition().getX() - bulletXOffset + _anim->getTexture()->getW() / 4,
+			_transform->getPosition().getY() + _anim->getTexture()->getH() / 5 + bulletYOffset
+		};
+		
+		Vector2D aux = (Vector2D(0, aimAuxY).rotate(_transform->getRotation() + 80))*(_anim->getTexture()->getH() / 2);
+
+		bulletPosition = bulletPosition + aux;
+
+
+		//----------Dirección de la bala
+
+		//Distinción flip-unflip
+		int bulletDirOffset = _anim->isFlipped() ? 110 : 75;
+
+		Vector2D bulletDir = (Vector2D(0, aimAuxY).rotate(_transform->getRotation() + bulletDirOffset));
+		bulletDir.normalize();
+		//bulletDir = bulletDir * 3;
+
+
+
+
+		if(_currentGun->shoot(bulletPosition, bulletDir))
 		{
 			_anim->playAnim(AnimatedSpriteComponent::Shoot);
 		}

@@ -35,7 +35,6 @@ void BulletPool<SIZE>::initBullets() {
 	{
 		Bullet* b = ObjectPool<Bullet, SIZE>::getObject(i);
 		b->init(_bulletTexture, _bulletSpeed, _bulletDamage);
-		b->getComponent<AnimatedSpriteComponent>()->setTexture(_bulletTexture);
 	}
 }
 
@@ -48,7 +47,8 @@ void BulletPool<SIZE>::addBullet(Vector2D pos, Vector2D dir) {
 			
 		
 		b->getComponent<TransformComponent>()->setPosition(pos.getX(), pos.getY());
-		//b->getComponent<MovingComponent>()->changeDir(dir.getX(),dir.getY());
+		//b->getComponent<MovingComponent>()->changeDir(dir.getX(),dir.getY()); //<- DESCOMENTAR PARA PROBAR CON FÍSICAS
+		b->setVelocity(dir*_bulletSpeed); //<- DESCOMENTAR PARA PROBAR SIN FÍSICAS
 		b->reset();
 	}
 }

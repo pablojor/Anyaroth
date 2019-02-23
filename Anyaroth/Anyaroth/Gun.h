@@ -44,7 +44,7 @@ public:
 
 	void setShooter(Shooter* sh);
 	void setBulletPool(PoolWrapper* bp) { _bPool = bp; };
-	bool shoot();
+	bool shoot(Vector2D bulletPosition, Vector2D bulletDir);
 
 	void addAmmo(int ammoAdded);
 	bool reload();
