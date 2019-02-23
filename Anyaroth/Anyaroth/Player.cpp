@@ -55,19 +55,27 @@ void Player::beginCollision(GameComponent * other)
 	double myH = _body->getH(), myW = _body->getW();
 	double otherH = otherBody->getH(), otherW = otherBody->getW();
 	AmountOfCollision += 1;
-	//cout << _transform->getPosition().getY() + myH * (M_TO_PIXEL) << " " << otherTransform->getPosition().getY() - otherH * (M_TO_PIXEL * 2) << endl;
-	if (_transform->getPosition().getY() + myH * (M_TO_PIXEL) < otherTransform->getPosition().getY() - otherH * (M_TO_PIXEL * 2))
+	cout << _transform->getPosition().getX()  << " " << otherTransform->getPosition().getX()  << endl;
+	cout << _transform->getPosition().getX() + myW * (M_TO_PIXEL*2) << " " << otherTransform->getPosition().getX() - otherW * (M_TO_PIXEL * 2) << endl;
+	if (_transform->getPosition().getY() + myH * (M_TO_PIXEL*2) < otherTransform->getPosition().getY())
 	{
 		_controller->ableJump();
 		
 	}
-	else if (_transform->getPosition().getY() + myH * (M_TO_PIXEL) > otherTransform->getPosition().getY() - otherH * (M_TO_PIXEL * 2))
+	else if (_transform->getPosition().getY() + myH * (M_TO_PIXEL*2) > otherTransform->getPosition().getY() )
 	{
-		if (_transform->getPosition().getX() + myW * (M_TO_PIXEL) < otherTransform->getPosition().getX() - otherW * (M_TO_PIXEL * 2))
+		cout << _transform->getPosition().getY() << " " << otherTransform->getPosition().getY() + otherH * (M_TO_PIXEL*2) << endl;
+		if (_transform->getPosition().getY()  > otherTransform->getPosition().getY() + otherH * (M_TO_PIXEL * 2))
+			cout << "techo"<< endl;
+		else
 		{
-			_controller->wallOnRight(true);
+			if (_transform->getPosition().getX() + myW * (M_TO_PIXEL) < otherTransform->getPosition().getX() - otherW * (M_TO_PIXEL * 2))
+			{
+				_controller->wallOnRight(true);
+			}
+			else
+				_controller->wallOnLeft(true);
 		}
-		else _controller->wallOnLeft(true);
 	}
 }
 
@@ -84,7 +92,7 @@ void Player::endCollision(GameComponent * other)
 
 	AmountOfCollision -= 1;
 
-	if (_transform->getPosition().getY() + myH * (M_TO_PIXEL) < otherTransform->getPosition().getY() - otherH * (M_TO_PIXEL * 2))
+	if (_transform->getPosition().getY() + myH * (M_TO_PIXEL*2) < otherTransform->getPosition().getY())
 	{
 
 		
@@ -93,14 +101,16 @@ void Player::endCollision(GameComponent * other)
 			_controller->changeJump();
 		}
 	}
-	if (_transform->getPosition().getY() + myH * (M_TO_PIXEL) > otherTransform->getPosition().getY() - otherH * (M_TO_PIXEL * 2)||
-		(_transform->getPosition().getY() + myH * (M_TO_PIXEL) < otherTransform->getPosition().getY() - otherH * (M_TO_PIXEL * 2))&& (_body->getBody()->GetLinearVelocity().y < -0.5))
+	if (_transform->getPosition().getY() + myH * (M_TO_PIXEL*2) > otherTransform->getPosition().getY() ||
+		(_transform->getPosition().getY() + myH * (M_TO_PIXEL*2) < otherTransform->getPosition().getY())&& (AmountOfCollision==0))
 	{
+		
 		if (_transform->getPosition().getX() + myW * (M_TO_PIXEL) < otherTransform->getPosition().getX() - otherW * (M_TO_PIXEL * 2))
 		{
 			_controller->wallOnRight(false);
 		}
-		else _controller->wallOnLeft(false);
+		else 
+			_controller->wallOnLeft(false);
 	}
 }
 
@@ -116,7 +126,7 @@ void Player::update()
 
 		_currentState = Idle;
 	}
-	cout << AmountOfCollision<<endl;
+	
 	if (AmountOfCollision<=0)
 	{
 		_controller->changeJump();

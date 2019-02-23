@@ -24,11 +24,13 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 		else if (event.key.keysym.sym == SDLK_d)
 			_dPul = true;
 
-		if (event.key.keysym.sym == SDLK_w)
+		if (event.key.keysym.sym == SDLK_SPACE)
 			_wPul = true;
 
 		if (event.key.keysym.sym == SDLK_s)
 			_sPul = true;
+		if (event.key.keysym.sym == SDLK_LSHIFT)
+			_sfPul = true;
 	}
 
 	if (event.type == SDL_KEYUP)
@@ -38,11 +40,13 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 		else if (event.key.keysym.sym == SDLK_d)
 			_dPul = false;
 
-		if (event.key.keysym.sym == SDLK_w)
+		if (event.key.keysym.sym == SDLK_SPACE)
 			_wPul = false;
 
 		if (event.key.keysym.sym == SDLK_s)
 			_sPul = false;
+		if (event.key.keysym.sym == SDLK_LSHIFT)
+			_sfPul = false;
 	}
 
 	if (event.type == SDL_MOUSEBUTTONDOWN)
@@ -110,8 +114,10 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 	}
 	
 	
-	if (_sPul /*y estoy saltando*/)
+	if (_sPul && jumping)
 	{
+		_movement->changeDir(0, 1);
+		_movement->changeDash(true);
 		//Llamo a componente de dash hacia abajo (culo)
 	}
 }
