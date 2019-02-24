@@ -5,6 +5,7 @@
 #include "MovingComponent.h"
 #include "Game.h"
 #include "Player.h"
+#include "Bullet.h"
 
 Enemy::Enemy(Texture* texture, Vector2D iniPos, Player* player, Game* g, string tag) : GameComponent(g, tag)
 {
@@ -19,7 +20,7 @@ Enemy::Enemy(Texture* texture, Vector2D iniPos, Player* player, Game* g, string 
 	body->getBody()->SetBullet(true);
 	body->getBody()->SetFixedRotation(true);
 	body->setW(20);
-	body->filterCollisions(ENEMIES, FLOOR);
+	body->filterCollisions(ENEMIES, FLOOR | PLAYER_BULLETS);
 
 	auto anim = addComponent<AnimatedSpriteComponent>();
 	
@@ -41,7 +42,40 @@ Enemy::~Enemy()
 {
 }
 
+void Enemy::beginCollision(GameComponent * other)
+{
+	string otherTag = other->getTag();
+	if (otherTag == "Bullet")
+	{
+		double damage = 0;
+		//damage=dynamic_cast<Bullet*>(other).getDamage();
+		subLife(damage);
+	}
+}
+
 void Enemy::update()
 {
 	GameComponent::update();
+}
+
+void Enemy::setLife(double amount)
+{
+	_life = amount;
+}
+
+void Enemy::addLife(double amount)
+{
+	_life += amount;
+}
+
+void Enemy::subLife(double amount)
+{
+	if (_life > amount)
+		_life -= amount;
+	else
+		die();
+}
+
+void Enemy::die()
+{
 }

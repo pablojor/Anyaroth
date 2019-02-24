@@ -33,7 +33,12 @@ public:
 	void update();
 	virtual void beginCollision(GameComponent* other);
 	virtual void endCollision(GameComponent* other);
-  
+	
+	void setLife(double amount);
+	void addLife(double amount);
+	void subLife(double amount);
+	void die();
+
 	void setArm(Arm* arm) { _weaponArm = arm; };
 	void equipGun(int gunIndex);
   

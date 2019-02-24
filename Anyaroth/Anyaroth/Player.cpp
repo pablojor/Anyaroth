@@ -22,7 +22,7 @@ Player::Player(Texture* texture, Game* g, string tag) : GameComponent(g, tag)
 	 _body->getBody()->SetBullet(true);
 	 _body->getBody()->SetFixedRotation(true);
 	 _body->setW(20);
-	 _body->filterCollisions(PLAYER, OBJECTS | FLOOR);
+	 _body->filterCollisions(PLAYER, OBJECTS | FLOOR /*| ENEMY_BULLETS*/);
 	_anim = addComponent<AnimatedSpriteComponent>();		//Como depende de Transform, en su constructura crea una si no ha encontrado Transform en el objeto.
 	_anim->addAnim(AnimatedSpriteComponent::Idle, 16, true);
 	_anim->addAnim(AnimatedSpriteComponent::Walk, 10, true);
@@ -54,28 +54,38 @@ void Player::beginCollision(GameComponent * other)
 
 	double myH = _body->getH(), myW = _body->getW();
 	double otherH = otherBody->getH(), otherW = otherBody->getW();
-	AmountOfCollision += 1;
-	cout << _transform->getPosition().getX()  << " " << otherTransform->getPosition().getX()  << endl;
-	cout << _transform->getPosition().getX() + myW * (M_TO_PIXEL*2) << " " << otherTransform->getPosition().getX() - otherW * (M_TO_PIXEL * 2) << endl;
-	if (_transform->getPosition().getY() + myH * (M_TO_PIXEL*2) < otherTransform->getPosition().getY())
+	string otherTag = other->getTag();
+	if (otherTag == "Suelo")
 	{
-		_controller->ableJump();
-		
-	}
-	else if (_transform->getPosition().getY() + myH * (M_TO_PIXEL*2) > otherTransform->getPosition().getY() )
-	{
-		cout << _transform->getPosition().getY() << " " << otherTransform->getPosition().getY() + otherH * (M_TO_PIXEL*2) << endl;
-		if (_transform->getPosition().getY()  > otherTransform->getPosition().getY() + otherH * (M_TO_PIXEL * 2))
-			cout << "techo"<< endl;
-		else
+		AmountOfCollision += 1;
+		cout << _transform->getPosition().getX() << " " << otherTransform->getPosition().getX() << endl;
+		cout << _transform->getPosition().getX() + myW * (M_TO_PIXEL * 2) << " " << otherTransform->getPosition().getX() - otherW * (M_TO_PIXEL * 2) << endl;
+		if (_transform->getPosition().getY() + myH * (M_TO_PIXEL * 2) < otherTransform->getPosition().getY())
 		{
-			if (_transform->getPosition().getX() + myW * (M_TO_PIXEL) < otherTransform->getPosition().getX() - otherW * (M_TO_PIXEL * 2))
-			{
-				_controller->wallOnRight(true);
-			}
-			else
-				_controller->wallOnLeft(true);
+			_controller->ableJump();
+
 		}
+		else if (_transform->getPosition().getY() + myH * (M_TO_PIXEL * 2) > otherTransform->getPosition().getY())
+		{
+			cout << _transform->getPosition().getY() << " " << otherTransform->getPosition().getY() + otherH * (M_TO_PIXEL * 2) << endl;
+			if (_transform->getPosition().getY() > otherTransform->getPosition().getY() + otherH * (M_TO_PIXEL * 2))
+				cout << "techo" << endl;
+			else
+			{
+				if (_transform->getPosition().getX() + myW * (M_TO_PIXEL) < otherTransform->getPosition().getX() - otherW * (M_TO_PIXEL * 2))
+				{
+					_controller->wallOnRight(true);
+				}
+				else
+					_controller->wallOnLeft(true);
+			}
+		}
+	}
+	else if (otherTag == "Bullet")
+	{
+		double damage = 0;
+		//damage=dynamic_cast<Bullet*>(other).getDamage();
+		subLife(damage);
 	}
 }
 
@@ -112,6 +122,28 @@ void Player::endCollision(GameComponent * other)
 		else 
 			_controller->wallOnLeft(false);
 	}
+}
+
+void Player::setLife(double amount)
+{
+	_life = amount;
+}
+
+void Player::addLife(double amount)
+{
+	_life += amount;
+}
+
+void Player::subLife(double amount)
+{
+	if (_life > amount)
+		_life -= amount;
+	else
+		die();
+}
+
+void Player::die()
+{
 }
 
 void Player::update()
