@@ -58,8 +58,7 @@ void Player::beginCollision(GameComponent * other)
 	if (otherTag == "Suelo")
 	{
 		AmountOfCollision += 1;
-		cout << _transform->getPosition().getX() << " " << otherTransform->getPosition().getX() << endl;
-		cout << _transform->getPosition().getX() + myW * (M_TO_PIXEL * 2) << " " << otherTransform->getPosition().getX() - otherW * (M_TO_PIXEL * 2) << endl;
+		
 		if (_transform->getPosition().getY() + myH * (M_TO_PIXEL * 2) < otherTransform->getPosition().getY())
 		{
 			_controller->ableJump();
@@ -67,10 +66,8 @@ void Player::beginCollision(GameComponent * other)
 		}
 		else if (_transform->getPosition().getY() + myH * (M_TO_PIXEL * 2) > otherTransform->getPosition().getY())
 		{
-			cout << _transform->getPosition().getY() << " " << otherTransform->getPosition().getY() + otherH * (M_TO_PIXEL * 2) << endl;
-			if (_transform->getPosition().getY() > otherTransform->getPosition().getY() + otherH * (M_TO_PIXEL * 2))
-				cout << "techo" << endl;
-			else
+			
+			if (_transform->getPosition().getY() <= otherTransform->getPosition().getY() + otherH * (M_TO_PIXEL * 2))
 			{
 				if (_transform->getPosition().getX() + myW * (M_TO_PIXEL) < otherTransform->getPosition().getX() - otherW * (M_TO_PIXEL * 2))
 				{

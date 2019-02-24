@@ -17,6 +17,7 @@ void MovingComponent::update()
 	double x = pos.x;
 	double y = pos.y;
 	//_body->getBody()->SetLinearVelocity(b2Vec2(_dir.x*_speed, _body->getBody()->GetLinearVelocity().y));
+
 	if (!_dashing)
 	{
 		if (((_body->getBody()->GetLinearVelocity().x > _speed || _body->getBody()->GetLinearVelocity().x < -1 * _speed) && _dir.x != 0) && _body->getBody()->GetLinearVelocity().x / _dir.x != -abs(_body->getBody()->GetLinearVelocity().x))
@@ -31,6 +32,7 @@ void MovingComponent::update()
 	else
 	{
 		_body->getBody()->SetLinearVelocity(b2Vec2(_dir.x*_speed * 2, _dir.y*_speed * 2));
+
 	}
 	
 }
@@ -39,12 +41,13 @@ void MovingComponent::changeDash(bool dash) {
 	_dashing = dash;
 	if (!dash)
 	{
-		_body->getBody()->SetType(b2_dynamicBody);
+		_body->getBody()->SetGravityScale(1);
 		_body->getBody()->SetLinearDamping(1.5);
+		
 	}
 	else
 	{
-		_body->getBody()->SetType(b2_kinematicBody);
+		_body->getBody()->SetGravityScale(0);
 		_body->getBody()->SetLinearDamping(0);
 	}
 }
