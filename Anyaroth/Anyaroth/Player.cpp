@@ -15,7 +15,7 @@ Player::Player(Texture* texture, Game* g) : GameComponent(g)
 	//addComponent<FollowingComponent>(this);
 
 	auto transform = addComponent<TransformComponent>();		//Como en el metodo anterior se ha creado este componente, imprime por pantalla que ya existe uno.
-	transform->setPosition(0, 50);
+	transform->setPosition(0, 120);
 
 	auto body = addComponent<BodyComponent>();
 	body->getBody()->SetType(b2_dynamicBody);
