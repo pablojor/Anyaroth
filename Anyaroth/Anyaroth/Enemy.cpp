@@ -19,18 +19,21 @@ Enemy::Enemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2
 	_body->getBody()->SetBullet(true);
 	_body->getBody()->SetFixedRotation(true);
 	_body->setW(20);
+	_body->setH(40);
 	_body->filterCollisions(ENEMIES, FLOOR | PLAYER_BULLETS);
 
 	//auto playerTrans = addComponent<MeleeEnemyComponent>();
 
 	_anim = addComponent<AnimatedSpriteComponent>();
+
+	/*
 	_anim->addAnim(AnimatedSpriteComponent::Idle, 16, true);
 	_anim->addAnim(AnimatedSpriteComponent::Walk, 10, true);
 	_anim->addAnim(AnimatedSpriteComponent::WalkBack, 10, true); //esta en realidad es opcional
 	_anim->addAnim(AnimatedSpriteComponent::MeleeKnife, 6, false);
 
 	_anim->playAnim(AnimatedSpriteComponent::Idle);
-
+	*/
 	_movement = addComponent<MovingComponent>();
 }
 void Enemy::setItList(list<GameObject*>::iterator itFR)

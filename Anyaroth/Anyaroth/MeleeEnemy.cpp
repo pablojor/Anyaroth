@@ -8,8 +8,15 @@ MeleeEnemy::MeleeEnemy(Player* player, Game* g, PlayState* play,Texture* texture
 {
 	_vision = 300;
 	_attackRange = 25; //No se puede poner mas peque�o que la velocidad
-	_attackTime = 1000; //La animacion tarda unos 450
+	_attackTime = 1300; //La animacion tarda unos 450
 	_life = 50;
+
+
+	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 13, true);
+	_anim->addAnim(AnimatedSpriteComponent::EnemyWalk, 8, true);
+	_anim->addAnim(AnimatedSpriteComponent::EnemyAttack, 11, false);
+
+	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 }
 
 void MeleeEnemy::update()
@@ -35,12 +42,12 @@ void MeleeEnemy::update()
 			if (x > _attackRange)
 			{
 				_movement->changeDir(1, 0);
-				_anim->playAnim(AnimatedSpriteComponent::Walk);
+				_anim->playAnim(AnimatedSpriteComponent::EnemyWalk);
 			}
 			else
 			{
 				_movement->changeDir(0, 0);
-				_anim->playAnim(AnimatedSpriteComponent::MeleeKnife); //Llamas a animacion de ataque
+				_anim->playAnim(AnimatedSpriteComponent::EnemyAttack); //Llamas a animacion de ataque
 				_time = SDL_GetTicks();
 				_attacking = true;
 			}
@@ -52,12 +59,12 @@ void MeleeEnemy::update()
 			if (x < -_attackRange)
 			{
 				_movement->changeDir(-1, 0);
-				_anim->playAnim(AnimatedSpriteComponent::Walk);
+				_anim->playAnim(AnimatedSpriteComponent::EnemyWalk);
 			}
 			else
 			{
 				_movement->changeDir(0, 0);
-				_anim->playAnim(AnimatedSpriteComponent::MeleeKnife); //Llamas a animacion de ataque
+				_anim->playAnim(AnimatedSpriteComponent::EnemyAttack); //Llamas a animacion de ataque
 				_time = SDL_GetTicks();
 				_attacking = true;
 			}
@@ -68,7 +75,7 @@ void MeleeEnemy::update()
 		if (SDL_GetTicks() > _time + _attackTime)
 		{
 			_attacking = false;
-			_anim->playAnim(AnimatedSpriteComponent::Idle);
+			_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 			//if(colision de arma con jugador)
 			//	llamas da�o al jugador
 		}
@@ -76,6 +83,6 @@ void MeleeEnemy::update()
 	else
 	{
 		_movement->changeDir(0, 0);
-		_anim->playAnim(AnimatedSpriteComponent::Idle);
+		_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 	}
 }

@@ -22,6 +22,7 @@ Player::Player(Texture* texture, Game* g, PlayState* play, string tag) : _play(p
 	 _body->getBody()->SetBullet(true);
 	 _body->getBody()->SetFixedRotation(true);
 	 _body->setW(20);
+	 _body->setH(30);
 	 _body->filterCollisions(PLAYER, OBJECTS | FLOOR /*| ENEMY_BULLETS*/);
 
 	_anim = addComponent<AnimatedSpriteComponent>();		//Como depende de Transform, en su constructura crea una si no ha encontrado Transform en el objeto.
