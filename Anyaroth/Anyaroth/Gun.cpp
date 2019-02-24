@@ -81,7 +81,7 @@ void Gun::useAmmo()
 	*/
 }
 
-void Gun::shoot() 
+bool Gun::shoot() 
 {
 	if (_clip >= _bulletsPerShot //Si hay suficientes balas en el cargador
 		&& _shooterComp != nullptr) //Si tiene un shooter, llama a su shoot()
@@ -96,11 +96,12 @@ void Gun::shoot()
 		cout << "Ammo: " << _ammo << "/" << _maxAmmo << endl;
 		cout << "Clip: " << _clip << "/" << _maxClip << endl;
 
-		
+		return true;
 	}
 	else //Si no, recarga
 	{
 		reload();
+		return false;
 	}
 
 }

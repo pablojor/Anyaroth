@@ -8,6 +8,8 @@
 class AnimatedSpriteComponent;
 class Gun;
 class Player;
+class ArmControllerComponent;
+class FollowingComponent;
 
 class Arm : public GameComponent
 {
@@ -15,6 +17,12 @@ protected:
 	TransformComponent* _transform;
 	GameComponent* _player;
 	AnimatedSpriteComponent* _anim;
+	FollowingComponent* _followC;
+	ArmControllerComponent* _controller;
+
+	double _minAimDistance = 32;
+	double _magicNumber = 64;
+
 
 	Gun* _currentGun = nullptr;
 public:

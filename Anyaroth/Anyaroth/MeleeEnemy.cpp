@@ -1,35 +1,25 @@
-#include "MeleeEnemyComponent.h"
+#include "MeleeEnemy.h"
 #include "GameComponent.h"
+#include "AnimatedSpriteComponent.h"
 #include "Player.h"
 
 
-MeleeEnemyComponent::MeleeEnemyComponent(GameComponent* obj) : PhysicsComponent(obj)
+MeleeEnemy::MeleeEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni) : Enemy(player, g, play,texture, posIni, "MeleeEnemy")
 {
-	_movement = obj->getComponent<MovingComponent>();
-	if (_movement == nullptr)
-		_movement = obj->addComponent<MovingComponent>();
-
-	_anim = obj->getComponent<AnimatedSpriteComponent>();
-	if (_anim == nullptr)
-		_anim = obj->addComponent<AnimatedSpriteComponent>();
-
-	_myTransform = obj->getComponent<TransformComponent>();
-	if (_myTransform == nullptr)
-		_myTransform = obj->addComponent<TransformComponent>();
+	_vision = 300;
+	_flipRange = 5;
+	_attackRange = 25; //No se puede poner mas pequeï¿½o que la velocidad
+	_attackTime = 1000; //La animacion tarda unos 450
+	_life = 50;
 }
 
-void MeleeEnemyComponent::addPlayer(Player* player)
+void MeleeEnemy::update()
 {
-	_playerTransform = player->getComponent<TransformComponent>();
-	if (_playerTransform == nullptr)
-		_playerTransform = player->getComponent<TransformComponent>();
-}
+	Enemy::update();
 
-void MeleeEnemyComponent::update()
-{
 	Vector2D enemy, player;
 
-	enemy = _myTransform->getPosition();
+	enemy = _transform->getPosition();
 	player = _playerTransform->getPosition();
 
 	double x, y;
@@ -54,7 +44,6 @@ void MeleeEnemyComponent::update()
 				_anim->playAnim(AnimatedSpriteComponent::MeleeKnife); //Llamas a animacion de ataque
 				_time = SDL_GetTicks();
 				_attacking = true;
-				cout << "attacking" << endl;
 			}
 		}
 		else if (x < -_flipRange)
@@ -72,7 +61,6 @@ void MeleeEnemyComponent::update()
 				_anim->playAnim(AnimatedSpriteComponent::MeleeKnife); //Llamas a animacion de ataque
 				_time = SDL_GetTicks();
 				_attacking = true;
-				cout << "attacking" << endl;
 			}
 		}
 	}
@@ -81,10 +69,9 @@ void MeleeEnemyComponent::update()
 		if (SDL_GetTicks() > _time + _attackTime)
 		{
 			_attacking = false;
-			cout << "moving again" << endl;
 			_anim->playAnim(AnimatedSpriteComponent::Idle);
 			//if(colision de arma con jugador)
-			//	llamas daño al jugador
+			//	llamas daï¿½o al jugador
 		}
 	}
 	else

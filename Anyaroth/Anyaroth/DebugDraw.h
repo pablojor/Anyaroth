@@ -26,9 +26,10 @@ public:
 
 	void getRenderer(SDL_Renderer* renderer);
 
-	void getTexture(Texture* texture) { t = texture; };
+	void getTexture(Texture* t);
 private:
 	SDL_Renderer* _renderer;
-	Texture* t;
+
+	Texture* _texture;
 };
 

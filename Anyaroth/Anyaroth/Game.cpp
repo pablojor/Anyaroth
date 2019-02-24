@@ -97,7 +97,7 @@ Game::Game()
 	viewport.h = 270 * RESOLUTION;
 	SDL_RenderSetViewport(renderer, &viewport);*/
 	//-----------------------------------------
-	SDL_RenderSetLogicalSize(renderer, 480, 270);
+	SDL_RenderSetLogicalSize(renderer, GAME_RESOLUTION_X, GAME_RESOLUTION_Y);
 	//-----------------------------------------
 
 	//---Create textures
@@ -111,6 +111,7 @@ Game::Game()
 
 	
 	debugger.getRenderer(renderer);
+	debugger.getTexture(getTexture("body"));
 	debugger.SetFlags(b2Draw::e_shapeBit);
 	debugger.getTexture(getTexture("body"));
 

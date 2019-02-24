@@ -12,6 +12,13 @@
 #include "Gun.h"
 #include "Shooter.h"
 
+// Resolución interna del juego
+const int GAME_RESOLUTION_X = 480;
+const int GAME_RESOLUTION_Y = 270;
+
+const int LEVEL_WIDTH = GAME_RESOLUTION_X * 5;
+const int LEVEL_HEIGHT = GAME_RESOLUTION_Y * 5;
+
 
 const int NUM_VARIABLES = 4;
 enum TypeVariable
@@ -32,8 +39,8 @@ const string SAVES_PATH = "..\\files\\saves\\";
 const string SPRITE_PATH = "..\\assets\\sprites\\";
 const string TILEMAP_PATH = "..\\files\\tilemaps\\";
 
+const int NUM_TEXTURES = 9;
 
-const int NUM_TEXTURES = 8;
 const int NUM_FONTS = 0;
 
 const int NUM_LEVELS = 1;
@@ -65,6 +72,7 @@ enum _Category {
 	OBJECTS = 0x0004,
 	PLAYER_BULLETS=0x0005,
 	ENEMY_BULLETS=0x0006
+
 };
 //********************************************************************************
 //********************************************************************************
