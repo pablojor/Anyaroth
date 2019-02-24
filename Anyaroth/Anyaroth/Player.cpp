@@ -97,27 +97,31 @@ void Player::endCollision(GameComponent * other)
 	double myH = _body->getH(), myW = _body->getW();
 	double otherH = otherBody->getH(), otherW = otherBody->getW();
 
-	AmountOfCollision -= 1;
-
-	if (_transform->getPosition().getY() + myH * (M_TO_PIXEL*2) < otherTransform->getPosition().getY())
+	string otherTag = other->getTag();
+	if (otherTag == "Suelo")
 	{
+		AmountOfCollision -= 1;
 
-		
-		if ((_body->getBody()->GetLinearVelocity().y < -0.5))
+		if (_transform->getPosition().getY() + myH * (M_TO_PIXEL * 2) < otherTransform->getPosition().getY())
 		{
-			_controller->changeJump();
+
+
+			if ((_body->getBody()->GetLinearVelocity().y < -0.5))
+			{
+				_controller->changeJump();
+			}
 		}
-	}
-	if (_transform->getPosition().getY() + myH * (M_TO_PIXEL*2) > otherTransform->getPosition().getY() ||
-		(_transform->getPosition().getY() + myH * (M_TO_PIXEL*2) < otherTransform->getPosition().getY())&& (AmountOfCollision==0))
-	{
-		
-		if (_transform->getPosition().getX() + myW * (M_TO_PIXEL) < otherTransform->getPosition().getX() - otherW * (M_TO_PIXEL * 2))
+		if (_transform->getPosition().getY() + myH * (M_TO_PIXEL * 2) > otherTransform->getPosition().getY() ||
+			(_transform->getPosition().getY() + myH * (M_TO_PIXEL * 2) < otherTransform->getPosition().getY()) && (AmountOfCollision == 0))
 		{
-			_controller->wallOnRight(false);
+
+			if (_transform->getPosition().getX() + myW * (M_TO_PIXEL) < otherTransform->getPosition().getX() - otherW * (M_TO_PIXEL * 2))
+			{
+				_controller->wallOnRight(false);
+			}
+			else
+				_controller->wallOnLeft(false);
 		}
-		else 
-			_controller->wallOnLeft(false);
 	}
 }
 
@@ -161,6 +165,17 @@ void Player::update()
 		_controller->changeJump();
 	}
 	
+	if (_controller->amountDash() < _MaxDash)
+	{
+		if (SDL_GetTicks() > _timer + _dashCD)
+		{
+			
+			_controller->newDash();
+			_timer = SDL_GetTicks();
+		}
+	}
+	else
+		_timer = SDL_GetTicks();
 }
 
 //Equipa un arma utilizando el array de atributos gameGuns de Game.h

@@ -31,7 +31,13 @@ void MovingComponent::update()
 	}
 	else
 	{
-		_body->getBody()->SetLinearVelocity(b2Vec2(_dir.x*_speed * 2, _dir.y*_speed * 2));
+		if (SDL_GetTicks() < (_dashTimer + _dashDur))
+			_body->getBody()->SetLinearVelocity(b2Vec2(_dir.x*_speed * 2, _dir.y*_speed * 2));
+		else
+		{
+			_body->getBody()->SetLinearVelocity(b2Vec2(_dir.x*_speed *0.8, _dir.y*_speed * 0.8));
+			changeDash(false);
+		}
 
 	}
 	
@@ -41,12 +47,14 @@ void MovingComponent::changeDash(bool dash) {
 	_dashing = dash;
 	if (!dash)
 	{
+		//changeDir(0, 0);
 		_body->getBody()->SetGravityScale(1);
 		_body->getBody()->SetLinearDamping(1.5);
 		
 	}
 	else
 	{
+		_dashTimer = SDL_GetTicks();
 		_body->getBody()->SetGravityScale(0);
 		_body->getBody()->SetLinearDamping(0);
 	}

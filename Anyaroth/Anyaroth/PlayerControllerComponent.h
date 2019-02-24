@@ -13,8 +13,9 @@ class PlayerControllerComponent : public InputComponent
 		GameComponent* _obj;
 		MovingComponent* _movement = nullptr;
 		bool _wPul = false, _aPul = false, _sPul = false, _dPul = false, _sfPul = false;
-		bool _rightClickPul = false, _isAttacking = false, jump = false;
-		bool jumping = false, _wallOnR = false, _wallOnL = false, dashing = false;
+		bool _rightClickPul = false, _isAttacking = false;
+		bool _jumping = false, _wallOnR = false, _wallOnL = false, _dashing = false;
+		int _amountOfDash=2;
 
 	public:
 		PlayerControllerComponent(GameComponent* obj);
@@ -28,5 +29,6 @@ class PlayerControllerComponent : public InputComponent
 		bool currYDir() { return _wPul; }
 		bool isAttacking() { return _isAttacking; }
 		void setIsAttacking(bool b) { _isAttacking = b; }
-		void stopDash() { dashing = false; }
+		void newDash() { _amountOfDash++; }
+		int amountDash() { return _amountOfDash; }
 };

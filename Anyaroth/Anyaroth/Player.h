@@ -24,6 +24,9 @@ public:
 	PlayerControllerComponent* _controller;
 	TransformComponent * _transform;
 	BodyComponent * _body;
+	uint32 _dashCD = 3000;
+	uint32 _timer = 0;
+	int _MaxDash = 2;
 
 
   

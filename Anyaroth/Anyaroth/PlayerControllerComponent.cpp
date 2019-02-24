@@ -13,7 +13,7 @@ PlayerControllerComponent::PlayerControllerComponent(GameComponent* obj) : Input
 		_anim = obj->addComponent<AnimatedSpriteComponent>();
 
 	_obj = obj;
-	jumping = false;
+	
 }
 
 void PlayerControllerComponent::handleInput(const SDL_Event& event)
@@ -66,7 +66,9 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 		}
 	}
 
-	if (_rightClickPul && !dashing) //&& !_isAttacking)
+	_dashing =_movement->isDashing();
+
+	if (_rightClickPul && !_dashing) //&& !_isAttacking)
 	{
 		_movement->changeDir(0, 0);
 		_isAttacking = true;
@@ -78,18 +80,19 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 
 	
 
-	if ((_aPul &&_dPul ) && !_isAttacking&&!dashing)
+	if ((_aPul &&_dPul ) && !_isAttacking&&!_dashing)
 	{
 		_movement->changeDir(0, 0); //Llamo a animacion idle
 		_anim->playAnim(AnimatedSpriteComponent::Idle);
 	}
-	else if (_aPul && !_isAttacking&&!_wallOnL && !dashing)
+	else if (_aPul && !_isAttacking&&!_wallOnL && !_dashing)
 	{
 		_movement->changeDir(-1, 0); //Llamo a animacion de moverse y un flip
-		if (_sfPul)
+		if (_sfPul && _amountOfDash>0)
 		{
 			_movement->changeDash(true);
-			dashing = true;
+			_dashing = true;
+			_amountOfDash--;
 		}
 		else 
 		{
@@ -101,13 +104,14 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 
 		
 	}
-	else if (_dPul && !_isAttacking&&!_wallOnR && !dashing)
+	else if (_dPul && !_isAttacking&&!_wallOnR && !_dashing)
 	{
 		_movement->changeDir(1, 0); //Llamo a animacion de moverse
-		if (_sfPul)
+		if (_sfPul && _amountOfDash>0)
 		{
 			_movement->changeDash(true);
-			dashing = true;
+			_dashing = true;
+			_amountOfDash--;
 		}
 		else 
 		{
@@ -118,41 +122,36 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 		}
 
 	}
-	else if (_sPul && _sfPul && !_isAttacking && jumping && !dashing)
+	else if (_sPul && _sfPul && !_isAttacking && _jumping && !_dashing && _amountOfDash>0)
 	{
 		_movement->changeDir(0, 1);
 		_movement->changeDash(true);
-		dashing = true;
+		_dashing = true;
+		_amountOfDash--;
 		//Llamo a componente de dash hacia abajo (culo)
 	}
-	else if (!_isAttacking &&!dashing)
+	else if (!_isAttacking &&!_dashing)
 	{
 		_movement->changeDir(0, 0); //Llamo a animacion idle
 		_anim->playAnim(AnimatedSpriteComponent::Idle);
 		
 	}
 	
-	if (_wPul && !_isAttacking && !jumping&&!dashing)
+	if (_wPul && !_isAttacking && !_jumping &&!_dashing)
 	{
 		_movement->changeDir(_movement->getDirX(), -1);
-		jump = false;
+		
 	}
 	
 	
-	//if (_sPul && _sfPul && jumping&& !dashing)
-	//{
-	//	_movement->changeDir(0, 1);
-	//	_movement->changeDash(true);
-	//	dashing = true;
-	//	//Llamo a componente de dash hacia abajo (culo)
-	//}
+
 }
 
 void PlayerControllerComponent::changeJump()
 {
 	
-		jumping = true;
-		if(!dashing)
+	_jumping = true;
+		if(!_dashing)
 		_movement->changeDir(_movement->getDirX(), 0);
 		
 
@@ -163,13 +162,13 @@ void PlayerControllerComponent::changeJump()
 
 void PlayerControllerComponent::ableJump()
 {
-	jump = true;
-	if (jumping)
+	
+	if (_jumping)
 	{
-		dashing = false;
+		_dashing = false;
 		_movement->changeDash(false);
 	}
-	jumping = false;
+	_jumping = false;
 	
 }
 
@@ -178,7 +177,7 @@ void PlayerControllerComponent::wallOnLeft(bool yes)
 	_wallOnL = yes;
 	if (yes)
 	{
-		dashing = false;
+		_dashing = false;
 		_movement->changeDash(false);
 		_movement->changeDir(0, 0);
 	}
@@ -189,7 +188,7 @@ void PlayerControllerComponent::wallOnRight(bool yes)
 	_wallOnR = yes;
 	if (yes)
 	{
-		dashing = false;
+		_dashing = false;
 		_movement->changeDash(false);
 		_movement->changeDir(0, 0);
 	}
