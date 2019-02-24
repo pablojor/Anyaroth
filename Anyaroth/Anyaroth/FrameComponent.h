@@ -14,6 +14,6 @@ class FrameComponent : virtual public SpriteComponent
 		FrameComponent(GameComponent* obj);
 		virtual ~FrameComponent() {}
 
-		virtual void render() const;
+		virtual void render(Camera* c) const;
 		void setFilAndCol(int fil, int col);
 };

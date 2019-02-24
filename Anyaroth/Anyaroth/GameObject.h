@@ -5,12 +5,14 @@
 #include "FileNotFoundError.h"
 #include "FileFormatError.h"
 
+class Camera;
+
 class GameObject
 {
 	private:
 	public:
 		virtual ~GameObject() {};
-		virtual void render() const = 0;
+		virtual void render(Camera* c) const = 0;
 		virtual void update() = 0;
 		virtual void handleInput(const SDL_Event& event) = 0;
 };

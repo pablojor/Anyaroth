@@ -24,7 +24,7 @@ Player::Player(Texture* texture, Game* g, string tag) : GameComponent(g, tag)
 	body->getBody()->SetFixedRotation(true);
 	body->setW(20);
 	body->filterCollisions(PLAYER, OBJECTS | FLOOR);
-
+	
 	_anim = addComponent<AnimatedSpriteComponent>();		//Como depende de Transform, en su constructura crea una si no ha encontrado Transform en el objeto.
 	_anim->addAnim(AnimatedSpriteComponent::Idle, 16, true);
 	_anim->addAnim(AnimatedSpriteComponent::Walk, 10, true);

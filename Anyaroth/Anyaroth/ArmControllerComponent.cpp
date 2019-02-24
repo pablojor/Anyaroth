@@ -40,7 +40,7 @@ void ArmControllerComponent::handleInput(const SDL_Event& event)
 	//	//direction = direction + Vector2D(42, 0);
 
 	//	//cout << x << " " << _transform->getPosition().getX() << endl;
-	//	if (_mouseX < _transform->getPosition().getX()) { //hago flip si el mouse está a la izquierda
+	//	if (_mouseX < _transform->getPosition().getX()) { //hago flip si el mouse estï¿½ a la izquierda
 	//		//cout << x << " " << _transform->getPosition().getX()<<endl;
 	//		_anim->flip();
 	//		_player->getComponent<AnimatedSpriteComponent>()->flip();
@@ -111,6 +111,6 @@ void ArmControllerComponent::handleInput(const SDL_Event& event)
 
 	if (_leftClickPul)
 	{
-		(dynamic_cast<Arm*>(_obj))->shoot();   //llamo a función de disparar
+		(dynamic_cast<Arm*>(_obj))->shoot();   //llamo a funciï¿½n de disparar
 	}
 }

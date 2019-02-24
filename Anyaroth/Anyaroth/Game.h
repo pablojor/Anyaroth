@@ -12,6 +12,13 @@
 #include "Gun.h"
 #include "Shooter.h"
 
+// Resolución interna del juego
+const int GAME_RESOLUTION_X = 480;
+const int GAME_RESOLUTION_Y = 270;
+
+const int LEVEL_WIDTH = GAME_RESOLUTION_X * 5;
+const int LEVEL_HEIGHT = GAME_RESOLUTION_Y * 5;
+
 
 const int NUM_VARIABLES = 4;
 enum TypeVariable
@@ -85,11 +92,6 @@ class Game
 
 	public:
 		vector<int> var;
-
-		// Resolución interna del juego
-		const int GAME_RESOLUTION_X = 480;
-		const int GAME_RESOLUTION_Y = 270;
-		//
 
 		//Las armas que hay en el juego
 		enum GameGun

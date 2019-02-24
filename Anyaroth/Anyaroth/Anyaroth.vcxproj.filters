@@ -4,6 +4,9 @@
     <ClCompile Include="Game.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="GameComponent.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
@@ -43,37 +46,19 @@
     <ClCompile Include="TransformComponent.cpp">
       <Filter>Archivos de origen\Components</Filter>
     </ClCompile>
-    <ClCompile Include="CollisionManager.cpp">
-      <Filter>Archivos de origen\Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="DebugDraw.cpp">
-      <Filter>Archivos de origen\Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="Shooter.cpp">
-      <Filter>Archivos de origen\Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="HUD.cpp">
-      <Filter>Archivos de origen\Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="GameState.cpp">
-      <Filter>Archivos de origen\States</Filter>
-    </ClCompile>
-    <ClCompile Include="GameStateMachine.cpp">
-      <Filter>Archivos de origen\States</Filter>
-    </ClCompile>
-    <ClCompile Include="MenuState.cpp">
-      <Filter>Archivos de origen\States</Filter>
-    </ClCompile>
-    <ClCompile Include="PauseState.cpp">
-      <Filter>Archivos de origen\States</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayState.cpp">
-      <Filter>Archivos de origen\States</Filter>
+    <ClCompile Include="AmmoPackage.cpp">
+      <Filter>Archivos de origen\Objects</Filter>
     </ClCompile>
     <ClCompile Include="Arm.cpp">
       <Filter>Archivos de origen\Objects</Filter>
     </ClCompile>
     <ClCompile Include="Bullet.cpp">
+      <Filter>Archivos de origen\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Archivos de origen\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Coin.cpp">
       <Filter>Archivos de origen\Objects</Filter>
     </ClCompile>
     <ClCompile Include="Collectable.cpp">
@@ -91,8 +76,44 @@
     <ClCompile Include="Tile.cpp">
       <Filter>Archivos de origen\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="Vector2D.cpp">
-      <Filter>Archivos de origen\Useful</Filter>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Archivos de origen\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="MeleeEnemy.cpp">
+      <Filter>Archivos de origen\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="MartyrEnemy.cpp">
+      <Filter>Archivos de origen\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="PauseState.cpp">
+      <Filter>Archivos de origen\States</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuState.cpp">
+      <Filter>Archivos de origen\States</Filter>
+    </ClCompile>
+    <ClCompile Include="GameStateMachine.cpp">
+      <Filter>Archivos de origen\States</Filter>
+    </ClCompile>
+    <ClCompile Include="GameState.cpp">
+      <Filter>Archivos de origen\States</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayState.cpp">
+      <Filter>Archivos de origen\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Money.cpp">
+      <Filter>Archivos de origen\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>Archivos de origen\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugDraw.cpp">
+      <Filter>Archivos de origen\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Shooter.cpp">
+      <Filter>Archivos de origen\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="HUD.cpp">
+      <Filter>Archivos de origen\Systems</Filter>
     </ClCompile>
     <ClCompile Include="TTFclass.cpp">
       <Filter>Archivos de origen\Useful</Filter>
@@ -100,26 +121,8 @@
     <ClCompile Include="Texture.cpp">
       <Filter>Archivos de origen\Useful</Filter>
     </ClCompile>
-    <ClCompile Include="GameComponent.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="Money.cpp">
-      <Filter>Archivos de origen\Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="AmmoPackage.cpp">
-      <Filter>Archivos de origen\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="MartyrEnemy.cpp">
-      <Filter>Archivos de origen\Objects\Enemys</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>Archivos de origen\Objects\Enemys</Filter>
-    </ClCompile>
-    <ClCompile Include="MeleeEnemy.cpp">
-      <Filter>Archivos de origen\Objects\Enemys</Filter>
-    </ClCompile>
-    <ClCompile Include="Coin.cpp">
-      <Filter>Archivos de origen\Objects</Filter>
+    <ClCompile Include="Vector2D.cpp">
+      <Filter>Archivos de origen\Useful</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -139,9 +142,6 @@
       <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
     <ClInclude Include="BodyComponent.h">
-      <Filter>Archivos de encabezado\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Component.h">
       <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
     <ClInclude Include="FollowingComponent.h">
@@ -192,6 +192,9 @@
     <ClInclude Include="Bullet.h">
       <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
     <ClInclude Include="Coin.h">
       <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
@@ -204,19 +207,34 @@
     <ClInclude Include="Player.h">
       <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="GameState.h">
-      <Filter>Archivos de encabezado\States</Filter>
+    <ClInclude Include="Tile.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="GameStateMachine.h">
+    <ClInclude Include="MartyrEnemy.h">
+      <Filter>Archivos de encabezado\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="MeleeEnemy.h">
+      <Filter>Archivos de encabezado\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Archivos de encabezado\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Archivos de encabezado\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="PauseState.h">
       <Filter>Archivos de encabezado\States</Filter>
     </ClInclude>
     <ClInclude Include="MenuState.h">
       <Filter>Archivos de encabezado\States</Filter>
     </ClInclude>
-    <ClInclude Include="PauseState.h">
+    <ClInclude Include="PlayState.h">
       <Filter>Archivos de encabezado\States</Filter>
     </ClInclude>
-    <ClInclude Include="PlayState.h">
+    <ClInclude Include="GameStateMachine.h">
+      <Filter>Archivos de encabezado\States</Filter>
+    </ClInclude>
+    <ClInclude Include="GameState.h">
       <Filter>Archivos de encabezado\States</Filter>
     </ClInclude>
     <ClInclude Include="CollisionManager.h">
@@ -228,85 +246,73 @@
     <ClInclude Include="HUD.h">
       <Filter>Archivos de encabezado\Systems</Filter>
     </ClInclude>
-    <ClInclude Include="Layer.h">
-      <Filter>Archivos de encabezado\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="Tile.h">
-      <Filter>Archivos de encabezado\Objects</Filter>
-    </ClInclude>
     <ClInclude Include="Shooter.h">
       <Filter>Archivos de encabezado\Systems</Filter>
     </ClInclude>
-    <ClInclude Include="Vector2D.h">
-      <Filter>Archivos de encabezado\Useful</Filter>
-    </ClInclude>
-    <ClInclude Include="TTFclass.h">
+    <ClInclude Include="checkML.h">
       <Filter>Archivos de encabezado\Useful</Filter>
     </ClInclude>
     <ClInclude Include="Texture.h">
       <Filter>Archivos de encabezado\Useful</Filter>
     </ClInclude>
-    <ClInclude Include="checkML.h">
+    <ClInclude Include="TTFclass.h">
       <Filter>Archivos de encabezado\Useful</Filter>
     </ClInclude>
-    <ClInclude Include="Money.h">
+    <ClInclude Include="Vector2D.h">
+      <Filter>Archivos de encabezado\Useful</Filter>
+    </ClInclude>
+    <ClInclude Include="Layer.h">
       <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>Archivos de encabezado\Objects\Enemys</Filter>
-    </ClInclude>
-    <ClInclude Include="MartyrEnemy.h">
-      <Filter>Archivos de encabezado\Objects\Enemys</Filter>
-    </ClInclude>
-    <ClInclude Include="MeleeEnemy.h">
-      <Filter>Archivos de encabezado\Objects\Enemys</Filter>
+    <ClInclude Include="Money.h">
+      <Filter>Archivos de encabezado\Systems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de encabezado">
-      <UniqueIdentifier>{8f77ca8d-a9e9-4bad-aa15-17c884ccd2fe}</UniqueIdentifier>
+      <UniqueIdentifier>{f82b64c5-9a38-4930-8ed3-c22b5d97b9ea}</UniqueIdentifier>
     </Filter>
     <Filter Include="Archivos de origen">
-      <UniqueIdentifier>{ca928045-765c-472f-9820-6b9fd3c8e89e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Components">
-      <UniqueIdentifier>{49ffba2b-c4fc-4e25-b116-50403de2e6c1}</UniqueIdentifier>
+      <UniqueIdentifier>{e83f97a4-25bc-4e36-8f21-84d2df8b28e8}</UniqueIdentifier>
     </Filter>
     <Filter Include="Archivos de encabezado\Errors">
-      <UniqueIdentifier>{a590bdb2-beb9-408c-ba61-76188153342a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Objects">
-      <UniqueIdentifier>{1b894f5e-bdc7-4bbc-a42e-846ae8f9ab0f}</UniqueIdentifier>
+      <UniqueIdentifier>{7594b010-dc35-4852-b839-cd81d92862ad}</UniqueIdentifier>
     </Filter>
     <Filter Include="Archivos de encabezado\States">
-      <UniqueIdentifier>{b7e6517b-3188-41f1-8e06-44c27e528b72}</UniqueIdentifier>
+      <UniqueIdentifier>{f103fd08-dddb-4fc0-8ff3-64c8ada95c24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Objects">
+      <UniqueIdentifier>{3047f952-c345-4b24-b377-be52385406f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Objects\Enemies">
+      <UniqueIdentifier>{c6dd92a1-3400-4819-88e1-a7ee847b3bac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Components">
+      <UniqueIdentifier>{25b21a1e-f3c6-430c-972e-84492be45baa}</UniqueIdentifier>
     </Filter>
     <Filter Include="Archivos de encabezado\Systems">
-      <UniqueIdentifier>{e29914e5-a488-4c4d-82e8-a840db9bf72e}</UniqueIdentifier>
+      <UniqueIdentifier>{f0e8f9a6-c678-49ca-a0c8-ff738940b1da}</UniqueIdentifier>
     </Filter>
     <Filter Include="Archivos de encabezado\Useful">
-      <UniqueIdentifier>{7c9b851e-98b2-4666-a514-4a5cda6e7660}</UniqueIdentifier>
+      <UniqueIdentifier>{69536d3a-7fe8-45fe-b447-e4fb5c6b11b2}</UniqueIdentifier>
     </Filter>
     <Filter Include="Archivos de origen\Components">
-      <UniqueIdentifier>{13414499-3221-4b7e-a5ad-a63e7fc004c6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Useful">
-      <UniqueIdentifier>{989f4731-b0e4-421f-8d57-257ce0e983d6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Systems">
-      <UniqueIdentifier>{d9fa9364-4d23-4556-9471-37a9fe09b8d5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\States">
-      <UniqueIdentifier>{92666528-668b-416f-924d-cfa225b90918}</UniqueIdentifier>
+      <UniqueIdentifier>{27942ef6-dfae-4885-a1b8-72fa6779137e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Archivos de origen\Objects">
-      <UniqueIdentifier>{3187a49c-eb7e-48ff-91cc-0cfef58c6ca9}</UniqueIdentifier>
+      <UniqueIdentifier>{deebbdb7-8df9-4c49-8d44-147b68415cf9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de encabezado\Objects\Enemys">
-      <UniqueIdentifier>{df4b3fae-26a3-4c9a-b719-5b1104674e27}</UniqueIdentifier>
+    <Filter Include="Archivos de origen\Objects\Enemies">
+      <UniqueIdentifier>{eac59dd3-f858-44e1-b6c7-e8ced0c9ae6d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de origen\Objects\Enemys">
-      <UniqueIdentifier>{002526e4-015a-4a18-9225-2348333f0ac8}</UniqueIdentifier>
+    <Filter Include="Archivos de origen\States">
+      <UniqueIdentifier>{c5037c94-160f-4cb1-8f4a-d4809bbb5fcc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Systems">
+      <UniqueIdentifier>{3aab8429-050d-47c4-9ae4-1f10a457feb2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Useful">
+      <UniqueIdentifier>{cdb6e9ab-fa83-43e1-80c5-72a8196d5c1c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -13,6 +13,8 @@ class BodyComponent;
 
 class Enemy : public GameComponent
 {
+	private:
+		int life;
 	protected:
 		AnimatedSpriteComponent* _anim = nullptr;
 		MovingComponent* _movement = nullptr;

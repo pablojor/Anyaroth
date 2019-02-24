@@ -39,7 +39,7 @@ public:
 	AnimatedSpriteComponent(GameComponent* obj);
 	virtual ~AnimatedSpriteComponent();
 
-	virtual void render() const;
+	virtual void render(Camera* c) const;
 	virtual void update();
 
 	void addAnim(uint name, uint numFrames, bool loop);

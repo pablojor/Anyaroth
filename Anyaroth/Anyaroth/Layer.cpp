@@ -76,10 +76,10 @@ Layer::~Layer()
 }
 
 
-void Layer::render() const
+void Layer::render(Camera* c) const
 {
 	for (Tile* t : _tilemap)
 	{
-		t->render();
+		t->render(c);
 	}
 }
