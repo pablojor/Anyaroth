@@ -3,6 +3,7 @@
 #include "Arm.h"
 #include "Gun.h"
 #include "Shooter.h"
+#include "Money.h"
 
 class Arm;
 class Game;
@@ -12,26 +13,32 @@ class PlayerControllerComponent;
 
 class Player : public GameComponent
 {
-private:
-	int _life;
+	private:
+		Arm* _weaponArm = nullptr;
+		AnimatedSpriteComponent* _anim = nullptr;
+		PlayerControllerComponent* _controller = nullptr;
+		Money* _money = nullptr;
 
-public:
-  	enum states { Idle, Attacking };
-  	uint _currentState = 0;
-	Arm* _weaponArm = nullptr;
-	AnimatedSpriteComponent* _anim;
-	PlayerControllerComponent* _controller;
-  
-	Player(Texture* texture, Game* g, string tag);
-  	~Player();
+		uint _currentState = 0;
 
-	void update();
-	virtual void beginCollision(GameComponent* other);
-	virtual void endCollision(GameComponent* other);
+		int _life;
+
+	public:
+  		enum states { Idle, Attacking, Reloading };
   
-	void setArm(Arm* arm) { _weaponArm = arm; };
-	void equipGun(int gunIndex);
+		Player(Texture* texture, Game* g, string tag);
+		~Player();
+
+		void update();
+		virtual void beginCollision(GameComponent* other);
+		virtual void endCollision(GameComponent* other);
   
-	uint getCurrentState() { return _currentState; };
-	void setCurrentState(uint n) { _currentState = n; };
+		void setArm(Arm* arm) { _weaponArm = arm; };
+		Arm* getWeaponArm() { return _weaponArm; }
+		void equipGun(int gunIndex);
+  
+		void reload();
+
+		uint getCurrentState() { return _currentState; };
+		void setCurrentState(uint n) { _currentState = n; };
 };

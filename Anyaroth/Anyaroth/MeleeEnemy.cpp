@@ -1,19 +1,19 @@
-#include "MeleeEnemyComponent.h"
+#include "MeleeEnemy.h"
 #include "GameComponent.h"
 #include "AnimatedSpriteComponent.h"
 #include "Player.h"
 
 
-MeleeEnemyComponent::MeleeEnemyComponent(Game* g, Player* player, Texture* texture, Vector2D posIni) : Enemy(g, player, texture, posIni, "MeleeEnemy")
+MeleeEnemy::MeleeEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni) : Enemy(player, g, play,texture, posIni, "MeleeEnemy")
 {
 	_vision = 300;
 	_flipRange = 5;
-	_attackRange = 25;
-	_attackTime = 1500;
+	_attackRange = 25; //No se puede poner mas pequeï¿½o que la velocidad
+	_attackTime = 1000; //La animacion tarda unos 450
 	_life = 50;
 }
 
-void MeleeEnemyComponent::update()
+void MeleeEnemy::update()
 {
 	Enemy::update();
 
@@ -44,7 +44,6 @@ void MeleeEnemyComponent::update()
 				_anim->playAnim(AnimatedSpriteComponent::MeleeKnife); //Llamas a animacion de ataque
 				_time = SDL_GetTicks();
 				_attacking = true;
-				cout << "attacking" << endl;
 			}
 		}
 		else if (x < -_flipRange)
@@ -62,7 +61,6 @@ void MeleeEnemyComponent::update()
 				_anim->playAnim(AnimatedSpriteComponent::MeleeKnife); //Llamas a animacion de ataque
 				_time = SDL_GetTicks();
 				_attacking = true;
-				cout << "attacking" << endl;
 			}
 		}
 	}
@@ -71,10 +69,9 @@ void MeleeEnemyComponent::update()
 		if (SDL_GetTicks() > _time + _attackTime)
 		{
 			_attacking = false;
-			cout << "moving again" << endl;
 			_anim->playAnim(AnimatedSpriteComponent::Idle);
 			//if(colision de arma con jugador)
-			//	llamas daño al jugador
+			//	llamas daï¿½o al jugador
 		}
 	}
 	else

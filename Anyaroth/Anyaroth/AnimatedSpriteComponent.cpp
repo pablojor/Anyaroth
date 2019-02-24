@@ -45,7 +45,7 @@ void AnimatedSpriteComponent::update()
 
 			if (_frame == _animations[_currentAnim].numFrames)
 			{
-				cout << "animation finished!" << endl;
+				//cout << "animation finished!" << endl;
 				_animations[_currentAnim].animationFinished = true;
 				_frame = _animations[_currentAnim].numFrames - 1;
 			}
@@ -56,7 +56,7 @@ void AnimatedSpriteComponent::update()
 	}
 }
 
-void AnimatedSpriteComponent::playAnim(Animations name)
+void AnimatedSpriteComponent::playAnim(uint name)
 {
 	_animations[_currentAnim].animationFinished = false;
 
@@ -64,11 +64,12 @@ void AnimatedSpriteComponent::playAnim(Animations name)
 	{
 		_currentAnim = name;
 		_frame = 0;
+		//cout << "animation changed to: " << _currentAnim << endl << endl;
 	}
 }
 
-void AnimatedSpriteComponent::addAnim(Animations name, uint numFrames, bool loop)
+void AnimatedSpriteComponent::addAnim(uint name, uint numFrames, bool loop)
 {
-	_animations.push_back({ (uint)name, numFrames, loop, false });
+	_animations.push_back({ name, numFrames, loop, false });
 }
 

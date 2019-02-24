@@ -6,23 +6,21 @@
 #include "Game.h"
 #include "Player.h"
 
-Enemy::Enemy(Game* g, Player* player, Texture* texture, Vector2D posIni, string tag) : GameComponent(g, tag)
+Enemy::Enemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag) : _playerTransform(player->getComponent<TransformComponent>()), _play(play), GameComponent(g, tag)
 {
 	addComponent<Texture>(texture);
 
 	_transform = addComponent<TransformComponent>();
 	_transform->setPosition(posIni.getX(), posIni.getY());
 
-	auto body = addComponent<BodyComponent>();
-
-	body->getBody()->SetType(b2_dynamicBody);
-	body->getBody()->SetBullet(true);
-	body->getBody()->SetFixedRotation(true);
-	body->setW(20);
-	body->filterCollisions(ENEMIES, FLOOR);
-
-	auto anim = addComponent<AnimatedSpriteComponent>();
-	addComponent<MovingComponent>();
+	_body = addComponent<BodyComponent>();
+	_body->getBody()->SetType(b2_dynamicBody);
+	_body->getBody()->SetBullet(true);
+	_body->getBody()->SetFixedRotation(true);
+	_body->setW(20);
+	_body->filterCollisions(ENEMIES, FLOOR);
+	
+	//auto playerTrans = addComponent<MeleeEnemyComponent>();
 
 	_anim = addComponent<AnimatedSpriteComponent>();
 	_anim->addAnim(AnimatedSpriteComponent::Idle, 16, true);
@@ -34,7 +32,10 @@ Enemy::Enemy(Game* g, Player* player, Texture* texture, Vector2D posIni, string 
 
 	_movement = addComponent<MovingComponent>();
 }
-
+void Enemy::setItList(list<GameObject*>::iterator itFR)
+{
+	_itList = itFR;
+}
 void Enemy::update()
 {
 	GameComponent::update();

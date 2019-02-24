@@ -14,13 +14,19 @@ class PlayerControllerComponent : public InputComponent
 		MovingComponent* _movement = nullptr;
 		bool _wPul = false, _aPul = false, _sPul = false, _dPul = false;
 		bool _rightClickPul = false, _isAttacking = false, jump = false;
-
+		bool _isReloading = false, _rPul = false;
 	public:
 		PlayerControllerComponent(GameComponent* obj);
 		virtual void handleInput(const SDL_Event& event);
 		
 		void changeJump();
 		void ableJump();
+
 		bool isAttacking() { return _isAttacking; };
 		void setIsAttacking(bool b) { _isAttacking = b; };
+
+		bool isReloading() { return _isReloading; };
+		void setIsReloading(bool b) { _isReloading = b; };
+
+		void reload();
 };

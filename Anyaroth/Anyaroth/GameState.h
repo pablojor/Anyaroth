@@ -25,4 +25,5 @@ class GameState
 		virtual void handleEvents(SDL_Event& e);
 
 		virtual Camera* getMainCamera() { return _mainCamera; };
+		virtual list <GameObject*> getObjects() { return _stages; }
 };

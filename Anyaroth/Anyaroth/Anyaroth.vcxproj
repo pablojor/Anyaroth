@@ -124,19 +124,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AmmoPackage.cpp" />
     <ClCompile Include="AnimatedSpriteComponent.cpp" />
     <ClCompile Include="BodyComponent.cpp" />
     <ClCompile Include="Arm.cpp" />
     <ClCompile Include="ArmControllerComponent.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Collectable.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="DebugDraw.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="FollowingComponent.cpp" />
-    <ClCompile Include="MeleeEnemyComponent.cpp" />
+    <ClCompile Include="MartyrEnemy.cpp" />
+    <ClCompile Include="MeleeEnemy.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="FrameComponent.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -156,7 +159,7 @@
     <ClCompile Include="RenderComponent.cpp" />
     <ClCompile Include="Shooter.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
-    <ClCompile Include="Storage.cpp" />
+    <ClCompile Include="Money.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TransformComponent.cpp" />
@@ -181,7 +184,8 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="HUD.h" />
     <ClInclude Include="FollowingComponent.h" />
-    <ClInclude Include="MeleeEnemyComponent.h" />
+    <ClInclude Include="MartyrEnemy.h" />
+    <ClInclude Include="MeleeEnemy.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="FileFormatError.h" />
     <ClInclude Include="FileNotFoundError.h" />
@@ -204,7 +208,7 @@
     <ClInclude Include="SDLError.h" />
     <ClInclude Include="Shooter.h" />
     <ClInclude Include="SpriteComponent.h" />
-    <ClInclude Include="Storage.h" />
+    <ClInclude Include="Money.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="TransformComponent.h" />
