@@ -33,7 +33,7 @@ const string SPRITE_PATH = "..\\assets\\sprites\\";
 const string TILEMAP_PATH = "..\\files\\tilemaps\\";
 
 
-const int NUM_TEXTURES = 7;
+const int NUM_TEXTURES = 9;
 const int NUM_FONTS = 0;
 
 const int NUM_LEVELS = 1;
@@ -58,6 +58,12 @@ struct GunAttributes
 	int maxClip;
 };
 
+enum _Category {
+	FLOOR = 0x0001,
+	ENEMIES = 0x0002,
+	PLAYER = 0x0003,
+	OBJECTS = 0x0004,
+};
 //********************************************************************************
 //********************************************************************************
 //********************************************************************************

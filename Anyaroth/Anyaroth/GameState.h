@@ -18,4 +18,5 @@ class GameState
 		virtual void render() const;
 		virtual void update();
 		virtual void handleEvents(SDL_Event& e);
+		virtual list <GameObject*> getObjects() { return _stages; }
 };
