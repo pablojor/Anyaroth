@@ -1,5 +1,8 @@
 #include "Vector2D.h"
 #include <math.h>
+#include <assert.h>
+
+#define PI 3.14159265358979323846264338327950288
 
 Vector2D::Vector2D() : _x(), _y() {}
 
@@ -21,6 +24,36 @@ void Vector2D::normalize()
 		_x = _x / mag;
 		_y = _y / mag;
 	}
+}
+
+Vector2D Vector2D::rotate(double degrees) {
+	Vector2D r;
+
+	degrees = fmod(degrees, 360);
+	if (degrees > 180) {
+		degrees = degrees - 360;
+	}
+	else if (degrees <= -180) {
+		degrees = 360 + degrees;
+	}
+
+	assert(degrees >= -180 && degrees <= 180);
+
+	double angle = degrees * PI / 180;
+	double sine = sin(angle);
+	double cosine = cos(angle);
+
+	//rotation matix
+	double matrix[2][2] = { { cosine, -sine },{ sine, cosine } };
+
+	double x = _x;
+	double y = _y;
+
+	r._x = matrix[0][0] * x + matrix[0][1] * y;
+	r._y = matrix[1][0] * x + matrix[1][1] * y;
+
+	return r;
+
 }
 
 Vector2D Vector2D::operator+(const Vector2D& v) const 

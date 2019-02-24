@@ -38,7 +38,6 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 		{
 			_rPul = true;
 		}
-
 	}
 
 	if (event.type == SDL_KEYUP)
@@ -62,7 +61,6 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 			_rPul = false;
 			//_isReloading = false;
 		}
-
 	}
 
 	if (event.type == SDL_MOUSEBUTTONDOWN)
@@ -91,9 +89,7 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 		static_cast<Player*>(_obj)->setCurrentState(Player::Attacking);
 		_anim->playAnim(AnimatedSpriteComponent::MeleeKnife);//llamo animacion del melee dependiendo del arma cuerpo a cuerpo
 	}
-
-
-
+	
 	if ((_aPul &&_dPul ) && !_isAttacking&&!_dashing && !_isReloading)
 	{
 		_movement->changeDir(0, 0); //Llamo a animacion idle
@@ -164,15 +160,24 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 		}
 	}
 	
-
+if (_rPul) //&& !isReloading)
+	{
+		if (static_cast<Player*>(_obj)->_weaponArm->reload())   //llamo a función de recargar
+		{
+			reload();
+		}
+	}
 }
 
 void PlayerControllerComponent::changeJump()
 {
 	
 	_jumping = true;
+	
 		if(!_dashing)
 		_movement->changeDir(_movement->getDirX(), 0);
+	
+
 
 }
 
@@ -184,7 +189,7 @@ void PlayerControllerComponent::ableJump()
 		_movement->changeDash(false);
 	}
 	_jumping = false;
-	
+	//jump = true;
 }
 
 void PlayerControllerComponent::wallOnLeft(bool yes)

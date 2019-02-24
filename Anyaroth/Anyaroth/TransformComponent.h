@@ -18,6 +18,7 @@ class TransformComponent : public Component
 		~TransformComponent() {}
 
 		void setPosition(double x, double y) { _position = Vector2D(x, y); }
+		void setPosition(Vector2D pos) { _position = pos; }
 		void setScale(double x, double y) { _scale = Vector2D(x, y); }
 		void setScale(double a) { _scale = Vector2D(a, a); }
 

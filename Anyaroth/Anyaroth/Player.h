@@ -4,15 +4,20 @@
 #include "Gun.h"
 #include "Shooter.h"
 #include "Money.h"
+#include "PlayState.h"
 
 class Arm;
 class Game;
 
 class AnimatedSpriteComponent;
 class PlayerControllerComponent;
+class PlayState;
 
 class Player : public GameComponent
 {
+private:
+	int _life;
+	PlayState* _play = nullptr;
 
 private:
   	int _life;
@@ -28,10 +33,16 @@ private:
 	  int _MaxDash = 2;
 	  Money * _money = nullptr;
 public:
-	enum states { Idle, Attacking, Reloading };
+
+enum states { Idle, Attacking, Reloading };
+
+  	uint _currentState = 0;
+	Arm* _weaponArm = nullptr;
+	AnimatedSpriteComponent* _anim;
+	PlayerControllerComponent* _controller;
   
-	Player(Texture* texture, Game* g, string tag);
-	~Player();
+	Player(Texture* texture, Game* g, PlayState* play, string tag);
+  	~Player();
 
 	void update();
 	virtual void beginCollision(GameComponent* other);
@@ -44,8 +55,7 @@ public:
 
 	void setArm(Arm* arm) { _weaponArm = arm; };
 	Arm* getWeaponArm() { return _weaponArm; }
-	void equipGun(int gunIndex);
-
+	void equipGun(int gunIndex, int bulletPoolIndex = 0);
   
 	void reload();
 

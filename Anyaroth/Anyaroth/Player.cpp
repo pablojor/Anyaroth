@@ -5,16 +5,17 @@
 #include "Game.h"
 #include "FollowingComponent.h"
 #include "AnimatedSpriteComponent.h"
+#include "PoolWrapper.h"
 #include "Coin.h"
 
-Player::Player(Texture* texture, Game* g, string tag) : GameComponent(g, tag)
+Player::Player(Texture* texture, Game* g, PlayState* play, string tag) : _play(play), GameComponent(g, tag)
 {
 	//Siempre primero los componentes que tienen que estar SI o SI.
 	addComponent<Texture>(texture);
 
 	//Resto de componentes
-	//addComponent<FollowingComponent>(this);
-
+	auto transform = addComponent<TransformComponent>();		//Como en el metodo anterior se ha creado este componente, imprime por pantalla que ya existe uno.
+	transform->setPosition(0, 50);
 
 	 _transform = addComponent<TransformComponent>();		//Como en el metodo anterior se ha creado este componente, imprime por pantalla que ya existe uno.
 	 _transform->setPosition(50, 50);
@@ -43,7 +44,7 @@ Player::Player(Texture* texture, Game* g, string tag) : GameComponent(g, tag)
 	//Brazo con arma
 	//_weaponArm = new Arm(getGame()->getTexture("ArmPistol"), this, getGame(), { 10,12 }); 
 
-	_weaponArm = new Arm(getGame()->getTexture("ArmPistol"), this, getGame(), { 11,5 }); //Parámetros para la pistola
+	_weaponArm = new Arm(getGame()->getTexture("ArmPistol"), this, getGame(), { 26,5 }); //Parámetros para la pistola
 	addChild(_weaponArm);
 
 	//Equipa el arma inicial
@@ -204,14 +205,18 @@ void Player::update()
 }
 
 //Equipa un arma utilizando el array de atributos gameGuns de Game.h
-void Player::equipGun(int gunIndex)
+void Player::equipGun(int gunIndex, int bulletPoolIndex)
 {
 	Shooter* sh = &getGame()->gameGuns[gunIndex].shooter;
 	string name = getGame()->gameGuns[gunIndex].name;
 	int mA = getGame()->gameGuns[gunIndex].maxAmmo;
 	int mC= getGame()->gameGuns[gunIndex].maxClip;
 
-	_weaponArm->setGun(new Gun(this, sh, name, mA, mC));
+	// TEMPORAL
+	PoolWrapper* bp = _play->getBulletPool();
+	//
+
+	_weaponArm->setGun(new Gun(_weaponArm, sh, bp, name, mA, mC));
 	//cout << "Gun equipada" << endl << endl << endl << endl << endl << endl;
 }
 

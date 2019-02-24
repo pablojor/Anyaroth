@@ -29,6 +29,8 @@ class GameComponent: public GameObject
 		//puntero a game
 		Game* _game = nullptr;
 
+		bool _active = false;
+
 		void add_component(Component* c, string name) { _components[name] = c; }
 
 		template<class ComponentType>
@@ -85,6 +87,7 @@ class GameComponent: public GameObject
 		virtual void delRenderComponent(RenderComponent* rc);
 
 		b2World* getWorld();
+		void setWorld(b2World* world) { _world = world; };
 
 		virtual void beginCollision(GameComponent* other) {};
 		virtual void endCollision(GameComponent* other) {};
@@ -96,6 +99,8 @@ class GameComponent: public GameObject
 		Game* getGame() { return _game; }
 
 		string getTag() { return _tag; }
+		void setActive(bool active) { _active = active; };
+		bool isActive() const { return _active; };
 
 		template<class ComponentType>
 		ComponentType* addComponent()

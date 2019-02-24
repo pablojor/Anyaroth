@@ -16,7 +16,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	
 
 	//cuerpo
-	_player = new Player(g->getTexture("Mk"), g, "Player");
+	_player = new Player(g->getTexture("Mk"), g, this, "Player");
 	_stages.push_back(_player);
 
 	_mainCamera->fixCameraToObject(_player);
@@ -36,11 +36,20 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_stages.push_back(_enemy);
 
 	itFR = --(_stages.end());
+
 	_enemy->setItList(itFR);
+	
+	//----Pools de balas
+
+	//Pool arma b�sica
+	_examplePool = new BulletPool<100>(g, g->getTexture("example1"), 10, 10);
+	_stages.push_back(_examplePool);
+	
 }
 
 void PlayState::KillObject(list<GameObject*>::iterator itList)
 {
+	delete *itList;
 	items_ToDelete.push_back(itList);
 }
 

@@ -3,9 +3,24 @@
 #include <algorithm>
 
 
-Gun::Gun(GameComponent* shootingObj, Shooter* shooterComp, string name, int maxAmmo, int maxClip, int bulletsPerShot) : _shootingObj(shootingObj), _shooterComp(shooterComp), _name(name), _maxAmmo(maxAmmo), _maxClip(maxClip), _ammo(maxAmmo), _clip(maxClip), _bulletsPerShot(bulletsPerShot) {}
+Gun::Gun(GameComponent* shootingObj, Shooter* shooterComp, PoolWrapper* bp, string name, int maxAmmo, int maxClip, int bulletsPerShot) : _shootingObj(shootingObj), _shooterComp(shooterComp), _bPool(bp), _name(name), _maxAmmo(maxAmmo), _maxClip(maxClip), _ammo(maxAmmo), _clip(maxClip), _bulletsPerShot(bulletsPerShot) 
+{
+	_shooterComp->init(_shootingObj, _bPool);
+}
 
 Gun::~Gun() {}
+
+
+void Gun::setShooter(Shooter* sh) 
+{
+	_shooterComp = sh; 
+
+	if (_shootingObj != nullptr && _bPool != nullptr)
+		_shooterComp->init(_shootingObj, _bPool);
+	else
+		cout << "No se pudo inicializar Shooter del arma" << endl;
+}
+
 
 //m�todo auxiliar de reload
 void Gun::reloadAux(int newClipValue)
@@ -81,15 +96,15 @@ void Gun::useAmmo()
 	*/
 }
 
-bool Gun::shoot() 
+bool Gun::shoot(Vector2D bulletPosition, Vector2D bulletDir)
 {
 	if (_clip >= _bulletsPerShot //Si hay suficientes balas en el cargador
 		&& _shooterComp != nullptr) //Si tiene un shooter, llama a su shoot()
 	{
-		_shooterComp->shoot();
+		_shooterComp->shoot( bulletPosition,  bulletDir);
 
 		//Reduce la munici�n actual
-		useAmmo();
+		//useAmmo();
 
 		//Dispara
 		cout << "Piumm!" << endl;

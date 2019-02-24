@@ -4,10 +4,9 @@
 #include "Player.h"
 
 
-MeleeEnemy::MeleeEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni) : Enemy(player, g, play,texture, posIni, "MeleeEnemy")
+MeleeEnemy::MeleeEnemy(Player* player, Game* g, PlayState* play,Texture* texture, Vector2D posIni) : Enemy(player, g, play,texture, posIni)
 {
 	_vision = 300;
-	_flipRange = 5;
 	_attackRange = 25; //No se puede poner mas peque�o que la velocidad
 	_attackTime = 1000; //La animacion tarda unos 450
 	_life = 50;
@@ -29,7 +28,7 @@ void MeleeEnemy::update()
 
 	if (!_attacking && x < _vision && x > -_vision)
 	{
-		if (x > _flipRange)
+		if (x > 0)
 		{
 			_anim->unFlip();
 
@@ -46,7 +45,7 @@ void MeleeEnemy::update()
 				_attacking = true;
 			}
 		}
-		else if (x < -_flipRange)
+		else if (x < 0)
 		{
 			_anim->flip();
 
