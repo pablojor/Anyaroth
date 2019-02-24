@@ -17,6 +17,8 @@ private:
 	double _speed = 0;
 	int _damage = 0;
 
+	bool _collided;
+
 	Vector2D _velocity = { 0,0 };
 
 	TransformComponent* _trans = nullptr;
@@ -26,6 +28,7 @@ public:
 	Bullet();
 	virtual ~Bullet();
 
+	void beginCollision(GameComponent* other);
 	void setSpeed(double speed) { _speed = speed; };
 	void setDamage(double damage) { _damage = damage; };
 	int getDamage() { return _damage; };

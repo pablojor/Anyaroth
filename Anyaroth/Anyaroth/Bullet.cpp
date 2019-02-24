@@ -12,7 +12,14 @@ Bullet::Bullet()
 Bullet::~Bullet() 
 {
 }
+void Bullet::beginCollision(GameComponent * other)
+{
+	auto myTransform = this->getComponent<TransformComponent>();
 
+	auto otherTransform = other->getComponent<TransformComponent>();
+
+	_collided = true;
+}
 
 void Bullet::init(Texture* texture, double speed, int damage, int range)
 {
@@ -48,7 +55,7 @@ void Bullet::update()
 	if (!isActive())
 		return;
 
-	if (_aliveTime < _range * 10)
+	if (_aliveTime < _range * 10 && !_collided)
 	{
 		//cout << "X: " << getComponent<TransformComponent>()->getPosition().getX() << "	Y: " << getComponent<TransformComponent>()->getPosition().getY() << endl << endl;
 		
