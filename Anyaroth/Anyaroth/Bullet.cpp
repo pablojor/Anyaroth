@@ -18,7 +18,7 @@ void Bullet::beginCollision(GameComponent * other)
 
 	auto otherTransform = other->getComponent<TransformComponent>();
 
-	_collided = true;
+	//_collided = true;
 }
 
 void Bullet::init(Texture* texture, double speed, int damage, int range)
@@ -89,4 +89,5 @@ void Bullet::reset()
 {
 	setActive(true);
 	_aliveTime = 0;
+	_collided = false;
 }

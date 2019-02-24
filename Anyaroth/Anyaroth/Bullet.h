@@ -17,7 +17,7 @@ private:
 	double _speed = 0;
 	int _damage = 0;
 
-	bool _collided;
+	bool _collided = false;
 
 	Vector2D _velocity = { 0,0 };
 
