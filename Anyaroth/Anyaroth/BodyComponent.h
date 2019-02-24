@@ -21,5 +21,9 @@ public:
 	b2Body* getBody();
 	void setW(double w);
 	void setH(double h);
+
+	double getW();
+	double getH();
+
 	void filterCollisions(uint16 ownCategory, uint16 collidesWith);
 };

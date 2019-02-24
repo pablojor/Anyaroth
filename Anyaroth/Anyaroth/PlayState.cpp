@@ -22,9 +22,10 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_mainCamera->fixCameraToObject(_player);
 
 	//Enemy
+
 	/*_enemy = new Enemy(_player, g, g->getTexture("Mk"), Vector2D(50, 10), "Enemy");
 	_stages.push_back(_enemy);*/
-
+  
 	Coin* coin = new Coin(this, g, g->getTexture("Coin"), Vector2D(100, 75), 20);
 	_stages.push_back(coin);
 

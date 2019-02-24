@@ -13,8 +13,7 @@ class BodyComponent;
 
 class Enemy : public GameComponent
 {
-	private:
-		int life;
+
 	protected:
 		AnimatedSpriteComponent* _anim = nullptr;
 		MovingComponent* _movement = nullptr;
@@ -33,6 +32,14 @@ class Enemy : public GameComponent
 		Enemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag);
 		virtual ~Enemy() {}
 
+    virtual void setLife(double amount);
+	  virtual void addLife(double amount);
+	  virtual void subLife(double amount);
+	  virtual void die();
+
+	  virtual void beginCollision(GameComponent* other);
+  
 		void setItList(list<GameObject*>::iterator itFR);
 		virtual void update();
+    
 };

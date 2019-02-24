@@ -3,6 +3,7 @@
 #include "SpriteComponent.h"
 #include "PlayState.h"
 
+
 Collectable::Collectable(PlayState* play, Game* g, Texture* texture, Vector2D iniPos, int value, string tag) : _play(play), _value(value), GameComponent(g, tag)
 {
 	addComponent<Texture>(texture);

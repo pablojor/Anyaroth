@@ -29,7 +29,8 @@ BodyComponent::BodyComponent(GameComponent * obj) : PhysicsComponent(obj)
 	_fixture.shape = &_shape;
 	_fixture.density = 1;
 	_fixture.restitution = 0;
-	_fixture.friction = 1.5;
+	_fixture.friction = 1;
+
 	
 
 	_body->CreateFixture(&_fixture);
@@ -71,6 +72,17 @@ void BodyComponent::setH(double h)
 	
 	_shape.SetAsBox(_width, _height);
 	_body->CreateFixture(&_fixture);
+}
+
+
+double BodyComponent::getW()
+{
+	return _width;
+}
+
+double BodyComponent::getH()
+{
+	return _height;
 }
 
 //recive la categoria a la que pertenece y las categorias con las que colisiona (del enum _Category)

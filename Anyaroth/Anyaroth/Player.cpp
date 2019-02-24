@@ -15,16 +15,17 @@ Player::Player(Texture* texture, Game* g, string tag) : GameComponent(g, tag)
 	//Resto de componentes
 	//addComponent<FollowingComponent>(this);
 
-	auto transform = addComponent<TransformComponent>();		//Como en el metodo anterior se ha creado este componente, imprime por pantalla que ya existe uno.
-	transform->setPosition(50, 50);
 
-	auto body = addComponent<BodyComponent>();
-	body->getBody()->SetType(b2_dynamicBody);
-	body->getBody()->SetBullet(true);
-	body->getBody()->SetFixedRotation(true);
-	body->setW(20);
-	body->filterCollisions(PLAYER, OBJECTS | FLOOR);
-	
+	 _transform = addComponent<TransformComponent>();		//Como en el metodo anterior se ha creado este componente, imprime por pantalla que ya existe uno.
+	 _transform->setPosition(50, 50);
+
+	 _body = addComponent<BodyComponent>();
+	 _body->getBody()->SetType(b2_dynamicBody);
+	 _body->getBody()->SetBullet(true);
+	 _body->getBody()->SetFixedRotation(true);
+	 _body->setW(20);
+	 _body->filterCollisions(PLAYER, OBJECTS | FLOOR /*| ENEMY_BULLETS*/);
+
 	_anim = addComponent<AnimatedSpriteComponent>();		//Como depende de Transform, en su constructura crea una si no ha encontrado Transform en el objeto.
 	_anim->addAnim(AnimatedSpriteComponent::Idle, 16, true);
 	_anim->addAnim(AnimatedSpriteComponent::Walk, 10, true);
@@ -48,8 +49,10 @@ Player::Player(Texture* texture, Game* g, string tag) : GameComponent(g, tag)
 	//Equipa el arma inicial
 	equipGun(getGame()->BasicGun);
 
+	AmountOfCollision = 0;
 	//Monedore
 	_money = new Money();
+
 }
 
 Player::~Player()
@@ -59,15 +62,43 @@ Player::~Player()
 
 void Player::beginCollision(GameComponent * other)
 {
-	auto myTransform = this->getComponent<TransformComponent>();
-	auto myControler = this->getComponent<PlayerControllerComponent>();
-
+	
 	auto otherTransform = other->getComponent<TransformComponent>();
+	auto otherBody = other->getComponent<BodyComponent>();
 
-	if (myTransform->getPosition().getY() < otherTransform->getPosition().getY())
-		myControler->ableJump();
+	double myH = _body->getH(), myW = _body->getW();
+	double otherH = otherBody->getH(), otherW = otherBody->getW();
+	string otherTag = other->getTag();
+	if (otherTag == "Suelo")
+	{
+		AmountOfCollision += 1;
+		
+		if (_transform->getPosition().getY() + myH * (M_TO_PIXEL * 2) < otherTransform->getPosition().getY())
+		{
+			_controller->ableJump();
 
-	if(other->getTag() == "Moneda")
+		}
+		else if (_transform->getPosition().getY() + myH * (M_TO_PIXEL * 2) > otherTransform->getPosition().getY())
+		{
+			
+			if (_transform->getPosition().getY() <= otherTransform->getPosition().getY() + otherH * (M_TO_PIXEL * 2))
+			{
+				if (_transform->getPosition().getX() + myW * (M_TO_PIXEL) < otherTransform->getPosition().getX() - otherW * (M_TO_PIXEL * 2))
+				{
+					_controller->wallOnRight(true);
+				}
+				else
+					_controller->wallOnLeft(true);
+			}
+		}
+	}
+	else if (otherTag == "Bullet")
+	{
+		double damage = 0;
+		//damage=dynamic_cast<Bullet*>(other).getDamage();
+		subLife(damage);
+	}
+  else if(other->getTag() == "Moneda")
 	{
 		auto coin = dynamic_cast<Coin*>(other);
 		auto cant = coin->getValue();
@@ -80,17 +111,69 @@ void Player::beginCollision(GameComponent * other)
 
 void Player::endCollision(GameComponent * other)
 {
-	auto myTransform = this->getComponent<TransformComponent>();
-	auto myControler = this->getComponent<PlayerControllerComponent>();
+	
+	
 
 	auto otherTransform = other->getComponent<TransformComponent>();
+	auto otherBody = other->getComponent<BodyComponent>();
 
-	if (myTransform->getPosition().getY() < otherTransform->getPosition().getY())
-		myControler->changeJump();
+	double myH = _body->getH(), myW = _body->getW();
+	double otherH = otherBody->getH(), otherW = otherBody->getW();
+
+	string otherTag = other->getTag();
+	if (otherTag == "Suelo")
+	{
+		AmountOfCollision -= 1;
+
+		if (_transform->getPosition().getY() + myH * (M_TO_PIXEL * 2) < otherTransform->getPosition().getY())
+		{
+
+
+			if ((_body->getBody()->GetLinearVelocity().y < -0.5))
+			{
+				_controller->changeJump();
+			}
+		}
+		if (_transform->getPosition().getY() + myH * (M_TO_PIXEL * 2) > otherTransform->getPosition().getY() ||
+			(_transform->getPosition().getY() + myH * (M_TO_PIXEL * 2) < otherTransform->getPosition().getY()) && (AmountOfCollision == 0))
+		{
+
+			if (_transform->getPosition().getX() + myW * (M_TO_PIXEL) < otherTransform->getPosition().getX() - otherW * (M_TO_PIXEL * 2))
+			{
+				_controller->wallOnRight(false);
+			}
+			else
+				_controller->wallOnLeft(false);
+		}
+	}
+}
+
+void Player::setLife(double amount)
+{
+	_life = amount;
+}
+
+
+void Player::addLife(double amount)
+{
+	_life += amount;
+}
+
+void Player::subLife(double amount)
+{
+	if (_life > amount)
+		_life -= amount;
+	else
+		die();
+}
+
+void Player::die()
+{
 }
 
 void Player::update()
 {
+	
 	GameComponent::update();
 
 	if (_anim->animationFinished())
@@ -101,6 +184,23 @@ void Player::update()
 
 		_currentState = Idle;
 	}
+	
+	if (AmountOfCollision<=0)
+	{
+		_controller->changeJump();
+	}
+	
+	if (_controller->amountDash() < _MaxDash)
+	{
+		if (SDL_GetTicks() > _timer + _dashCD)
+		{
+			
+			_controller->newDash();
+			_timer = SDL_GetTicks();
+		}
+	}
+	else
+		_timer = SDL_GetTicks();
 }
 
 //Equipa un arma utilizando el array de atributos gameGuns de Game.h

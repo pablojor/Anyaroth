@@ -5,6 +5,7 @@
 #include "MovingComponent.h"
 #include "Game.h"
 #include "Player.h"
+#include "Bullet.h"
 
 Enemy::Enemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag) : _playerTransform(player->getComponent<TransformComponent>()), _play(play), GameComponent(g, tag)
 {
@@ -18,8 +19,8 @@ Enemy::Enemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2
 	_body->getBody()->SetBullet(true);
 	_body->getBody()->SetFixedRotation(true);
 	_body->setW(20);
-	_body->filterCollisions(ENEMIES, FLOOR);
-	
+	_body->filterCollisions(ENEMIES, FLOOR | PLAYER_BULLETS);
+
 	//auto playerTrans = addComponent<MeleeEnemyComponent>();
 
 	_anim = addComponent<AnimatedSpriteComponent>();
@@ -36,7 +37,41 @@ void Enemy::setItList(list<GameObject*>::iterator itFR)
 {
 	_itList = itFR;
 }
+
+void Enemy::beginCollision(GameComponent * other)
+{
+	string otherTag = other->getTag();
+	if (otherTag == "Bullet")
+	{
+		double damage = 0;
+		//damage=dynamic_cast<Bullet*>(other).getDamage();
+		subLife(damage);
+	}
+}
+
 void Enemy::update()
 {
 	GameComponent::update();
+}
+
+void Enemy::setLife(double amount)
+{
+	_life = amount;
+}
+
+void Enemy::addLife(double amount)
+{
+	_life += amount;
+}
+
+void Enemy::subLife(double amount)
+{
+	if (_life > amount)
+		_life -= amount;
+	else
+		die();
+}
+
+void Enemy::die()
+{
 }

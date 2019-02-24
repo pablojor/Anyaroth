@@ -102,7 +102,7 @@ Game::Game()
 
 	//---Create textures
 	createTextures();
-	_world = new b2World(b2Vec2(0.0, 9.8));
+	_world = new b2World(b2Vec2(0.0, 20));
 	//---Create states
 	states[Play] = new PlayState(this);
 
@@ -113,6 +113,7 @@ Game::Game()
 	debugger.getRenderer(renderer);
 	debugger.getTexture(getTexture("body"));
 	debugger.SetFlags(b2Draw::e_shapeBit);
+	debugger.getTexture(getTexture("body"));
 
 	//Gestion de colisiones
 	_world->SetContactListener(&colManager);

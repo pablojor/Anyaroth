@@ -39,8 +39,8 @@ const string SAVES_PATH = "..\\files\\saves\\";
 const string SPRITE_PATH = "..\\assets\\sprites\\";
 const string TILEMAP_PATH = "..\\files\\tilemaps\\";
 
-
 const int NUM_TEXTURES = 9;
+
 const int NUM_FONTS = 0;
 
 const int NUM_LEVELS = 1;
@@ -70,6 +70,9 @@ enum _Category {
 	ENEMIES = 0x0002,
 	PLAYER = 0x0003,
 	OBJECTS = 0x0004,
+	PLAYER_BULLETS=0x0005,
+	ENEMY_BULLETS=0x0006
+
 };
 //********************************************************************************
 //********************************************************************************
