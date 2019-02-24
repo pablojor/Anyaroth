@@ -19,7 +19,7 @@ Enemy::Enemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2
 	_body->getBody()->SetBullet(true);
 	_body->getBody()->SetFixedRotation(true);
 	_body->setW(20);
-	body->filterCollisions(ENEMIES, FLOOR | PLAYER_BULLETS);
+	_body->filterCollisions(ENEMIES, FLOOR | PLAYER_BULLETS);
 
 	//auto playerTrans = addComponent<MeleeEnemyComponent>();
 
