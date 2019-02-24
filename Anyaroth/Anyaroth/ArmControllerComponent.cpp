@@ -31,6 +31,8 @@ void ArmControllerComponent::handleInput(const SDL_Event& event)
 		mouseY = event.motion.y;
 	}
 
+	cout << "X: " << mouseX << "  Y: " << mouseY << endl;
+
 	//------------Flip del brazo---------------------
 	if (!_anim->isFlipped() && mouseX < _transform->getPosition().getX())
 	{
@@ -39,7 +41,7 @@ void ArmControllerComponent::handleInput(const SDL_Event& event)
 		_transform->setAnchor(1 - _transform->getDefaultAnchor().getX(), _transform->getDefaultAnchor().getY());
 		//_player->getComponent<TransformComponent>()->setPosition(_player->getComponent<TransformComponent>()->getPosition().getX(), _player->getComponent<TransformComponent>()->getPosition().getY());
 		//_transform->setPosition (_transform->getPosition().getX() - 40, _transform->getPosition().getY());
-		_followC->setOffset({ _followC->getInitialOffset().getX() - 14/*_followC->getInitialOffset().getX()*/, _followC->getInitialOffset().getY() });
+		_followC->setOffset({ _followC->getInitialOffset().getX() + 8/*_followC->getInitialOffset().getX()*/, _followC->getInitialOffset().getY() });
 		//cout << _followC->getOffset().getX() << endl;
 	}
 	else if (_anim->isFlipped() && mouseX > _transform->getPosition().getX() + _followC->getInitialOffset().getX())

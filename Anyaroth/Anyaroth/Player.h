@@ -16,38 +16,30 @@ class PlayState;
 class Player : public GameComponent
 {
 private:
-	int _life;
 	PlayState* _play = nullptr;
-
-private:
-  	int _life;
-  	int AmountOfCollision;
-    uint _currentState = 0;
-  	Arm* _weaponArm = nullptr;
-  	AnimatedSpriteComponent* _anim;
-  	PlayerControllerComponent* _controller;
-  	TransformComponent * _transform;
-	  BodyComponent * _body;
-  	uint32 _dashCD = 3000;
-	  uint32 _timer = 0;
-	  int _MaxDash = 2;
-	  Money * _money = nullptr;
-public:
-
-enum states { Idle, Attacking, Reloading };
-
-  	uint _currentState = 0;
+	int _life;
+	int AmountOfCollision;
+	uint _currentState = 0;
 	Arm* _weaponArm = nullptr;
 	AnimatedSpriteComponent* _anim;
 	PlayerControllerComponent* _controller;
-  
+	TransformComponent * _transform;
+	BodyComponent * _body;
+	uint32 _dashCD = 3000;
+	uint32 _timer = 0;
+	int _MaxDash = 2;
+	Money * _money = nullptr;
+public:
+
+	enum states { Idle, Attacking, Reloading };
+
 	Player(Texture* texture, Game* g, PlayState* play, string tag);
-  	~Player();
+	~Player();
 
 	void update();
 	virtual void beginCollision(GameComponent* other);
 	virtual void endCollision(GameComponent* other);
-	
+
 	void setLife(double amount);
 	void addLife(double amount);
 	void subLife(double amount);
@@ -56,7 +48,7 @@ enum states { Idle, Attacking, Reloading };
 	void setArm(Arm* arm) { _weaponArm = arm; };
 	Arm* getWeaponArm() { return _weaponArm; }
 	void equipGun(int gunIndex, int bulletPoolIndex = 0);
-  
+
 	void reload();
 
 	uint getCurrentState() { return _currentState; };

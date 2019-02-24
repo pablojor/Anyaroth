@@ -13,7 +13,11 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_colLayer->addComponent<BodyComponent>();
 	_stages.push_back(_colLayer);
 
-	
+	//----Pools de balas
+
+	//Pool arma b�sica
+	_examplePool = new BulletPool<100>(g, g->getTexture("example1"), 10, 10);
+	_stages.push_back(_examplePool);
 
 	//cuerpo
 	_player = new Player(g->getTexture("Mk"), g, this, "Player");
@@ -32,24 +36,20 @@ PlayState::PlayState(Game* g) : GameState(g)
 	auto itFR = --(_stages.end());
 	coin->setItList(itFR);
 
-	_enemy = new MartyrEnemy(_player, g, this, g->getTexture("Mk"), Vector2D(50, 100));
+	_enemy = new MartyrEnemy(_player, g, this, g->getTexture("Mk"), Vector2D(50, 100),"Enemy");
 	_stages.push_back(_enemy);
 
 	itFR = --(_stages.end());
 
 	_enemy->setItList(itFR);
 	
-	//----Pools de balas
-
-	//Pool arma b�sica
-	_examplePool = new BulletPool<100>(g, g->getTexture("example1"), 10, 10);
-	_stages.push_back(_examplePool);
+	
 	
 }
 
 void PlayState::KillObject(list<GameObject*>::iterator itList)
 {
-	delete *itList;
+	//delete *itList;
 	items_ToDelete.push_back(itList);
 }
 

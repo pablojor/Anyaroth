@@ -14,9 +14,6 @@ Player::Player(Texture* texture, Game* g, PlayState* play, string tag) : _play(p
 	addComponent<Texture>(texture);
 
 	//Resto de componentes
-	auto transform = addComponent<TransformComponent>();		//Como en el metodo anterior se ha creado este componente, imprime por pantalla que ya existe uno.
-	transform->setPosition(0, 50);
-
 	 _transform = addComponent<TransformComponent>();		//Como en el metodo anterior se ha creado este componente, imprime por pantalla que ya existe uno.
 	 _transform->setPosition(50, 50);
 
@@ -44,7 +41,9 @@ Player::Player(Texture* texture, Game* g, PlayState* play, string tag) : _play(p
 	//Brazo con arma
 	//_weaponArm = new Arm(getGame()->getTexture("ArmPistol"), this, getGame(), { 10,12 }); 
 
-	_weaponArm = new Arm(getGame()->getTexture("ArmPistol"), this, getGame(), { 26,5 }); //Parámetros para la pistola
+	//_weaponArm = new Arm(getGame()->getTexture("ArmPistol"), this, getGame(), { 26,5 }); //Parámetros para la pistola
+
+	_weaponArm = new Arm(getGame()->getTexture("ArmPistol"), this, getGame(), {28,14 }); //Parámetros para la pistola
 	addChild(_weaponArm);
 
 	//Equipa el arma inicial

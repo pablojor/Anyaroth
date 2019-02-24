@@ -1,5 +1,6 @@
 #pragma once
 #include "PoolWrapper.h"
+#include "Camera.h"
 
 template<typename T, int SIZE>
 class ObjectPool : public PoolWrapper {
@@ -21,7 +22,7 @@ public:
 
 	//virtual void handleInput(const SDL_Event& event) = 0; //Ya están en GameObject
 	virtual void update();
-	virtual void render() const;
+	virtual void render(Camera* c) const;
 
 	virtual void addBullet(Vector2D pos, Vector2D dir) {};
 protected:
@@ -55,9 +56,9 @@ void ObjectPool<T, SIZE>::update() {
 }
 
 template <typename T, int SIZE>
-void ObjectPool<T, SIZE>::render() const {
+void ObjectPool<T, SIZE>::render(Camera* c) const {
 	for (int i = 0; i < SIZE; i++)
 		if (_objects[i].isActive()) {
-			_objects[i].render();
+			_objects[i].render(c);
 		}
 }

@@ -4,7 +4,7 @@
 #include "Player.h"
 
 
-MeleeEnemy::MeleeEnemy(Player* player, Game* g, PlayState* play,Texture* texture, Vector2D posIni) : Enemy(player, g, play,texture, posIni)
+MeleeEnemy::MeleeEnemy(Player* player, Game* g, PlayState* play,Texture* texture, Vector2D posIni, string tag) : Enemy(player, g, play,texture, posIni, tag)
 {
 	_vision = 300;
 	_attackRange = 25; //No se puede poner mas peque�o que la velocidad
