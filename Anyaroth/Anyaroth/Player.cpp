@@ -52,6 +52,11 @@ Player::Player(Texture* texture, Game* g, string tag) : GameComponent(g, tag)
 	_money = new Money();
 }
 
+Player::~Player()
+{
+	delete _money;
+}
+
 void Player::beginCollision(GameComponent * other)
 {
 	auto myTransform = this->getComponent<TransformComponent>();

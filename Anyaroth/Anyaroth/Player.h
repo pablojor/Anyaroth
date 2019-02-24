@@ -27,7 +27,7 @@ class Player : public GameComponent
   		enum states { Idle, Attacking, Reloading };
   
 		Player(Texture* texture, Game* g, string tag);
-		~Player() {}
+		~Player();
 
 		void update();
 		virtual void beginCollision(GameComponent* other);
