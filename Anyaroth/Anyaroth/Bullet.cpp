@@ -29,6 +29,8 @@ void Bullet::init(Texture* texture, double speed, int damage, int range)
 	body->getBody()->SetType(b2_kinematicBody);
 	body->getBody()->SetBullet(true);
 	body->getBody()->SetFixedRotation(true);
+
+	body->getBody()->SetActive(false);
 	
 	auto anim = addComponent<AnimatedSpriteComponent>();
 	anim->addAnim(AnimatedSpriteComponent::Default, 1, false);
@@ -50,11 +52,11 @@ void Bullet::update()
 	{
 		//cout << "X: " << getComponent<TransformComponent>()->getPosition().getX() << "	Y: " << getComponent<TransformComponent>()->getPosition().getY() << endl << endl;
 		
-		//GameComponent::update(); //<- DESCOMENTAR PARA PROBAR CON FÍSICAS
+		GameComponent::update(); //<- DESCOMENTAR PARA PROBAR CON FÍSICAS
 
 
 		// Actualiza la posición
-		 _trans->setPosition(_trans->getPosition() + _velocity);  //<- DESCOMENTAR PARA PROBAR SIN FÍSICAS
+		//_trans->setPosition(_trans->getPosition() + _velocity);  //<- DESCOMENTAR PARA PROBAR SIN FÍSICAS
 
 		// Desactiva la bala al salir de la pantalla (por hacer)
 		/*
@@ -69,7 +71,10 @@ void Bullet::update()
 		_aliveTime++;
 	}
 	else
+	{
 		setActive(false);
+		this->getComponent<BodyComponent>()->getBody()->SetActive(false);
+	}
 }
 
 

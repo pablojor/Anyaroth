@@ -66,12 +66,14 @@ void ArmControllerComponent::handleInput(const SDL_Event& event)
 		if (event.button.button == SDL_BUTTON_LEFT)
 		{
 			_leftClickPul = false;
+			_canShoot = true;
 		}
 	}
 
-	if (_leftClickPul)
+	if (_leftClickPul && _canShoot)
 	{
 		(dynamic_cast<Arm*>(_obj))->shoot();   //llamo a función de disparar
+		_canShoot = false;
 	}
 
 }

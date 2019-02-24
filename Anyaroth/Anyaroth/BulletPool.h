@@ -4,6 +4,7 @@
 #include "TransformComponent.h"
 #include "MovingComponent.h"
 #include "Bullet.h"
+#include "Game.h"
 
 class MovingComponent;
 
@@ -44,11 +45,19 @@ void BulletPool<SIZE>::addBullet(Vector2D pos, Vector2D dir) {
 	Bullet* b = ObjectPool<Bullet,SIZE>::getUnusedObject();
 
 	if (b != nullptr) {
-			
-		
-		b->getComponent<TransformComponent>()->setPosition(pos.getX(), pos.getY());
-		//b->getComponent<MovingComponent>()->changeDir(dir.getX(),dir.getY()); //<- DESCOMENTAR PARA PROBAR CON FÍSICAS
-		b->setVelocity(dir*_bulletSpeed); //<- DESCOMENTAR PARA PROBAR SIN FÍSICAS
+
 		b->reset();
+
+		b->getComponent<TransformComponent>()->setPosition(pos.getX(), pos.getY());
+
+		BodyComponent* _body = b->getComponent<BodyComponent>();
+
+		_body->getBody()->SetActive(true);
+		_body->getBody()->SetTransform({ (float32)(pos.getX()/ 8), (float32)(pos.getY() / 8) },_body->getBody()->GetAngle());
+		_body->getBody()->SetLinearVelocity({ (float32)dir.getX() * 100,(float32)dir.getY() * 100 });
+
+		
+		//b->getComponent<MovingComponent>()->changeDir(dir.getX(),dir.getY()); //<- DESCOMENTAR PARA PROBAR CON FÍSICAS
+		//b->setVelocity(dir*_bulletSpeed); //<- DESCOMENTAR PARA PROBAR SIN FÍSICAS
 	}
 }
