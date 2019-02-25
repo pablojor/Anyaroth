@@ -31,7 +31,7 @@ protected:
 
 	bool _active = true;
 public:
-	enum Player { Idle, Walk, WalkBack, MeleeKnife, ReloadPistol };
+	enum Player { Idle, Walk, WalkBack, MeleeKnife, ReloadPistol, BeforeJump, Jump, StartFalling, Falling, Hurt };
 	enum Gun { None, Shoot, NoAmmo };
 	enum Enemy { EnemyIdle, EnemyWalk, EnemyAttack };
 	enum Coin { Main };
