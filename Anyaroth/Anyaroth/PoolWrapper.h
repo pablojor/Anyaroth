@@ -18,6 +18,6 @@ public:
 	virtual void update() = 0;
 	virtual void render() = 0;*/
 
-	virtual void addBullet(Vector2D pos, Vector2D dir) {};
+	virtual void addBullet(Vector2D pos, Vector2D dir, double angle) {};
 };
 

@@ -24,7 +24,7 @@ public:
 	virtual void update();
 	virtual void render(Camera* c) const;
 
-	virtual void addBullet(Vector2D pos, Vector2D dir) {};
+	virtual void addBullet(Vector2D pos, Vector2D dir, double angle) {};
 protected:
 	//const int MAX_SIZE = SIZE;
 	T* getUnusedObject() 

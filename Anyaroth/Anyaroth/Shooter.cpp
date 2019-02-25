@@ -20,7 +20,7 @@ void Shooter::init(GameComponent* shootingObject, PoolWrapper* bPool)
 }
 
 
-void Shooter::shoot(Vector2D bulletPosition, Vector2D bulletDir)
+void Shooter::shoot(Vector2D bulletPosition, Vector2D bulletDir, double angle)
 {
-	_bPool->addBullet(bulletPosition, bulletDir);
+	_bPool->addBullet(bulletPosition, bulletDir, angle);
 }

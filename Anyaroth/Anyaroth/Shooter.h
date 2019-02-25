@@ -21,6 +21,6 @@ public:
 	virtual ~Shooter();
 	
 	virtual void init(GameComponent* shootingObject, PoolWrapper* bPool);
-	virtual void shoot(Vector2D bulletPosition, Vector2D bulletDir);
+	virtual void shoot(Vector2D bulletPosition, Vector2D bulletDir, double angle);
 };
 

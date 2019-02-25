@@ -16,6 +16,7 @@ private:
 	int _aliveTime = 0; //Tiempo que lleva vivo (usado en el rango)
 	double _speed = 0;
 	int _damage = 0;
+	double _angle = 0;
 
 	bool _collided = false;
 
@@ -34,8 +35,9 @@ public:
 	void setDamage(double damage) { _damage = damage; };
 	int getDamage() { return _damage; };
 	void setVelocity(Vector2D vel) { _velocity = vel; };
+	void setRotation(double rot) { _angle = rot; };
 
-	void init(Texture* texture, double speed, int damage, int range = 5);
+	void init(Texture* texture, double speed, int damage, double angle, int range = 5);
 	
 	/*virtual void render() const
 	{

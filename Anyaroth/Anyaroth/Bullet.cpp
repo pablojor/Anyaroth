@@ -25,16 +25,18 @@ void Bullet::beginCollision(GameComponent * other)
 	//_collided = true;
 }
 
-void Bullet::init(Texture* texture, double speed, int damage, int range)
+void Bullet::init(Texture* texture, double speed, int damage, double angle, int range)
 {
 	_speed = speed;
 	_damage = damage;
 	_range = range;
+	_angle = angle;
 
 	addComponent<Texture>(texture);
 
 	_trans = addComponent<TransformComponent>();
-	_trans->setScale(0.25); //ESCALA
+	//_trans->setScale(0.25); //ESCALA
+	_trans->setRotation(angle);
 
 	auto body = addComponent<BodyComponent>();
 	body->getBody()->SetType(b2_kinematicBody);
@@ -44,7 +46,8 @@ void Bullet::init(Texture* texture, double speed, int damage, int range)
 	body->getBody()->SetActive(false);
 	
 	auto anim = addComponent<AnimatedSpriteComponent>();
-	anim->addAnim(AnimatedSpriteComponent::Default, 1, false);
+	anim->addAnim(AnimatedSpriteComponent::Default, 4, false);
+
 	anim->playAnim(AnimatedSpriteComponent::Default);
 	anim->setTexture(texture);
 	

@@ -4,6 +4,7 @@ EnemyMelee enemymelee_spritesheet.png 3 13
 Arm mk_arm.png 1 1
 ArmUp mk_arm_up.png 1 1
 ArmPistol mk_pistol_spritesheet.png 3 3
+PistolBullet pistolbullet.png 1 4
 Armback mk_armback.png 1 1
 tileset Tileset.png  9 8
 body Body.png 1 1
