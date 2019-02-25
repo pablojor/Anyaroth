@@ -120,7 +120,7 @@ Game::Game()
 
 	//Gestion de colisiones
 	_world->SetContactListener(&colManager);
-	_world->SetDebugDraw(&debugger);
+	//_world->SetDebugDraw(&debugger);
 }
 
 Game::~Game()
