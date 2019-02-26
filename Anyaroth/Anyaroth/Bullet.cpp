@@ -18,11 +18,8 @@ Bullet::~Bullet()
 }
 void Bullet::beginCollision(GameComponent * other)
 {
-	auto myTransform = this->getComponent<TransformComponent>();
-
-	auto otherTransform = other->getComponent<TransformComponent>();
-
-	//_collided = true;
+	if(other->getTag() != "Player" && other->getTag() != "")
+		_collided = true;
 }
 
 void Bullet::init(Texture* texture, double speed, int damage, double angle, int range)
@@ -35,13 +32,14 @@ void Bullet::init(Texture* texture, double speed, int damage, double angle, int 
 	addComponent<Texture>(texture);
 
 	_trans = addComponent<TransformComponent>();
-	//_trans->setScale(0.25); //ESCALA
+	_trans->setAnchor(0.5); 
 	_trans->setRotation(angle);
 
 	auto body = addComponent<BodyComponent>();
-	body->getBody()->SetType(b2_kinematicBody);
+	body->getBody()->SetType(b2_dynamicBody);
 	body->getBody()->SetBullet(true);
 	body->getBody()->SetFixedRotation(true);
+	body->getBody()->SetGravityScale(0);
 
 	body->getBody()->SetActive(false);
 	
@@ -50,9 +48,6 @@ void Bullet::init(Texture* texture, double speed, int damage, double angle, int 
 
 	anim->playAnim(AnimatedSpriteComponent::Default);
 	anim->setTexture(texture);
-	
-	
-	addComponent<MovingComponent>();//Tiene que ir aqu� porque necesita la textura
 	
 }
 

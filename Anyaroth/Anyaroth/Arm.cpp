@@ -5,10 +5,12 @@
 #include "AnimatedSpriteComponent.h"
 #include "ArmControllerComponent.h"
 #include "Gun.h"
+#include "PlayState.h"
+#include "Camera.h"
 
 #define PI 3.14159265
 
-Arm::Arm(Texture* texture, GameComponent* player, Game* g, Vector2D offset) : GameComponent(g)
+Arm::Arm(Texture* texture, GameComponent* player, Game* g, PlayState* play, Vector2D offset) : GameComponent(g)
 {
 
 
@@ -23,7 +25,7 @@ Arm::Arm(Texture* texture, GameComponent* player, Game* g, Vector2D offset) : Ga
 		setPlayer(offset, player);
 	}
 
-
+	_cam = play->getMainCamera();
 
 	_anim->addAnim(AnimatedSpriteComponent::None, 1, false);
 	_anim->addAnim(AnimatedSpriteComponent::Shoot, 2, false);
@@ -75,7 +77,7 @@ void Arm::update()
 	}
 
 	if ((!_anim->isFlipped() && distance > _minAimDistance)
-		|| _anim->isFlipped() && distance > _minAimDistance - 20) {
+		|| _anim->isFlipped() && distance > _minAimDistance + _controller->flipPosOffset) {
 		_transform->setRotation(rot);
 		//_transform->setRotation(rot - pow(360/distance,2));
 	}
@@ -117,13 +119,13 @@ void Arm::shoot()
 		//----------Posici�n inicial de la bala
 
 		//Distinci�n flip-unflip
-		int bulletXOffset = _anim->isFlipped() ? -12 : 28;
-		int bulletYOffset = _anim->isFlipped() ? -8 : 2;
+		int bulletXOffset = _anim->isFlipped() ? -18 : -20;
+		int bulletYOffset = _anim->isFlipped() ? -16 : -6;
 		double aimAuxY = _anim->isFlipped() ? 1 : -1;
 
 		Vector2D bulletPosition =
 		{
-			_transform->getPosition().getX() - bulletXOffset + _anim->getTexture()->getW() / 4,
+			_transform->getPosition().getX() + bulletXOffset + _anim->getTexture()->getW() / 4,
 			_transform->getPosition().getY() + _anim->getTexture()->getH() / 5 + bulletYOffset
 		};
 		
@@ -135,7 +137,7 @@ void Arm::shoot()
 		//----------Direcci�n de la bala
 
 		//Distinci�n flip-unflip
-		int bulletDirOffset = _anim->isFlipped() ? 110 : 75;
+		int bulletDirOffset = _anim->isFlipped() ? 95 : 90;
 
 		Vector2D bulletDir = (Vector2D(0, aimAuxY).rotate(_transform->getRotation() + bulletDirOffset));
 		bulletDir.normalize();
@@ -144,7 +146,7 @@ void Arm::shoot()
 
 
 
-		if(_currentGun->shoot(bulletPosition, bulletDir))
+		if(_currentGun->shoot(bulletPosition, bulletDir, _anim->isFlipped()))
 		{
 			_anim->playAnim(AnimatedSpriteComponent::Shoot);
 		}
