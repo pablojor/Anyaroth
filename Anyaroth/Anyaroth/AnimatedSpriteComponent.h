@@ -31,7 +31,7 @@ protected:
 
 	bool _active = true;
 public:
-	enum Player { Idle, Walk, WalkBack, MeleeKnife, ReloadPistol, BeforeJump, Jump, StartFalling, Falling, Hurt, Dash };
+	enum Player { Idle, Walk, WalkBack, MeleeKnife, ReloadPistol, BeforeJump, Jump, StartFalling, Falling, Hurt, Dash, DashDown };
 	enum Gun { None, Shoot, NoAmmo };
 	enum Enemy { EnemyIdle, EnemyWalk, EnemyAttack };
 	enum Coin { Main };
@@ -48,6 +48,7 @@ public:
 	void playAnim(uint name);
 
 	bool animationFinished() { return _animations[_currentAnim].animationFinished; };
+	uint getCurrentAnim() { return _currentAnim; };
 
 	void setActive(bool b) { _active = b; };
 };
