@@ -36,24 +36,30 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_mainCamera->fixCameraToObject(_player);
 	
 
-	 auto oL= new ObjectLayer(TILEMAP_PATH + "level.json", "Capa de Objetos 1");
+	 auto oL= new ObjectLayer(TILEMAP_PATH + "Nivel1.json", "Capa de Objetos 1");
 	 vector <Vector2D> enemiesPos = oL->getObjectsPositions();
 	 delete oL;
 	 for (int i = 0; i < enemiesPos.size(); i++)
 	 {
-		_enemy = new MeleeEnemy(_player, g, this, g->getTexture("Mk"), enemiesPos[i], "Enemy" );
+		_enemy = new MeleeEnemy(_player, g, this, g->getTexture("EnemyMelee"), enemiesPos[i], "Enemy" );
 		_stages.push_back(_enemy);
-		// itFR = --(_stages.end());
-		// _enemy->setItList(itFR);
+		auto itFR = --(_stages.end());
+		_enemy->setItList(itFR);
 	 }
 
+	 Coin* coin;
+	 oL = new ObjectLayer(TILEMAP_PATH + "Nivel1.json", "Capa de Objetos 2");
+	 vector <Vector2D> coinsPos = oL->getObjectsPositions();
+	 delete oL;
+	 for (int i = 0; i < coinsPos.size(); i++)
+	 {
+		 //Coin
+		 coin = new Coin(this, g, g->getTexture("Coin"), coinsPos[i], 20);
+		 _stages.push_back(coin);
 
-	//Coin
-	Coin* coin = new Coin(this, g, g->getTexture("Coin"), Vector2D(100, 75), 20);
-	_stages.push_back(coin);
-
-	auto itFR = --(_stages.end());
-	coin->setItList(itFR);
+		 auto itFR = --(_stages.end());
+		 coin->setItList(itFR);
+	 }
 }
 
 void PlayState::KillObject(list<GameObject*>::iterator itList)
