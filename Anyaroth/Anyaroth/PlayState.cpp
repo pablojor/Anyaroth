@@ -5,6 +5,7 @@
 #include "FollowingComponent.h"
 #include "checkML.h"
 #include "Coin.h"
+#include "ObjectLayer.h"
 
 PlayState::PlayState(Game* g) : GameState(g)
 {
@@ -33,19 +34,26 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_stages.push_back(_player);
 
 	_mainCamera->fixCameraToObject(_player);
-
-	//Enemy
-	_enemy = new MeleeEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(260, 60), "Enemy");
-	_stages.push_back(_enemy);
 	
+
+	 auto oL= new ObjectLayer(TILEMAP_PATH + "level.json", "Capa de Objetos 1");
+	 vector <Vector2D> enemiesPos = oL->getObjectsPositions();
+	 delete oL;
+	 for (int i = 0; i < enemiesPos.size(); i++)
+	 {
+		_enemy = new MeleeEnemy(_player, g, this, g->getTexture("Mk"), enemiesPos[i], "Enemy" );
+		_stages.push_back(_enemy);
+		// itFR = --(_stages.end());
+		// _enemy->setItList(itFR);
+	 }
+
+
 	//Coin
 	Coin* coin = new Coin(this, g, g->getTexture("Coin"), Vector2D(100, 75), 20);
 	_stages.push_back(coin);
 
 	auto itFR = --(_stages.end());
 	coin->setItList(itFR);
-	itFR = --(_stages.end());
-	_enemy->setItList(itFR);
 }
 
 void PlayState::KillObject(list<GameObject*>::iterator itList)

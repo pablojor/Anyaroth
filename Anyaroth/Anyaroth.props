@@ -5,7 +5,7 @@
   <PropertyGroup>
     <OutDir>$(SolutionDir)bin\</OutDir>
     <TargetName>$(ProjectName)$(Configuration)</TargetName>
-    <IncludePath>$(SolutionDir)SDL2-2.0.4\include;$(SolutionDir)SDL2_image-2.0.1\include;$(SolutionDir)SDL2_ttf-2.0.14\include;$(SolutionDir)Box2D\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)SDL2-2.0.4\include;$(SolutionDir)SDL2_image-2.0.1\include;$(SolutionDir)SDL2_ttf-2.0.14\include;$(SolutionDir)Json\nlohmann;$(SolutionDir)Box2D\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)SDL2-2.0.4\lib\x86;$(SolutionDir)SDL2_image-2.0.1\lib\x86;$(SolutionDir)SDL2_ttf-2.0.14\lib\x86;$(SolutionDir)Box2D\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup>
