@@ -8,6 +8,7 @@ class ParallaxBackGround
 		Texture* _texture = nullptr;
 
 	public:
+		ParallaxBackGround() {};
 		ParallaxBackGround(Texture* texture);
 		~ParallaxBackGround();
 

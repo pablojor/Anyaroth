@@ -9,14 +9,13 @@ GameState::~GameState()
 void GameState::render() const
 {
 	_mainCamera->render();
-
 	for (GameObject* o : _stages)
 		o->render(_mainCamera);
 }
 
 void GameState::update()
 {
-	
+	_mainCamera->update();
 	for (GameObject* o : _stages)
 		o->update();
 }

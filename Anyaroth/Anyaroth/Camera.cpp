@@ -55,3 +55,8 @@ void Camera::update()
 		_cameraRect.y = LEVEL_HEIGHT - _cameraRect.h;
 	}
 }
+
+void Camera::render()
+{
+
+}
