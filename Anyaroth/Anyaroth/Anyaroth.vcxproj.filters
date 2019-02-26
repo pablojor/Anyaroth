@@ -112,6 +112,7 @@
     <ClCompile Include="GameComponent.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="ObjectLayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">

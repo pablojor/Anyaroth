@@ -136,6 +136,7 @@
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="FollowingComponent.cpp" />
     <ClCompile Include="MeleeEnemyComponent.cpp" />
+    <ClCompile Include="ObjectLayer.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="FrameComponent.cpp" />
     <ClCompile Include="Game.cpp" />

@@ -22,15 +22,15 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_stages.push_back(_player);
 
 	//Enemy
-	 auto oL= new ObjectLayer<MeleeEnemyComponent,Player*>("Capa de Objetos 1", g->getTexture("Mk"), TILEMAP_PATH + "level.json", g, _player);
-	 vector < MeleeEnemyComponent* > enemies = oL->getObjects();
+	 auto oL= new ObjectLayer(TILEMAP_PATH + "level.json", "Capa de Objetos 1");
+	 vector <Vector2D> enemiesPos = oL->getObjectsPositions();
 	 delete oL;
-	 for (int i = 0; i < enemies.size(); i++)
+	 for (int i = 0; i < enemiesPos.size(); i++)
 	 {
-		 _stages.push_back(enemies[i]);
+		  _enemy = new MeleeEnemyComponent(g, g->getTexture("Mk"), enemiesPos[i], _player);
+		 _stages.push_back(_enemy);
 	 }
-	 _enemy = new MeleeEnemyComponent(g, g->getTexture("Mk"), Vector2D(50, 100), _player);
-	_stages.push_back(_enemy);
+
 }
 
 void PlayState::handleEvents(SDL_Event& e)
