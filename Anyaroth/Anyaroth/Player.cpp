@@ -44,7 +44,7 @@ Player::Player(Texture* texture, Game* g, PlayState* play, string tag) : _play(p
 
 	//_weaponArm = new Arm(getGame()->getTexture("ArmPistol"), this, getGame(), { 26,5 }); //Parámetros para la pistola
 
-	_weaponArm = new Arm(getGame()->getTexture("ArmPistol"), this, getGame(), {28,14 }); //Parámetros para la pistola
+	_weaponArm = new Arm(getGame()->getTexture("ArmPistol"), this, getGame(), _play, { 28,14 }); //Parámetros para la pistola
 	addChild(_weaponArm);
 
 	//Equipa el arma inicial

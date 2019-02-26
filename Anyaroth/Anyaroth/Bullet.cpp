@@ -32,7 +32,7 @@ void Bullet::init(Texture* texture, double speed, int damage, double angle, int 
 	addComponent<Texture>(texture);
 
 	_trans = addComponent<TransformComponent>();
-	//_trans->setScale(0.25); //ESCALA
+	_trans->setAnchor(0.5); 
 	_trans->setRotation(angle);
 
 	auto body = addComponent<BodyComponent>();

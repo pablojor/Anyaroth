@@ -19,7 +19,7 @@ ArmControllerComponent::ArmControllerComponent(GameComponent* obj) : InputCompon
 	_followC = obj->getComponent<FollowingComponent>();
 	_player = _followC->getOther();
 
-	_obj = obj;
+	_obj = dynamic_cast<Arm*>(obj);
 }
 
 void ArmControllerComponent::handleInput(const SDL_Event& event)
@@ -27,8 +27,8 @@ void ArmControllerComponent::handleInput(const SDL_Event& event)
 	//si se mueve el raton, se actualiza
 	if (event.type == SDL_MOUSEMOTION)
 	{
-  		mouseX = event.motion.x;
-		mouseY = event.motion.y;
+  		mouseX = event.motion.x + _obj->getCamera()->getCameraPosition().getX();
+		mouseY = event.motion.y + _obj->getCamera()->getCameraPosition().getY();
 	}
 
 	//cout << "X: " << mouseX << "  Y: " << mouseY << endl;
@@ -41,10 +41,10 @@ void ArmControllerComponent::handleInput(const SDL_Event& event)
 		_transform->setAnchor(1 - _transform->getDefaultAnchor().getX(), _transform->getDefaultAnchor().getY());
 		//_player->getComponent<TransformComponent>()->setPosition(_player->getComponent<TransformComponent>()->getPosition().getX(), _player->getComponent<TransformComponent>()->getPosition().getY());
 		//_transform->setPosition (_transform->getPosition().getX() - 40, _transform->getPosition().getY());
-		_followC->setOffset({ _followC->getInitialOffset().getX() + 8/*_followC->getInitialOffset().getX()*/, _followC->getInitialOffset().getY() });
+		_followC->setOffset({ _followC->getInitialOffset().getX() + flipPosOffset/*_followC->getInitialOffset().getX()*/, _followC->getInitialOffset().getY() });
 		//cout << _followC->getOffset().getX() << endl;
 	}
-	else if (_anim->isFlipped() && mouseX > _transform->getPosition().getX() + _followC->getInitialOffset().getX())
+	else if (_anim->isFlipped() && mouseX > _transform->getPosition().getX() /*+ _followC->getInitialOffset().getX()*/)
 	{
 		_anim->unFlip();
 		_player->getComponent<AnimatedSpriteComponent>()->unFlip();
@@ -74,7 +74,7 @@ void ArmControllerComponent::handleInput(const SDL_Event& event)
 
 	if (_leftClickPul && _canShoot)
 	{
-		(dynamic_cast<Arm*>(_obj))->shoot();   //llamo a funci�n de disparar
+		_obj->shoot();   //llamo a funci�n de disparar
 		_canShoot = false;
 	}
 

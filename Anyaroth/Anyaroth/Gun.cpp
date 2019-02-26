@@ -96,12 +96,13 @@ void Gun::useAmmo()
 	*/
 }
 
-bool Gun::shoot(Vector2D bulletPosition, Vector2D bulletDir)
+bool Gun::shoot(Vector2D bulletPosition, Vector2D bulletDir, bool flipped)
 {
 	if (_clip >= _bulletsPerShot //Si hay suficientes balas en el cargador
 		&& _shooterComp != nullptr) //Si tiene un shooter, llama a su shoot()
 	{
-		_shooterComp->shoot( bulletPosition,  bulletDir, _shootingObj->getComponent<TransformComponent>()->getRotation());
+		int flippedAngle = flipped ? 180 : 0;
+		_shooterComp->shoot( bulletPosition,  bulletDir, _shootingObj->getComponent<TransformComponent>()->getRotation() - flippedAngle);
 
 		//Reduce la munici�n actual
 		//useAmmo();

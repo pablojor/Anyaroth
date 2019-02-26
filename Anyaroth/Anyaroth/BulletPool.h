@@ -55,8 +55,8 @@ void BulletPool<SIZE>::addBullet(Vector2D pos, Vector2D dir, double angle) {
 		BodyComponent* _body = b->getComponent<BodyComponent>();
 
 		_body->getBody()->SetActive(true);
-		_body->getBody()->SetTransform({ (float32)(pos.getX()/ 8), (float32)(pos.getY() / 8) },_body->getBody()->GetAngle());
-		_body->getBody()->SetLinearVelocity({ (float32)dir.getX() * 100,(float32)dir.getY() * 100 });
+		_body->getBody()->SetTransform({ (float32)(pos.getX() / 8/*M_TO_PIXEL*/), (float32)(pos.getY() / 8/*M_TO_PIXEL*/) }, _body->getBody()->GetAngle());
+		_body->getBody()->SetLinearVelocity({ (float32)(dir.getX() * _bulletSpeed),(float32)(dir.getY() * _bulletSpeed) });
 
 		
 		//b->getComponent<MovingComponent>()->changeDir(dir.getX(),dir.getY()); //<- DESCOMENTAR PARA PROBAR CON FÍSICAS
