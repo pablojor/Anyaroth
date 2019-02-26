@@ -108,10 +108,10 @@ bool Gun::shoot(Vector2D bulletPosition, Vector2D bulletDir, bool flipped)
 		//useAmmo();
 
 		//Dispara
-		cout << "Piumm!" << endl;
+		/*cout << "Piumm!" << endl;
 		cout << "Ammo: " << _ammo << "/" << _maxAmmo << endl;
 		cout << "Clip: " << _clip << "/" << _maxClip << endl;
-
+		*/
 		return true;
 	}
 	else //Si no, recarga

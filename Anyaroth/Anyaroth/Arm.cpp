@@ -54,8 +54,8 @@ void Arm::update()
 	GameComponent::update();
 
 		//------------Rotaci�n del brazo---------------------
-	Vector2D direction = { (_transform->getPosition().getX() + _followC->getInitialOffset().getX() - (_controller->mouseX)),
-			(_transform->getPosition().getY() + _followC->getInitialOffset().getY() - _controller->mouseY) };
+	Vector2D direction = { (_transform->getPosition().getX()/* + _followC->getInitialOffset().getX()*/) - (_controller->mouseX),
+			(_transform->getPosition().getY()/* + _followC->getInitialOffset().getY()*/) - _controller->mouseY };
 
 	direction.normalize();
 
@@ -69,15 +69,15 @@ void Arm::update()
 
 	if (!_anim->isFlipped())
 	{
-		rot -= 180 - 10;
+		rot -= 180;// - 10;
 	}
-	else
+	/*else
 	{
 		rot -= 10;
-	}
+	}*/
 
-	if ((!_anim->isFlipped() && distance > _minAimDistance)
-		|| _anim->isFlipped() && distance > _minAimDistance + _controller->flipPosOffset) {
+	if (true/*(!_anim->isFlipped() && distance > _minAimDistance)
+		|| _anim->isFlipped() && distance > _minAimDistance + _controller->flipPosOffset*/) {
 		_transform->setRotation(rot);
 		//_transform->setRotation(rot - pow(360/distance,2));
 	}
@@ -119,9 +119,16 @@ void Arm::shoot()
 		//----------Posici�n inicial de la bala
 
 		//Distinci�n flip-unflip
-		int bulletXOffset = _anim->isFlipped() ? -18 : -20;
-		int bulletYOffset = _anim->isFlipped() ? -16 : -6;
+		double auxRot = _anim->isFlipped() ? _transform->getRotation() : (_transform->getRotation() < -90) ? -(_transform->getRotation() + 360) : abs(_transform->getRotation());
+		cout << auxRot << endl;
+
+		int bulletXOffset = _anim->isFlipped() ? /*-18*/abs(auxRot) > 65 ? -13 : -18 : abs(auxRot) > 50 ? -18 : -20 /*-18 : -20*/;
+		int bulletYOffset = _anim->isFlipped() ? -16 : abs(auxRot) > 50 ? 0 : -6;
 		double aimAuxY = _anim->isFlipped() ? 1 : -1;
+
+		
+
+		//bulletXOffset *= _anim->isFlipped() ? sin(abs(auxRot)) : 0;
 
 		Vector2D bulletPosition =
 		{
@@ -139,12 +146,12 @@ void Arm::shoot()
 		//Distinci�n flip-unflip
 		int bulletDirOffset = _anim->isFlipped() ? 95 : 90;
 
+
 		Vector2D bulletDir = (Vector2D(0, aimAuxY).rotate(_transform->getRotation() + bulletDirOffset));
 		bulletDir.normalize();
 		//bulletDir = bulletDir * 3;
 
-
-
+		
 
 		if(_currentGun->shoot(bulletPosition, bulletDir, _anim->isFlipped()))
 		{

@@ -24,7 +24,6 @@ protected:
 	Camera* _cam;
 
 	double _minAimDistance = 48;
-	double _magicNumber = 64;
 
 
 	Gun* _currentGun = nullptr;

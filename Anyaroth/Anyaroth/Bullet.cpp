@@ -46,7 +46,7 @@ void Bullet::init(Texture* texture, double speed, int damage, double angle, int 
 	auto anim = addComponent<AnimatedSpriteComponent>();
 	anim->addAnim(AnimatedSpriteComponent::Default, 4, false);
 
-	anim->playAnim(AnimatedSpriteComponent::Default);
+	
 	anim->setTexture(texture);
 	
 }

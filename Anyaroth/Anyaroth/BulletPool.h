@@ -58,6 +58,8 @@ void BulletPool<SIZE>::addBullet(Vector2D pos, Vector2D dir, double angle) {
 		_body->getBody()->SetTransform({ (float32)(pos.getX() / 8/*M_TO_PIXEL*/), (float32)(pos.getY() / 8/*M_TO_PIXEL*/) }, _body->getBody()->GetAngle());
 		_body->getBody()->SetLinearVelocity({ (float32)(dir.getX() * _bulletSpeed),(float32)(dir.getY() * _bulletSpeed) });
 
+		AnimatedSpriteComponent* _anim = b->getComponent<AnimatedSpriteComponent>();
+		_anim->playAnim(AnimatedSpriteComponent::Default);
 		
 		//b->getComponent<MovingComponent>()->changeDir(dir.getX(),dir.getY()); //<- DESCOMENTAR PARA PROBAR CON FÍSICAS
 		//b->setVelocity(dir*_bulletSpeed); //<- DESCOMENTAR PARA PROBAR SIN FÍSICAS
