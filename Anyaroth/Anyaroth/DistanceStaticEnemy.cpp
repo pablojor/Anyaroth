@@ -21,5 +21,20 @@ DistanceStaticEnemy::DistanceStaticEnemy(Player* player, Game* g, PlayState* pla
 
 void DistanceStaticEnemy::update()
 {
+	Enemy::update();
 
+	Vector2D enemy, player;
+
+	enemy = _transform->getPosition();
+	player = _playerTransform->getPosition();
+
+	double x, y;
+
+	x = player.getX() - enemy.getX();
+	y = player.getY() - enemy.getY();
+
+	if (x < _vision && x > -_vision) //estas viendo al jugador
+	{
+		//raycast
+	}
 }

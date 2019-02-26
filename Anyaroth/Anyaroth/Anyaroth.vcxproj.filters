@@ -19,18 +19,6 @@
     <ClCompile Include="Bullet.cpp">
       <Filter>Archivos de código\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="Coin.cpp">
-      <Filter>Archivos de código\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>Archivos de código\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="MartyrEnemy.cpp">
-      <Filter>Archivos de código\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="MeleeEnemy.cpp">
-      <Filter>Archivos de código\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Archivos de código\Objects</Filter>
     </ClCompile>
@@ -82,9 +70,6 @@
     <ClCompile Include="InputComponent.cpp">
       <Filter>Archivos de código\Components\Base Components</Filter>
     </ClCompile>
-    <ClCompile Include="AmmoPackage.cpp">
-      <Filter>Archivos de código\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="PlayState.cpp">
       <Filter>Archivos de código\States</Filter>
     </ClCompile>
@@ -109,14 +94,11 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Archivos de código\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="Collectable.cpp">
-      <Filter>Archivos de código\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="Gun.cpp">
-      <Filter>Archivos de código\Guns</Filter>
+      <Filter>Archivos de código\Objects\Guns</Filter>
     </ClCompile>
     <ClCompile Include="Shooter.cpp">
-      <Filter>Archivos de código\Guns</Filter>
+      <Filter>Archivos de código\Objects\Guns</Filter>
     </ClCompile>
     <ClCompile Include="Texture.cpp">
       <Filter>Archivos de código\Components</Filter>
@@ -133,6 +115,27 @@
     <ClCompile Include="GameComponent.cpp">
       <Filter>Archivos de código\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Archivos de código\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="MartyrEnemy.cpp">
+      <Filter>Archivos de código\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="MeleeEnemy.cpp">
+      <Filter>Archivos de código\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="AmmoPackage.cpp">
+      <Filter>Archivos de código\Objects\Collectables</Filter>
+    </ClCompile>
+    <ClCompile Include="Coin.cpp">
+      <Filter>Archivos de código\Objects\Collectables</Filter>
+    </ClCompile>
+    <ClCompile Include="Collectable.cpp">
+      <Filter>Archivos de código\Objects\Collectables</Filter>
+    </ClCompile>
+    <ClCompile Include="DistanceStaticEnemy.cpp">
+      <Filter>Archivos de código\Objects\Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -145,21 +148,6 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="Arm.h">
-      <Filter>Archivos de encabezado\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="Coin.h">
-      <Filter>Archivos de encabezado\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="Collectable.h">
-      <Filter>Archivos de encabezado\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>Archivos de encabezado\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="MartyrEnemy.h">
-      <Filter>Archivos de encabezado\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="MeleeEnemy.h">
       <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
@@ -222,9 +210,6 @@
     <ClInclude Include="GameComponent.h">
       <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="AmmoPackage.h">
-      <Filter>Archivos de encabezado\Objects</Filter>
-    </ClInclude>
     <ClInclude Include="MenuState.h">
       <Filter>Archivos de encabezado\States</Filter>
     </ClInclude>
@@ -271,10 +256,10 @@
       <Filter>Archivos de encabezado\Utilities</Filter>
     </ClInclude>
     <ClInclude Include="Gun.h">
-      <Filter>Archivos de encabezado\Guns</Filter>
+      <Filter>Archivos de encabezado\Objects\Guns</Filter>
     </ClInclude>
     <ClInclude Include="Shooter.h">
-      <Filter>Archivos de encabezado\Guns</Filter>
+      <Filter>Archivos de encabezado\Objects\Guns</Filter>
     </ClInclude>
     <ClInclude Include="DebugDraw.h">
       <Filter>Archivos de encabezado\Utilities</Filter>
@@ -284,6 +269,27 @@
     </ClInclude>
     <ClInclude Include="HUD.h">
       <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Archivos de encabezado\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="MartyrEnemy.h">
+      <Filter>Archivos de encabezado\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="MeleeEnemy.h">
+      <Filter>Archivos de encabezado\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="AmmoPackage.h">
+      <Filter>Archivos de encabezado\Objects\Collectables</Filter>
+    </ClInclude>
+    <ClInclude Include="Coin.h">
+      <Filter>Archivos de encabezado\Objects\Collectables</Filter>
+    </ClInclude>
+    <ClInclude Include="Collectable.h">
+      <Filter>Archivos de encabezado\Objects\Collectables</Filter>
+    </ClInclude>
+    <ClInclude Include="DistanceStaticEnemy.h">
+      <Filter>Archivos de encabezado\Objects\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -332,11 +338,23 @@
     <Filter Include="Archivos de encabezado\Utilities">
       <UniqueIdentifier>{8428164e-c336-4145-83c5-d97b49055b10}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de encabezado\Guns">
+    <Filter Include="Archivos de encabezado\Objects\Guns">
       <UniqueIdentifier>{33bcb945-ba73-421f-aeea-63852c7dcea3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de código\Guns">
+    <Filter Include="Archivos de encabezado\Objects\Collectables">
+      <UniqueIdentifier>{7d94a492-a0d2-4d7a-af91-9d78f76b9718}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Objects\Enemies">
+      <UniqueIdentifier>{8c5b38ab-35fb-4ff8-a8ba-44da8ffdaa3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código\Objects\Enemies">
+      <UniqueIdentifier>{5c009538-414a-4b78-915b-46f442ac2692}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código\Objects\Guns">
       <UniqueIdentifier>{8b321d92-8dfc-45cf-8f1e-52883f5182c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código\Objects\Collectables">
+      <UniqueIdentifier>{0ca49fa2-cb89-45fd-a8f6-e4f89aa5990d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
