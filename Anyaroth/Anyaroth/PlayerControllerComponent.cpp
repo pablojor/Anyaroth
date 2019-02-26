@@ -13,7 +13,7 @@ PlayerControllerComponent::PlayerControllerComponent(GameComponent* obj) : Input
 		_anim = obj->addComponent<AnimatedSpriteComponent>();
 
 	_obj = obj;
-	
+
 }
 
 void PlayerControllerComponent::handleInput(const SDL_Event& event)
@@ -79,7 +79,7 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 		}
 	}
 
-	_dashing =_movement->isDashing();
+	_dashing = _movement->isDashing();
 
 	if (_rightClickPul && !_dashing) //&& !_isAttacking)
 	{
@@ -89,22 +89,22 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 		static_cast<Player*>(_obj)->setCurrentState(Player::Attacking);
 		_anim->playAnim(AnimatedSpriteComponent::MeleeKnife);//llamo animacion del melee dependiendo del arma cuerpo a cuerpo
 	}
-	
-	if ((_aPul &&_dPul ) && !_isAttacking&&!_dashing && !_isReloading)
+
+	if ((_aPul &&_dPul) && !_isAttacking && !_dashing && !_isReloading)
 	{
 		_movement->changeDir(0, 0); //Llamo a animacion idle
 		_anim->playAnim(AnimatedSpriteComponent::Idle);
 	}
-	else if (_aPul && !_isAttacking&&!_wallOnL && !_dashing && !_isReloading)
+	else if (_aPul && !_isAttacking && !_wallOnL && !_dashing && !_isReloading)
 	{
 		_movement->changeDir(-1, 0); //Llamo a animacion de moverse y un flip
-		if (_sfPul && _amountOfDash>0)
+		if (_sfPul && _amountOfDash > 0)
 		{
 			_movement->changeDash(true);
 			_dashing = true;
 			_amountOfDash--;
 		}
-		else 
+		else
 		{
 			if (!_anim->isFlipped())
 				_anim->playAnim(AnimatedSpriteComponent::WalkBack);
@@ -112,18 +112,21 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 				_anim->playAnim(AnimatedSpriteComponent::Walk);
 		}
 
-		
+
 	}
-	else if (_dPul && !_isAttacking&&!_wallOnR && !_dashing && !_isReloading)
+	else if (_dPul && !_isAttacking && !_wallOnR && !_dashing && !_isReloading)
 	{
 		_movement->changeDir(1, 0); //Llamo a animacion de moverse
-		if (_sfPul && _amountOfDash>0)
+		if (_sfPul && _amountOfDash > 0)
 		{
 			_movement->changeDash(true);
 			_dashing = true;
 			_amountOfDash--;
+
+			static_cast<Player*>(_obj)->setCurrentState(Player::Dashing);
+			_anim->playAnim(AnimatedSpriteComponent::Dash);
 		}
-		else 
+		else
 		{
 			if (!_anim->isFlipped())
 				_anim->playAnim(AnimatedSpriteComponent::Walk);
@@ -132,7 +135,7 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 		}
 
 	}
-	else if (_sPul && _sfPul && !_isAttacking && _jumping && !_dashing && _amountOfDash>0 && !_isReloading)
+	else if (_sPul && _sfPul && !_isAttacking && _jumping && !_dashing && _amountOfDash > 0 && !_isReloading)
 	{
 		_movement->changeDir(0, 1);
 		_movement->changeDash(true);
@@ -140,27 +143,28 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 		_amountOfDash--;
 		//Llamo a componente de dash hacia abajo (culo)
 	}
-	else if (!_isAttacking &&!_dashing && !_isReloading)
+	else if (!_isAttacking && !_dashing && !_isReloading)
 	{
 		_movement->changeDir(0, 0); //Llamo a animacion idle
 		_anim->playAnim(AnimatedSpriteComponent::Idle);
-		
+
 	}
-	
-	if (_wPul && !_isAttacking && !_jumping &&!_dashing && !_isReloading)
+
+	if (_wPul && !_isAttacking && !_jumping && !_dashing && !_isReloading)
 	{
 		_movement->changeDir(_movement->getDirX(), -1);
-		
+		_anim->playAnim(AnimatedSpriteComponent::BeforeJump); //_anim->playAnim(AnimatedSpriteComponent::Jump);
+
 	}
-	if (_rPul && !_dashing ) //&& !isReloading)
+	if (_rPul && !_dashing) //&& !isReloading)
 	{
 		if (static_cast<Player*>(_obj)->getWeaponArm()->reload())   //llamo a función de recargar
 		{
 			reload();
 		}
 	}
-	
-if (_rPul) //&& !isReloading)
+
+	if (_rPul) //&& !isReloading)
 	{
 		if (static_cast<Player*>(_obj)->getWeaponArm()->reload())   //llamo a función de recargar
 		{
@@ -171,14 +175,22 @@ if (_rPul) //&& !isReloading)
 
 void PlayerControllerComponent::changeJump()
 {
-	
+
 	_jumping = true;
-	
-		if(!_dashing)
+
+	if (!_dashing)
+	{
 		_movement->changeDir(_movement->getDirX(), 0);
+
+		//if(_movement->getDirY() != -1)
+			//_anim->playAnim(AnimatedSpriteComponent::Falling);
+		//else
+			//_anim->playAnim(AnimatedSpriteComponent::Jump);
+	}
+		
+
+
 	
-
-
 }
 
 void PlayerControllerComponent::ableJump()
@@ -189,7 +201,9 @@ void PlayerControllerComponent::ableJump()
 		_movement->changeDash(false);
 	}
 	_jumping = false;
-	//jump = true;
+
+	//_anim->playAnim(AnimatedSpriteComponent::Idle);
+
 }
 
 void PlayerControllerComponent::wallOnLeft(bool yes)
