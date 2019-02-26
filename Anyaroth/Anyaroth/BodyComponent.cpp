@@ -85,6 +85,21 @@ double BodyComponent::getH()
 	return _height;
 }
 
+void BodyComponent::addCricleShape(const b2Vec2 & Center, int radius)
+{
+	b2CircleShape* circulo= new b2CircleShape();
+	
+	circulo->m_p.Set(Center.x, Center.y);
+	circulo->m_radius = radius;
+
+	b2FixtureDef *fixt = new b2FixtureDef();
+	fixt->restitution = 0;
+	fixt->shape = circulo;
+	fixt->density = 1;
+
+	_body->CreateFixture(fixt);
+}
+
 //recive la categoria a la que pertenece y las categorias con las que colisiona (del enum _Category)
 void BodyComponent::filterCollisions(uint16 ownCategory, uint16 collidesWith)
 {

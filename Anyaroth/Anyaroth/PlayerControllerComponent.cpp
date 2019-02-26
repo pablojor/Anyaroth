@@ -151,9 +151,10 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 		static_cast<Player*>(_obj)->setCurrentState(Player::Dashing);
 		//Llamo a componente de dash hacia abajo (culo)
 	}
-	else if (!_isAttacking && !_dashing && !_isReloading)
+	else if (!_isAttacking && !_dashing && !_isReloading )
 	{
 		_movement->changeDir(0, 0); //Llamo a animacion idle
+		if(!_jumping)
 		_anim->playAnim(AnimatedSpriteComponent::Idle);
 
 	}
@@ -172,13 +173,7 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 		}
 	}
 
-	if (_rPul) //&& !isReloading)
-	{
-		if (static_cast<Player*>(_obj)->getWeaponArm()->reload())   //llamo a función de recargar
-		{
-			reload();
-		}
-	}
+	
 }
 
 void PlayerControllerComponent::changeJump()

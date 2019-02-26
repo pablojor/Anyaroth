@@ -23,7 +23,9 @@ Player::Player(Texture* texture, Game* g, PlayState* play, string tag) : _play(p
 	_body->getBody()->SetFixedRotation(true);
 	_body->setW(20);
 	_body->setH(30);
+	//_body->addCricleShape(b2Vec2(1, 1.7), 0.4);
 	_body->filterCollisions(PLAYER, OBJECTS | FLOOR /*| ENEMY_BULLETS*/);
+	
 
 	_anim = addComponent<AnimatedSpriteComponent>();		//Como depende de Transform, en su constructura crea una si no ha encontrado Transform en el objeto.
 	_anim->addAnim(AnimatedSpriteComponent::Idle, 16, true);
