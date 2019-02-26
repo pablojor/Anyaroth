@@ -7,7 +7,7 @@
 #include "Player.h"
 #include "Bullet.h"
 
-Enemy::Enemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag) : _playerTransform(player->getComponent<TransformComponent>()), _play(play), GameComponent(g, tag)
+Enemy::Enemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag) : _player(player), _play(play), GameComponent(g, tag)
 {
 	addComponent<Texture>(texture);
 
@@ -34,7 +34,6 @@ Enemy::Enemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2
 
 	_anim->playAnim(AnimatedSpriteComponent::Idle);
 	*/
-	_movement = addComponent<MovingComponent>();
 }
 void Enemy::setItList(list<GameObject*>::iterator itFR)
 {

@@ -17,7 +17,7 @@ class Enemy : public GameComponent
 		AnimatedSpriteComponent* _anim = nullptr;
 		MovingComponent* _movement = nullptr;
 		TransformComponent* _transform = nullptr;
-		TransformComponent* _playerTransform = nullptr;
+		Player* _player = nullptr;
 		BodyComponent* _body = nullptr;
 
 		PlayState* _play;

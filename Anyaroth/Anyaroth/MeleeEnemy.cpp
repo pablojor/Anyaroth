@@ -22,6 +22,8 @@ MeleeEnemy::MeleeEnemy(Player* player, Game* g, PlayState* play,Texture* texture
 void MeleeEnemy::update()
 {
 	Enemy::update();
+	BodyComponent* _playerBody = _player->getComponent<BodyComponent>();
+	TransformComponent* _playerTransform = _player->getComponent<TransformComponent>();
 
 	Vector2D enemy, player;
 
@@ -33,20 +35,25 @@ void MeleeEnemy::update()
 	x = player.getX() - enemy.getX();
 	y = player.getY() - enemy.getY();
 
-	if (!_attacking && x < _vision && x > -_vision)
+	if (!_attacking && x < _vision && x > -_vision && y < _vision && y > -_vision)
 	{
 		if (x > 0)
 		{
 			_anim->unFlip();
-
-			if (x > _attackRange)
+			int w = _playerBody->getW();
+			if (x > _attackRange + _playerBody->getW() * 10)
 			{
-				_movement->changeDir(1, 0);
+				_body->getBody()->SetLinearVelocity({ 10,_body->getBody()->GetLinearVelocity().y });
 				_anim->playAnim(AnimatedSpriteComponent::EnemyWalk);
+			}
+			else if (y > _attackRange || y < -_attackRange)
+			{
+				_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
+				_anim->playAnim(AnimatedSpriteComponent::Idle);
 			}
 			else
 			{
-				_movement->changeDir(0, 0);
+				_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
 				_anim->playAnim(AnimatedSpriteComponent::EnemyAttack); //Llamas a animacion de ataque
 				_time = SDL_GetTicks();
 				_attacking = true;
@@ -58,12 +65,17 @@ void MeleeEnemy::update()
 
 			if (x < -_attackRange)
 			{
-				_movement->changeDir(-1, 0);
+				_body->getBody()->SetLinearVelocity({ -10,_body->getBody()->GetLinearVelocity().y });
 				_anim->playAnim(AnimatedSpriteComponent::EnemyWalk);
+			}
+			else if (y > _attackRange || y < -_attackRange)
+			{
+				_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
+				_anim->playAnim(AnimatedSpriteComponent::Idle);
 			}
 			else
 			{
-				_movement->changeDir(0, 0);
+				_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
 				_anim->playAnim(AnimatedSpriteComponent::EnemyAttack); //Llamas a animacion de ataque
 				_time = SDL_GetTicks();
 				_attacking = true;
@@ -82,7 +94,7 @@ void MeleeEnemy::update()
 	}
 	else
 	{
-		_movement->changeDir(0, 0);
+		_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
 		_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 	}
 }

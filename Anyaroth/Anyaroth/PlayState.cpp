@@ -29,22 +29,15 @@ PlayState::PlayState(Game* g) : GameState(g)
 
 	_enemy = new MeleeEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(260, 60), "Enemy");
 	_stages.push_back(_enemy);
+
+	auto itFR = --(_stages.end());
+	_enemy->setItList(itFR);
   
 	Coin* coin = new Coin(this, g, g->getTexture("Coin"), Vector2D(100, 75), 20);
 	_stages.push_back(coin);
 
-	auto itFR = --(_stages.end());
-	coin->setItList(itFR);
-
-	/*_enemy = new MartyrEnemy(_player, g, this, g->getTexture("Mk"), Vector2D(50, 100),"Enemy");
-	_stages.push_back(_enemy);*/
-
 	itFR = --(_stages.end());
-
-	_enemy->setItList(itFR);
-	
-	
-	
+	coin->setItList(itFR);	
 }
 
 void PlayState::KillObject(list<GameObject*>::iterator itList)

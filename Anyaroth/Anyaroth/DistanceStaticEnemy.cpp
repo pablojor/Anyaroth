@@ -23,6 +23,9 @@ void DistanceStaticEnemy::update()
 {
 	Enemy::update();
 
+	Texture* _playerText = _player->getComponent<Texture>();
+	TransformComponent* _playerTransform = _player->getComponent<TransformComponent>();
+
 	Vector2D enemy, player;
 
 	enemy = _transform->getPosition();
