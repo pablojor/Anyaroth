@@ -20,7 +20,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	//g->getWorld()->SetDebugDraw(&_debugger);
 
 	//Tilemap
-	_layer = new Layer("Capa de Patrones 1", g->getTexture("tileset"), TILEMAP_PATH + "Nivel1.json", g);
+	_layer = new Layer("Capa de Patrones 1", g->getTexture("tileset"), TILEMAP_PATH + "Nivel1.json", g, "Suelo");
 	_layer->addComponent<BodyComponent>();
 	_stages.push_back(_layer);
 

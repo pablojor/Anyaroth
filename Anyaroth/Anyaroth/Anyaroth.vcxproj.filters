@@ -1,16 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="CollisionManager.cpp">
-      <Filter>Archivos de código</Filter>
-    </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>Archivos de código</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
-      <Filter>Archivos de código</Filter>
-    </ClCompile>
-    <ClCompile Include="Money.cpp">
       <Filter>Archivos de código</Filter>
     </ClCompile>
     <ClCompile Include="Arm.cpp">
@@ -133,18 +127,18 @@
     <ClCompile Include="GameComponent.cpp">
       <Filter>Archivos de código\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>Archivos de código\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Money.cpp">
+      <Filter>Archivos de código\Objects</Filter>
+    </ClCompile>
     <ClCompile Include="MenuButton.cpp">
-      <Filter>Archivos de origen\Objects</Filter>
+      <Filter>Archivos de código\Objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CollisionManager.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="Game.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Money.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="Arm.h">
@@ -289,6 +283,12 @@
       <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
     <ClInclude Include="MenuButton.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h">
+      <Filter>Archivos de encabezado\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Money.h">
       <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
   </ItemGroup>

@@ -15,7 +15,7 @@ Player::Player(Texture* texture, Game* g, PlayState* play, string tag) : _play(p
 
 	//Resto de componentes
 	 _transform = addComponent<TransformComponent>();		//Como en el metodo anterior se ha creado este componente, imprime por pantalla que ya existe uno.
-	 _transform->setPosition(50, 50);
+	 _transform->setPosition(200, 100);
 
 	 _body = addComponent<BodyComponent>();
 	 _body->getBody()->SetType(b2_dynamicBody);
