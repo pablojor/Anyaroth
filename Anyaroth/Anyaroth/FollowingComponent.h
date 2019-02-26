@@ -21,6 +21,8 @@ public:
 	virtual void update();
 
 	void setOffset(Vector2D offset) { _offset = offset; }
+	Vector2D getOffset() { return _offset; }
+
 	void setInitialOffset(Vector2D offset) { _initialOffset = offset; _offset = offset; }
 	Vector2D getInitialOffset() { return _initialOffset; }
 

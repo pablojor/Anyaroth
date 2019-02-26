@@ -2,9 +2,11 @@
 #include "GameState.h"
 #include "Layer.h"
 #include "Player.h"
-#include "MeleeEnemyComponent.h"
 #include "DebugDraw.h"
 #include "CollisionManager.h"
+#include "MeleeEnemy.h"
+#include "MartyrEnemy.h"
+#include "BulletPool.h"
 
 class Player;
 
@@ -18,8 +20,14 @@ class PlayState : public GameState
 		CollisionManager _colManager;
 		DebugDraw _debugger;
 
+		PoolWrapper* _examplePool = nullptr; //TEMPORAL
+
+		vector <list<GameObject*>::iterator> items_ToDelete;
+
 	public:
 		PlayState(Game* g);
+		void KillObject(list<GameObject*>::iterator itList);
 		virtual void update();
 		virtual bool handleEvents(SDL_Event& e);
+		PoolWrapper* getBulletPool() { return _examplePool; };
 };

@@ -25,22 +25,27 @@ protected:
 
 	uint _frame;
 	uint _lastTimeUpdated = 0;  // last time we update a frame
-	uint _freq = 50; // the frequency of updating frames
+	uint _freq = 100; // the frequency of updating frames
 
 	bool _animationFinished = false;
 
 	bool _active = true;
 public:
-	enum Animations { Idle, Walk, WalkBack, MeleeKnife };
+	enum Player { Idle, Walk, WalkBack, MeleeKnife, ReloadPistol, BeforeJump, Jump, StartFalling, Falling, Hurt, Dash };
+	enum Gun { None, Shoot, NoAmmo };
+	enum Enemy { EnemyIdle, EnemyWalk, EnemyAttack };
+	enum Coin { Main };
+	enum Bullet { Default };
+
 
 	AnimatedSpriteComponent(GameComponent* obj);
 	virtual ~AnimatedSpriteComponent();
 
-	virtual void render() const;
+	virtual void render(Camera* c) const;
 	virtual void update();
 
-	void addAnim(Animations name, uint numFrames, bool loop);
-	void playAnim(Animations name);
+	void addAnim(uint name, uint numFrames, bool loop);
+	void playAnim(uint name);
 
 	bool animationFinished() { return _animations[_currentAnim].animationFinished; };
 

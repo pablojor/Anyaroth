@@ -67,6 +67,9 @@ Game::Game()
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 	SDL_RenderSetLogicalSize(renderer, GAME_RESOLUTION_X, GAME_RESOLUTION_Y);
 
+	SDL_Surface* icon = IMG_Load("..\\icon.png");
+	SDL_SetWindowIcon(window, icon);
+
 	//-----------------------------------------
 	//Ajustamos el viewPort
 	/*SDL_Rect viewport;

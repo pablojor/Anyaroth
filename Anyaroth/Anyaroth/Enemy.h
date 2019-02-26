@@ -1,7 +1,9 @@
 #pragma once
+#include <list>
 #include "GameComponent.h"
 
 class Player;
+class PlayState;
 
 class AnimatedSpriteComponent;
 class MovingComponent;
@@ -11,22 +13,33 @@ class BodyComponent;
 
 class Enemy : public GameComponent
 {
-	protected:
-		AnimatedSpriteComponent* _anim = nullptr;
-		MovingComponent* _movement = nullptr;
-		TransformComponent* _transform = nullptr;
-		TransformComponent* _playerTransform = nullptr;
-		BodyComponent* _body = nullptr;
 
+protected:
+	AnimatedSpriteComponent* _anim = nullptr;
+	MovingComponent* _movement = nullptr;
+	TransformComponent* _transform = nullptr;
+	TransformComponent* _playerTransform = nullptr;
+	BodyComponent* _body = nullptr;
 
-		bool _attacking = false;
+	PlayState* _play;
+	list<GameObject*>::iterator _itList;
 
-		double _time;
-		int _vision, _flipRange, _attackRange, _attackTime, _life;
+	bool _attacking = false;
+	double _time;
+	int _vision, _attackRange, _attackTime, _life;
 
-	public:
-		Enemy(Player* player, Game* g, Texture* texture,Vector2D posIni);
-		virtual ~Enemy() {}
+public:
+	Enemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag);
+	virtual ~Enemy() {}
 
-		virtual void update();
+	virtual void setLife(double amount);
+	virtual void addLife(double amount);
+	virtual void subLife(double amount);
+	virtual void die();
+
+	virtual void beginCollision(GameComponent* other);
+
+	void setItList(list<GameObject*>::iterator itFR);
+	virtual void update();
+
 };

@@ -4,6 +4,7 @@
 #include "TransformComponent.h"
 #include "Game.h"
 #include "Shooter.h"
+#include "BulletPool.h"
 
 class Gun
 {
@@ -24,11 +25,13 @@ private:
 	
 	GameComponent* _shootingObj = nullptr; //El objeto que usa el arma
 	Shooter* _shooterComp; //El componente con el m�todo shoot() del arma
+	PoolWrapper* _bPool = nullptr;
+
 
 	/*********************************
-	//RECORDATORIO: Da�o de las armas
+	//RECORDATORIO: Da�o de las armas (Está en Bullet)
 					Velocidad de disparo
-					Rango
+					Rango (En Bullet ?)
 
 	/*********************************/
 
@@ -36,15 +39,18 @@ private:
 	void reloadAux(int newClipValue);
 	
 public:
-	Gun(GameComponent* shootingObj, Shooter* shooterComp, string name, int maxAmmunition, int magazine, int bulletsPerShot = 1);
+	Gun(GameComponent* shootingObj, Shooter* shooterComp, PoolWrapper* bp, string name, int maxAmmunition, int magazine, int bulletsPerShot = 1);
 	virtual ~Gun();
 
-	void setShooter(Shooter* sh) { _shooterComp = sh; };
-	void shoot();
+	void setShooter(Shooter* sh);
+	void setBulletPool(PoolWrapper* bp) { _bPool = bp; };
+	bool shoot(Vector2D bulletPosition, Vector2D bulletDir, bool flipped);
 
 	void addAmmo(int ammoAdded);
 	bool reload();
 	void resetAmmo();
+
+	int getAmmo() { return _ammo; };
 
 	void debugInfo();
 

@@ -15,8 +15,11 @@ class SpriteComponent : public virtual RenderComponent
 	public:
 		SpriteComponent(GameComponent* obj);
 		~SpriteComponent() {}
-		virtual void render() const;
+		virtual void render(Camera* c) const;
 		void flip();
 		void unFlip();
 		bool isFlipped() { return _flip; };
+
+		Texture* getTexture() { return _texture; };
+		void setTexture(Texture* texture) { _texture = texture; };
 };

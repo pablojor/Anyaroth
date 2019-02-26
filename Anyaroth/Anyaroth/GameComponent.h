@@ -22,12 +22,14 @@ class GameComponent: public GameObject
 		map<string, Component*> _components;
 
 		b2World* _world = nullptr;
-
+		string _tag;
 		//vector de hijos del objetos 
 		vector<GameComponent*> _children; 
 
 		//puntero a game
 		Game* _game = nullptr;
+
+		bool _active = false;
 
 		void add_component(Component* c, string name) { _components[name] = c; }
 
@@ -69,12 +71,12 @@ class GameComponent: public GameObject
 
 	public:
 		GameComponent();
-		GameComponent(Game* g);
+		GameComponent(Game* g, string tag="");
 		virtual ~GameComponent();
 
 		virtual bool handleInput(const SDL_Event& event);
 		virtual void update();
-		virtual void render() const;
+		virtual void render(Camera* c) const;
 
 		virtual void addInputComponent(InputComponent* ic);
 		virtual void addPhysicsComponent(PhysicsComponent* pc);
@@ -85,6 +87,7 @@ class GameComponent: public GameObject
 		virtual void delRenderComponent(RenderComponent* rc);
 
 		b2World* getWorld();
+		void setWorld(b2World* world) { _world = world; };
 
 		virtual void beginCollision(GameComponent* other) {};
 		virtual void endCollision(GameComponent* other) {};
@@ -94,6 +97,10 @@ class GameComponent: public GameObject
 		void addChild(GameComponent* obj);
 
 		Game* getGame() { return _game; }
+
+		string getTag() { return _tag; }
+		void setActive(bool active) { _active = active; };
+		bool isActive() const { return _active; };
 
 		template<class ComponentType>
 		ComponentType* addComponent()

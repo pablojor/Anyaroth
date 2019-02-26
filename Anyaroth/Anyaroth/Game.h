@@ -17,6 +17,7 @@ const string SAVES_PATH = "..\\files\\saves\\";
 const string SPRITE_PATH = "..\\assets\\sprites\\";
 const string TILEMAP_PATH = "..\\files\\tilemaps\\";
 
+const int NUM_TEXTURES = 11;
 
 const int NUM_TEXTURES = 10;
 const int NUM_FONTS = 0;
@@ -37,6 +38,16 @@ struct GunAttributes
 	int maxClip;
 };
 
+enum _Category {
+	FLOOR = 0x0001,
+	ENEMIES = 0x0002,
+	PLAYER = 0x0003,
+	OBJECTS = 0x0004,
+	PLAYER_BULLETS=0x0005,
+	ENEMY_BULLETS=0x0006
+
+};
+
 class Game
 {
 	private:
@@ -50,10 +61,6 @@ class Game
 
 	public:
 		vector<int> var;
-
-		// Resolución interna del juego
-		const int GAME_RESOLUTION_X = 480;
-		const int GAME_RESOLUTION_Y = 270;
 
 		//Las armas que hay en el juego
 		enum GameGun

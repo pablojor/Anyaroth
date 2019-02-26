@@ -5,8 +5,12 @@
 #include "AnimatedSpriteComponent.h"
 #include "ArmControllerComponent.h"
 #include "Gun.h"
+#include "PlayState.h"
+#include "Camera.h"
 
-Arm::Arm(Texture* texture, GameComponent* player, Game* g, Vector2D offset) : GameComponent(g)
+#define PI 3.14159265
+
+Arm::Arm(Texture* texture, GameComponent* player, Game* g, PlayState* play, Vector2D offset) : GameComponent(g)
 {
 
 
@@ -21,18 +25,20 @@ Arm::Arm(Texture* texture, GameComponent* player, Game* g, Vector2D offset) : Ga
 		setPlayer(offset, player);
 	}
 
+	_cam = play->getMainCamera();
 
+	_anim->addAnim(AnimatedSpriteComponent::None, 1, false);
+	_anim->addAnim(AnimatedSpriteComponent::Shoot, 2, false);
+	_anim->addAnim(AnimatedSpriteComponent::NoAmmo, 2, false);
 
-	_anim->addAnim(AnimatedSpriteComponent::Idle, 1, false);
-
-	_anim->playAnim(AnimatedSpriteComponent::Idle);
+	_anim->playAnim(AnimatedSpriteComponent::None);
 	//anim->addAnim("Walk", 10);
 
 	//_transform->setPosition(340, 100);
-	_transform->setDefaultAnchor(0.17, 0.3);
 
+	//_transform->setDefaultAnchor(0.17, 0.3);
+	_transform->setDefaultAnchor(0.1, 0.6); //Par�metros para la pistola
 }
-
 
 Arm::~Arm()
 {
@@ -42,36 +48,121 @@ Arm::~Arm()
 
 void Arm::update()
 {
+		/*cout << "ARM_X: " << getComponent<TransformComponent>()->getPosition().getX() << "	ARM_Y: " << getComponent<TransformComponent>()->getPosition().getY() << endl << endl;*/
+	
+
 	GameComponent::update();
 
-	/*if (_currentGun != nullptr)
-		_currentGun->debugInfo();
-	else
-		cout << "Gun Not found" << endl << endl;*/
+		//------------Rotaci�n del brazo---------------------
+	Vector2D direction = { (_transform->getPosition().getX() + _followC->getInitialOffset().getX() - (_controller->mouseX)),
+			(_transform->getPosition().getY() + _followC->getInitialOffset().getY() - _controller->mouseY) };
 
-	/*if ((dynamic_cast<Player*>(_player))->getCurrentState() == Player::Attacking)
+	direction.normalize();
+
+	//Distancia del mouse al brazo
+	double distance = sqrt(pow(_controller->mouseX - _transform->getPosition().getX(), 2) + pow(_controller->mouseY - _transform->getPosition().getY(), 2));
+
+	//cout << distance << endl;
+
+	//actualizo angulo del brazo
+	double rot = atan2(direction.getY(), direction.getX()) * 180.0 / PI;
+
+	if (!_anim->isFlipped())
+	{
+		rot -= 180 - 10;
+	}
+	else
+	{
+		rot -= 10;
+	}
+
+	if ((!_anim->isFlipped() && distance > _minAimDistance)
+		|| _anim->isFlipped() && distance > _minAimDistance + _controller->flipPosOffset) {
+		_transform->setRotation(rot);
+		//_transform->setRotation(rot - pow(360/distance,2));
+	}
+	//-----------------------------------------------------------
+
+
+
+	if ((static_cast<Player*>(_player))->getCurrentState() == Player::Attacking ||
+		(static_cast<Player*>(_player))->getCurrentState() == Player::Reloading ||
+		(static_cast<Player*>(_player))->getCurrentState() == Player::Dashing)
 	{
 		_anim->setActive(false);
 	}
 	else
 	{
 		_anim->setActive(true);
-	}*/
+	}
+
+
+	if (_anim->animationFinished())
+	{
+		_anim->playAnim(AnimatedSpriteComponent::Idle);
+	}
 }
 
 void Arm::setPlayer(Vector2D offset, GameComponent* player)
 {
 	_player = player;
-	auto fC = addComponent<FollowingComponent>(_player);
-	fC->setInitialOffset(offset);
-	addComponent<ArmControllerComponent>();
+	_followC = addComponent<FollowingComponent>(_player);
+	_followC->setInitialOffset(offset);
+	_controller = addComponent<ArmControllerComponent>();
 }
 
 //Dispara el arma
 void Arm::shoot()
 {
 	if (_currentGun != nullptr)
-		_currentGun->shoot();
+	{
+		//----------Posici�n inicial de la bala
+
+		//Distinci�n flip-unflip
+		int bulletXOffset = _anim->isFlipped() ? -18 : -20;
+		int bulletYOffset = _anim->isFlipped() ? -16 : -6;
+		double aimAuxY = _anim->isFlipped() ? 1 : -1;
+
+		Vector2D bulletPosition =
+		{
+			_transform->getPosition().getX() + bulletXOffset + _anim->getTexture()->getW() / 4,
+			_transform->getPosition().getY() + _anim->getTexture()->getH() / 5 + bulletYOffset
+		};
+		
+		Vector2D aux = (Vector2D(0, aimAuxY).rotate(_transform->getRotation() + 80))*(_anim->getTexture()->getH() / 2);
+
+		bulletPosition = bulletPosition + aux;
+
+
+		//----------Direcci�n de la bala
+
+		//Distinci�n flip-unflip
+		int bulletDirOffset = _anim->isFlipped() ? 95 : 90;
+
+		Vector2D bulletDir = (Vector2D(0, aimAuxY).rotate(_transform->getRotation() + bulletDirOffset));
+		bulletDir.normalize();
+		//bulletDir = bulletDir * 3;
+
+
+
+
+		if(_currentGun->shoot(bulletPosition, bulletDir, _anim->isFlipped()))
+		{
+			_anim->playAnim(AnimatedSpriteComponent::Shoot);
+		}
+		else
+		{
+			if (_currentGun->getAmmo() > 0)
+			{
+				static_cast<Player*>(_player)->reload();
+			}
+			else
+			{
+				_anim->playAnim(AnimatedSpriteComponent::NoAmmo);
+			}
+			
+		}
+	}
 	else
 		cout << "Gun Not found" << endl;
 
@@ -81,6 +172,7 @@ void Arm::shoot()
 bool Arm::reload()
 {
 	return _currentGun->reload();
+	
 }
 
 void Arm::setGun(Gun* gun)

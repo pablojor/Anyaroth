@@ -8,10 +8,10 @@ class Layer : public GameComponent
 		Texture* _tileset;
 		vector<Tile*> _tilemap;
 	public:
-		Layer(string name, Texture* t, string filename, Game* g);
+		Layer(string name, Texture* t, string filename, Game* g, string tag);
 		~Layer();
 
-		void render() const;
+		void render(Camera* c) const;
 
 		vector<Tile*> getTilemap() { return _tilemap; };
 

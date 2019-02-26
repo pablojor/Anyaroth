@@ -1,19 +1,26 @@
-#include "MeleeEnemyComponent.h"
+#include "MartyrEnemy.h"
 #include "GameComponent.h"
 #include "AnimatedSpriteComponent.h"
 #include "Player.h"
+#include "BodyComponent.h"
 
 
-MeleeEnemyComponent::MeleeEnemyComponent(Player* player, Game* g, Texture* texture, Vector2D posIni) : Enemy(player, g, texture, posIni)
+MartyrEnemy::MartyrEnemy(Player* player, Game* g, PlayState* play,Texture* texture, Vector2D posIni, string tag) : _player(player), Enemy(player, g, play,texture, posIni, tag)
 {
 	_vision = 300;
-	_flipRange = 5;
-	_attackRange = 25;
-	_attackTime = 1500;
+	_attackRange = 25; //No se puede poner mas pequeï¿½o que la velocidad
+	_attackTime = 1000;
 	_life = 50;
+
+	_anim->addAnim(AnimatedSpriteComponent::Idle, 16, true);
+	_anim->addAnim(AnimatedSpriteComponent::Walk, 10, true);
+	_anim->addAnim(AnimatedSpriteComponent::WalkBack, 10, true); //esta en realidad es opcional
+	_anim->addAnim(AnimatedSpriteComponent::MeleeKnife, 6, false);
+
+	_anim->playAnim(AnimatedSpriteComponent::Idle);
 }
 
-void MeleeEnemyComponent::update()
+void MartyrEnemy::update()
 {
 	Enemy::update();
 
@@ -29,7 +36,7 @@ void MeleeEnemyComponent::update()
 
 	if (!_attacking && x < _vision && x > -_vision)
 	{
-		if (x > _flipRange)
+		if (x > 0)
 		{
 			_anim->unFlip();
 
@@ -47,7 +54,7 @@ void MeleeEnemyComponent::update()
 				cout << "attacking" << endl;
 			}
 		}
-		else if (x < -_flipRange)
+		else if (x < 0)
 		{
 			_anim->flip();
 
@@ -70,11 +77,14 @@ void MeleeEnemyComponent::update()
 	{ 
 		if (SDL_GetTicks() > _time + _attackTime)
 		{
-			_attacking = false;
-			cout << "moving again" << endl;
-			_anim->playAnim(AnimatedSpriteComponent::Idle);
-			//if(colision de arma con jugador)
-			//	llamas daño al jugador
+			
+			if ((x < _explosionRange && x > 0) || (x > -_explosionRange && x < 0) && (y < _explosionRange && y > 0) || (y > -_explosionRange && y < 0))
+			{
+				auto body = _player->getComponent<BodyComponent>()->getBody();
+				body->ApplyLinearImpulseToCenter(b2Vec2(_impulse * x, _impulse * y), true);
+			}
+
+			_play->KillObject(_itList);
 		}
 	}
 	else
