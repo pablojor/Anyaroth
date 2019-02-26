@@ -15,6 +15,7 @@ private:
 
 public:
 	BodyComponent(GameComponent* obj);
+	BodyComponent(GameComponent* obj, Vector2D pos, double height, double width);
 	virtual ~BodyComponent();
 
 	virtual void update();

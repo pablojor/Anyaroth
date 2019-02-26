@@ -89,10 +89,10 @@ class GameComponent: public GameObject
 		b2World* getWorld();
 		void setWorld(b2World* world) { _world = world; };
 
-		virtual void beginCollision(GameComponent* other) {};
-		virtual void endCollision(GameComponent* other) {};
-		virtual void preCollision(GameComponent* other) {};
-		virtual void postCollision(GameComponent* other){};
+		virtual void beginCollision(GameComponent* other, b2Contact* contact) {};
+		virtual void endCollision(GameComponent* other, b2Contact* contact) {};
+		virtual void preCollision(GameComponent* other, b2Contact* contact) {};
+		virtual void postCollision(GameComponent* other, b2Contact* contact){};
 
 		void addChild(GameComponent* obj);
 

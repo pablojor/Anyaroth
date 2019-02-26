@@ -37,8 +37,8 @@ public:
 	~Player();
 
 	void update();
-	virtual void beginCollision(GameComponent* other);
-	virtual void endCollision(GameComponent* other);
+	virtual void beginCollision(GameComponent* other, b2Contact* contact);
+	virtual void endCollision(GameComponent* other, b2Contact* contact);
 
 	void setLife(double amount);
 	void addLife(double amount);

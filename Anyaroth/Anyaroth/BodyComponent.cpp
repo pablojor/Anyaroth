@@ -37,6 +37,28 @@ BodyComponent::BodyComponent(GameComponent * obj) : PhysicsComponent(obj)
 	_body->SetUserData(obj);
 }
 
+BodyComponent::BodyComponent(GameComponent* obj, Vector2D pos, double height, double width) : PhysicsComponent(obj)
+{
+	_world = obj->getWorld();
+
+	b2BodyDef _bodydef;
+	_bodydef.type = b2_staticBody;
+	_bodydef.position = b2Vec2(pos.getX() / M_TO_PIXEL, pos.getY() / M_TO_PIXEL);
+	_bodydef.angle = 0.0;
+	_body = _world->CreateBody(&_bodydef);
+
+	_shape.SetAsBox(width, height);
+	_fixture.shape = &_shape;
+	_fixture.density = 1;
+	_fixture.restitution = 0;
+	_fixture.friction = 1;
+
+
+
+	_body->CreateFixture(&_fixture);
+	_body->SetUserData(obj);
+}
+
 BodyComponent::~BodyComponent()
 {
 	_world->DestroyBody(_body);
