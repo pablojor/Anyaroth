@@ -1,4 +1,5 @@
 #include "PauseState.h"
+#include "MenuState.h"
 
 PauseState::PauseState(Game* g) : GameState(g) 
 {
@@ -20,5 +21,5 @@ void PauseState::Continue(Game * g)
 
 void PauseState::MainMenu(Game * g)
 {
-	g->changeState(Menu);
+	g->changeState(new MenuState(g));
 }

@@ -1,4 +1,5 @@
 #include "MenuState.h"
+#include "PlayState.h"
 
 MenuState::MenuState(Game* g) : GameState(g)
 {
@@ -15,7 +16,7 @@ MenuState::~MenuState()
 
 void MenuState::startGame(Game * g)
 {
-	g->changeState(Play);
+	g->changeState(new PlayState(g));
 }
 
 void MenuState::exitGame(Game * g)

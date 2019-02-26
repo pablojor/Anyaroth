@@ -1,4 +1,5 @@
 #include "PlayState.h"
+#include "PauseState.h"
 #include "Game.h"
 #include "BodyComponent.h"
 #include "FollowingComponent.h"
@@ -22,24 +23,16 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_layer->addComponent<BodyComponent>();
 	_stages.push_back(_layer);
 
-	//brazo de atr�s
-	//auto armBack = new Arm(g->getTexture("Armback"), nullptr);
-	//_stages.push_back(armBack);
-
 	//Player
 	_player = new Player(g->getTexture("Mk"), g);
 	_stages.push_back(_player);
-
-	//Enemy
-	//_enemy = new MeleeEnemyComponent(_player, g, g->getTexture("Mk"), Vector2D(50, 100));
-	//_stages.push_back(_enemy);
 }
 
 void PlayState::handleEvents(SDL_Event& e)
 {
 	GameState::handleEvents(e);
 	if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE) {
-		_game->pushState(Pause);
+		_game->pushState(new PauseState(_game));
 	}
 }
 

@@ -6,23 +6,9 @@
 #include "Texture.h"
 #include "GameStateMachine.h"
 #include "MenuState.h"
-#include "PlayState.h"
 #include "PauseState.h"
 #include "Gun.h"
 #include "Shooter.h"
-
-
-const int NUM_VARIABLES = 4;
-enum TypeVariable
-{
-	WIN_WIDTH, WIN_HEIGHT, FRAME_RATE, TIME_PER_FRAME	
-};
-
-const int NUM_STATES = 3;
-enum StateName
-{
-	Menu, Play, Pause
-};
 
 const string INFO_PATH = "..\\files\\info\\";
 const string FONTS_PATH = "..\\font\\";
@@ -34,13 +20,6 @@ const string TILEMAP_PATH = "..\\files\\tilemaps\\";
 
 const int NUM_TEXTURES = 10;
 const int NUM_FONTS = 0;
-
-const int NUM_LEVELS = 1;
-const string LEVELS[NUM_LEVELS] =
-{
-
-};
-
 const int TILES_W = 16;
 const int TILES_H = 16;
 
@@ -58,18 +37,12 @@ struct GunAttributes
 	int maxClip;
 };
 
-//********************************************************************************
-//********************************************************************************
-//********************************************************************************
-//********************************************************************************
-
 class Game
 {
 	private:
 		SDL_Window* window = nullptr;
 		SDL_Renderer* renderer = nullptr;
 		map <string, Texture*> textures;
-		GameState* states[NUM_STATES];
 		GameStateMachine* stateMachine = new GameStateMachine();
 		vector<string> texturesName;
 		b2World* _world = nullptr;
@@ -95,19 +68,18 @@ class Game
 		};
 
 		//Metodos
-		void createVariables();
 		void createTextures();
-		void pushState(StateName state);
-		void changeState(StateName state);
+		void pushState(GameState* state);
+		void changeState(GameState* state);
 		void popState();
 		Texture* getTexture(string nameText);
-		SDL_Renderer* getRenderer() { return renderer; }
-		b2World* getWorld() { return _world; }
-		void setExit(bool quit) { exit = quit; }
+		inline SDL_Renderer* getRenderer() const { return renderer; }
+		inline b2World* getWorld() const { return _world; }
+		inline void setExit(bool quit) { exit = quit; }
 		void newGame();
 		void load();
 		void save();
-		//*************************
+
 		Game();
 		~Game();
 		void run();
