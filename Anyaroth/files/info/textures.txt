@@ -1,5 +1,5 @@
 example1 Jugador.png 1 1
-Mk mk_spritesheet.png 10 16
+Mk mk_spritesheet.png 11 16
 EnemyMelee enemymelee_spritesheet.png 3 13
 Arm mk_arm.png 1 1
 ArmUp mk_arm_up.png 1 1

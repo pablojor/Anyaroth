@@ -84,7 +84,8 @@ void Arm::update()
 
 
 	if ((static_cast<Player*>(_player))->getCurrentState() == Player::Attacking ||
-		(static_cast<Player*>(_player))->getCurrentState() == Player::Reloading)
+		(static_cast<Player*>(_player))->getCurrentState() == Player::Reloading ||
+		(static_cast<Player*>(_player))->getCurrentState() == Player::Dashing)
 	{
 		_anim->setActive(false);
 	}

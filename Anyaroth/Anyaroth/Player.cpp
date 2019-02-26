@@ -36,6 +36,7 @@ Player::Player(Texture* texture, Game* g, PlayState* play, string tag) : _play(p
 	_anim->addAnim(AnimatedSpriteComponent::StartFalling, 2, false);
 	_anim->addAnim(AnimatedSpriteComponent::Falling, 2, true);
 	_anim->addAnim(AnimatedSpriteComponent::Hurt, 2, true);
+	_anim->addAnim(AnimatedSpriteComponent::Dash, 4, false);
 
 	addComponent<MovingComponent>();
 	_controller = addComponent<PlayerControllerComponent>();

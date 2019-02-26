@@ -31,7 +31,7 @@ private:
 	Money * _money = nullptr;
 public:
 
-	enum states { Idle, Attacking, Reloading };
+	enum states { Idle, Attacking, Reloading, Dashing };
 
 	Player(Texture* texture, Game* g, PlayState* play, string tag);
 	~Player();
