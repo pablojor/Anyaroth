@@ -133,6 +133,7 @@
     <ClCompile Include="GameComponent.cpp">
       <Filter>Archivos de código\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="ParallaxBackGround.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -285,6 +286,7 @@
     <ClInclude Include="HUD.h">
       <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
+    <ClInclude Include="ParallaxBackGround.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de encabezado">

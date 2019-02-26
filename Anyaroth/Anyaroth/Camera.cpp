@@ -28,8 +28,6 @@ void Camera::looseFixedObject()
 
 void Camera::update()
 {
-	GameComponent::update();
-
 	if (_followedObject != nullptr)
 	{
 		auto a = _followedObject->getComponent<TransformComponent>()->getPosition();

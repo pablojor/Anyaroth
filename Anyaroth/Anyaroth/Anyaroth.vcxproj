@@ -142,6 +142,7 @@
     <ClCompile Include="MartyrEnemy.cpp" />
     <ClCompile Include="MeleeEnemy.cpp" />
     <ClCompile Include="ObjectPool.cpp" />
+    <ClCompile Include="ParallaxBackGround.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="FrameComponent.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -191,6 +192,7 @@
     <ClInclude Include="MartyrEnemy.h" />
     <ClInclude Include="MeleeEnemy.h" />
     <ClInclude Include="ObjectPool.h" />
+    <ClInclude Include="ParallaxBackGround.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="FileFormatError.h" />
     <ClInclude Include="FileNotFoundError.h" />

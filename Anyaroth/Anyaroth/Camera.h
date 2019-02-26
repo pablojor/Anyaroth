@@ -1,7 +1,7 @@
 #pragma once
 #include "GameComponent.h"
 
-class Camera : public GameComponent
+class Camera
 {
 	private:
 		GameComponent * _followedObject = nullptr;
@@ -25,5 +25,6 @@ class Camera : public GameComponent
 		void looseFixedObject();
 
 		void update();
+		void render();
 };
 
