@@ -116,38 +116,26 @@ void Arm::shoot()
 {
 	if (_currentGun != nullptr)
 	{
+		double armAngle = _transform->getRotation(),
+			armX = _transform->getPosition().getX(),
+			armY = _transform->getPosition().getY();
+
+
 		//----------Posici�n inicial de la bala
+		int posOffsetX = 24,
+			posOffsetY = -1;
 
-		//Distinci�n flip-unflip
-		double auxRot = _anim->isFlipped() ? _transform->getRotation() : (_transform->getRotation() < -90) ? -(_transform->getRotation() + 360) : abs(_transform->getRotation());
-		cout << auxRot << endl;
-
-		int bulletXOffset = _anim->isFlipped() ? /*-18*/abs(auxRot) > 65 ? -13 : -18 : abs(auxRot) > 50 ? -18 : -20 /*-18 : -20*/;
-		int bulletYOffset = _anim->isFlipped() ? -16 : abs(auxRot) > 50 ? 0 : -6;
-		double aimAuxY = _anim->isFlipped() ? 1 : -1;
-
-		
-
-		//bulletXOffset *= _anim->isFlipped() ? sin(abs(auxRot)) : 0;
-
-		Vector2D bulletPosition =
-		{
-			_transform->getPosition().getX() + bulletXOffset + _anim->getTexture()->getW() / 4,
-			_transform->getPosition().getY() + _anim->getTexture()->getH() / 5 + bulletYOffset
-		};
-		
-		Vector2D aux = (Vector2D(0, aimAuxY).rotate(_transform->getRotation() + 80))*(_anim->getTexture()->getH() / 2);
-
-		bulletPosition = bulletPosition + aux;
+		Vector2D bulletPosition = {armX + (_anim->isFlipped() ? -posOffsetX : posOffsetX), armY + posOffsetY};
+		bulletPosition = bulletPosition.rotateAroundPoint(armAngle, { armX, armY });
 
 
 		//----------Direcci�n de la bala
 
 		//Distinci�n flip-unflip
-		int bulletDirOffset = _anim->isFlipped() ? 95 : 90;
+		int bulletDirOffset = 90;//_anim->isFlipped() ? 90 : 90;
 
-
-		Vector2D bulletDir = (Vector2D(0, aimAuxY).rotate(_transform->getRotation() + bulletDirOffset));
+		double aimAuxY = _anim->isFlipped() ? 1 : -1;
+		Vector2D bulletDir = (Vector2D(0, aimAuxY).rotate(armAngle + bulletDirOffset));
 		bulletDir.normalize();
 		//bulletDir = bulletDir * 3;
 
