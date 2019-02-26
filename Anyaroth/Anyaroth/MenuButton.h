@@ -18,5 +18,5 @@ public:
 	virtual ~MenuButton();
 
 	SDL_Rect getRect();
-	void handleInput(const SDL_Event& event);
+	bool handleInput(const SDL_Event& event);
 };

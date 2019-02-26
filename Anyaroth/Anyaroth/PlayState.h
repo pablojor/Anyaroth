@@ -21,5 +21,5 @@ class PlayState : public GameState
 	public:
 		PlayState(Game* g);
 		virtual void update();
-		virtual void handleEvents(SDL_Event& e);
+		virtual bool handleEvents(SDL_Event& e);
 };

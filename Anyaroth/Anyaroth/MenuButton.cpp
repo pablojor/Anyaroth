@@ -27,10 +27,11 @@ SDL_Rect MenuButton::getRect()
 	return rect;
 }
 
-void MenuButton::handleInput(const SDL_Event & event)
+bool MenuButton::handleInput(const SDL_Event & event)
 {
 	GameComponent::handleInput(event);
 
+	bool handled = false;
 	int x, y;
 	SDL_GetMouseState(&x, &y);
 	if (event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT) {
@@ -38,5 +39,7 @@ void MenuButton::handleInput(const SDL_Event & event)
 		SDL_Rect rect = getRect();
 		if (SDL_PointInRect(&point, &rect))
 			cb(g);
+		handled = true;
 	}
+	return handled;
 }

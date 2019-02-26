@@ -72,7 +72,7 @@ class GameComponent: public GameObject
 		GameComponent(Game* g);
 		virtual ~GameComponent();
 
-		virtual void handleInput(const SDL_Event& event);
+		virtual bool handleInput(const SDL_Event& event);
 		virtual void update();
 		virtual void render() const;
 

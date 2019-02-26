@@ -16,5 +16,5 @@ class GameState
 		virtual ~GameState();
 		virtual void render() const;
 		virtual void update();
-		virtual void handleEvents(SDL_Event& e);
+		virtual bool handleEvents(SDL_Event& e);
 };

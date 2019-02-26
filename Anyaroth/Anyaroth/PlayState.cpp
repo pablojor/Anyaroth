@@ -28,12 +28,16 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_stages.push_back(_player);
 }
 
-void PlayState::handleEvents(SDL_Event& e)
+bool PlayState::handleEvents(SDL_Event& e)
 {
 	GameState::handleEvents(e);
+
+	bool handled = false;
 	if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE) {
 		_game->pushState(new PauseState(_game));
+		handled = true;
 	}
+	return handled;
 }
 
 void PlayState::update()
