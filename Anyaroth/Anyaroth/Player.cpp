@@ -67,7 +67,7 @@ Player::~Player()
 	delete _money;
 }
 
-void Player::beginCollision(GameComponent * other)
+void Player::beginCollision(GameComponent * other, b2Contact* contact)
 {
 	
 	auto otherTransform = other->getComponent<TransformComponent>();
@@ -113,10 +113,11 @@ void Player::beginCollision(GameComponent * other)
 		coin->destroy();
 		cout << "Moneda cogida" << endl;
 		cout << "Cantidad monedero: " << _money->getWallet() << endl;
+		contact->SetEnabled(false);
 	}
 }
 
-void Player::endCollision(GameComponent * other)
+void Player::endCollision(GameComponent * other, b2Contact* contact)
 {
 	
 	
