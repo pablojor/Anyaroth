@@ -2,12 +2,17 @@
 #include "Game.h"
 #include "AnyarothError.h"
 #include <sstream>
+#include <json.hpp>
+
+using namespace nlohmann;
 
 Layer::Layer(string name, Texture* t, string filename, Game* g) : GameComponent(g), _tileset(t)
 {
+	json j;
 	_tilemap.clear();
 	fstream file;
 	file.open(filename);
+	file >> j;
 	if (file.is_open())
 	{
 		int temp = 0, h = 0, w = 0;
@@ -55,7 +60,7 @@ Layer::Layer(string name, Texture* t, string filename, Game* g) : GameComponent(
 					temp--;
 					if (temp >= 0)
 					{
-						Tile* tile = new Tile(x * TILES_W, y * TILES_H, (temp / t->getNumCols()), temp % t->getNumCols(), _tileset,g);
+						Tile* tile = new Tile(x * TILES_W, y * TILES_H, (temp / t->getNumCols()), temp % t->getNumCols(), _tileset, g);
 						_tilemap.push_back(tile);
 					}
 				}
