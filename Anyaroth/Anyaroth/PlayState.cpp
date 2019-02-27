@@ -4,6 +4,8 @@
 #include "FollowingComponent.h"
 #include "checkML.h"
 #include "Coin.h"
+#include "ParallaxBackGround.h"
+#include "ParallaxLayer.h"
 
 PlayState::PlayState(Game* g) : GameState(g)
 {
@@ -43,7 +45,10 @@ PlayState::PlayState(Game* g) : GameState(g)
 
 	_enemy->setItList(itFR);
 	
-	
+	//Camera BackGound
+	ParallaxBackGround* a = new ParallaxBackGround(_mainCamera);
+	a->addLayer(new ParallaxLayer(g->getTexture("Parallax"), _mainCamera));
+	_mainCamera->setBackGround(a);
 	
 }
 

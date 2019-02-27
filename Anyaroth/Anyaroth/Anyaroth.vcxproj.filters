@@ -136,6 +136,9 @@
     <ClCompile Include="UIElement.cpp" />
     <ClCompile Include="Canvas.cpp" />
     <ClCompile Include="ImageUI.cpp" />
+    <ClCompile Include="ParallaxBackGround.cpp" />
+    <ClCompile Include="BackGround.cpp" />
+    <ClCompile Include="ParallaxLayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -291,6 +294,9 @@
     <ClInclude Include="Canvas.h" />
     <ClInclude Include="UIElement.h" />
     <ClInclude Include="ImageUI.h" />
+    <ClInclude Include="ParallaxBackGround.h" />
+    <ClInclude Include="BackGround.h" />
+    <ClInclude Include="ParallaxLayer.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de encabezado">

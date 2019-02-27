@@ -10,3 +10,5 @@ tileset Tileset.png  9 8
 body Body.png 1 1
 Coin coin.png 1 6
 Ammo ammo.png 1 10
+BG bg.jpg 1 1
+Parallax parallax.png 1 1
