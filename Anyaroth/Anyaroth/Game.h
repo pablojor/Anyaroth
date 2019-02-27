@@ -66,13 +66,10 @@ struct GunAttributes
 };
 
 enum _Category {
-	FLOOR = 0x0001,
-	ENEMIES = 0x0002,
-	PLAYER = 0x0003,
-	OBJECTS = 0x0004,
-	PLAYER_BULLETS=0x0005,
-	ENEMY_BULLETS=0x0006
-
+	FLOOR = 1,
+	ENEMIES = 2,
+	PLAYER = 3,
+	OBJECTS = 4,
 };
 //********************************************************************************
 //********************************************************************************

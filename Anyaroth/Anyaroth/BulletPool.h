@@ -36,7 +36,7 @@ void BulletPool<SIZE>::initBullets() {
 	for (int i = 0; i < SIZE; i++)
 	{
 		Bullet* b = ObjectPool<Bullet, SIZE>::getObject(i);
-		b->init(_bulletTexture, _bulletSpeed, _bulletAngle, _bulletDamage);
+		b->init(_bulletTexture, _bulletSpeed, _bulletDamage, _bulletAngle);
 	}
 }
 

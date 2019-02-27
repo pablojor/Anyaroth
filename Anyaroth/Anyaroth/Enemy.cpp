@@ -20,7 +20,7 @@ Enemy::Enemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2
 	_body->getBody()->SetFixedRotation(true);
 	_body->setW(20);
 	_body->setH(40);
-	_body->filterCollisions(ENEMIES, FLOOR | PLAYER_BULLETS);
+	_body->filterCollisions(ENEMIES, FLOOR);
 
 	//auto playerTrans = addComponent<MeleeEnemyComponent>();
 
@@ -46,7 +46,7 @@ void Enemy::beginCollision(GameComponent * other, b2Contact* contact)
 	if (otherTag == "Bullet")
 	{
 		double damage = 0;
-		//damage=dynamic_cast<Bullet*>(other).getDamage();
+		damage=dynamic_cast<Bullet*>(other)->getDamage();
 		subLife(damage);
 	}
 }
@@ -76,4 +76,5 @@ void Enemy::subLife(double amount)
 
 void Enemy::die()
 {
+	_play->KillObject(_itList);
 }

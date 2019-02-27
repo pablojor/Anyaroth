@@ -23,7 +23,7 @@ Player::Player(Texture* texture, Game* g, PlayState* play, string tag) : _play(p
 	 _body->getBody()->SetFixedRotation(true);
 	 _body->setW(20);
 	 _body->setH(30);
-	 _body->filterCollisions(PLAYER, OBJECTS | FLOOR /*| ENEMY_BULLETS*/);
+	 _body->filterCollisions(PLAYER, OBJECTS | FLOOR );
 
 	_anim = addComponent<AnimatedSpriteComponent>();		//Como depende de Transform, en su constructura crea una si no ha encontrado Transform en el objeto.
 	_anim->addAnim(AnimatedSpriteComponent::Idle, 16, true);
@@ -102,7 +102,7 @@ void Player::beginCollision(GameComponent * other, b2Contact* contact)
 	else if (otherTag == "Bullet")
 	{
 		double damage = 0;
-		//damage=dynamic_cast<Bullet*>(other).getDamage();
+		damage=dynamic_cast<Bullet*>(other)->getDamage();
 		subLife(damage);
 	}
   else if(other->getTag() == "Moneda")
@@ -177,6 +177,7 @@ void Player::subLife(double amount)
 
 void Player::die()
 {
+	cout << "Has Muerto" << endl;
 }
 
 void Player::update()

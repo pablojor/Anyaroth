@@ -10,7 +10,7 @@ MeleeEnemy::MeleeEnemy(Player* player, Game* g, PlayState* play,Texture* texture
 	_attackRange = 25; //No se puede poner mas peque�o que la velocidad
 	_attackTime = 800; 
 	_life = 50;
-
+	_damage = 10;
 
 	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 13, true);
 	_anim->addAnim(AnimatedSpriteComponent::EnemyWalk, 8, true);
@@ -92,12 +92,14 @@ void MeleeEnemy::update()
 		{
 			if (_attackingR && (x < _attackRange + _playerBody->getW() * 8 && x > 0) && y < _attackRange && y > -_attackRange)
 			{
-				cout << "tas muerto" << endl; //Le haces daño
+				cout << "tas danyado" << endl; //Le haces daño
+				_player->subLife(_damage);
 				_attacking = false;
 			}
 			else if (_attackingL && (x < 0 && x > -_attackRange) && y < _attackRange && y > -_attackRange)
 			{
-				cout << "tas muerto" << endl; //Le haces daño
+				cout << "tas danyado" << endl; //Le haces daño
+				_player->subLife(_damage);
 				_attacking = false;
 			}
 			

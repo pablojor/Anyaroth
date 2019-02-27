@@ -6,7 +6,6 @@
 
 Bullet::Bullet(Texture* texture, Vector2D iniPos, Game* g, string tag) : GameComponent(g, tag) 
 {
-	
 }
 Bullet::Bullet() 
 {
@@ -25,6 +24,7 @@ void Bullet::beginCollision(GameComponent * other, b2Contact* contact)
 
 void Bullet::init(Texture* texture, double speed, int damage, double angle, int range)
 {
+	setTag("Bullet");
 	_speed = speed;
 	_damage = damage;
 	_range = range;

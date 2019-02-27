@@ -17,7 +17,7 @@ class Player : public GameComponent
 {
 private:
 	PlayState* _play = nullptr;
-	int _life;
+	int _life=100;
 	int AmountOfCollision;
 	uint _currentState = 0;
 	Arm* _weaponArm = nullptr;

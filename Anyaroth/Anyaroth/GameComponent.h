@@ -98,7 +98,9 @@ class GameComponent: public GameObject
 
 		Game* getGame() { return _game; }
 
-		string getTag() { return _tag; }
+		string const getTag() { return _tag; }
+		void setTag(string  const &tag) { _tag = tag; }
+
 		void setActive(bool active) { _active = active; };
 		bool isActive() const { return _active; };
 
