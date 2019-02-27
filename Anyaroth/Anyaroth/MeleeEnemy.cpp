@@ -8,7 +8,7 @@ MeleeEnemy::MeleeEnemy(Player* player, Game* g, PlayState* play,Texture* texture
 {
 	_vision = 300;
 	_attackRange = 25; //No se puede poner mas peque�o que la velocidad
-	_attackTime = 1300; //La animacion tarda unos 450
+	_attackTime = 800; 
 	_life = 50;
 
 
@@ -17,6 +17,8 @@ MeleeEnemy::MeleeEnemy(Player* player, Game* g, PlayState* play,Texture* texture
 	_anim->addAnim(AnimatedSpriteComponent::EnemyAttack, 11, false);
 
 	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
+
+	//_myCollision = new EnemyMeleeCollision(g, this, 20);
 }
 
 void MeleeEnemy::update()
@@ -35,15 +37,14 @@ void MeleeEnemy::update()
 	x = player.getX() - enemy.getX();
 	y = player.getY() - enemy.getY();
 
-	if (!_attacking && x < _vision && x > -_vision && y < _vision && y > -_vision)
+	if (!_attackingR && !_attackingL && x < _vision && x > -_vision && y < _vision && y > -_vision)
 	{
 		if (x > 0)
 		{
 			_anim->unFlip();
-			int w = _playerBody->getW();
-			if (x > _attackRange + _playerBody->getW() * 10)
+			if (x > _attackRange + _playerBody->getW() * 8)
 			{
-				_body->getBody()->SetLinearVelocity({ 10,_body->getBody()->GetLinearVelocity().y });
+				_body->getBody()->SetLinearVelocity({ 8,_body->getBody()->GetLinearVelocity().y });
 				_anim->playAnim(AnimatedSpriteComponent::EnemyWalk);
 			}
 			else if (y > _attackRange || y < -_attackRange)
@@ -56,6 +57,7 @@ void MeleeEnemy::update()
 				_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
 				_anim->playAnim(AnimatedSpriteComponent::EnemyAttack); //Llamas a animacion de ataque
 				_time = SDL_GetTicks();
+				_attackingR = true;
 				_attacking = true;
 			}
 		}
@@ -65,7 +67,7 @@ void MeleeEnemy::update()
 
 			if (x < -_attackRange)
 			{
-				_body->getBody()->SetLinearVelocity({ -10,_body->getBody()->GetLinearVelocity().y });
+				_body->getBody()->SetLinearVelocity({ -8,_body->getBody()->GetLinearVelocity().y });
 				_anim->playAnim(AnimatedSpriteComponent::EnemyWalk);
 			}
 			else if (y > _attackRange || y < -_attackRange)
@@ -78,18 +80,32 @@ void MeleeEnemy::update()
 				_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
 				_anim->playAnim(AnimatedSpriteComponent::EnemyAttack); //Llamas a animacion de ataque
 				_time = SDL_GetTicks();
+				_attackingL = true;
 				_attacking = true;
 			}
 		}
 	}
-	else if(_attacking)
+	else if(_attackingR || _attackingL)
 	{ 
-		if (SDL_GetTicks() > _time + _attackTime)
+		
+		if (SDL_GetTicks() > _time + _attackTime && _attacking == true)
 		{
-			_attacking = false;
-			_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
-			//if(colision de arma con jugador)
-			//	llamas da�o al jugador
+			if (_attackingR && (x < _attackRange + _playerBody->getW() * 8 && x > 0) && y < _attackRange && y > -_attackRange)
+			{
+				cout << "tas muerto" << endl; //Le haces daño
+				_attacking = false;
+			}
+			else if (_attackingL && (x < 0 && x > -_attackRange) && y < _attackRange && y > -_attackRange)
+			{
+				cout << "tas muerto" << endl; //Le haces daño
+				_attacking = false;
+			}
+			
+		}
+		if (_anim->animationFinished())
+		{
+			_attackingR = _attackingL  =_attacking = false;
+			_anim->playAnim(AnimatedSpriteComponent::Idle);
 		}
 	}
 	else

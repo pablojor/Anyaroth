@@ -23,7 +23,7 @@ void DistanceStaticEnemy::update()
 {
 	Enemy::update();
 
-	Texture* _playerText = _player->getComponent<Texture>();
+	BodyComponent* _playerBody = _player->getComponent<BodyComponent>();
 	TransformComponent* _playerTransform = _player->getComponent<TransformComponent>();
 
 	Vector2D enemy, player;

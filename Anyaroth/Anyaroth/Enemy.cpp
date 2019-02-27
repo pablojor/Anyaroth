@@ -40,7 +40,7 @@ void Enemy::setItList(list<GameObject*>::iterator itFR)
 	_itList = itFR;
 }
 
-void Enemy::beginCollision(GameComponent * other)
+void Enemy::beginCollision(GameComponent * other, b2Contact* contact)
 {
 	string otherTag = other->getTag();
 	if (otherTag == "Bullet")

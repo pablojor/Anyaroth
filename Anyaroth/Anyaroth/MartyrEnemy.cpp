@@ -23,7 +23,7 @@ void MartyrEnemy::update()
 {
 	Enemy::update();
 
-	Texture* _playerText = _player->getComponent<Texture>();
+	BodyComponent* _playerBody = _player->getComponent<BodyComponent>();
 	TransformComponent* _playerTransform = _player->getComponent<TransformComponent>();
 
 	Vector2D enemy, player;
@@ -42,9 +42,9 @@ void MartyrEnemy::update()
 		{
 			_anim->unFlip();
 
-			if (x + _playerText->getW() > _attackRange)
+			if ((x > _attackRange + _playerBody->getW() * 8))
 			{
-				_body->getBody()->SetLinearVelocity({ 10,_body->getBody()->GetLinearVelocity().y });
+				_body->getBody()->SetLinearVelocity({ 8,_body->getBody()->GetLinearVelocity().y });
 				_anim->playAnim(AnimatedSpriteComponent::EnemyWalk);
 			}
    			else if (y > _attackRange || y < -_attackRange)
@@ -66,7 +66,7 @@ void MartyrEnemy::update()
 
 			if (x < -_attackRange)
 			{
-				_body->getBody()->SetLinearVelocity({ -10,_body->getBody()->GetLinearVelocity().y });
+				_body->getBody()->SetLinearVelocity({ -8,_body->getBody()->GetLinearVelocity().y });
 				_anim->playAnim(AnimatedSpriteComponent::EnemyWalk);
 			}
 			else if (y > _attackRange || y < -_attackRange)
@@ -88,7 +88,7 @@ void MartyrEnemy::update()
 		if (SDL_GetTicks() > _time + _attackTime)
 		{
 			
-			if ((x < _explosionRange && x > -_explosionRange) && y < _explosionRange && y > -_explosionRange)
+			if ((x < _attackRange + _playerBody->getW() * 8 && x > -_explosionRange) && y < _explosionRange && y > -_explosionRange)
 			{
 				auto body = _player->getComponent<BodyComponent>()->getBody();
 				body->ApplyLinearImpulseToCenter(b2Vec2(_impulse * x, _impulse * y), true);

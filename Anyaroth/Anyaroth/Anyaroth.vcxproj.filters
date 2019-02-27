@@ -136,9 +136,6 @@
     <ClCompile Include="DistanceStaticEnemy.cpp">
       <Filter>Archivos de código\Objects\Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="EnemyGun.cpp">
-      <Filter>Archivos de código\Objects\Enemies</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -292,9 +289,6 @@
       <Filter>Archivos de encabezado\Objects\Collectables</Filter>
     </ClInclude>
     <ClInclude Include="DistanceStaticEnemy.h">
-      <Filter>Archivos de encabezado\Objects\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyGun.h">
       <Filter>Archivos de encabezado\Objects\Enemies</Filter>
     </ClInclude>
   </ItemGroup>

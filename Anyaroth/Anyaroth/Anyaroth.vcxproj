@@ -138,7 +138,6 @@
     <ClCompile Include="DebugDraw.cpp" />
     <ClCompile Include="DistanceStaticEnemy.cpp" />
     <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="EnemyGun.cpp" />
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="FollowingComponent.cpp" />
     <ClCompile Include="MartyrEnemy.cpp" />
@@ -189,7 +188,6 @@
     <ClInclude Include="DebugDraw.h" />
     <ClInclude Include="DistanceStaticEnemy.h" />
     <ClInclude Include="Enemy.h" />
-    <ClInclude Include="EnemyGun.h" />
     <ClInclude Include="HUD.h" />
     <ClInclude Include="FollowingComponent.h" />
     <ClInclude Include="MartyrEnemy.h" />

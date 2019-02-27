@@ -30,7 +30,7 @@ public:
 	Bullet();
 	virtual ~Bullet();
 
-	void beginCollision(GameComponent* other);
+	void beginCollision(GameComponent* other, b2Contact* contact);
 	void setSpeed(double speed) { _speed = speed; };
 	void setDamage(double damage) { _damage = damage; };
 	int getDamage() { return _damage; };

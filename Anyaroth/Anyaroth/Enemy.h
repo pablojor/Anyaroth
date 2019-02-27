@@ -36,7 +36,7 @@ class Enemy : public GameComponent
 		virtual void subLife(double amount);
 		virtual void die();
 
-		virtual void beginCollision(GameComponent* other);
+		virtual void beginCollision(GameComponent* other, b2Contact* contact);
 
 		void setItList(list<GameObject*>::iterator itFR);
 

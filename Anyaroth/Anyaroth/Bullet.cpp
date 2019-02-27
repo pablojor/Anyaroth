@@ -16,10 +16,11 @@ Bullet::Bullet()
 Bullet::~Bullet() 
 {
 }
-void Bullet::beginCollision(GameComponent * other)
+void Bullet::beginCollision(GameComponent * other, b2Contact* contact)
 {
 	if(other->getTag() != "Player" && other->getTag() != "")
 		_collided = true;
+	contact->SetEnabled(false);
 }
 
 void Bullet::init(Texture* texture, double speed, int damage, double angle, int range)

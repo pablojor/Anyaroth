@@ -3,6 +3,7 @@
 #include "TransformComponent.h"
 #include <Box2D/Box2D.h>
 
+
 class BodyComponent : public PhysicsComponent
 {
 private:
@@ -15,7 +16,6 @@ private:
 
 public:
 	BodyComponent(GameComponent* obj);
-	BodyComponent(GameComponent* obj, Vector2D pos, double height, double width);
 	virtual ~BodyComponent();
 
 	virtual void update();
