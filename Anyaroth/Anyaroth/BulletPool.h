@@ -9,24 +9,24 @@
 class MovingComponent;
 
 template<int SIZE>
-class BulletPool :
-	public ObjectPool<Bullet, SIZE>
+class BulletPool : public ObjectPool<Bullet, SIZE>
 {
-private:
-	Texture* _bulletTexture = nullptr;
-	double _bulletSpeed = 0;
-	int _bulletDamage = 0;
-	int _bulletRange = 20;
-	double _bulletAngle = 0;
+	private:
+		Texture* _bulletTexture = nullptr;
+
+		double _bulletSpeed = 0;
+		int _bulletDamage = 0;
+		int _bulletRange = 20;
+		double _bulletAngle = 0;
+
+		void initBullets();
+
+	public:
+		BulletPool(Game* g, Texture* texture, double speed, int damage, double bulletAngle = 0, int bulletRange = 20) : _bulletTexture(texture), _bulletSpeed(speed), _bulletDamage(damage), _bulletAngle(bulletAngle), _bulletRange(bulletRange), ObjectPool<Bullet, SIZE>(g) { initBullets(); };
+		virtual ~BulletPool() {};
 
 
-	void initBullets();
-public:
-	BulletPool(Game* g, Texture* texture, double speed, int damage, double bulletAngle = 0, int bulletRange = 20) : _bulletTexture(texture), _bulletSpeed(speed), _bulletDamage(damage), _bulletAngle(bulletAngle), _bulletRange(bulletRange), ObjectPool<Bullet, SIZE>(g) { initBullets(); };
-	virtual ~BulletPool() {};
-
-
-	void addBullet(Vector2D pos, Vector2D dir, double angle);
+		void addBullet(Vector2D pos, Vector2D dir, double angle);
 };
 
 

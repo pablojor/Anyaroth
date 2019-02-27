@@ -36,8 +36,25 @@ void DistanceStaticEnemy::update()
 	x = player.getX() - enemy.getX();
 	y = player.getY() - enemy.getY();
 
-	if (x < _vision && x > -_vision) //estas viendo al jugador
+	if ((x != 0 || y > 0) &&
+		(x < _vision && x > -_vision && y < _vision && y > -_vision)) //estas viendo al jugador
 	{
-		//raycast
+		b2RayCastInput rayInput;
+		rayInput.maxFraction = 1;
+
+		if (x > 0)
+		{
+			rayInput.p1 = { (float32)(enemy.getX() + _body->getW()) / 8, (float32)enemy.getY() / 8 };
+			rayInput.p2 = { (float32)player.getX() / 8, (float32)player.getY() / 8 };
+		}
+		else if (x < 0)
+		{
+			rayInput.p1 = { (float32)enemy.getX() / 8, (float32)enemy.getY() / 8 };
+			rayInput.p2 = { (float32)(player.getX() + _playerBody->getW()) / 8, (float32)player.getY() / 8 };
+		}
+
+		b2RayCastOutput rayOutput;
+		if (!_body->getBody()->GetFixtureList()->RayCast(&rayOutput, rayInput, 0))
+			cout << "MORITE AJQUEROSO" << endl;
 	}
 }

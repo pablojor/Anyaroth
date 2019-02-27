@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "MeleeEnemy.h"
 #include "MartyrEnemy.h"
+#include "DistanceStaticEnemy.h"
 #include "BulletPool.h"
 
 class Player;
