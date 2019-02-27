@@ -6,6 +6,7 @@
 #include "Coin.h"
 #include "ParallaxBackGround.h"
 #include "ParallaxLayer.h"
+#include "PlayStateHUD.h"
 
 PlayState::PlayState(Game* g) : GameState(g)
 {
@@ -46,9 +47,12 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_enemy->setItList(itFR);
 	
 	//Camera BackGound
-	ParallaxBackGround* a = new ParallaxBackGround(_mainCamera);
+	/*ParallaxBackGround* a = new ParallaxBackGround(_mainCamera);
 	a->addLayer(new ParallaxLayer(g->getTexture("Parallax"), _mainCamera));
-	_mainCamera->setBackGround(a);
+	_mainCamera->setBackGround(a);*/
+
+	//HUD
+	setCanvas(new PlayStateHUD(g));
 	
 }
 

@@ -73,17 +73,19 @@ void Camera::looseFixedObject()
 {
 	if (_followedObject != nullptr)
 		_followedObject = nullptr;
-
 }
 
 void Camera::update()
 {
 	moveCamera();
-	if (_backGround->checkCameraStatus(_cameraStatus))
-		_backGround->update();
+	if (_backGround != nullptr) {
+		if (_backGround->checkCameraStatus(_cameraStatus))
+			_backGround->update();
+	}
 }
 
 void Camera::render() const
 {
-	_backGround->render();
+	if (_backGround != nullptr) 
+		_backGround->render();
 }

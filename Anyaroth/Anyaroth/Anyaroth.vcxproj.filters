@@ -106,9 +106,6 @@
     <ClCompile Include="Layer.cpp">
       <Filter>Archivos de código\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Archivos de código\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="Collectable.cpp">
       <Filter>Archivos de código\Objects</Filter>
     </ClCompile>
@@ -133,12 +130,28 @@
     <ClCompile Include="GameComponent.cpp">
       <Filter>Archivos de código\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="UIElement.cpp" />
-    <ClCompile Include="Canvas.cpp" />
-    <ClCompile Include="ImageUI.cpp" />
-    <ClCompile Include="ParallaxBackGround.cpp" />
-    <ClCompile Include="BackGround.cpp" />
-    <ClCompile Include="ParallaxLayer.cpp" />
+    <ClCompile Include="ImageUI.cpp">
+      <Filter>Archivos de código\UIElements</Filter>
+    </ClCompile>
+    <ClCompile Include="Canvas.cpp">
+      <Filter>Archivos de código\UIElements</Filter>
+    </ClCompile>
+    <ClCompile Include="UIElement.cpp">
+      <Filter>Archivos de código\UIElements</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Archivos de código\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="BackGround.cpp">
+      <Filter>Archivos de código\BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="ParallaxBackGround.cpp">
+      <Filter>Archivos de código\BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="ParallaxLayer.cpp">
+      <Filter>Archivos de código\BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayStateHUD.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -255,9 +268,6 @@
     <ClInclude Include="Layer.h">
       <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Archivos de encabezado\Objects</Filter>
-    </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
@@ -291,12 +301,28 @@
     <ClInclude Include="HUD.h">
       <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="Canvas.h" />
-    <ClInclude Include="UIElement.h" />
-    <ClInclude Include="ImageUI.h" />
-    <ClInclude Include="ParallaxBackGround.h" />
-    <ClInclude Include="BackGround.h" />
-    <ClInclude Include="ParallaxLayer.h" />
+    <ClInclude Include="Canvas.h">
+      <Filter>Archivos de encabezado\UIElements</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageUI.h">
+      <Filter>Archivos de encabezado\UIElements</Filter>
+    </ClInclude>
+    <ClInclude Include="UIElement.h">
+      <Filter>Archivos de encabezado\UIElements</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Archivos de encabezado\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="ParallaxLayer.h">
+      <Filter>Archivos de encabezado\BackGround</Filter>
+    </ClInclude>
+    <ClInclude Include="BackGround.h">
+      <Filter>Archivos de encabezado\BackGround</Filter>
+    </ClInclude>
+    <ClInclude Include="ParallaxBackGround.h">
+      <Filter>Archivos de encabezado\BackGround</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayStateHUD.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de encabezado">
@@ -349,6 +375,18 @@
     </Filter>
     <Filter Include="Archivos de código\Guns">
       <UniqueIdentifier>{8b321d92-8dfc-45cf-8f1e-52883f5182c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código\UIElements">
+      <UniqueIdentifier>{89c5698c-a0b8-42ef-b235-35c8a5da07bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\UIElements">
+      <UniqueIdentifier>{36940aad-becd-4a92-8d2c-f8ba9539814a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código\BackGround">
+      <UniqueIdentifier>{002aeaf6-9c9c-4304-8e31-2924b61200e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\BackGround">
+      <UniqueIdentifier>{20b3f86d-b6ec-4700-9275-3416e1f2971d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

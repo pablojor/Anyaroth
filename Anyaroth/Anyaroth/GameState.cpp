@@ -4,6 +4,7 @@
 GameState::~GameState()
 {
 	delete _mainCamera;
+	if (_canvas != nullptr) delete _canvas;
 	for (GameObject* o : _stages)
 		delete o;
 }

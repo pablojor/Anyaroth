@@ -3,7 +3,7 @@
 ImageUI::ImageUI(Texture * image) : _image(image)
 {
 	destRect = { 0, 0, image->getW(), image->getH() };
-	clipArea = { 0, 0, 0, 0 };
+	clipArea = destRect;
 }
 
 void ImageUI::render() const
@@ -19,8 +19,6 @@ void ImageUI::setPosition(int x, int y)
 {
 	destRect.x = x;
 	destRect.y = y;
-	clipArea.x = x;
-	clipArea.y = y;
 }
 
 void ImageUI::setSize(int w, int h)
@@ -29,8 +27,8 @@ void ImageUI::setSize(int w, int h)
 	destRect.h = h;
 }
 
-void ImageUI::setClippingArea(int w, int h)
+void ImageUI::setClippingAreaSize(float w, float h)
 {
-	clipArea.w = w;
-	clipArea.h = h;
+	clipArea.w = destRect.w * w;
+	clipArea.h = destRect.h * h;
 }
