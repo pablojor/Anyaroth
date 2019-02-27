@@ -40,6 +40,8 @@ Player::Player(Texture* texture, Game* g, PlayState* play, string tag) : _play(p
 	_anim->addAnim(AnimatedSpriteComponent::Hurt, 2, true);
 	_anim->addAnim(AnimatedSpriteComponent::Dash, 6, false);
 	_anim->addAnim(AnimatedSpriteComponent::DashDown, 3, true);
+	_anim->addAnim(AnimatedSpriteComponent::DashBack, 6, false);
+	_anim->addAnim(AnimatedSpriteComponent::ReloadShotgun, 5, false);
 
 	addComponent<MovingComponent>();
 	_controller = addComponent<PlayerControllerComponent>();

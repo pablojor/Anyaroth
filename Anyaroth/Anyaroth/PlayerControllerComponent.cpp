@@ -104,6 +104,9 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 			_movement->changeDash(true);
 			_dashing = true;
 			_amountOfDash--;
+
+			static_cast<Player*>(_obj)->setCurrentState(Player::Dashing);
+			_anim->playAnim(AnimatedSpriteComponent::DashBack);
 		}
 		else if (!_jumping)
 		{
