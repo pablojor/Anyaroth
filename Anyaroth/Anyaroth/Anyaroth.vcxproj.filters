@@ -133,6 +133,9 @@
     <ClCompile Include="GameComponent.cpp">
       <Filter>Archivos de código\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="UIElement.cpp" />
+    <ClCompile Include="Canvas.cpp" />
+    <ClCompile Include="ImageUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -285,6 +288,9 @@
     <ClInclude Include="HUD.h">
       <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
+    <ClInclude Include="Canvas.h" />
+    <ClInclude Include="UIElement.h" />
+    <ClInclude Include="ImageUI.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de encabezado">

@@ -131,6 +131,7 @@
     <ClCompile Include="ArmControllerComponent.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Canvas.cpp" />
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="BulletPool.cpp" />
     <ClCompile Include="Collectable.cpp" />
@@ -139,6 +140,7 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="FollowingComponent.cpp" />
+    <ClCompile Include="ImageUI.cpp" />
     <ClCompile Include="MartyrEnemy.cpp" />
     <ClCompile Include="MeleeEnemy.cpp" />
     <ClCompile Include="ObjectPool.cpp" />
@@ -167,6 +169,7 @@
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TransformComponent.cpp" />
     <ClCompile Include="TTFclass.cpp" />
+    <ClCompile Include="UIElement.cpp" />
     <ClCompile Include="Vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -179,6 +182,7 @@
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="BulletPool.h" />
+    <ClInclude Include="Canvas.h" />
     <ClInclude Include="checkML.h" />
     <ClInclude Include="Coin.h" />
     <ClInclude Include="Collectable.h" />
@@ -188,6 +192,7 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="HUD.h" />
     <ClInclude Include="FollowingComponent.h" />
+    <ClInclude Include="ImageUI.h" />
     <ClInclude Include="MartyrEnemy.h" />
     <ClInclude Include="MeleeEnemy.h" />
     <ClInclude Include="ObjectPool.h" />
@@ -219,6 +224,7 @@
     <ClInclude Include="Tile.h" />
     <ClInclude Include="TransformComponent.h" />
     <ClInclude Include="TTFclass.h" />
+    <ClInclude Include="UIElement.h" />
     <ClInclude Include="Vector2D.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
