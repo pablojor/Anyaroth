@@ -15,7 +15,8 @@ void ParallaxLayer::render() const
 
 void ParallaxLayer::update()
 {
-	_leftDir ? _mainRect.x -= _speed : _mainRect.x += _speed;
+	_leftDir ? _auxX -= _speed : _auxX += _speed;
+	_mainRect.x = _auxX;
 
 	if (_mainRect.x + _mainRect.w <= 0 || _mainRect.x - _mainRect.w >= 0)
 		_mainRect.x = 0;

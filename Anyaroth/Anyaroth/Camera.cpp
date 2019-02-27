@@ -36,28 +36,25 @@ void Camera::moveCamera()
 	//Comparamos los cambios de la camara con su aspecto anterior
 	if (preChange.x != _cameraRect.x)
 	{
-		_cameraIsMoving.first = true;
-		_cameraRect.x - preChange.x > 0 ? _cameraIsMoving.second = 1 : _cameraIsMoving.second = -1;
+		_cameraStatus.first = true;
+		_cameraRect.x - preChange.x > 0 ? _cameraStatus.second = 1 : _cameraStatus.second = -1;
 	}
 	else
-		_cameraIsMoving.first = false;
-}
-
-bool Camera::checkParallax()
-{
-	if (_cameraIsMoving.first)
-	{
-		auto a = dynamic_cast<ParallaxBackGround*>(_backGround);
-		if (a != nullptr)
-			_cameraIsMoving.second == 1 ? a->changeDirection(true) : a->changeDirection(false);
-		return true;
-	}
-	return false;
+		_cameraStatus.first = false;
 }
 
 Camera::Camera(GameComponent * followObject)
 {
 	fixCameraToObject(followObject);
+}
+
+Camera::~Camera()
+{
+	if (_backGround != nullptr) 
+	{
+		delete _backGround;
+		_backGround = nullptr;
+	}
 }
 
 void Camera::setCameraPosition(double x, double y)
@@ -82,7 +79,7 @@ void Camera::looseFixedObject()
 void Camera::update()
 {
 	moveCamera();
-	if (checkParallax())
+	if (_backGround->checkCameraStatus(_cameraStatus))
 		_backGround->update();
 }
 

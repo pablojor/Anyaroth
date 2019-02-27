@@ -47,8 +47,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	
 	//Camera BackGound
 	ParallaxBackGround* a = new ParallaxBackGround(_mainCamera);
-	ParallaxLayer* l =  new ParallaxLayer(g->getTexture("Parallax"), _mainCamera);
-	a->addLayer(l);
+	a->addLayer(new ParallaxLayer(g->getTexture("Parallax"), _mainCamera));
 	_mainCamera->setBackGround(a);
 	
 }

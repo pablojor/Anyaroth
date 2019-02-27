@@ -17,5 +17,7 @@ class ParallaxBackGround : public BackGround
 
 		inline void addLayer(ParallaxLayer* layer) { _layers.push_back(layer); }
 		void changeDirection(bool normalWay);
+
+		virtual bool checkCameraStatus(pair<bool, int> status);
 };
 

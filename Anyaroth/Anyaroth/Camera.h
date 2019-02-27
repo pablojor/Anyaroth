@@ -11,15 +11,14 @@ class Camera
 		BackGround* _backGround = nullptr;
 
 		void moveCamera();
-		bool checkParallax();
 
-		pair<bool, int> _cameraIsMoving = pair<bool, int>(false, 0);
+		pair<bool, int> _cameraStatus = pair<bool, int>(false, 0);
 
 	public:
 		Camera() {};
 		Camera(GameComponent* followObject);
 		Camera(SDL_Rect rect) : _cameraRect(rect) {};
-		~Camera() {};
+		~Camera();
 
 		SDL_Rect* getCameraRect() { return &_cameraRect; }
 
