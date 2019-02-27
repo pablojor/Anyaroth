@@ -134,6 +134,8 @@
       <Filter>Archivos de código\Objects</Filter>
     </ClCompile>
     <ClCompile Include="ParallaxBackGround.cpp" />
+    <ClCompile Include="BackGround.cpp" />
+    <ClCompile Include="ParallaxLayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -287,6 +289,8 @@
       <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
     <ClInclude Include="ParallaxBackGround.h" />
+    <ClInclude Include="BackGround.h" />
+    <ClInclude Include="ParallaxLayer.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de encabezado">

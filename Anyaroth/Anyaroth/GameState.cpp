@@ -3,6 +3,7 @@
 
 GameState::~GameState()
 {
+	delete _mainCamera;
 	for (GameObject* o : _stages)
 		delete o;
 }

@@ -1,13 +1,19 @@
 #pragma once
 #include "GameComponent.h"
-#include "ParallaxBackGround.h"
+#include "BackGround.h"
+#include <utility>
 
 class Camera
 {
 	private:
 		GameComponent * _followedObject = nullptr;
 		SDL_Rect _cameraRect;
-		ParallaxBackGround _parallaxBG;
+		BackGround* _backGround = nullptr;
+
+		void moveCamera();
+		bool checkParallax();
+
+		pair<bool, int> _cameraIsMoving = pair<bool, int>(false, 0);
 
 	public:
 		Camera() {};
@@ -20,7 +26,7 @@ class Camera
 		void setCameraPosition(double x, double y);
 		void setCameraSize(double w, double h);
 
-		void setParallaxBackGround() {}
+		void setBackGround(BackGround* bg) { _backGround = bg; }
 
 		Vector2D getCameraPosition() { return Vector2D(_cameraRect.x, _cameraRect.y); }
 		Vector2D getCameraSize() { return Vector2D(_cameraRect.w, _cameraRect.h); }
@@ -29,6 +35,6 @@ class Camera
 		void looseFixedObject();
 
 		void update();
-		void render();
+		void render() const;
 };
 

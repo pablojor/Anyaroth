@@ -1,18 +1,21 @@
 #pragma once
-#include "Texture.h"
-#include "Camera.h"
+#include "ParallaxLayer.h"
+#include "BackGround.h"
+#include <vector>
 
-class ParallaxBackGround
+class ParallaxBackGround : public BackGround
 {
 	private:
-		Texture* _texture = nullptr;
+		vector<ParallaxLayer*> _layers;
 
 	public:
-		ParallaxBackGround() {};
-		ParallaxBackGround(Texture* texture);
+		ParallaxBackGround(Camera* camera) : BackGround(nullptr, camera) {};
 		~ParallaxBackGround();
 
-		void update();
-		void render(Camera* c);
+		virtual void update();
+		virtual void render() const;
+
+		inline void addLayer(ParallaxLayer* layer) { _layers.push_back(layer); }
+		void changeDirection(bool normalWay);
 };
 

@@ -9,3 +9,5 @@ Armback mk_armback.png 1 1
 tileset Tileset.png  9 8
 body Body.png 1 1
 Coin coin.png 1 6
+BG bg.jpg 1 1
+Parallax parallax.png 1 1
