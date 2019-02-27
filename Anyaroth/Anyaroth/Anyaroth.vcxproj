@@ -140,6 +140,7 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="FollowingComponent.cpp" />
+    <ClCompile Include="Life.cpp" />
     <ClCompile Include="MartyrEnemy.cpp" />
     <ClCompile Include="MeleeEnemy.cpp" />
     <ClCompile Include="ObjectPool.cpp" />
@@ -190,6 +191,7 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="HUD.h" />
     <ClInclude Include="FollowingComponent.h" />
+    <ClInclude Include="Life.h" />
     <ClInclude Include="MartyrEnemy.h" />
     <ClInclude Include="MeleeEnemy.h" />
     <ClInclude Include="ObjectPool.h" />

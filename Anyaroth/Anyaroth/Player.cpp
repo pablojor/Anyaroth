@@ -156,28 +156,17 @@ void Player::endCollision(GameComponent * other, b2Contact* contact)
 	}
 }
 
-void Player::setLife(double amount)
+void Player::subLife(int damage)
 {
-	_life = amount;
-}
-
-
-void Player::addLife(double amount)
-{
-	_life += amount;
-}
-
-void Player::subLife(double amount)
-{
-	if (_life > amount)
-		_life -= amount;
-	else
+	_life.subLife(damage);
+	if (_life.dead())
 		die();
 }
 
 void Player::die()
 {
 	cout << "Has Muerto" << endl;
+	//getGame()->changeState(Play);
 }
 
 void Player::update()

@@ -5,6 +5,7 @@
 #include "Shooter.h"
 #include "Money.h"
 #include "PlayState.h"
+#include "Life.h"
 
 class Arm;
 class Game;
@@ -17,7 +18,7 @@ class Player : public GameComponent
 {
 private:
 	PlayState* _play = nullptr;
-	int _life=100;
+	Life _life = Life(100);
 	int AmountOfCollision;
 	uint _currentState = 0;
 	Arm* _weaponArm = nullptr;
@@ -40,9 +41,7 @@ public:
 	virtual void beginCollision(GameComponent* other, b2Contact* contact);
 	virtual void endCollision(GameComponent* other, b2Contact* contact);
 
-	void setLife(double amount);
-	void addLife(double amount);
-	void subLife(double amount);
+	void subLife(int damage);
 	void die();
 
 	void setArm(Arm* arm) { _weaponArm = arm; };

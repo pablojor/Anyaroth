@@ -1,6 +1,7 @@
 #pragma once
 #include <list>
 #include "GameComponent.h"
+#include "Life.h"
 
 class Player;
 class PlayState;
@@ -23,18 +24,16 @@ class Enemy : public GameComponent
 		PlayState* _play;
 		list<GameObject*>::iterator _itList;
 
+		Life _life;
 		bool _attacking = false;
 		double _time;
-		int _vision, _attackRange, _attackTime, _life, _damage;
+		int _vision, _attackRange, _attackTime, _damage;
 
 	public:
 		Enemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag);
 		virtual ~Enemy() {}
 
-		virtual void setLife(double amount);
-		virtual void addLife(double amount);
-		virtual void subLife(double amount);
-		virtual void die();
+
 
 		virtual void beginCollision(GameComponent* other, b2Contact* contact);
 
@@ -43,4 +42,8 @@ class Enemy : public GameComponent
 		virtual inline void noLongerAttacking() { _attacking = false; }
 
 		virtual void update();
+
+		void die();
+		void subLife(int damage);
+		Life getLife() { return _life; }
 };

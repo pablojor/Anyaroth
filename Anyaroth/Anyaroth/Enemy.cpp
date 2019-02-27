@@ -34,6 +34,7 @@ Enemy::Enemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2
 
 	_anim->playAnim(AnimatedSpriteComponent::Idle);
 	*/
+	_life = Life(50);
 }
 void Enemy::setItList(list<GameObject*>::iterator itFR)
 {
@@ -45,7 +46,7 @@ void Enemy::beginCollision(GameComponent * other, b2Contact* contact)
 	string otherTag = other->getTag();
 	if (otherTag == "Bullet")
 	{
-		double damage = 0;
+		int damage = 0;
 		damage=dynamic_cast<Bullet*>(other)->getDamage();
 		subLife(damage);
 	}
@@ -56,25 +57,15 @@ void Enemy::update()
 	GameComponent::update();
 }
 
-void Enemy::setLife(double amount)
-{
-	_life = amount;
-}
-
-void Enemy::addLife(double amount)
-{
-	_life += amount;
-}
-
-void Enemy::subLife(double amount)
-{
-	if (_life > amount)
-		_life -= amount;
-	else
-		die();
-}
 
 void Enemy::die()
 {
 	_play->KillObject(_itList);
+}
+
+void Enemy::subLife(int damage)
+{
+	_life.subLife(damage);
+	if (_life.dead())
+		die();
 }
