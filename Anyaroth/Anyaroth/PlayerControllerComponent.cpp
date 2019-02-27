@@ -105,8 +105,13 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 			_dashing = true;
 			_amountOfDash--;
 
+			if (!_anim->isFlipped())
+				_anim->playAnim(AnimatedSpriteComponent::DashBack);
+			else
+				_anim->playAnim(AnimatedSpriteComponent::Dash);
+
 			static_cast<Player*>(_obj)->setCurrentState(Player::Dashing);
-			_anim->playAnim(AnimatedSpriteComponent::DashBack);
+
 		}
 		else if (!_jumping)
 		{
@@ -129,10 +134,14 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 			_dashing = true;
 			_amountOfDash--;
 
+			if (!_anim->isFlipped())
+				_anim->playAnim(AnimatedSpriteComponent::Dash);
+			else
+				_anim->playAnim(AnimatedSpriteComponent::DashBack);
+
 			static_cast<Player*>(_obj)->setCurrentState(Player::Dashing);
-			_anim->playAnim(AnimatedSpriteComponent::Dash);
 		}
-		else if(!_jumping)
+		else if (!_jumping)
 		{
 			if (!_anim->isFlipped())
 				_anim->playAnim(AnimatedSpriteComponent::Walk);
@@ -141,7 +150,7 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 
 			static_cast<Player*>(_obj)->setCurrentState(Player::Walking);
 		}
-		
+
 
 	}
 	else if (_sPul && _sfPul && !_isAttacking && _jumping && !_dashing && _amountOfDash > 0 && !_isReloading)
@@ -154,11 +163,11 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 		static_cast<Player*>(_obj)->setCurrentState(Player::Dashing);
 		//Llamo a componente de dash hacia abajo (culo)
 	}
-	else if (!_isAttacking && !_dashing && !_isReloading )
+	else if (!_isAttacking && !_dashing && !_isReloading)
 	{
 		_movement->changeDir(0, 0); //Llamo a animacion idle
-		if(!_jumping)
-		_anim->playAnim(AnimatedSpriteComponent::Idle);
+		if (!_jumping)
+			_anim->playAnim(AnimatedSpriteComponent::Idle);
 
 	}
 
@@ -176,7 +185,7 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 		}
 	}
 
-	
+
 }
 
 void PlayerControllerComponent::changeJump()
@@ -190,16 +199,16 @@ void PlayerControllerComponent::changeJump()
 
 		if (static_cast<Player*>(_obj)->getCurrentState() == Player::Falling)
 		{
-			if(_anim->animationFinished())
+			if (_anim->animationFinished())
 				_anim->playAnim(AnimatedSpriteComponent::Falling);
 		}
-			
+
 		else
 		{
 			_anim->playAnim(AnimatedSpriteComponent::Jump);
 			static_cast<Player*>(_obj)->setCurrentState(Player::Jumping);
 		}
-			
+
 	}
 
 }
@@ -218,7 +227,7 @@ void PlayerControllerComponent::ableJump()
 		static_cast<Player*>(_obj)->setCurrentState(Player::Idle);
 		_anim->playAnim(AnimatedSpriteComponent::Idle);
 	}
-		
+
 
 }
 
