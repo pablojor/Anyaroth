@@ -33,6 +33,14 @@ void TextUI::render() const
 	}
 }
 
+void TextUI::setText(string text)
+{
+	_text = text;
+	Texture texture(_game->getRenderer(), _text, _font, _color);
+	_destRect.w = texture.getW();
+	_destRect.h = texture.getH();
+}
+
 void TextUI::setPosition(int x, int y)
 {
 	_destRect.x = x;

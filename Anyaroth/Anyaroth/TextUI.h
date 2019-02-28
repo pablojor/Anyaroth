@@ -26,7 +26,7 @@ class TextUI : public UIElement
 		virtual void handleEvent(const SDL_Event& event) {};
 
 		inline string getText() { return _text; }
-		inline void setText(string text) { _text = text; }
+		void setText(string text);
 
 		void setPosition(int x, int y);
 		void setSize(int w, int h);
@@ -38,5 +38,9 @@ class TextUI : public UIElement
 		inline void setColor(const SDL_Color& color) { _color = color; }
 		inline SDL_Color getColor() { return _color; }
 
+		inline int getW() { return _destRect.w; };
+		inline int getH() { return _destRect.h; };
+		inline int getX() { return _destRect.x; };
+		inline int getY() { return _destRect.y; };
 };
 

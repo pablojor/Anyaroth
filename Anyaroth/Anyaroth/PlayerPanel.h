@@ -1,17 +1,21 @@
 #pragma once
 #include "PanelUI.h"
-#include "ImageUI.h"
+#include "LifeBar.h"
 #include "TextUI.h"
-//#include "CoinCounterPanel"
+#include "CoinsCounter.h"
 
 class PlayerPanel :	public PanelUI
 {
 private:
-	ImageUI* _lifeBar;
+	LifeBar* _lifeBar;
 	TextUI* _ammoViewer;
+	CoinsCounter* _coinsCounter;
+
+	//Temporal
+	int MAX_LIFE = 500;
+	int LIFE = 500;
 	/*_gunSelector;
 	_dashViever;
-	_coinCounter;
 */
 
 public:

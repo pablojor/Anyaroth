@@ -135,6 +135,7 @@
     <ClCompile Include="Canvas.cpp" />
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="BulletPool.cpp" />
+    <ClCompile Include="CoinsCounter.cpp" />
     <ClCompile Include="Collectable.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="DebugDraw.cpp" />
@@ -142,6 +143,7 @@
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="FollowingComponent.cpp" />
     <ClCompile Include="ImageUI.cpp" />
+    <ClCompile Include="LifeBar.cpp" />
     <ClCompile Include="MartyrEnemy.cpp" />
     <ClCompile Include="MeleeEnemy.cpp" />
     <ClCompile Include="ObjectPool.cpp" />
@@ -193,6 +195,7 @@
     <ClInclude Include="Canvas.h" />
     <ClInclude Include="checkML.h" />
     <ClInclude Include="Coin.h" />
+    <ClInclude Include="CoinsCounter.h" />
     <ClInclude Include="Collectable.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Component.h" />
@@ -201,6 +204,7 @@
     <ClInclude Include="HUD.h" />
     <ClInclude Include="FollowingComponent.h" />
     <ClInclude Include="ImageUI.h" />
+    <ClInclude Include="LifeBar.h" />
     <ClInclude Include="MartyrEnemy.h" />
     <ClInclude Include="MeleeEnemy.h" />
     <ClInclude Include="ObjectPool.h" />

@@ -163,6 +163,8 @@
     <ClCompile Include="PlayerPanel.cpp">
       <Filter>Archivos de código\UIElements\HUDs</Filter>
     </ClCompile>
+    <ClCompile Include="LifeBar.cpp" />
+    <ClCompile Include="CoinsCounter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -345,6 +347,8 @@
     <ClInclude Include="PlayerPanel.h">
       <Filter>Archivos de encabezado\UIElements\HUDs</Filter>
     </ClInclude>
+    <ClInclude Include="LifeBar.h" />
+    <ClInclude Include="CoinsCounter.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de encabezado">

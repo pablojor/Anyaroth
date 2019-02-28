@@ -4,10 +4,10 @@
 
 class ImageUI :	public UIElement
 {
-	private:
-		Texture * _image;
-		SDL_Rect destRect;
-		SDL_Rect clipArea;
+	protected:
+		Texture* _image;
+		SDL_Rect _destRect;
+		SDL_Rect _clipArea;
 	public:
 		ImageUI() : UIElement(nullptr) {};
 		ImageUI(Game* game, Texture* image);
@@ -20,5 +20,10 @@ class ImageUI :	public UIElement
 		void setPosition(int x, int y);
 		void setSize(int w, int h);
 		void setClippingAreaSize(float w, float h);		//Solo el alto y ancho porque la posicion tiene que ser la misma (Valor de 0 a 1)
+
+		inline int getW() { return _destRect.w; };
+		inline int getH() { return _destRect.h; };
+		inline int getX() { return _destRect.x; };
+		inline int getY() { return _destRect.y; };
 };
 
