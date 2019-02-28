@@ -102,8 +102,10 @@ void MeleeEnemy::update()
 				_player->subLife(_damage);
 				_attacking = false;
 			}
-			
 		}
+		if(SDL_GetTicks() > _time + _stopDmg && _attacking == true)
+			_attacking = false;
+
 		if (_anim->animationFinished())
 		{
 			_attackingR = _attackingL  =_attacking = false;
