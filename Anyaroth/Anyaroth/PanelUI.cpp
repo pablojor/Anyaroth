@@ -1,5 +1,9 @@
 #include "PanelUI.h"
+#include "Game.h"
 
+PanelUI::PanelUI(Game * game) : UIElement(game)
+{
+}
 
 PanelUI::~PanelUI()
 {

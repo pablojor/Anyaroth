@@ -163,6 +163,7 @@
     <ClCompile Include="PauseState.cpp" />
     <ClCompile Include="PhysicsComponent.cpp" />
     <ClCompile Include="PlayerControllerComponent.cpp" />
+    <ClCompile Include="PlayerPanel.cpp" />
     <ClCompile Include="PlayState.cpp" />
     <ClCompile Include="PlayStateHUD.cpp" />
     <ClCompile Include="PoolWrapper.cpp" />
@@ -170,10 +171,12 @@
     <ClCompile Include="Shooter.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
     <ClCompile Include="Money.cpp" />
+    <ClCompile Include="TextUI.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TransformComponent.cpp" />
     <ClCompile Include="TTFclass.cpp" />
+    <ClCompile Include="UIElement.cpp" />
     <ClCompile Include="Vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -221,6 +224,7 @@
     <ClInclude Include="PauseState.h" />
     <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="PlayerControllerComponent.h" />
+    <ClInclude Include="PlayerPanel.h" />
     <ClInclude Include="PlayState.h" />
     <ClInclude Include="PlayStateHUD.h" />
     <ClInclude Include="PoolWrapper.h" />
@@ -229,6 +233,7 @@
     <ClInclude Include="Shooter.h" />
     <ClInclude Include="SpriteComponent.h" />
     <ClInclude Include="Money.h" />
+    <ClInclude Include="TextUI.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="TransformComponent.h" />

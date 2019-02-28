@@ -151,7 +151,12 @@
     <ClCompile Include="PlayStateHUD.cpp">
       <Filter>Archivos de código\UIElements\HUDs</Filter>
     </ClCompile>
-    <ClCompile Include="PanelUI.cpp" />
+    <ClCompile Include="PanelUI.cpp">
+      <Filter>Archivos de código\UIElements</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerPanel.cpp" />
+    <ClCompile Include="TextUI.cpp" />
+    <ClCompile Include="UIElement.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -325,7 +330,11 @@
     <ClInclude Include="PlayStateHUD.h">
       <Filter>Archivos de encabezado\UIElements\HUDs</Filter>
     </ClInclude>
-    <ClInclude Include="PanelUI.h" />
+    <ClInclude Include="PanelUI.h">
+      <Filter>Archivos de encabezado\UIElements</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerPanel.h" />
+    <ClInclude Include="TextUI.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de encabezado">

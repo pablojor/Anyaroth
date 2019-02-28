@@ -9,8 +9,8 @@ class ImageUI :	public UIElement
 		SDL_Rect destRect;
 		SDL_Rect clipArea;
 	public:
-		ImageUI() {};
-		ImageUI(Texture* image);
+		ImageUI() : UIElement(nullptr) {};
+		ImageUI(Game* game, Texture* image);
 		~ImageUI() {};
 
 		virtual void render() const;

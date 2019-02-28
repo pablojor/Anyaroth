@@ -33,7 +33,7 @@ enum StateName
 };
 
 const string INFO_PATH = "..\\files\\info\\";
-const string FONTS_PATH = "..\\font\\";
+const string FONTS_PATH = "..\\assets\\fonts\\";
 const string FILES_PATH = "..\\files\\levels\\";
 const string SAVES_PATH = "..\\files\\saves\\";
 const string SPRITE_PATH = "..\\assets\\sprites\\";

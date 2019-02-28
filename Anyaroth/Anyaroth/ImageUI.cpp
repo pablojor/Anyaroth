@@ -1,6 +1,7 @@
 #include "ImageUI.h"
+#include "Game.h"
 
-ImageUI::ImageUI(Texture * image) : _image(image)
+ImageUI::ImageUI(Game * game, Texture * image) : UIElement(game), _image(image)
 {
 	destRect = { 0, 0, image->getW(), image->getH() };
 	clipArea = destRect;

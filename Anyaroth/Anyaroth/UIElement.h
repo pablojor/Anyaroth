@@ -1,13 +1,16 @@
 #pragma once
 #include "SDL.h"
 
+class Game;
+
 class UIElement
 {
 	protected:
 		bool _visible = true;
+		Game* _game;
 
 	public:
-		UIElement() {};
+		UIElement(Game* game);
 		virtual ~UIElement() {};
 
 		virtual void render() const = 0;

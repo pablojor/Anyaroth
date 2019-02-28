@@ -3,9 +3,14 @@
 
 PlayStateHUD::PlayStateHUD(Game * g)
 {
-	_lifeBar = ImageUI(g->getTexture("Ammo"));
+	//Vida
+	_lifeBar = ImageUI(g, g->getTexture("Ammo"));
 	_lifeBar.setPosition(20, 20);
 	addUIElement(&_lifeBar);
+	//Ammo
+	_ammo = TextUI(g, "AMMO");
+	addUIElement(&_ammo);
+
 }
 
 PlayStateHUD::~PlayStateHUD()
