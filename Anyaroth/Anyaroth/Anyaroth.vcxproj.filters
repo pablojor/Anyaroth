@@ -136,8 +136,12 @@
     <ClCompile Include="DistanceStaticEnemy.cpp">
       <Filter>Archivos de código\Objects\Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="Life.cpp" />
-    <ClCompile Include="HurtRenderComponent.cpp" />
+    <ClCompile Include="HurtRenderComponent.cpp">
+      <Filter>Archivos de código\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Life.cpp">
+      <Filter>Archivos de código\Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -162,9 +166,6 @@
       <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
     <ClInclude Include="BulletPool.h">
-      <Filter>Archivos de encabezado\Pools</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectPool.h">
       <Filter>Archivos de encabezado\Pools</Filter>
     </ClInclude>
     <ClInclude Include="PoolWrapper.h">
@@ -293,8 +294,15 @@
     <ClInclude Include="DistanceStaticEnemy.h">
       <Filter>Archivos de encabezado\Objects\Enemies</Filter>
     </ClInclude>
-    <ClInclude Include="Life.h" />
-    <ClInclude Include="HurtRenderComponent.h" />
+    <ClInclude Include="HurtRenderComponent.h">
+      <Filter>Archivos de encabezado\Pools</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectPool.h">
+      <Filter>Archivos de encabezado\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Life.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de encabezado">

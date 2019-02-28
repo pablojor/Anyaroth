@@ -27,7 +27,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 
 	//Enemy
 
-	_enemy = new MeleeEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(260, 60), "Enemy");
+	_enemy = new DistanceStaticEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(260, 60), "Enemy");
 	_stages.push_back(_enemy);
 
 	auto itFR = --(_stages.end());

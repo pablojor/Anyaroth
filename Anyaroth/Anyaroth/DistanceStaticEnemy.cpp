@@ -4,9 +4,9 @@
 #include "Player.h"
 
 
-DistanceStaticEnemy::DistanceStaticEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag) : Enemy(player, g, play, texture, posIni, tag)
+DistanceStaticEnemy::DistanceStaticEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag) : game(g), Enemy(player, g, play, texture, posIni, tag)
 {
-	_vision = 300;
+	_vision = 500;
 	_attackRange = _vision; //No se puede poner mas peque�o que la velocidad
 	_attackTime = 1300; //La animacion tarda unos 450
 	_life = 50;
@@ -53,8 +53,24 @@ void DistanceStaticEnemy::update()
 			rayInput.p2 = { (float32)(player.getX() + _playerBody->getW()) / 8, (float32)player.getY() / 8 };
 		}
 
+		bool hit = false;
 		b2RayCastOutput rayOutput;
-		if (!_body->getBody()->GetFixtureList()->RayCast(&rayOutput, rayInput, 0))
+		for (b2Body* b = getWorld()->GetBodyList(); b && !hit; b = b->GetNext())
+			for (b2Fixture* f = b->GetFixtureList(); f && !hit; f = f->GetNext())
+			{
+				if (f->RayCast(&rayOutput, rayInput, 0))
+				{
+					hit = true;
+				}
+			}
+		if (!hit)
+		{
 			cout << "MORITE AJQUEROSO" << endl;
+		}
+
+
+		game->getTexture("Punto2")->render({ (int)rayInput.p1.x, (int)rayInput.p1.y, 5, 5 });
+		game->getTexture("Punto2")->render({ (int)rayInput.p2.x, (int)rayInput.p2.y, 5, 5 });
+		SDL_RenderPresent(game->renderer);
 	}
 }

@@ -39,7 +39,7 @@ const string SAVES_PATH = "..\\files\\saves\\";
 const string SPRITE_PATH = "..\\assets\\sprites\\";
 const string TILEMAP_PATH = "..\\files\\tilemaps\\";
 
-const int NUM_TEXTURES = 11;
+const int NUM_TEXTURES = 13;
 
 const int NUM_FONTS = 0;
 
@@ -80,7 +80,6 @@ class Game
 {
 	private:
 		SDL_Window* window = nullptr;
-		SDL_Renderer* renderer = nullptr;
 		map <string, Texture*> textures;
 		GameState* states[NUM_STATES];
 		GameStateMachine* stateMachine = new GameStateMachine();
@@ -91,6 +90,7 @@ class Game
 		bool exit = false;
 
 	public:
+		SDL_Renderer* renderer = nullptr;
 		vector<int> var;
 
 		//Las armas que hay en el juego
