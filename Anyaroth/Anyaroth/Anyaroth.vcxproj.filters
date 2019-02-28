@@ -136,9 +136,6 @@
     <ClCompile Include="Canvas.cpp">
       <Filter>Archivos de código\UIElements</Filter>
     </ClCompile>
-    <ClCompile Include="UIElement.cpp">
-      <Filter>Archivos de código\UIElements</Filter>
-    </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Archivos de código\Utilities</Filter>
     </ClCompile>
@@ -151,7 +148,10 @@
     <ClCompile Include="ParallaxLayer.cpp">
       <Filter>Archivos de código\BackGround</Filter>
     </ClCompile>
-    <ClCompile Include="PlayStateHUD.cpp" />
+    <ClCompile Include="PlayStateHUD.cpp">
+      <Filter>Archivos de código\UIElements\HUDs</Filter>
+    </ClCompile>
+    <ClCompile Include="PanelUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -322,7 +322,10 @@
     <ClInclude Include="ParallaxBackGround.h">
       <Filter>Archivos de encabezado\BackGround</Filter>
     </ClInclude>
-    <ClInclude Include="PlayStateHUD.h" />
+    <ClInclude Include="PlayStateHUD.h">
+      <Filter>Archivos de encabezado\UIElements\HUDs</Filter>
+    </ClInclude>
+    <ClInclude Include="PanelUI.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de encabezado">
@@ -387,6 +390,12 @@
     </Filter>
     <Filter Include="Archivos de encabezado\BackGround">
       <UniqueIdentifier>{20b3f86d-b6ec-4700-9275-3416e1f2971d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\UIElements\HUDs">
+      <UniqueIdentifier>{664a5743-48a1-4434-81da-3a19ed13fcf7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código\UIElements\HUDs">
+      <UniqueIdentifier>{6c371d90-7e59-48aa-9b7e-d85209ce56e4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

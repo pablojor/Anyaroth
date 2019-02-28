@@ -1,5 +1,6 @@
 #pragma once
 #include "UIElement.h"
+#include <vector>
 
 class Canvas
 {

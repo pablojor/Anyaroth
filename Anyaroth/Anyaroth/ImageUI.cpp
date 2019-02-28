@@ -9,10 +9,7 @@ ImageUI::ImageUI(Texture * image) : _image(image)
 void ImageUI::render() const
 {
 	if (_visible) 
-	{
 		_image->render(destRect, clipArea);
-		UIElement::render();
-	}
 }
 
 void ImageUI::setPosition(int x, int y)
