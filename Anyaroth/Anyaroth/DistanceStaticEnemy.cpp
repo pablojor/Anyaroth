@@ -27,12 +27,10 @@ void DistanceStaticEnemy::update()
 	TransformComponent* _playerTransform = _player->getComponent<TransformComponent>();
 
 	Vector2D enemy, player;
-
 	enemy = _transform->getPosition();
 	player = _playerTransform->getPosition();
 
 	double x, y;
-
 	x = player.getX() - enemy.getX();
 	y = player.getY() - enemy.getY();
 
@@ -41,16 +39,22 @@ void DistanceStaticEnemy::update()
 	{
 		b2RayCastInput rayInput;
 		rayInput.maxFraction = 1;
-
-		if (x > 0)
+		
+		if (x > 0) //MIRAR BODIES
 		{
-			rayInput.p1 = { (float32)(enemy.getX() + _body->getW()) / 8, (float32)enemy.getY() / 8 };
-			rayInput.p2 = { (float32)player.getX() / 8, (float32)player.getY() / 8 };
+			rayInput.p1 = { (float32)(_body->getBody()->GetPosition().x + 1.6),
+							(float32)(_body->getBody()->GetPosition().y - 3) };
+
+			rayInput.p2 = { (float32)(_playerBody->getBody()->GetPosition().x - 2),
+							(float32)(_playerBody->getBody()->GetPosition().y - 2.5) };
 		}
 		else if (x < 0)
 		{
-			rayInput.p1 = { (float32)enemy.getX() / 8, (float32)enemy.getY() / 8 };
-			rayInput.p2 = { (float32)(player.getX() + _playerBody->getW()) / 8, (float32)player.getY() / 8 };
+			rayInput.p1 = { (float32)(_body->getBody()->GetPosition().x - 1.6),
+							(float32)(_body->getBody()->GetPosition().y - 3) };
+
+			rayInput.p2 = { (float32)(_playerBody->getBody()->GetPosition().x + 2),
+							(float32)(_playerBody->getBody()->GetPosition().y - 2.5)};
 		}
 
 		bool hit = false;
@@ -68,9 +72,8 @@ void DistanceStaticEnemy::update()
 			cout << "MORITE AJQUEROSO" << endl;
 		}
 
-
-		game->getTexture("Punto2")->render({ (int)rayInput.p1.x, (int)rayInput.p1.y, 5, 5 });
-		game->getTexture("Punto2")->render({ (int)rayInput.p2.x, (int)rayInput.p2.y, 5, 5 });
+		game->getTexture("Punto2")->render({ (int)rayInput.p1.x * 8, (int)rayInput.p1.y * 8, 5, 5 });
+		game->getTexture("Punto2")->render({ (int)rayInput.p2.x * 8, (int)rayInput.p2.y * 8, 5, 5 });
 		SDL_RenderPresent(game->renderer);
 	}
 }
