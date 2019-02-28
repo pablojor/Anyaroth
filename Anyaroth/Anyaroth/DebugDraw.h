@@ -2,6 +2,7 @@
 #include <Box2D/Box2D.h>
 #include <SDL.h>
 #include "Texture.h"
+#include "Camera.h"
 
 class DebugDraw : public b2Draw
 {
@@ -24,12 +25,15 @@ public:
 
 	void DrawAABB(b2AABB* aabb, const b2Color& color);
 
-	void getRenderer(SDL_Renderer* renderer);
+	void getRenderer(SDL_Renderer* renderer) { _renderer = renderer; };
 
-	void getTexture(Texture* t);
+	void getTexture(Texture* t) { _texture = t; };
+
+	void getCamera(Camera* c) { _camera = c; };
 private:
 	SDL_Renderer* _renderer;
 
 	Texture* _texture;
+	Camera* _camera;
 };
 

@@ -11,14 +11,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 {
 	_game = g;
 
-	//World
-	_debugger.getRenderer(g->getRenderer());
-	_debugger.getTexture(g->getTexture("body"));
-	_debugger.SetFlags(b2Draw::e_shapeBit);
 
-	//Gestion de colisiones
-	g->getWorld()->SetContactListener(&_colManager);
-	//g->getWorld()->SetDebugDraw(&_debugger);
 
 	//Tilemap
 	_layer = new Layer("Capa de Patrones 1", g->getTexture("tileset"), TILEMAP_PATH + "Nivel1.json", g, "Suelo");
@@ -60,6 +53,16 @@ PlayState::PlayState(Game* g) : GameState(g)
 		 auto itFR = --(_stages.end());
 		 coin->setItList(itFR);
 	 }
+
+	 //World
+	 _debugger.getRenderer(g->getRenderer());
+	 _debugger.getTexture(g->getTexture("body"));
+	 _debugger.SetFlags(b2Draw::e_shapeBit);
+	 _debugger.getCamera(_mainCamera);
+
+	 //Gestion de colisiones
+	 g->getWorld()->SetContactListener(&_colManager);
+	 g->getWorld()->SetDebugDraw(&_debugger);
 }
 
 void PlayState::KillObject(list<GameObject*>::iterator itList)

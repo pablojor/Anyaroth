@@ -15,13 +15,13 @@ void DebugDraw::DrawSolidPolygon(const b2Vec2* vertices, int32 vertexCount, cons
 {
 	SDL_Rect poly;
 	if(vertices[0].x<vertices[2].x)
-	poly.x = vertices[0].x*M_TO_PIXEL;
+	poly.x = vertices[0].x*M_TO_PIXEL-_camera->getCameraPosition().getX();
 	else
-		poly.x = vertices[2].x*M_TO_PIXEL;
+		poly.x = vertices[2].x*M_TO_PIXEL-_camera->getCameraPosition().getX();
 	if(vertices[0].y<vertices[2].y)
-	poly.y = vertices[0].y*M_TO_PIXEL;
+	poly.y = vertices[0].y*M_TO_PIXEL - _camera->getCameraPosition().getY();
 	else
-		poly.y = vertices[2].y*M_TO_PIXEL;
+		poly.y = vertices[2].y*M_TO_PIXEL - _camera->getCameraPosition().getY();
 	poly.h = abs(vertices[0].y - vertices[2].y)*M_TO_PIXEL;
 	poly.w = abs(vertices[0].x - vertices[2].x)*M_TO_PIXEL;
 	_texture->render(poly);
@@ -67,12 +67,5 @@ void DebugDraw::DrawAABB(b2AABB* aabb, const b2Color& c)
 	SDL_RenderFillRect(_renderer, &poly);
 }
 
-void DebugDraw::getRenderer(SDL_Renderer* renderer)
-{
-	_renderer = renderer;
-}
 
-void DebugDraw::getTexture(Texture* t)
-{
-	_texture = t;
-}
+
