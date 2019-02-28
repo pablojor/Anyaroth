@@ -33,6 +33,7 @@ private:
 	int _maxInventoryGuns = 2; //número de slots en el inventario de armas 
 	vector<GunType> _gunInventory; //Ej: == {Game::BasicGun} -> indica que en el inventario solo lleva la pistola básica
 	GunType _equippedGun = BasicGun;
+	vector<Texture*> _armTextures;
 
 public:
 

@@ -50,8 +50,14 @@ Player::Player(Texture* texture, Game* g, PlayState* play, string tag) : _play(p
 
 	//_weaponArm = new Arm(getGame()->getTexture("ArmPistol"), this, getGame(), { 26,5 }); //Parámetros para la pistola
 
-	_weaponArm = new Arm(getGame()->getTexture("ArmPistol"), this, getGame(), _play, { 28,14 }); //Parámetros para la pistola
-	addChild(_weaponArm);
+	//Inicialización del vector de texturas del brazo
+	_armTextures =
+	{
+		getGame()->getTexture("ArmPistol"),
+		getGame()->getTexture("ArmShotgun")
+	};
+
+	
 
 	//Inventario inicial
 	_gunInventory.push_back(BasicGun);
@@ -216,6 +222,16 @@ void Player::update()
 //Equipa un arma utilizando el array de atributos gameGuns de Game.h
 void Player::equipGun(int gunIndex)
 {
+	if (_weaponArm == nullptr) //Si todavía no se ha inicializado _weaponArm, lo creo
+	{
+		_weaponArm = new Arm(_armTextures[gunIndex], this, getGame(), _play, { 28,14 }); //Parámetros para la pistola
+		addChild(_weaponArm);
+	}
+	else //Si no, simplemente cambio la textura
+	{
+		_weaponArm->setArmSprite(_armTextures[gunIndex]);
+	}
+
 	ShooterInterface* sh = getGame()->gameGuns[gunIndex].shooter;
 	GunType type = GunType(getGame()->gameGuns[gunIndex].type);
 	int mA = getGame()->gameGuns[gunIndex].maxAmmo;

@@ -36,6 +36,7 @@ public:
 	Camera* getCamera() { return _cam; }; //Necesario para el ArmController
 	void setPlayer(Vector2D offset, GameComponent* player);
 	void setGun(Gun* gun); //Establece el arma
+	void setArmSprite(Texture* armTex);
 	void shoot();	
 	bool reload(); 
 };

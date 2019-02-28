@@ -177,3 +177,8 @@ void Arm::setGun(Gun* gun)
 
 	_currentGun = gun;
 }
+
+void Arm::setArmSprite(Texture* armTex)
+{
+	_anim->setTexture(armTex);
+}
