@@ -7,6 +7,7 @@
 #include "AnimatedSpriteComponent.h"
 #include "PoolWrapper.h"
 #include "Coin.h"
+#include "HurtRenderComponent.h"
 
 Player::Player(Texture* texture, Game* g, PlayState* play, string tag) : _play(play), GameComponent(g, tag)
 {
@@ -14,16 +15,16 @@ Player::Player(Texture* texture, Game* g, PlayState* play, string tag) : _play(p
 	addComponent<Texture>(texture);
 
 	//Resto de componentes
-	 _transform = addComponent<TransformComponent>();		//Como en el metodo anterior se ha creado este componente, imprime por pantalla que ya existe uno.
-	 _transform->setPosition(50, 50);
+	_transform = addComponent<TransformComponent>();		//Como en el metodo anterior se ha creado este componente, imprime por pantalla que ya existe uno.
+	_transform->setPosition(50, 50);
 
-	 _body = addComponent<BodyComponent>();
-	 _body->getBody()->SetType(b2_dynamicBody);
-	 _body->getBody()->SetBullet(true);
-	 _body->getBody()->SetFixedRotation(true);
-	 _body->setW(20);
-	 _body->setH(30);
-	 _body->filterCollisions(PLAYER, OBJECTS | FLOOR );
+	_body = addComponent<BodyComponent>();
+	_body->getBody()->SetType(b2_dynamicBody);
+	_body->getBody()->SetBullet(true);
+	_body->getBody()->SetFixedRotation(true);
+	_body->setW(20);
+	_body->setH(30);
+	_body->filterCollisions(PLAYER, OBJECTS | FLOOR);
 
 	_anim = addComponent<AnimatedSpriteComponent>();		//Como depende de Transform, en su constructura crea una si no ha encontrado Transform en el objeto.
 	_anim->addAnim(AnimatedSpriteComponent::Idle, 16, true);
@@ -37,6 +38,8 @@ Player::Player(Texture* texture, Game* g, PlayState* play, string tag) : _play(p
 	_anim->addAnim(AnimatedSpriteComponent::Falling, 2, true);
 	_anim->addAnim(AnimatedSpriteComponent::Hurt, 2, true);
 	_anim->addAnim(AnimatedSpriteComponent::Dash, 4, false);
+
+	_hurt = addComponent<HurtRenderComponent>();
 
 	addComponent<MovingComponent>();
 	_controller = addComponent<PlayerControllerComponent>();
@@ -52,6 +55,8 @@ Player::Player(Texture* texture, Game* g, PlayState* play, string tag) : _play(p
 
 	_weaponArm = new Arm(getGame()->getTexture("ArmPistol"), this, getGame(), _play, { 28,14 }); //Parámetros para la pistola
 	addChild(_weaponArm);
+
+	_hurtArm = _weaponArm->addComponent<HurtRenderComponent>();
 
 	//Equipa el arma inicial
 	equipGun(getGame()->BasicGun);
@@ -69,7 +74,7 @@ Player::~Player()
 
 void Player::beginCollision(GameComponent * other, b2Contact* contact)
 {
-	
+
 	auto otherTransform = other->getComponent<TransformComponent>();
 	auto otherBody = other->getComponent<BodyComponent>();
 
@@ -79,7 +84,7 @@ void Player::beginCollision(GameComponent * other, b2Contact* contact)
 	if (otherTag == "Suelo")
 	{
 		AmountOfCollision += 1;
-		
+
 		if (_transform->getPosition().getY() + myH * (M_TO_PIXEL * 2) < otherTransform->getPosition().getY())
 		{
 			_controller->ableJump();
@@ -87,7 +92,7 @@ void Player::beginCollision(GameComponent * other, b2Contact* contact)
 		}
 		else if (_transform->getPosition().getY() + myH * (M_TO_PIXEL * 2) > otherTransform->getPosition().getY())
 		{
-			
+
 			if (_transform->getPosition().getY() <= otherTransform->getPosition().getY() + otherH * (M_TO_PIXEL * 2))
 			{
 				if (_transform->getPosition().getX() + myW * (M_TO_PIXEL) < otherTransform->getPosition().getX() - otherW * (M_TO_PIXEL * 2))
@@ -102,10 +107,10 @@ void Player::beginCollision(GameComponent * other, b2Contact* contact)
 	else if (otherTag == "Bullet")
 	{
 		double damage = 0;
-		damage=dynamic_cast<Bullet*>(other)->getDamage();
+		damage = dynamic_cast<Bullet*>(other)->getDamage();
 		subLife(damage);
 	}
-  else if(other->getTag() == "Moneda")
+	else if (other->getTag() == "Moneda")
 	{
 		auto coin = dynamic_cast<Coin*>(other);
 		auto cant = coin->getValue();
@@ -119,8 +124,8 @@ void Player::beginCollision(GameComponent * other, b2Contact* contact)
 
 void Player::endCollision(GameComponent * other, b2Contact* contact)
 {
-	
-	
+
+
 
 	auto otherTransform = other->getComponent<TransformComponent>();
 	auto otherBody = other->getComponent<BodyComponent>();
@@ -160,7 +165,16 @@ void Player::subLife(int damage)
 {
 	_life.subLife(damage);
 	if (_life.dead())
+	{
 		die();
+		_hurt->die();
+		_hurtArm->die();
+	}
+	else
+	{
+		_hurt->hurt();
+		_hurtArm->hurt();
+	}
 }
 
 void Player::die()
@@ -171,7 +185,7 @@ void Player::die()
 
 void Player::update()
 {
-	
+
 	GameComponent::update();
 
 	if (_anim->animationFinished())
@@ -182,17 +196,17 @@ void Player::update()
 
 		_currentState = Idle;
 	}
-	
-	if (AmountOfCollision<=0)
+
+	if (AmountOfCollision <= 0)
 	{
 		_controller->changeJump();
 	}
-	
+
 	if (_controller->amountDash() < _MaxDash)
 	{
 		if (SDL_GetTicks() > _timer + _dashCD)
 		{
-			
+
 			_controller->newDash();
 			_timer = SDL_GetTicks();
 		}
@@ -207,7 +221,7 @@ void Player::equipGun(int gunIndex, int bulletPoolIndex)
 	Shooter* sh = &getGame()->gameGuns[gunIndex].shooter;
 	string name = getGame()->gameGuns[gunIndex].name;
 	int mA = getGame()->gameGuns[gunIndex].maxAmmo;
-	int mC= getGame()->gameGuns[gunIndex].maxClip;
+	int mC = getGame()->gameGuns[gunIndex].maxClip;
 
 	// TEMPORAL
 	PoolWrapper* bp = _play->getBulletPool();

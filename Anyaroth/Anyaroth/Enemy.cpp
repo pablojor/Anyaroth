@@ -6,6 +6,7 @@
 #include "Game.h"
 #include "Player.h"
 #include "Bullet.h"
+#include "HurtRenderComponent.h"
 
 Enemy::Enemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag) : _player(player), _play(play), GameComponent(g, tag)
 {
@@ -25,6 +26,7 @@ Enemy::Enemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2
 	//auto playerTrans = addComponent<MeleeEnemyComponent>();
 
 	_anim = addComponent<AnimatedSpriteComponent>();
+	_hurt = addComponent<HurtRenderComponent>();
 
 	/*
 	_anim->addAnim(AnimatedSpriteComponent::Idle, 16, true);
@@ -55,27 +57,24 @@ void Enemy::beginCollision(GameComponent * other, b2Contact* contact)
 void Enemy::update()
 {
 	GameComponent::update();
-
-	if (_hurt && SDL_GetTicks() > _hurtTime)
-	{
-		_anim->getTexture()->setColor(255, 255, 255);
-		_hurt = false;
-		_hurtTime = SDL_GetTicks() + _hurtTime;
-	}
 }
 
 
 void Enemy::die()
 {
-	_play->KillObject(_itList);
+	//_play->KillObject(_itList);
 }
 
 void Enemy::subLife(int damage)
 {
 	_life.subLife(damage);
 	if (_life.dead())
+	{
 		die();
-
-	_anim->getTexture()->setColor(255, 0, 0);
-	_hurt = true;
+		_hurt->die();
+	}
+	else
+	{
+		_hurt->hurt();
+	}
 }

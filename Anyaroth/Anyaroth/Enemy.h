@@ -10,17 +10,17 @@ class AnimatedSpriteComponent;
 class MovingComponent;
 class TransformComponent;
 class BodyComponent;
-
+class HurtRenderComponent;
 
 class Enemy : public GameComponent
 {
 	protected:
-		//Texture* _texture = nullptr;
 		AnimatedSpriteComponent* _anim = nullptr;
 		MovingComponent* _movement = nullptr;
 		TransformComponent* _transform = nullptr;
 		Player* _player = nullptr;
 		BodyComponent* _body = nullptr;
+		HurtRenderComponent* _hurt = nullptr;
 
 		PlayState* _play;
 		list<GameObject*>::iterator _itList;
@@ -30,8 +30,7 @@ class Enemy : public GameComponent
 		double _time;
 		int _vision, _attackRange, _attackTime, _damage;
 
-		double _hurtTime = 1000;
-		bool _hurt = false;
+		
 
 	public:
 		Enemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag);

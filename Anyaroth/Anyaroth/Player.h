@@ -13,6 +13,7 @@ class Game;
 class AnimatedSpriteComponent;
 class PlayerControllerComponent;
 class PlayState;
+class HurtRenderComponent;
 
 class Player : public GameComponent
 {
@@ -26,6 +27,9 @@ private:
 	PlayerControllerComponent* _controller;
 	TransformComponent * _transform;
 	BodyComponent * _body;
+	HurtRenderComponent* _hurt;
+	HurtRenderComponent* _hurtArm;
+
 	uint32 _dashCD = 3000;
 	uint32 _timer = 0;
 	int _MaxDash = 2;

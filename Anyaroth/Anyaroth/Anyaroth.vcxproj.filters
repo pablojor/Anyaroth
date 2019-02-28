@@ -137,6 +137,7 @@
       <Filter>Archivos de código\Objects\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="Life.cpp" />
+    <ClCompile Include="HurtRenderComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -293,6 +294,7 @@
       <Filter>Archivos de encabezado\Objects\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="Life.h" />
+    <ClInclude Include="HurtRenderComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de encabezado">
