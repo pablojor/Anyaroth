@@ -163,7 +163,7 @@ void Player::endCollision(GameComponent * other, b2Contact* contact)
 
 void Player::subLife(int damage)
 {
-	_life.subLife(damage);
+	//_life.subLife(damage);
 	if (_life.dead())
 	{
 		die();

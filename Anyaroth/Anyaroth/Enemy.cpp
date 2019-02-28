@@ -62,7 +62,7 @@ void Enemy::update()
 
 void Enemy::die()
 {
-	//_play->KillObject(_itList);
+	_play->KillObject(_itList);
 }
 
 void Enemy::subLife(int damage)

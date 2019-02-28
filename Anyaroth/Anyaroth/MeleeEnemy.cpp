@@ -90,13 +90,13 @@ void MeleeEnemy::update()
 		
 		if (SDL_GetTicks() > _time + _attackTime && _attacking == true)
 		{
-			if (_attackingR && (x < _attackRange + _playerBody->getW() * 8 && x > 0) && y < _attackRange && y > -_attackRange)
+			if (_attackingR && (x < _attackRange + _playerBody->getW() * 8 + _realRange && x > 0) && y < _attackRange + _realRange && y > -_attackRange)
 			{
 				cout << "tas danyado" << endl; //Le haces daño
 				_player->subLife(_damage);
 				_attacking = false;
 			}
-			else if (_attackingL && (x < 0 && x > -_attackRange) && y < _attackRange && y > -_attackRange)
+			else if (_attackingL && (x < 0 && x > -_attackRange - _realRange) && y < _attackRange && y > -_attackRange - _realRange)
 			{
 				cout << "tas danyado" << endl; //Le haces daño
 				_player->subLife(_damage);
