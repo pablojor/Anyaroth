@@ -229,7 +229,12 @@ void Player::equipGun(int gunIndex)
 
 	_weaponArm->setGun(new Gun(_weaponArm, sh, bp, type, mA, mC));
 	//cout << "Gun equipada" << endl << endl << endl << endl << endl << endl;
+	_equippedGun = type;
+}
 
+void Player::swapGun()
+{
+	equipGun((_equippedGun + 1) % _maxInventoryGuns); //equipa el arma del siguiente slot
 }
 
 void Player::reload()
