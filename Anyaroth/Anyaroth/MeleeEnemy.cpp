@@ -39,7 +39,7 @@ void MeleeEnemy::update()
 
 	if (!_attackingR && !_attackingL && x < _vision && x > -_vision && y < _vision && y > -_vision)
 	{
-		if (x > 0)
+		if (x > _playerBody->getW() * 8)
 		{
 			_anim->unFlip();
 			if (x > _attackRange + _playerBody->getW() * 8)
@@ -61,7 +61,7 @@ void MeleeEnemy::update()
 				_attacking = true;
 			}
 		}
-		else if (x < 0)
+		else if (x < _playerBody->getW() * 8)
 		{
 			_anim->flip();
 
@@ -96,7 +96,7 @@ void MeleeEnemy::update()
 				_player->subLife(_damage);
 				_attacking = false;
 			}
-			else if (_attackingL && (x < 0 && x > -_attackRange - _realRange) && y < _attackRange && y > -_attackRange - _realRange)
+			else if (_attackingL && (x <  _playerBody->getW() * 8 && x > -_attackRange - _realRange) && y < _attackRange && y > -_attackRange - _realRange)
 			{
 				cout << "tas danyado" << endl; //Le haces daño
 				_player->subLife(_damage);
