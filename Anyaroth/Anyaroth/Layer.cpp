@@ -53,7 +53,7 @@ Layer::Layer(string name, Texture* t, string filename, Game* g, string tag) : Ga
 					temp--;
 					if (temp >= 0)
 					{
-						Tile* tile = new Tile(x * TILES_W, y * TILES_H, (temp / t->getNumCols()), temp % t->getNumCols(), _tileset, g, tag);
+						Tile* tile = new Tile(x * TILES_SIZE, y * TILES_SIZE, (temp / t->getNumCols()), temp % t->getNumCols(), _tileset, g, tag);
 						_tilemap.push_back(tile);
 					}
 				}

@@ -136,7 +136,9 @@
     <ClCompile Include="MenuButton.cpp">
       <Filter>Archivos de código\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="ObjectLayer.cpp" />
+    <ClCompile Include="ObjectLayer.cpp">
+      <Filter>Archivos de código\Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -292,7 +294,9 @@
     <ClInclude Include="Money.h">
       <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="ObjectLayer.h" />
+    <ClInclude Include="ObjectLayer.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de encabezado">

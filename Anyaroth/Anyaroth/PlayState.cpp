@@ -11,8 +11,6 @@ PlayState::PlayState(Game* g) : GameState(g)
 {
 	_game = g;
 
-
-
 	//Tilemap
 	_layer = new Layer("Capa de Patrones 1", g->getTexture("tileset"), TILEMAP_PATH + "Nivel1.json", g, "Suelo");
 	_layer->addComponent<BodyComponent>();
@@ -28,13 +26,12 @@ PlayState::PlayState(Game* g) : GameState(g)
 
 	_mainCamera->fixCameraToObject(_player);
 	
-
 	 auto oL= new ObjectLayer(TILEMAP_PATH + "Nivel1.json", "Capa de Objetos 1");
 	 vector <Vector2D> enemiesPos = oL->getObjectsPositions();
 	 delete oL;
 	 for (int i = 0; i < enemiesPos.size(); i++)
 	 {
-		_enemy = new MeleeEnemy(_player, g, this, g->getTexture("EnemyMelee"), enemiesPos[i], "Enemy" );
+		 _enemy = new MeleeEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(enemiesPos[i].getX(), enemiesPos[i].getY() - TILES_SIZE * 2), "Enemy");
 		_stages.push_back(_enemy);
 		auto itFR = --(_stages.end());
 		_enemy->setItList(itFR);
@@ -47,7 +44,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	 for (int i = 0; i < coinsPos.size(); i++)
 	 {
 		 //Coin
-		 coin = new Coin(this, g, g->getTexture("Coin"), coinsPos[i], 20);
+		 coin = new Coin(this, g, g->getTexture("Coin"), Vector2D(coinsPos[i].getX(), coinsPos[i].getY() - TILES_SIZE), 20);
 		 _stages.push_back(coin);
 
 		 auto itFR = --(_stages.end());
@@ -55,10 +52,10 @@ PlayState::PlayState(Game* g) : GameState(g)
 	 }
 
 	 //World
-	 _debugger.getRenderer(g->getRenderer());
+	 /*_debugger.getRenderer(g->getRenderer());
 	 _debugger.getTexture(g->getTexture("body"));
 	 _debugger.SetFlags(b2Draw::e_shapeBit);
-	 _debugger.getCamera(_mainCamera);
+	 _debugger.getCamera(_mainCamera);*/
 
 	 //Gestion de colisiones
 	 g->getWorld()->SetContactListener(&_colManager);

@@ -26,8 +26,7 @@ const string TILEMAP_PATH = "..\\files\\tilemaps\\";
 
 const int NUM_TEXTURES = 15;
 const int NUM_FONTS = 0;
-const int TILES_W = 16;
-const int TILES_H = 16;
+const int TILES_SIZE = 16;
 
 const double M_TO_PIXEL = 8;
 const double BUTTON_SCALE = 0.25;
