@@ -91,6 +91,9 @@ Game::Game()
 	SDL_Surface* icon = IMG_Load("..\\icon.png");
 	SDL_SetWindowIcon(window, icon);
 
+	//Show cursor
+	SDL_ShowCursor(true);
+
 	//-----------------------------------------
 	//Ajustamos el viewPort
 	/*SDL_Rect viewport;

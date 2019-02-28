@@ -4,9 +4,12 @@
 #include "FollowingComponent.h"
 #include "checkML.h"
 #include "Coin.h"
+#include "Cursor.h"
 
 PlayState::PlayState(Game* g) : GameState(g)
 {
+	//hide cursor
+	SDL_ShowCursor(false);
 	//Tilemap
 
 	_colLayer = new Layer("Capa de Patrones 1", g->getTexture("tileset"), TILEMAP_PATH + "level.json", g, "Suelo");
@@ -29,7 +32,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 
 	_enemy = new MeleeEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(260, 60), "Enemy");
 	_stages.push_back(_enemy);
-  
+
 	Coin* coin = new Coin(this, g, g->getTexture("Coin"), Vector2D(100, 75), 20);
 	_stages.push_back(coin);
 
@@ -42,9 +45,10 @@ PlayState::PlayState(Game* g) : GameState(g)
 	itFR = --(_stages.end());
 
 	_enemy->setItList(itFR);
-	
-	
-	
+
+	//cursor
+	Cursor* cursor = new Cursor(g->getTexture("GunCursor"), g, this);
+	_stages.push_back(cursor);
 }
 
 void PlayState::KillObject(list<GameObject*>::iterator itList)

@@ -135,6 +135,7 @@
     <ClCompile Include="BulletPool.cpp" />
     <ClCompile Include="Collectable.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
+    <ClCompile Include="Cursor.cpp" />
     <ClCompile Include="DebugDraw.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="HUD.cpp" />
@@ -184,6 +185,7 @@
     <ClInclude Include="Collectable.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="Cursor.h" />
     <ClInclude Include="DebugDraw.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="HUD.h" />
