@@ -28,8 +28,8 @@ void DistanceStaticEnemy::update()
 	b2Vec2 enemyPos = _body->getBody()->GetPosition(), 
 			playerPos = _playerBody->getBody()->GetPosition();
 
-	double x = playerPos.x - enemyPos.x,
-			y = playerPos.y - enemyPos.y;
+	double x = playerPos.x * 8 - enemyPos.x * 8,
+		y = playerPos.y * 8 - enemyPos.y * 8;
 
 	if ((x != 0 || y > 0) && //el jugador esta debajo
 		(x < _vision && x > -_vision && y < _vision && y > -_vision)) //estas viendo al jugador

@@ -9,7 +9,7 @@ class MeleeEnemy : public Enemy
 		bool _attackingR = false;
 		bool _attackingL = false;
 		int _realRange = 15;
-		int _stopDmg = 1300;
+		int _stopDmg = 1000;
 	public:
 		MeleeEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag);
 		virtual ~MeleeEnemy() { }

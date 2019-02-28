@@ -25,24 +25,22 @@ void MeleeEnemy::update()
 {
 	Enemy::update();
 	BodyComponent* _playerBody = _player->getComponent<BodyComponent>();
-	TransformComponent* _playerTransform = _player->getComponent<TransformComponent>();
+	//TransformComponent* _playerTransform = _player->getComponent<TransformComponent>();
 
-	Vector2D enemy, player;
+	
 
-	enemy = _transform->getPosition();
-	player = _playerTransform->getPosition();
+	b2Vec2 enemyPos = _body->getBody()->GetPosition(),
+		playerPos = _playerBody->getBody()->GetPosition();
 
-	double x, y;
-
-	x = player.getX() - enemy.getX();
-	y = player.getY() - enemy.getY();
+	double x = playerPos.x * 8 - enemyPos.x * 8,
+		y = playerPos.y * 8 - enemyPos.y * 8;
 
 	if (!_attackingR && !_attackingL && x < _vision && x > -_vision && y < _vision && y > -_vision)
 	{
-		if (x > _playerBody->getW() * 8)
+		if (x > 0)//Derecha
 		{
 			_anim->unFlip();
-			if (x > _attackRange + _playerBody->getW() * 8)
+			if (x > _attackRange)
 			{
 				_body->getBody()->SetLinearVelocity({ 8,_body->getBody()->GetLinearVelocity().y });
 				_anim->playAnim(AnimatedSpriteComponent::EnemyWalk);
@@ -61,7 +59,7 @@ void MeleeEnemy::update()
 				_attacking = true;
 			}
 		}
-		else if (x < _playerBody->getW() * 8)
+		else if (x < 0)//Izquierda
 		{
 			_anim->flip();
 
@@ -88,22 +86,23 @@ void MeleeEnemy::update()
 	else if(_attackingR || _attackingL)
 	{ 
 		
-		if (SDL_GetTicks() > _time + _attackTime && _attacking == true)
+		if (SDL_GetTicks() > _time + _attackTime && _attacking)
 		{
-			if (_attackingR && (x < _attackRange + _playerBody->getW() * 8 + _realRange && x > 0) && y < _attackRange + _realRange && y > -_attackRange)
+			if (_attackingR && (x < _attackRange + _realRange && x > 0) && y < _attackRange + _realRange && y > -_attackRange)
 			{
 				cout << "tas danyado" << endl; //Le haces daño
 				_player->subLife(_damage);
 				_attacking = false;
 			}
-			else if (_attackingL && (x <  _playerBody->getW() * 8 && x > -_attackRange - _realRange) && y < _attackRange && y > -_attackRange - _realRange)
+			else if (_attackingL && (x < 0 && x > -_attackRange - _realRange) && y < _attackRange && y > -_attackRange - _realRange)
 			{
 				cout << "tas danyado" << endl; //Le haces daño
 				_player->subLife(_damage);
 				_attacking = false;
 			}
 		}
-		if(SDL_GetTicks() > _time + _stopDmg && _attacking == true)
+
+		if(SDL_GetTicks() > _time + _stopDmg && _attacking)
 			_attacking = false;
 
 		if (_anim->animationFinished())
