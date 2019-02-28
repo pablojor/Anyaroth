@@ -10,7 +10,7 @@ class TextUI : public UIElement
 		SDL_Rect _destRect;
 
 	protected:
-		Font _font;
+		Font* _font = nullptr;
 		uint _fontSize;
 		string _text = "";
 		SDL_Color _color;
@@ -18,7 +18,7 @@ class TextUI : public UIElement
 	public:
 		TextUI() : UIElement(nullptr) {};
 		TextUI(Game* game);
-		TextUI(Game* game, string text, SDL_Color color = { 0, 0, 0, 255});
+		TextUI(Game* game, string text, Font* font, uint fontSize = 12, SDL_Color color = { 0, 0, 0, 255});
 		~TextUI() {};
 
 		virtual void render() const;
@@ -33,7 +33,7 @@ class TextUI : public UIElement
 		Vector2D getPosition() { return Vector2D(_destRect.x, _destRect.y); }
 		Vector2D getSize() { return Vector2D(_destRect.w, _destRect.h); }
 
-		void setFont(string fontFile);
+		void setFont(string fontName, uint fontSize);
 		
 		inline void setColor(const SDL_Color& color) { _color = color; }
 		inline SDL_Color getColor() { return _color; }

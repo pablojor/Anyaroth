@@ -7,20 +7,20 @@ TextUI::TextUI(Game* game): UIElement(game)
 {
 	_text = "";
 	_fontSize = 12;
-	_font = Font(FONTS_PATH + "arial.ttf",_fontSize);
+	_font = game->getFont("ARIAL12");
 	_color = { 0, 0, 0, 255 };
-	Texture texture = Texture(_game->getRenderer(), _text, &_font, _color);
+	Texture texture(_game->getRenderer(), _text, _font, _color);
 	_destRect = { 0, 0, texture.getW(), texture.getH() };
 }
 
 
-TextUI::TextUI(Game* game, string text, SDL_Color color) : UIElement(game)
+TextUI::TextUI(Game* game, string text, Font* font, uint fontSize, SDL_Color color) : UIElement(game)
 {
 	_text = text;
 	_fontSize = 12;
-	_font = Font(FONTS_PATH + "arial.ttf", _fontSize);
+	_font = font;
 	_color = color;
-	Texture texture = Texture(_game->getRenderer(), _text, &_font, _color);
+	Texture texture(_game->getRenderer(), _text, _font, _color);
 	_destRect = { 0, 0, texture.getW(), texture.getH() };
 }
 
@@ -28,7 +28,7 @@ void TextUI::render() const
 {
 	if (_visible)
 	{
-		Texture texture = Texture(_game->getRenderer(), _text, &_font, _color);
+		Texture texture = Texture(_game->getRenderer(), _text, _font, _color);
 		texture.render(_destRect);
 	}
 }
@@ -45,7 +45,8 @@ void TextUI::setSize(int w, int h)
 	_destRect.h = h;
 }
 
-void TextUI::setFont(string fontFile)
+void TextUI::setFont(string fontName, uint fontSize)
 {
-	_font = Font(FONTS_PATH + "arial.tff", _fontSize);
+	_fontSize = fontSize;
+	_font = _game->getFont(fontName);
 }

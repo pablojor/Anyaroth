@@ -85,6 +85,7 @@ class Game
 		SDL_Window* window = nullptr;
 		SDL_Renderer* renderer = nullptr;
 		map <string, Texture*> textures;
+		map <string, Font*> _fonts;
 		GameState* states[NUM_STATES];
 		GameStateMachine* stateMachine = new GameStateMachine();
 		vector<string> texturesName;
@@ -116,6 +117,7 @@ class Game
 		GameState* getCurrentState() { return stateMachine->currentState(); };
 
 		Texture* getTexture(string nameText);
+		Font* getFont(string nameFont);
 		SDL_Renderer* getRenderer() { return renderer; }
 		b2World* getWorld() { return _world; }
 		void newGame();

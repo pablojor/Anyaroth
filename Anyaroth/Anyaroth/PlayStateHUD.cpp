@@ -8,7 +8,7 @@ PlayStateHUD::PlayStateHUD(Game * g)
 	_lifeBar.setPosition(20, 20);
 	addUIElement(&_lifeBar);
 	//Ammo
-	_ammo = TextUI(g, "AMMO");
+	_ammo = TextUI(g, "AMMO",g->getFont("ARIAL12"));
 	addUIElement(&_ammo);
 
 }
