@@ -52,6 +52,12 @@ Texture* Game::getTexture(string nameText)
 	return textures[nameText];
 }
 
+void Game::toggleFullscreen() {
+	Uint32 FullscreenFlag = SDL_WINDOW_FULLSCREEN_DESKTOP; //fake fullscreen (windowed mode)
+	bool IsFullscreen = SDL_GetWindowFlags(window) & FullscreenFlag;
+	SDL_SetWindowFullscreen(window, IsFullscreen ? 0 : FullscreenFlag);
+}
+
 void Game::newGame()
 {
 
@@ -88,9 +94,12 @@ Game::Game()
 	//window = SDL_CreateWindow("Anayroth", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1080, 760, SDL_WINDOW_SHOWN);
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
+	//Icon
 	SDL_Surface* icon = IMG_Load("..\\icon.png");
 	SDL_SetWindowIcon(window, icon);
 
+	//Show cursor
+	SDL_ShowCursor(true);
 	//-----------------------------------------
 	//Ajustamos el viewPort
 	/*SDL_Rect viewport;
@@ -179,6 +188,13 @@ void Game::handleEvents(Uint32 time)
 	{
 		if (event.type == SDL_QUIT)
 			exit = true;
+		else if (event.type == SDL_KEYDOWN)
+		{
+			if (event.key.keysym.sym == SDLK_F11)
+			{
+				toggleFullscreen();
+			}
+		}
 
 		stateMachine->currentState()->handleEvents(event);
 	}

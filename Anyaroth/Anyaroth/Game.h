@@ -113,11 +113,15 @@ class Game
 		void createTextures();
 		void pushState(StateName);
 		void changeState(StateName);
+		void toggleFullscreen();
+
 		GameState* getCurrentState() { return stateMachine->currentState(); };
 
 		Texture* getTexture(string nameText);
 		SDL_Renderer* getRenderer() { return renderer; }
 		b2World* getWorld() { return _world; }
+
+
 		void newGame();
 		void load();
 		void save();
