@@ -1,16 +1,16 @@
 #pragma once
 #include "Canvas.h"
-#include "Game.h"
-#include "ImageUI.h"
-#include "TextUI.h"
+#include "PlayerPanel.h"
+
+class Game;
 
 class PlayStateHUD : public Canvas
 {
 	private:
-		ImageUI _lifeBar;
-		TextUI _ammo;
+		PlayerPanel* _playerPanel;
 	public:
+		PlayStateHUD() {};
 		PlayStateHUD(Game* g);
-		~PlayStateHUD();
+		virtual ~PlayStateHUD() {};
 };
 

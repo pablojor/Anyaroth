@@ -154,9 +154,15 @@
     <ClCompile Include="PanelUI.cpp">
       <Filter>Archivos de código\UIElements</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerPanel.cpp" />
-    <ClCompile Include="TextUI.cpp" />
-    <ClCompile Include="UIElement.cpp" />
+    <ClCompile Include="TextUI.cpp">
+      <Filter>Archivos de código\UIElements</Filter>
+    </ClCompile>
+    <ClCompile Include="UIElement.cpp">
+      <Filter>Archivos de código\UIElements</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerPanel.cpp">
+      <Filter>Archivos de código\UIElements\HUDs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -333,8 +339,12 @@
     <ClInclude Include="PanelUI.h">
       <Filter>Archivos de encabezado\UIElements</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerPanel.h" />
-    <ClInclude Include="TextUI.h" />
+    <ClInclude Include="TextUI.h">
+      <Filter>Archivos de encabezado\UIElements</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerPanel.h">
+      <Filter>Archivos de encabezado\UIElements\HUDs</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de encabezado">

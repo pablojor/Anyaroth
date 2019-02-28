@@ -7,14 +7,15 @@
 class PlayerPanel :	public PanelUI
 {
 private:
-	ImageUI _lifeBar;
-	TextUI _ammoViewer;
+	ImageUI* _lifeBar;
+	TextUI* _ammoViewer;
 	/*_gunSelector;
 	_dashViever;
 	_coinCounter;
 */
 
 public:
+	PlayerPanel() {};
 	PlayerPanel(Game* game);
 	~PlayerPanel();
 };

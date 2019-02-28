@@ -1,5 +1,11 @@
 #include "Canvas.h"
 
+Canvas::~Canvas()
+{
+	for (UIElement* e : _elements)
+		delete e;
+}
+
 void Canvas::render() const
 {
 	for (UIElement* e : _elements)

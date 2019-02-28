@@ -8,7 +8,7 @@ class Canvas
 		std::vector<UIElement*> _elements;
 	public:
 		Canvas() {};
-		virtual ~Canvas() {};
+		virtual ~Canvas();
 
 		virtual void render() const;
 		virtual void update();
