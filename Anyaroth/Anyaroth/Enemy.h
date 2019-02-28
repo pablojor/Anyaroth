@@ -15,6 +15,7 @@ class BodyComponent;
 class Enemy : public GameComponent
 {
 	protected:
+		//Texture* _texture = nullptr;
 		AnimatedSpriteComponent* _anim = nullptr;
 		MovingComponent* _movement = nullptr;
 		TransformComponent* _transform = nullptr;
@@ -28,6 +29,9 @@ class Enemy : public GameComponent
 		bool _attacking = false;
 		double _time;
 		int _vision, _attackRange, _attackTime, _damage;
+
+		double _hurtTime = 1000;
+		bool _hurt = false;
 
 	public:
 		Enemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag);

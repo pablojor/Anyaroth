@@ -55,6 +55,13 @@ void Enemy::beginCollision(GameComponent * other, b2Contact* contact)
 void Enemy::update()
 {
 	GameComponent::update();
+
+	if (_hurt && SDL_GetTicks() > _hurtTime)
+	{
+		_anim->getTexture()->setColor(255, 255, 255);
+		_hurt = false;
+		_hurtTime = SDL_GetTicks() + _hurtTime;
+	}
 }
 
 
@@ -68,4 +75,7 @@ void Enemy::subLife(int damage)
 	_life.subLife(damage);
 	if (_life.dead())
 		die();
+
+	_anim->getTexture()->setColor(255, 0, 0);
+	_hurt = true;
 }
