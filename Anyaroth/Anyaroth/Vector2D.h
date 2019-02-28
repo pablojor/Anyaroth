@@ -18,4 +18,5 @@ class Vector2D
 		double operator*(const Vector2D& d) const;
 		Vector2D rotate(double degrees);
 		Vector2D rotateAroundPoint(double angle, Vector2D center);
+		double distance(Vector2D p);
 };

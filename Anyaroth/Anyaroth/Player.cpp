@@ -53,8 +53,11 @@ Player::Player(Texture* texture, Game* g, PlayState* play, string tag) : _play(p
 	_weaponArm = new Arm(getGame()->getTexture("ArmPistol"), this, getGame(), _play, { 28,14 }); //Parámetros para la pistola
 	addChild(_weaponArm);
 
+	//Inventario inicial
+	_gunInventory.push_back(BasicGun);
+	_gunInventory.push_back(BasicShotgun); //para probar
 	//Equipa el arma inicial
-	equipGun(getGame()->BasicGun);
+	equipGun(_gunInventory[1]);
 
 	AmountOfCollision = 0;
 	//Monedore
@@ -211,19 +214,22 @@ void Player::update()
 }
 
 //Equipa un arma utilizando el array de atributos gameGuns de Game.h
-void Player::equipGun(int gunIndex, int bulletPoolIndex)
+void Player::equipGun(int gunIndex)
 {
-	Shooter* sh = &getGame()->gameGuns[gunIndex].shooter;
-	string name = getGame()->gameGuns[gunIndex].name;
+	ShooterInterface* sh = getGame()->gameGuns[gunIndex].shooter;
+	GunType type = GunType(getGame()->gameGuns[gunIndex].type);
 	int mA = getGame()->gameGuns[gunIndex].maxAmmo;
 	int mC= getGame()->gameGuns[gunIndex].maxClip;
 
 	// TEMPORAL
-	PoolWrapper* bp = _play->getBulletPool();
+	PoolWrapper* bp = _play->getBulletPool(type);
 	//
 
-	_weaponArm->setGun(new Gun(_weaponArm, sh, bp, name, mA, mC));
+	
+
+	_weaponArm->setGun(new Gun(_weaponArm, sh, bp, type, mA, mC));
 	//cout << "Gun equipada" << endl << endl << endl << endl << endl << endl;
+
 }
 
 void Player::reload()

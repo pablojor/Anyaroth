@@ -133,6 +133,12 @@
     <ClCompile Include="GameComponent.cpp">
       <Filter>Archivos de código\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="ShotgunShooter.cpp">
+      <Filter>Archivos de código\Guns</Filter>
+    </ClCompile>
+    <ClCompile Include="ShooterInterface.cpp">
+      <Filter>Archivos de código\Guns</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -284,6 +290,15 @@
     </ClInclude>
     <ClInclude Include="HUD.h">
       <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="ShotgunShooter.h">
+      <Filter>Archivos de encabezado\Guns</Filter>
+    </ClInclude>
+    <ClInclude Include="ShooterInterface.h">
+      <Filter>Archivos de encabezado\Guns</Filter>
+    </ClInclude>
+    <ClInclude Include="GunType_def.h">
+      <Filter>Archivos de código\Guns</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

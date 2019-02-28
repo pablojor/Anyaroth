@@ -16,13 +16,13 @@ private:
 	Texture* _bulletTexture = nullptr;
 	double _bulletSpeed = 0;
 	int _bulletDamage = 0;
-	int _bulletRange = 20;
+	int _bulletRange = 0;
 	double _bulletAngle = 0;
 
 
 	void initBullets();
 public:
-	BulletPool(Game* g, Texture* texture, double speed, int damage, double bulletAngle = 0, int bulletRange = 20) : _bulletTexture(texture), _bulletSpeed(speed), _bulletDamage(damage), _bulletAngle(bulletAngle), _bulletRange(bulletRange), ObjectPool<Bullet, SIZE>(g) { initBullets(); };
+	BulletPool(Game* g, Texture* texture, double speed, int damage, int bulletRange) : _bulletTexture(texture), _bulletSpeed(speed), _bulletDamage(damage), _bulletRange(bulletRange), ObjectPool<Bullet, SIZE>(g) { initBullets(); };
 	virtual ~BulletPool() {};
 
 
@@ -36,7 +36,7 @@ void BulletPool<SIZE>::initBullets() {
 	for (int i = 0; i < SIZE; i++)
 	{
 		Bullet* b = ObjectPool<Bullet, SIZE>::getObject(i);
-		b->init(_bulletTexture, _bulletSpeed, _bulletAngle, _bulletDamage);
+		b->init(_bulletTexture, _bulletSpeed, _bulletDamage, _bulletAngle, _bulletRange);
 	}
 }
 
@@ -47,7 +47,7 @@ void BulletPool<SIZE>::addBullet(Vector2D pos, Vector2D dir, double angle) {
 
 	if (b != nullptr) {
 
-		b->reset();
+		b->reset(pos);
 
 		b->getComponent<TransformComponent>()->setPosition(pos.getX(), pos.getY());
 		b->getComponent<TransformComponent>()->setRotation(angle);

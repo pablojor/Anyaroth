@@ -13,11 +13,6 @@ Shooter::~Shooter()
 {
 }
 
-void Shooter::init(GameComponent* shootingObject, PoolWrapper* bPool) 
-{
-	_shootingObject = shootingObject;
-	_bPool = bPool;
-}
 
 
 void Shooter::shoot(Vector2D bulletPosition, Vector2D bulletDir, double angle)

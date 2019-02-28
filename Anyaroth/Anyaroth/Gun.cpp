@@ -3,7 +3,7 @@
 #include <algorithm>
 
 
-Gun::Gun(GameComponent* shootingObj, Shooter* shooterComp, PoolWrapper* bp, string name, int maxAmmo, int maxClip, int bulletsPerShot) : _shootingObj(shootingObj), _shooterComp(shooterComp), _bPool(bp), _name(name), _maxAmmo(maxAmmo), _maxClip(maxClip), _ammo(maxAmmo), _clip(maxClip), _bulletsPerShot(bulletsPerShot) 
+Gun::Gun(GameComponent* shootingObj, ShooterInterface* shooterComp, PoolWrapper* bp, GunType type, int maxAmmo, int maxClip, int bulletsPerShot) : _shootingObj(shootingObj), _shooterComp(shooterComp), _bPool(bp), _type(type), _maxAmmo(maxAmmo), _maxClip(maxClip), _ammo(maxAmmo), _clip(maxClip), _bulletsPerShot(bulletsPerShot) 
 {
 	_shooterComp->init(_shootingObj, _bPool);
 }
@@ -11,7 +11,7 @@ Gun::Gun(GameComponent* shootingObj, Shooter* shooterComp, PoolWrapper* bp, stri
 Gun::~Gun() {}
 
 
-void Gun::setShooter(Shooter* sh) 
+void Gun::setShooter(ShooterInterface* sh) 
 {
 	_shooterComp = sh; 
 
@@ -126,5 +126,5 @@ bool Gun::shoot(Vector2D bulletPosition, Vector2D bulletDir, bool flipped)
 //Muestra la informaci�n del arma por consola
 void Gun::debugInfo() 
 {
-	cout << endl << _name << endl << _maxAmmo << endl << _ammo << endl << _maxClip << endl << _clip << endl << _bulletsPerShot << endl;
+	cout << endl << _type << endl << _maxAmmo << endl << _ammo << endl << _maxClip << endl << _clip << endl << _bulletsPerShot << endl;
 }

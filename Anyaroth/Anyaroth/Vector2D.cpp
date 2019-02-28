@@ -69,6 +69,12 @@ Vector2D Vector2D::rotateAroundPoint(double angle, Vector2D center)
 	return {x, y};
 }
 
+//Calcula la distancia entre el vector y otro vector (se entienden ambos como puntos{x,y})
+double Vector2D::distance(Vector2D p) 
+{
+	return sqrt(pow(_x - p.getX(), 2) + pow(_y - p.getY(), 2));
+}
+
 Vector2D Vector2D::operator+(const Vector2D& v) const 
 {
 	Vector2D r;

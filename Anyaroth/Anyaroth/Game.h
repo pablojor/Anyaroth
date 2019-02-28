@@ -9,8 +9,10 @@
 #include "PlayState.h"
 #include "DebugDraw.h"
 #include "CollisionManager.h"
-#include "Gun.h"
+#include "ShooterInterface.h"
 #include "Shooter.h"
+#include "ShotgunShooter.h"
+#include "GunType_def.h"
 
 // Resolución interna del juego
 const int GAME_RESOLUTION_X = 480;
@@ -55,12 +57,13 @@ const double TILES_H = 16;
 const double M_TO_PIXEL = 8;
 
 //ARMAS
-const int NUM_GUNS = 2; //N�mero de armas en el juego
+//const int NUM_GUNS = 2; //N�mero de armas en el juego
+//Las armas que hay en el juego
 
 struct GunAttributes
 {
-	Shooter shooter;
-	string name;
+	ShooterInterface* shooter;
+	GunType type;
 	int maxAmmo;
 	int maxClip;
 };
@@ -96,16 +99,12 @@ class Game
 	public:
 		vector<int> var;
 
-		//Las armas que hay en el juego
-		enum GameGun
+		
+
+		vector<GunAttributes> gameGuns = 
 		{
-			BasicGun,
-			BasicShotgun
-		};
-		GunAttributes gameGuns[NUM_GUNS] = 
-		{
-			{Shooter(),"Pistola",60,12},
-			{ Shooter(),"Escopeta",30,2 }
+			{new Shooter(),BasicGun,60,12},
+			{ new ShotgunShooter({30,0,-30}),BasicShotgun,30,2 }
 		};
 
 		//Metodos

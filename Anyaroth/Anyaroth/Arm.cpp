@@ -60,7 +60,7 @@ void Arm::update()
 	direction.normalize();
 
 	//Distancia del mouse al brazo
-	double distance = sqrt(pow(_controller->mouseX - _transform->getPosition().getX(), 2) + pow(_controller->mouseY - _transform->getPosition().getY(), 2));
+	double distance = Vector2D(double(_controller->mouseX),double(_controller->mouseY)).distance(_transform->getPosition());//sqrt(pow(_controller->mouseX - _transform->getPosition().getX(), 2) + pow(_controller->mouseY - _transform->getPosition().getY(), 2));
 
 	//cout << distance << endl;
 
