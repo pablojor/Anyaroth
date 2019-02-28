@@ -39,7 +39,7 @@ const string SAVES_PATH = "..\\files\\saves\\";
 const string SPRITE_PATH = "..\\assets\\sprites\\";
 const string TILEMAP_PATH = "..\\files\\tilemaps\\";
 
-const int NUM_TEXTURES = 11;
+const int NUM_TEXTURES = 12;
 
 const int NUM_FONTS = 0;
 
