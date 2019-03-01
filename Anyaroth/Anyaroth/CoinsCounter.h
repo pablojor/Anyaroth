@@ -10,7 +10,7 @@ private:
 	ImageUI* _coinImage = nullptr;
 	TextUI* _coinText = nullptr;
 public:
-	CoinsCounter(Game* game);
+	CoinsCounter(Game* game, int xPos, int yPos);
 	~CoinsCounter() {};
 
 	void update();

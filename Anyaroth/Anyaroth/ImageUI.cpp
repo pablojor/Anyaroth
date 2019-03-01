@@ -1,10 +1,11 @@
 #include "ImageUI.h"
 #include "Game.h"
 
-ImageUI::ImageUI(Game* game, Texture* image) : UIElement(game), _image(image)
+
+ImageUI::ImageUI(Game* game, Texture* image, int xPos, int yPos) : UIElement(game), _image(image)
 {
-	_destRect = { 0, 0, image->getW(), image->getH() };
-	_clipArea = _destRect;
+	_destRect = { xPos, yPos, image->getW(), image->getH() };
+	_clipArea = { 0, 0, image->getW(), image->getH() };
 }
 
 void ImageUI::render() const

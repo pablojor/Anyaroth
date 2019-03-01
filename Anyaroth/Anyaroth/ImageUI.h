@@ -10,7 +10,7 @@ class ImageUI :	public UIElement
 		SDL_Rect _clipArea;
 	public:
 		ImageUI() : UIElement(nullptr) {};
-		ImageUI(Game* game, Texture* image);
+		ImageUI(Game* game, Texture* image, int xPos = 0, int yPos = 0);
 		~ImageUI() {};
 
 		virtual void render() const;

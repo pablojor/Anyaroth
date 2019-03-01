@@ -18,7 +18,7 @@ class TextUI : public UIElement
 	public:
 		TextUI() : UIElement(nullptr) {};
 		TextUI(Game* game);
-		TextUI(Game* game, string text, Font* font, uint fontSize = 12, SDL_Color color = { 0, 0, 0, 255});
+		TextUI(Game* game, string text, Font* font, uint fontSize = 12, int xPos = 0, int yPos = 0, SDL_Color color = { 0, 0, 0, 255});
 		~TextUI() {};
 
 		virtual void render() const;

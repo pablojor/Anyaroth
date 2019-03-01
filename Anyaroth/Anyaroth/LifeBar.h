@@ -10,7 +10,7 @@ private:
 	void updateAspect();
 
 public:
-	LifeBar(Game* game, Texture* texture);
+	LifeBar(Game* game, Texture* texture, int xPos, int yPos);
 	~LifeBar() {};
 
 	void render() const;

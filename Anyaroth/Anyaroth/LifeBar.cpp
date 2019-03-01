@@ -2,7 +2,7 @@
 #include "Game.h"
 
 
-LifeBar::LifeBar(Game* game, Texture* texture) : ImageUI(game, texture)
+LifeBar::LifeBar(Game* game, Texture* texture, int xPos, int yPos) : ImageUI(game, texture, xPos, yPos)
 {
 }
 

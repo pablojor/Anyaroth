@@ -125,6 +125,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AmmoPackage.cpp" />
+    <ClCompile Include="AmmoViewer.cpp" />
     <ClCompile Include="AnimatedSpriteComponent.cpp" />
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="BodyComponent.cpp" />
@@ -183,6 +184,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AmmoPackage.h" />
+    <ClInclude Include="AmmoViewer.h" />
     <ClInclude Include="AnimatedSpriteComponent.h" />
     <ClInclude Include="AnyarothError.h" />
     <ClInclude Include="BackGround.h" />

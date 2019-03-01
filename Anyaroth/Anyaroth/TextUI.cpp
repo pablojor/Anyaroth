@@ -14,14 +14,14 @@ TextUI::TextUI(Game* game): UIElement(game)
 }
 
 
-TextUI::TextUI(Game* game, string text, Font* font, uint fontSize, SDL_Color color) : UIElement(game)
+TextUI::TextUI(Game* game, string text, Font* font, uint fontSize, int xPos, int yPos, SDL_Color color) : UIElement(game)
 {
 	_text = text;
 	_fontSize = 12;
 	_font = font;
 	_color = color;
 	Texture texture(_game->getRenderer(), _text, _font, _color);
-	_destRect = { 0, 0, texture.getW(), texture.getH() };
+	_destRect = { xPos, yPos, texture.getW(), texture.getH() };
 }
 
 void TextUI::render() const

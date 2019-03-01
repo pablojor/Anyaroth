@@ -2,16 +2,13 @@
 #include "Game.h"
 
 
-CoinsCounter::CoinsCounter(Game* game) : PanelUI(game)
+CoinsCounter::CoinsCounter(Game* game, int xPos, int yPos) : PanelUI(game)
 {
-	_coinImage = new ImageUI(game, game->getTexture("CoinIcon"));
-	_coinText = new TextUI(game, to_string(_coinCount), game->getFont("ARIAL12"), 12, { 255, 255, 255, 255 });
+	_coinText = new TextUI(game, to_string(_coinCount), game->getFont("ARIAL12"), 12, xPos, yPos + 1, { 255, 255, 255, 255 });
+	_coinImage = new ImageUI(game, game->getTexture("CoinIcon"), xPos + _coinText->getW(), yPos - 1);
 
-	addChild(_coinImage);
 	addChild(_coinText);
-
-	_coinImage->setPosition(GAME_RESOLUTION_X - _coinImage->getW(), 0);
-	_coinText->setPosition(_coinImage->getX() - _coinImage->getW(), ((_coinImage->getY() + _coinImage->getH()) / 2) - (_coinText->getH() / 2) + 1);
+	addChild(_coinImage);
 }
 
 void CoinsCounter::update()
