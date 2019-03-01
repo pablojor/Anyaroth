@@ -31,29 +31,40 @@ void DistanceStaticEnemy::update()
 	double x = playerPos.x * 8 - enemyPos.x * 8,
 		y = playerPos.y * 8 - enemyPos.y * 8;
 
-	if ((x != 0 || y > 0) && //el jugador esta debajo
-		(x < _vision && x > -_vision && y < _vision && y > -_vision)) //estas viendo al jugador
+	if (x < _vision && x > -_vision && y < _vision && y > -_vision) //estas viendo al jugador
 	{
 		b2RayCastInput rayInput;
 		rayInput.maxFraction = 1;
 		
 		//------------MIRAR BODIES PORQUE NO TIENE SENTIDO-----------//
-
-		if (x > 0) //jugador a la derecha
+		
+		if (x > 0 && y >= 0) //Derecha
 		{
+			_anim->unFlip();
+
 			rayInput.p1 = { (float32)(enemyPos.x + 1.6),
-							(float32)(enemyPos.y - 3) };
+							(float32)(enemyPos.y) };
 
 			rayInput.p2 = { (float32)(playerPos.x - 2),
-							(float32)(playerPos.y - 2.5) };
+							(float32)(playerPos.y) };
 		}
-		else if (x < 0) //jugador a la izquierda
+		else if (x < 0 && y >= 0) //Izquierda
 		{
+			_anim->flip();
+
 			rayInput.p1 = { (float32)(enemyPos.x - 1.6),
-							(float32)(enemyPos.y - 3) };
+							(float32)(enemyPos.y) };
 
 			rayInput.p2 = { (float32)(playerPos.x + 2),
-							(float32)(playerPos.y - 2.5)};
+							(float32)(playerPos.y)};
+		}
+		else if (y < 0) //Arriba
+		{
+			rayInput.p1 = { (float32)(enemyPos.x),
+							(float32)(enemyPos.y - 3) };
+
+			rayInput.p2 = { (float32)(playerPos.x),
+							(float32)(playerPos.y + 2.5) };
 		}
 
 		bool hit = false;
