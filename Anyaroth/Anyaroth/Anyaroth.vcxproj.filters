@@ -166,6 +166,7 @@
     <ClCompile Include="LifeBar.cpp" />
     <ClCompile Include="CoinsCounter.cpp" />
     <ClCompile Include="AmmoViewer.cpp" />
+    <ClCompile Include="WeaponryViewer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -351,6 +352,7 @@
     <ClInclude Include="LifeBar.h" />
     <ClInclude Include="CoinsCounter.h" />
     <ClInclude Include="AmmoViewer.h" />
+    <ClInclude Include="WeaponryViewer.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de encabezado">
