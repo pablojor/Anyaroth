@@ -33,7 +33,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	auto itFR = --(_stages.end());
 	_enemy->setItList(itFR);
   
-	Coin* coin = new Coin(this, g, g->getTexture("Coin"), Vector2D(100, 75), 20);
+	Coin* coin = new Coin(this, g, g->getTexture("Coin"), Vector2D(100, 100), 20);
 	_stages.push_back(coin);
 
 	itFR = --(_stages.end());

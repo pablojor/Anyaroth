@@ -7,10 +7,9 @@
 DistanceStaticEnemy::DistanceStaticEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag) : game(g), Enemy(player, g, play, texture, posIni, tag)
 {
 	_vision = 500;
-	_attackRange = _vision; //No se puede poner mas peque�o que la velocidad
+	_attackRange = 30; //No se puede poner mas peque�o que la velocidad
 	_attackTime = 1300; //La animacion tarda unos 450
 	_life = 50;
-
 
 	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 13, true);
 	_anim->addAnim(AnimatedSpriteComponent::EnemyWalk, 8, true);
@@ -35,49 +34,34 @@ void DistanceStaticEnemy::update()
 	{
 		b2RayCastInput rayInput;
 		rayInput.maxFraction = 1;
-		
+
 		//------------MIRAR BODIES PORQUE NO TIENE SENTIDO-----------//
-		
-		if (x > 0 && y >= 0) //Derecha
+
+		if (x > 0) //Derecha
 		{
 			_anim->unFlip();
-
-			rayInput.p1 = { (float32)(enemyPos.x + 1.6),
-							(float32)(enemyPos.y) };
-
-			rayInput.p2 = { (float32)(playerPos.x - 2),
-							(float32)(playerPos.y) };
 		}
-		else if (x < 0 && y >= 0) //Izquierda
+		else if (x < 0) //Izquierda
 		{
 			_anim->flip();
-
-			rayInput.p1 = { (float32)(enemyPos.x - 1.6),
-							(float32)(enemyPos.y) };
-
-			rayInput.p2 = { (float32)(playerPos.x + 2),
-							(float32)(playerPos.y)};
 		}
-		else if (y < 0) //Arriba
-		{
-			rayInput.p1 = { (float32)(enemyPos.x),
-							(float32)(enemyPos.y - 3) };
 
-			rayInput.p2 = { (float32)(playerPos.x),
-							(float32)(playerPos.y + 2.5) };
-		}
+		rayInput.p1 = { (float32)(enemyPos.x),
+						(float32)(enemyPos.y - _body->getH()) };
+
+		rayInput.p2 = { (float32)(playerPos.x),
+						(float32)(playerPos.y - _playerBody->getH()) };
 
 		bool hit = false;
 		b2RayCastOutput rayOutput;
 		for (b2Body* b = getWorld()->GetBodyList(); b && !hit; b = b->GetNext())
-			for (b2Fixture* f = b->GetFixtureList(); f && !hit; f = f->GetNext())
-			{
-				if (f->RayCast(&rayOutput, rayInput, 0))
+			for (b2Fixture* f = b->GetFixtureList(); f && !hit; f = f->GetNext())				{
+				if (b->GetType() != b2_dynamicBody && b->GetType() != b2_kinematicBody && f->RayCast(&rayOutput, rayInput, 0))
 				{
 					hit = true;
 				}
 			}
-		if (!hit)
+		if (!hit) //Si hemos chocado con algo
 		{
 			cout << "MORITE AJQUEROSO" << endl;
 		}

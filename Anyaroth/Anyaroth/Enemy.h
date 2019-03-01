@@ -36,8 +36,6 @@ class Enemy : public GameComponent
 		Enemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag);
 		virtual ~Enemy() {}
 
-
-
 		virtual void beginCollision(GameComponent* other, b2Contact* contact);
 
 		void setItList(list<GameObject*>::iterator itFR);
