@@ -26,27 +26,21 @@ void DistanceStaticEnemy::update()
 			playerPos = _playerBody->getBody()->GetPosition();
 
 	double x = playerPos.x * 8 - enemyPos.x * 8,
-		y = playerPos.y * 8 - enemyPos.y * 8;
+			y = playerPos.y * 8 - enemyPos.y * 8;
 
-	if (x < _vision && x > -_vision && y < _vision && y > -_vision) //estas viendo al jugador
+	if (x < _vision && x > -_vision && y < _vision && y > -_vision) //Jugador en el rango
 	{
-		b2RayCastInput rayInput;
-		rayInput.maxFraction = 1;
-
-		//------------MIRAR BODIES PORQUE NO TIENE SENTIDO-----------//
-
 		if (x > 0) //Derecha
-		{
 			_anim->unFlip();
-		}
 		else if (x < 0) //Izquierda
-		{
 			_anim->flip();
-		}
 
+		//---RAYCAST
+		b2RayCastInput rayInput;
+
+		rayInput.maxFraction = 1;
 		rayInput.p1 = { (float32)(enemyPos.x),
 						(float32)(enemyPos.y - _body->getH()) };
-
 		rayInput.p2 = { (float32)(playerPos.x),
 						(float32)(playerPos.y - _playerBody->getH()) };
 
@@ -57,8 +51,9 @@ void DistanceStaticEnemy::update()
 			for (b2Fixture* f = b->GetFixtureList(); f && !hit; f = f->GetNext())
 				if (b->GetType() == b2_staticBody && f->RayCast(&rayOutput, rayInput, 0))
 					hit = true;
+		//---------------
 
-		if (!hit) //Si hemos chocado con algo
+		if (!hit) //Si vemos al jugador
 		{
 			cout << "MORITE AJQUEROSO" << endl;
 		}

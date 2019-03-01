@@ -12,8 +12,6 @@
 
 Arm::Arm(Texture* texture, GameComponent* player, Game* g, PlayState* play, Vector2D offset) : GameComponent(g)
 {
-
-
 	addComponent<Texture>(texture);
 
 	_transform = addComponent<TransformComponent>();
