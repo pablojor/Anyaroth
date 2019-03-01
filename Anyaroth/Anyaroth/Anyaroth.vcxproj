@@ -164,6 +164,8 @@
     <ClCompile Include="PoolWrapper.cpp" />
     <ClCompile Include="RenderComponent.cpp" />
     <ClCompile Include="Shooter.cpp" />
+    <ClCompile Include="ShooterInterface.cpp" />
+    <ClCompile Include="ShotgunShooter.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
     <ClCompile Include="Money.cpp" />
     <ClCompile Include="Texture.cpp" />
@@ -190,6 +192,7 @@
     <ClInclude Include="DebugDraw.h" />
     <ClInclude Include="DistanceStaticEnemy.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="GunType_def.h" />
     <ClInclude Include="HUD.h" />
     <ClInclude Include="FollowingComponent.h" />
     <ClInclude Include="HurtRenderComponent.h" />
@@ -219,6 +222,8 @@
     <ClInclude Include="RenderComponent.h" />
     <ClInclude Include="SDLError.h" />
     <ClInclude Include="Shooter.h" />
+    <ClInclude Include="ShooterInterface.h" />
+    <ClInclude Include="ShotgunShooter.h" />
     <ClInclude Include="SpriteComponent.h" />
     <ClInclude Include="Money.h" />
     <ClInclude Include="Texture.h" />

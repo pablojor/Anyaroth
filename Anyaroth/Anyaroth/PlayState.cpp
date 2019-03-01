@@ -15,9 +15,14 @@ PlayState::PlayState(Game* g) : GameState(g)
 
 	//----Pools de balas
 
-	//Pool arma b�sica
-	_examplePool = new BulletPool<100>(g, g->getTexture("PistolBullet"), 100, 10);
-	_stages.push_back(_examplePool);
+	//Pools balas
+	_basicBulletPool = new BulletPool<100>(g, g->getTexture("PistolBullet"), 100, 10, 1000);
+	_stages.push_back(_basicBulletPool);
+	_pools.push_back(_basicBulletPool);
+
+	_basicShotgunBulletPool = new BulletPool<100>(g, g->getTexture("PistolBullet"), 100, 25, 60);
+	_stages.push_back(_basicShotgunBulletPool);
+	_pools.push_back(_basicShotgunBulletPool);
 
 	_enemyPool = new BulletPool<100>(g, g->getTexture("PistolBullet"), 100, 10);
 	_stages.push_back(_enemyPool);

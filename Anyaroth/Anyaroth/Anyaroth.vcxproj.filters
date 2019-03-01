@@ -141,6 +141,11 @@
     </ClCompile>
     <ClCompile Include="Life.cpp">
       <Filter>Archivos de código\Objects</Filter>
+    <ClCompile Include="ShotgunShooter.cpp">
+      <Filter>Archivos de código\Guns</Filter>
+    </ClCompile>
+    <ClCompile Include="ShooterInterface.cpp">
+      <Filter>Archivos de código\Guns</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -302,6 +307,14 @@
     </ClInclude>
     <ClInclude Include="Life.h">
       <Filter>Archivos de encabezado\Objects</Filter>
+    <ClInclude Include="ShotgunShooter.h">
+      <Filter>Archivos de encabezado\Guns</Filter>
+    </ClInclude>
+    <ClInclude Include="ShooterInterface.h">
+      <Filter>Archivos de encabezado\Guns</Filter>
+    </ClInclude>
+    <ClInclude Include="GunType_def.h">
+      <Filter>Archivos de código\Guns</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

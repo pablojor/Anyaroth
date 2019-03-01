@@ -53,13 +53,20 @@ Player::Player(Texture* texture, Game* g, PlayState* play, string tag) : _play(p
 
 	//_weaponArm = new Arm(getGame()->getTexture("ArmPistol"), this, getGame(), { 26,5 }); //Parámetros para la pistola
 
-	_weaponArm = new Arm(getGame()->getTexture("ArmPistol"), this, getGame(), _play, { 28,14 }); //Parámetros para la pistola
-	addChild(_weaponArm);
+	//Inicialización del vector de texturas del brazo
+	_armTextures =
+	{
+		getGame()->getTexture("ArmPistol"),
+		getGame()->getTexture("ArmShotgun")
+	};
 
-	_hurtArm = _weaponArm->addComponent<HurtRenderComponent>();
+	
 
+	//Inventario inicial
+	_gunInventory.push_back(BasicGun);
+	_gunInventory.push_back(BasicShotgun); //para probar
 	//Equipa el arma inicial
-	equipGun(getGame()->BasicGun);
+	equipGun(_gunInventory[1]);
 
 	AmountOfCollision = 0;
 	//Monedore
@@ -216,19 +223,37 @@ void Player::update()
 }
 
 //Equipa un arma utilizando el array de atributos gameGuns de Game.h
-void Player::equipGun(int gunIndex, int bulletPoolIndex)
+void Player::equipGun(int gunIndex)
 {
-	Shooter* sh = &getGame()->gameGuns[gunIndex].shooter;
-	string name = getGame()->gameGuns[gunIndex].name;
+	if (_weaponArm == nullptr) //Si todavía no se ha inicializado _weaponArm, lo creo
+	{
+		_weaponArm = new Arm(_armTextures[gunIndex], this, getGame(), _play, { 28,14 }); //Parámetros para la pistola
+		addChild(_weaponArm);
+	}
+	else //Si no, simplemente cambio la textura
+	{
+		_weaponArm->setArmSprite(_armTextures[gunIndex]);
+	}
+
+	ShooterInterface* sh = getGame()->gameGuns[gunIndex].shooter;
+	GunType type = GunType(getGame()->gameGuns[gunIndex].type);
 	int mA = getGame()->gameGuns[gunIndex].maxAmmo;
 	int mC = getGame()->gameGuns[gunIndex].maxClip;
 
 	// TEMPORAL
-	PoolWrapper* bp = _play->getBulletPool();
+	PoolWrapper* bp = _play->getBulletPool(type);
 	//
 
-	_weaponArm->setGun(new Gun(_weaponArm, sh, bp, name, mA, mC));
+	
+
+	_weaponArm->setGun(new Gun(_weaponArm, sh, bp, type, mA, mC));
 	//cout << "Gun equipada" << endl << endl << endl << endl << endl << endl;
+	_equippedGun = type;
+}
+
+void Player::swapGun()
+{
+	equipGun((_equippedGun + 1) % _maxInventoryGuns); //equipa el arma del siguiente slot
 }
 
 void Player::reload()

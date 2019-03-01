@@ -6,6 +6,7 @@
 #include "Money.h"
 #include "PlayState.h"
 #include "Life.h"
+#include "GunType_def.h"
 
 class Arm;
 class Game;
@@ -34,6 +35,11 @@ private:
 	uint32 _timer = 0;
 	int _MaxDash = 2;
 	Money * _money = nullptr;
+	int _maxInventoryGuns = 2; //n�mero de slots en el inventario de armas 
+	vector<GunType> _gunInventory; //Ej: == {Game::BasicGun} -> indica que en el inventario solo lleva la pistola b�sica
+	GunType _equippedGun = BasicGun;
+	vector<Texture*> _armTextures;
+
 public:
 
 	enum states { Idle, Attacking, Reloading, Dashing };
@@ -50,7 +56,8 @@ public:
 
 	void setArm(Arm* arm) { _weaponArm = arm; };
 	Arm* getWeaponArm() { return _weaponArm; }
-	void equipGun(int gunIndex, int bulletPoolIndex = 0);
+	void equipGun(int gunIndex);
+	void swapGun();
 
 	void reload();
 

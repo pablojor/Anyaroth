@@ -12,7 +12,7 @@
 class Bullet : public GameComponent
 {
 private:
-	int _range = 20; //rango del arma (en segundos, aproximadamente)
+	int _range = 200; //rango del arma (en píxeles)
 	int _aliveTime = 0; //Tiempo que lleva vivo (usado en el rango)
 	double _speed = 0;
 	int _damage = 0;
@@ -21,6 +21,7 @@ private:
 	bool _collided = false;
 
 	Vector2D _velocity = { 0,0 };
+	Vector2D _iniPos = { 0,0 };
 
 	TransformComponent* _trans = nullptr;
 
@@ -47,6 +48,6 @@ public:
 
 	virtual void update();
 
-	void reset();
+	void reset(Vector2D pos);
 	
 };

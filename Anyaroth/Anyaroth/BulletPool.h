@@ -11,15 +11,22 @@ class MovingComponent;
 template<int SIZE>
 class BulletPool : public ObjectPool<Bullet, SIZE>
 {
-	private:
-		Texture* _bulletTexture = nullptr;
+private:
+	Texture* _bulletTexture = nullptr;
+	double _bulletSpeed = 0;
+	int _bulletDamage = 0;
+	int _bulletRange = 0;
+	double _bulletAngle = 0;
 
 		double _bulletSpeed = 0;
 		int _bulletDamage = 0;
 		int _bulletRange = 20;
 		double _bulletAngle = 0;
 
-		void initBullets();
+	void initBullets();
+public:
+	BulletPool(Game* g, Texture* texture, double speed, int damage, int bulletRange) : _bulletTexture(texture), _bulletSpeed(speed), _bulletDamage(damage), _bulletRange(bulletRange), ObjectPool<Bullet, SIZE>(g) { initBullets(); };
+	virtual ~BulletPool() {};
 
 	public:
 		BulletPool(Game* g, Texture* texture, double speed, int damage, double bulletAngle = 0, int bulletRange = 20) : _bulletTexture(texture), _bulletSpeed(speed), _bulletDamage(damage), _bulletAngle(bulletAngle), _bulletRange(bulletRange), ObjectPool<Bullet, SIZE>(g) { initBullets(); };
@@ -36,7 +43,7 @@ void BulletPool<SIZE>::initBullets() {
 	for (int i = 0; i < SIZE; i++)
 	{
 		Bullet* b = ObjectPool<Bullet, SIZE>::getObject(i);
-		b->init(_bulletTexture, _bulletSpeed, _bulletDamage, _bulletAngle);
+		b->init(_bulletTexture, _bulletSpeed, _bulletDamage, _bulletAngle, _bulletRange);
 	}
 }
 
@@ -47,7 +54,7 @@ void BulletPool<SIZE>::addBullet(Vector2D pos, Vector2D dir, double angle) {
 
 	if (b != nullptr) {
 
-		b->reset();
+		b->reset(pos);
 
 		b->getComponent<TransformComponent>()->setPosition(pos.getX(), pos.getY());
 		b->getComponent<TransformComponent>()->setRotation(angle);
@@ -58,8 +65,10 @@ void BulletPool<SIZE>::addBullet(Vector2D pos, Vector2D dir, double angle) {
 		_body->getBody()->SetTransform({ (float32)(pos.getX() / 8/*M_TO_PIXEL*/), (float32)(pos.getY() / 8/*M_TO_PIXEL*/) }, _body->getBody()->GetAngle());
 		_body->getBody()->SetLinearVelocity({ (float32)(dir.getX() * _bulletSpeed),(float32)(dir.getY() * _bulletSpeed) });
 
+		AnimatedSpriteComponent* _anim = b->getComponent<AnimatedSpriteComponent>();
+		_anim->playAnim(AnimatedSpriteComponent::Default);
 		
-		//b->getComponent<MovingComponent>()->changeDir(dir.getX(),dir.getY()); //<- DESCOMENTAR PARA PROBAR CON FÍSICAS
-		//b->setVelocity(dir*_bulletSpeed); //<- DESCOMENTAR PARA PROBAR SIN FÍSICAS
+		//b->getComponent<MovingComponent>()->changeDir(dir.getX(),dir.getY()); //<- DESCOMENTAR PARA PROBAR CON Fï¿½SICAS
+		//b->setVelocity(dir*_bulletSpeed); //<- DESCOMENTAR PARA PROBAR SIN Fï¿½SICAS
 	}
 }
