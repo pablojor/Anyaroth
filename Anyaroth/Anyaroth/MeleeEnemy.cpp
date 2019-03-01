@@ -24,10 +24,9 @@ MeleeEnemy::MeleeEnemy(Player* player, Game* g, PlayState* play,Texture* texture
 void MeleeEnemy::update()
 {
 	Enemy::update();
+
 	BodyComponent* _playerBody = _player->getComponent<BodyComponent>();
 	//TransformComponent* _playerTransform = _player->getComponent<TransformComponent>();
-
-	
 
 	b2Vec2 enemyPos = _body->getBody()->GetPosition(),
 		playerPos = _playerBody->getBody()->GetPosition();
