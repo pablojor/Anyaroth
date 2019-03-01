@@ -3,12 +3,13 @@
 #include "LifeBar.h"
 #include "TextUI.h"
 #include "CoinsCounter.h"
+#include "AmmoViewer.h"
 
 class PlayerPanel :	public PanelUI
 {
 private:
 	LifeBar* _lifeBar;
-	TextUI* _ammoViewer;
+	AmmoViewer* _ammoViewer;
 	CoinsCounter* _coinsCounter;
 
 	//Temporal
@@ -22,5 +23,15 @@ public:
 	PlayerPanel() {};
 	PlayerPanel(Game* game);
 	~PlayerPanel();
+
+	void update()
+	{
+		LIFE -= 3; if (LIFE < 0) LIFE = 0;
+		MAX_LIFE--; if (MAX_LIFE < 0) MAX_LIFE = 0;
+
+		_lifeBar->updateLifeBar(LIFE, MAX_LIFE);
+		_ammoViewer->updateAmmoViewer(LIFE, MAX_LIFE);
+		_coinsCounter->updateCoinsCounter(LIFE + MAX_LIFE);
+	}
 };
 

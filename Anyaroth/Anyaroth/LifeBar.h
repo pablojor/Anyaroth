@@ -1,21 +1,11 @@
 #pragma once
 #include "ImageUI.h"
 
-class LifeBar :	public ImageUI
+class LifeBar : public ImageUI
 {
-private:
-	int* _life = nullptr;
-	int* _maxLife = nullptr;
+	public:
+		LifeBar(Game* game, Texture* texture, int xPos, int yPos);
+		~LifeBar() {};
 
-	void updateAspect();
-
-public:
-	LifeBar(Game* game, Texture* texture, int xPos, int yPos);
-	~LifeBar() {};
-
-	void render() const;
-	void update();
-
-	inline void setLifeAndMaxLife(int* life, int* maxLife) { _life = life; _maxLife = maxLife; }
+		void updateLifeBar(const int& life, const int& maxLife);
 };
-

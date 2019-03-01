@@ -9,8 +9,8 @@ TextUI::TextUI(Game* game): UIElement(game)
 	_fontSize = 12;
 	_font = game->getFont("ARIAL12");
 	_color = { 0, 0, 0, 255 };
-	Texture texture(_game->getRenderer(), _text, _font, _color);
-	_destRect = { 0, 0, texture.getW(), texture.getH() };
+	_texture = new Texture(_game->getRenderer(), _text, _font, _color);
+	_destRect = { 0, 0, _texture->getW(), _texture->getH() };
 }
 
 
@@ -20,25 +20,27 @@ TextUI::TextUI(Game* game, string text, Font* font, uint fontSize, int xPos, int
 	_fontSize = 12;
 	_font = font;
 	_color = color;
-	Texture texture(_game->getRenderer(), _text, _font, _color);
-	_destRect = { xPos, yPos, texture.getW(), texture.getH() };
+	_texture = new Texture(_game->getRenderer(), _text, _font, _color);
+	_destRect = { xPos, yPos, _texture->getW(), _texture->getH() };
 }
 
 void TextUI::render() const
 {
 	if (_visible)
 	{
-		Texture texture = Texture(_game->getRenderer(), _text, _font, _color);
-		texture.render(_destRect);
+		_texture->render(_destRect);
 	}
 }
 
 void TextUI::setText(string text)
 {
 	_text = text;
-	Texture texture(_game->getRenderer(), _text, _font, _color);
-	_destRect.w = texture.getW();
-	_destRect.h = texture.getH();
+
+	delete _texture;
+	_texture = new Texture(_game->getRenderer(), _text, _font, _color);
+
+	_destRect.w = _texture->getW();
+	_destRect.h = _texture->getH();
 }
 
 void TextUI::setPosition(int x, int y)

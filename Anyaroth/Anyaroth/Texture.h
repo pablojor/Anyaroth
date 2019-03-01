@@ -28,6 +28,7 @@ private:
 	uint _numRows = 1;
 
 public:
+	Texture() :_renderer(nullptr) {};
 	Texture(SDL_Renderer* r) : _renderer(r) {};
 	Texture(SDL_Renderer* r, string filename, uint numRows = 1, uint numCols = 1) :
 		_renderer(r) { load(filename, numRows, numCols); }

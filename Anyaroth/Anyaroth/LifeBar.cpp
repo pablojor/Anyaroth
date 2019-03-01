@@ -6,21 +6,11 @@ LifeBar::LifeBar(Game* game, Texture* texture, int xPos, int yPos) : ImageUI(gam
 {
 }
 
-void LifeBar::render() const
-{
-	ImageUI::render();
-}
 
-void LifeBar::updateAspect()
+void LifeBar::updateLifeBar(const int& life, const int& maxLife)
 {
-	float newWidthRatio = ((float(_image->getW()) * *_life) / float(*_maxLife)) / float(_image->getW());
+	float newWidthRatio = ((float(_image->getW()) * life) / float(maxLife)) / float(_image->getW());
 	setClippingAreaSize(newWidthRatio, 1);
 	setSize(_clipArea.w, _clipArea.h);
-}
-
-void LifeBar::update()
-{
-	*_life -= 2;	//Temporal para comprobar que funciona
-	updateAspect();
 }
 

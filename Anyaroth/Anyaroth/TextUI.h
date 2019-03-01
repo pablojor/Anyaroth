@@ -14,12 +14,13 @@ class TextUI : public UIElement
 		uint _fontSize;
 		string _text = "";
 		SDL_Color _color;
+		Texture* _texture;
 
 	public:
-		TextUI() : UIElement(nullptr) {};
+		TextUI() : UIElement(nullptr), _texture(NULL) {};
 		TextUI(Game* game);
 		TextUI(Game* game, string text, Font* font, uint fontSize = 12, int xPos = 0, int yPos = 0, SDL_Color color = { 0, 0, 0, 255});
-		~TextUI() {};
+		~TextUI() { if (_texture != nullptr) delete _texture; };
 
 		virtual void render() const;
 		virtual void update() {};

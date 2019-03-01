@@ -5,18 +5,14 @@
 
 class CoinsCounter : public PanelUI
 {
-private:
-	int _coinCount = 0;
-	ImageUI* _coinImage = nullptr;
-	TextUI* _coinText = nullptr;
-public:
-	CoinsCounter(Game* game, int xPos, int yPos);
-	~CoinsCounter() {};
+	private:
+		ImageUI* _coinImage = nullptr;
+		TextUI* _coinText = nullptr;
 
-	void update();
+	public:
+		CoinsCounter(Game* game, int xPos, int yPos);
+		~CoinsCounter() {};
 
-	void updateCounter(int cant) { _coinCount = cant; }
-
-	void updateAspect();
+		void updateCoinsCounter(const int& cant);
 };
 
