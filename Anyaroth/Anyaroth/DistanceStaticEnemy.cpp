@@ -62,11 +62,5 @@ void DistanceStaticEnemy::update()
 		{
 			cout << "MORITE AJQUEROSO" << endl;
 		}
-
-		//PROV 
-		//RENDERIZADO DE PUNTOS
-		game->getTexture("Punto2")->render({ (int)rayInput.p1.x * 8, (int)rayInput.p1.y * 8, 5, 5 });
-		game->getTexture("Punto2")->render({ (int)rayInput.p2.x * 8, (int)rayInput.p2.y * 8, 5, 5 });
-		SDL_RenderPresent(game->renderer);
 	}
 }

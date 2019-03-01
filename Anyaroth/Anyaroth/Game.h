@@ -113,7 +113,6 @@ class Game
 		GameState* getCurrentState() { return stateMachine->currentState(); };
 
 		Texture* getTexture(string nameText);
-		SDL_Renderer* getRenderer() { return renderer; }
 		b2World* getWorld() { return _world; }
 		void newGame();
 		void load();

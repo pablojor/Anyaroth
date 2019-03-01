@@ -19,6 +19,9 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_examplePool = new BulletPool<100>(g, g->getTexture("PistolBullet"), 100, 10);
 	_stages.push_back(_examplePool);
 
+	_enemyPool = new BulletPool<100>(g, g->getTexture("PistolBullet"), 100, 10);
+	_stages.push_back(_enemyPool);
+
 	//cuerpo
 	_player = new Player(g->getTexture("Mk"), g, this, "Player");
 	_stages.push_back(_player);

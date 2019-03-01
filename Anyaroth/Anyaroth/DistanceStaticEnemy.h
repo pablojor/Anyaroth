@@ -5,7 +5,6 @@
 class DistanceStaticEnemy : public Enemy
 {
 	private:
-		Game* game = nullptr; //prov
 
 	public:
 		DistanceStaticEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag);

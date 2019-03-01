@@ -17,6 +17,7 @@ class PlayState : public GameState
 		Enemy* _enemy = nullptr;
 
 		PoolWrapper* _examplePool = nullptr; //TEMPORAL
+		PoolWrapper* _enemyPool = nullptr; //TEMPORAL
 
 		vector <list<GameObject*>::iterator> items_ToDelete;
 
