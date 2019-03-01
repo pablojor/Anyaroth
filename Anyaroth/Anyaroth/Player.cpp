@@ -20,12 +20,13 @@ Player::Player(Texture* texture, Game* g, PlayState* play, string tag) : _play(p
 	_body = addComponent<BodyComponent>();
 	_body->getBody()->SetType(b2_dynamicBody);
 	_body->getBody()->SetBullet(true);
-	_body->getBody()->SetFixedRotation(true);
-	_body->setW(20);
-	_body->setH(30);
-	//_body->addCricleShape(b2Vec2(1, 1.7), 0.4);
-	_body->filterCollisions(PLAYER, OBJECTS | FLOOR /*| ENEMY_BULLETS*/);
 	
+	_body->setW(12);
+	_body->setH(26);
+	
+	_body->filterCollisions(PLAYER, OBJECTS | FLOOR /*| ENEMY_BULLETS*/);
+	_body->addCricleShape(b2Vec2(0, 1.1), 0.7, PLAYER, OBJECTS | FLOOR);
+	_body->getBody()->SetFixedRotation(true);
 
 	_anim = addComponent<AnimatedSpriteComponent>();		//Como depende de Transform, en su constructura crea una si no ha encontrado Transform en el objeto.
 	_anim->addAnim(AnimatedSpriteComponent::Idle, 16, true);
@@ -85,16 +86,18 @@ void Player::beginCollision(GameComponent * other)
 	{
 		AmountOfCollision += 1;
 
-		if (_transform->getPosition().getY() + myH * (M_TO_PIXEL * 2) < otherTransform->getPosition().getY())
+		if (_transform->getPosition().getY() + (myH+ 0.3) * (M_TO_PIXEL * 2) < otherTransform->getPosition().getY())
 		{
 			_controller->ableJump();
+		
 
 		}
-		else if (_transform->getPosition().getY() + myH * (M_TO_PIXEL * 2) > otherTransform->getPosition().getY())
+		else if (_transform->getPosition().getY() + (myH + 0.3) * (M_TO_PIXEL * 2) > otherTransform->getPosition().getY())
 		{
 
 			if (_transform->getPosition().getY() <= otherTransform->getPosition().getY() + otherH * (M_TO_PIXEL * 2))
 			{
+				
 				if (_transform->getPosition().getX() + myW * (M_TO_PIXEL) < otherTransform->getPosition().getX() - otherW * (M_TO_PIXEL * 2))
 				{
 					_controller->wallOnRight(true);
@@ -137,17 +140,20 @@ void Player::endCollision(GameComponent * other)
 	{
 		AmountOfCollision -= 1;
 
-		if (_transform->getPosition().getY() + myH * (M_TO_PIXEL * 2) < otherTransform->getPosition().getY())
+		if (_transform->getPosition().getY() + (myH + 0.3) * (M_TO_PIXEL * 2) < otherTransform->getPosition().getY())
 		{
 
 
-			if ((_body->getBody()->GetLinearVelocity().y < -0.5))
+			if ((_body->getBody()->GetLinearVelocity().y < -2))
 			{
+				if(_controller->IsSpaceDown())
+				_currentState = Player::Jumping;
 				_controller->changeJump();
 			}
+			
 		}
-		if (_transform->getPosition().getY() + myH * (M_TO_PIXEL * 2) > otherTransform->getPosition().getY() ||
-			(_transform->getPosition().getY() + myH * (M_TO_PIXEL * 2) < otherTransform->getPosition().getY()) && (AmountOfCollision == 0))
+		if (_transform->getPosition().getY() + (myH + 0.3) * (M_TO_PIXEL * 2) > otherTransform->getPosition().getY() ||
+			(_transform->getPosition().getY() + (myH + 0.3) * (M_TO_PIXEL * 2) < otherTransform->getPosition().getY()) && (AmountOfCollision == 0))
 		{
 
 			if (_transform->getPosition().getX() + myW * (M_TO_PIXEL) < otherTransform->getPosition().getX() - otherW * (M_TO_PIXEL * 2))
@@ -197,9 +203,9 @@ void Player::update()
 		_currentState = Idle;
 	}
 
-	if (AmountOfCollision <= 0)
+	if (AmountOfCollision <= 0|| _body->getBody()->GetLinearVelocity().y > 2)
 	{
-		if (_currentState != Player::Falling && _currentState != Player::Dashing && _body->getBody()->GetLinearVelocity().y > 0.5)
+		if (_currentState != Player::Falling && _currentState != Player::Dashing && _body->getBody()->GetLinearVelocity().y > 2)
 		{
 			_anim->playAnim(AnimatedSpriteComponent::StartFalling);
 			_currentState = Player::Falling;

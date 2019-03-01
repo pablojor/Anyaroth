@@ -8,7 +8,8 @@ MovingComponent::MovingComponent(GameComponent* obj) : PhysicsComponent(obj)
 	if (_body == nullptr) _body = obj->addComponent<BodyComponent>();
 	/*_anim = obj->getComponent<AnimatedSpriteComponent>();
 	if (_anim == nullptr) _anim = obj->addComponent<AnimatedSpriteComponent>();*/
-	_body->getBody()->SetLinearDamping(1.5);
+	_body->getBody()->SetLinearDamping(2.5);
+	_body->getBody()->SetGravityScale(2);
 }
 
 void MovingComponent::update() 
@@ -48,8 +49,8 @@ void MovingComponent::changeDash(bool dash) {
 	if (!dash)
 	{
 		//changeDir(0, 0);
-		_body->getBody()->SetGravityScale(1);
-		_body->getBody()->SetLinearDamping(1.5);
+		_body->getBody()->SetGravityScale(2);
+		_body->getBody()->SetLinearDamping(2.5);
 		
 	}
 	else

@@ -202,11 +202,10 @@ void PlayerControllerComponent::changeJump()
 			if (_anim->animationFinished())
 				_anim->playAnim(AnimatedSpriteComponent::Falling);
 		}
-
-		else
+		else if (static_cast<Player*>(_obj)->getCurrentState() == Player::Jumping)
 		{
 			_anim->playAnim(AnimatedSpriteComponent::Jump);
-			static_cast<Player*>(_obj)->setCurrentState(Player::Jumping);
+			//static_cast<Player*>(_obj)->setCurrentState(Player::Jumping);
 		}
 
 	}
@@ -222,10 +221,21 @@ void PlayerControllerComponent::ableJump()
 	}
 	_jumping = false;
 
-	if (_anim->getCurrentAnim() == AnimatedSpriteComponent::Falling) //&& static_cast<Player*>(_obj)->getCurrentState()!=Player::Walking)
+	if (_anim->getCurrentAnim() == AnimatedSpriteComponent::Falling|| _anim->getCurrentAnim() == AnimatedSpriteComponent::Jump) //&& static_cast<Player*>(_obj)->getCurrentState()!=Player::Walking)
 	{
-		static_cast<Player*>(_obj)->setCurrentState(Player::Idle);
-		_anim->playAnim(AnimatedSpriteComponent::Idle);
+		if (_movement->getDirX() == 0)
+		{
+			static_cast<Player*>(_obj)->setCurrentState(Player::Idle);
+			_anim->playAnim(AnimatedSpriteComponent::Idle);
+		}
+		else
+		{
+			static_cast<Player*>(_obj)->setCurrentState(Player::Walking);
+			if (!_anim->isFlipped())
+				_anim->playAnim(AnimatedSpriteComponent::Walk);
+			else
+				_anim->playAnim(AnimatedSpriteComponent::WalkBack);
+		}
 	}
 
 
@@ -238,7 +248,7 @@ void PlayerControllerComponent::wallOnLeft(bool yes)
 	{
 		_dashing = false;
 		_movement->changeDash(false);
-		_movement->changeDir(0, 0);
+		//_movement->changeDir(0, 0);
 	}
 }
 
@@ -249,7 +259,7 @@ void PlayerControllerComponent::wallOnRight(bool yes)
 	{
 		_dashing = false;
 		_movement->changeDash(false);
-		_movement->changeDir(0, 0);
+		//_movement->changeDir(0, 0);
 	}
 }
 

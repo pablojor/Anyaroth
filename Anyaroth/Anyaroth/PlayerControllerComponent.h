@@ -29,14 +29,15 @@ public:
 	void wallOnLeft(bool yes);
 	void wallOnRight(bool yes);
 
-	bool currYDir() { return _spacePul; }
-	bool isAttacking() { return _isAttacking; }
-	void setIsAttacking(bool b) { _isAttacking = b; }
-	void newDash() { _amountOfDash++; }
-	int amountDash() { return _amountOfDash; }
+	inline bool IsSpaceDown() {return _spacePul;}
+	inline bool currYDir() { return _spacePul; }
+	inline bool isAttacking() { return _isAttacking; }
+	inline void setIsAttacking(bool b) { _isAttacking = b; }
+	inline void newDash() { _amountOfDash++; }
+	inline int amountDash() { return _amountOfDash; }
 
-	bool isReloading() { return _isReloading; };
-	void setIsReloading(bool b) { _isReloading = b; };
+	inline bool isReloading() { return _isReloading; };
+	inline void setIsReloading(bool b) { _isReloading = b; };
 
 	void reload();
 };

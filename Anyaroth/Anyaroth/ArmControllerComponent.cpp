@@ -31,7 +31,7 @@ void ArmControllerComponent::handleInput(const SDL_Event& event)
 		mouseY = event.motion.y;
 	}
 
-	cout << "X: " << mouseX << "  Y: " << mouseY << endl;
+	//cout << "X: " << mouseX << "  Y: " << mouseY << endl;
 
 	//------------Flip del brazo---------------------
 	if (!_anim->isFlipped() && mouseX < _transform->getPosition().getX())
