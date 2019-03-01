@@ -111,7 +111,7 @@ void Player::beginCollision(GameComponent * other, b2Contact* contact)
 			}
 		}
 	}
-	else if (otherTag == "Bullet")
+	else if (otherTag == "EnemyBullet")
 	{
 		double damage = 0;
 		damage = dynamic_cast<Bullet*>(other)->getDamage();
