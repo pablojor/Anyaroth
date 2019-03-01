@@ -4,7 +4,7 @@
 #include "Player.h"
 
 
-DistanceStaticEnemy::DistanceStaticEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag) : game(g), Enemy(player, g, play, texture, posIni, tag)
+DistanceStaticEnemy::DistanceStaticEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag) : Enemy(player, g, play, texture, posIni, tag)
 {
 	_vision = 500;
 	_attackRange = 30; //No se puede poner mas peque�o que la velocidad
