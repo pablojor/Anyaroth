@@ -84,8 +84,16 @@ void MeleeEnemy::update()
 	}
 	else if(_attackingR || _attackingL)
 	{ 
-		
-		if (SDL_GetTicks() > _time + _attackTime && _attacking)
+		if (_anim->animationFinished())
+		{
+			_attackingR = _attackingL  =_attacking = false;
+			_anim->playAnim(AnimatedSpriteComponent::Idle);
+		}
+
+		else if (SDL_GetTicks() > _time + _stopDmg && _attacking)
+			_attacking = false;
+
+		else if (SDL_GetTicks() > _time + _attackTime && _attacking)
 		{
 			if (_attackingR && (x < _attackRange + _realRange && x > 0) && y < _attackRange + _realRange && y > -_attackRange)
 			{
@@ -99,15 +107,6 @@ void MeleeEnemy::update()
 				_player->subLife(_damage);
 				_attacking = false;
 			}
-		}
-
-		if(SDL_GetTicks() > _time + _stopDmg && _attacking)
-			_attacking = false;
-
-		if (_anim->animationFinished())
-		{
-			_attackingR = _attackingL  =_attacking = false;
-			_anim->playAnim(AnimatedSpriteComponent::Idle);
 		}
 	}
 	else
