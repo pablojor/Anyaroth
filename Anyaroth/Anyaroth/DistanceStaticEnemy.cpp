@@ -12,8 +12,6 @@ DistanceStaticEnemy::DistanceStaticEnemy(Player* player, Game* g, PlayState* pla
 	_life = 50;
 
 	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 13, true);
-	_anim->addAnim(AnimatedSpriteComponent::EnemyWalk, 8, true);
-	_anim->addAnim(AnimatedSpriteComponent::EnemyAttack, 11, false);
 
 	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 }
@@ -54,13 +52,12 @@ void DistanceStaticEnemy::update()
 
 		bool hit = false;
 		b2RayCastOutput rayOutput;
+
 		for (b2Body* b = getWorld()->GetBodyList(); b && !hit; b = b->GetNext())
-			for (b2Fixture* f = b->GetFixtureList(); f && !hit; f = f->GetNext())				{
+			for (b2Fixture* f = b->GetFixtureList(); f && !hit; f = f->GetNext())
 				if (b->GetType() != b2_dynamicBody && b->GetType() != b2_kinematicBody && f->RayCast(&rayOutput, rayInput, 0))
-				{
 					hit = true;
-				}
-			}
+
 		if (!hit) //Si hemos chocado con algo
 		{
 			cout << "MORITE AJQUEROSO" << endl;
