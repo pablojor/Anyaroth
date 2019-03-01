@@ -14,8 +14,8 @@
 const int GAME_RESOLUTION_X = 480;
 const int GAME_RESOLUTION_Y = 270;
 
-const int LEVEL_WIDTH = GAME_RESOLUTION_X * 5;
-const int LEVEL_HEIGHT = GAME_RESOLUTION_Y * 5;
+const int LEVEL_WIDTH = GAME_RESOLUTION_X * 10;
+const int LEVEL_HEIGHT = GAME_RESOLUTION_Y * 3;
 
 const string INFO_PATH = "..\\files\\info\\";
 const string FONTS_PATH = "..\\font\\";

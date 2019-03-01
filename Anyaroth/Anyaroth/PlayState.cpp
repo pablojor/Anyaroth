@@ -4,7 +4,6 @@
 #include "BodyComponent.h"
 #include "FollowingComponent.h"
 #include "checkML.h"
-#include "Coin.h"
 #include "ObjectLayer.h"
 
 PlayState::PlayState(Game* g) : GameState(g)
@@ -12,9 +11,11 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_game = g;
 
 	//Tilemap
-	_layer = new Layer("Capa de Patrones 1", g->getTexture("tileset"), TILEMAP_PATH + "Nivel1.json", g, "Suelo");
-	_layer->addComponent<BodyComponent>();
+	_layer = new Layer("Mapa", g->getTexture("tileset"), TILEMAP_PATH + "Nivel1.json", g, "Mapa");
 	_stages.push_back(_layer);
+	_colisionLayer = new Layer("Suelo", g->getTexture("tileset"), TILEMAP_PATH + "Nivel1.json", g, "Suelo");
+	_colisionLayer->addComponent<BodyComponent>();
+	_stages.push_back(_colisionLayer);
 
 	//Pool arma b�sica
 	_examplePool = new BulletPool<100>(g, g->getTexture("PistolBullet"), 100, 10);
@@ -24,11 +25,13 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_player = new Player(g->getTexture("Mk"), g, this, "Player");
 	_stages.push_back(_player);
 
+	//Camera
 	_mainCamera->fixCameraToObject(_player);
 	
-	 auto oL= new ObjectLayer(TILEMAP_PATH + "Nivel1.json", "Capa de Objetos 1");
+	 auto oL= new ObjectLayer(TILEMAP_PATH + "Nivel1.json", "Enemigos");
 	 vector <Vector2D> enemiesPos = oL->getObjectsPositions();
 	 delete oL;
+
 	 for (int i = 0; i < enemiesPos.size(); i++)
 	 {
 		 _enemy = new MeleeEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(enemiesPos[i].getX(), enemiesPos[i].getY() - TILES_SIZE * 2), "Enemy");
@@ -37,25 +40,24 @@ PlayState::PlayState(Game* g) : GameState(g)
 		_enemy->setItList(itFR);
 	 }
 
-	 Coin* coin;
-	 oL = new ObjectLayer(TILEMAP_PATH + "Nivel1.json", "Capa de Objetos 2");
+
+	 oL = new ObjectLayer(TILEMAP_PATH + "Nivel1.json", "Monedas");
 	 vector <Vector2D> coinsPos = oL->getObjectsPositions();
 	 delete oL;
 	 for (int i = 0; i < coinsPos.size(); i++)
 	 {
-		 //Coin
-		 coin = new Coin(this, g, g->getTexture("Coin"), Vector2D(coinsPos[i].getX(), coinsPos[i].getY() - TILES_SIZE), 20);
-		 _stages.push_back(coin);
+		 _coin = new Coin(this, g, g->getTexture("Coin"), Vector2D(coinsPos[i].getX(), coinsPos[i].getY() - TILES_SIZE), 20);
+		 _stages.push_back(_coin);
 
 		 auto itFR = --(_stages.end());
-		 coin->setItList(itFR);
+		 _coin->setItList(itFR);
 	 }
 
 	 //World
-	 /*_debugger.getRenderer(g->getRenderer());
+	 _debugger.getRenderer(g->getRenderer());
 	 _debugger.getTexture(g->getTexture("body"));
 	 _debugger.SetFlags(b2Draw::e_shapeBit);
-	 _debugger.getCamera(_mainCamera);*/
+	 _debugger.getCamera(_mainCamera);
 
 	 //Gestion de colisiones
 	 g->getWorld()->SetContactListener(&_colManager);
@@ -64,7 +66,6 @@ PlayState::PlayState(Game* g) : GameState(g)
 
 void PlayState::KillObject(list<GameObject*>::iterator itList)
 {
-	//delete *itList;
 	items_ToDelete.push_back(itList);
 }
 

@@ -7,6 +7,7 @@
 #include "MeleeEnemy.h"
 #include "MartyrEnemy.h"
 #include "BulletPool.h"
+#include "Coin.h"
 
 class Player;
 
@@ -16,7 +17,9 @@ class PlayState : public GameState
 		Game* _game = nullptr;
 		Player* _player = nullptr;
 		Enemy* _enemy = nullptr;
+		Coin* _coin = nullptr;
 		Layer* _layer = nullptr;
+		Layer* _colisionLayer = nullptr;
 		CollisionManager _colManager;
 		DebugDraw _debugger;
 
@@ -29,5 +32,5 @@ class PlayState : public GameState
 		void KillObject(list<GameObject*>::iterator itList);
 		virtual void update();
 		virtual bool handleEvents(SDL_Event& e);
-		PoolWrapper* getBulletPool() { return _examplePool; };
+		inline PoolWrapper* getBulletPool() { return _examplePool; };
 };
