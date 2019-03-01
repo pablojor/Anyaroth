@@ -55,7 +55,7 @@ void DistanceStaticEnemy::update()
 
 		for (b2Body* b = getWorld()->GetBodyList(); b && !hit; b = b->GetNext())
 			for (b2Fixture* f = b->GetFixtureList(); f && !hit; f = f->GetNext())
-				if (b->GetType() != b2_dynamicBody && b->GetType() != b2_kinematicBody && f->RayCast(&rayOutput, rayInput, 0))
+				if (b->GetType() == b2_staticBody && f->RayCast(&rayOutput, rayInput, 0))
 					hit = true;
 
 		if (!hit) //Si hemos chocado con algo
