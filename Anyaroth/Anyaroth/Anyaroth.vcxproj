@@ -136,6 +136,7 @@
     <ClCompile Include="Collectable.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="DebugDraw.cpp" />
+    <ClCompile Include="DistanceDynamicEnemy.cpp" />
     <ClCompile Include="DistanceStaticEnemy.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="HUD.cpp" />
@@ -190,6 +191,7 @@
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="DebugDraw.h" />
+    <ClInclude Include="DistanceDynamicEnemy.h" />
     <ClInclude Include="DistanceStaticEnemy.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="GunType_def.h" />

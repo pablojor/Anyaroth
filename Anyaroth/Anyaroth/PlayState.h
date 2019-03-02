@@ -5,6 +5,7 @@
 #include "MeleeEnemy.h"
 #include "MartyrEnemy.h"
 #include "DistanceStaticEnemy.h"
+#include "DistanceDynamicEnemy.h"
 #include "BulletPool.h"
 
 class Player;

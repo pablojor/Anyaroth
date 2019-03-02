@@ -1,5 +1,4 @@
 #pragma once
-
 #include "Enemy.h"
 
 class DistanceStaticEnemy : public Enemy
