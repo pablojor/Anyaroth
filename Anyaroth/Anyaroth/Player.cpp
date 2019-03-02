@@ -231,7 +231,7 @@ void Player::equipGun(int gunIndex)
 {
 	if (_weaponArm == nullptr) //Si todavía no se ha inicializado _weaponArm, lo creo
 	{
-		_weaponArm = new Arm(_armTextures[gunIndex], this, getGame(), _play, { 28,14 }); //Parámetros para la pistola
+		_weaponArm = new PlayerArm(_armTextures[gunIndex], this, getGame(), _play, { 28,14 }); //Parámetros para la pistola
 		addChild(_weaponArm);
 
 		_hurtArm = _weaponArm->addComponent<HurtRenderComponent>();

@@ -2,6 +2,7 @@
 #include <list>
 #include "GameComponent.h"
 #include "Life.h"
+#include "EnemyArm.h"
 
 class Player;
 class PlayState;
@@ -21,6 +22,7 @@ class Enemy : public GameComponent
 		Player* _player = nullptr;
 		BodyComponent* _body = nullptr;
 		HurtRenderComponent* _hurt = nullptr;
+		EnemyArm* a;
 
 		PlayState* _play;
 		list<GameObject*>::iterator _itList;
