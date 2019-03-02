@@ -87,6 +87,7 @@ void MartyrEnemy::update()
 			{
 				auto body = _player->getComponent<BodyComponent>()->getBody();
 				body->ApplyLinearImpulseToCenter(b2Vec2(_impulse * x, _impulse * y), true);
+				_player->subLife(_damage);
 			}
 
 			_play->KillObject(_itList);

@@ -40,6 +40,8 @@ private:
 	GunType _equippedGun = BasicGun;
 	vector<Texture*> _armTextures;
 
+	bool _dead = false;
+
 public:
 
 	enum states { Idle, Attacking, Reloading, Dashing };

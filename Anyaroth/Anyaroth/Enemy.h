@@ -29,6 +29,7 @@ class Enemy : public GameComponent
 		bool _attacking = false;
 		double _time;
 		int _vision, _attackRange, _attackTime, _damage;
+		bool _dead = false;
 
 		
 

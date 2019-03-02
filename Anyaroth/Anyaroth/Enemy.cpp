@@ -67,14 +67,18 @@ void Enemy::die()
 
 void Enemy::subLife(int damage)
 {
-	_life.subLife(damage);
-	if (_life.dead())
+	if (!_dead)
 	{
-		die();
-		_hurt->die();
-	}
-	else
-	{
-		_hurt->hurt();
+		_life.subLife(damage);
+		if (_life.dead())
+		{
+			die();
+			_hurt->die();
+			_dead = true;
+		}
+		else
+		{
+			_hurt->hurt();
+		}
 	}
 }
