@@ -233,6 +233,8 @@ void Player::equipGun(int gunIndex)
 	{
 		_weaponArm = new Arm(_armTextures[gunIndex], this, getGame(), _play, { 28,14 }); //Parámetros para la pistola
 		addChild(_weaponArm);
+
+		_hurtArm = _weaponArm->addComponent<HurtRenderComponent>();
 	}
 	else //Si no, simplemente cambio la textura
 	{
