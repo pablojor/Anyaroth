@@ -101,7 +101,8 @@ class Game
 		vector<GunAttributes> gameGuns = 
 		{
 			{new Shooter(),BasicGun,60,12},
-			{ new ShotgunShooter({30,0,-30}),BasicShotgun,30,2 }
+			{ new ShotgunShooter({30,0,-30}),BasicShotgun,30,2 },
+			{new Shooter(),BasicEnemyGun,60,12}
 		};
 
 		//Metodos

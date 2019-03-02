@@ -93,7 +93,7 @@ void DistanceDynamicEnemy::update()
 				else if (x < 0) //Izquierda
 					_anim->flip();
 
-				cout << "MORITE AJQUEROSO" << endl;
+				_arm->Shoot();
 			}
 			else
 			{

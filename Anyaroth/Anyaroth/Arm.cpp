@@ -70,40 +70,38 @@ void Arm::setOwner(Vector2D offset, GameComponent* owner)
 }
 
 //Dispara el arma
-void Arm::shoot()
+Vector2D Arm::shootInitialPos()
 {
-	if (_currentGun != nullptr)
-	{
-		double armAngle = _transform->getRotation(),
-			armX = _transform->getPosition().getX(),
-			armY = _transform->getPosition().getY();
+
+	armAngle = _transform->getRotation();
+
+	double armX = _transform->getPosition().getX(),
+		armY = _transform->getPosition().getY();
 
 
-		//----------Posici�n inicial de la bala
-		int posOffsetX = 24,
-			posOffsetY = -1;
+	//----------Posici�n inicial de la bala
+	int posOffsetX = 24,
+		posOffsetY = -1;
+	Vector2D bulletPosition;
 
-		Vector2D bulletPosition = { armX + (_anim->isFlipped() ? -posOffsetX : posOffsetX), armY + posOffsetY };
+	return bulletPosition = { armX + (_anim->isFlipped() ? -posOffsetX : posOffsetX), armY + posOffsetY };
 		bulletPosition = bulletPosition.rotateAroundPoint(armAngle, { armX, armY });
 
-
-		//----------Direcci�n de la bala
-
-		//Distinci�n flip-unflip
-		int bulletDirOffset = 90;//_anim->isFlipped() ? 90 : 90;
-
-		double aimAuxY = _anim->isFlipped() ? 1 : -1;
-		Vector2D bulletDir = (Vector2D(0, aimAuxY).rotate(armAngle + bulletDirOffset));
-		bulletDir.normalize();
-		//bulletDir = bulletDir * 3;
-
-		_currentGun->shoot(bulletPosition, bulletDir, _anim->isFlipped());
-	}
-	else
-		cout << "Gun Not found" << endl;
-
 }
+Vector2D Arm::shootDir()
+{
+	//----------Direcci�n de la bala
 
+//Distinci�n flip-unflip
+	int bulletDirOffset = 90;//_anim->isFlipped() ? 90 : 90;
+
+	double aimAuxY = _anim->isFlipped() ? 1 : -1;
+	Vector2D bulletDir = (Vector2D(0, aimAuxY).rotate(armAngle + bulletDirOffset));
+	bulletDir.normalize();
+	//bulletDir = bulletDir * 3;
+
+	return bulletDir;
+}
 
 void Arm::setGun(Gun* gun)
 {

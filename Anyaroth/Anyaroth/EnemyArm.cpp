@@ -2,6 +2,7 @@
 #include "BodyComponent.h"
 #include "DistanceEnemy.h"
 #include "AnimatedSpriteComponent.h"
+#include "Gun.h"
 
 EnemyArm::EnemyArm(Texture* texture, GameComponent* enemy, GameComponent* target, Game* g, PlayState* play, Vector2D offset) : Arm(texture, enemy, g, play, offset), _target(target)
 {
@@ -50,4 +51,13 @@ void EnemyArm::update()
 	}
 
 }
+void EnemyArm::Shoot()
+{
+	if (_currentGun != nullptr)
+	{
+		Vector2D bulletPosition = Arm::shootInitialPos();
+		Vector2D bulletDir = Arm::shootDir();
 
+		_currentGun->enemyShoot(bulletPosition, bulletDir, _anim->isFlipped());
+	}
+}

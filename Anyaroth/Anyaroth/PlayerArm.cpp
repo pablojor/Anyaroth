@@ -49,12 +49,11 @@ void PlayerArm::shoot()
 			armX = _transform->getPosition().getX(),
 			armY = _transform->getPosition().getY();
 
-
 		//----------Posici�n inicial de la bala
 		int posOffsetX = 24,
 			posOffsetY = -1;
 
-		Vector2D bulletPosition = {armX + (_anim->isFlipped() ? -posOffsetX : posOffsetX), armY + posOffsetY};
+		Vector2D bulletPosition = { armX + (_anim->isFlipped() ? -posOffsetX : posOffsetX), armY + posOffsetY };
 		bulletPosition = bulletPosition.rotateAroundPoint(armAngle, { armX, armY });
 
 
@@ -67,8 +66,6 @@ void PlayerArm::shoot()
 		Vector2D bulletDir = (Vector2D(0, aimAuxY).rotate(armAngle + bulletDirOffset));
 		bulletDir.normalize();
 		//bulletDir = bulletDir * 3;
-
-		
 
 		if(_currentGun->shoot(bulletPosition, bulletDir, _anim->isFlipped()))
 		{

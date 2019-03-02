@@ -6,7 +6,7 @@ class DistanceEnemy : public Enemy
 {
 	protected:
 		EnemyArm* _arm;
-		bool _armVision = true;
+		bool _armVision = false;
 	public:
 		DistanceEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag);
 		virtual ~DistanceEnemy() {};
