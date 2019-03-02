@@ -9,12 +9,6 @@ PlayerArm::PlayerArm(Texture* texture, GameComponent* player, Game* g, PlayState
 	_controller = addComponent<ArmControllerComponent>();
 }
 
-PlayerArm::~PlayerArm()
-{
-	delete _currentGun;
-	_currentGun = nullptr;
-}
-
 void PlayerArm::update()
 {
 		/*cout << "ARM_X: " << getComponent<TransformComponent>()->getPosition().getX() << "	ARM_Y: " << getComponent<TransformComponent>()->getPosition().getY() << endl << endl;*/
@@ -22,34 +16,8 @@ void PlayerArm::update()
 
 	GameComponent::update();
 
-		//------------Rotaci�n del brazo---------------------
-	Vector2D direction = { (_transform->getPosition().getX()/* + _followC->getInitialOffset().getX()*/) - (_controller->mouseX),
-			(_transform->getPosition().getY()/* + _followC->getInitialOffset().getY()*/) - _controller->mouseY };
-
-	direction.normalize();
-
-	//Distancia del mouse al brazo
-	double distance = Vector2D(double(_controller->mouseX),double(_controller->mouseY)).distance(_transform->getPosition());//sqrt(pow(_controller->mouseX - _transform->getPosition().getX(), 2) + pow(_controller->mouseY - _transform->getPosition().getY(), 2));
-
-	//cout << distance << endl;
-
-	//actualizo angulo del brazo
-	double rot = atan2(direction.getY(), direction.getX()) * 180.0 / PI;
-
-	if (!_anim->isFlipped())
-	{
-		rot -= 180;// - 10;
-	}
-	/*else
-	{
-		rot -= 10;
-	}*/
-
-	if (true/*(!_anim->isFlipped() && distance > _minAimDistance)
-		|| _anim->isFlipped() && distance > _minAimDistance + _controller->flipPosOffset*/) {
-		_transform->setRotation(rot);
-		//_transform->setRotation(rot - pow(360/distance,2));
-	}
+	//------------Rotaci�n del brazo---------------------
+	rotate(Vector2D((double)_controller->mouseX, (double)_controller->mouseY));
 	//-----------------------------------------------------------
 
 
@@ -129,13 +97,5 @@ bool PlayerArm::reload()
 {
 	return _currentGun->reload();
 	
-}
-
-void PlayerArm::setGun(Gun* gun)
-{
-	if (_currentGun != nullptr) //Si ya hay un arma, llama a su destructora
-		delete _currentGun;
-
-	_currentGun = gun;
 }
 

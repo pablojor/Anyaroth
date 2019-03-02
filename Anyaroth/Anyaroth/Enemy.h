@@ -24,7 +24,7 @@ protected:
 
 	PlayState* _play;
 	list<GameObject*>::iterator _itList;
-	Arm* a;
+	EnemyArm* a;
 	bool _attacking = false;
 	double _time;
 	int _vision, _attackRange, _attackTime, _life;
