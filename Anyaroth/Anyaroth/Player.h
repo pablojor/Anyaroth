@@ -1,13 +1,13 @@
 #pragma once
 #include "GameComponent.h"
-#include "Arm.h"
+#include "PlayerArm.h"
 #include "Gun.h"
 #include "Shooter.h"
 #include "Money.h"
 #include "PlayState.h"
 #include "GunType_def.h"
 
-class Arm;
+class PlayerArm;
 class Game;
 
 class AnimatedSpriteComponent;
@@ -21,7 +21,7 @@ private:
 	int _life;
 	int AmountOfCollision;
 	uint _currentState = 0;
-	Arm* _weaponArm = nullptr;
+	PlayerArm* _weaponArm = nullptr;
 	AnimatedSpriteComponent* _anim;
 	PlayerControllerComponent* _controller;
 	TransformComponent * _transform;
@@ -51,8 +51,8 @@ public:
 	void subLife(double amount);
 	void die();
 
-	void setArm(Arm* arm) { _weaponArm = arm; };
-	Arm* getWeaponArm() { return _weaponArm; }
+	void setArm(PlayerArm* arm) { _weaponArm = arm; };
+	PlayerArm* getWeaponArm() { return _weaponArm; }
 	void equipGun(int gunIndex);
 	void swapGun();
 

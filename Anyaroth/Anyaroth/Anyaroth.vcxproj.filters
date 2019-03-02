@@ -13,9 +13,6 @@
     <ClCompile Include="Money.cpp">
       <Filter>Archivos de código</Filter>
     </ClCompile>
-    <ClCompile Include="Arm.cpp">
-      <Filter>Archivos de código\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="Bullet.cpp">
       <Filter>Archivos de código\Objects</Filter>
     </ClCompile>
@@ -139,6 +136,13 @@
     <ClCompile Include="ShooterInterface.cpp">
       <Filter>Archivos de código\Guns</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerArm.cpp">
+      <Filter>Archivos de código\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Arm.cpp">
+      <Filter>Archivos de código\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyArm.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -149,9 +153,6 @@
     </ClInclude>
     <ClInclude Include="Money.h">
       <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Arm.h">
-      <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
     <ClInclude Include="Coin.h">
       <Filter>Archivos de encabezado\Objects</Filter>
@@ -300,6 +301,13 @@
     <ClInclude Include="GunType_def.h">
       <Filter>Archivos de código\Guns</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerArm.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Arm.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyArm.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de encabezado">

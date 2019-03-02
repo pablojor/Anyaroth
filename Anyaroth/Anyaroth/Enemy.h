@@ -1,6 +1,7 @@
 #pragma once
 #include <list>
 #include "GameComponent.h"
+#include "EnemyArm.h"
 
 class Player;
 class PlayState;
@@ -23,7 +24,7 @@ protected:
 
 	PlayState* _play;
 	list<GameObject*>::iterator _itList;
-
+	Arm* a;
 	bool _attacking = false;
 	double _time;
 	int _vision, _attackRange, _attackTime, _life;

@@ -35,6 +35,8 @@ Enemy::Enemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2
 	_anim->playAnim(AnimatedSpriteComponent::Idle);
 	*/
 	_movement = addComponent<MovingComponent>();
+	a = new EnemyArm(getGame()->getTexture("ArmPistol"), this, player, getGame(), _play, { 35,30 });
+	addChild(a);
 }
 void Enemy::setItList(list<GameObject*>::iterator itFR)
 {

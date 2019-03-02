@@ -126,8 +126,10 @@
   <ItemGroup>
     <ClCompile Include="AmmoPackage.cpp" />
     <ClCompile Include="AnimatedSpriteComponent.cpp" />
-    <ClCompile Include="BodyComponent.cpp" />
     <ClCompile Include="Arm.cpp" />
+    <ClCompile Include="BodyComponent.cpp" />
+    <ClCompile Include="EnemyArm.cpp" />
+    <ClCompile Include="PlayerArm.cpp" />
     <ClCompile Include="ArmControllerComponent.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -175,8 +177,10 @@
     <ClInclude Include="AmmoPackage.h" />
     <ClInclude Include="AnimatedSpriteComponent.h" />
     <ClInclude Include="AnyarothError.h" />
-    <ClInclude Include="BodyComponent.h" />
     <ClInclude Include="Arm.h" />
+    <ClInclude Include="BodyComponent.h" />
+    <ClInclude Include="EnemyArm.h" />
+    <ClInclude Include="PlayerArm.h" />
     <ClInclude Include="ArmControllerComponent.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Camera.h" />
