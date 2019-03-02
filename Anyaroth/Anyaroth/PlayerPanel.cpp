@@ -9,16 +9,17 @@ PlayerPanel::PlayerPanel(Game* game) : PanelUI(game)
 	_ammoViewer = new AmmoViewer(game, 30, 25);
 	_weaponryViewer = new WeaponryViewer(game, 30 - 1, 40);
 	_coinsCounter = new CoinsCounter(game, GAME_RESOLUTION_X - 50, 10);
+	_dashViewer = new DashViewer(game, 0, 0);
 
 	//Asignamos lo que necesite cada quien
-	_lifeBar->updateLifeBar(LIFE, MAX_LIFE);
-	_ammoViewer->updateAmmoViewer(LIFE, MAX_LIFE);
+	updateDashViewer(5);
 
 	//Añadimos al panel
 	addChild(_lifeBar);
 	addChild(_ammoViewer);
 	addChild(_coinsCounter);
 	addChild(_weaponryViewer);
+	addChild(_dashViewer);
 }
 
 

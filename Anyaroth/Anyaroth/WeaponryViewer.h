@@ -7,7 +7,7 @@ class WeaponryViewer : public PanelUI
 {
 	private:
 		ImageUI* _currentWeapon = nullptr;
-		ImageUI* _secondWeapon = nullptr;
+		ImageUI* _otherWeapon = nullptr;
 		ImageUI* _meleeWeapon = nullptr;
 
 	public:

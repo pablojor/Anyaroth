@@ -139,6 +139,7 @@
     <ClCompile Include="CoinsCounter.cpp" />
     <ClCompile Include="Collectable.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
+    <ClCompile Include="DashViewer.cpp" />
     <ClCompile Include="DebugDraw.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="HUD.cpp" />
@@ -202,6 +203,7 @@
     <ClInclude Include="Collectable.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="DashViewer.h" />
     <ClInclude Include="DebugDraw.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="HUD.h" />
