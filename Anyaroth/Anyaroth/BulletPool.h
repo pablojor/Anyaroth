@@ -26,6 +26,7 @@ class BulletPool : public ObjectPool<Bullet, SIZE>
 		virtual ~BulletPool() {};
 
 		void addBullet(Vector2D pos, Vector2D dir, double angle);
+		void changePoolTag(string tag);
 };
 
 
@@ -62,5 +63,14 @@ void BulletPool<SIZE>::addBullet(Vector2D pos, Vector2D dir, double angle) {
 		
 		//b->getComponent<MovingComponent>()->changeDir(dir.getX(),dir.getY()); //<- DESCOMENTAR PARA PROBAR CON F�SICAS
 		//b->setVelocity(dir*_bulletSpeed); //<- DESCOMENTAR PARA PROBAR SIN F�SICAS
+	}
+}
+
+template<int SIZE>
+void BulletPool<SIZE>::changePoolTag(string tag) {
+	for (int i = 0; i < SIZE; i++)
+	{
+		Bullet* b = ObjectPool<Bullet, SIZE>::getObject(i);
+		b->setTag(tag);
 	}
 }
