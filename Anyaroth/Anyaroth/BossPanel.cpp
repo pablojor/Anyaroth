@@ -4,7 +4,7 @@
 
 BossPanel::BossPanel(Game * game) : PanelUI(game)
 {
-	_lifeBar = new LifeBar(game, game->getTexture("Ammo"));
+	_lifeBar = new LifeBar(game);
 	_bossName = new TextUI(game, "BossName", game->getFont("ARIAL12"), 12, 0, 0, { 255, 255, 255, 255 });
 
 	_lifeBar->setPosition(GAME_RESOLUTION_X / 2 - _lifeBar->getW() / 2, GAME_RESOLUTION_Y - 80);

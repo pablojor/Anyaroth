@@ -5,11 +5,11 @@
 PlayerPanel::PlayerPanel(Game* game) : PanelUI(game)
 {
 	//Inicializamos
-	_lifeBar = new LifeBar(game, game->getTexture("Ammo"), 30, 10);
-	_ammoViewer = new AmmoViewer(game, 30, 25);
-	_weaponryViewer = new WeaponryViewer(game, 30 - 1, 40);
-	_coinsCounter = new CoinsCounter(game, GAME_RESOLUTION_X - 50, 10);
-	_dashViewer = new DashViewer(game, 0, 0);
+	_lifeBar = new LifeBar(game, 5, 5);
+	_dashViewer = new DashViewer(game, 5, _lifeBar->getY() + _lifeBar->getH() + 1);
+	_weaponryViewer = new WeaponryViewer(game, 5, _dashViewer->getY() + _dashViewer->getH() + 2);
+	_ammoViewer = new AmmoViewer(game, 32, _dashViewer->getY() + _dashViewer->getH() + 8);
+	_coinsCounter = new CoinsCounter(game, GAME_RESOLUTION_X - 50, 5);
 
 	//Asignamos lo que necesite cada quien
 	updateDashViewer(5);

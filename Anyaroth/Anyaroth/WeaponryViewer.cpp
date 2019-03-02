@@ -5,9 +5,9 @@
 
 WeaponryViewer::WeaponryViewer(Game* game, int xPos, int yPos) : PanelUI(game)
 {
-	_currentWeapon = new ImageUI(game, game->getTexture("example1"), xPos, yPos);
-	_otherWeapon = new ImageUI(game, game->getTexture("body"), xPos, yPos + 25);
-	_meleeWeapon = new ImageUI(game, game->getTexture("CoinIcon"), xPos, yPos + 50);
+	_currentWeapon = new ImageUI(game, game->getTexture("WeaponFrame"), xPos, yPos);
+	_otherWeapon = new ImageUI(game, game->getTexture("WeaponFrame"), xPos, yPos + _currentWeapon->getH() + 1);
+	_meleeWeapon = new ImageUI(game, game->getTexture("WeaponFrame"), xPos, _otherWeapon->getY() + _otherWeapon->getH() + 1);
 
 	addChild(_meleeWeapon);
 	addChild(_otherWeapon);

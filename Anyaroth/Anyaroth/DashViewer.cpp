@@ -2,7 +2,7 @@
 #include "Game.h"
 
 
-DashViewer::DashViewer(Game * game, int xPos, int yPos) : ImageUI(game, game->getTexture("CoinIcon"),xPos, yPos)
+DashViewer::DashViewer(Game * game, int xPos, int yPos) : ImageUI(game, game->getTexture("DashIcon"),xPos, yPos)
 {
 
 }
