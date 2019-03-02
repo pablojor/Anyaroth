@@ -51,13 +51,3 @@ void EnemyArm::update()
 	}
 
 }
-void EnemyArm::Shoot()
-{
-	if (_currentGun != nullptr)
-	{
-		Vector2D bulletPosition = Arm::shootInitialPos();
-		Vector2D bulletDir = Arm::shootDir();
-
-		_currentGun->enemyShoot(bulletPosition, bulletDir, _anim->isFlipped());
-	}
-}

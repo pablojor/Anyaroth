@@ -39,7 +39,7 @@ void DistanceStaticEnemy::update()
 			else if (x < 0) //Izquierda
 				_anim->flip();
 
-			_arm->Shoot();
+			_arm->shoot();
 		}
 	}
 }
