@@ -126,6 +126,7 @@ void Player::beginCollision(GameComponent * other, b2Contact* contact)
 		cout << "Moneda cogida" << endl;
 		cout << "Cantidad monedero: " << _money->getWallet() << endl;
 		contact->SetEnabled(false);
+		_playerPanel->updateCoinsCounter(_money->getWallet());
 	}
 }
 
@@ -220,6 +221,7 @@ void Player::update()
 
 			_controller->newDash();
 			_timer = SDL_GetTicks();
+			_playerPanel->updateDashViewer(_controller->amountDash());
 		}
 	}
 	else

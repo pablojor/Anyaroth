@@ -95,7 +95,6 @@ void PlayerArm::shoot()
 //Recarga el arma
 bool PlayerArm::reload()
 {
-	return _currentGun->reload();
-	
+	return _currentGun->reload();	
 }
 

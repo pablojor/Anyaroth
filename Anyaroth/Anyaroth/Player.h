@@ -7,6 +7,7 @@
 #include "PlayState.h"
 #include "Life.h"
 #include "GunType_def.h"
+#include "PlayerPanel.h"
 
 class PlayerArm;
 class Game;
@@ -30,6 +31,8 @@ private:
 	BodyComponent * _body;
 	HurtRenderComponent* _hurt;
 	HurtRenderComponent* _hurtArm;
+
+	PlayerPanel* _playerPanel = nullptr;
 
 	uint32 _dashCD = 3000;
 	uint32 _timer = 0;
@@ -65,4 +68,6 @@ public:
 
 	uint getCurrentState() { return _currentState; };
 	void setCurrentState(uint n) { _currentState = n; };
+
+	inline void setPlayerPanel(PlayerPanel* p) { _playerPanel = p; }
 };
