@@ -89,16 +89,18 @@ class GameComponent: public GameObject
 		b2World* getWorld();
 		void setWorld(b2World* world) { _world = world; };
 
-		virtual void beginCollision(GameComponent* other) {};
-		virtual void endCollision(GameComponent* other) {};
-		virtual void preCollision(GameComponent* other) {};
-		virtual void postCollision(GameComponent* other){};
+		virtual void beginCollision(GameComponent* other, b2Contact* contact) {};
+		virtual void endCollision(GameComponent* other, b2Contact* contact) {};
+		virtual void preCollision(GameComponent* other, b2Contact* contact) {};
+		virtual void postCollision(GameComponent* other, b2Contact* contact){};
 
 		void addChild(GameComponent* obj);
 
 		Game* getGame() { return _game; }
 
-		string getTag() { return _tag; }
+		string const getTag() { return _tag; }
+		void setTag(string  const &tag) { _tag = tag; }
+
 		void setActive(bool active) { _active = active; };
 		bool isActive() const { return _active; };
 

@@ -26,7 +26,8 @@ void Vector2D::normalize()
 	}
 }
 
-Vector2D Vector2D::rotate(double degrees) {
+Vector2D Vector2D::rotate(double degrees) 
+{
 	Vector2D r;
 
 	degrees = fmod(degrees, 360);
@@ -54,6 +55,24 @@ Vector2D Vector2D::rotate(double degrees) {
 
 	return r;
 
+}
+
+Vector2D Vector2D::rotateAroundPoint(double angle, Vector2D center) 
+{
+	//Paso ángulo a radianes
+	angle *= PI / 180;
+
+	double x = cos(angle) * (_x - center.getX()) - sin(angle) * (_y - center.getY()) + center.getX();
+
+	double y = sin(angle) * (_x - center.getX()) + cos(angle) * (_y - center.getY()) + center.getY();
+
+	return {x, y};
+}
+
+//Calcula la distancia entre el vector y otro vector (se entienden ambos como puntos{x,y})
+double Vector2D::distance(Vector2D p) 
+{
+	return sqrt(pow(_x - p.getX(), 2) + pow(_y - p.getY(), 2));
 }
 
 Vector2D Vector2D::operator+(const Vector2D& v) const 

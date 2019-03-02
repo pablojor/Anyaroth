@@ -38,6 +38,11 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 		{
 			_rPul = true;
 		}
+
+		if (event.key.keysym.sym == SDLK_q)
+		{
+			_qPul = true;
+		}
 	}
 
 	if (event.type == SDL_KEYUP)
@@ -60,6 +65,12 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 		{
 			_rPul = false;
 			//_isReloading = false;
+		}
+
+		if (event.key.keysym.sym == SDLK_q)
+		{
+			_qPul = false;
+			_isSwapping = false;
 		}
 	}
 
@@ -170,6 +181,13 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 		{
 			reload();
 		}
+	}
+
+	if (_qPul&& !_isSwapping)
+	{
+		_isSwapping = true;
+		static_cast<Player*>(_obj)->swapGun();  //llamo a función de recargar
+		_qPul = false;
 	}
 }
 

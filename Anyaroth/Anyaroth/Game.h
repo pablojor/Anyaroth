@@ -9,8 +9,10 @@
 #include "PlayState.h"
 #include "DebugDraw.h"
 #include "CollisionManager.h"
-#include "Gun.h"
+#include "ShooterInterface.h"
 #include "Shooter.h"
+#include "ShotgunShooter.h"
+#include "GunType_def.h"
 
 // Resolución interna del juego
 const int GAME_RESOLUTION_X = 480;
@@ -39,7 +41,7 @@ const string SAVES_PATH = "..\\files\\saves\\";
 const string SPRITE_PATH = "..\\assets\\sprites\\";
 const string TILEMAP_PATH = "..\\files\\tilemaps\\";
 
-const int NUM_TEXTURES = 18;
+const int NUM_TEXTURES = 20;
 
 const int NUM_FONTS = 0;
 
@@ -55,24 +57,22 @@ const double TILES_H = 16;
 const double M_TO_PIXEL = 8;
 
 //ARMAS
-const int NUM_GUNS = 2; //N�mero de armas en el juego
+//const int NUM_GUNS = 2; //N�mero de armas en el juego
+//Las armas que hay en el juego
 
 struct GunAttributes
 {
-	Shooter shooter;
-	string name;
+	ShooterInterface* shooter;
+	GunType type;
 	int maxAmmo;
 	int maxClip;
 };
 
 enum _Category {
-	FLOOR = 0x0001,
-	ENEMIES = 0x0002,
-	PLAYER = 0x0003,
-	OBJECTS = 0x0004,
-	PLAYER_BULLETS=0x0005,
-	ENEMY_BULLETS=0x0006
-
+	FLOOR = 1,
+	ENEMIES = 2,
+	PLAYER = 3,
+	OBJECTS = 4,
 };
 //********************************************************************************
 //********************************************************************************
@@ -83,7 +83,6 @@ class Game
 {
 	private:
 		SDL_Window* window = nullptr;
-		SDL_Renderer* renderer = nullptr;
 		map <string, Texture*> textures;
 		map <string, Font*> _fonts;
 		GameState* states[NUM_STATES];
@@ -95,18 +94,15 @@ class Game
 		bool exit = false;
 
 	public:
+		SDL_Renderer* renderer = nullptr;
 		vector<int> var;
 
-		//Las armas que hay en el juego
-		enum GameGun
+		
+
+		vector<GunAttributes> gameGuns = 
 		{
-			BasicGun,
-			BasicShotgun
-		};
-		GunAttributes gameGuns[NUM_GUNS] = 
-		{
-			{Shooter(),"Pistola",60,12},
-			{ Shooter(),"Escopeta",30,2 }
+			{new Shooter(),BasicGun,60,12},
+			{ new ShotgunShooter({30,0,-30}),BasicShotgun,30,2 }
 		};
 
 		//Metodos

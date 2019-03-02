@@ -6,7 +6,6 @@
 
 Bullet::Bullet(Texture* texture, Vector2D iniPos, Game* g, string tag) : GameComponent(g, tag) 
 {
-	
 }
 Bullet::Bullet() 
 {
@@ -16,14 +15,16 @@ Bullet::Bullet()
 Bullet::~Bullet() 
 {
 }
-void Bullet::beginCollision(GameComponent * other)
+void Bullet::beginCollision(GameComponent * other, b2Contact* contact)
 {
-	if(other->getTag() != "Player" && other->getTag() != "")
+	if(other->getTag() != "Player" && other->getTag() != "Bullet" && other->getTag() != "EnemyBullet")
 		_collided = true;
+	contact->SetEnabled(false);
 }
 
 void Bullet::init(Texture* texture, double speed, int damage, double angle, int range)
 {
+	setTag("Bullet");
 	_speed = speed;
 	_damage = damage;
 	_range = range;
@@ -46,7 +47,7 @@ void Bullet::init(Texture* texture, double speed, int damage, double angle, int 
 	auto anim = addComponent<AnimatedSpriteComponent>();
 	anim->addAnim(AnimatedSpriteComponent::Default, 4, false);
 
-	anim->playAnim(AnimatedSpriteComponent::Default);
+	
 	anim->setTexture(texture);
 	
 }
@@ -57,7 +58,9 @@ void Bullet::update()
 	if (!isActive())
 		return;
 
-	if (_aliveTime < _range * 10 && !_collided)
+	double dist = _iniPos.distance(_trans->getPosition());
+
+	if (dist < _range  && !_collided)
 	{
 		//cout << "X: " << getComponent<TransformComponent>()->getPosition().getX() << "	Y: " << getComponent<TransformComponent>()->getPosition().getY() << endl << endl;
 		
@@ -87,8 +90,9 @@ void Bullet::update()
 }
 
 
-void Bullet::reset()
+void Bullet::reset(Vector2D pos)
 {
+	_iniPos = pos;
 	setActive(true);
 	_aliveTime = 0;
 	_collided = false;

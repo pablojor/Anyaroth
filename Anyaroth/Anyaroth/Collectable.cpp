@@ -12,6 +12,7 @@ Collectable::Collectable(PlayState* play, Game* g, Texture* texture, Vector2D in
 	transform->setPosition(iniPos.getX(), iniPos.getY());
 
 	auto body = addComponent<BodyComponent>();
+	body->getBody()->SetType(b2_kinematicBody);
 
 	//addComponent<SpriteComponent>();
 }

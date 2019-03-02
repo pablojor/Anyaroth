@@ -4,6 +4,8 @@
 #include "Player.h"
 #include "MeleeEnemy.h"
 #include "MartyrEnemy.h"
+#include "DistanceStaticEnemy.h"
+#include "DistanceDynamicEnemy.h"
 #include "BulletPool.h"
 
 
@@ -14,7 +16,11 @@ class PlayState : public GameState
 		Layer* _colLayer = nullptr;
 		Enemy* _enemy = nullptr;
 
-		PoolWrapper* _examplePool = nullptr; //TEMPORAL
+		PoolWrapper* _enemyPool = nullptr; //TEMPORAL
+		//Bullet Pools
+		PoolWrapper* _basicBulletPool = nullptr; //balas b�sicas
+		PoolWrapper* _basicShotgunBulletPool = nullptr; //balas de escopeta
+		vector<PoolWrapper*> _pools;
 
 		vector <list<GameObject*>::iterator> items_ToDelete;
 
@@ -23,5 +29,5 @@ class PlayState : public GameState
 		void KillObject(list<GameObject*>::iterator itList);
 		virtual void update();
 		virtual void handleEvents(SDL_Event& e);
-		PoolWrapper* getBulletPool() { return _examplePool; };
+		PoolWrapper* getBulletPool(int index) { return _pools[index]; };
 };

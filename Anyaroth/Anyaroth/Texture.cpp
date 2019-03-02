@@ -11,6 +11,12 @@ void Texture::free() {
 	_w = _h = 0;
 }
 
+void Texture::setColor(Uint8 red, Uint8 green, Uint8 blue)
+{
+	//Modulate texture
+	SDL_SetTextureColorMod(_texture, red, green, blue);
+}
+
 void Texture::load(string filename, uint nRows, uint nCols) {
 	SDL_Surface* tempSurface = IMG_Load(filename.c_str());
 	if (tempSurface == nullptr) throw SDLError();

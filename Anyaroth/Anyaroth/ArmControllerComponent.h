@@ -6,14 +6,14 @@
 #include "FollowingComponent.h"
 
 class GameComponent;
-class Arm;
+class PlayerArm;
 
 class ArmControllerComponent : public InputComponent
 {
 private:
 	FollowingComponent* _followC;
 	GameComponent* _player;
-	Arm* _obj;
+	PlayerArm* _obj;
 	AnimatedSpriteComponent* _anim;
 	TransformComponent* _transform = nullptr;
 	bool _leftClickPul = false, _canShoot = true;

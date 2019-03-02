@@ -1,6 +1,7 @@
 #pragma once
 #include "GameComponent.h"
 #include "PoolWrapper.h"
+#include "ShooterInterface.h"
 
 
 ////////////////////////////////////////////////////////////////
@@ -11,16 +12,12 @@
 //		el método shoot().
 ////////////////////////////////////////////////////////////////
 
-class Shooter
+class Shooter : public ShooterInterface
 {
-private:
-	GameComponent* _shootingObject = nullptr; //El objeto que dispara las balas (/!\ NO ES EL GUN, SERÁ ARM o ENEMY NORMALMENTE)
-	PoolWrapper* _bPool = nullptr; //La pool de balas empleada
 public:
 	Shooter();
 	virtual ~Shooter();
 	
-	virtual void init(GameComponent* shootingObject, PoolWrapper* bPool);
 	virtual void shoot(Vector2D bulletPosition, Vector2D bulletDir, double angle);
 };
 
