@@ -51,6 +51,9 @@
     <ClCompile Include="TTFclass.cpp" />
     <ClCompile Include="Vector2D.cpp" />
     <ClCompile Include="DistanceDynamicEnemy.cpp" />
+    <ClCompile Include="EnemyArm.cpp" />
+    <ClCompile Include="PlayerArm.cpp" />
+    <ClCompile Include="DistanceEnemy.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AmmoPackage.h" />
@@ -110,5 +113,8 @@
     <ClInclude Include="TTFclass.h" />
     <ClInclude Include="Vector2D.h" />
     <ClInclude Include="DistanceDynamicEnemy.h" />
+    <ClInclude Include="EnemyArm.h" />
+    <ClInclude Include="PlayerArm.h" />
+    <ClInclude Include="DistanceEnemy.h" />
   </ItemGroup>
 </Project>

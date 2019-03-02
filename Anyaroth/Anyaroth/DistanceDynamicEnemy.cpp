@@ -3,7 +3,7 @@
 #include "AnimatedSpriteComponent.h"
 #include "Player.h"
 
-DistanceDynamicEnemy::DistanceDynamicEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag) : Enemy(player, g, play, texture, posIni, tag)
+DistanceDynamicEnemy::DistanceDynamicEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag) : DistanceEnemy(player, g, play, texture, posIni, tag)
 {
 	_vision = 200;
 	_attackRange = 120; //No se puede poner mas peque�o que la velocidad
@@ -84,32 +84,16 @@ void DistanceDynamicEnemy::update()
 			_attacking = false;
 		else
 		{
-			if (x > 0) //Derecha
-				_anim->unFlip();
-			else if (x < 0) //Izquierda
-				_anim->flip();
+			RayCast();
 
-			//---RAYCAST
-			b2RayCastInput rayInput;
-
-			rayInput.maxFraction = 1;
-			rayInput.p1 = { (float32)(enemyPos.x),
-							(float32)(enemyPos.y - _body->getH()) };
-			rayInput.p2 = { (float32)(playerPos.x),
-							(float32)(playerPos.y - _playerBody->getH()) };
-
-			bool hit = false;
-			b2RayCastOutput rayOutput;
-
-			for (b2Body* b = getWorld()->GetBodyList(); b && !hit; b = b->GetNext())
-				for (b2Fixture* f = b->GetFixtureList(); f && !hit; f = f->GetNext())
-					if (b->GetType() == b2_staticBody && f->RayCast(&rayOutput, rayInput, 0))
-						hit = true;
-			//---------------
-
-			if (!hit) //Si vemos al jugador
+			if (_armVision) //Si vemos al jugador
 			{
-				cout << "MORITE AJQUEROSO PIUM" << endl;
+				if (x > 0) //Derecha
+					_anim->unFlip();
+				else if (x < 0) //Izquierda
+					_anim->flip();
+
+				cout << "MORITE AJQUEROSO" << endl;
 			}
 			else
 			{

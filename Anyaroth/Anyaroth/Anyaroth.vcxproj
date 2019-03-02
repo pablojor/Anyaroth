@@ -128,6 +128,7 @@
     <ClCompile Include="AnimatedSpriteComponent.cpp" />
     <ClCompile Include="Arm.cpp" />
     <ClCompile Include="BodyComponent.cpp" />
+    <ClCompile Include="DistanceEnemy.cpp" />
     <ClCompile Include="EnemyArm.cpp" />
     <ClCompile Include="PlayerArm.cpp" />
     <ClCompile Include="ArmControllerComponent.cpp" />
@@ -183,6 +184,7 @@
     <ClInclude Include="AnyarothError.h" />
     <ClInclude Include="Arm.h" />
     <ClInclude Include="BodyComponent.h" />
+    <ClInclude Include="DistanceEnemy.h" />
     <ClInclude Include="EnemyArm.h" />
     <ClInclude Include="PlayerArm.h" />
     <ClInclude Include="ArmControllerComponent.h" />

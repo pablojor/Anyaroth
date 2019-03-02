@@ -38,18 +38,6 @@ Enemy::Enemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2
 	*/
 	_life = Life(50);
 	_movement = addComponent<MovingComponent>();
-	a = new EnemyArm(getGame()->getTexture("ArmPistol"), this, player, getGame(), _play, { 35,30 });
-	addChild(a);
-	ShooterInterface* sh = getGame()->gameGuns[0].shooter;
-	GunType type = GunType(getGame()->gameGuns[0].type);
-	int mA = getGame()->gameGuns[0].maxAmmo;
-	int mC = getGame()->gameGuns[0].maxClip;
-
-	// TEMPORAL
-	PoolWrapper* bp = _play->getBulletPool(type);
-	//
-
-	a->setGun(new Gun(a, sh, bp, type, mA, mC));
 }
 void Enemy::setItList(list<GameObject*>::iterator itFR)
 {
