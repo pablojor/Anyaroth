@@ -131,6 +131,7 @@
     <ClCompile Include="BodyComponent.cpp" />
     <ClCompile Include="Arm.cpp" />
     <ClCompile Include="ArmControllerComponent.cpp" />
+    <ClCompile Include="BossPanel.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Canvas.cpp" />
@@ -193,6 +194,7 @@
     <ClInclude Include="BodyComponent.h" />
     <ClInclude Include="Arm.h" />
     <ClInclude Include="ArmControllerComponent.h" />
+    <ClInclude Include="BossPanel.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="BulletPool.h" />

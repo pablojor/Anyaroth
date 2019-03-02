@@ -14,6 +14,6 @@ class DashViewer : public ImageUI
 		void render() const;
 
 		inline void setDashes(const uint& n) { _dashNumber = n; }
-		inline uint getDashesNumber() { return _dashNumber; }
+		inline uint getDashesNumber() const { return _dashNumber; }
 };
 

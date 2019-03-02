@@ -149,7 +149,7 @@
       <Filter>Archivos de código\BackGround</Filter>
     </ClCompile>
     <ClCompile Include="PlayStateHUD.cpp">
-      <Filter>Archivos de código\UIElements\HUDs</Filter>
+      <Filter>Archivos de código\HUDs</Filter>
     </ClCompile>
     <ClCompile Include="PanelUI.cpp">
       <Filter>Archivos de código\UIElements</Filter>
@@ -161,13 +161,24 @@
       <Filter>Archivos de código\UIElements</Filter>
     </ClCompile>
     <ClCompile Include="PlayerPanel.cpp">
-      <Filter>Archivos de código\UIElements\HUDs</Filter>
+      <Filter>Archivos de código\HUDs\PlayerPanel</Filter>
     </ClCompile>
-    <ClCompile Include="LifeBar.cpp" />
-    <ClCompile Include="CoinsCounter.cpp" />
-    <ClCompile Include="AmmoViewer.cpp" />
-    <ClCompile Include="WeaponryViewer.cpp" />
-    <ClCompile Include="DashViewer.cpp" />
+    <ClCompile Include="AmmoViewer.cpp">
+      <Filter>Archivos de código\HUDs\PlayerPanel</Filter>
+    </ClCompile>
+    <ClCompile Include="CoinsCounter.cpp">
+      <Filter>Archivos de código\HUDs\PlayerPanel</Filter>
+    </ClCompile>
+    <ClCompile Include="DashViewer.cpp">
+      <Filter>Archivos de código\HUDs\PlayerPanel</Filter>
+    </ClCompile>
+    <ClCompile Include="LifeBar.cpp">
+      <Filter>Archivos de código\HUDs\PlayerPanel</Filter>
+    </ClCompile>
+    <ClCompile Include="WeaponryViewer.cpp">
+      <Filter>Archivos de código\HUDs\PlayerPanel</Filter>
+    </ClCompile>
+    <ClCompile Include="BossPanel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -339,7 +350,7 @@
       <Filter>Archivos de encabezado\BackGround</Filter>
     </ClInclude>
     <ClInclude Include="PlayStateHUD.h">
-      <Filter>Archivos de encabezado\UIElements\HUDs</Filter>
+      <Filter>Archivos de encabezado\HUDs</Filter>
     </ClInclude>
     <ClInclude Include="PanelUI.h">
       <Filter>Archivos de encabezado\UIElements</Filter>
@@ -348,13 +359,24 @@
       <Filter>Archivos de encabezado\UIElements</Filter>
     </ClInclude>
     <ClInclude Include="PlayerPanel.h">
-      <Filter>Archivos de encabezado\UIElements\HUDs</Filter>
+      <Filter>Archivos de encabezado\HUDs\PlayerPanel</Filter>
     </ClInclude>
-    <ClInclude Include="LifeBar.h" />
-    <ClInclude Include="CoinsCounter.h" />
-    <ClInclude Include="AmmoViewer.h" />
-    <ClInclude Include="WeaponryViewer.h" />
-    <ClInclude Include="DashViewer.h" />
+    <ClInclude Include="WeaponryViewer.h">
+      <Filter>Archivos de encabezado\HUDs\PlayerPanel</Filter>
+    </ClInclude>
+    <ClInclude Include="AmmoViewer.h">
+      <Filter>Archivos de encabezado\HUDs\PlayerPanel</Filter>
+    </ClInclude>
+    <ClInclude Include="CoinsCounter.h">
+      <Filter>Archivos de encabezado\HUDs\PlayerPanel</Filter>
+    </ClInclude>
+    <ClInclude Include="DashViewer.h">
+      <Filter>Archivos de encabezado\HUDs\PlayerPanel</Filter>
+    </ClInclude>
+    <ClInclude Include="LifeBar.h">
+      <Filter>Archivos de encabezado\HUDs\PlayerPanel</Filter>
+    </ClInclude>
+    <ClInclude Include="BossPanel.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de encabezado">
@@ -420,11 +442,23 @@
     <Filter Include="Archivos de encabezado\BackGround">
       <UniqueIdentifier>{20b3f86d-b6ec-4700-9275-3416e1f2971d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de encabezado\UIElements\HUDs">
+    <Filter Include="Archivos de código\HUDs">
+      <UniqueIdentifier>{6c371d90-7e59-48aa-9b7e-d85209ce56e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\HUDs">
       <UniqueIdentifier>{664a5743-48a1-4434-81da-3a19ed13fcf7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de código\UIElements\HUDs">
-      <UniqueIdentifier>{6c371d90-7e59-48aa-9b7e-d85209ce56e4}</UniqueIdentifier>
+    <Filter Include="Archivos de encabezado\HUDs\PlayerPanel">
+      <UniqueIdentifier>{b743bafb-06c4-4971-8c54-f55358b5893c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código\HUDs\PlayerPanel">
+      <UniqueIdentifier>{deb287a9-61f7-4c68-81bf-e41e8d5f8444}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\HUDs\BossPanel">
+      <UniqueIdentifier>{42439219-6b75-49b9-a337-2e5a52443afd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código\HUDs\BossPanel">
+      <UniqueIdentifier>{c8cfe96c-1a89-491c-b93a-4147164909eb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

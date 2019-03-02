@@ -15,6 +15,5 @@ class WeaponryViewer : public PanelUI
 		~WeaponryViewer() {};
 		
 		void updateWeaponryViewer();
-
 };
 

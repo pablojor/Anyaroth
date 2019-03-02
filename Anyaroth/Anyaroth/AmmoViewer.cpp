@@ -1,5 +1,6 @@
 #include "AmmoViewer.h"
 #include "Game.h"
+#include <sstream>
 
 
 AmmoViewer::AmmoViewer(Game* game, int xPos, int yPos) : PanelUI(game)
@@ -17,8 +18,13 @@ void AmmoViewer::updateAmmoViewer(const int& ammoClip, const int& ammoMagazine)
 	int x = _clipText->getX();
 	int w = _clipText->getW();
 
-	_clipText->setText(to_string(ammoClip));
-	_magazineText->setText(" / " + to_string(ammoMagazine));
+	std::stringstream a; 
+
+	a.fill('0'); a.width(2); a << ammoClip;
+	_clipText->setText(a.str());
+
+	a.str(""); a.fill('0'); a.width(3); a << ammoMagazine;
+	_magazineText->setText(" / " + a.str());
 
 	_clipText->setPosition(x - (_clipText->getW() - w), _clipText->getY());
 }

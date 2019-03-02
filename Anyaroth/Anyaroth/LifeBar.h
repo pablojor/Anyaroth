@@ -4,7 +4,7 @@
 class LifeBar : public ImageUI
 {
 	public:
-		LifeBar(Game* game, Texture* texture, int xPos, int yPos);
+		LifeBar(Game* game, Texture* texture, int xPos = 0, int yPos = 0);
 		~LifeBar() {};
 
 		void updateLifeBar(const int& life, const int& maxLife);
