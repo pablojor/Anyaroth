@@ -29,6 +29,7 @@ private:
 	uint32 _timer = 0;
 	int _MaxDash = 2;
 	Money * _money = nullptr;
+	bool OnGround = false;
 public:
 
 	enum states { Idle, Attacking, Walking, Reloading, Dashing, Falling, Jumping };

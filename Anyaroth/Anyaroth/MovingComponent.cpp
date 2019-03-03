@@ -32,13 +32,18 @@ void MovingComponent::update()
 	}
 	else
 	{
-		if (SDL_GetTicks() < (_dashTimer + _dashDur))
-			_body->getBody()->SetLinearVelocity(b2Vec2(_dir.x*_speed * 2, _dir.y*_speed * 2));
-		else
-		{
-			_body->getBody()->SetLinearVelocity(b2Vec2(_dir.x*_speed *0.8, _dir.y*_speed * 0.8));
-			changeDash(false);
+		if (_dir.y == 0) {
+			if (SDL_GetTicks() < (_dashTimer + _dashDur))
+				_body->getBody()->SetLinearVelocity(b2Vec2(_dir.x*_speed * 2, _dir.y*_speed * 2));
+			else
+			{
+				_body->getBody()->SetLinearVelocity(b2Vec2(_dir.x*_speed *0.8, _dir.y*_speed * 0.8));
+				changeDash(false);
+			}
 		}
+		else
+			_body->getBody()->SetLinearVelocity(b2Vec2(_dir.x*_speed * 2, _dir.y*_speed * 2));
+		
 
 	}
 	

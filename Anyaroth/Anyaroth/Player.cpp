@@ -86,25 +86,12 @@ void Player::beginCollision(GameComponent * other)
 	{
 		AmountOfCollision += 1;
 
-		if (_transform->getPosition().getY() + (myH+ 0.3) * (M_TO_PIXEL * 2) < otherTransform->getPosition().getY())
+		if (_transform->getPosition().getY() + (myH+ 0.4) * (M_TO_PIXEL * 2) < otherTransform->getPosition().getY())
 		{
-			_controller->ableJump();
+			OnGround = true;
+ 			_controller->ableJump();
 		
 
-		}
-		else if (_transform->getPosition().getY() + (myH + 0.3) * (M_TO_PIXEL * 2) > otherTransform->getPosition().getY())
-		{
-
-			if (_transform->getPosition().getY() <= otherTransform->getPosition().getY() + otherH * (M_TO_PIXEL * 2))
-			{
-				
-				if (_transform->getPosition().getX() + myW * (M_TO_PIXEL) < otherTransform->getPosition().getX() - otherW * (M_TO_PIXEL * 2))
-				{
-					_controller->wallOnRight(true);
-				}
-				else
-					_controller->wallOnLeft(true);
-			}
 		}
 	}
 	else if (otherTag == "Bullet")
@@ -140,9 +127,9 @@ void Player::endCollision(GameComponent * other)
 	{
 		AmountOfCollision -= 1;
 
-		if (_transform->getPosition().getY() + (myH + 0.3) * (M_TO_PIXEL * 2) < otherTransform->getPosition().getY())
+		if (_transform->getPosition().getY() + (myH + 0.4) * (M_TO_PIXEL * 2) < otherTransform->getPosition().getY())
 		{
-
+			OnGround = false;
 
 			if ((_body->getBody()->GetLinearVelocity().y < -2))
 			{
@@ -152,17 +139,7 @@ void Player::endCollision(GameComponent * other)
 			}
 			
 		}
-		if (_transform->getPosition().getY() + (myH + 0.3) * (M_TO_PIXEL * 2) > otherTransform->getPosition().getY() ||
-			(_transform->getPosition().getY() + (myH + 0.3) * (M_TO_PIXEL * 2) < otherTransform->getPosition().getY()) && (AmountOfCollision == 0))
-		{
-
-			if (_transform->getPosition().getX() + myW * (M_TO_PIXEL) < otherTransform->getPosition().getX() - otherW * (M_TO_PIXEL * 2))
-			{
-				_controller->wallOnRight(false);
-			}
-			else
-				_controller->wallOnLeft(false);
-		}
+		
 	}
 }
 
@@ -196,22 +173,37 @@ void Player::update()
 
 	if (_anim->animationFinished() && _currentState != Player::Falling && _currentState != Player::Jumping)
 	{
-		_anim->playAnim(AnimatedSpriteComponent::Idle);
-		_controller->setIsAttacking(false);
-		_controller->setIsReloading(false);
+		if (_controller->currXDir() == 0)
+		{
+			_anim->playAnim(AnimatedSpriteComponent::Idle);
+			_controller->setIsAttacking(false);
+			_controller->setIsReloading(false);
 
-		_currentState = Idle;
+			_currentState = Idle;
+		}
+		else
+		{
+			if (!_anim->isFlipped())
+				_anim->playAnim(AnimatedSpriteComponent::Walk);
+			else
+				_anim->playAnim(AnimatedSpriteComponent::WalkBack);
+			_controller->setIsAttacking(false);
+			_controller->setIsReloading(false);
+
+			_currentState = Walking;
+		}
 	}
 
-	if (AmountOfCollision <= 0|| _body->getBody()->GetLinearVelocity().y > 2)
+	if (AmountOfCollision <= 0|| _body->getBody()->GetLinearVelocity().y > 2 && !OnGround)
 	{
-		if (_currentState != Player::Falling && _currentState != Player::Dashing && _body->getBody()->GetLinearVelocity().y > 2)
+		if ( _currentState != Player::Falling && _currentState != Player::Dashing && _body->getBody()->GetLinearVelocity().y > 2)
 		{
 			_anim->playAnim(AnimatedSpriteComponent::StartFalling);
 			_currentState = Player::Falling;
-
+			
 		}
 		_controller->changeJump();
+		
 	}
 
 	if (_controller->amountDash() < _MaxDash)

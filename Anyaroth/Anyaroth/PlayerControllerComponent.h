@@ -15,7 +15,7 @@ private:
 	bool _spacePul = false, _aPul = false, _sPul = false, _dPul = false, _sfPul = false;
 	bool _rightClickPul = false, _isAttacking = false;
 	bool _isReloading = false, _rPul = false;
-	bool _jumping = false, _wallOnR = false, _wallOnL = false, _dashing = false;
+	bool _jumping = false, _dashing = false;
 
 	int _amountOfDash = 2;
 
@@ -26,11 +26,11 @@ public:
 	void changeJump();
 	void ableJump();
 
-	void wallOnLeft(bool yes);
-	void wallOnRight(bool yes);
+	
 
 	inline bool IsSpaceDown() {return _spacePul;}
 	inline bool currYDir() { return _spacePul; }
+	inline bool currXDir() { if (_aPul)return -1; else if (_dPul) return 1; else 0; }
 	inline bool isAttacking() { return _isAttacking; }
 	inline void setIsAttacking(bool b) { _isAttacking = b; }
 	inline void newDash() { _amountOfDash++; }
