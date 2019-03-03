@@ -15,7 +15,7 @@ DistanceEnemy::DistanceEnemy(Player* player, Game* g, PlayState* play, Texture* 
 
 	// TEMPORAL
 	PoolWrapper* bp = _play->getBulletPool(type);
-
+	bp->changePoolTag("EnemyBullet");
 
 	_arm->setGun(new Gun(_arm, sh, bp, type, mA, mC));
 }
