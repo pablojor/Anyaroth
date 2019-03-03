@@ -47,20 +47,21 @@ PlayState::PlayState(Game* g) : GameState(g)
   
 	Coin* coin = new Coin(this, g, g->getTexture("Coin"), Vector2D(100, 100), 20);
 	_stages.push_back(coin);
-
 	itFR = --(_stages.end());
 	coin->setItList(itFR);	
 	
 	//Camera BackGound
-	/*ParallaxBackGround* a = new ParallaxBackGround(_mainCamera);
-	a->addLayer(new ParallaxLayer(g->getTexture("Parallax"), _mainCamera));
-	_mainCamera->setBackGround(a);*/
+	ParallaxBackGround* a = new ParallaxBackGround(_mainCamera);
+	a->addLayer(new ParallaxLayer(g->getTexture("BgZ1L1"), _mainCamera,0.5));
+	a->addLayer(new ParallaxLayer(g->getTexture("BgZ1L2"), _mainCamera,1));
+	a->addLayer(new ParallaxLayer(g->getTexture("BgZ1L3"), _mainCamera,1.5));
+	_mainCamera->setBackGround(a);
 
 	//HUD
-	auto a = new PlayStateHUD(g);
-	setCanvas(a);
+	auto b = new PlayStateHUD(g);
+	setCanvas(b);
 	//Asignacion de paneles a sus controladores
-	_player->setPlayerPanel(a->getPlayerPanel());
+	_player->setPlayerPanel(b->getPlayerPanel());
 }
 
 void PlayState::KillObject(list<GameObject*>::iterator itList)
