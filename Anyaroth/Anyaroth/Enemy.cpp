@@ -6,8 +6,9 @@
 #include "Game.h"
 #include "Player.h"
 #include "Bullet.h"
+#include "HurtRenderComponent.h"
 
-Enemy::Enemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag) : _playerTransform(player->getComponent<TransformComponent>()), _play(play), GameComponent(g, tag)
+Enemy::Enemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag) : _player(player), _play(play), GameComponent(g, tag)
 {
 	addComponent<Texture>(texture);
 
@@ -20,11 +21,12 @@ Enemy::Enemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2
 	_body->getBody()->SetFixedRotation(true);
 	_body->setW(20);
 	_body->setH(40);
-	_body->filterCollisions(ENEMIES, FLOOR | PLAYER_BULLETS);
+	_body->filterCollisions(ENEMIES, FLOOR);
 
 	//auto playerTrans = addComponent<MeleeEnemyComponent>();
 
 	_anim = addComponent<AnimatedSpriteComponent>();
+	_hurt = addComponent<HurtRenderComponent>();
 
 	/*
 	_anim->addAnim(AnimatedSpriteComponent::Idle, 16, true);
@@ -34,20 +36,33 @@ Enemy::Enemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2
 
 	_anim->playAnim(AnimatedSpriteComponent::Idle);
 	*/
+	_life = Life(50);
 	_movement = addComponent<MovingComponent>();
+	a = new EnemyArm(getGame()->getTexture("ArmPistol"), this, player, getGame(), _play, { 35,30 });
+	addChild(a);
+	ShooterInterface* sh = getGame()->gameGuns[0].shooter;
+	GunType type = GunType(getGame()->gameGuns[0].type);
+	int mA = getGame()->gameGuns[0].maxAmmo;
+	int mC = getGame()->gameGuns[0].maxClip;
+
+	// TEMPORAL
+	PoolWrapper* bp = _play->getBulletPool(type);
+	//
+
+	a->setGun(new Gun(a, sh, bp, type, mA, mC));
 }
 void Enemy::setItList(list<GameObject*>::iterator itFR)
 {
 	_itList = itFR;
 }
 
-void Enemy::beginCollision(GameComponent * other)
+void Enemy::beginCollision(GameComponent * other, b2Contact* contact)
 {
 	string otherTag = other->getTag();
 	if (otherTag == "Bullet")
 	{
-		double damage = 0;
-		//damage=dynamic_cast<Bullet*>(other).getDamage();
+		int damage = 0;
+		damage=dynamic_cast<Bullet*>(other)->getDamage();
 		subLife(damage);
 	}
 }
@@ -57,24 +72,26 @@ void Enemy::update()
 	GameComponent::update();
 }
 
-void Enemy::setLife(double amount)
-{
-	_life = amount;
-}
-
-void Enemy::addLife(double amount)
-{
-	_life += amount;
-}
-
-void Enemy::subLife(double amount)
-{
-	if (_life > amount)
-		_life -= amount;
-	else
-		die();
-}
 
 void Enemy::die()
 {
+	_play->KillObject(_itList);
+}
+
+void Enemy::subLife(int damage)
+{
+	if (!_dead)
+	{
+		_life.subLife(damage);
+		if (_life.dead())
+		{
+			die();
+			_hurt->die();
+			_dead = true;
+		}
+		else
+		{
+			_hurt->hurt();
+		}
+	}
 }

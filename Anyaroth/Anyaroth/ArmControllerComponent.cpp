@@ -2,7 +2,7 @@
 #include "GameComponent.h"
 #include <cmath>
 #include <iostream>
-#include "Arm.h"
+#include "PlayerArm.h"
 
 //#define PI 3.14159265
 
@@ -19,7 +19,7 @@ ArmControllerComponent::ArmControllerComponent(GameComponent* obj) : InputCompon
 	_followC = obj->getComponent<FollowingComponent>();
 	_player = _followC->getOther();
 
-	_obj = dynamic_cast<Arm*>(obj);
+	_obj = dynamic_cast<PlayerArm*>(obj);
 }
 
 void ArmControllerComponent::handleInput(const SDL_Event& event)
