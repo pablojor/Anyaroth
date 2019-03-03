@@ -58,10 +58,10 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_mainCamera->setBackGround(a);
 
 	//HUD
-	auto a = new PlayStateHUD(g);
-	setCanvas(a);
+	auto b = new PlayStateHUD(g);
+	setCanvas(b);
 	//Asignacion de paneles a sus controladores
-	_player->setPlayerPanel(a->getPlayerPanel());
+	_player->setPlayerPanel(b->getPlayerPanel());
 }
 
 void PlayState::KillObject(list<GameObject*>::iterator itList)
