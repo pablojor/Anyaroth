@@ -22,9 +22,6 @@
     <ClCompile Include="Coin.cpp">
       <Filter>Archivos de código\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>Archivos de código\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="MartyrEnemy.cpp">
       <Filter>Archivos de código\Objects</Filter>
     </ClCompile>
@@ -178,7 +175,36 @@
     <ClCompile Include="WeaponryViewer.cpp">
       <Filter>Archivos de código\HUDs\PlayerPanel</Filter>
     </ClCompile>
-    <ClCompile Include="BossPanel.cpp" />
+    <ClCompile Include="BossPanel.cpp">
+      <Filter>Archivos de código\HUDs\BossPanel</Filter>
+    </ClCompile>
+    <ClCompile Include="ShooterInterface.cpp">
+      <Filter>Archivos de código\Guns</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Archivos de código\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="DistanceDynamicEnemy.cpp">
+      <Filter>Archivos de código\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="DistanceStaticEnemy.cpp">
+      <Filter>Archivos de código\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Life.cpp">
+      <Filter>Archivos de código</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyArm.cpp">
+      <Filter>Archivos de código\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerArm.cpp">
+      <Filter>Archivos de código\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="ShotgunShooter.cpp">
+      <Filter>Archivos de código\Guns</Filter>
+    </ClCompile>
+    <ClCompile Include="HurtRenderComponent.cpp">
+      <Filter>Archivos de código\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -197,9 +223,6 @@
       <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
     <ClInclude Include="Collectable.h">
-      <Filter>Archivos de encabezado\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy.h">
       <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
     <ClInclude Include="MartyrEnemy.h">
@@ -376,7 +399,39 @@
     <ClInclude Include="LifeBar.h">
       <Filter>Archivos de encabezado\HUDs\PlayerPanel</Filter>
     </ClInclude>
-    <ClInclude Include="BossPanel.h" />
+    <ClInclude Include="BossPanel.h">
+      <Filter>Archivos de encabezado\HUDs\BossPanel</Filter>
+    </ClInclude>
+    <ClInclude Include="ShooterInterface.h">
+      <Filter>Archivos de encabezado\Guns</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Archivos de encabezado\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="DistanceDynamicEnemy.h">
+      <Filter>Archivos de encabezado\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="DistanceStaticEnemy.h">
+      <Filter>Archivos de encabezado\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Life.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyArm.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerArm.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="GunType_def.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="ShotgunShooter.h">
+      <Filter>Archivos de encabezado\Guns</Filter>
+    </ClInclude>
+    <ClInclude Include="HurtRenderComponent.h">
+      <Filter>Archivos de encabezado\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de encabezado">
@@ -459,6 +514,12 @@
     </Filter>
     <Filter Include="Archivos de código\HUDs\BossPanel">
       <UniqueIdentifier>{c8cfe96c-1a89-491c-b93a-4147164909eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código\Objects\Enemies">
+      <UniqueIdentifier>{805b5edf-62dd-45ad-b64e-7b6134ceb28b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Objects\Enemies">
+      <UniqueIdentifier>{d3fbcbda-55fa-4731-a5a3-582440a69253}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
