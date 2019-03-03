@@ -13,9 +13,6 @@
     <ClCompile Include="Money.cpp">
       <Filter>Archivos de código</Filter>
     </ClCompile>
-    <ClCompile Include="Arm.cpp">
-      <Filter>Archivos de código\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="Bullet.cpp">
       <Filter>Archivos de código\Objects</Filter>
     </ClCompile>
@@ -205,6 +202,12 @@
     <ClCompile Include="HurtRenderComponent.cpp">
       <Filter>Archivos de código\Components</Filter>
     </ClCompile>
+    <ClCompile Include="DistanceEnemy.cpp">
+      <Filter>Archivos de código\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Arm.cpp">
+      <Filter>Archivos de código\Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionManager.h">
@@ -215,9 +218,6 @@
     </ClInclude>
     <ClInclude Include="Money.h">
       <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Arm.h">
-      <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
     <ClInclude Include="Coin.h">
       <Filter>Archivos de encabezado\Objects</Filter>
@@ -431,6 +431,12 @@
     </ClInclude>
     <ClInclude Include="HurtRenderComponent.h">
       <Filter>Archivos de encabezado\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="DistanceEnemy.h">
+      <Filter>Archivos de encabezado\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Arm.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
