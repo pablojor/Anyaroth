@@ -76,7 +76,7 @@ Game::Game()
 {
 	createVariables();
 
-	SDL_Init(SDL_INIT_EVERYTHING);
+	SDL_Init(SDL_INIT_TIMER | SDL_INIT_AUDIO | SDL_INIT_VIDEO | SDL_INIT_EVENTS /*SDL_INIT_EVERYTHING*/);
 	TTF_Init();//Ventana del tama�o de la pantalla de cada dispositivo
 	SDL_DisplayMode monitor;
 	SDL_GetCurrentDisplayMode(0, &monitor);
@@ -120,7 +120,7 @@ Game::Game()
 
 	//Gestion de colisiones
 	_world->SetContactListener(&colManager);
-	//_world->SetDebugDraw(&debugger);
+	_world->SetDebugDraw(&debugger);
 }
 
 Game::~Game()
@@ -130,6 +130,12 @@ Game::~Game()
 	{
 		delete textures[texturesName[i]];
 		textures.erase(texturesName[i]);
+	}
+
+	//delete guns
+	for (int i = 0; i < gameGuns.size(); i++)
+	{
+		delete gameGuns[i].shooter;
 	}
 
 	for (int i = 0; i < NUM_STATES; i++)

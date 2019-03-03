@@ -126,8 +126,11 @@
   <ItemGroup>
     <ClCompile Include="AmmoPackage.cpp" />
     <ClCompile Include="AnimatedSpriteComponent.cpp" />
-    <ClCompile Include="BodyComponent.cpp" />
     <ClCompile Include="Arm.cpp" />
+    <ClCompile Include="BodyComponent.cpp" />
+    <ClCompile Include="DistanceEnemy.cpp" />
+    <ClCompile Include="EnemyArm.cpp" />
+    <ClCompile Include="PlayerArm.cpp" />
     <ClCompile Include="ArmControllerComponent.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -136,9 +139,13 @@
     <ClCompile Include="Collectable.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="DebugDraw.cpp" />
+    <ClCompile Include="DistanceDynamicEnemy.cpp" />
+    <ClCompile Include="DistanceStaticEnemy.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="FollowingComponent.cpp" />
+    <ClCompile Include="HurtRenderComponent.cpp" />
+    <ClCompile Include="Life.cpp" />
     <ClCompile Include="MartyrEnemy.cpp" />
     <ClCompile Include="MeleeEnemy.cpp" />
     <ClCompile Include="ObjectPool.cpp" />
@@ -161,6 +168,8 @@
     <ClCompile Include="PoolWrapper.cpp" />
     <ClCompile Include="RenderComponent.cpp" />
     <ClCompile Include="Shooter.cpp" />
+    <ClCompile Include="ShooterInterface.cpp" />
+    <ClCompile Include="ShotgunShooter.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
     <ClCompile Include="Money.cpp" />
     <ClCompile Include="Texture.cpp" />
@@ -173,8 +182,11 @@
     <ClInclude Include="AmmoPackage.h" />
     <ClInclude Include="AnimatedSpriteComponent.h" />
     <ClInclude Include="AnyarothError.h" />
-    <ClInclude Include="BodyComponent.h" />
     <ClInclude Include="Arm.h" />
+    <ClInclude Include="BodyComponent.h" />
+    <ClInclude Include="DistanceEnemy.h" />
+    <ClInclude Include="EnemyArm.h" />
+    <ClInclude Include="PlayerArm.h" />
     <ClInclude Include="ArmControllerComponent.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Camera.h" />
@@ -185,9 +197,14 @@
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="DebugDraw.h" />
+    <ClInclude Include="DistanceDynamicEnemy.h" />
+    <ClInclude Include="DistanceStaticEnemy.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="GunType_def.h" />
     <ClInclude Include="HUD.h" />
     <ClInclude Include="FollowingComponent.h" />
+    <ClInclude Include="HurtRenderComponent.h" />
+    <ClInclude Include="Life.h" />
     <ClInclude Include="MartyrEnemy.h" />
     <ClInclude Include="MeleeEnemy.h" />
     <ClInclude Include="ObjectPool.h" />
@@ -213,6 +230,8 @@
     <ClInclude Include="RenderComponent.h" />
     <ClInclude Include="SDLError.h" />
     <ClInclude Include="Shooter.h" />
+    <ClInclude Include="ShooterInterface.h" />
+    <ClInclude Include="ShotgunShooter.h" />
     <ClInclude Include="SpriteComponent.h" />
     <ClInclude Include="Money.h" />
     <ClInclude Include="Texture.h" />

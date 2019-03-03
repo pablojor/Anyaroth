@@ -3,12 +3,15 @@
 #include "Enemy.h"
 #include "MovingComponent.h"
 
-
 class MeleeEnemy : public Enemy
 {
-public:
-	MeleeEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag);
-
-	void noLongerAttacking() { _attacking = false; }
-	virtual void update();
+	private:
+		bool _attackingR = false;
+		bool _attackingL = false;
+		int _realRange = 15;
+		int _stopDmg = 1000;
+	public:
+		MeleeEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag);
+		virtual ~MeleeEnemy() { }
+		virtual void update();
 };

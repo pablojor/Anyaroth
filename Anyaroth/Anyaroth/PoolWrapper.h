@@ -19,5 +19,6 @@ public:
 	virtual void render() = 0;*/
 
 	virtual void addBullet(Vector2D pos, Vector2D dir, double angle) {};
+	virtual void changePoolTag(string tag) {};
 };
 
