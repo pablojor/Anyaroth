@@ -121,6 +121,15 @@ bool Gun::shoot(Vector2D bulletPosition, Vector2D bulletDir, bool flipped)
 	}
 
 }
+void Gun::enemyShoot(Vector2D bulletPosition, Vector2D bulletDir, bool flipped)
+{
+	if (_shooterComp != nullptr) //Si tiene un shooter, llama a su shoot()
+	{
+		int flippedAngle = flipped ? 180 : 0;
+		_shooterComp->shoot(bulletPosition, bulletDir, _shootingObj->getComponent<TransformComponent>()->getRotation() - flippedAngle);
+	}
+
+}
 
 
 //Muestra la informaci�n del arma por consola

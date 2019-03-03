@@ -1,7 +1,7 @@
 #pragma once
-#include "Enemy.h"
+#include "DistanceEnemy.h"
 
-class DistanceDynamicEnemy : public Enemy
+class DistanceDynamicEnemy : public DistanceEnemy
 {
 	public:
 		DistanceDynamicEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag);

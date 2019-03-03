@@ -46,6 +46,7 @@ public:
 	void setShooter(ShooterInterface* sh);
 	void setBulletPool(PoolWrapper* bp) { _bPool = bp; };
 	bool shoot(Vector2D bulletPosition, Vector2D bulletDir, bool flipped);
+	void enemyShoot(Vector2D bulletPosition, Vector2D bulletDir, bool flipped);
 
 	void addAmmo(int ammoAdded);
 	bool reload();

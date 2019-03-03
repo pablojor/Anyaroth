@@ -1,7 +1,7 @@
 #pragma once
-#include "Enemy.h"
+#include "DistanceEnemy.h"
 
-class DistanceStaticEnemy : public Enemy
+class DistanceStaticEnemy : public DistanceEnemy
 {
 	private:
 
