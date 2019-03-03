@@ -22,7 +22,6 @@ class Enemy : public GameComponent
 		Player* _player = nullptr;
 		BodyComponent* _body = nullptr;
 		HurtRenderComponent* _hurt = nullptr;
-		EnemyArm* a;
 
 		PlayState* _play;
 		list<GameObject*>::iterator _itList;
