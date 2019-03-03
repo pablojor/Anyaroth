@@ -14,6 +14,7 @@ class Life
 		void addLife(int amount);
 		void subLife(int amount);
 		bool dead() { return _dead; }
-		const int getLife() { return _life; };
+		inline int getLife() const { return _life; };
+		inline int getMaxLife() const { return _maxLife; }
 };
 

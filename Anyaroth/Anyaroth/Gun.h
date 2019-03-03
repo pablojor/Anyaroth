@@ -53,6 +53,7 @@ public:
 	void resetAmmo();
 
 	int getAmmo() { return _ammo; };
+	int getClip() { return _clip; }
 
 	void debugInfo();
 

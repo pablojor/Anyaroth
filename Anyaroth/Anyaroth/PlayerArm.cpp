@@ -48,7 +48,7 @@ void PlayerArm::shoot()
 		double armAngle = _transform->getRotation(),
 			armX = _transform->getPosition().getX(),
 			armY = _transform->getPosition().getY();
-
+    
 		//----------Posici�n inicial de la bala
 		int posOffsetX = 24,
 			posOffsetY = -1;
@@ -92,7 +92,6 @@ void PlayerArm::shoot()
 //Recarga el arma
 bool PlayerArm::reload()
 {
-	return _currentGun->reload();
-	
+	return _currentGun->reload();	
 }
 

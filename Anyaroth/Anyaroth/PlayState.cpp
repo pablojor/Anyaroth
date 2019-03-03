@@ -4,6 +4,9 @@
 #include "FollowingComponent.h"
 #include "checkML.h"
 #include "Coin.h"
+#include "ParallaxBackGround.h"
+#include "ParallaxLayer.h"
+#include "PlayStateHUD.h"
 
 PlayState::PlayState(Game* g) : GameState(g)
 {
@@ -47,6 +50,17 @@ PlayState::PlayState(Game* g) : GameState(g)
 
 	itFR = --(_stages.end());
 	coin->setItList(itFR);	
+	
+	//Camera BackGound
+	/*ParallaxBackGround* a = new ParallaxBackGround(_mainCamera);
+	a->addLayer(new ParallaxLayer(g->getTexture("Parallax"), _mainCamera));
+	_mainCamera->setBackGround(a);*/
+
+	//HUD
+	auto a = new PlayStateHUD(g);
+	setCanvas(a);
+	//Asignacion de paneles a sus controladores
+	_player->setPlayerPanel(a->getPlayerPanel());
 }
 
 void PlayState::KillObject(list<GameObject*>::iterator itList)

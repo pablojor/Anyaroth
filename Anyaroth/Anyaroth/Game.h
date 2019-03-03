@@ -35,13 +35,13 @@ enum StateName
 };
 
 const string INFO_PATH = "..\\files\\info\\";
-const string FONTS_PATH = "..\\font\\";
+const string FONTS_PATH = "..\\assets\\fonts\\";
 const string FILES_PATH = "..\\files\\levels\\";
 const string SAVES_PATH = "..\\files\\saves\\";
 const string SPRITE_PATH = "..\\assets\\sprites\\";
 const string TILEMAP_PATH = "..\\files\\tilemaps\\";
 
-const int NUM_TEXTURES = 12;
+const int NUM_TEXTURES = 20;
 
 const int NUM_FONTS = 0;
 
@@ -84,6 +84,7 @@ class Game
 	private:
 		SDL_Window* window = nullptr;
 		map <string, Texture*> textures;
+		map <string, Font*> _fonts;
 		GameState* states[NUM_STATES];
 		GameStateMachine* stateMachine = new GameStateMachine();
 		vector<string> texturesName;
@@ -113,6 +114,8 @@ class Game
 		GameState* getCurrentState() { return stateMachine->currentState(); };
 
 		Texture* getTexture(string nameText);
+		Font* getFont(string nameFont);
+		SDL_Renderer* getRenderer() { return renderer; }
 		b2World* getWorld() { return _world; }
 		void newGame();
 		void load();

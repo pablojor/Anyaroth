@@ -14,13 +14,13 @@ Font::~Font()
 void Font::load(string filename, int size)
 {
 	_font = TTF_OpenFont(filename.c_str(), size);
-	if (_font == NULL) throw "Error loading font from " + filename;
+	if (_font == nullptr) throw "Error loading font from " + filename;
 }
 
 void Font::free()
 {
-	if (_font != NULL) TTF_CloseFont(_font);
-	_font = NULL;
+	if (_font != nullptr) TTF_CloseFont(_font);
+	_font = nullptr;
 }
 
 SDL_Surface* Font::generateSurface(string text, SDL_Color color) const

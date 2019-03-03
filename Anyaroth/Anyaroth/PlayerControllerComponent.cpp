@@ -2,6 +2,7 @@
 #include "GameComponent.h"
 #include "Player.h"
 
+
 PlayerControllerComponent::PlayerControllerComponent(GameComponent* obj) : InputComponent(obj)
 {
 	_movement = obj->getComponent<MovingComponent>();
@@ -13,7 +14,6 @@ PlayerControllerComponent::PlayerControllerComponent(GameComponent* obj) : Input
 		_anim = obj->addComponent<AnimatedSpriteComponent>();
 
 	_obj = obj;
-
 }
 
 void PlayerControllerComponent::handleInput(const SDL_Event& event)

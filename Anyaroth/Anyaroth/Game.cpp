@@ -52,6 +52,11 @@ Texture* Game::getTexture(string nameText)
 	return textures[nameText];
 }
 
+Font * Game::getFont(string nameFont)
+{
+	return _fonts[nameFont];
+}
+
 void Game::newGame()
 {
 
@@ -105,14 +110,15 @@ Game::Game()
 
 	//---Create textures
 	createTextures();
+	//---Create fonts
+	_fonts["ARIAL12"] = new Font(FONTS_PATH + "arial.ttf", 12);
+
 	_world = new b2World(b2Vec2(0.0, 20));
 	//---Create states
 	states[Play] = new PlayState(this);
 
 	stateMachine->pushState(states[Play]);
-	//World
-
-	
+	//World	
 	debugger.getRenderer(renderer);
 	debugger.getTexture(getTexture("body"));
 	debugger.SetFlags(b2Draw::e_shapeBit);
@@ -132,6 +138,9 @@ Game::~Game()
 		textures.erase(texturesName[i]);
 	}
 
+	for (auto it = _fonts.begin(); it != _fonts.end(); it++)
+		delete it->second;
+		
 	//delete guns
 	for (int i = 0; i < gameGuns.size(); i++)
 	{
@@ -173,7 +182,7 @@ void Game::render(Uint32 time) const
 	SDL_RenderClear(renderer);
 	
 	stateMachine->currentState()->render();
-	_world->DrawDebugData();
+	//_world->DrawDebugData();
 
 	SDL_RenderPresent(renderer);
 }

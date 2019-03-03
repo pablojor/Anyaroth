@@ -8,7 +8,6 @@
 #include "DistanceDynamicEnemy.h"
 #include "BulletPool.h"
 
-class Player;
 
 class PlayState : public GameState
 {
