@@ -171,7 +171,7 @@ void Player::endCollision(GameComponent * other, b2Contact* contact)
 
 void Player::subLife(int damage)
 {
-	//_life.subLife(damage);
+	_life.subLife(damage);
 	if (!_dead)
 	{
 		if (_life.dead())
@@ -187,6 +187,7 @@ void Player::subLife(int damage)
 			_hurtArm->hurt();
 		}
 	}
+	_playerPanel->updateLifeBar(_life.getLife(), _life.getMaxLife());
 }
 
 void Player::die()
@@ -226,6 +227,10 @@ void Player::update()
 	}
 	else
 		_timer = SDL_GetTicks();
+
+	//De momento todo el rato porque hay que cambiar cosas del player, porque esto es un caos
+	_playerPanel->updateDashViewer(_controller->amountDash());
+	_playerPanel->updateAmmoViewer(_weaponArm->getCurrentGun()->getClip(), _weaponArm->getCurrentGun()->getAmmo());
 }
 
 //Equipa un arma utilizando el array de atributos gameGuns de Game.h
@@ -262,6 +267,7 @@ void Player::equipGun(int gunIndex)
 void Player::swapGun()
 {
 	equipGun((_equippedGun + 1) % _maxInventoryGuns); //equipa el arma del siguiente slot
+	_playerPanel->updateWeaponryViewer();
 }
 
 void Player::reload()

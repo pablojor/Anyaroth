@@ -14,9 +14,9 @@ class PlayerControllerComponent : public InputComponent
 		MovingComponent* _movement = nullptr;
 		bool _wPul = false, _aPul = false, _sPul = false, _dPul = false, _sfPul = false;
 		bool _rightClickPul = false, _isAttacking = false;
-    bool _isReloading = false, _rPul = false, _isSwapping = false, _qPul = false;
+		bool _isReloading = false, _rPul = false, _isSwapping = false, _qPul = false;
 		bool _jumping = false, _wallOnR = false, _wallOnL = false, _dashing = false;
-		int _amountOfDash=2;
+		int _amountOfDash = 2;
     
 	public:
 		PlayerControllerComponent(GameComponent* obj);

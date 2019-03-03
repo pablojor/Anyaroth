@@ -31,5 +31,7 @@ public:
 
 	void setGun(Gun* gun); //Establece el arma
 	virtual void shoot();
+
+	inline Gun* getCurrentGun() { return _currentGun; }
 };
 
