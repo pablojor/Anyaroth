@@ -27,7 +27,7 @@ Player::Player(Texture* texture, Game* g, PlayState* play, string tag) : _play(p
 	_body->setH(26);
 	
 	_body->filterCollisions(PLAYER, OBJECTS | FLOOR /*| ENEMY_BULLETS*/);
-	_body->addCricleShape(b2Vec2(0, 1.1), 0.7, PLAYER, OBJECTS | FLOOR);
+	_body->addCricleShape(b2Vec2(0, 1.1), 0.7, PLAYER, FLOOR);
 	_body->getBody()->SetFixedRotation(true);
 
 
@@ -120,14 +120,18 @@ void Player::beginCollision(GameComponent * other, b2Contact* contact)
 	}
 	else if (other->getTag() == "Moneda")
 	{
-		auto coin = dynamic_cast<Coin*>(other);
-		auto cant = coin->getValue();
-		_money->store(cant);
-		coin->destroy();
-		cout << "Moneda cogida" << endl;
-		cout << "Cantidad monedero: " << _money->getWallet() << endl;
+		if (other->isActive())
+		{
+			auto coin = dynamic_cast<Coin*>(other);
+			auto cant = coin->getValue();
+			_money->store(cant);
+			coin->destroy();
+			cout << "Moneda cogida" << endl;
+			cout << "Cantidad monedero: " << _money->getWallet() << endl;
+			
+			_playerPanel->updateCoinsCounter(_money->getWallet());
+		}
 		contact->SetEnabled(false);
-		_playerPanel->updateCoinsCounter(_money->getWallet());
 	}
 }
 

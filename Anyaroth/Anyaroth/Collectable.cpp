@@ -14,10 +14,13 @@ Collectable::Collectable(PlayState* play, Game* g, Texture* texture, Vector2D in
 	auto body = addComponent<BodyComponent>();
 	body->getBody()->SetType(b2_kinematicBody);
 
+	setActive(true);
 	//addComponent<SpriteComponent>();
 }
 
 void Collectable::destroy() 
 { 
+	setActive(false);
 	_play->KillObject(_itList);
 }
+
