@@ -10,9 +10,17 @@ class MovingComponent : public PhysicsComponent
 	private:
 		BodyComponent* _body;
 		b2Vec2 _dir = b2Vec2(0.0f, 0.0f);
-		double _speed = 15, _jumpForce = 180;
+
+		uint32 _dashTimer = 0, 
+				_dashDur = 200;
+
+		double _speed = 15,
+				_jumpForce = 180,
+				_gravScale = 3.5,
+				_damping = 3.0;
+
 		bool _dashing = false;
-		uint32 _dashTimer = 0, _dashDur = 200;
+		
 
 	public:
 		MovingComponent(GameComponent* obj);
