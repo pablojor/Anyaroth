@@ -6,8 +6,9 @@ BodyComponent::BodyComponent(GameComponent * obj) : PhysicsComponent(obj)
 {
 	_transform = obj->getComponent<TransformComponent>();
 
+	_transform != nullptr;
 	auto t = obj->getComponent<Texture>();
-	
+
 	_textW = (t->getW() / t->getNumCols());
 	_textH = (t->getH() / t->getNumFils());
 
@@ -21,7 +22,7 @@ BodyComponent::BodyComponent(GameComponent * obj) : PhysicsComponent(obj)
 
 	b2BodyDef _bodydef;
 	_bodydef.type = b2_staticBody;
-	_bodydef.position = b2Vec2((_transform->getPosition().getX() + _textW *(0.5-_aX)) / M_TO_PIXEL, (_transform->getPosition().getY() + _textH *(0.5-_aY) )/ M_TO_PIXEL);
+	_bodydef.position = b2Vec2((_transform->getPosition().getX() + _textW * (0.5 - _aX)) / M_TO_PIXEL, (_transform->getPosition().getY() + _textH * (0.5 - _aY)) / M_TO_PIXEL);
 	_bodydef.angle = 0.0;
 	_body = _world->CreateBody(&_bodydef);
 
@@ -29,12 +30,13 @@ BodyComponent::BodyComponent(GameComponent * obj) : PhysicsComponent(obj)
 	_fixture.shape = &_shape;
 	_fixture.density = 1;
 	_fixture.restitution = 0;
-	_fixture.friction = 1;
+	_fixture.friction = 0.001;
 
-	
+
 
 	_body->CreateFixture(&_fixture);
 	_body->SetUserData(obj);
+
 }
 
 BodyComponent::~BodyComponent()
@@ -44,7 +46,7 @@ BodyComponent::~BodyComponent()
 
 void BodyComponent::update()
 {
-	if (_body->GetType() != b2_staticBody)
+	if (_body->GetType() != b2_staticBody && _transform != nullptr)
 		_transform->setPosition(((double)_body->GetPosition().x*M_TO_PIXEL)-_textW*(0.5-_aX), ((double)_body->GetPosition().y*M_TO_PIXEL)-_textH*(0.5-_aY));
 }
 
@@ -85,10 +87,36 @@ double BodyComponent::getH()
 	return _height;
 }
 
+void BodyComponent::addCricleShape(const b2Vec2 & Center, float radius, uint16 ownCategory, uint16 collidesWith)
+{
+	//_body->DestroyFixture(_body->GetFixtureList());
+	b2CircleShape* circulo= new b2CircleShape();
+	
+	circulo->m_p.Set(Center.x, Center.y);
+	circulo->m_radius = radius;
+	
+
+	b2FixtureDef *fixt = new b2FixtureDef();
+	fixt->restitution = 0;
+	fixt->shape = circulo;
+	fixt->density = 1;
+	fixt->friction = 200;
+	
+	fixt->filter.categoryBits = ownCategory;
+	fixt->filter.maskBits = collidesWith;
+	
+	
+	_body->CreateFixture(fixt);
+	delete fixt;
+	delete circulo;
+}
+
 //recive la categoria a la que pertenece y las categorias con las que colisiona (del enum _Category)
 void BodyComponent::filterCollisions(uint16 ownCategory, uint16 collidesWith)
 {
 	_body->DestroyFixture(_body->GetFixtureList());
+
+	
 
 	_fixture.filter.categoryBits = ownCategory;
 	_fixture.filter.maskBits = collidesWith;

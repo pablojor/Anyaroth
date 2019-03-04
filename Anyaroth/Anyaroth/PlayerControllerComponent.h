@@ -8,34 +8,37 @@ class GameComponent;
 
 class PlayerControllerComponent : public InputComponent
 {
-	private:
-		AnimatedSpriteComponent* _anim;
-		GameComponent* _obj;
-		MovingComponent* _movement = nullptr;
-		bool _wPul = false, _aPul = false, _sPul = false, _dPul = false, _sfPul = false;
-		bool _rightClickPul = false, _isAttacking = false;
-    bool _isReloading = false, _rPul = false;
-		bool _jumping = false, _wallOnR = false, _wallOnL = false, _dashing = false;
-		int _amountOfDash=2;
-    
-	public:
-		PlayerControllerComponent(GameComponent* obj);
-		virtual void handleInput(const SDL_Event& event);
-		
-		void changeJump();
-		void ableJump();
+private:
+	AnimatedSpriteComponent* _anim;
+	GameComponent* _obj;
+	MovingComponent* _movement = nullptr;
+	bool _spacePul = false, _aPul = false, _sPul = false, _dPul = false, _sfPul = false;
+	bool _rightClickPul = false, _isAttacking = false;
+	bool _isReloading = false, _rPul = false, _isSwapping = false, _qPul = false;
+	bool _jumping = false, _dashing = false;
 
-		void wallOnLeft(bool yes);
-		void wallOnRight(bool yes);
+	int _amountOfDash = 2;
 
-		bool currYDir() { return _wPul; }
-		bool isAttacking() { return _isAttacking; }
-		void setIsAttacking(bool b) { _isAttacking = b; }
-		void newDash() { _amountOfDash++; }
-		int amountDash() { return _amountOfDash; }
+public:
+	PlayerControllerComponent(GameComponent* obj);
+	virtual void handleInput(const SDL_Event& event);
 
-		bool isReloading() { return _isReloading; };
-		void setIsReloading(bool b) { _isReloading = b; };
+	void changeJump();
+	void ableJump();
 
-		void reload();
+	
+
+	inline bool IsSpaceDown() {return _spacePul;}
+	inline bool currYDir() { return _spacePul; }
+	inline bool currXDir() { if (_aPul)return -1; else if (_dPul) return 1; else 0; }
+	inline bool isAttacking() { return _isAttacking; }
+	inline void setIsAttacking(bool b) { _isAttacking = b; }
+	inline void newDash() { _amountOfDash++; }
+	inline int amountDash() { return _amountOfDash; }
+
+	inline bool isReloading() { return _isReloading; };
+	inline void setIsReloading(bool b) { _isReloading = b; };
+
+	void reload();
+
 };

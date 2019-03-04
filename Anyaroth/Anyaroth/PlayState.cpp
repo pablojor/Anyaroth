@@ -5,6 +5,10 @@
 #include "FollowingComponent.h"
 #include "checkML.h"
 #include "ObjectLayer.h"
+#include "Coin.h"
+#include "ParallaxBackGround.h"
+#include "ParallaxLayer.h"
+#include "PlayStateHUD.h"
 
 PlayState::PlayState(Game* g) : GameState(g)
 {
@@ -17,9 +21,18 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_colisionLayer->addComponent<BodyComponent>();
 	_stages.push_back(_colisionLayer);
 
-	//Pool arma b�sica
-	_examplePool = new BulletPool<100>(g, g->getTexture("PistolBullet"), 100, 10);
-	_stages.push_back(_examplePool);
+	//Pools balas
+	_basicBulletPool = new BulletPool<100>(g, g->getTexture("PistolBullet"), 100, 10, 1000);
+	_stages.push_back(_basicBulletPool);
+	_pools.push_back(_basicBulletPool);
+
+	_basicShotgunBulletPool = new BulletPool<100>(g, g->getTexture("PistolBullet"), 100, 25, 60);
+	_stages.push_back(_basicShotgunBulletPool);
+	_pools.push_back(_basicShotgunBulletPool);
+
+	_enemyPool = new BulletPool<200>(g, g->getTexture("PistolBullet"), 100, 10, 1000);
+	_stages.push_back(_enemyPool);
+	_pools.push_back(_enemyPool);
 
 	//Player
 	_player = new Player(g->getTexture("Mk"), g, this, "Player");
@@ -28,19 +41,20 @@ PlayState::PlayState(Game* g) : GameState(g)
 	//Camera
 	_mainCamera->fixCameraToObject(_player);
 	
+	//Enemies
 	 auto oL= new ObjectLayer(TILEMAP_PATH + "Nivel1.json", "Enemigos");
 	 vector <Vector2D> enemiesPos = oL->getObjectsPositions();
 	 delete oL;
 
 	 for (int i = 0; i < enemiesPos.size(); i++)
 	 {
-		 _enemy = new MeleeEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(enemiesPos[i].getX(), enemiesPos[i].getY() - TILES_SIZE * 2), "Enemy");
+		 _enemy = new DistanceStaticEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(enemiesPos[i].getX(), enemiesPos[i].getY() - TILES_SIZE * 2), "Enemy");
 		_stages.push_back(_enemy);
 		auto itFR = --(_stages.end());
 		_enemy->setItList(itFR);
 	 }
 
-
+	//Coins
 	 oL = new ObjectLayer(TILEMAP_PATH + "Nivel1.json", "Monedas");
 	 vector <Vector2D> coinsPos = oL->getObjectsPositions();
 	 delete oL;
@@ -62,6 +76,19 @@ PlayState::PlayState(Game* g) : GameState(g)
 	 //Gestion de colisiones
 	 g->getWorld()->SetContactListener(&_colManager);
 	 g->getWorld()->SetDebugDraw(&_debugger);
+	
+	//Camera BackGound
+	ParallaxBackGround* a = new ParallaxBackGround(_mainCamera);
+	a->addLayer(new ParallaxLayer(g->getTexture("BgZ1L1"), _mainCamera,0.5));
+	a->addLayer(new ParallaxLayer(g->getTexture("BgZ1L2"), _mainCamera,1));
+	a->addLayer(new ParallaxLayer(g->getTexture("BgZ1L3"), _mainCamera,1.5));
+	_mainCamera->setBackGround(a);
+
+	//HUD
+	auto b = new PlayStateHUD(g);
+	setCanvas(b);
+	//Asignacion de paneles a sus controladores
+	_player->setPlayerPanel(b->getPlayerPanel());
 }
 
 void PlayState::KillObject(list<GameObject*>::iterator itList)

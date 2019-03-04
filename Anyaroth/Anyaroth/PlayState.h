@@ -6,10 +6,11 @@
 #include "CollisionManager.h"
 #include "MeleeEnemy.h"
 #include "MartyrEnemy.h"
+#include "DistanceStaticEnemy.h"
+#include "DistanceDynamicEnemy.h"
 #include "BulletPool.h"
 #include "Coin.h"
 
-class Player;
 
 class PlayState : public GameState
 {
@@ -23,7 +24,11 @@ class PlayState : public GameState
 		CollisionManager _colManager;
 		DebugDraw _debugger;
 
-		PoolWrapper* _examplePool = nullptr; //TEMPORAL
+		PoolWrapper* _enemyPool = nullptr; //TEMPORAL
+		//Bullet Pools
+		PoolWrapper* _basicBulletPool = nullptr; //balas b�sicas
+		PoolWrapper* _basicShotgunBulletPool = nullptr; //balas de escopeta
+		vector<PoolWrapper*> _pools;
 
 		vector <list<GameObject*>::iterator> items_ToDelete;
 
@@ -32,5 +37,5 @@ class PlayState : public GameState
 		void KillObject(list<GameObject*>::iterator itList);
 		virtual void update();
 		virtual bool handleEvents(SDL_Event& e);
-		inline PoolWrapper* getBulletPool() { return _examplePool; };
+		inline PoolWrapper* getBulletPool(int index) { return _pools[index]; };
 };

@@ -39,6 +39,19 @@ Texture* Game::getTexture(string nameText)
 	return textures[nameText];
 }
 
+
+void Game::toggleFullscreen() {
+	Uint32 FullscreenFlag = SDL_WINDOW_FULLSCREEN_DESKTOP; //fake fullscreen (windowed mode)
+	bool IsFullscreen = SDL_GetWindowFlags(window) & FullscreenFlag;
+	SDL_SetWindowFullscreen(window, IsFullscreen ? 0 : FullscreenFlag);
+}
+
+Font * Game::getFont(string nameFont)
+{
+	return _fonts[nameFont];
+
+}
+
 void Game::newGame()
 {
 
@@ -56,8 +69,10 @@ void Game::save()
 
 Game::Game()
 {
-	SDL_Init(SDL_INIT_EVERYTHING);
-	TTF_Init(); //Ventana del tama�o de la pantalla de cada dispositivo
+	createVariables();
+
+	SDL_Init(SDL_INIT_TIMER | SDL_INIT_AUDIO | SDL_INIT_VIDEO | SDL_INIT_EVENTS /*SDL_INIT_EVERYTHING*/);
+	TTF_Init();//Ventana del tama�o de la pantalla de cada dispositivo
 	SDL_DisplayMode monitor;
 	SDL_GetCurrentDisplayMode(0, &monitor);
 	auto win_width = monitor.w - 50;
@@ -67,9 +82,12 @@ Game::Game()
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 	SDL_RenderSetLogicalSize(renderer, GAME_RESOLUTION_X, GAME_RESOLUTION_Y);
 
+	//Icon
 	SDL_Surface* icon = IMG_Load("..\\icon.png");
 	SDL_SetWindowIcon(window, icon);
 
+	//Show cursor
+	SDL_ShowCursor(true);
 	//-----------------------------------------
 	//Ajustamos el viewPort
 	/*SDL_Rect viewport;
@@ -82,8 +100,10 @@ Game::Game()
 
 	//---Create textures
 	createTextures();
+	//---Create world
 	_world = new b2World(b2Vec2(0.0, 9.8));
-
+	//---Create fonts
+	_fonts["ARIAL12"] = new Font(FONTS_PATH + "arial.ttf", 12);
 	//---Create states
 	stateMachine->pushState(new MenuState(this));
 }
@@ -96,6 +116,18 @@ Game::~Game()
 		delete textures[texturesName[i]];
 		textures.erase(texturesName[i]);
 	}
+
+	for (auto it = _fonts.begin(); it != _fonts.end(); it++)
+		delete it->second;
+		
+	//delete guns
+	for (int i = 0; i < gameGuns.size(); i++)
+	{
+		delete gameGuns[i].shooter;
+	}
+
+	for (int i = 0; i < NUM_STATES; i++)
+		delete states[i];
 
 	delete stateMachine;
 	delete _world;
@@ -129,7 +161,7 @@ void Game::render(Uint32 time) const
 	SDL_RenderClear(renderer);
 	
 	stateMachine->currentState()->render();
-	_world->DrawDebugData();
+	//_world->DrawDebugData();
 
 	SDL_RenderPresent(renderer);
 }
@@ -141,6 +173,13 @@ void Game::handleEvents(Uint32 time)
 	{
 		if (event.type == SDL_QUIT)
 			exit = true;
+		else if (event.type == SDL_KEYDOWN)
+		{
+			if (event.key.keysym.sym == SDLK_F11)
+			{
+				toggleFullscreen();
+			}
+		}
 
 		stateMachine->currentState()->handleEvents(event);
 	}
