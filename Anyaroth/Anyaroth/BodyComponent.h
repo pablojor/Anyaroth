@@ -26,5 +26,7 @@ public:
 	double getW();
 	double getH();
 
+	void addCricleShape(const b2Vec2 & Center, float radius, uint16 ownCategory, uint16 collidesWith);
+
 	void filterCollisions(uint16 ownCategory, uint16 collidesWith);
 };

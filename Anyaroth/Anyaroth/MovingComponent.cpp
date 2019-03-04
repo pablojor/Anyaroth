@@ -8,7 +8,8 @@ MovingComponent::MovingComponent(GameComponent* obj) : PhysicsComponent(obj)
 	if (_body == nullptr) _body = obj->addComponent<BodyComponent>();
 	/*_anim = obj->getComponent<AnimatedSpriteComponent>();
 	if (_anim == nullptr) _anim = obj->addComponent<AnimatedSpriteComponent>();*/
-	_body->getBody()->SetLinearDamping(1.5);
+	_body->getBody()->SetLinearDamping(2.5);
+	_body->getBody()->SetGravityScale(2);
 }
 
 void MovingComponent::update() 
@@ -31,13 +32,18 @@ void MovingComponent::update()
 	}
 	else
 	{
-		if (SDL_GetTicks() < (_dashTimer + _dashDur))
-			_body->getBody()->SetLinearVelocity(b2Vec2(_dir.x*_speed * 2, _dir.y*_speed * 2));
-		else
-		{
-			_body->getBody()->SetLinearVelocity(b2Vec2(_dir.x*_speed *0.8, _dir.y*_speed * 0.8));
-			changeDash(false);
+		if (_dir.y == 0) {
+			if (SDL_GetTicks() < (_dashTimer + _dashDur))
+				_body->getBody()->SetLinearVelocity(b2Vec2(_dir.x*_speed * 2, _dir.y*_speed * 2));
+			else
+			{
+				_body->getBody()->SetLinearVelocity(b2Vec2(_dir.x*_speed *0.8, _dir.y*_speed * 0.8));
+				changeDash(false);
+			}
 		}
+		else
+			_body->getBody()->SetLinearVelocity(b2Vec2(_dir.x*_speed * 2, _dir.y*_speed * 2));
+		
 
 	}
 	
@@ -48,8 +54,8 @@ void MovingComponent::changeDash(bool dash) {
 	if (!dash)
 	{
 		//changeDir(0, 0);
-		_body->getBody()->SetGravityScale(1);
-		_body->getBody()->SetLinearDamping(1.5);
+		_body->getBody()->SetGravityScale(2);
+		_body->getBody()->SetLinearDamping(2.5);
 		
 	}
 	else

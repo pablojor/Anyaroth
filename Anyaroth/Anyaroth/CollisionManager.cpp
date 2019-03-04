@@ -8,7 +8,7 @@ CollisionManager::~CollisionManager()
 
 void CollisionManager::BeginContact(b2Contact * contact)
 {
-	cout << "colision" << endl;
+	//cout << "colision" << endl;
 	void* bodyUserDataA = contact->GetFixtureA()->GetBody()->GetUserData();
 	void* bodyUserDataB = contact->GetFixtureB()->GetBody()->GetUserData();
 	if (bodyUserDataA && bodyUserDataB)

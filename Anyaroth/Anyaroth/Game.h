@@ -41,7 +41,9 @@ const string SAVES_PATH = "..\\files\\saves\\";
 const string SPRITE_PATH = "..\\assets\\sprites\\";
 const string TILEMAP_PATH = "..\\files\\tilemaps\\";
 
+///puede que haya que poner una mas
 const int NUM_TEXTURES = 22;
+
 
 const int NUM_FONTS = 0;
 
@@ -111,12 +113,16 @@ class Game
 		void createTextures();
 		void pushState(StateName);
 		void changeState(StateName);
+		void toggleFullscreen();
+
 		GameState* getCurrentState() { return stateMachine->currentState(); };
 
 		Texture* getTexture(string nameText);
 		Font* getFont(string nameFont);
 		SDL_Renderer* getRenderer() { return renderer; }
 		b2World* getWorld() { return _world; }
+
+
 		void newGame();
 		void load();
 		void save();

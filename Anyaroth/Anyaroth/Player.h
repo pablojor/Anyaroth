@@ -38,6 +38,9 @@ private:
 	uint32 _timer = 0;
 	int _MaxDash = 2;
 	Money * _money = nullptr;
+
+	bool OnGround = false;
+
 	int _maxInventoryGuns = 2; //n�mero de slots en el inventario de armas 
 	vector<GunType> _gunInventory; //Ej: == {Game::BasicGun} -> indica que en el inventario solo lleva la pistola b�sica
 	GunType _equippedGun = BasicGun;
@@ -47,7 +50,7 @@ private:
 
 public:
 
-	enum states { Idle, Attacking, Reloading, Dashing };
+	enum states { Idle, Attacking, Walking, Reloading, Dashing, Falling, Jumping };
 
 	Player(Texture* texture, Game* g, PlayState* play, string tag);
 	~Player();
