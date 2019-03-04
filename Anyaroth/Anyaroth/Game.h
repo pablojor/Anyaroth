@@ -1,14 +1,14 @@
 #pragma once
-
 #include <list>
 #include <vector>
 #include <map>
 
 #include "Texture.h"
 #include "GameStateMachine.h"
+#include "MenuState.h"
 #include "PlayState.h"
-#include "DebugDraw.h"
-#include "CollisionManager.h"
+#include "PauseState.h"
+#include "Gun.h"
 #include "ShooterInterface.h"
 #include "Shooter.h"
 #include "ShotgunShooter.h"
@@ -18,21 +18,8 @@
 const int GAME_RESOLUTION_X = 480;
 const int GAME_RESOLUTION_Y = 270;
 
-const int LEVEL_WIDTH = GAME_RESOLUTION_X * 5;
-const int LEVEL_HEIGHT = GAME_RESOLUTION_Y * 5;
-
-
-const int NUM_VARIABLES = 4;
-enum TypeVariable
-{
-	WIN_WIDTH, WIN_HEIGHT, FRAME_RATE, TIME_PER_FRAME	
-};
-
-const int NUM_STATES = 1;
-enum StateName
-{
-	Play
-};
+const int LEVEL_WIDTH = GAME_RESOLUTION_X * 10;
+const int LEVEL_HEIGHT = GAME_RESOLUTION_Y * 3;
 
 const string INFO_PATH = "..\\files\\info\\";
 const string FONTS_PATH = "..\\assets\\fonts\\";
@@ -41,22 +28,13 @@ const string SAVES_PATH = "..\\files\\saves\\";
 const string SPRITE_PATH = "..\\assets\\sprites\\";
 const string TILEMAP_PATH = "..\\files\\tilemaps\\";
 
-///puede que haya que poner una mas
-const int NUM_TEXTURES = 22;
-
+const int NUM_TEXTURES = 25;
 
 const int NUM_FONTS = 0;
-
-const int NUM_LEVELS = 1;
-const string LEVELS[NUM_LEVELS] =
-{
-
-};
-
-const double TILES_W = 16;
-const double TILES_H = 16;
+const int TILES_SIZE = 16;
 
 const double M_TO_PIXEL = 8;
+const double BUTTON_SCALE = 0.25;
 
 //ARMAS
 //const int NUM_GUNS = 2; //N�mero de armas en el juego
@@ -76,10 +54,6 @@ enum _Category {
 	PLAYER = 3,
 	OBJECTS = 4,
 };
-//********************************************************************************
-//********************************************************************************
-//********************************************************************************
-//********************************************************************************
 
 class Game
 {
@@ -87,20 +61,14 @@ class Game
 		SDL_Window* window = nullptr;
 		map <string, Texture*> textures;
 		map <string, Font*> _fonts;
-		GameState* states[NUM_STATES];
 		GameStateMachine* stateMachine = new GameStateMachine();
 		vector<string> texturesName;
 		b2World* _world = nullptr;
-		CollisionManager colManager;
-		DebugDraw debugger;
 		bool exit = false;
 
 	public:
 		SDL_Renderer* renderer = nullptr;
 		vector<int> var;
-
-		
-
 		vector<GunAttributes> gameGuns = 
 		{
 			{new Shooter(),BasicGun,60,12},
@@ -109,24 +77,22 @@ class Game
 		};
 
 		//Metodos
-		void createVariables();
 		void createTextures();
-		void pushState(StateName);
-		void changeState(StateName);
-		void toggleFullscreen();
-
-		GameState* getCurrentState() { return stateMachine->currentState(); };
-
+		void pushState(GameState* state);
+		void changeState(GameState* state);
+		void popState();
+		inline GameState* getCurrentState() { return stateMachine->currentState(); };
 		Texture* getTexture(string nameText);
 		Font* getFont(string nameFont);
-		SDL_Renderer* getRenderer() { return renderer; }
-		b2World* getWorld() { return _world; }
-
+		inline SDL_Renderer* getRenderer() const { return renderer; }
+		inline b2World* getWorld() const { return _world; }
+		inline void setExit(bool quit) { exit = quit; }
+		void toggleFullscreen();
 
 		void newGame();
 		void load();
 		void save();
-		//*************************
+
 		Game();
 		~Game();
 		void run();

@@ -1,16 +1,25 @@
 #include "PauseState.h"
+#include "MenuState.h"
 
 PauseState::PauseState(Game* g) : GameState(g) 
 {
+	int buttonH = g->getTexture("Continue")->getH()*BUTTON_SCALE;
+	int buttonW = g->getTexture("Continue")->getW()*BUTTON_SCALE;
 
+	_stages.push_back(new MenuButton(Vector2D(GAME_RESOLUTION_X / 2 - buttonW / 2, GAME_RESOLUTION_Y / 2 - buttonH), g->getTexture("Continue"), g, Continue));
+	_stages.push_back(new MenuButton(Vector2D(GAME_RESOLUTION_X / 2 - buttonW / 2, GAME_RESOLUTION_Y / 2 + buttonH), g->getTexture("Menu"), g, MainMenu));
 }
 
-void PauseState::handleEvents(SDL_Event& e)
+PauseState::~PauseState()
 {
-	GameState::handleEvents(e);
 }
 
-void PauseState::update()
+void PauseState::Continue(Game * g)
 {
-	GameState::update();
+	g->popState();
+}
+
+void PauseState::MainMenu(Game * g)
+{
+	g->changeState(new MenuState(g));
 }

@@ -41,7 +41,10 @@ BodyComponent::BodyComponent(GameComponent * obj) : PhysicsComponent(obj)
 
 BodyComponent::~BodyComponent()
 {
-	_world->DestroyBody(_body);
+	if (_body != nullptr) {
+		_world->DestroyBody(_body);
+		//_body = nullptr;
+	}
 }
 
 void BodyComponent::update()

@@ -1,22 +1,5 @@
 #include "Game.h"
 
-void Game::createVariables()
-{
-	ifstream input;
-	input.open(INFO_PATH + "info.txt");
-	if (input.is_open())
-	{
-		for (int i = 0; i < NUM_VARIABLES; i++)
-		{
-			int value;
-			string trash;
-			input >> trash; input >> value;
-			var.push_back(value);
-		}
-	}
-	input.close();
-}
-
 void Game::createTextures()
 {
 	ifstream input;
@@ -36,16 +19,20 @@ void Game::createTextures()
 	input.close();
 }
 
-void Game::pushState(StateName nameState)
+void Game::pushState(GameState* state)
 {
-	stateMachine->pushState(states[nameState]);
+	stateMachine->pushState(state);
 }
 
-void Game::changeState(StateName nameState)
+void Game::changeState(GameState* state)
 {
-	stateMachine->changeState(states[nameState]);
+	stateMachine->changeState(state);
 }
 
+void Game::popState()
+{
+	stateMachine->popState();
+}
 
 Texture* Game::getTexture(string nameText)
 {
@@ -80,26 +67,18 @@ void Game::save()
 
 }
 
-//**************************************************************************************************************************//
-//**************************************************************************************************************************//
-//**************************************************************************************************************************//
-//**************************************************************************************************************************//
-
 Game::Game()
 {
-	createVariables();
-
 	SDL_Init(SDL_INIT_TIMER | SDL_INIT_AUDIO | SDL_INIT_VIDEO | SDL_INIT_EVENTS /*SDL_INIT_EVERYTHING*/);
 	TTF_Init();//Ventana del tama�o de la pantalla de cada dispositivo
 	SDL_DisplayMode monitor;
 	SDL_GetCurrentDisplayMode(0, &monitor);
 	auto win_width = monitor.w - 50;
 	auto win_height = monitor.h - 80;
-	//----------------------------------------
 
 	window = SDL_CreateWindow("Anyaroth", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, win_width, win_height, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_MAXIMIZED);
-	//window = SDL_CreateWindow("Anayroth", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1080, 760, SDL_WINDOW_SHOWN);
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+	SDL_RenderSetLogicalSize(renderer, GAME_RESOLUTION_X, GAME_RESOLUTION_Y);
 
 	//Icon
 	SDL_Surface* icon = IMG_Load("..\\icon.png");
@@ -116,28 +95,15 @@ Game::Game()
 	viewport.h = 270 * RESOLUTION;
 	SDL_RenderSetViewport(renderer, &viewport);*/
 	//-----------------------------------------
-	SDL_RenderSetLogicalSize(renderer, GAME_RESOLUTION_X, GAME_RESOLUTION_Y);
-	//-----------------------------------------
 
 	//---Create textures
 	createTextures();
+	//---Create world
+	_world = new b2World(b2Vec2(0.0, 9.8));
 	//---Create fonts
 	_fonts["ARIAL12"] = new Font(FONTS_PATH + "arial.ttf", 12);
-
-	_world = new b2World(b2Vec2(0.0, 20));
 	//---Create states
-	states[Play] = new PlayState(this);
-
-	stateMachine->pushState(states[Play]);
-	//World	
-	debugger.getRenderer(renderer);
-	debugger.getTexture(getTexture("body"));
-	debugger.SetFlags(b2Draw::e_shapeBit);
-	debugger.getTexture(getTexture("body"));
-
-	//Gestion de colisiones
-	_world->SetContactListener(&colManager);
-	_world->SetDebugDraw(&debugger);
+	stateMachine->pushState(new MenuState(this));
 }
 
 Game::~Game()
@@ -157,10 +123,6 @@ Game::~Game()
 	{
 		delete gameGuns[i].shooter;
 	}
-
-	for (int i = 0; i < NUM_STATES; i++)
-		delete states[i];
-
 	delete stateMachine;
 	delete _world;
 	SDL_DestroyRenderer(renderer);
@@ -185,16 +147,12 @@ void Game::run()
 void Game::update(Uint32 time)
 {
 	stateMachine->currentState()->update();
-	_world->Step(1 / 20.0, 8, 3);
 }
 
 void Game::render(Uint32 time) const
 {
 	SDL_RenderClear(renderer);
-	
 	stateMachine->currentState()->render();
-	//_world->DrawDebugData();
-
 	SDL_RenderPresent(renderer);
 }
 

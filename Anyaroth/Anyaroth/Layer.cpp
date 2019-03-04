@@ -1,70 +1,69 @@
 #include "Layer.h"
 #include "Game.h"
 #include "AnyarothError.h"
-#include <sstream>
+#include <json.hpp>
+
+using namespace nlohmann;
 
 Layer::Layer(string name, Texture* t, string filename, Game* g, string tag) : GameComponent(g), _tileset(t)
 {
+	json j;
 	_tilemap.clear();
 	fstream file;
 	file.open(filename);
 	if (file.is_open())
 	{
-		int temp = 0, h = 0, w = 0;
-		bool found = false, cont = true;
-		string n = "", data;
-		//lee el archivo hasta que encuentra la layer que se quiere
-		while ((!found || cont) && n != "}")
+		file >> j;
+		j = j["layers"];
+		int i = 0;
+		bool cont = true;
+		while (i < j.size() && cont)
 		{
-			getline(file, n, ':');
-			//guardamos los datos en caso de que sea la capa que queremos
-			if (n == "         \"height\"")
+			auto it = j[i].find("name");
+			if (it != j[i].end())
 			{
-				getline(file, n);
-				h = stoi(n);
-			}
-			else if (n == "         \"width\"")
-			{
-				getline(file, n);
-				w = stoi(n);
-				//como el width esta escrito despues del nombre solo cuando se ha encontrado y leido width se sale del bucle
-				if (found)
-					cont = false;
-			}
-
-			else
-			{
-				getline(file, n);
-				if (n[0] == '[')
-					data = n;
-				else if (n == '\"' + name + "\",")
-					found = true;
+				cont = *it != name;
+				if (cont)
+					i++;
 			}
 		}
-		//convertimos los datos en input stream
-		istringstream iss(data);
-		//si no es el final del .json
-		if (n != "}") {
-			getline(iss, n, '[');
+
+		if (i != j.size())
+		{
+			int index, h = 0, w = 0;
+			j = j[i];
+
+			auto it = j.find("height");
+			if (it != j.end())
+				h = *it;
+
+			it = j.find("width");
+			if (it != j.end())
+				w = *it;
+
+			it = j.find("data");
+			if (it != j.end())
+				j = *it;
+			int temp;
 			for (int y = 0; y < h; y++)
 			{
 				for (int x = 0; x < w; x++)
 				{
-					getline(iss, n, ',');
-					temp = stoi(n);
+					temp = j[(y*w) + (x)];
 					temp--;
 					if (temp >= 0)
 					{
-						Tile* tile = new Tile(x * TILES_W, y * TILES_H, (temp / t->getNumCols()), temp % t->getNumCols(), _tileset, g, tag);
+						Tile* tile = new Tile(x * TILES_SIZE, y * TILES_SIZE, (temp / t->getNumCols()), temp % t->getNumCols(), _tileset, g, tag);
 						_tilemap.push_back(tile);
 					}
 				}
 			}
 		}
 		else
-			throw AnyarothError("El formato del tileset no es correcto");
+			throw AnyarothError("No se ha encontrado la capa introducida");
 		file.close();
 	}
+	else throw AnyarothError("No se ha encontrado el archivo");
 }
 
 Layer::~Layer()

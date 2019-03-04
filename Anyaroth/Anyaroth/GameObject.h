@@ -14,5 +14,5 @@ class GameObject
 		virtual ~GameObject() {};
 		virtual void render(Camera* c) const = 0;
 		virtual void update() = 0;
-		virtual void handleInput(const SDL_Event& event) = 0;
+		virtual bool handleInput(const SDL_Event& event) = 0;
 };

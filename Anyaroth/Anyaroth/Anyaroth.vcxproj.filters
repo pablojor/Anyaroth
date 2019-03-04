@@ -1,16 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="CollisionManager.cpp">
-      <Filter>Archivos de código</Filter>
-    </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>Archivos de código</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
-      <Filter>Archivos de código</Filter>
-    </ClCompile>
-    <ClCompile Include="Money.cpp">
       <Filter>Archivos de código</Filter>
     </ClCompile>
     <ClCompile Include="Bullet.cpp">
@@ -124,6 +118,15 @@
     <ClCompile Include="GameComponent.cpp">
       <Filter>Archivos de código\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>Archivos de código\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Money.cpp">
+      <Filter>Archivos de código\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuButton.cpp">
+      <Filter>Archivos de código\Objects</Filter>
+    </ClCompile>
     <ClCompile Include="ImageUI.cpp">
       <Filter>Archivos de código\UIElements</Filter>
     </ClCompile>
@@ -187,9 +190,6 @@
     <ClCompile Include="DistanceStaticEnemy.cpp">
       <Filter>Archivos de código\Objects\Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="Life.cpp">
-      <Filter>Archivos de código</Filter>
-    </ClCompile>
     <ClCompile Include="EnemyArm.cpp">
       <Filter>Archivos de código\Objects</Filter>
     </ClCompile>
@@ -208,15 +208,18 @@
     <ClCompile Include="Arm.cpp">
       <Filter>Archivos de código\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="ObjectLayer.cpp">
+      <Filter>Archivos de código\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectPool.cpp">
+      <Filter>Archivos de código\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Life.cpp">
+      <Filter>Archivos de código\Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CollisionManager.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="Game.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Money.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="Coin.h">
@@ -351,6 +354,12 @@
     <ClInclude Include="HUD.h">
       <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
+    <ClInclude Include="MenuButton.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h">
+      <Filter>Archivos de encabezado\Utilities</Filter>
+    </ClInclude>
     <ClInclude Include="Canvas.h">
       <Filter>Archivos de encabezado\UIElements</Filter>
     </ClInclude>
@@ -414,9 +423,6 @@
     <ClInclude Include="DistanceStaticEnemy.h">
       <Filter>Archivos de encabezado\Objects\Enemies</Filter>
     </ClInclude>
-    <ClInclude Include="Life.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="EnemyArm.h">
       <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
@@ -436,6 +442,18 @@
       <Filter>Archivos de encabezado\Objects\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="Arm.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectLayer.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectPool.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Money.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Life.h">
       <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
   </ItemGroup>

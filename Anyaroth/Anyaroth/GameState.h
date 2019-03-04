@@ -1,5 +1,4 @@
 #pragma once
-
 #include <list>
 #include <vector>
 #include "GameObject.h"
@@ -24,7 +23,7 @@ class GameState
 		virtual ~GameState();
 		virtual void render() const;
 		virtual void update();
-		virtual void handleEvents(SDL_Event& e);
+		virtual bool handleEvents(SDL_Event& e);
 
 		virtual Camera* getMainCamera() { return _mainCamera; };
 		virtual list <GameObject*> getObjects() { return _stages; }

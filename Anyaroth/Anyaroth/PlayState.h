@@ -2,19 +2,28 @@
 #include "GameState.h"
 #include "Layer.h"
 #include "Player.h"
+#include "DebugDraw.h"
+#include "CollisionManager.h"
 #include "MeleeEnemy.h"
 #include "MartyrEnemy.h"
 #include "DistanceStaticEnemy.h"
 #include "DistanceDynamicEnemy.h"
 #include "BulletPool.h"
+#include "Coin.h"
 
 
 class PlayState : public GameState
 {
 	private:
+		Game* _game = nullptr;
 		Player* _player = nullptr;
-		Layer* _colLayer = nullptr;
 		Enemy* _enemy = nullptr;
+		Coin* _coin = nullptr;
+		Layer* _layer = nullptr;
+		Layer* _colisionLayer = nullptr;
+		b2World* _world;
+		CollisionManager _colManager;
+		DebugDraw _debugger;
 
 		PoolWrapper* _enemyPool = nullptr; //TEMPORAL
 		//Bullet Pools
@@ -27,7 +36,8 @@ class PlayState : public GameState
 	public:
 		PlayState(Game* g);
 		void KillObject(list<GameObject*>::iterator itList);
+		virtual void render();
 		virtual void update();
-		virtual void handleEvents(SDL_Event& e);
-		PoolWrapper* getBulletPool(int index) { return _pools[index]; };
+		virtual bool handleEvents(SDL_Event& e);
+		inline PoolWrapper* getBulletPool(int index) { return _pools[index]; };
 };

@@ -24,11 +24,19 @@ void GameState::update()
 	if (_canvas != nullptr) _canvas->update();
 }
 
-void GameState::handleEvents(SDL_Event& e)
+bool GameState::handleEvents(SDL_Event& e)
 {
-	for (GameObject* o : _stages)
-		o->handleInput(e);
-	if (_canvas != nullptr) _canvas->handleEvent(e);
+	bool handled = false;
+	auto it = _stages.begin();
+
+	while (!handled && it != _stages.end()) {
+		if ((*it)->handleInput(e))
+			handled = true;
+		else
+			it++;
+	}
+	//if (_canvas != nullptr) _canvas->handleEvent(e);
+	return handled;
 }
 
 void GameState::initializeCamera()
