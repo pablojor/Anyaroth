@@ -3,6 +3,9 @@
 
 MenuState::MenuState(Game* g) : GameState(g)
 {
+	//Show cursor
+	SDL_ShowCursor(true);
+
 	int buttonH = g->getTexture("Play")->getH()*BUTTON_SCALE;
 	int buttonW = g->getTexture("Play")->getW()*BUTTON_SCALE;
 

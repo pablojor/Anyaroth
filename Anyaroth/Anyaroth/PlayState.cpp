@@ -9,11 +9,15 @@
 #include "ParallaxBackGround.h"
 #include "ParallaxLayer.h"
 #include "PlayStateHUD.h"
+#include "Cursor.h"
 
 PlayState::PlayState(Game* g) : GameState(g)
 {
 	_game = g;
 	_world = g->getWorld();
+
+	//hide cursor
+	SDL_ShowCursor(false);
 
 	//Tilemap
 	_layer = new Layer("Mapa", g->getTexture("tileset"), TILEMAP_PATH + "Nivel1.json", g, "Mapa");
@@ -84,6 +88,10 @@ PlayState::PlayState(Game* g) : GameState(g)
 	a->addLayer(new ParallaxLayer(g->getTexture("BgZ1L2"), _mainCamera,1));
 	a->addLayer(new ParallaxLayer(g->getTexture("BgZ1L3"), _mainCamera,1.5));
 	_mainCamera->setBackGround(a);
+
+	//cursor
+	Cursor* cursor = new Cursor(g->getTexture("GunCursor"), g, this);
+	_stages.push_back(cursor);
 
 	//HUD
 	auto b = new PlayStateHUD(g);

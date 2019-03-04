@@ -130,6 +130,7 @@
     <ClCompile Include="Arm.cpp" />
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="BodyComponent.cpp" />
+    <ClCompile Include="Cursor.cpp" />
     <ClCompile Include="DistanceEnemy.cpp" />
     <ClCompile Include="EnemyArm.cpp" />
     <ClCompile Include="PlayerArm.cpp" />
@@ -205,6 +206,7 @@
     <ClInclude Include="Arm.h" />
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="BodyComponent.h" />
+    <ClInclude Include="Cursor.h" />
     <ClInclude Include="DistanceEnemy.h" />
     <ClInclude Include="EnemyArm.h" />
     <ClInclude Include="PlayerArm.h" />

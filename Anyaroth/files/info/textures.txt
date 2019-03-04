@@ -23,3 +23,4 @@ DashIcon dashIcon.png 1 1
 LifeBar lifeBar.png 1 1
 Punto1 DisparoEnemigo.png 1 1
 Punto2 DisparoJugador.png 1 1
+GunCursor gunCursor.png 1 1

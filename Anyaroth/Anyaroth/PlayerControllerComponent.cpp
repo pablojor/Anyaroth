@@ -107,7 +107,7 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 		_anim->playAnim(AnimatedSpriteComponent::Idle);
 		static_cast<Player*>(_obj)->setCurrentState(Player::Idle);
 	}
-	else if (_aPul && !_isAttacking  && !_dashing && !_isReloading)
+	else if (_aPul && !_isAttacking && !_dashing && !_isReloading)
 	{
 		_movement->changeDir(-1, 0); //Llamo a animacion de moverse y un flip
 		if (_sfPul && _amountOfDash > 0)
@@ -136,7 +136,7 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 
 
 	}
-	else if (_dPul && !_isAttacking  && !_dashing && !_isReloading)
+	else if (_dPul && !_isAttacking && !_dashing && !_isReloading)
 	{
 		_movement->changeDir(1, 0); //Llamo a animacion de moverse
 		if (_sfPul && _amountOfDash > 0)
@@ -195,7 +195,7 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 			reload();
 		}
 	}
-	if (_qPul&& !_isSwapping && !_dashing)
+	if (_qPul && !_isSwapping && !_dashing)
 	{
 		_isSwapping = true;
 		static_cast<Player*>(_obj)->swapGun();  //llamo a función de recargar
@@ -237,8 +237,8 @@ void PlayerControllerComponent::ableJump()
 	}
 	_jumping = false;
 
-	if (_anim->getCurrentAnim() == AnimatedSpriteComponent::Falling|| _anim->getCurrentAnim() == AnimatedSpriteComponent::Jump|| 
-		_anim->getCurrentAnim() == AnimatedSpriteComponent::StartFalling|| _anim->getCurrentAnim() == AnimatedSpriteComponent::DashDown) //&& static_cast<Player*>(_obj)->getCurrentState()!=Player::Walking)
+	if (_anim->getCurrentAnim() == AnimatedSpriteComponent::Falling || _anim->getCurrentAnim() == AnimatedSpriteComponent::Jump ||
+		_anim->getCurrentAnim() == AnimatedSpriteComponent::StartFalling || _anim->getCurrentAnim() == AnimatedSpriteComponent::DashDown) //&& static_cast<Player*>(_obj)->getCurrentState()!=Player::Walking)
 	{
 		if (_movement->getDirX() == 0)
 		{
@@ -265,6 +265,18 @@ void PlayerControllerComponent::reload()
 	_movement->changeDir(0, 0);
 	_isReloading = true;
 	static_cast<Player*>(_obj)->setCurrentState(Player::Reloading);
-	_anim->playAnim(AnimatedSpriteComponent::ReloadPistol); //llamo animacion de recargar
+
+	switch (static_cast<Player*>(_obj)->getWeaponArm()->getCurrentGun()->getType())
+	{
+	case GunType::BasicGun:
+		_anim->playAnim(AnimatedSpriteComponent::ReloadPistol); //llamo animacion de recargar
+		break;
+	case GunType::BasicShotgun:
+		_anim->playAnim(AnimatedSpriteComponent::ReloadShotgun);
+		break;
+	default:
+		break;
+	}
+
 
 }

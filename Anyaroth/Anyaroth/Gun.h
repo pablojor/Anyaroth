@@ -54,6 +54,7 @@ public:
 
 	int getAmmo() { return _ammo; };
 	int getClip() { return _clip; }
+	GunType getType() { return _type; };
 
 	void debugInfo();
 
