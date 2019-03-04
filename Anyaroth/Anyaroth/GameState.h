@@ -4,6 +4,7 @@
 #include <vector>
 #include "GameObject.h"
 #include "Camera.h"
+#include "Canvas.h"
 
 class Game;
 
@@ -16,6 +17,7 @@ class GameState
 		list <GameObject*> _stages;
 		Game* _gameptr;
 		Camera* _mainCamera = nullptr;
+		Canvas* _canvas = nullptr;
 
 	public:
 		GameState(Game* g) : _gameptr(g) { initializeCamera(); }
@@ -26,4 +28,5 @@ class GameState
 
 		virtual Camera* getMainCamera() { return _mainCamera; };
 		virtual list <GameObject*> getObjects() { return _stages; }
+		virtual void setCanvas(Canvas* canvas) { _canvas = canvas; }
 };

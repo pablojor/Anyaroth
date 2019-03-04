@@ -6,7 +6,6 @@
 
 Bullet::Bullet(Texture* texture, Vector2D iniPos, Game* g, string tag) : GameComponent(g, tag) 
 {
-	
 }
 Bullet::Bullet() 
 {
@@ -16,17 +15,18 @@ Bullet::Bullet()
 Bullet::~Bullet() 
 {
 }
-void Bullet::beginCollision(GameComponent * other)
+void Bullet::beginCollision(GameComponent * other, b2Contact* contact)
 {
-	auto myTransform = this->getComponent<TransformComponent>();
-
-	auto otherTransform = other->getComponent<TransformComponent>();
-
-	//_collided = true;
+	if(getTag() == "Bullet" && other->getTag() != "EnemyBullet" && other->getTag() != "Player")
+		_collided = true;
+	else if (getTag() == "EnemyBullet" && other->getTag() != "Bullet" && other->getTag() != "Enemy")
+		_collided = true;
+	contact->SetEnabled(false);
 }
 
 void Bullet::init(Texture* texture, double speed, int damage, double angle, int range)
 {
+	setTag("Bullet");
 	_speed = speed;
 	_damage = damage;
 	_range = range;
@@ -35,24 +35,22 @@ void Bullet::init(Texture* texture, double speed, int damage, double angle, int 
 	addComponent<Texture>(texture);
 
 	_trans = addComponent<TransformComponent>();
-	//_trans->setScale(0.25); //ESCALA
+	_trans->setAnchor(0.5); 
 	_trans->setRotation(angle);
 
 	auto body = addComponent<BodyComponent>();
-	body->getBody()->SetType(b2_kinematicBody);
+	body->getBody()->SetType(b2_dynamicBody);
 	body->getBody()->SetBullet(true);
 	body->getBody()->SetFixedRotation(true);
+	body->getBody()->SetGravityScale(0);
 
 	body->getBody()->SetActive(false);
 	
 	auto anim = addComponent<AnimatedSpriteComponent>();
 	anim->addAnim(AnimatedSpriteComponent::Default, 4, false);
 
-	anim->playAnim(AnimatedSpriteComponent::Default);
+	
 	anim->setTexture(texture);
-	
-	
-	addComponent<MovingComponent>();//Tiene que ir aqu� porque necesita la textura
 	
 }
 
@@ -62,7 +60,9 @@ void Bullet::update()
 	if (!isActive())
 		return;
 
-	if (_aliveTime < _range * 10 && !_collided)
+	double dist = _iniPos.distance(_trans->getPosition());
+
+	if (dist < _range  && !_collided)
 	{
 		//cout << "X: " << getComponent<TransformComponent>()->getPosition().getX() << "	Y: " << getComponent<TransformComponent>()->getPosition().getY() << endl << endl;
 		
@@ -92,8 +92,9 @@ void Bullet::update()
 }
 
 
-void Bullet::reset()
+void Bullet::reset(Vector2D pos)
 {
+	_iniPos = pos;
 	setActive(true);
 	_aliveTime = 0;
 	_collided = false;

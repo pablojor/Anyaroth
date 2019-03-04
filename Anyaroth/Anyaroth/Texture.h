@@ -28,6 +28,7 @@ private:
 	uint _numRows = 1;
 
 public:
+	Texture() :_renderer(nullptr) {};
 	Texture(SDL_Renderer* r) : _renderer(r) {};
 	Texture(SDL_Renderer* r, string filename, uint numRows = 1, uint numCols = 1) :
 		_renderer(r) { load(filename, numRows, numCols); }
@@ -42,8 +43,11 @@ public:
 	uint getNumFils() const { return _numRows; }
 	SDL_Texture* getTexture() const { return _texture; }
 
+	void setColor(Uint8 red, Uint8 green, Uint8 blue);
+
 	void load(string filename, uint numRows = 1, uint numCols = 1);
 	void render(const SDL_Rect& rect, double angle = 0, SDL_Point anchor = { 0,0 }, SDL_RendererFlip flip = SDL_FLIP_NONE) const;
+	void render(const SDL_Rect& destRect, const SDL_Rect& clipRect, double angle = 0, SDL_Point anchor = { 0,0 }, SDL_RendererFlip flip = SDL_FLIP_NONE) const;
 	void renderFrame(const SDL_Rect& destRect, int row, int col, double angle = 0, SDL_Point anchor = { 0,0 }, SDL_RendererFlip flip = SDL_FLIP_NONE) const;
 	void loadFromText(string text, const Font* font, SDL_Color color);
 

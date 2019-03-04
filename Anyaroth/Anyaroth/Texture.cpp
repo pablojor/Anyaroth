@@ -11,6 +11,12 @@ void Texture::free() {
 	_w = _h = 0;
 }
 
+void Texture::setColor(Uint8 red, Uint8 green, Uint8 blue)
+{
+	//Modulate texture
+	SDL_SetTextureColorMod(_texture, red, green, blue);
+}
+
 void Texture::load(string filename, uint nRows, uint nCols) {
 	SDL_Surface* tempSurface = IMG_Load(filename.c_str());
 	if (tempSurface == nullptr) throw SDLError();
@@ -31,6 +37,10 @@ void Texture::render(const SDL_Rect& destRect, double angle, SDL_Point anchor, S
 	srcRect.x = 0; srcRect.y = 0;
 	srcRect.w = _w; srcRect.h = _h;
 	SDL_RenderCopyEx(_renderer, _texture, &srcRect, &destRect, angle, &anchor, flip);
+}
+
+void Texture::render(const SDL_Rect& destRect, const SDL_Rect& clipRect, double angle, SDL_Point anchor, SDL_RendererFlip flip) const {
+	SDL_RenderCopyEx(_renderer, _texture, &clipRect, &destRect, angle, &anchor, flip);
 }
 
 void Texture::renderFrame(const SDL_Rect& destRect, int row, int col, double angle, SDL_Point anchor, SDL_RendererFlip flip) const {

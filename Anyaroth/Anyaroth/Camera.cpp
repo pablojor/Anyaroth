@@ -1,35 +1,11 @@
 #include "Camera.h"
 #include "Game.h"
 #include "TransformComponent.h"
+#include "ParallaxBackGround.h"
 
-Camera::Camera(GameComponent * followObject)
+void Camera::moveCamera()
 {
-	fixCameraToObject(followObject);
-}
-
-void Camera::setCameraPosition(double x, double y)
-{
-	_cameraRect.x = x;
-	_cameraRect.y = y;
-}
-
-void Camera::setCameraSize(double w, double h)
-{
-	_cameraRect.w = w;
-	_cameraRect.h = h;
-}
-
-void Camera::looseFixedObject()
-{
-	if (_followedObject != nullptr)
-		_followedObject = nullptr;
-
-}
-
-void Camera::update()
-{
-	GameComponent::update();
-
+	SDL_Rect preChange = _cameraRect;
 	if (_followedObject != nullptr)
 	{
 		auto a = _followedObject->getComponent<TransformComponent>()->getPosition();
@@ -56,4 +32,60 @@ void Camera::update()
 	{
 		_cameraRect.y = LEVEL_HEIGHT - _cameraRect.h;
 	}
+
+	//Comparamos los cambios de la camara con su aspecto anterior
+	if (preChange.x != _cameraRect.x)
+	{
+		_cameraStatus.first = true;
+		_cameraRect.x - preChange.x > 0 ? _cameraStatus.second = 1 : _cameraStatus.second = -1;
+	}
+	else
+		_cameraStatus.first = false;
+}
+
+Camera::Camera(GameComponent * followObject)
+{
+	fixCameraToObject(followObject);
+}
+
+Camera::~Camera()
+{
+	if (_backGround != nullptr) 
+	{
+		delete _backGround;
+		_backGround = nullptr;
+	}
+}
+
+void Camera::setCameraPosition(double x, double y)
+{
+	_cameraRect.x = x;
+	_cameraRect.y = y;
+}
+
+void Camera::setCameraSize(double w, double h)
+{
+	_cameraRect.w = w;
+	_cameraRect.h = h;
+}
+
+void Camera::looseFixedObject()
+{
+	if (_followedObject != nullptr)
+		_followedObject = nullptr;
+}
+
+void Camera::update()
+{
+	moveCamera();
+	if (_backGround != nullptr) {
+		if (_backGround->checkCameraStatus(_cameraStatus))
+			_backGround->update();
+	}
+}
+
+void Camera::render() const
+{
+	if (_backGround != nullptr) 
+		_backGround->render();
 }

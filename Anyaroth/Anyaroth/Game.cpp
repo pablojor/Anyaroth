@@ -52,10 +52,16 @@ Texture* Game::getTexture(string nameText)
 	return textures[nameText];
 }
 
+
 void Game::toggleFullscreen() {
 	Uint32 FullscreenFlag = SDL_WINDOW_FULLSCREEN_DESKTOP; //fake fullscreen (windowed mode)
 	bool IsFullscreen = SDL_GetWindowFlags(window) & FullscreenFlag;
 	SDL_SetWindowFullscreen(window, IsFullscreen ? 0 : FullscreenFlag);
+
+Font * Game::getFont(string nameFont)
+{
+	return _fonts[nameFont];
+
 }
 
 void Game::newGame()
@@ -82,7 +88,7 @@ Game::Game()
 {
 	createVariables();
 
-	SDL_Init(SDL_INIT_EVERYTHING);
+	SDL_Init(SDL_INIT_TIMER | SDL_INIT_AUDIO | SDL_INIT_VIDEO | SDL_INIT_EVENTS /*SDL_INIT_EVERYTHING*/);
 	TTF_Init();//Ventana del tama�o de la pantalla de cada dispositivo
 	SDL_DisplayMode monitor;
 	SDL_GetCurrentDisplayMode(0, &monitor);
@@ -114,14 +120,15 @@ Game::Game()
 
 	//---Create textures
 	createTextures();
+	//---Create fonts
+	_fonts["ARIAL12"] = new Font(FONTS_PATH + "arial.ttf", 12);
+
 	_world = new b2World(b2Vec2(0.0, 20));
 	//---Create states
 	states[Play] = new PlayState(this);
 
 	stateMachine->pushState(states[Play]);
-	//World
-
-	
+	//World	
 	debugger.getRenderer(renderer);
 	debugger.getTexture(getTexture("body"));
 	debugger.SetFlags(b2Draw::e_shapeBit);
@@ -139,6 +146,15 @@ Game::~Game()
 	{
 		delete textures[texturesName[i]];
 		textures.erase(texturesName[i]);
+	}
+
+	for (auto it = _fonts.begin(); it != _fonts.end(); it++)
+		delete it->second;
+		
+	//delete guns
+	for (int i = 0; i < gameGuns.size(); i++)
+	{
+		delete gameGuns[i].shooter;
 	}
 
 	for (int i = 0; i < NUM_STATES; i++)
@@ -176,7 +192,7 @@ void Game::render(Uint32 time) const
 	SDL_RenderClear(renderer);
 	
 	stateMachine->currentState()->render();
-	_world->DrawDebugData();
+	//_world->DrawDebugData();
 
 	SDL_RenderPresent(renderer);
 }

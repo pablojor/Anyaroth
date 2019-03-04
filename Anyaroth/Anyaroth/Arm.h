@@ -1,39 +1,37 @@
 #pragma once
-
 #include "GameComponent.h"
 #include "TransformComponent.h"
-#include "Game.h"
+#include "AnimatedSpriteComponent.h"
+#include "FollowingComponent.h"
 #include "checkML.h"
 
-class AnimatedSpriteComponent;
+#define PI 3.14159265
+
+class PlayState;
 class Gun;
-class Player;
-class ArmControllerComponent;
-class FollowingComponent;
 
 class Arm : public GameComponent
 {
 protected:
 	TransformComponent* _transform;
-	GameComponent* _player;
+	GameComponent* _owner;
 	AnimatedSpriteComponent* _anim;
 	FollowingComponent* _followC;
-	ArmControllerComponent* _controller;
-
-	double _minAimDistance = 32;
-	double _magicNumber = 64;
-
-
+	Camera* _cam;
 	Gun* _currentGun = nullptr;
 public:
-	Arm(Texture* texture, GameComponent* player, Game* g, Vector2D offset = { 0,0 });
+	Arm(Texture* texture, GameComponent* owner, Game* g, PlayState* play, Vector2D offset = { 0,0 });
 	virtual ~Arm();
 
-	void update();
+	Camera* getCamera() { return _cam; }; //Necesario para el ArmController
+	void setOwner(Vector2D offset, GameComponent* owner);
+	void setArmSprite(Texture* armTex);
 
-	void setPlayer(Vector2D offset, GameComponent* player);
+	void rotate(Vector2D target);
+
 	void setGun(Gun* gun); //Establece el arma
-	void shoot();	
-	bool reload(); 
+	virtual void shoot();
+  
+	inline Gun* getCurrentGun() { return _currentGun; }
 };
 

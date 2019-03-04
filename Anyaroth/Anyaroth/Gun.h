@@ -3,8 +3,9 @@
 #include "BodyComponent.h"
 #include "TransformComponent.h"
 #include "Game.h"
-#include "Shooter.h"
+#include "ShooterInterface.h"
 #include "BulletPool.h"
+#include "GunType_def.h"
 
 class Gun
 {
@@ -21,10 +22,10 @@ private:
 		_maxClip = 0, _clip = 0, //Munici�n m�xima en el cargador/ munici�n actual en el cargador
 		_bulletsPerShot; //Balas usadas por disparo / r�faga
 
-	string _name = ""; //El nombre del arma
+	GunType _type; //El nombre del arma
 	
 	GameComponent* _shootingObj = nullptr; //El objeto que usa el arma
-	Shooter* _shooterComp; //El componente con el m�todo shoot() del arma
+	ShooterInterface* _shooterComp; //El componente con el m�todo shoot() del arma
 	PoolWrapper* _bPool = nullptr;
 
 
@@ -39,18 +40,20 @@ private:
 	void reloadAux(int newClipValue);
 	
 public:
-	Gun(GameComponent* shootingObj, Shooter* shooterComp, PoolWrapper* bp, string name, int maxAmmunition, int magazine, int bulletsPerShot = 1);
+	Gun(GameComponent* shootingObj, ShooterInterface* shooterComp, PoolWrapper* bp, GunType type, int maxAmmunition, int magazine, int bulletsPerShot = 1);
 	virtual ~Gun();
 
-	void setShooter(Shooter* sh);
+	void setShooter(ShooterInterface* sh);
 	void setBulletPool(PoolWrapper* bp) { _bPool = bp; };
-	bool shoot(Vector2D bulletPosition, Vector2D bulletDir);
+	bool shoot(Vector2D bulletPosition, Vector2D bulletDir, bool flipped);
+	void enemyShoot(Vector2D bulletPosition, Vector2D bulletDir, bool flipped);
 
 	void addAmmo(int ammoAdded);
 	bool reload();
 	void resetAmmo();
 
 	int getAmmo() { return _ammo; };
+	int getClip() { return _clip; }
 
 	void debugInfo();
 

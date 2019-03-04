@@ -14,7 +14,7 @@ private:
 	MovingComponent* _movement = nullptr;
 	bool _spacePul = false, _aPul = false, _sPul = false, _dPul = false, _sfPul = false;
 	bool _rightClickPul = false, _isAttacking = false;
-	bool _isReloading = false, _rPul = false;
+	bool _isReloading = false, _rPul = false, _isSwapping = false, _qPul = false;
 	bool _jumping = false, _dashing = false;
 
 	int _amountOfDash = 2;
@@ -40,4 +40,5 @@ public:
 	inline void setIsReloading(bool b) { _isReloading = b; };
 
 	void reload();
+
 };
