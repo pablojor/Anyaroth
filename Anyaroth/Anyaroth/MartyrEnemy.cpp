@@ -11,6 +11,7 @@ MartyrEnemy::MartyrEnemy(Player* player, Game* g, PlayState* play,Texture* textu
 	_attackRange = 25; //No se puede poner mas peque�o que la velocidad
 	_attackTime = 1000;
 	_life = 50;
+	_damage = 20;
 
 	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 13, true);
 	_anim->addAnim(AnimatedSpriteComponent::EnemyWalk, 8, true);

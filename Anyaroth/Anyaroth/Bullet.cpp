@@ -17,9 +17,9 @@ Bullet::~Bullet()
 }
 void Bullet::beginCollision(GameComponent * other, b2Contact* contact)
 {
-	if(getTag() == "Bullet" && other->getTag() != "EnemyBullet" && other->getTag() != "Player")
+	if(getTag() == "Bullet" && other->getTag() != "EnemyBullet" && other->getTag() != "Player" && other->getTag() != "Bullet")
 		_collided = true;
-	else if (getTag() == "EnemyBullet" && other->getTag() != "Bullet" && other->getTag() != "Enemy")
+	else if (getTag() == "EnemyBullet" && other->getTag() != "Bullet" && other->getTag() != "Enemy" && other->getTag() != "EnemyBullet")
 		_collided = true;
 	contact->SetEnabled(false);
 }
