@@ -35,7 +35,7 @@ bool GameState::handleEvents(SDL_Event& e)
 		else
 			it++;
 	}
-	if (_canvas != nullptr) _canvas->handleEvent(e);
+	//if (_canvas != nullptr) _canvas->handleEvent(e);
 	return handled;
 }
 

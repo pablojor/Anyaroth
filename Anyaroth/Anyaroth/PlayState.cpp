@@ -13,6 +13,7 @@
 PlayState::PlayState(Game* g) : GameState(g)
 {
 	_game = g;
+	_world = g->getWorld();
 
 	//Tilemap
 	_layer = new Layer("Mapa", g->getTexture("tileset"), TILEMAP_PATH + "Nivel1.json", g, "Mapa");
@@ -48,7 +49,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 
 	 for (int i = 0; i < enemiesPos.size(); i++)
 	 {
-		 _enemy = new DistanceStaticEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(enemiesPos[i].getX(), enemiesPos[i].getY() - TILES_SIZE * 2), "Enemy");
+		 _enemy = new MartyrEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(enemiesPos[i].getX(), enemiesPos[i].getY() - TILES_SIZE * 2), "Enemy");
 		_stages.push_back(_enemy);
 		auto itFR = --(_stages.end());
 		_enemy->setItList(itFR);
@@ -96,6 +97,12 @@ void PlayState::KillObject(list<GameObject*>::iterator itList)
 	items_ToDelete.push_back(itList);
 }
 
+void PlayState::render()
+{
+	GameState::render();
+	_world->DrawDebugData();
+}
+
 bool PlayState::handleEvents(SDL_Event& e)
 {
 	GameState::handleEvents(e);
@@ -112,6 +119,7 @@ bool PlayState::handleEvents(SDL_Event& e)
 void PlayState::update()
 {
 	GameState::update();
+	_world->Step(1 / 20.0, 8, 3);
 
 	int i = items_ToDelete.size() - 1;
 	while (i >= 0)

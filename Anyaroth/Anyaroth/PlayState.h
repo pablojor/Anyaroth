@@ -21,6 +21,7 @@ class PlayState : public GameState
 		Coin* _coin = nullptr;
 		Layer* _layer = nullptr;
 		Layer* _colisionLayer = nullptr;
+		b2World* _world;
 		CollisionManager _colManager;
 		DebugDraw _debugger;
 
@@ -35,6 +36,7 @@ class PlayState : public GameState
 	public:
 		PlayState(Game* g);
 		void KillObject(list<GameObject*>::iterator itList);
+		virtual void render();
 		virtual void update();
 		virtual bool handleEvents(SDL_Event& e);
 		inline PoolWrapper* getBulletPool(int index) { return _pools[index]; };

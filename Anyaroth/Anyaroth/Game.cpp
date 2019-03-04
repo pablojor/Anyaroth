@@ -69,8 +69,6 @@ void Game::save()
 
 Game::Game()
 {
-	createVariables();
-
 	SDL_Init(SDL_INIT_TIMER | SDL_INIT_AUDIO | SDL_INIT_VIDEO | SDL_INIT_EVENTS /*SDL_INIT_EVERYTHING*/);
 	TTF_Init();//Ventana del tama�o de la pantalla de cada dispositivo
 	SDL_DisplayMode monitor;
@@ -125,10 +123,6 @@ Game::~Game()
 	{
 		delete gameGuns[i].shooter;
 	}
-
-	for (int i = 0; i < NUM_STATES; i++)
-		delete states[i];
-
 	delete stateMachine;
 	delete _world;
 	SDL_DestroyRenderer(renderer);
@@ -153,16 +147,12 @@ void Game::run()
 void Game::update(Uint32 time)
 {
 	stateMachine->currentState()->update();
-	_world->Step(1 / 20.0, 8, 3);
 }
 
 void Game::render(Uint32 time) const
 {
 	SDL_RenderClear(renderer);
-	
 	stateMachine->currentState()->render();
-	//_world->DrawDebugData();
-
 	SDL_RenderPresent(renderer);
 }
 

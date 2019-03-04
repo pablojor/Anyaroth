@@ -127,7 +127,6 @@
     <ClCompile Include="MenuButton.cpp">
       <Filter>Archivos de código\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="ObjectLayer.cpp">
     <ClCompile Include="ImageUI.cpp">
       <Filter>Archivos de código\UIElements</Filter>
     </ClCompile>
@@ -191,9 +190,6 @@
     <ClCompile Include="DistanceStaticEnemy.cpp">
       <Filter>Archivos de código\Objects\Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="Life.cpp">
-      <Filter>Archivos de código</Filter>
-    </ClCompile>
     <ClCompile Include="EnemyArm.cpp">
       <Filter>Archivos de código\Objects</Filter>
     </ClCompile>
@@ -212,12 +208,18 @@
     <ClCompile Include="Arm.cpp">
       <Filter>Archivos de código\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="ObjectLayer.cpp">
+      <Filter>Archivos de código\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectPool.cpp">
+      <Filter>Archivos de código\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Life.cpp">
+      <Filter>Archivos de código\Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Money.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="Coin.h">
@@ -358,7 +360,6 @@
     <ClInclude Include="CollisionManager.h">
       <Filter>Archivos de encabezado\Utilities</Filter>
     </ClInclude>
-    <ClInclude Include="ObjectLayer.h">
     <ClInclude Include="Canvas.h">
       <Filter>Archivos de encabezado\UIElements</Filter>
     </ClInclude>
@@ -422,9 +423,6 @@
     <ClInclude Include="DistanceStaticEnemy.h">
       <Filter>Archivos de encabezado\Objects\Enemies</Filter>
     </ClInclude>
-    <ClInclude Include="Life.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="EnemyArm.h">
       <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
@@ -444,6 +442,18 @@
       <Filter>Archivos de encabezado\Objects\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="Arm.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectLayer.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectPool.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Money.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Life.h">
       <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
   </ItemGroup>
