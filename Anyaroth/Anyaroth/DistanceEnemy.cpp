@@ -12,12 +12,13 @@ DistanceEnemy::DistanceEnemy(Player* player, Game* g, PlayState* play, Texture* 
 	GunType type = GunType(getGame()->gameGuns[BasicEnemyGun].type);
 	int mA = getGame()->gameGuns[BasicEnemyGun].maxAmmo;
 	int mC = getGame()->gameGuns[BasicEnemyGun].maxClip;
+	double c = getGame()->gameGuns[BasicEnemyGun].cadence;
 
 	// TEMPORAL
 	PoolWrapper* bp = _play->getBulletPool(type);
 	bp->changePoolTag("EnemyBullet");
 
-	_arm->setGun(new Gun(_arm, sh, bp, type, mA, mC));
+	_arm->setGun(new Gun(_arm, sh, bp, type, mA, mC, c));
 }
 
 void DistanceEnemy::RayCast()

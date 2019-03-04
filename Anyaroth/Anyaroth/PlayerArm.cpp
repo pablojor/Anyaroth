@@ -43,7 +43,7 @@ void PlayerArm::update()
 //Dispara el arma
 void PlayerArm::shoot()
 {
-	if (_currentGun != nullptr)
+	if (_currentGun != nullptr && _currentGun->canShoot())
 	{
 		double armAngle = _transform->getRotation(),
 			armX = _transform->getPosition().getX(),
@@ -84,8 +84,6 @@ void PlayerArm::shoot()
 			
 		}
 	}
-	else
-		cout << "Gun Not found" << endl;
 
 }
 

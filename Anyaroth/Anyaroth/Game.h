@@ -46,6 +46,7 @@ struct GunAttributes
 	GunType type;
 	int maxAmmo;
 	int maxClip;
+	double cadence;
 };
 
 enum _Category {
@@ -73,9 +74,9 @@ class Game
 		vector<int> var;
 		vector<GunAttributes> gameGuns = 
 		{
-			{new Shooter(),BasicGun,60,12},
-			{ new ShotgunShooter({30,0,-30}),BasicShotgun,30,2 },
-			{new Shooter(),BasicEnemyGun,60,12}
+			{new Shooter(),BasicGun,60,12,0},
+			{ new ShotgunShooter({30,0,-30}),BasicShotgun,30,2, 500 },
+			{new Shooter(),BasicEnemyGun,60,12,1000}
 		};
 
 		//Metodos

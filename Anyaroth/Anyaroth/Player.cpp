@@ -272,6 +272,7 @@ void Player::equipGun(int gunIndex)
 	GunType type = GunType(getGame()->gameGuns[gunIndex].type);
 	int mA = getGame()->gameGuns[gunIndex].maxAmmo;
 	int mC = getGame()->gameGuns[gunIndex].maxClip;
+	double c = getGame()->gameGuns[gunIndex].cadence;
 
 	// TEMPORAL
 	PoolWrapper* bp = _play->getBulletPool(type);
@@ -279,7 +280,7 @@ void Player::equipGun(int gunIndex)
 
 	
 
-	_weaponArm->setGun(new Gun(_weaponArm, sh, bp, type, mA, mC));
+	_weaponArm->setGun(new Gun(_weaponArm, sh, bp, type, mA, mC, c));
 	//cout << "Gun equipada" << endl << endl << endl << endl << endl << endl;
 	_equippedGun = type;
 }

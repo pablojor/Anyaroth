@@ -21,6 +21,7 @@ private:
 	int _maxAmmo = 0, _ammo = 0, //Munici�n m�xima / munici�n actual
 		_maxClip = 0, _clip = 0, //Munici�n m�xima en el cargador/ munici�n actual en el cargador
 		_bulletsPerShot; //Balas usadas por disparo / r�faga
+	double _cadence, _fireTimer = 0;
 
 	GunType _type; //El nombre del arma
 	
@@ -40,7 +41,7 @@ private:
 	void reloadAux(int newClipValue);
 	
 public:
-	Gun(GameComponent* shootingObj, ShooterInterface* shooterComp, PoolWrapper* bp, GunType type, int maxAmmunition, int magazine, int bulletsPerShot = 1);
+	Gun(GameComponent* shootingObj, ShooterInterface* shooterComp, PoolWrapper* bp, GunType type, int maxAmmunition, int magazine, double cadence, int bulletsPerShot = 1);
 	virtual ~Gun();
 
 	void setShooter(ShooterInterface* sh);
@@ -51,6 +52,8 @@ public:
 	void addAmmo(int ammoAdded);
 	bool reload();
 	void resetAmmo();
+
+	bool inline canShoot() { return SDL_GetTicks() > _fireTimer + _cadence; }
 
 	int getAmmo() { return _ammo; };
 	int getClip() { return _clip; }
