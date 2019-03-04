@@ -131,7 +131,8 @@ class GameComponent: public GameObject
 		template<class ComponentType>
 		ComponentType* getComponent()
 		{
-			ComponentType* c = get_component<ComponentType>(typeid(ComponentType).name());
-			return c;
+			/*ComponentType* c = get_component<ComponentType>(typeid(ComponentType).name());
+			return c;*/
+			return get_component<ComponentType>(typeid(ComponentType).name());
 		}
 };
