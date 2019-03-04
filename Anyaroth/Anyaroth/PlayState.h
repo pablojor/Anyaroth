@@ -35,7 +35,7 @@ class PlayState : public GameState
 
 	public:
 		PlayState(Game* g);
-		void KillObject(list<GameObject*>::iterator itList);
+		void KillObject(const list<GameObject*>::iterator &itList);
 		virtual void render();
 		virtual void update();
 		virtual bool handleEvents(SDL_Event& e);

@@ -103,7 +103,7 @@ void BodyComponent::addCricleShape(const b2Vec2 & Center, float radius, uint16 o
 	fixt->restitution = 0;
 	fixt->shape = circulo;
 	fixt->density = 1;
-	fixt->friction = 200;
+	fixt->friction = 400;
 	
 	fixt->filter.categoryBits = ownCategory;
 	fixt->filter.maskBits = collidesWith;

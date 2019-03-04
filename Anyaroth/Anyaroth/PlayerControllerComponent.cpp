@@ -121,7 +121,7 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 			else
 				_anim->playAnim(AnimatedSpriteComponent::Dash);
 
-			static_cast<Player*>(_obj)->setCurrentState(Player::Dashing);
+			static_cast<Player*>(_obj)->setCurrentState(Player::Dashing);  ///// I HATE YOUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU (no borrar)
 
 		}
 		else if (!_jumping)

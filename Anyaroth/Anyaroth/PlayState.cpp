@@ -84,9 +84,9 @@ PlayState::PlayState(Game* g) : GameState(g)
 	
 	//Camera BackGound
 	ParallaxBackGround* a = new ParallaxBackGround(_mainCamera);
-	a->addLayer(new ParallaxLayer(g->getTexture("BgZ1L1"), _mainCamera,0.5));
-	a->addLayer(new ParallaxLayer(g->getTexture("BgZ1L2"), _mainCamera,1));
-	a->addLayer(new ParallaxLayer(g->getTexture("BgZ1L3"), _mainCamera,1.5));
+	a->addLayer(new ParallaxLayer(g->getTexture("BgZ1L1"), _mainCamera,0.25));
+	a->addLayer(new ParallaxLayer(g->getTexture("BgZ1L2"), _mainCamera,0.5));
+	a->addLayer(new ParallaxLayer(g->getTexture("BgZ1L3"), _mainCamera,0.75));
 	_mainCamera->setBackGround(a);
 
 	//cursor
@@ -100,7 +100,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_player->setPlayerPanel(b->getPlayerPanel());
 }
 
-void PlayState::KillObject(list<GameObject*>::iterator itList)
+void PlayState::KillObject(const list<GameObject*>::iterator &itList)
 {
 	items_ToDelete.push_back(itList);
 }
