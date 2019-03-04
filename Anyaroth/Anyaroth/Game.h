@@ -53,6 +53,7 @@ enum _Category {
 	ENEMIES = 2,
 	PLAYER = 3,
 	OBJECTS = 4,
+	BULLETS = 5,
 };
 
 class Game

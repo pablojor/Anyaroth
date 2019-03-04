@@ -17,9 +17,9 @@ Bullet::~Bullet()
 }
 void Bullet::beginCollision(GameComponent * other, b2Contact* contact)
 {
-	if(getTag() == "Bullet" && other->getTag() != "EnemyBullet" && other->getTag() != "Player" && other->getTag() != "Bullet")
+	if(getTag() == "Bullet" && (other->getTag() == "Suelo" || other->getTag() == "Enemy"))
 		_collided = true;
-	else if (getTag() == "EnemyBullet" && other->getTag() != "Bullet" && other->getTag() != "Enemy" && other->getTag() != "EnemyBullet")
+	else if (getTag() == "EnemyBullet" && (other->getTag() == "Suelo" || other->getTag() == "Player"))
 		_collided = true;
 	contact->SetEnabled(false);
 }
@@ -43,6 +43,7 @@ void Bullet::init(Texture* texture, double speed, int damage, double angle, int 
 	body->getBody()->SetBullet(true);
 	body->getBody()->SetFixedRotation(true);
 	body->getBody()->SetGravityScale(0);
+	body->filterCollisions(BULLETS, PLAYER | FLOOR | ENEMIES);
 
 	body->getBody()->SetActive(false);
 	
