@@ -43,7 +43,6 @@ void Bullet::init(Texture* texture, double speed, int damage, double angle, int 
 	body->getBody()->SetBullet(true);
 	body->getBody()->SetFixedRotation(true);
 	body->getBody()->SetGravityScale(0);
-	body->filterCollisions(BULLETS, PLAYER | FLOOR | ENEMIES);
 
 	body->getBody()->SetActive(false);
 	

@@ -24,14 +24,17 @@ PlayState::PlayState(Game* g) : GameState(g)
 
 	//Pools balas
 	_basicBulletPool = new BulletPool<100>(g, g->getTexture("PistolBullet"), 100, 10, 1000);
+	_basicBulletPool->changePoolFilter(PLAYER_BULLETS, FLOOR | ENEMIES);
 	_stages.push_back(_basicBulletPool);
 	_pools.push_back(_basicBulletPool);
 
 	_basicShotgunBulletPool = new BulletPool<100>(g, g->getTexture("PistolBullet"), 100, 25, 60);
+	_basicShotgunBulletPool->changePoolFilter(PLAYER_BULLETS, FLOOR | ENEMIES);
 	_stages.push_back(_basicShotgunBulletPool);
 	_pools.push_back(_basicShotgunBulletPool);
 
 	_enemyPool = new BulletPool<200>(g, g->getTexture("PistolBullet"), 100, 10, 1000);
+	_enemyPool->changePoolFilter(ENEMY_BULLETS, FLOOR | PLAYER);
 	_stages.push_back(_enemyPool);
 	_pools.push_back(_enemyPool);
 
@@ -63,7 +66,6 @@ PlayState::PlayState(Game* g) : GameState(g)
 	 {
 		 _coin = new Coin(this, g, g->getTexture("Coin"), Vector2D(coinsPos[i].getX(), coinsPos[i].getY() - TILES_SIZE), 20);
 		 _stages.push_back(_coin);
-
 		 auto itFR = --(_stages.end());
 		 _coin->setItList(itFR);
 	 }

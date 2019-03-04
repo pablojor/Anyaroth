@@ -27,6 +27,7 @@ class BulletPool : public ObjectPool<Bullet, SIZE>
 
 		void addBullet(Vector2D pos, Vector2D dir, double angle);
 		void changePoolTag(string tag);
+		void changePoolFilter(uint16 ownCategory, uint16 collidesWith, int groupIndex);
 };
 
 
@@ -72,5 +73,15 @@ void BulletPool<SIZE>::changePoolTag(string tag) {
 	{
 		Bullet* b = ObjectPool<Bullet, SIZE>::getObject(i);
 		b->setTag(tag);
+	}
+}
+
+template<int SIZE>
+inline void BulletPool<SIZE>::changePoolFilter(uint16 ownCategory, uint16 collidesWith, int groupIndex)
+{
+	for (int i = 0; i < SIZE; i++)
+	{
+		Bullet* b = ObjectPool<Bullet, SIZE>::getObject(i);
+		b->getComponent<BodyComponent>()->filterCollisions(ownCategory, collidesWith, groupIndex);
 	}
 }

@@ -151,7 +151,6 @@
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="FollowingComponent.cpp" />
     <ClCompile Include="MenuButton.cpp" />
-    <ClCompile Include="ObjectPool.cpp" />
     <ClCompile Include="ObjectLayer.cpp" />
     <ClCompile Include="ImageUI.cpp" />
     <ClCompile Include="LifeBar.cpp" />
@@ -159,7 +158,6 @@
     <ClCompile Include="Life.cpp" />
     <ClCompile Include="MartyrEnemy.cpp" />
     <ClCompile Include="MeleeEnemy.cpp" />
-    <ClCompile Include="ObjectPool.cpp" />
     <ClCompile Include="PanelUI.cpp" />
     <ClCompile Include="ParallaxBackGround.cpp" />
     <ClCompile Include="ParallaxLayer.cpp" />
@@ -229,7 +227,6 @@
     <ClInclude Include="HUD.h" />
     <ClInclude Include="FollowingComponent.h" />
     <ClInclude Include="MenuButton.h" />
-    <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="ObjectLayer.h" />
     <ClInclude Include="ImageUI.h" />
     <ClInclude Include="LifeBar.h" />
@@ -237,7 +234,6 @@
     <ClInclude Include="Life.h" />
     <ClInclude Include="MartyrEnemy.h" />
     <ClInclude Include="MeleeEnemy.h" />
-    <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="PanelUI.h" />
     <ClInclude Include="ParallaxBackGround.h" />
     <ClInclude Include="ParallaxLayer.h" />

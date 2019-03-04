@@ -28,9 +28,6 @@
     <ClCompile Include="BulletPool.cpp">
       <Filter>Archivos de código\Pools</Filter>
     </ClCompile>
-    <ClCompile Include="ObjectPool.cpp">
-      <Filter>Archivos de código\Pools</Filter>
-    </ClCompile>
     <ClCompile Include="PoolWrapper.cpp">
       <Filter>Archivos de código\Pools</Filter>
     </ClCompile>

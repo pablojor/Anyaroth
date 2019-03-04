@@ -26,7 +26,7 @@ Player::Player(Texture* texture, Game* g, PlayState* play, string tag) : _play(p
 	_body->setW(12);
 	_body->setH(26);
 	
-	_body->filterCollisions(PLAYER, OBJECTS | FLOOR  | BULLETS/*| ENEMY_BULLETS*/);
+	_body->filterCollisions(PLAYER, OBJECTS | FLOOR  | ENEMY_BULLETS);
 	_body->addCricleShape(b2Vec2(0, 1.1), 0.7, PLAYER, FLOOR);
 	_body->getBody()->SetFixedRotation(true);
 

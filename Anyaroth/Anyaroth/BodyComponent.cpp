@@ -115,15 +115,16 @@ void BodyComponent::addCricleShape(const b2Vec2 & Center, float radius, uint16 o
 }
 
 //recive la categoria a la que pertenece y las categorias con las que colisiona (del enum _Category)
-void BodyComponent::filterCollisions(uint16 ownCategory, uint16 collidesWith)
+void BodyComponent::filterCollisions(uint16 ownCategory, uint16 collidesWith, int groupIndex)
 {
-	_body->DestroyFixture(_body->GetFixtureList());
+	auto fixture = _body->GetFixtureList();
 
-	
+	b2Filter filter = fixture->GetFilterData();
 
-	_fixture.filter.categoryBits = ownCategory;
-	_fixture.filter.maskBits = collidesWith;
+	filter.categoryBits = ownCategory;
+	filter.maskBits = collidesWith;
+	filter.groupIndex = groupIndex;
 
-	_body->CreateFixture(&_fixture);
+	fixture->SetFilterData(filter);
 }
 
