@@ -20,90 +20,92 @@ DistanceDynamicEnemy::DistanceDynamicEnemy(Player* player, Game* g, PlayState* p
 void DistanceDynamicEnemy::update()
 {
 	Enemy::update();
-
-	BodyComponent* _playerBody = _player->getComponent<BodyComponent>();
-
-	b2Vec2 enemyPos = _body->getBody()->GetPosition(),
-		playerPos = _playerBody->getBody()->GetPosition();
-
-	double x = playerPos.x * 8 - enemyPos.x * 8,
-		y = playerPos.y * 8 - enemyPos.y * 8;
-
-	if (!_attacking && x < _vision && x > -_vision && y < _vision && y > -_vision) //Me acerco al jugador
+	if (!_dead && inCamera())
 	{
-		//-----MOVERSE HACIA EL JUGADOR
-		if (x > 0)//Derecha
+		BodyComponent* _playerBody = _player->getComponent<BodyComponent>();
+
+		b2Vec2 enemyPos = _body->getBody()->GetPosition(),
+			playerPos = _playerBody->getBody()->GetPosition();
+
+		double x = playerPos.x * 8 - enemyPos.x * 8,
+			y = playerPos.y * 8 - enemyPos.y * 8;
+
+		if (!_attacking && x < _vision && x > -_vision && y < _vision && y > -_vision) //Me acerco al jugador
 		{
-			_anim->unFlip();
-			if (x > _attackRange)
+			//-----MOVERSE HACIA EL JUGADOR
+			if (x > 0)//Derecha
 			{
-				_body->getBody()->SetLinearVelocity({ 8,_body->getBody()->GetLinearVelocity().y });
-				_anim->playAnim(AnimatedSpriteComponent::EnemyWalk);
+				_anim->unFlip();
+				if (x > _attackRange)
+				{
+					_body->getBody()->SetLinearVelocity({ 8,_body->getBody()->GetLinearVelocity().y });
+					_anim->playAnim(AnimatedSpriteComponent::EnemyWalk);
+				}
+				else if (y > _attackRange || y < -_attackRange)
+				{
+					_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
+					_anim->playAnim(AnimatedSpriteComponent::Idle);
+				}
+				else
+				{
+					_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
+					_anim->playAnim(AnimatedSpriteComponent::Idle);
+					_time = SDL_GetTicks();
+					_attacking = true;
+				}
 			}
-			else if (y > _attackRange || y < -_attackRange)
+			else if (x < 0)//Izquierda
 			{
-				_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
-				_anim->playAnim(AnimatedSpriteComponent::Idle);
+				_anim->flip();
+
+				if (x < -_attackRange)
+				{
+					_body->getBody()->SetLinearVelocity({ -8,_body->getBody()->GetLinearVelocity().y });
+					_anim->playAnim(AnimatedSpriteComponent::EnemyWalk);
+				}
+				else if (y > _attackRange || y < -_attackRange)
+				{
+					_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
+					_anim->playAnim(AnimatedSpriteComponent::Idle);
+				}
+				else
+				{
+					_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
+					_anim->playAnim(AnimatedSpriteComponent::Idle);
+					_time = SDL_GetTicks();
+					_attacking = true;
+				}
 			}
+			//-------------
+
+		}
+		else if (_attacking) //Ya estoy a una distancia optima, ataco al jugador
+		{
+			if (x < -_attackRange || x > _attackRange || y < -_attackRange || y > _attackRange) //Si has perdido de vista al jugador dejas de atacar
+				_attacking = false;
 			else
 			{
-				_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
-				_anim->playAnim(AnimatedSpriteComponent::Idle);
-				_time = SDL_GetTicks();
-				_attacking = true;
+				RayCast();
+
+				if (_armVision) //Si vemos al jugador
+				{
+					if (x > 0) //Derecha
+						_anim->unFlip();
+					else if (x < 0) //Izquierda
+						_anim->flip();
+
+					_arm->shoot();
+				}
+				else
+				{
+					_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
+				}
 			}
 		}
-		else if (x < 0)//Izquierda
+		else //Me quedo respirando y tranquilito
 		{
-			_anim->flip();
-
-			if (x < -_attackRange)
-			{
-				_body->getBody()->SetLinearVelocity({ -8,_body->getBody()->GetLinearVelocity().y });
-				_anim->playAnim(AnimatedSpriteComponent::EnemyWalk);
-			}
-			else if (y > _attackRange || y < -_attackRange)
-			{
-				_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
-				_anim->playAnim(AnimatedSpriteComponent::Idle);
-			}
-			else
-			{
-				_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
-				_anim->playAnim(AnimatedSpriteComponent::Idle);
-				_time = SDL_GetTicks();
-				_attacking = true;
-			}
+			_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
+			_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 		}
-		//-------------
-		
-	}
-	else if (_attacking) //Ya estoy a una distancia optima, ataco al jugador
-	{
-		if (x < -_attackRange || x > _attackRange || y < -_attackRange || y > _attackRange) //Si has perdido de vista al jugador dejas de atacar
-			_attacking = false;
-		else
-		{
-			RayCast();
-
-			if (_armVision) //Si vemos al jugador
-			{
-				if (x > 0) //Derecha
-					_anim->unFlip();
-				else if (x < 0) //Izquierda
-					_anim->flip();
-
-				_arm->shoot();
-			}
-			else
-			{
-				_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
-			}
-		}
-	}
-	else //Me quedo respirando y tranquilito
-	{
-		_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
-		_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 	}
 }

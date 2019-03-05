@@ -7,7 +7,7 @@
 
 MartyrEnemy::MartyrEnemy(Player* player, Game* g, PlayState* play,Texture* texture, Vector2D posIni, string tag) : Enemy(player, g, play,texture, posIni, tag)
 {
-	_vision = 100;
+	_vision = 300;
 	_attackRange = 25; //No se puede poner mas peque�o que la velocidad
 	_attackTime = 800;
 	_canDie = 1000; //Tiempo que pasa entre que el enemigo ataca y se destruye
@@ -25,7 +25,7 @@ MartyrEnemy::MartyrEnemy(Player* player, Game* g, PlayState* play,Texture* textu
 void MartyrEnemy::update()
 {
 	Enemy::update();
-	if (!_dead)
+	if (!_dead && inCamera())
 	{
 		BodyComponent* _playerBody = _player->getComponent<BodyComponent>();
 
