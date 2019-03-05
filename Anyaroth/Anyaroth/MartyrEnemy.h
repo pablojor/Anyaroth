@@ -8,8 +8,7 @@ class MartyrEnemy : public Enemy
 {
 	private:
 		int _explosionRange = 40, _impulse = 20;
-		bool _dead = false;
-		int _timeUntilDisappear;
+		int _canDie;
 
 	public:
 		MartyrEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag);
