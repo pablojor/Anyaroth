@@ -15,6 +15,7 @@ Enemy::Enemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2
 	_transform = addComponent<TransformComponent>();
 	_transform->setPosition(posIni.getX(), posIni.getY());
 
+
 	_body = addComponent<BodyComponent>();
 	_body->getBody()->SetType(b2_dynamicBody);
 	_body->getBody()->SetBullet(true);
@@ -38,6 +39,7 @@ Enemy::Enemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2
 	*/
 	_life = Life(50);
 	_movement = addComponent<MovingComponent>();
+
 }
 void Enemy::setItList(list<GameObject*>::iterator itFR)
 {
@@ -46,6 +48,7 @@ void Enemy::setItList(list<GameObject*>::iterator itFR)
 
 void Enemy::beginCollision(GameComponent * other, b2Contact* contact)
 {
+	cout << getGame()->getCurrentState()->getMainCamera()->inCamera(_transform->getPosition()) << endl;
 	string otherTag = other->getTag();
 	if (otherTag == "Bullet")
 	{

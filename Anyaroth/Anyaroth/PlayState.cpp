@@ -23,17 +23,17 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_stages.push_back(_colisionLayer);
 
 	//Pools balas
-	_basicBulletPool = new BulletPool<100>(g, g->getTexture("PistolBullet"), 100, 10, 1000);
+	_basicBulletPool = new BulletPool<100>(g, g->getTexture("PistolBullet"), this, 100, 10, 1000);
 	_basicBulletPool->changePoolFilter(PLAYER_BULLETS, FLOOR | ENEMIES);
 	_stages.push_back(_basicBulletPool);
 	_pools.push_back(_basicBulletPool);
 
-	_basicShotgunBulletPool = new BulletPool<100>(g, g->getTexture("PistolBullet"), 100, 25, 60);
+	_basicShotgunBulletPool = new BulletPool<100>(g, g->getTexture("PistolBullet"), this, 100, 25, 60);
 	_basicShotgunBulletPool->changePoolFilter(PLAYER_BULLETS, FLOOR | ENEMIES);
 	_stages.push_back(_basicShotgunBulletPool);
 	_pools.push_back(_basicShotgunBulletPool);
 
-	_enemyPool = new BulletPool<200>(g, g->getTexture("PistolBullet"), 100, 10, 1000);
+	_enemyPool = new BulletPool<200>(g, g->getTexture("PistolBullet"), this, 100, 10, 1000);
 	_enemyPool->changePoolFilter(ENEMY_BULLETS, FLOOR | PLAYER);
 	_stages.push_back(_enemyPool);
 	_pools.push_back(_enemyPool);

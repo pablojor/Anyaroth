@@ -17,12 +17,12 @@ class BulletPool : public ObjectPool<Bullet, SIZE>
 		int _bulletDamage = 0;
 		int _bulletRange = 0;
 		double _bulletAngle = 0;
-
+		GameState* _current;
 		void initBullets();
 
 	public:
-		BulletPool(Game* g, Texture* texture, double speed, int damage, int bulletRange) : _bulletTexture(texture), _bulletSpeed(speed), _bulletDamage(damage), _bulletRange(bulletRange), ObjectPool<Bullet, SIZE>(g) { initBullets(); };
-		BulletPool(Game* g, Texture* texture, double speed, int damage, double bulletAngle = 0, int bulletRange = 20) : _bulletTexture(texture), _bulletSpeed(speed), _bulletDamage(damage), _bulletAngle(bulletAngle), _bulletRange(bulletRange), ObjectPool<Bullet, SIZE>(g) { initBullets(); };
+		BulletPool(Game* g, Texture* texture, GameState* state, double speed, int damage, int bulletRange) : _bulletTexture(texture), _bulletSpeed(speed), _bulletDamage(damage), _bulletRange(bulletRange), _current(state), ObjectPool<Bullet, SIZE>(g) { initBullets(); };
+		BulletPool(Game* g, Texture* texture, GameState* state, double speed, int damage, double bulletAngle = 0, int bulletRange = 20) : _bulletTexture(texture), _bulletSpeed(speed), _bulletDamage(damage), _bulletAngle(bulletAngle), _bulletRange(bulletRange), _current(state), ObjectPool<Bullet, SIZE>(g) { initBullets(); };
 		virtual ~BulletPool() {};
 
 		void addBullet(Vector2D pos, Vector2D dir, double angle);
@@ -35,9 +35,9 @@ class BulletPool : public ObjectPool<Bullet, SIZE>
 template<int SIZE>
 void BulletPool<SIZE>::initBullets() {
 	for (int i = 0; i < SIZE; i++)
-	{
+	{		
 		Bullet* b = ObjectPool<Bullet, SIZE>::getObject(i);
-		b->init(_bulletTexture, _bulletSpeed, _bulletDamage, _bulletAngle, _bulletRange);
+		b->init(_bulletTexture, _current, _bulletSpeed, _bulletDamage, _bulletAngle, _bulletRange);
 	}
 }
 

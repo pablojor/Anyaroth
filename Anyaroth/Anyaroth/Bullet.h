@@ -2,6 +2,7 @@
 #include "GameComponent.h"
 #include "Vector2D.h"
 #include "TransformComponent.h"
+#include "GameState.h"
 
 /*********************************
 	//RECORDATORIO: 
@@ -25,6 +26,7 @@ private:
 
 	TransformComponent* _trans = nullptr;
 
+	GameState* _currentState;
 	//Texture* _texture = nullptr;
 public:
 	Bullet(Texture* texture, Vector2D iniPos, Game* g, string tag);
@@ -38,7 +40,7 @@ public:
 	void setVelocity(Vector2D vel) { _velocity = vel; };
 	void setRotation(double rot) { _angle = rot; };
 
-	void init(Texture* texture, double speed, int damage, double angle, int range = 5);
+	void init(Texture* texture, GameState* current, double speed, int damage, double angle, int range = 5);
 	
 	/*virtual void render() const
 	{
