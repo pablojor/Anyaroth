@@ -63,7 +63,7 @@ void Enemy::update()
 
 void Enemy::die()
 {
-	_play->KillObject(_itList);
+	//_play->KillObject(_itList);
 }
 
 void Enemy::subLife(int damage)
@@ -75,6 +75,8 @@ void Enemy::subLife(int damage)
 		{
 			die();
 			_hurt->die();
+			_anim->playAnim(AnimatedSpriteComponent::EnemyDie);
+
 			_dead = true;
 		}
 		else

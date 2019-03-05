@@ -13,9 +13,10 @@ MartyrEnemy::MartyrEnemy(Player* player, Game* g, PlayState* play,Texture* textu
 	_life = 50;
 	_damage = 20;
 
-	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 13, true);
-	_anim->addAnim(AnimatedSpriteComponent::EnemyWalk, 8, true);
-	_anim->addAnim(AnimatedSpriteComponent::EnemyAttack, 11, false);
+	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 14, true);
+	_anim->addAnim(AnimatedSpriteComponent::EnemyWalk, 5, true);
+	_anim->addAnim(AnimatedSpriteComponent::EnemyAttack, 23, false);
+	_anim->addAnim(AnimatedSpriteComponent::EnemyDie, 10, false);
 
 	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 }

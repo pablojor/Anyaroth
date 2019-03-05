@@ -58,6 +58,13 @@ PlayState::PlayState(Game* g) : GameState(g)
 		_enemy->setItList(itFR);
 	 }
 
+	 //prueba martyr
+	 _enemy = new MartyrEnemy(_player, g, this, g->getTexture("EnemyMartyr"), Vector2D(400, 300 - TILES_SIZE * 2), "Enemy");
+	 _stages.push_back(_enemy);
+	 auto itFR = --(_stages.end());
+	 _enemy->setItList(itFR);
+
+
 	//Coins
 	 oL = new ObjectLayer(TILEMAP_PATH + "Nivel1.json", "Monedas");
 	 vector <Vector2D> coinsPos = oL->getObjectsPositions();
