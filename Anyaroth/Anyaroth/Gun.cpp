@@ -2,15 +2,6 @@
 #include "AnimatedSpriteComponent.h"
 #include <algorithm>
 
-
-Gun::Gun(GameComponent* shootingObj, ShooterInterface* shooterComp, PoolWrapper* bp, GunType type, int maxAmmo, int maxClip, double cadence, int bulletsPerShot) : _shootingObj(shootingObj), _shooterComp(shooterComp), _bPool(bp), _type(type), _maxAmmo(maxAmmo), _maxClip(maxClip), _ammo(maxAmmo), _clip(maxClip), _bulletsPerShot(bulletsPerShot), _cadence(cadence)
-{
-	_shooterComp->init(_shootingObj, _bPool);
-}
-
-Gun::~Gun() {}
-
-
 void Gun::setShooter(ShooterInterface* sh) 
 {
 	_shooterComp = sh; 
@@ -128,10 +119,13 @@ bool Gun::shoot(Vector2D bulletPosition, Vector2D bulletDir, bool flipped)
 }
 void Gun::enemyShoot(Vector2D bulletPosition, Vector2D bulletDir, bool flipped)
 {
-	if (_shooterComp != nullptr) //Si tiene un shooter, llama a su shoot()
+	if (_shooterComp != nullptr && canShoot()) //Si tiene un shooter, llama a su shoot()
 	{
 		int flippedAngle = flipped ? 180 : 0;
+
 		_shooterComp->shoot(bulletPosition, bulletDir, _shootingObj->getComponent<TransformComponent>()->getRotation() - flippedAngle);
+
+		_fireTimer = SDL_GetTicks();
 	}
 
 }

@@ -78,10 +78,10 @@ class Game
 		vector<int> var;
 		vector<GunAttributes> gameGuns = 
 		{
-			{ new Shooter(), BasicGun, 60, 12, 0, 100, 10, 500 },
-			{ new ShotgunShooter({30,0,-30}), BasicShotgun, 30, 2, 500, 100, 25, 60 },
-			{ new Shooter(), BasicEnemyGun, 60, 12, 700, 100, 10, 500 },
-			{ new ShotgunShooter({30,0,-30}), BasicEnemyShotgun, 30, 2, 500, 100, 25, 60 },
+			{ new Shooter(), BasicGun, 60, 12, 600, 100, 10, 500 },
+			{ new ShotgunShooter({30,0,-30}), BasicShotgun, 30, 2, 1200, 100, 25, 60 },
+			{ new Shooter(), BasicEnemyGun, 60, 12, 600, 100, 10, 500 },
+			{ new ShotgunShooter({30,0,-30}), BasicEnemyShotgun, 30, 2, 1200, 100, 25, 60 },
 		};
 
 		//Metodos

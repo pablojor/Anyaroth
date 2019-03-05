@@ -97,7 +97,7 @@ void Arm::shoot()
 		bulletDir.normalize();
 		//bulletDir = bulletDir * 3;
 
-		_currentGun->shoot(bulletPosition, bulletDir, _anim->isFlipped());
+		_currentGun->enemyShoot(bulletPosition, bulletDir, _anim->isFlipped());
 	}
 	else
 		cout << "Gun Not found" << endl;

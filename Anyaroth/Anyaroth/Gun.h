@@ -41,8 +41,8 @@ private:
 	void reloadAux(int newClipValue);
 	
 public:
-	Gun(GameComponent* shootingObj, ShooterInterface* shooterComp, PoolWrapper* bp, GunType type, int maxAmmunition, int magazine, double cadence, int bulletsPerShot = 1);
-	virtual ~Gun();
+	Gun(GameComponent* shootingObj, ShooterInterface* shooterComp, PoolWrapper* bp, GunType type, int maxAmmo, int maxClip, double cadence, int bulletsPerShot = 1) : 
+		_shootingObj(shootingObj), _shooterComp(shooterComp), _bPool(bp), _type(type), _maxAmmo(maxAmmo), _maxClip(maxClip), _ammo(maxAmmo), _clip(maxClip), _bulletsPerShot(bulletsPerShot), _cadence(cadence) { _shooterComp->init(_shootingObj, _bPool); }
 
 	void setShooter(ShooterInterface* sh);
 	void setBulletPool(PoolWrapper* bp) { _bPool = bp; };

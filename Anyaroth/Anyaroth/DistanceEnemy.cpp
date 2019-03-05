@@ -8,6 +8,7 @@ DistanceEnemy::DistanceEnemy(Player* player, Game* g, PlayState* play, Texture* 
 
 	_arm = new EnemyArm(getGame()->getTexture("ArmPistol"), this, player, getGame(), _play, { 35,30 });
 	addChild(_arm);
+
 	ShooterInterface* sh = getGame()->gameGuns[type].shooter;
 	int mA = getGame()->gameGuns[type].maxAmmo;
 	int mC = getGame()->gameGuns[type].maxClip;
