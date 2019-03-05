@@ -26,20 +26,25 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_stages.push_back(_colisionLayer);
 
 	//Pools balas
-	_basicBulletPool = new BulletPool<100>(g, g->getTexture("PistolBullet"), this, 100, 10, 1000);
+	PoolWrapper* _basicBulletPool = new BulletPool<100>(g, g->getTexture("PistolBullet"), this, g->gameGuns[BasicGun].velocity, g->gameGuns[BasicGun].damage, g->gameGuns[BasicGun].range);
 	_basicBulletPool->changePoolFilter(PLAYER_BULLETS, FLOOR | ENEMIES);
 	_stages.push_back(_basicBulletPool);
 	_pools.push_back(_basicBulletPool);
 
-	_basicShotgunBulletPool = new BulletPool<100>(g, g->getTexture("PistolBullet"), this, 100, 25, 60);
+	PoolWrapper* _basicShotgunBulletPool = new BulletPool<100>(g, g->getTexture("PistolBullet"), this, g->gameGuns[BasicShotgun].velocity, g->gameGuns[BasicShotgun].damage, g->gameGuns[BasicShotgun].range);
 	_basicShotgunBulletPool->changePoolFilter(PLAYER_BULLETS, FLOOR | ENEMIES);
 	_stages.push_back(_basicShotgunBulletPool);
 	_pools.push_back(_basicShotgunBulletPool);
 
-	_enemyPool = new BulletPool<200>(g, g->getTexture("PistolBullet"), this, 100, 10, 1000);
-	_enemyPool->changePoolFilter(ENEMY_BULLETS, FLOOR | PLAYER);
-	_stages.push_back(_enemyPool);
-	_pools.push_back(_enemyPool);
+	PoolWrapper*_enemyBasicGunPool = new BulletPool<200>(g, g->getTexture("PistolBullet"), this, g->gameGuns[BasicEnemyGun].velocity, g->gameGuns[BasicEnemyGun].damage, g->gameGuns[BasicEnemyGun].range);
+	_enemyBasicGunPool->changePoolFilter(ENEMY_BULLETS, FLOOR | PLAYER);
+	_stages.push_back(_enemyBasicGunPool);
+	_pools.push_back(_enemyBasicGunPool);
+
+	PoolWrapper* _enemyBasicShotgunBulletPool = new BulletPool<100>(g, g->getTexture("PistolBullet"), this, g->gameGuns[BasicEnemyShotgun].velocity, g->gameGuns[BasicEnemyShotgun].damage, g->gameGuns[BasicEnemyShotgun].range);
+	_basicShotgunBulletPool->changePoolFilter(PLAYER_BULLETS, FLOOR | ENEMIES);
+	_stages.push_back(_enemyBasicShotgunBulletPool);
+	_pools.push_back(_enemyBasicShotgunBulletPool);
 
 	//Player
 	_player = new Player(g->getTexture("Mk"), g, this, "Player");

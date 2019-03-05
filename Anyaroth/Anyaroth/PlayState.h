@@ -27,10 +27,7 @@ class PlayState : public GameState
 		DebugDraw _debugger;
 		Cursor* _cursor = nullptr;
 
-		PoolWrapper* _enemyPool = nullptr; //TEMPORAL
 		//Bullet Pools
-		PoolWrapper* _basicBulletPool = nullptr; //balas b�sicas
-		PoolWrapper* _basicShotgunBulletPool = nullptr; //balas de escopeta
 		vector<PoolWrapper*> _pools;
 
 		vector <list<GameObject*>::iterator> items_ToDelete;

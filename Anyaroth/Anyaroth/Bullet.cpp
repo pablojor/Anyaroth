@@ -60,7 +60,9 @@ void Bullet::update()
 {
 	if (!isActive())
 		return;
+
 	double dist = _iniPos.distance(_trans->getPosition());
+
 	if (dist < _range && !_collided && _currentState->getMainCamera()->inCamera(_trans->getPosition()))
 	{
 		//cout << "X: " << getComponent<TransformComponent>()->getPosition().getX() << "	Y: " << getComponent<TransformComponent>()->getPosition().getY() << endl << endl;

@@ -21,8 +21,8 @@ class BulletPool : public ObjectPool<Bullet, SIZE>
 		void initBullets();
 
 	public:
-		BulletPool(Game* g, Texture* texture, GameState* state, double speed, int damage, int bulletRange) : _bulletTexture(texture), _bulletSpeed(speed), _bulletDamage(damage), _bulletRange(bulletRange), _current(state), ObjectPool<Bullet, SIZE>(g) { initBullets(); };
-		BulletPool(Game* g, Texture* texture, GameState* state, double speed, int damage, double bulletAngle = 0, int bulletRange = 20) : _bulletTexture(texture), _bulletSpeed(speed), _bulletDamage(damage), _bulletAngle(bulletAngle), _bulletRange(bulletRange), _current(state), ObjectPool<Bullet, SIZE>(g) { initBullets(); };
+		BulletPool(Game* g, Texture* texture, GameState* state, double speed, int damage, int bulletRange = 20, double bulletAngle = 0) : 
+			_bulletTexture(texture), _bulletSpeed(speed), _bulletDamage(damage), _bulletRange(bulletRange), _bulletAngle(bulletAngle), _current(state), ObjectPool<Bullet, SIZE>(g) { initBullets(); };
 		virtual ~BulletPool() {};
 
 		void addBullet(Vector2D pos, Vector2D dir, double angle);

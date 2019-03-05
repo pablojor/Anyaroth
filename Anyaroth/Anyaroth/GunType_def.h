@@ -4,5 +4,6 @@ enum GunType
 {
 	BasicGun,
 	BasicShotgun,
-	BasicEnemyGun
+	BasicEnemyGun,
+	BasicEnemyShotgun
 };
