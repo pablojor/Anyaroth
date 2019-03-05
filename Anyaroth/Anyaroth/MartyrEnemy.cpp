@@ -9,7 +9,8 @@ MartyrEnemy::MartyrEnemy(Player* player, Game* g, PlayState* play,Texture* textu
 {
 	_vision = 300;
 	_attackRange = 25; //No se puede poner mas peque�o que la velocidad
-	_attackTime = 1000;
+	_attackTime = 800;
+	_timeUntilDisappear = 1000; //Tiempo que pasa entre que el enemigo ataca y se destruye
 	_life = 50;
 	_damage = 20;
 
@@ -92,7 +93,8 @@ void MartyrEnemy::update()
 				_player->subLife(_damage);
 			}
 
-			_play->KillObject(_itList);
+			if (SDL_GetTicks() > _time + _attackTime + _timeUntilDisappear)
+				_play->KillObject(_itList);
 		}
 	}
 	else
