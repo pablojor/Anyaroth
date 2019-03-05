@@ -3,16 +3,15 @@
 
 
 
-DistanceEnemy::DistanceEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag) : Enemy(player, g, play, texture, posIni, tag)
+DistanceEnemy::DistanceEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag, GunType type) : Enemy(player, g, play, texture, posIni, tag)
 {
 
 	_arm = new EnemyArm(getGame()->getTexture("ArmPistol"), this, player, getGame(), _play, { 35,30 });
 	addChild(_arm);
-	ShooterInterface* sh = getGame()->gameGuns[BasicEnemyGun].shooter;
-	GunType type = GunType(getGame()->gameGuns[BasicEnemyGun].type);
-	int mA = getGame()->gameGuns[BasicEnemyGun].maxAmmo;
-	int mC = getGame()->gameGuns[BasicEnemyGun].maxClip;
-	double c = getGame()->gameGuns[BasicEnemyGun].cadence;
+	ShooterInterface* sh = getGame()->gameGuns[type].shooter;
+	int mA = getGame()->gameGuns[type].maxAmmo;
+	int mC = getGame()->gameGuns[type].maxClip;
+	double c = getGame()->gameGuns[type].cadence;
 
 	// TEMPORAL
 	PoolWrapper* bp = _play->getBulletPool(type);
