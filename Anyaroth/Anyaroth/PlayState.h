@@ -10,6 +10,7 @@
 #include "DistanceDynamicEnemy.h"
 #include "BulletPool.h"
 #include "Coin.h"
+#include "Cursor.h"
 
 
 class PlayState : public GameState
@@ -24,6 +25,7 @@ class PlayState : public GameState
 		b2World* _world;
 		CollisionManager _colManager;
 		DebugDraw _debugger;
+		Cursor* _cursor = nullptr;
 
 		PoolWrapper* _enemyPool = nullptr; //TEMPORAL
 		//Bullet Pools
@@ -40,4 +42,5 @@ class PlayState : public GameState
 		virtual void update();
 		virtual bool handleEvents(SDL_Event& e);
 		inline PoolWrapper* getBulletPool(int index) { return _pools[index]; };
+		Cursor* getCursor() { return _cursor; };
 };

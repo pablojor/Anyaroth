@@ -13,6 +13,8 @@ private:
 	TransformComponent* _transform;
 	AnimatedSpriteComponent* _anim;
 	Camera* _cam;
+	Vector2D _prevCamPos;
+	bool _movingMouse = false;
 
 	int _mouseX, _mouseY;
 public:
@@ -21,4 +23,6 @@ public:
 
 	void update();
 	virtual bool handleInput(const SDL_Event& event);
+
+	Vector2D getPosition();
 };

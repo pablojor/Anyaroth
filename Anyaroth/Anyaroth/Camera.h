@@ -33,6 +33,8 @@ class Camera
 		void fixCameraToObject(GameComponent* object) { _followedObject = object; };
 		void looseFixedObject();
 
+		GameComponent* getFollowedObject() { return _followedObject; };
+
 		void update();
 		void render() const;
 };

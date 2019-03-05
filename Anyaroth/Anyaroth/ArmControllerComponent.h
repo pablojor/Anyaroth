@@ -4,6 +4,7 @@
 #include "TransformComponent.h"
 #include "AnimatedSpriteComponent.h"
 #include "FollowingComponent.h"
+#include "Cursor.h"
 
 class GameComponent;
 class PlayerArm;
@@ -20,11 +21,18 @@ private:
 	bool _rPul = false;
 
 	bool isReloading = false;
+
+	/*bool _mouseIsMoving = false;
+	Vector2D _lastCamPos;
+	*/
+	TransformComponent* _cursorTC = nullptr;
+
 public:
 	ArmControllerComponent(GameComponent* obj);
 	virtual void handleInput(const SDL_Event& event);
 
 	int mouseX = 0; int mouseY = 0;
 	int flipPosOffset = 8; //Distancia que se mueve el brazo al hacer flip
+	void setCursorTC(Cursor* cursor) { _cursorTC = cursor->getComponent<TransformComponent>(); };
 };
 
