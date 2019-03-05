@@ -18,8 +18,9 @@ void PlayerArm::update()
 	GameComponent::update();
 
 	Vector2D mousePos = _cursor->getComponent<TransformComponent>()->getPosition();
+	Vector2D mouseDim = { double(_cursor->getComponent<AnimatedSpriteComponent>()->getTexture()->getW()), double(_cursor->getComponent<AnimatedSpriteComponent>()->getTexture()->getH()) };
 	//------------Rotaci�n del brazo---------------------
-	rotate(Vector2D(mousePos.getX(), mousePos.getY()));
+	rotate(Vector2D(mousePos.getX() + mouseDim.getX()/2, mousePos.getY() + mouseDim.getY() / 2));
 	//-----------------------------------------------------------
 
 
