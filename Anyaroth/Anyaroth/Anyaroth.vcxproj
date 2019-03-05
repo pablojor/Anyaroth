@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{60A3B899-1EDB-471B-84AB-DBCD1A6398D6}</ProjectGuid>
     <RootNamespace>Anyaroth</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -152,7 +152,6 @@
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="FollowingComponent.cpp" />
     <ClCompile Include="MenuButton.cpp" />
-    <ClCompile Include="ObjectPool.cpp" />
     <ClCompile Include="ObjectLayer.cpp" />
     <ClCompile Include="ImageUI.cpp" />
     <ClCompile Include="LifeBar.cpp" />
@@ -160,7 +159,6 @@
     <ClCompile Include="Life.cpp" />
     <ClCompile Include="MartyrEnemy.cpp" />
     <ClCompile Include="MeleeEnemy.cpp" />
-    <ClCompile Include="ObjectPool.cpp" />
     <ClCompile Include="PanelUI.cpp" />
     <ClCompile Include="ParallaxBackGround.cpp" />
     <ClCompile Include="ParallaxLayer.cpp" />
@@ -231,7 +229,6 @@
     <ClInclude Include="HUD.h" />
     <ClInclude Include="FollowingComponent.h" />
     <ClInclude Include="MenuButton.h" />
-    <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="ObjectLayer.h" />
     <ClInclude Include="ImageUI.h" />
     <ClInclude Include="LifeBar.h" />
@@ -239,7 +236,6 @@
     <ClInclude Include="Life.h" />
     <ClInclude Include="MartyrEnemy.h" />
     <ClInclude Include="MeleeEnemy.h" />
-    <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="PanelUI.h" />
     <ClInclude Include="ParallaxBackGround.h" />
     <ClInclude Include="ParallaxLayer.h" />
