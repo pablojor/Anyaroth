@@ -219,6 +219,7 @@
     </ClCompile>
     <ClCompile Include="ObjectPool.cpp" />
     <ClCompile Include="Cursor.cpp" />
+    <ClCompile Include="ObjectPool.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">

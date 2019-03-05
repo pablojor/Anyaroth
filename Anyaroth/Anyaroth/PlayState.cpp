@@ -9,7 +9,6 @@
 #include "ParallaxBackGround.h"
 #include "ParallaxLayer.h"
 #include "PlayStateHUD.h"
-#include "Cursor.h"
 
 PlayState::PlayState(Game* g) : GameState(g)
 {
@@ -90,8 +89,9 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_mainCamera->setBackGround(a);
 
 	//cursor
-	Cursor* cursor = new Cursor(g->getTexture("GunCursor"), g, this);
-	_stages.push_back(cursor);
+	_cursor = new Cursor(g->getTexture("GunCursor"), g, this);
+	_stages.push_back(_cursor);
+	_player->getWeaponArm()->setCursor(_cursor);
 
 	//HUD
 	auto b = new PlayStateHUD(g);

@@ -20,21 +20,24 @@ ArmControllerComponent::ArmControllerComponent(GameComponent* obj) : InputCompon
 	_player = _followC->getOther();
 
 	_obj = dynamic_cast<PlayerArm*>(obj);
+	
 }
 
 void ArmControllerComponent::handleInput(const SDL_Event& event)
 {
 	//si se mueve el raton, se actualiza
-	if (event.type == SDL_MOUSEMOTION)
+	/*if (event.type == SDL_MOUSEMOTION)
 	{
-  		mouseX = event.motion.x + _obj->getCamera()->getCameraPosition().getX();
-		mouseY = event.motion.y + _obj->getCamera()->getCameraPosition().getY();
-	}
+		_mouseIsMoving = true;
+		_lastCamPos = _obj->getCamera()->getCameraPosition();
+		mouseX = event.motion.x + _lastCamPos.getX();
+		mouseY = event.motion.y + _lastCamPos.getY();
+	}*/
 
 	//cout << "X: " << mouseX << "  Y: " << mouseY << endl;
 
 	//------------Flip del brazo---------------------
-	if (!_anim->isFlipped() && mouseX < _transform->getPosition().getX())
+	if (!_anim->isFlipped() && _cursorTC->getPosition().getX()/*mouseX*/ < _transform->getPosition().getX())
 	{
 		_anim->flip();
 		_player->getComponent<AnimatedSpriteComponent>()->flip();
@@ -44,7 +47,7 @@ void ArmControllerComponent::handleInput(const SDL_Event& event)
 		_followC->setOffset({ _followC->getInitialOffset().getX() + flipPosOffset/*_followC->getInitialOffset().getX()*/, _followC->getInitialOffset().getY() });
 		//cout << _followC->getOffset().getX() << endl;
 	}
-	else if (_anim->isFlipped() && mouseX > _transform->getPosition().getX() /*+ _followC->getInitialOffset().getX()*/)
+	else if (_anim->isFlipped() && _cursorTC->getPosition().getX() > _transform->getPosition().getX() /*+ _followC->getInitialOffset().getX()*/)
 	{
 		_anim->unFlip();
 		_player->getComponent<AnimatedSpriteComponent>()->unFlip();

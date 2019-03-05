@@ -7,6 +7,7 @@
 PlayerArm::PlayerArm(Texture* texture, GameComponent* player, Game* g, PlayState* play, Vector2D offset) : Arm(texture, player, g, play, offset)
 {
 	_controller = addComponent<ArmControllerComponent>();
+	//_cursor = play->getCursor();
 }
 
 void PlayerArm::update()
@@ -16,8 +17,9 @@ void PlayerArm::update()
 
 	GameComponent::update();
 
+	Vector2D mousePos = _cursor->getComponent<TransformComponent>()->getPosition();
 	//------------Rotaci�n del brazo---------------------
-	rotate(Vector2D((double)_controller->mouseX, (double)_controller->mouseY));
+	rotate(Vector2D(mousePos.getX(), mousePos.getY()));
 	//-----------------------------------------------------------
 
 
@@ -95,3 +97,8 @@ bool PlayerArm::reload()
 	return _currentGun->reload();	
 }
 
+void PlayerArm::setCursor(Cursor* c)
+{
+	_cursor = c;
+	_controller->setCursorTC(c);
+}
