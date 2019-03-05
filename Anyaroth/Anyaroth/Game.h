@@ -28,7 +28,7 @@ const string SAVES_PATH = "..\\files\\saves\\";
 const string SPRITE_PATH = "..\\assets\\sprites\\";
 const string TILEMAP_PATH = "..\\files\\tilemaps\\";
 
-const int NUM_TEXTURES = 25;
+const int NUM_TEXTURES = 27;
 
 const int NUM_FONTS = 0;
 const int TILES_SIZE = 16;

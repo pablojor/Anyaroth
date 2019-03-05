@@ -266,6 +266,7 @@ void Player::equipGun(int gunIndex)
 	else //Si no, simplemente cambio la textura
 	{
 		_weaponArm->setArmSprite(_armTextures[gunIndex]);
+		//_hurtArm = _weaponArm->addComponent<HurtRenderComponent>();
 	}
 
 	ShooterInterface* sh = getGame()->gameGuns[gunIndex].shooter;

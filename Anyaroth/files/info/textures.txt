@@ -1,5 +1,6 @@
 Mk mk_spritesheet.png 14 16
 EnemyMelee enemymelee_spritesheet.png 3 13
+EnemyMartyr enemymartyr_spritesheet.png 4 23
 Arm mk_arm.png 1 1
 ArmUp mk_arm_up.png 1 1
 ArmPistol mk_pistol_spritesheet.png 3 3
@@ -23,3 +24,4 @@ DashIcon dashIcon.png 1 1
 LifeBar lifeBar.png 1 1
 Punto1 DisparoEnemigo.png 1 1
 Punto2 DisparoJugador.png 1 1
+GunCursor gunCursor.png 1 1

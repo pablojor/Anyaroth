@@ -20,7 +20,7 @@ void GameState::update()
 {
 	_mainCamera->update();
 	for (GameObject* o : _stages)
-		o->update();
+		o->update(); // Carlos says: si no le pasáis un único delta, gatitos morirán.
 	if (_canvas != nullptr) _canvas->update();
 }
 

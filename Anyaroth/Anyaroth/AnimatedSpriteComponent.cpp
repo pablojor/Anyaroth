@@ -33,7 +33,7 @@ void AnimatedSpriteComponent::render(Camera* c) const
 void AnimatedSpriteComponent::update()
 {
 	// we update the frame every _freq ms
-	if (SDL_GetTicks() - _lastTimeUpdated >= _freq)
+	if (SDL_GetTicks() - _lastTimeUpdated >= _lapse)
 	{
 		if (_animations[_currentAnim].loop)
 		{

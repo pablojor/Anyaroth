@@ -7,8 +7,8 @@ class Money
 		int _wallet = 0;
 
 	public:
-		Money() {}
-		~Money() {}
+		//Money() {}
+		//virtual ~Money() {}
 
 		void restartWallet() { _wallet = 0; }
 		void storeWallet() { _bank += _wallet; }
@@ -16,5 +16,5 @@ class Money
 
 		bool spend(int n);
 
-		int getWallet() { return _wallet; }
+		int getWallet() const { return _wallet; }
 };

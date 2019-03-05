@@ -2,6 +2,7 @@
 
 #include "Arm.h"
 #include "Game.h"
+#include "Cursor.h"
 
 class Gun;
 class ArmControllerComponent;
@@ -11,6 +12,7 @@ class PlayerArm : public Arm
 protected:
 	
 	ArmControllerComponent* _controller;
+	Cursor* _cursor;
 	
 	double _minAimDistance = 48;
 
@@ -21,5 +23,6 @@ public:
 
 	void shoot();	
 	bool reload(); 
+	void setCursor(Cursor* c); //usado por el controller
 };
 

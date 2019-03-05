@@ -15,6 +15,9 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_game = g;
 	_world = g->getWorld();
 
+	//hide cursor
+	SDL_ShowCursor(false);
+
 	//Tilemap
 	_layer = new Layer("Mapa", g->getTexture("tileset"), TILEMAP_PATH + "Nivel1.json", g, "Mapa");
 	_stages.push_back(_layer);
@@ -58,6 +61,13 @@ PlayState::PlayState(Game* g) : GameState(g)
 		_enemy->setItList(itFR);
 	 }
 
+	 //prueba martyr
+	 _enemy = new MartyrEnemy(_player, g, this, g->getTexture("EnemyMartyr"), Vector2D(400, 300 - TILES_SIZE * 2), "Enemy");
+	 _stages.push_back(_enemy);
+	 auto itFR = --(_stages.end());
+	 _enemy->setItList(itFR);
+
+
 	//Coins
 	 oL = new ObjectLayer(TILEMAP_PATH + "Nivel1.json", "Monedas");
 	 vector <Vector2D> coinsPos = oL->getObjectsPositions();
@@ -82,10 +92,15 @@ PlayState::PlayState(Game* g) : GameState(g)
 	
 	//Camera BackGound
 	ParallaxBackGround* a = new ParallaxBackGround(_mainCamera);
-	a->addLayer(new ParallaxLayer(g->getTexture("BgZ1L1"), _mainCamera,0.5));
-	a->addLayer(new ParallaxLayer(g->getTexture("BgZ1L2"), _mainCamera,1));
-	a->addLayer(new ParallaxLayer(g->getTexture("BgZ1L3"), _mainCamera,1.5));
+	a->addLayer(new ParallaxLayer(g->getTexture("BgZ1L1"), _mainCamera,0.25));
+	a->addLayer(new ParallaxLayer(g->getTexture("BgZ1L2"), _mainCamera,0.5));
+	a->addLayer(new ParallaxLayer(g->getTexture("BgZ1L3"), _mainCamera,0.75));
 	_mainCamera->setBackGround(a);
+
+	//cursor
+	_cursor = new Cursor(g->getTexture("GunCursor"), g, this);
+	_stages.push_back(_cursor);
+	_player->getWeaponArm()->setCursor(_cursor);
 
 	//HUD
 	auto b = new PlayStateHUD(g);
@@ -94,7 +109,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_player->setPlayerPanel(b->getPlayerPanel());
 }
 
-void PlayState::KillObject(list<GameObject*>::iterator itList)
+void PlayState::KillObject(const list<GameObject*>::iterator &itList)
 {
 	items_ToDelete.push_back(itList);
 }

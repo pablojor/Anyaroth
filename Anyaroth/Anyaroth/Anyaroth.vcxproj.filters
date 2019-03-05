@@ -13,12 +13,6 @@
     <ClCompile Include="Coin.cpp">
       <Filter>Archivos de código\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="MartyrEnemy.cpp">
-      <Filter>Archivos de código\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="MeleeEnemy.cpp">
-      <Filter>Archivos de código\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Archivos de código\Objects</Filter>
     </ClCompile>
@@ -214,6 +208,16 @@
     <ClCompile Include="Life.cpp">
       <Filter>Archivos de código\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="ObjectPool.cpp" />
+    <ClCompile Include="Cursor.cpp" />
+    <ClCompile Include="ObjectPool.cpp" />
+    <ClCompile Include="ObjectPool.cpp" />
+    <ClCompile Include="MartyrEnemy.cpp">
+      <Filter>Archivos de código\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="MeleeEnemy.cpp">
+      <Filter>Archivos de código\Objects\Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -223,12 +227,6 @@
       <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
     <ClInclude Include="Collectable.h">
-      <Filter>Archivos de encabezado\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="MartyrEnemy.h">
-      <Filter>Archivos de encabezado\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="MeleeEnemy.h">
       <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
@@ -452,6 +450,15 @@
     </ClInclude>
     <ClInclude Include="Life.h">
       <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectPool.h" />
+    <ClInclude Include="Cursor.h" />
+    <ClInclude Include="ObjectPool.h" />
+    <ClInclude Include="MartyrEnemy.h">
+      <Filter>Archivos de encabezado\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="MeleeEnemy.h">
+      <Filter>Archivos de encabezado\Objects\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

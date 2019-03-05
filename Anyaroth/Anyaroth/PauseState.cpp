@@ -3,6 +3,9 @@
 
 PauseState::PauseState(Game* g) : GameState(g) 
 {
+	//Show cursor
+	SDL_ShowCursor(true);
+
 	int buttonH = g->getTexture("Continue")->getH()*BUTTON_SCALE;
 	int buttonW = g->getTexture("Continue")->getW()*BUTTON_SCALE;
 
