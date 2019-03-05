@@ -19,11 +19,26 @@ void PlayerArm::update()
 
 	Vector2D mousePos = _cursor->getComponent<TransformComponent>()->getPosition();
 	Vector2D mouseDim = { double(_cursor->getComponent<AnimatedSpriteComponent>()->getTexture()->getW()), double(_cursor->getComponent<AnimatedSpriteComponent>()->getTexture()->getH()) };
+	
+	//------------Flip del jugador/brazo-----------------
+	if (!_anim->isFlipped() && mousePos.getX() < _transform->getPosition().getX())
+	{
+		_anim->flip();
+		_owner->getComponent<AnimatedSpriteComponent>()->flip();
+		_transform->setAnchor(1 - _transform->getDefaultAnchor().getX(), _transform->getDefaultAnchor().getY());
+		_followC->setOffset({ _followC->getInitialOffset().getX() + _flipPosOffset, _followC->getInitialOffset().getY() });
+		
+	}
+	else if (_anim->isFlipped() && mousePos.getX() > _transform->getPosition().getX() )
+	{
+		_anim->unFlip();
+		_owner->getComponent<AnimatedSpriteComponent>()->unFlip();
+		_transform->setAnchor(_transform->getDefaultAnchor().getX(), _transform->getDefaultAnchor().getY());
+		_followC->setOffset({ _followC->getInitialOffset().getX(), _followC->getInitialOffset().getY() });
+	}
+
 	//------------Rotaci�n del brazo---------------------
-	rotate(Vector2D(mousePos.getX() + mouseDim.getX()/2, mousePos.getY() + mouseDim.getY() / 2));
-	//-----------------------------------------------------------
-
-
+	rotate(Vector2D(mousePos.getX() + mouseDim.getX() / 2, mousePos.getY() + mouseDim.getY() / 2));
 
 	if ((static_cast<Player*>(_owner))->getCurrentState() == Player::Attacking ||
 		(static_cast<Player*>(_owner))->getCurrentState() == Player::Reloading ||

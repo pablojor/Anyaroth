@@ -15,6 +15,7 @@ protected:
 	Cursor* _cursor;
 	
 	double _minAimDistance = 48;
+	int _flipPosOffset = 8;
 
 public:
 	PlayerArm(Texture* texture, GameComponent* player, Game* g, PlayState* play, Vector2D offset = { 0,0 });
