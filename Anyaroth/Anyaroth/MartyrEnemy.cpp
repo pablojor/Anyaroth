@@ -94,6 +94,7 @@ void MartyrEnemy::update()
 					_player->subLife(_damage);
 				}
 				_dead = true;
+				die();
 			}
 		}
 		else

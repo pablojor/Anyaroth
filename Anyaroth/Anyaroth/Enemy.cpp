@@ -67,6 +67,7 @@ void Enemy::update()
 void Enemy::die()
 {
 	//_play->KillObject(_itList);
+	_body->filterCollisions(DEAD_ENEMIES, FLOOR);
 }
 
 void Enemy::subLife(int damage)

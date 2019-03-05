@@ -56,6 +56,7 @@ enum _Category {
 	OBJECTS = 8,
 	ENEMY_BULLETS = 16,
 	PLAYER_BULLETS = 32,
+	DEAD_ENEMIES = 64,
 };
 
 class Game
