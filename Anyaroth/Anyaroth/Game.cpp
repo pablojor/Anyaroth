@@ -153,6 +153,7 @@ void Game::render(Uint32 time) const
 {
 	SDL_RenderClear(renderer);
 	stateMachine->currentState()->render();
+	_world->DrawDebugData();
 	SDL_RenderPresent(renderer);
 }
 

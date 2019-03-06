@@ -104,7 +104,7 @@ void Player::beginCollision(GameComponent * other, b2Contact* contact)
 		AmountOfCollision += 1;
 
 
-		if (_transform->getPosition().getY() + (myH+ 0.4) * (M_TO_PIXEL * 2) < otherTransform->getPosition().getY())
+		if (_transform->getPosition().getY() + (myH+ 0.35) * (M_TO_PIXEL * 2) < otherTransform->getPosition().getY())
 		{
 			OnGround = true;
  			_controller->ableJump();
@@ -151,7 +151,7 @@ void Player::endCollision(GameComponent * other, b2Contact* contact)
 	{
 		AmountOfCollision -= 1;
 
-		if (_transform->getPosition().getY() + (myH + 0.4) * (M_TO_PIXEL * 2) < otherTransform->getPosition().getY())
+		if (_transform->getPosition().getY() + (myH + 0.35) * (M_TO_PIXEL * 2) < otherTransform->getPosition().getY())
 		{
 			OnGround = false;
 
