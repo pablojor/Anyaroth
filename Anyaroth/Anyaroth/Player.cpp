@@ -83,7 +83,8 @@ Player::Player(Texture* texture, Game* g, PlayState* play, string tag) : _play(p
 	//Monedore
 	_money = new Money();
 
-	createMelee();
+	_melee = new MeleeWeapon(g);
+	addChild(_melee);
 }
 
 Player::~Player()
@@ -204,13 +205,17 @@ void Player::update()
 	{
 		if (_controller->currXDir() == 0)
 		{
+			if (_controller->isAttacking())
+			{
+				endMelee();
+				_controller->setIsAttacking(false);
+			}
 			_anim->playAnim(AnimatedSpriteComponent::Idle);
-			_controller->setIsAttacking(false);
 			_controller->setIsReloading(false);
 
 			_currentState = Idle;
 		}
-		else
+		else 
 		{
 			if (!_anim->isFlipped())
 				_anim->playAnim(AnimatedSpriteComponent::Walk);
@@ -247,7 +252,7 @@ void Player::update()
 	}
 	else
 		_timer = SDL_GetTicks();
-
+		
 	//De momento todo el rato porque hay que cambiar cosas del player, porque esto es un caos
 	_playerPanel->updateDashViewer(_controller->amountDash());
 	_playerPanel->updateAmmoViewer(_weaponArm->getCurrentGun()->getClip(), _weaponArm->getCurrentGun()->getAmmo());
@@ -298,8 +303,11 @@ void Player::reload()
 	_controller->reload();
 }
 
-void Player::createMelee(int dir)
+void Player::meleeAttack()
 {
+	int dir;
+	(_anim->isFlipped()) ? dir = -1 : dir = 1;
+
 	double playerX = _body->getBody()->GetPosition().x * M_TO_PIXEL,
 		playerY = _body->getBody()->GetPosition().y *M_TO_PIXEL,
 		w = _body->getW()*M_TO_PIXEL,
@@ -311,37 +319,20 @@ void Player::createMelee(int dir)
 	{
 	case(Knife):
 	case(Chainsaw):
-		x = playerX + 2 * w*dir;
+		x = playerX + (2 * w * dir);
+		y = playerY;
 		w *= 2;
 		h /= 2;
-		x = playerX + 2 * w;
 		break;
 	case(Lightsaber):
 	case(Axe):
 		x = playerX + w * dir;
-		x = playerX + w;
 		y = playerY - h * 2;
 		w *= 2;
 		h /= 2;
 		break;
 	}
-	if (_melee == nullptr)
-	{
-		_melee = new MeleeWeapon(getGame(), w, h, meleeWeapon.damage, meleeWeapon.type);
-		addChild(_melee);
-	}
-	else
-		_melee->MeleeAttack(dir, x, y, Vector2D(playerX, playerY));
-}
-
-void Player::meleeAttack()
-{
-	endMelee();// provisional deberia llamarse al acabar la animacion de atatque
-
-	int dir;
-	(_anim->isFlipped()) ? dir = -1 : dir = 1;
-	createMelee(dir);
-
+	_melee->MeleeAttack(x, y, w, h, meleeWeapon.damage, Vector2D(playerX, playerY), dir, meleeWeapon.type);
 }
 
 void Player::changeMelee(int meleeType)

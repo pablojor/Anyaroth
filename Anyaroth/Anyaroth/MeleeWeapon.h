@@ -4,14 +4,11 @@
 class MeleeWeapon :	public GameComponent
 {
 protected:
-	Vector2D  _size, _center;
-	int _type;
-	double _damage;
 	MeleeBox* _melee= nullptr;
 public:
-	MeleeWeapon(Game* g, double w, double h, double damage, int type = 0);
+	MeleeWeapon(Game* g);
 	~MeleeWeapon();
-	void MeleeAttack(int dir, double x, double y, Vector2D center);
+	void MeleeAttack (double x, double y, double w, double h, double damage, Vector2D center, int dir, int type);
 	void update();
 	void endMelee();
 };
