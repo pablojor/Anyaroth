@@ -31,8 +31,7 @@ GameComponent::~GameComponent()
 	//Llama a la destructora de los hijos
 	for (GameComponent* child : _children)
 	{
-		if (child != nullptr)
-			delete child;
+		delete child;
 	}
 }
 
@@ -54,8 +53,7 @@ bool GameComponent::handleInput(const SDL_Event& event)
 	//Llama al handleInput de los hijos
 	for (GameComponent* child : _children)
 	{
-		if (child != nullptr)
-			child->handleInput(event);
+		child->handleInput(event);
 	}
 
 	return false;
@@ -71,8 +69,7 @@ void GameComponent::update()
 	//Llama al update de los hijos
 	for (GameComponent* child : _children)
 	{
-		if (child != nullptr)
-			child->update();
+		child->update();
 	}
 }
 
@@ -84,8 +81,7 @@ void GameComponent::render(Camera* c) const {
 	//Llama al render de los hijos
 	for (GameComponent* child : _children)
 	{
-		if (child != nullptr)
-			child->render(c);
+		child->render(c);
 	}
 }
 

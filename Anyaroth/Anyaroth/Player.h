@@ -8,7 +8,7 @@
 #include "Life.h"
 #include "GunType_def.h"
 #include "PlayerPanel.h"
-#include "MeleeBox.h"
+#include "MeleeWeapon.h"
 
 class PlayerArm;
 class Game;
@@ -32,7 +32,7 @@ private:
 	BodyComponent * _body;
 	HurtRenderComponent* _hurt;
 	HurtRenderComponent* _hurtArm;
-	MeleeBox* _melee = nullptr;
+	MeleeWeapon* _melee = nullptr;
 
 	PlayerPanel* _playerPanel = nullptr;
 
@@ -72,6 +72,7 @@ public:
 
 	void reload();
 
+	void createMelee(int dir = 1);
 	void meleeAttack();
 	void changeMelee(int meleeType);
 	void endMelee();

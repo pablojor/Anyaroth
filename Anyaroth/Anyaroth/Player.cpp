@@ -83,12 +83,12 @@ Player::Player(Texture* texture, Game* g, PlayState* play, string tag) : _play(p
 	//Monedore
 	_money = new Money();
 
+	createMelee();
 }
 
 Player::~Player()
 {
 	delete _money;
-	delete _melee;
 }
 
 void Player::beginCollision(GameComponent * other, b2Contact* contact)
@@ -298,17 +298,13 @@ void Player::reload()
 	_controller->reload();
 }
 
-void Player::meleeAttack()
+void Player::createMelee(int dir)
 {
-	int dir;
-	bool created=false;
-	(_anim->isFlipped()) ? dir = -1 : dir = 1;
-
 	double playerX = _body->getBody()->GetPosition().x * M_TO_PIXEL,
 		playerY = _body->getBody()->GetPosition().y *M_TO_PIXEL,
 		w = _body->getW()*M_TO_PIXEL,
 		h = _body->getH()* M_TO_PIXEL,
-		x,y;
+		x, y;
 	MeleeAttributes meleeWeapon = getGame()->MeleeWeapons[_equippedMelee];
 
 	switch (meleeWeapon.type)
@@ -318,23 +314,34 @@ void Player::meleeAttack()
 		x = playerX + 2 * w*dir;
 		w *= 2;
 		h /= 2;
+		x = playerX + 2 * w;
 		break;
 	case(Lightsaber):
 	case(Axe):
 		x = playerX + w * dir;
+		x = playerX + w;
 		y = playerY - h * 2;
 		w *= 2;
 		h /= 2;
 		break;
 	}
-	if (_melee != nullptr)
+	if (_melee == nullptr)
 	{
-		endMelee();
-		created = true;
-	}
-	_melee = new MeleeBox(getGame(), x, y, w, h, meleeWeapon.damage,Vector2D(playerX, playerY), dir, meleeWeapon.type);
-	if (!created)
+		_melee = new MeleeWeapon(getGame(), w, h, meleeWeapon.damage, meleeWeapon.type);
 		addChild(_melee);
+	}
+	else
+		_melee->MeleeAttack(dir, x, y, Vector2D(playerX, playerY));
+}
+
+void Player::meleeAttack()
+{
+	endMelee();// provisional deberia llamarse al acabar la animacion de atatque
+
+	int dir;
+	(_anim->isFlipped()) ? dir = -1 : dir = 1;
+	createMelee(dir);
+
 }
 
 void Player::changeMelee(int meleeType)
@@ -344,7 +351,5 @@ void Player::changeMelee(int meleeType)
 
 void Player::endMelee()
 {
-	auto aux = _melee;
-	_melee = nullptr;
-	delete aux;
+	_melee->endMelee();
 }
