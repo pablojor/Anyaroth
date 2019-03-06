@@ -105,7 +105,7 @@ bool Gun::shoot(Vector2D bulletPosition, Vector2D bulletDir, bool flipped)
 		_shooterComp->shoot( bulletPosition,  bulletDir, _shootingObj->getComponent<TransformComponent>()->getRotation() - flippedAngle);
 
 		//Reduce la munici�n actual
-		useAmmo();
+		//useAmmo();
 
 		//Dispara
 		/*cout << "Piumm!" << endl;

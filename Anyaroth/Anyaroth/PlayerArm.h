@@ -23,6 +23,7 @@ public:
 	void update();
 
 	void shoot();	
+
 	bool reload(); 
 	void setCursor(Cursor* c); //usado por el controller
 };
