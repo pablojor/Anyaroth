@@ -6,3 +6,11 @@ enum GunType
 	BasicShotgun,
 	BasicEnemyGun
 };
+
+enum MeleeType 
+{ 
+	Knife, 
+	Axe, 
+	Lightsaber, 
+	Chainsaw 
+};

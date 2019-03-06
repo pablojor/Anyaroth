@@ -202,9 +202,6 @@
     <ClCompile Include="ObjectLayer.cpp">
       <Filter>Archivos de código\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="ObjectPool.cpp">
-      <Filter>Archivos de código\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="Life.cpp">
       <Filter>Archivos de código\Objects</Filter>
     </ClCompile>
@@ -218,6 +215,7 @@
     <ClCompile Include="MeleeEnemy.cpp">
       <Filter>Archivos de código\Objects\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="MeleeBox.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -239,9 +237,6 @@
       <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
     <ClInclude Include="BulletPool.h">
-      <Filter>Archivos de encabezado\Pools</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectPool.h">
       <Filter>Archivos de encabezado\Pools</Filter>
     </ClInclude>
     <ClInclude Include="PoolWrapper.h">
@@ -460,6 +455,7 @@
     <ClInclude Include="MeleeEnemy.h">
       <Filter>Archivos de encabezado\Objects\Enemies</Filter>
     </ClInclude>
+    <ClInclude Include="MeleeBox.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de encabezado">

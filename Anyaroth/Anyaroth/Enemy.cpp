@@ -22,7 +22,7 @@ Enemy::Enemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2
 	_body->getBody()->SetFixedRotation(true);
 	_body->setW(20);
 	_body->setH(40);
-	_body->filterCollisions(ENEMIES, FLOOR | PLAYER_BULLETS);
+	_body->filterCollisions(ENEMIES, FLOOR | PLAYER_BULLETS | MELEE);
 
 	//auto playerTrans = addComponent<MeleeEnemyComponent>();
 
@@ -48,7 +48,6 @@ void Enemy::setItList(list<GameObject*>::iterator itFR)
 
 void Enemy::beginCollision(GameComponent * other, b2Contact* contact)
 {
-	cout << getGame()->getCurrentState()->getMainCamera()->inCamera(_transform->getPosition()) << endl;
 	string otherTag = other->getTag();
 	if (otherTag == "Bullet")
 	{
@@ -79,7 +78,7 @@ void Enemy::subLife(int damage)
 		{
 			die();
 			_hurt->die();
-			_anim->playAnim(AnimatedSpriteComponent::EnemyDie);
+			//_anim->playAnim(AnimatedSpriteComponent::EnemyDie);
 
 			_dead = true;
 		}
