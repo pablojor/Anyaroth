@@ -10,6 +10,8 @@
 #include "ParallaxLayer.h"
 #include "PlayStateHUD.h"
 
+
+
 PlayState::PlayState(Game* g) : GameState(g)
 {
 	_game = g;
@@ -17,6 +19,9 @@ PlayState::PlayState(Game* g) : GameState(g)
 
 	//hide cursor
 	SDL_ShowCursor(false);
+
+	//TEMPORAL
+	_selectedGuns = { BasicGun, BasicShotgun };
 
 	//Tilemap
 	_layer = new Layer("Mapa", g->getTexture("tileset"), TILEMAP_PATH + "Nivel1.json", g, "Mapa");
@@ -49,6 +54,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	//Player
 	_player = new Player(g->getTexture("Mk"), g, this, "Player");
 	_stages.push_back(_player);
+	for (int i = 0; i < _selectedGuns.size(); i++) _player->addGun(_selectedGuns[i]);
 
 	//Camera
 	_mainCamera->fixCameraToObject(_player);

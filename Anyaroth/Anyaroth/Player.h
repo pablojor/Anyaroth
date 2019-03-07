@@ -42,8 +42,8 @@ private:
 	bool OnGround = false;
 
 	int _maxInventoryGuns = 2; //n�mero de slots en el inventario de armas 
-	vector<GunType> _gunInventory; //Ej: == {Game::BasicGun} -> indica que en el inventario solo lleva la pistola b�sica
-	GunType _equippedGun = BasicGun;
+	vector<Gun*> _gunInventory; //Ej: == {Game::BasicGun} -> indica que en el inventario solo lleva la pistola b�sica
+	uint _equippedGun = -1; //El Arma en uso
 	vector<Texture*> _armTextures;
 
 	bool _dead = false;
@@ -64,7 +64,8 @@ public:
 
 	void setArm(PlayerArm* arm) { _weaponArm = arm; };
 	PlayerArm* getWeaponArm() { return _weaponArm; }
-	void equipGun(int gunIndex);
+	void addGun(GunType type);
+	void equipGun(int invIndex);
 	void swapGun();
 
 	void reload();

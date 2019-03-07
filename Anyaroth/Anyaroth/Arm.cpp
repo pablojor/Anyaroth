@@ -34,8 +34,8 @@ Arm::Arm(Texture* texture, GameComponent* owner, Game* g, PlayState* play, Vecto
 
 Arm::~Arm()
 {
-	delete _currentGun;
-	_currentGun = nullptr;
+	/*delete _currentGun;
+	_currentGun = nullptr;*/
 }
 
 void Arm::setArmSprite(Texture* armTex)
@@ -107,8 +107,8 @@ void Arm::shoot()
 
 void Arm::setGun(Gun* gun)
 {
-	if (_currentGun != nullptr) //Si ya hay un arma, llama a su destructora
-		delete _currentGun;
+	/*if (_currentGun != nullptr) //Si ya hay un arma, llama a su destructora
+		delete _currentGun;*/
 
 	_currentGun = gun;
 }

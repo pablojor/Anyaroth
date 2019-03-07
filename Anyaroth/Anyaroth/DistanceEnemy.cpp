@@ -21,6 +21,11 @@ DistanceEnemy::DistanceEnemy(Player* player, Game* g, PlayState* play, Texture* 
 	_arm->setGun(new Gun(_arm, sh, bp, type, mA, mC, c));
 }
 
+DistanceEnemy::~DistanceEnemy()
+{
+	delete _arm->getCurrentGun();
+}
+
 void DistanceEnemy::RayCast()
 {
 	BodyComponent* target = _player->getComponent<BodyComponent>();
