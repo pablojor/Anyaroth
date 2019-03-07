@@ -1,5 +1,6 @@
 #include "ParallaxBackGround.h"
 
+
 ParallaxBackGround::~ParallaxBackGround()
 {
 	for (ParallaxLayer* i : _layers)

@@ -2,11 +2,6 @@
 #include "GameComponent.h"
 #include "Camera.h"
 
-
-FrameComponent::FrameComponent(GameComponent* obj) : SpriteComponent(obj), RenderComponent(obj)
-{
-}
-
 void FrameComponent::setFilAndCol(int fil, int col)
 {
 	_fil = fil;

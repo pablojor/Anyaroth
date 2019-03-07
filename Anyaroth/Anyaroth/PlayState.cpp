@@ -21,6 +21,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	//Tilemap
 	_layer = new Layer("Mapa", g->getTexture("tileset"), TILEMAP_PATH + "Nivel1.json", g, "Mapa");
 	_stages.push_back(_layer);
+
 	_colisionLayer = new Layer("Suelo", g->getTexture("tileset"), TILEMAP_PATH + "Nivel1.json", g, "Suelo");
 	_colisionLayer->addComponent<BodyComponent>();
 	_stages.push_back(_colisionLayer);
@@ -88,7 +89,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	a->addLayer(new ParallaxLayer(g->getTexture("BgZ1L3"), _mainCamera,0.75));
 	_mainCamera->setBackGround(a);
 
-	//cursor
+	//Cursor
 	_cursor = new Cursor(g->getTexture("GunCursor"), g, this);
 	_stages.push_back(_cursor);
 	_player->getWeaponArm()->setCursor(_cursor);

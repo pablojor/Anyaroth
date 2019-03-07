@@ -2,7 +2,6 @@
 #include "Game.h"
 #include <sstream>
 
-
 AmmoViewer::AmmoViewer(Game* game, int xPos, int yPos) : PanelUI(game)
 {
 	_clipText = new TextUI(game, "00", game->getFont("ARIAL12"), 12, xPos, yPos, { 255, 255, 255, 255 });
@@ -11,7 +10,6 @@ AmmoViewer::AmmoViewer(Game* game, int xPos, int yPos) : PanelUI(game)
 	addChild(_clipText);
 	addChild(_magazineText);
 }
-
 
 void AmmoViewer::updateAmmoViewer(const int& ammoClip, const int& ammoMagazine)
 {
@@ -28,4 +26,3 @@ void AmmoViewer::updateAmmoViewer(const int& ammoClip, const int& ammoMagazine)
 
 	_clipText->setPosition(x - (_clipText->getW() - w), _clipText->getY());
 }
-

@@ -10,9 +10,6 @@
     <ClCompile Include="BulletPool.cpp">
       <Filter>Archivos de código\Pools</Filter>
     </ClCompile>
-    <ClCompile Include="ObjectPool.cpp">
-      <Filter>Archivos de código\Pools</Filter>
-    </ClCompile>
     <ClCompile Include="PoolWrapper.cpp">
       <Filter>Archivos de código\Pools</Filter>
     </ClCompile>
@@ -39,9 +36,6 @@
     </ClCompile>
     <ClCompile Include="TransformComponent.cpp">
       <Filter>Archivos de código\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="SpriteComponent.cpp">
-      <Filter>Archivos de código\Components\Base Components</Filter>
     </ClCompile>
     <ClCompile Include="RenderComponent.cpp">
       <Filter>Archivos de código\Components\Base Components</Filter>
@@ -84,9 +78,6 @@
     </ClCompile>
     <ClCompile Include="GameStateMachine.cpp">
       <Filter>Archivos de código\States</Filter>
-    </ClCompile>
-    <ClCompile Include="GameComponent.cpp">
-      <Filter>Archivos de código\Objects</Filter>
     </ClCompile>
     <ClCompile Include="CollisionManager.cpp">
       <Filter>Archivos de código\Utilities</Filter>
@@ -186,9 +177,6 @@
     <ClCompile Include="MeleeEnemy.cpp">
       <Filter>Archivos de código\Objects\Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="HUD.cpp">
-      <Filter>Archivos de código\HUDs</Filter>
-    </ClCompile>
     <ClCompile Include="MenuButton.cpp">
       <Filter>Archivos de código\HUDs</Filter>
     </ClCompile>
@@ -222,6 +210,12 @@
     <ClCompile Include="Tile.cpp">
       <Filter>Archivos de código\Objects\Map</Filter>
     </ClCompile>
+    <ClCompile Include="SpriteComponent.cpp">
+      <Filter>Archivos de código\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="GameComponent.cpp">
+      <Filter>Archivos de código</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -248,9 +242,6 @@
     <ClInclude Include="FrameComponent.h">
       <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
-    <ClInclude Include="InputComponent.h">
-      <Filter>Archivos de encabezado\Components</Filter>
-    </ClInclude>
     <ClInclude Include="MovingComponent.h">
       <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
@@ -261,9 +252,6 @@
       <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
     <ClInclude Include="Component.h">
-      <Filter>Archivos de encabezado\Components\Base Components</Filter>
-    </ClInclude>
-    <ClInclude Include="SpriteComponent.h">
       <Filter>Archivos de encabezado\Components\Base Components</Filter>
     </ClInclude>
     <ClInclude Include="PhysicsComponent.h">
@@ -401,9 +389,6 @@
     <ClInclude Include="DistanceEnemy.h">
       <Filter>Archivos de encabezado\Objects\Enemies</Filter>
     </ClInclude>
-    <ClInclude Include="ObjectPool.h">
-      <Filter>Archivos de encabezado\Objects</Filter>
-    </ClInclude>
     <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="Cursor.h">
       <Filter>Archivos de encabezado\UIElements</Filter>
@@ -413,9 +398,6 @@
     </ClInclude>
     <ClInclude Include="MeleeEnemy.h">
       <Filter>Archivos de encabezado\Objects\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="HUD.h">
-      <Filter>Archivos de encabezado\HUDs</Filter>
     </ClInclude>
     <ClInclude Include="Coin.h">
       <Filter>Archivos de encabezado\Objects\Collectables</Filter>
@@ -461,6 +443,12 @@
     </ClInclude>
     <ClInclude Include="GameComponent.h">
       <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="InputComponent.h">
+      <Filter>Archivos de encabezado\Components\Base Components</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteComponent.h">
+      <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

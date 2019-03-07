@@ -5,8 +5,3 @@ PhysicsComponent::PhysicsComponent(GameComponent* obj)
 {
 	obj->addPhysicsComponent(this);
 }
-
-PhysicsComponent::~PhysicsComponent() 
-{
-
-}

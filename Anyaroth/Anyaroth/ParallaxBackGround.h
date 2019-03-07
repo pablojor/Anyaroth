@@ -5,19 +5,18 @@
 
 class ParallaxBackGround : public BackGround
 {
-	private:
-		vector<ParallaxLayer*> _layers;
+private:
+	vector<ParallaxLayer*> _layers;
 
-	public:
-		ParallaxBackGround(Camera* camera) : BackGround(nullptr, camera) {};
-		~ParallaxBackGround();
+public:
+	ParallaxBackGround(Camera* camera) : BackGround(nullptr, camera) {}
+	~ParallaxBackGround();
 
-		virtual void update();
-		virtual void render() const;
+	virtual void update();
+	virtual void render() const;
 
-		inline void addLayer(ParallaxLayer* layer) { _layers.push_back(layer); }
-		void changeDirection(bool normalWay);
+	inline void addLayer(ParallaxLayer* layer) { _layers.push_back(layer); }
+	void changeDirection(bool normalWay);
 
-		virtual bool checkCameraStatus(pair<bool, int> status);
+	virtual bool checkCameraStatus(pair<bool, int> status);
 };
-

@@ -2,17 +2,10 @@
 #include "GameComponent.h"
 #include "Player.h"
 
-
 PlayerControllerComponent::PlayerControllerComponent(GameComponent* obj) : InputComponent(obj)
 {
 	_movement = obj->getComponent<MovingComponent>();
-	if (_movement == nullptr)
-		_movement = obj->addComponent<MovingComponent>();
-
 	_anim = obj->getComponent<AnimatedSpriteComponent>();
-	if (_anim == nullptr)
-		_anim = obj->addComponent<AnimatedSpriteComponent>();
-
 	_obj = obj;
 }
 
@@ -35,14 +28,10 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 			_sfPul = true;
 
 		if (event.key.keysym.sym == SDLK_r)
-		{
 			_rPul = true;
-		}
 
 		if (event.key.keysym.sym == SDLK_q)
-		{
 			_qPul = true;
-		}
 	}
 
 	if (event.type == SDL_KEYUP)
@@ -62,10 +51,7 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 			_sfPul = false;
 
 		if (event.key.keysym.sym == SDLK_r)
-		{
 			_rPul = false;
-			//_isReloading = false;
-		}
 
 		if (event.key.keysym.sym == SDLK_q)
 		{
@@ -77,39 +63,35 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 	if (event.type == SDL_MOUSEBUTTONDOWN)
 	{
 		if (event.button.button == SDL_BUTTON_RIGHT)
-		{
 			_rightClickPul = true;
-		}
 	}
 
 	if (event.type == SDL_MOUSEBUTTONUP)
 	{
 		if (event.button.button == SDL_BUTTON_RIGHT)
-		{
 			_rightClickPul = false;
-		}
 	}
 
 	_dashing = _movement->isDashing();
 
-	if (_rightClickPul && !_dashing) //&& !_isAttacking)
+	if (_rightClickPul && !_dashing)
 	{
 		_movement->changeDir(0, 0);
 		_isAttacking = true;
-		//llamo a funci�n de melee
+		//llamo a funcion de melee
 		static_cast<Player*>(_obj)->setCurrentState(Player::Attacking);
-		_anim->playAnim(AnimatedSpriteComponent::MeleeKnife);//llamo animacion del melee dependiendo del arma cuerpo a cuerpo
+		_anim->playAnim(AnimatedSpriteComponent::MeleeKnife); //llamo animacion del melee dependiendo del arma cuerpo a cuerpo
 	}
 
 	if ((_aPul &&_dPul) && !_isAttacking && !_dashing && !_isReloading)
 	{
-		_movement->changeDir(0, 0); //Llamo a animacion idle
+		_movement->changeDir(0, 0); //llamo a animacion idle
 		_anim->playAnim(AnimatedSpriteComponent::Idle);
 		static_cast<Player*>(_obj)->setCurrentState(Player::Idle);
 	}
 	else if (_aPul && !_isAttacking && !_dashing && !_isReloading)
 	{
-		_movement->changeDir(-1, 0); //Llamo a animacion de moverse y un flip
+		_movement->changeDir(-1, 0); //llamo a animacion de moverse y un flip
 		if (_sfPul && _amountOfDash > 0)
 		{
 			_movement->changeDash(true);
@@ -133,12 +115,10 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 
 			static_cast<Player*>(_obj)->setCurrentState(Player::Walking);
 		}
-
-
 	}
 	else if (_dPul && !_isAttacking && !_dashing && !_isReloading)
 	{
-		_movement->changeDir(1, 0); //Llamo a animacion de moverse
+		_movement->changeDir(1, 0); //llamo a animacion de moverse
 		if (_sfPul && _amountOfDash > 0)
 		{
 			_movement->changeDash(true);
@@ -161,8 +141,6 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 
 			static_cast<Player*>(_obj)->setCurrentState(Player::Walking);
 		}
-
-
 	}
 	else if (_sPul && _sfPul && !_isAttacking && _jumping && !_dashing && _amountOfDash > 0 && !_isReloading)
 	{
@@ -172,41 +150,35 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 		_amountOfDash--;
 		_anim->playAnim(AnimatedSpriteComponent::DashDown);
 		static_cast<Player*>(_obj)->setCurrentState(Player::Dashing);
-		//Llamo a componente de dash hacia abajo (culo)
+		//llamo a componente de dash hacia abajo (culo)
 	}
 	else if (!_isAttacking && !_dashing && !_isReloading)
 	{
-		_movement->changeDir(0, 0); //Llamo a animacion idle
+		_movement->changeDir(0, 0); //llamo a animacion idle
 		if (!_jumping)
 			_anim->playAnim(AnimatedSpriteComponent::Idle);
-
 	}
 
 	if (_spacePul && !_isAttacking && !_jumping && !_dashing && !_isReloading)
 	{
 		_movement->changeDir(_movement->getDirX(), -1);
-		_anim->playAnim(AnimatedSpriteComponent::BeforeJump); //_anim->playAnim(AnimatedSpriteComponent::Jump);
-
+		_anim->playAnim(AnimatedSpriteComponent::BeforeJump);
 	}
-	if (_rPul && !_dashing) //&& !isReloading)
+	if (_rPul && !_dashing)
 	{
-		if (static_cast<Player*>(_obj)->getWeaponArm()->reload())   //llamo a función de recargar
-		{
+		if (static_cast<Player*>(_obj)->getWeaponArm()->reload()) //llamo a función de recargar
 			reload();
-		}
 	}
 	if (_qPul && !_isSwapping && !_dashing)
 	{
 		_isSwapping = true;
-		static_cast<Player*>(_obj)->swapGun();  //llamo a función de recargar
+		static_cast<Player*>(_obj)->swapGun();
 		_qPul = false;
 	}
-
 }
 
 void PlayerControllerComponent::changeJump()
 {
-
 	_jumping = true;
 
 	if (!_dashing)
@@ -219,13 +191,8 @@ void PlayerControllerComponent::changeJump()
 				_anim->playAnim(AnimatedSpriteComponent::Falling);
 		}
 		else if (static_cast<Player*>(_obj)->getCurrentState() == Player::Jumping)
-		{
 			_anim->playAnim(AnimatedSpriteComponent::Jump);
-			//static_cast<Player*>(_obj)->setCurrentState(Player::Jumping);
-		}
-
 	}
-
 }
 
 void PlayerControllerComponent::ableJump()
@@ -235,10 +202,11 @@ void PlayerControllerComponent::ableJump()
 		_dashing = false;
 		_movement->changeDash(false);
 	}
+
 	_jumping = false;
 
 	if (_anim->getCurrentAnim() == AnimatedSpriteComponent::Falling || _anim->getCurrentAnim() == AnimatedSpriteComponent::Jump ||
-		_anim->getCurrentAnim() == AnimatedSpriteComponent::StartFalling || _anim->getCurrentAnim() == AnimatedSpriteComponent::DashDown) //&& static_cast<Player*>(_obj)->getCurrentState()!=Player::Walking)
+		_anim->getCurrentAnim() == AnimatedSpriteComponent::StartFalling || _anim->getCurrentAnim() == AnimatedSpriteComponent::DashDown)
 	{
 		if (_movement->getDirX() == 0)
 		{
@@ -248,17 +216,14 @@ void PlayerControllerComponent::ableJump()
 		else
 		{
 			static_cast<Player*>(_obj)->setCurrentState(Player::Walking);
+
 			if (!_anim->isFlipped())
 				_anim->playAnim(AnimatedSpriteComponent::Walk);
 			else
 				_anim->playAnim(AnimatedSpriteComponent::WalkBack);
 		}
 	}
-
-
 }
-
-
 
 void PlayerControllerComponent::reload()
 {
@@ -277,6 +242,4 @@ void PlayerControllerComponent::reload()
 	default:
 		break;
 	}
-
-
 }

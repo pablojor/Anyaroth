@@ -1,7 +1,6 @@
 #include "PlayStateHUD.h"
 #include "Game.h"
 
-
 PlayStateHUD::PlayStateHUD(Game * g)
 {
 	//Panel del jugador
@@ -13,4 +12,3 @@ PlayStateHUD::PlayStateHUD(Game * g)
 	addUIElement(_playerPanel);
 	addUIElement(_bossPanel);
 }
-

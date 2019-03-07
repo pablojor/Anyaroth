@@ -13,10 +13,6 @@ PauseState::PauseState(Game* g) : GameState(g)
 	_stages.push_back(new MenuButton(Vector2D(GAME_RESOLUTION_X / 2 - buttonW / 2, GAME_RESOLUTION_Y / 2 + buttonH), g->getTexture("Menu"), g, MainMenu));
 }
 
-PauseState::~PauseState()
-{
-}
-
 void PauseState::Continue(Game * g)
 {
 	g->popState();

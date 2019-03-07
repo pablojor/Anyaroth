@@ -18,5 +18,3 @@ void CoinsCounter::updateCoinsCounter(const int& cant)
 	_coinText->setText(to_string(cant));
 	_coinText->setPosition(x - (_coinText->getW() - w), _coinText->getY());
 }
-
-

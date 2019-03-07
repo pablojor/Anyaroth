@@ -4,14 +4,15 @@
 
 class GameStateMachine
 {
-	private:
-		stack <GameState*> _states;
+private:
+	stack <GameState*> _states;
 
-	public:
-		GameStateMachine() {};
-		~GameStateMachine();
-		GameState* currentState();
-		void pushState(GameState* newState);
-		void changeState(GameState* newState);
-		void popState();
+public:
+	GameStateMachine() {};
+	~GameStateMachine();
+
+	GameState* currentState();
+	void pushState(GameState* newState);
+	void changeState(GameState* newState);
+	void popState();
 };

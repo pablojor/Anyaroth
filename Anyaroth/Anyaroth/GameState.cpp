@@ -4,24 +4,34 @@
 GameState::~GameState()
 {
 	delete _mainCamera;
-	if (_canvas != nullptr) delete _canvas;
+
+	if (_canvas != nullptr)
+		delete _canvas;
+
 	for (GameObject* o : _stages)
 		delete o;
 }
+
 void GameState::render() const
 {
 	_mainCamera->render();
+
 	for (GameObject* o : _stages)
 		o->render(_mainCamera);
-	if(_canvas != nullptr) _canvas->render();
+
+	if(_canvas != nullptr)
+		_canvas->render();
 }
 
 void GameState::update()
 {
 	_mainCamera->update();
+
 	for (GameObject* o : _stages)
 		o->update(); // Carlos says: si no le pasáis un único delta, gatitos morirán.
-	if (_canvas != nullptr) _canvas->update();
+
+	if (_canvas != nullptr)
+		_canvas->update();
 }
 
 bool GameState::handleEvents(SDL_Event& e)
@@ -29,13 +39,13 @@ bool GameState::handleEvents(SDL_Event& e)
 	bool handled = false;
 	auto it = _stages.begin();
 
-	while (!handled && it != _stages.end()) {
+	while (!handled && it != _stages.end())
+	{
 		if ((*it)->handleInput(e))
 			handled = true;
 		else
 			it++;
 	}
-	//if (_canvas != nullptr) _canvas->handleEvent(e);
 	return handled;
 }
 

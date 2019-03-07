@@ -1,7 +1,6 @@
 #include "BossPanel.h"
 #include "Game.h"
 
-
 BossPanel::BossPanel(Game * game) : PanelUI(game)
 {
 	_lifeBar = new LifeBar(game);

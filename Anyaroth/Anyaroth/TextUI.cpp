@@ -1,8 +1,6 @@
 #include "TextUI.h"
 #include "Game.h"
 
-
-
 TextUI::TextUI(Game* game): UIElement(game)
 {
 	_text = "";
@@ -12,7 +10,6 @@ TextUI::TextUI(Game* game): UIElement(game)
 	_texture = new Texture(_game->getRenderer(), _text, _font, _color);
 	_destRect = { 0, 0, _texture->getW(), _texture->getH() };
 }
-
 
 TextUI::TextUI(Game* game, string text, Font* font, uint fontSize, int xPos, int yPos, SDL_Color color) : UIElement(game)
 {
@@ -27,9 +24,7 @@ TextUI::TextUI(Game* game, string text, Font* font, uint fontSize, int xPos, int
 void TextUI::render() const
 {
 	if (_visible)
-	{
 		_texture->render(_destRect);
-	}
 }
 
 void TextUI::setText(string text)

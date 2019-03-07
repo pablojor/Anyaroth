@@ -44,7 +44,7 @@ Vector2D Vector2D::rotate(double degrees)
 	double sine = sin(angle);
 	double cosine = cos(angle);
 
-	//rotation matix
+	//rotation matrix
 	double matrix[2][2] = { { cosine, -sine },{ sine, cosine } };
 
 	double x = _x;
@@ -54,7 +54,6 @@ Vector2D Vector2D::rotate(double degrees)
 	r._y = matrix[1][0] * x + matrix[1][1] * y;
 
 	return r;
-
 }
 
 Vector2D Vector2D::rotateAroundPoint(double angle, Vector2D center) 
@@ -69,7 +68,7 @@ Vector2D Vector2D::rotateAroundPoint(double angle, Vector2D center)
 	return {x, y};
 }
 
-//Calcula la distancia entre el vector y otro vector (se entienden ambos como puntos{x,y})
+//Calcula la distancia entre el vector y otro vector (se entienden ambos como puntos {x,y})
 double Vector2D::distance(Vector2D p) 
 {
 	return sqrt(pow(_x - p.getX(), 2) + pow(_y - p.getY(), 2));
@@ -78,16 +77,16 @@ double Vector2D::distance(Vector2D p)
 Vector2D Vector2D::operator+(const Vector2D& v) const 
 {
 	Vector2D r;
-	r._x = this->_x + v._x; // El this no es necesario. Se pone para ilustrar su uso
-	r._y = this->_y + v._y; // Al ser un puntero se debe usar con ->
+	r._x = this->_x + v._x;
+	r._y = this->_y + v._y;
 	return r;
 }
 
 Vector2D Vector2D::operator-(const Vector2D& v) const
 {
 	Vector2D r;
-	r._x = this->_x - v._x; // El this no es necesario. Se pone para ilustrar su uso
-	r._y = this->_y - v._y; // Al ser un puntero se debe usar con ->
+	r._x = this->_x - v._x;
+	r._y = this->_y - v._y;
 	return r;
 }
 

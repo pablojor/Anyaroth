@@ -12,35 +12,37 @@
 #include "Coin.h"
 #include "Cursor.h"
 
-
 class PlayState : public GameState
 {
-	private:
-		Game* _game = nullptr;
-		Player* _player = nullptr;
-		Enemy* _enemy = nullptr;
-		Coin* _coin = nullptr;
-		Layer* _layer = nullptr;
-		Layer* _colisionLayer = nullptr;
-		b2World* _world;
-		CollisionManager _colManager;
-		DebugDraw _debugger;
-		Cursor* _cursor = nullptr;
+private:
+	Game* _game = nullptr;
+	Player* _player = nullptr;
+	Enemy* _enemy = nullptr;
+	Coin* _coin = nullptr;
+	Layer* _layer = nullptr;
+	Layer* _colisionLayer = nullptr;
+	b2World* _world = nullptr;
+	Cursor* _cursor = nullptr;
+	CollisionManager _colManager;
+	DebugDraw _debugger;
 
-		PoolWrapper* _enemyPool = nullptr; //TEMPORAL
-		//Bullet Pools
-		PoolWrapper* _basicBulletPool = nullptr; //balas b�sicas
-		PoolWrapper* _basicShotgunBulletPool = nullptr; //balas de escopeta
-		vector<PoolWrapper*> _pools;
+	PoolWrapper* _enemyPool = nullptr; //TEMPORAL
 
-		vector <list<GameObject*>::iterator> items_ToDelete;
+	//Bullet Pools
+	PoolWrapper* _basicBulletPool = nullptr; //balas basicas
+	PoolWrapper* _basicShotgunBulletPool = nullptr; //balas de escopeta
+	vector<PoolWrapper*> _pools;
 
-	public:
-		PlayState(Game* g);
-		void KillObject(const list<GameObject*>::iterator &itList);
-		virtual void render();
-		virtual void update();
-		virtual bool handleEvents(SDL_Event& e);
-		inline PoolWrapper* getBulletPool(int index) { return _pools[index]; };
-		Cursor* getCursor() { return _cursor; };
+	vector <list<GameObject*>::iterator> items_ToDelete;
+
+public:
+	PlayState(Game* g);
+
+	virtual void render();
+	virtual void update();
+	virtual bool handleEvents(SDL_Event& e);
+
+	void KillObject(const list<GameObject*>::iterator &itList);
+	inline PoolWrapper* getBulletPool(int index) const { return _pools[index]; }
+	inline Cursor* getCursor() const { return _cursor; }
 };
