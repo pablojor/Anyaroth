@@ -2,14 +2,10 @@
 #include "AnimatedSpriteComponent.h"
 #include <algorithm>
 
-
 Gun::Gun(GameComponent* shootingObj, ShooterInterface* shooterComp, PoolWrapper* bp, GunType type, int maxAmmo, int maxClip, int bulletsPerShot) : _shootingObj(shootingObj), _shooterComp(shooterComp), _bPool(bp), _type(type), _maxAmmo(maxAmmo), _maxClip(maxClip), _ammo(maxAmmo), _clip(maxClip), _bulletsPerShot(bulletsPerShot) 
 {
 	_shooterComp->init(_shootingObj, _bPool);
 }
-
-Gun::~Gun() {}
-
 
 void Gun::setShooter(ShooterInterface* sh) 
 {
@@ -17,35 +13,31 @@ void Gun::setShooter(ShooterInterface* sh)
 
 	if (_shootingObj != nullptr && _bPool != nullptr)
 		_shooterComp->init(_shootingObj, _bPool);
-	else
-		cout << "No se pudo inicializar Shooter del arma" << endl;
 }
 
-
-//m�todo auxiliar de reload
+//metodo auxiliar de reload
 void Gun::reloadAux(int newClipValue)
 {
 	int prevClip = _clip; //cargador antes de recargar
 	_clip = newClipValue;
-	_ammo -= (_clip - prevClip); //resta a la munici�n total la munici�n recargada
+	_ammo -= (_clip - prevClip); //resta a la municion total la municion recargada
 }
 
-//Recarga la munici�n si puede y devuelve true si ha recargado
+//recarga la municion si puede y devuelve true si ha recargado
 bool Gun::reload()
 {
-	if (_clip < _maxClip) { //Si el cargador no est� completo
-		//llamo a animaci�n de recargar
-
-
-
+	if (_clip < _maxClip) //Si el cargador no esta completo llamo a animacion de recargar
+	{
 		if (_ammo >= _maxClip)
 			reloadAux(_maxClip);
-		else if (_ammo > 0) reloadAux(min(_maxClip, _clip + _ammo));
-		else return false;
+		else if (_ammo > 0)
+			reloadAux(min(_maxClip, _clip + _ammo));
+		else
+			return false;
 
-		cout << "Recargando! Cubranme!" << endl;
+		/*cout << "Recargando! Cubranme!" << endl;
 		cout << "Ammo: " << _ammo << "/" << _maxAmmo << endl;
-		cout << "Clip: " << _clip << "/" << _maxClip << endl;
+		cout << "Clip: " << _clip << "/" << _maxClip << endl;*/
 
 		return true;
 	}
@@ -53,8 +45,8 @@ bool Gun::reload()
 		return false;
 }
 
-// Suma ammoAdded a la munici�n y la coloca en _ammo y _clip seg�n corresponda
-// USAR ESTE M�TODO AL RECOGER MUNICI�N
+// Suma ammoAdded a la municion y la coloca en _ammo y _clip segun corresponda
+// USAR ESTE METODO AL RECOGER MUNICION
 void Gun::addAmmo(int ammoAdded)
 {
 	if (_ammo + ammoAdded > _maxAmmo) //Si sobran balas en _ammo
@@ -67,33 +59,20 @@ void Gun::addAmmo(int ammoAdded)
 		_clip = min(_maxClip, _clip + (_ammo - leftAmmo));
 	}
 	else
-	{
 		_ammo += ammoAdded;
-	}
 }
 
-//Pone al m�ximo la munici�n tanto en _ammo como en el cargador _clip
+//Pone al maximo la municion tanto en _ammo como en el cargador _clip
 void Gun::resetAmmo()
 {
 	_ammo = _maxAmmo;
 	_clip = _maxClip;
 }
 
-//Reduce la munici�n 
+//Reduce la municion 
 void Gun::useAmmo()
 {
-	/*
-	if (_clip - _bulletsPerShot >= 0)
-	{
-		_clip -= _bulletsPerShot;
-	}
-	*/
-
 	_clip = max(0, _clip - _bulletsPerShot);
-
-	/*
-	if(_clip == 0) reload();
-	*/
 }
 
 bool Gun::shoot(Vector2D bulletPosition, Vector2D bulletDir, bool flipped)
@@ -104,14 +83,14 @@ bool Gun::shoot(Vector2D bulletPosition, Vector2D bulletDir, bool flipped)
 		int flippedAngle = flipped ? 180 : 0;
 		_shooterComp->shoot( bulletPosition,  bulletDir, _shootingObj->getComponent<TransformComponent>()->getRotation() - flippedAngle);
 
-		//Reduce la munici�n actual
+		//Reduce la municion actual
 		useAmmo();
 
-		//Dispara
 		/*cout << "Piumm!" << endl;
 		cout << "Ammo: " << _ammo << "/" << _maxAmmo << endl;
 		cout << "Clip: " << _clip << "/" << _maxClip << endl;
 		*/
+
 		return true;
 	}
 	else //Si no, recarga
@@ -128,11 +107,9 @@ void Gun::enemyShoot(Vector2D bulletPosition, Vector2D bulletDir, bool flipped)
 		int flippedAngle = flipped ? 180 : 0;
 		_shooterComp->shoot(bulletPosition, bulletDir, _shootingObj->getComponent<TransformComponent>()->getRotation() - flippedAngle);
 	}
-
 }
 
-
-//Muestra la informaci�n del arma por consola
+//Muestra la informacion del arma por consola
 void Gun::debugInfo() 
 {
 	cout << endl << _type << endl << _maxAmmo << endl << _ammo << endl << _maxClip << endl << _clip << endl << _bulletsPerShot << endl;

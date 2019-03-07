@@ -6,7 +6,6 @@ SpriteComponent::SpriteComponent(GameComponent* obj) : RenderComponent(obj)
 {
 	_texture = obj->getComponent<Texture>();
 	_transform = obj->getComponent<TransformComponent>();
-	if (_transform == nullptr) cout << "No se ha podido cargar TransformComponent en SpriteComponent.";
 }
 
 void SpriteComponent::render(Camera* c) const

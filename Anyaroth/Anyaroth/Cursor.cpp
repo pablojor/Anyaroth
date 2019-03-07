@@ -7,23 +7,15 @@
 
 Cursor::Cursor(Texture* texture, Game* g, PlayState* play) : GameComponent(g)
 {
-	//Siempre primero los componentes que tienen que estar SI o SI.
 	addComponent<Texture>(texture);
 
-	//Resto de componentes
-	_transform = addComponent<TransformComponent>();		//Como en el metodo anterior se ha creado este componente, imprime por pantalla que ya existe uno.
-	_anim = addComponent<AnimatedSpriteComponent>();		//Como depende de Transform, en su constructura crea una si no ha encontrado Transform en el objeto.
+	_transform = addComponent<TransformComponent>();
+	_anim = addComponent<AnimatedSpriteComponent>();
 	_anim->addAnim(AnimatedSpriteComponent::Idle, 1, false);
-
 
 	_cam = play->getMainCamera();
 
 	_anim->playAnim(AnimatedSpriteComponent::Idle);
-}
-
-
-Cursor::~Cursor()
-{
 }
 
 void Cursor::update()
@@ -52,8 +44,8 @@ bool Cursor::handleInput(const SDL_Event& event)
 
 		return true;
 	}
-	else _movingMouse = false;
-	
+	else
+		_movingMouse = false;
 
 	return false;
 }

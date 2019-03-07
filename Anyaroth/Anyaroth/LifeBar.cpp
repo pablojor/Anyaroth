@@ -1,11 +1,7 @@
 #include "LifeBar.h"
 #include "Game.h"
 
-
-LifeBar::LifeBar(Game* game, int xPos, int yPos) : ImageUI(game, game->getTexture("LifeBar"), xPos, yPos)
-{
-}
-
+LifeBar::LifeBar(Game* game, int xPos, int yPos) : ImageUI(game, game->getTexture("LifeBar"), xPos, yPos) {}
 
 void LifeBar::updateLifeBar(const int& life, const int& maxLife)
 {
@@ -13,4 +9,3 @@ void LifeBar::updateLifeBar(const int& life, const int& maxLife)
 	setClippingAreaSize(newWidthRatio, 1);
 	setSize(_clipArea.w, _clipArea.h);
 }
-

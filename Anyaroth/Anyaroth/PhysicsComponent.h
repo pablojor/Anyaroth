@@ -1,13 +1,12 @@
 #pragma once
-
 #include "Component.h"
 
 class GameComponent;
 
-class PhysicsComponent : public virtual Component 
+class PhysicsComponent : public virtual Component
 {
-	public:
-		PhysicsComponent(GameComponent* obj);
-		virtual ~PhysicsComponent();
-		virtual void update() = 0;
+public:
+	PhysicsComponent(GameComponent* obj);
+	virtual ~PhysicsComponent() {}
+	virtual void update() = 0;
 };

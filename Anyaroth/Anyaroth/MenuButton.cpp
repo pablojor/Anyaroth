@@ -13,11 +13,7 @@ MenuButton::MenuButton(Vector2D pos, Texture* texture, Game* g, callback* cb) : 
 	addComponent<SpriteComponent>();
 }
 
-MenuButton::~MenuButton()
-{
-}
-
-SDL_Rect MenuButton::getRect()
+SDL_Rect MenuButton::getRect() const
 {
 	SDL_Rect rect;
 	rect.x = _pos.getX();
@@ -34,10 +30,13 @@ bool MenuButton::handleInput(const SDL_Event & event)
 
 	int x, y;
 	SDL_GetMouseState(&x, &y);
-	if (event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT) {
+	if (event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT)
+	{
 		SDL_Point point = { event.button.x, event.button.y };
 		SDL_Rect rect = getRect();
-		if (SDL_PointInRect(&point, &rect)) {
+
+		if (SDL_PointInRect(&point, &rect))
+		{
 			cb(g);
 			handled = true;
 		}

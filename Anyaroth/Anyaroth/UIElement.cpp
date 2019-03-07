@@ -2,6 +2,4 @@
 #include "Game.h"
 
 //Hecho para evitar inclusion circular
-UIElement::UIElement(Game* game) : _game(game)
-{
-}
+UIElement::UIElement(Game* game) : _game(game) {}

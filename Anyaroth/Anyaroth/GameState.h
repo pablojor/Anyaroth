@@ -9,23 +9,24 @@ class Game;
 
 class GameState
 {
-	private:
-		void initializeCamera();
+private:
+	void initializeCamera();
 
-	protected:
-		list <GameObject*> _stages;
-		Game* _gameptr;
-		Camera* _mainCamera = nullptr;
-		Canvas* _canvas = nullptr;
+protected:
+	list <GameObject*> _stages;
+	Game* _gameptr = nullptr;
+	Camera* _mainCamera = nullptr;
+	Canvas* _canvas = nullptr;
 
-	public:
-		GameState(Game* g) : _gameptr(g) { initializeCamera(); }
-		virtual ~GameState();
-		virtual void render() const;
-		virtual void update();
-		virtual bool handleEvents(SDL_Event& e);
+public:
+	GameState(Game* g) : _gameptr(g) { initializeCamera(); }
+	virtual ~GameState();
 
-		virtual Camera* getMainCamera() { return _mainCamera; };
-		virtual list <GameObject*> getObjects() { return _stages; }
-		virtual void setCanvas(Canvas* canvas) { _canvas = canvas; }
+	virtual void render() const;
+	virtual void update();
+	virtual bool handleEvents(SDL_Event& e);
+
+	inline virtual Camera* getMainCamera() const { return _mainCamera; }
+	inline virtual list <GameObject*> getObjects() const { return _stages; }
+	inline virtual void setCanvas(Canvas* canvas) { _canvas = canvas; }
 };

@@ -9,14 +9,14 @@ class MenuButton : public GameComponent
 {
 private:
 	Vector2D _pos;
-	Texture* _texture;
-	Game* g;
-	callback* cb;
+	Texture* _texture = nullptr;
+	Game* g = nullptr;
+	callback* cb = nullptr;
 
 public:
 	MenuButton(Vector2D pos, Texture* texture, Game* g, callback* cb);
-	virtual ~MenuButton();
+	virtual ~MenuButton() {}
 
-	SDL_Rect getRect();
+	SDL_Rect getRect() const;
 	bool handleInput(const SDL_Event& event);
 };

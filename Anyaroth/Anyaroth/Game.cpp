@@ -40,7 +40,8 @@ Texture* Game::getTexture(string nameText)
 }
 
 
-void Game::toggleFullscreen() {
+void Game::toggleFullscreen()
+{
 	Uint32 FullscreenFlag = SDL_WINDOW_FULLSCREEN_DESKTOP; //fake fullscreen (windowed mode)
 	bool IsFullscreen = SDL_GetWindowFlags(window) & FullscreenFlag;
 	SDL_SetWindowFullscreen(window, IsFullscreen ? 0 : FullscreenFlag);
@@ -52,25 +53,10 @@ Font * Game::getFont(string nameFont)
 
 }
 
-void Game::newGame()
-{
-
-}
-
-void Game::load()
-{
-
-}
-
-void Game::save()
-{
-
-}
-
 Game::Game()
 {
-	SDL_Init(SDL_INIT_TIMER | SDL_INIT_AUDIO | SDL_INIT_VIDEO | SDL_INIT_EVENTS /*SDL_INIT_EVERYTHING*/);
-	TTF_Init();//Ventana del tama�o de la pantalla de cada dispositivo
+	SDL_Init(SDL_INIT_TIMER | SDL_INIT_AUDIO | SDL_INIT_VIDEO | SDL_INIT_EVENTS);
+	TTF_Init(); //Ventana del tamaño de la pantalla de cada dispositivo
 	SDL_DisplayMode monitor;
 	SDL_GetCurrentDisplayMode(0, &monitor);
 	auto win_width = monitor.w - 50;
@@ -86,15 +72,6 @@ Game::Game()
 
 	//Show cursor
 	SDL_ShowCursor(true);
-	//-----------------------------------------
-	//Ajustamos el viewPort
-	/*SDL_Rect viewport;
-	viewport.x = 0;
-	viewport.y = 0;
-	viewport.w = 480 * RESOLUTION;
-	viewport.h = 270 * RESOLUTION;
-	SDL_RenderSetViewport(renderer, &viewport);*/
-	//-----------------------------------------
 
 	//---Create textures
 	createTextures();
@@ -108,6 +85,7 @@ Game::Game()
 
 Game::~Game()
 {
+	//delete textures
 	int tamV = texturesName.size();
 	for (int i = 0; i < tamV; i++)
 	{
@@ -115,6 +93,7 @@ Game::~Game()
 		textures.erase(texturesName[i]);
 	}
 
+	//delete fonts
 	for (auto it = _fonts.begin(); it != _fonts.end(); it++)
 		delete it->second;
 		
@@ -123,6 +102,7 @@ Game::~Game()
 	{
 		delete gameGuns[i].shooter;
 	}
+
 	delete stateMachine;
 	delete _world;
 	SDL_DestroyRenderer(renderer);
@@ -132,13 +112,15 @@ Game::~Game()
 
 void Game::run()
 {
-	while (!exit) {
+	while (!exit)
+	{
 		Uint32 startTime = SDL_GetTicks();
 		handleEvents(startTime);
 		update(startTime);
 		render(startTime);
 
 		Uint32 frameTime = SDL_GetTicks() - startTime;
+
 		if (frameTime < 60)
 			SDL_Delay(60 - frameTime);
 	}
@@ -164,12 +146,8 @@ void Game::handleEvents(Uint32 time)
 		if (event.type == SDL_QUIT)
 			exit = true;
 		else if (event.type == SDL_KEYDOWN)
-		{
 			if (event.key.keysym.sym == SDLK_F11)
-			{
 				toggleFullscreen();
-			}
-		}
 
 		stateMachine->currentState()->handleEvents(event);
 	}

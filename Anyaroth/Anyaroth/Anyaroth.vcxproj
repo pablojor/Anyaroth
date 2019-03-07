@@ -149,7 +149,6 @@
     <ClCompile Include="DistanceDynamicEnemy.cpp" />
     <ClCompile Include="DistanceStaticEnemy.cpp" />
     <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="HUD.cpp" />
     <ClCompile Include="FollowingComponent.cpp" />
     <ClCompile Include="MenuButton.cpp" />
     <ClCompile Include="ObjectLayer.cpp" />
@@ -226,7 +225,6 @@
     <ClInclude Include="DistanceStaticEnemy.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="GunType_def.h" />
-    <ClInclude Include="HUD.h" />
     <ClInclude Include="FollowingComponent.h" />
     <ClInclude Include="MenuButton.h" />
     <ClInclude Include="ObjectLayer.h" />

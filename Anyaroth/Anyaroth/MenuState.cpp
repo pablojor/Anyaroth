@@ -13,10 +13,6 @@ MenuState::MenuState(Game* g) : GameState(g)
 	_stages.push_back(new MenuButton(Vector2D(GAME_RESOLUTION_X / 2 - buttonW / 2, GAME_RESOLUTION_Y / 2 + buttonH), g->getTexture("Exit"), g, exitGame));
 }
 
-MenuState::~MenuState()
-{
-}
-
 void MenuState::startGame(Game * g)
 {
 	g->changeState(new PlayState(g));

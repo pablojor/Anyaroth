@@ -7,26 +7,25 @@
 class BodyComponent : public PhysicsComponent
 {
 private:
-	b2World* _world;
+	b2World* _world = nullptr;
 	b2Body* _body = nullptr;
 	b2FixtureDef _fixture;
-	TransformComponent* _transform;
-	double _textW, _textH, _aX, _aY, _width, _height;
 	b2PolygonShape _shape;
+	TransformComponent* _transform = nullptr;
+	double _textW, _textH, _aX, _aY, _width, _height;
 
 public:
 	BodyComponent(GameComponent* obj);
 	virtual ~BodyComponent();
 
 	virtual void update();
-	b2Body* getBody();
+	inline b2Body* getBody() const { return _body; }
 	void setW(double w);
 	void setH(double h);
 
-	double getW();
-	double getH();
+	inline double getW() const { return _width; }
+	inline double getH() const { return _height; }
 
-	void addCricleShape(const b2Vec2 & Center, float radius, uint16 ownCategory, uint16 collidesWith);
-
+	void addCricleShape(const b2Vec2 &Center, float radius, uint16 ownCategory, uint16 collidesWith);
 	void filterCollisions(uint16 ownCategory, uint16 collidesWith);
 };

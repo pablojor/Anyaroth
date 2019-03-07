@@ -2,18 +2,6 @@
 #include "GameComponent.h"
 #include "Camera.h"
 
-
-AnimatedSpriteComponent::AnimatedSpriteComponent(GameComponent* obj) : SpriteComponent(obj), PhysicsComponent(obj), RenderComponent(obj), Component()
-{
-
-}
-
-
-AnimatedSpriteComponent::~AnimatedSpriteComponent()
-{
-
-}
-
 void AnimatedSpriteComponent::render(Camera* c) const
 {
 	if (_active)
@@ -45,14 +33,11 @@ void AnimatedSpriteComponent::update()
 
 			if (_frame == _animations[_currentAnim].numFrames)
 			{
-				//cout << "animation finished!" << endl;
 				_animations[_currentAnim].animationFinished = true;
 				_frame = _animations[_currentAnim].numFrames - 1;
 			}
 		}
-
-
-		_lastTimeUpdated = SDL_GetTicks();//time;
+		_lastTimeUpdated = SDL_GetTicks(); //time;
 	}
 }
 
@@ -64,7 +49,6 @@ void AnimatedSpriteComponent::playAnim(uint name)
 	{
 		_currentAnim = name;
 		_frame = 0;
-		//cout << "animation changed to: " << _currentAnim << endl << endl;
 	}
 }
 
@@ -72,4 +56,3 @@ void AnimatedSpriteComponent::addAnim(uint name, uint numFrames, bool loop)
 {
 	_animations.push_back({ name, numFrames, loop, false });
 }
-

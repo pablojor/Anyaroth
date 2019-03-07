@@ -1,7 +1,6 @@
 #include "ImageUI.h"
 #include "Game.h"
 
-
 ImageUI::ImageUI(Game* game, Texture* image, int xPos, int yPos) : UIElement(game), _image(image)
 {
 	_destRect = { xPos, yPos, image->getW(), image->getH() };

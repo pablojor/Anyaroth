@@ -18,6 +18,7 @@
 const int GAME_RESOLUTION_X = 480;
 const int GAME_RESOLUTION_Y = 270;
 
+//distancia que recorre la camara
 const int LEVEL_WIDTH = GAME_RESOLUTION_X * 10;
 const int LEVEL_HEIGHT = GAME_RESOLUTION_Y * 3;
 
@@ -36,10 +37,7 @@ const int TILES_SIZE = 16;
 const double M_TO_PIXEL = 8;
 const double BUTTON_SCALE = 0.25;
 
-//ARMAS
-//const int NUM_GUNS = 2; //N�mero de armas en el juego
 //Las armas que hay en el juego
-
 struct GunAttributes
 {
 	ShooterInterface* shooter;
@@ -48,6 +46,7 @@ struct GunAttributes
 	int maxClip;
 };
 
+//Tags
 enum _Category {
 	FLOOR = 1,
 	ENEMIES = 2,
@@ -57,46 +56,45 @@ enum _Category {
 
 class Game
 {
-	private:
-		SDL_Window* window = nullptr;
-		map <string, Texture*> textures;
-		map <string, Font*> _fonts;
-		GameStateMachine* stateMachine = new GameStateMachine();
-		vector<string> texturesName;
-		b2World* _world = nullptr;
-		bool exit = false;
+private:
+	SDL_Window* window = nullptr;
+	map <string, Texture*> textures;
+	map <string, Font*> _fonts;
+	GameStateMachine* stateMachine = new GameStateMachine();
+	vector<string> texturesName;
+	b2World* _world = nullptr;
+	bool exit = false;
 
-	public:
-		SDL_Renderer* renderer = nullptr;
-		vector<int> var;
-		vector<GunAttributes> gameGuns = 
-		{
-			{new Shooter(),BasicGun,60,12},
-			{ new ShotgunShooter({30,0,-30}),BasicShotgun,30,2 },
-			{new Shooter(),BasicEnemyGun,60,12}
-		};
+public:
+	SDL_Renderer* renderer = nullptr;
+	vector<int> var;
+	vector<GunAttributes> gameGuns =
+	{
+		{ new Shooter(), BasicGun, 60, 12 },
+		{ new ShotgunShooter({30,0,-30}), BasicShotgun, 30, 2 },
+		{ new Shooter(), BasicEnemyGun, 60, 12 }
+	};
 
-		//Metodos
-		void createTextures();
-		void pushState(GameState* state);
-		void changeState(GameState* state);
-		void popState();
-		inline GameState* getCurrentState() { return stateMachine->currentState(); };
-		Texture* getTexture(string nameText);
-		Font* getFont(string nameFont);
-		inline SDL_Renderer* getRenderer() const { return renderer; }
-		inline b2World* getWorld() const { return _world; }
-		inline void setExit(bool quit) { exit = quit; }
-		void toggleFullscreen();
+	//Metodos
+	void createTextures();
 
-		void newGame();
-		void load();
-		void save();
+	void pushState(GameState* state);
+	void changeState(GameState* state);
+	void popState();
 
-		Game();
-		~Game();
-		void run();
-		void update(Uint32 time);
-		void render(Uint32 time) const;
-		void handleEvents(Uint32 time);
+	inline GameState* getCurrentState() const { return stateMachine->currentState(); }
+	Texture* getTexture(string nameText);
+	Font* getFont(string nameFont);
+
+	inline SDL_Renderer* getRenderer() const { return renderer; }
+	inline b2World* getWorld() const { return _world; }
+	inline void setExit(bool quit) { exit = quit; }
+	void toggleFullscreen();
+
+	Game();
+	~Game();
+	void run();
+	void update(Uint32 time);
+	void render(Uint32 time) const;
+	void handleEvents(Uint32 time);
 };

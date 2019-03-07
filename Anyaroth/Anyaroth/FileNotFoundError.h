@@ -3,7 +3,6 @@
 
 class FileNotFoundError : public AnyarothError
 {
-	public:
-		FileNotFoundError(string fileName) :
-			AnyarothError("'File Not Found Error' occurred. " + fileName + " was not found. ") {}
+public:
+	FileNotFoundError(string fileName) : AnyarothError("'File Not Found Error' occurred. " + fileName + " was not found. ") {}
 };

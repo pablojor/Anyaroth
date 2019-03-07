@@ -1,8 +1,8 @@
 #pragma once
 
-class Component 
+class Component
 {
-	public:
-		Component() {};
-		virtual ~Component() = 0 {};
+public:
+	Component() {}
+	virtual ~Component() = 0 {}
 };
