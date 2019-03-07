@@ -4,11 +4,10 @@
 #include "Player.h"
 #include "BodyComponent.h"
 
-
 MartyrEnemy::MartyrEnemy(Player* player, Game* g, PlayState* play,Texture* texture, Vector2D posIni, string tag) : Enemy(player, g, play,texture, posIni, tag)
 {
 	_vision = 300;
-	_attackRange = 25; //No se puede poner mas peque�o que la velocidad
+	_attackRange = 25; //No se puede poner mas pequeño que la velocidad
 	_attackTime = 1000;
 	_life = 50;
 	_damage = 20;
@@ -16,7 +15,6 @@ MartyrEnemy::MartyrEnemy(Player* player, Game* g, PlayState* play,Texture* textu
 	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 13, true);
 	_anim->addAnim(AnimatedSpriteComponent::EnemyWalk, 8, true);
 	_anim->addAnim(AnimatedSpriteComponent::EnemyAttack, 11, false);
-
 	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 }
 
@@ -26,11 +24,9 @@ void MartyrEnemy::update()
 
 	BodyComponent* _playerBody = _player->getComponent<BodyComponent>();
 
-	b2Vec2 enemyPos = _body->getBody()->GetPosition(),
-		playerPos = _playerBody->getBody()->GetPosition();
+	b2Vec2 enemyPos = _body->getBody()->GetPosition(), playerPos = _playerBody->getBody()->GetPosition();
 
-	double x = playerPos.x * 8 - enemyPos.x * 8,
-		y = playerPos.y * 8 - enemyPos.y * 8;
+	double x = playerPos.x * 8 - enemyPos.x * 8, y = playerPos.y * 8 - enemyPos.y * 8;
 
 	if (!_attacking && x < _vision && x > -_vision && y < _vision && y > -_vision)
 	{
@@ -83,7 +79,6 @@ void MartyrEnemy::update()
 	{ 
 		if (SDL_GetTicks() > _time + _attackTime)
 		{
-			
 			if ((x < _attackRange && x > -_explosionRange) && y < _explosionRange && y > -_explosionRange)
 			{
 				auto body = _player->getComponent<BodyComponent>()->getBody();

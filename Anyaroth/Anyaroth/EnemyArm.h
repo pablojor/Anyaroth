@@ -4,11 +4,10 @@
 class EnemyArm : public Arm
 {
 private:
-	GameComponent* _target;
-	b2Body* _targetBody;
+	GameComponent* _target = nullptr;
+	b2Body* _targetBody = nullptr;
+
 public:
 	EnemyArm(Texture* texture, GameComponent* enemy, GameComponent* target, Game* g, PlayState* play, Vector2D offset = { 0,0 });
-
 	void update();
 };
-

@@ -13,17 +13,18 @@ class Gun;
 class Arm : public GameComponent
 {
 protected:
-	TransformComponent* _transform;
-	GameComponent* _owner;
-	AnimatedSpriteComponent* _anim;
-	FollowingComponent* _followC;
-	Camera* _cam;
+	TransformComponent* _transform = nullptr;
+	GameComponent* _owner = nullptr;
+	AnimatedSpriteComponent* _anim = nullptr;
+	FollowingComponent* _followC = nullptr;
+	Camera* _cam = nullptr;
 	Gun* _currentGun = nullptr;
+
 public:
 	Arm(Texture* texture, GameComponent* owner, Game* g, PlayState* play, Vector2D offset = { 0,0 });
 	virtual ~Arm();
 
-	Camera* getCamera() { return _cam; }; //Necesario para el ArmController
+	inline Camera* getCamera() const { return _cam; } //Necesario para el ArmController
 	void setOwner(Vector2D offset, GameComponent* owner);
 	void setArmSprite(Texture* armTex);
 
@@ -32,6 +33,5 @@ public:
 	void setGun(Gun* gun); //Establece el arma
 	virtual void shoot();
   
-	inline Gun* getCurrentGun() { return _currentGun; }
+	inline Gun* getCurrentGun() const { return _currentGun; }
 };
-

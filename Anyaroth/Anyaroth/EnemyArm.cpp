@@ -49,5 +49,4 @@ void EnemyArm::update()
 
 		_followC->setOffset({ _followC->getInitialOffset().getX(), _followC->getInitialOffset().getY() });
 	}
-
 }

@@ -23,22 +23,13 @@ Enemy::Enemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2
 	_body->setH(40);
 	_body->filterCollisions(ENEMIES, FLOOR);
 
-	//auto playerTrans = addComponent<MeleeEnemyComponent>();
-
 	_anim = addComponent<AnimatedSpriteComponent>();
 	_hurt = addComponent<HurtRenderComponent>();
 
-	/*
-	_anim->addAnim(AnimatedSpriteComponent::Idle, 16, true);
-	_anim->addAnim(AnimatedSpriteComponent::Walk, 10, true);
-	_anim->addAnim(AnimatedSpriteComponent::WalkBack, 10, true); //esta en realidad es opcional
-	_anim->addAnim(AnimatedSpriteComponent::MeleeKnife, 6, false);
-
-	_anim->playAnim(AnimatedSpriteComponent::Idle);
-	*/
 	_life = Life(50);
 	_movement = addComponent<MovingComponent>();
 }
+
 void Enemy::setItList(list<GameObject*>::iterator itFR)
 {
 	_itList = itFR;
@@ -60,7 +51,6 @@ void Enemy::update()
 	GameComponent::update();
 }
 
-
 void Enemy::die()
 {
 	_play->KillObject(_itList);
@@ -78,8 +68,6 @@ void Enemy::subLife(int damage)
 			_dead = true;
 		}
 		else
-		{
 			_hurt->hurt();
-		}
 	}
 }

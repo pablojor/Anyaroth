@@ -8,14 +8,13 @@ enum AmmoType
 
 class AmmoPackage : public Collectable
 {
-	private:
-		AmmoType _type;
-		string _tag = "AmmoPackage";
+private:
+	AmmoType _type;
+	string _tag = "AmmoPackage";
 
-	public:
-		AmmoPackage(AmmoType type, PlayState* play, Game* g, Texture* texture, Vector2D iniPos, int value) : 
-			_type(type), Collectable(play, g, texture, iniPos, value, _tag) {};
-		virtual ~AmmoPackage() {};
+public:
+	AmmoPackage(AmmoType type, PlayState* play, Game* g, Texture* texture, Vector2D iniPos, int value) : _type(type), Collectable(play, g, texture, iniPos, value, _tag) {}
+	virtual ~AmmoPackage() {}
 
-		string getType();
+	string getType() const;
 };

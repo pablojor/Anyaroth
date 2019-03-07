@@ -1,5 +1,4 @@
 #pragma once
-
 #include "Arm.h"
 #include "Game.h"
 #include "Cursor.h"
@@ -12,8 +11,8 @@ class PlayerArm : public Arm
 {
 protected:
 	Player* player = nullptr;
-	ArmControllerComponent* _controller;
-	Cursor* _cursor;
+	ArmControllerComponent* _controller = nullptr;
+	Cursor* _cursor = nullptr;
 	
 	double _minAimDistance = 48;
 
@@ -26,4 +25,3 @@ public:
 	bool reload(); 
 	void setCursor(Cursor* c); //usado por el controller
 };
-

@@ -4,23 +4,13 @@
 #include "TransformComponent.h"
 #include "MovingComponent.h"
 
-Bullet::Bullet(Texture* texture, Vector2D iniPos, Game* g, string tag) : GameComponent(g, tag) 
-{
-}
-Bullet::Bullet() 
-{
-	
-}
-
-Bullet::~Bullet() 
-{
-}
 void Bullet::beginCollision(GameComponent * other, b2Contact* contact)
 {
 	if(getTag() == "Bullet" && other->getTag() != "EnemyBullet" && other->getTag() != "Player" && other->getTag() != "Bullet")
 		_collided = true;
 	else if (getTag() == "EnemyBullet" && other->getTag() != "Bullet" && other->getTag() != "Enemy" && other->getTag() != "EnemyBullet")
 		_collided = true;
+
 	contact->SetEnabled(false);
 }
 
@@ -43,17 +33,12 @@ void Bullet::init(Texture* texture, double speed, int damage, double angle, int 
 	body->getBody()->SetBullet(true);
 	body->getBody()->SetFixedRotation(true);
 	body->getBody()->SetGravityScale(0);
-
 	body->getBody()->SetActive(false);
 	
 	auto anim = addComponent<AnimatedSpriteComponent>();
 	anim->addAnim(AnimatedSpriteComponent::Default, 4, false);
-
-	
 	anim->setTexture(texture);
-	
 }
-
 
 void Bullet::update() 
 {
@@ -64,15 +49,14 @@ void Bullet::update()
 
 	if (dist < _range  && !_collided)
 	{
-		//cout << "X: " << getComponent<TransformComponent>()->getPosition().getX() << "	Y: " << getComponent<TransformComponent>()->getPosition().getY() << endl << endl;
-		
-		GameComponent::update(); //<- DESCOMENTAR PARA PROBAR CON F�SICAS
+		GameComponent::update(); //<- DESCOMENTAR PARA PROBAR CON FISICAS
 
 
-		// Actualiza la posici�n
-		//_trans->setPosition(_trans->getPosition() + _velocity);  //<- DESCOMENTAR PARA PROBAR SIN F�SICAS
+		// Actualiza la posicion
+		//_trans->setPosition(_trans->getPosition() + _velocity);  //<- DESCOMENTAR PARA PROBAR SIN FISICAS
 
 		// Desactiva la bala al salir de la pantalla (por hacer)
+
 		/*
 		if (position_.getX() + width_ <= 0
 			|| position_.getX() >= getGame()->getWindowWidth()
@@ -81,7 +65,6 @@ void Bullet::update()
 			toggleActive();
 		}
 		*/
-
 		_aliveTime++;
 	}
 	else
@@ -90,7 +73,6 @@ void Bullet::update()
 		this->getComponent<BodyComponent>()->getBody()->SetActive(false);
 	}
 }
-
 
 void Bullet::reset(Vector2D pos)
 {

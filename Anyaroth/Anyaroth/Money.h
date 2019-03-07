@@ -2,19 +2,14 @@
 
 class Money
 {
-	private:
-		int _bank = 0;
-		int _wallet = 0;
+private:
+	int _bank = 0, _wallet = 0;
 
-	public:
-		//Money() {}
-		//virtual ~Money() {}
+public:
+	inline void restartWallet() { _wallet = 0; }
+	inline void storeWallet() { _bank += _wallet; }
+	inline void store(int s) { _wallet += s; }
 
-		void restartWallet() { _wallet = 0; }
-		void storeWallet() { _bank += _wallet; }
-		void store(int s) { _wallet += s; }
-
-		bool spend(int n);
-
-		int getWallet() const { return _wallet; }
+	bool spend(int n);
+	inline int getWallet() const { return _wallet; }
 };

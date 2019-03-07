@@ -3,7 +3,6 @@
 #include "SpriteComponent.h"
 #include "PlayState.h"
 
-
 Collectable::Collectable(PlayState* play, Game* g, Texture* texture, Vector2D iniPos, int value, string tag) : _play(play), _value(value), GameComponent(g, tag)
 {
 	addComponent<Texture>(texture);
@@ -15,7 +14,6 @@ Collectable::Collectable(PlayState* play, Game* g, Texture* texture, Vector2D in
 	body->getBody()->SetType(b2_kinematicBody);
 
 	setActive(true);
-	//addComponent<SpriteComponent>();
 }
 
 void Collectable::destroy() 
@@ -23,4 +21,3 @@ void Collectable::destroy()
 	setActive(false);
 	_play->KillObject(_itList);
 }
-

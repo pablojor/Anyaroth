@@ -22,40 +22,33 @@ class Player : public GameComponent
 private:
 	PlayState* _play = nullptr;
 	Life _life = Life(100);
-	//int AmountOfCollision;
 	uint _currentState = 0;
 	PlayerArm* _weaponArm = nullptr;
-	AnimatedSpriteComponent* _anim;
-	MovingComponent* _movement;
-	TransformComponent * _transform;
-	BodyComponent * _body;
-	HurtRenderComponent* _hurt;
-	HurtRenderComponent* _hurtArm;
+	AnimatedSpriteComponent* _anim = nullptr;
+	MovingComponent* _movement = nullptr;
+	TransformComponent * _transform = nullptr;
+	BodyComponent * _body = nullptr;
+	HurtRenderComponent* _hurt = nullptr;
+	HurtRenderComponent* _hurtArm = nullptr;
 
 	PlayerPanel* _playerPanel = nullptr;
 
-	uint32 _dashCD = 3000;
-	uint32 _timer = 0;
-	int _maxDash = 2;
-	int _numDash = _maxDash;
+	uint32 _dashCD = 3000, _timer = 0;
+	int _maxDash = 2, _numDash = _maxDash;
 	Money * _money = nullptr;
 
-	bool _isGrounded = false;
-	bool _isDashing = false;
+	bool _isGrounded = false, _isDashing = false, _dead = false;
 
-	int _maxInventoryGuns = 2; //n�mero de slots en el inventario de armas 
-	vector<GunType> _gunInventory; //Ej: == {Game::BasicGun} -> indica que en el inventario solo lleva la pistola b�sica
+	int _maxInventoryGuns = 2; //numero de slots en el inventario de armas 
+	vector<GunType> _gunInventory; //Ej: == {Game::BasicGun} -> indica que en el inventario solo lleva la pistola basica
 	GunType _equippedGun = BasicGun;
 	vector<Texture*> _armTextures;
-
-	bool _dead = false;
 
 	inline bool dashIsAble() const { return _numDash > 0 && _isDashing; }
 	void checkMovement(const Uint8* keyboard);
 	void handleAnimations();
 
 public:
-
 	enum states { Idle, Attacking, Walking, Reloading, Dashing, Falling, Jumping };
 
 	Player(Texture* texture, Game* g, PlayState* play, string tag);
@@ -70,9 +63,7 @@ public:
 	void subLife(int damage);
 	void die();
 
-	//inline void setArm(PlayerArm* arm) { _weaponArm = arm; };
 	inline PlayerArm* getWeaponArm() const { return _weaponArm; }
-	//void equipGun(int gunIndex);
 	void swapGun();
 
 	void move(const Vector2D& dir, const double& speed);
@@ -83,8 +74,7 @@ public:
 	void shoot();
 	void reload();
 
-	inline uint getCurrentState() const { return _currentState; };
-	inline void setCurrentState(uint n) { _currentState = n; };
-
+	inline uint getCurrentState() const { return _currentState; }
+	inline void setCurrentState(uint n) { _currentState = n; }
 	inline void setPlayerPanel(PlayerPanel* p) { _playerPanel = p; }
 };
