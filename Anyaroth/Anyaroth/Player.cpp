@@ -94,7 +94,7 @@ void Player::beginCollision(GameComponent * other, b2Contact* contact)
 
 		if (_transform->getPosition().getY() + (myH+ 0.4) * (M_TO_PIXEL * 2) < otherTransform->getPosition().getY())
 		{
-			_isGrounded = true;
+			//_isGrounded = true;
  			//_controller->ableJump();
 		}
 	}
@@ -134,16 +134,10 @@ void Player::endCollision(GameComponent * other, b2Contact* contact)
 	{
 		//AmountOfCollision -= 1;
 
+		//ESTO HACE QUE FALLE LA ANIMACION DE ANDAR, TENGO QUE INVESTIGARLO
 		if (_transform->getPosition().getY() + (myH + 0.4) * (M_TO_PIXEL * 2) < otherTransform->getPosition().getY())
 		{
-			//_isGrounded = false;
-
-			if ((_body->getBody()->GetLinearVelocity().y < -2))
-			{
-				/*if(_controller->IsSpaceDown())
-				_currentState = Player::Jumping;
-				_controller->changeJump();*/
-			}			
+			//_isGrounded = false;			
 		}		
 	}
 }
@@ -200,11 +194,9 @@ void Player::update()
 
 	checkMovement(keyboard);
 
-	if (mouse && SDL_BUTTON(SDL_BUTTON_LEFT)/* && !_dashing*/) //&& !_isAttacking)
+	if (mouse && SDL_BUTTON(SDL_BUTTON_RIGHT)/* && !_dashing*/) //&& !_isAttacking)
 	{
-		//dir = Vector2D(0, 0);
-		//_isAttacking = true;
-		//llamo a funci�n de melee
+		move(Vector2D(0, 0), 0);
 		setCurrentState(Player::Attacking);
 		_anim->playAnim(AnimatedSpriteComponent::MeleeKnife);//llamo animacion del melee dependiendo del arma cuerpo a cuerpo
 	}
@@ -219,7 +211,7 @@ void Player::update()
 	//	//_qPul = false;
 	//}
 
-	
+	handleAnimations();
 
 
 
@@ -291,7 +283,6 @@ void Player::swapGun()
 
 void Player::checkMovement(const Uint8* keyboard)
 {
-	Vector2D dir(0, 0);
 	double _speed = 15;
 
 	if (keyboard[SDL_SCANCODE_A] && keyboard[SDL_SCANCODE_D] /*&& !_isAttacking && !_dashing && !_isReloading*/)
@@ -321,10 +312,52 @@ void Player::checkMovement(const Uint8* keyboard)
 
 	if (keyboard[SDL_SCANCODE_SPACE] && _isGrounded/* && !_isAttacking && !_jumping && !_dashing && !_isReloading*/)
 		jump();	
+
+	_isGrounded = (abs(_body->getBody()->GetLinearVelocity().y) < 0.1/* && _isGrounded*/);
 }
 
 void Player::handleAnimations()
 {
+	auto vel = _body->getBody()->GetLinearVelocity();
+
+	//Idle
+	if (vel.x == 0 && vel.y == 0 && _isGrounded)
+		_anim->playAnim(Idle);
+	//Walking
+	else if (abs(vel.x) > 0 && _isGrounded && !_anim->getCurrentAnim() != AnimatedSpriteComponent::Dash)
+	{
+		//Esto hay que cambiarlo
+		if (!_anim->isFlipped())
+			_anim->playAnim(AnimatedSpriteComponent::Walk);
+		else
+			_anim->playAnim(AnimatedSpriteComponent::WalkBack);
+	}
+	//Jumping&Falling
+	if (vel.y != 0 && !_isGrounded)
+	{
+		if ((_anim->getCurrentAnim() != AnimatedSpriteComponent::Dash && _anim->getCurrentAnim() != AnimatedSpriteComponent::DashBack) ||
+			((_anim->getCurrentAnim() == AnimatedSpriteComponent::Dash || _anim->getCurrentAnim() == AnimatedSpriteComponent::DashBack) && _anim->animationFinished()))
+		{
+			if (vel.y > 0.1 && !_isGrounded)
+			{
+				_anim->playAnim(AnimatedSpriteComponent::Falling);
+				_isGrounded = false;
+			}
+			else if (vel.y < 0.1 && vel.y > -0.1 && !_isGrounded)
+			{
+				_anim->playAnim(AnimatedSpriteComponent::StartFalling);
+				_isGrounded = false;
+			}
+			else if (vel.y < -0.1 && !_isGrounded)
+			{
+				_anim->playAnim(AnimatedSpriteComponent::Jump);
+				_isGrounded = false;
+			}
+		}
+	}
+	
+
+
 
 	/*if (_anim->animationFinished() && _currentState != Player::Falling && _currentState != Player::Jumping)
 	{
@@ -367,13 +400,13 @@ void Player::move(const Vector2D& dir, const double& speed)
 	if (abs(_body->getBody()->GetLinearVelocity().x) < speed) 
 	{	
 		_body->getBody()->SetLinearVelocity(b2Vec2(dir.getX() * speed, _body->getBody()->GetLinearVelocity().y));
-		if (_isGrounded)
+		/*if (_isGrounded)
 		{
 			if (!_anim->isFlipped())
 				_anim->playAnim(AnimatedSpriteComponent::Walk);
 			else
 				_anim->playAnim(AnimatedSpriteComponent::WalkBack);
-		}
+		}*/
 	}
 }
 
@@ -390,12 +423,12 @@ void Player::dash(const Vector2D& dir)
 	_numDash--;
 	_isDashing = false;
 
-	/*if (!_anim->isFlipped())
+	if (!_anim->isFlipped())
 		_anim->playAnim(AnimatedSpriteComponent::Dash);
 	else
 		_anim->playAnim(AnimatedSpriteComponent::DashBack);
 
-	setCurrentState(Player::Dashing);*/
+	/*setCurrentState(Player::Dashing);*/
 }
 
 
@@ -405,7 +438,11 @@ void Player::jump()
 	double _jumpForce = 1000;
 	_body->getBody()->ApplyLinearImpulse(b2Vec2(0, -_jumpForce), _body->getBody()->GetWorldCenter(), true);
 	_isGrounded = false;
-	//_anim->playAnim(AnimatedSpriteComponent::BeforeJump);
+	_anim->playAnim(AnimatedSpriteComponent::BeforeJump);
+}
+
+void Player::melee()
+{
 }
 
 void Player::shoot()
