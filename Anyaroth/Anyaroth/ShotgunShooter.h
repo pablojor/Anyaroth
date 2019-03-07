@@ -7,7 +7,7 @@ private:
 	vector<double> _bulletAngles; //El vector de bulletAngles indica a la vez el número de balas y el angulo relativo que van a tener
 
 public:
-	ShotgunShooter(const vector<double> &bulletAngles) {}
+	ShotgunShooter(const vector<double> &bulletAngles) : _bulletAngles(bulletAngles) {}
 	virtual ~ShotgunShooter() {}
 
 	inline void setBulletAngles(const vector<double> &bulletAngles) { _bulletAngles = bulletAngles; }
