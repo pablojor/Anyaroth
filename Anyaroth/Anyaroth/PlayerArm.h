@@ -4,20 +4,21 @@
 #include "Game.h"
 #include "Cursor.h"
 
+class Player;
 class Gun;
 class ArmControllerComponent;
 
 class PlayerArm : public Arm
 {
 protected:
-	
+	Player* player = nullptr;
 	ArmControllerComponent* _controller;
 	Cursor* _cursor;
 	
 	double _minAimDistance = 48;
 
 public:
-	PlayerArm(Texture* texture, GameComponent* player, Game* g, PlayState* play, Vector2D offset = { 0,0 });
+	PlayerArm(Texture* texture, Player* player, Game* g, PlayState* play, Vector2D offset = { 0,0 });
 
 	void update();
 

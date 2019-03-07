@@ -1,10 +1,11 @@
 #include "PlayerArm.h"
 #include "ArmControllerComponent.h"
 #include "Gun.h"
+#include "Player.h"
 
 
 
-PlayerArm::PlayerArm(Texture* texture, GameComponent* player, Game* g, PlayState* play, Vector2D offset) : Arm(texture, player, g, play, offset)
+PlayerArm::PlayerArm(Texture* texture, Player* player, Game* g, PlayState* play, Vector2D offset) : Arm(texture, player, g, play, offset)
 {
 	_controller = addComponent<ArmControllerComponent>();
 	//_cursor = play->getCursor();

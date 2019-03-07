@@ -91,7 +91,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	//cursor
 	_cursor = new Cursor(g->getTexture("GunCursor"), g, this);
 	_stages.push_back(_cursor);
-	_player->getWeaponArm()->setCursor(_cursor);
+	//_player->getWeaponArm()->setCursor(_cursor);
 
 	//HUD
 	auto b = new PlayStateHUD(g);
