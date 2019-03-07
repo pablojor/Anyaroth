@@ -1,5 +1,5 @@
 Mk mk_spritesheet.png 14 16
-EnemyMelee enemymelee_spritesheet.png 3 13
+EnemyMelee enemymelee_spritesheet.png 4 18
 EnemyMartyr enemymartyr_spritesheet.png 4 23
 Arm mk_arm.png 1 1
 ArmUp mk_arm_up.png 1 1
