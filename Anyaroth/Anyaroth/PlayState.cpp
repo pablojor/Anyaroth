@@ -72,8 +72,9 @@ PlayState::PlayState(Game* g) : GameState(g)
 		_enemy->setItList(itFR);
 	 }
 
-	 //prueba martyr
-	 _enemy = new MartyrEnemy(_player, g, this, g->getTexture("EnemyMartyr"), Vector2D(400, 300 - TILES_SIZE * 2), "Enemy");
+	 //prueba martyr y melee
+	 //_enemy = new MartyrEnemy(_player, g, this, g->getTexture("EnemyMartyr"), Vector2D(400, 300 - TILES_SIZE * 2), "Enemy");
+	 _enemy = new MeleeEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(400, 300 - TILES_SIZE * 2), "Enemy");
 	 _stages.push_back(_enemy);
 	 auto itFR = --(_stages.end());
 	 _enemy->setItList(itFR);
