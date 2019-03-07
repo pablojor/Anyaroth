@@ -28,7 +28,7 @@ const string SAVES_PATH = "..\\files\\saves\\";
 const string SPRITE_PATH = "..\\assets\\sprites\\";
 const string TILEMAP_PATH = "..\\files\\tilemaps\\";
 
-const int NUM_TEXTURES = 27;
+const int NUM_TEXTURES = 28;
 
 const int NUM_FONTS = 0;
 const int TILES_SIZE = 16;
@@ -78,8 +78,10 @@ class Game
 		vector<int> var;
 		vector<GunAttributes> gameGuns = 
 		{
+			//Player
 			{ new Shooter(), BasicGun, 60, 12, 600, 100, 10, 500 },
 			{ new ShotgunShooter({30,0,-30}), BasicShotgun, 30, 2, 1200, 100, 25, 60 },
+			//Enemies
 			{ new Shooter(), BasicEnemyGun, 60, 12, 600, 100, 10, 500 },
 			{ new ShotgunShooter({30,0,-30}), BasicEnemyShotgun, 30, 2, 1200, 100, 25, 60 },
 		};

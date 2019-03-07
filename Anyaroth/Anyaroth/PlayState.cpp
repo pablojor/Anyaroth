@@ -36,7 +36,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_stages.push_back(_basicBulletPool);
 	_pools.push_back(_basicBulletPool);
 
-	PoolWrapper* _basicShotgunBulletPool = new BulletPool<100>(g, g->getTexture("PistolBullet"), this, g->gameGuns[BasicShotgun].velocity, g->gameGuns[BasicShotgun].damage, g->gameGuns[BasicShotgun].range);
+	PoolWrapper* _basicShotgunBulletPool = new BulletPool<100>(g, g->getTexture("ShotgunBullet"), this, g->gameGuns[BasicShotgun].velocity, g->gameGuns[BasicShotgun].damage, g->gameGuns[BasicShotgun].range, 0.0, 2);
 	_basicShotgunBulletPool->changePoolFilter(PLAYER_BULLETS, FLOOR | ENEMIES);
 	_stages.push_back(_basicShotgunBulletPool);
 	_pools.push_back(_basicShotgunBulletPool);
@@ -58,55 +58,55 @@ PlayState::PlayState(Game* g) : GameState(g)
 
 	//Camera
 	_mainCamera->fixCameraToObject(_player);
-	
-	//Enemies
-	 auto oL= new ObjectLayer(TILEMAP_PATH + "Nivel1.json", "Enemigos");
-	 vector <Vector2D> enemiesPos = oL->getObjectsPositions();
-	 delete oL;
 
-	 for (int i = 0; i < enemiesPos.size(); i++)
-	 {
-		 _enemy = new DistanceStaticEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(enemiesPos[i].getX(), enemiesPos[i].getY() - TILES_SIZE * 2), "Enemy", BasicEnemyShotgun);
+	//Enemies
+	auto oL = new ObjectLayer(TILEMAP_PATH + "Nivel1.json", "Enemigos");
+	vector <Vector2D> enemiesPos = oL->getObjectsPositions();
+	delete oL;
+
+	for (int i = 0; i < enemiesPos.size(); i++)
+	{
+		_enemy = new DistanceStaticEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(enemiesPos[i].getX(), enemiesPos[i].getY() - TILES_SIZE * 2), "Enemy", BasicEnemyShotgun);
 		_stages.push_back(_enemy);
 		auto itFR = --(_stages.end());
 		_enemy->setItList(itFR);
-	 }
+	}
 
-	 //prueba martyr y melee
-	 //_enemy = new MartyrEnemy(_player, g, this, g->getTexture("EnemyMartyr"), Vector2D(400, 300 - TILES_SIZE * 2), "Enemy");
-	 _enemy = new MeleeEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(400, 300 - TILES_SIZE * 2), "Enemy");
-	 _stages.push_back(_enemy);
-	 auto itFR = --(_stages.end());
-	 _enemy->setItList(itFR);
+	//prueba martyr y melee
+	//_enemy = new MartyrEnemy(_player, g, this, g->getTexture("EnemyMartyr"), Vector2D(400, 300 - TILES_SIZE * 2), "Enemy");
+	_enemy = new MeleeEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(400, 300 - TILES_SIZE * 2), "Enemy");
+	_stages.push_back(_enemy);
+	auto itFR = --(_stages.end());
+	_enemy->setItList(itFR);
 
 
 	//Coins
-	 oL = new ObjectLayer(TILEMAP_PATH + "Nivel1.json", "Monedas");
-	 vector <Vector2D> coinsPos = oL->getObjectsPositions();
-	 delete oL;
-	 for (int i = 0; i < coinsPos.size(); i++)
-	 {
-		 _coin = new Coin(this, g, g->getTexture("Coin"), Vector2D(coinsPos[i].getX(), coinsPos[i].getY() - TILES_SIZE), 20);
-		 _stages.push_back(_coin);
-		 auto itFR = --(_stages.end());
-		 _coin->setItList(itFR);
-	 }
+	oL = new ObjectLayer(TILEMAP_PATH + "Nivel1.json", "Monedas");
+	vector <Vector2D> coinsPos = oL->getObjectsPositions();
+	delete oL;
+	for (int i = 0; i < coinsPos.size(); i++)
+	{
+		_coin = new Coin(this, g, g->getTexture("Coin"), Vector2D(coinsPos[i].getX(), coinsPos[i].getY() - TILES_SIZE), 20);
+		_stages.push_back(_coin);
+		auto itFR = --(_stages.end());
+		_coin->setItList(itFR);
+	}
 
-	 //World
-	 _debugger.getRenderer(g->getRenderer());
-	 _debugger.getTexture(g->getTexture("body"));
-	 _debugger.SetFlags(b2Draw::e_shapeBit);
-	 _debugger.getCamera(_mainCamera);
+	//World
+	_debugger.getRenderer(g->getRenderer());
+	_debugger.getTexture(g->getTexture("body"));
+	_debugger.SetFlags(b2Draw::e_shapeBit);
+	_debugger.getCamera(_mainCamera);
 
-	 //Gestion de colisiones
-	 g->getWorld()->SetContactListener(&_colManager);
-	 g->getWorld()->SetDebugDraw(&_debugger);
-	
+	//Gestion de colisiones
+	g->getWorld()->SetContactListener(&_colManager);
+	g->getWorld()->SetDebugDraw(&_debugger);
+
 	//Camera BackGound
 	ParallaxBackGround* a = new ParallaxBackGround(_mainCamera);
-	a->addLayer(new ParallaxLayer(g->getTexture("BgZ1L1"), _mainCamera,0.25));
-	a->addLayer(new ParallaxLayer(g->getTexture("BgZ1L2"), _mainCamera,0.5));
-	a->addLayer(new ParallaxLayer(g->getTexture("BgZ1L3"), _mainCamera,0.75));
+	a->addLayer(new ParallaxLayer(g->getTexture("BgZ1L1"), _mainCamera, 0.25));
+	a->addLayer(new ParallaxLayer(g->getTexture("BgZ1L2"), _mainCamera, 0.5));
+	a->addLayer(new ParallaxLayer(g->getTexture("BgZ1L3"), _mainCamera, 0.75));
 	_mainCamera->setBackGround(a);
 
 	//cursor
@@ -137,7 +137,7 @@ bool PlayState::handleEvents(SDL_Event& e)
 	GameState::handleEvents(e);
 
 	bool handled = false;
-	if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE) 
+	if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE)
 	{
 		_game->pushState(new PauseState(_game));
 		handled = true;

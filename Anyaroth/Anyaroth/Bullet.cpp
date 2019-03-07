@@ -24,7 +24,7 @@ void Bullet::beginCollision(GameComponent * other, b2Contact* contact)
 	contact->SetEnabled(false);
 }
 
-void Bullet::init(Texture* texture, GameState* current, double speed, int damage, double angle, int range)
+void Bullet::init(Texture* texture, GameState* current, double speed, int damage, double angle, int range, int numFrames)
 {
 	_currentState = current;
 	setTag("Bullet");
@@ -48,7 +48,7 @@ void Bullet::init(Texture* texture, GameState* current, double speed, int damage
 	body->getBody()->SetActive(false);
 	
 	auto anim = addComponent<AnimatedSpriteComponent>();
-	anim->addAnim(AnimatedSpriteComponent::Default, 4, false);
+	anim->addAnim(AnimatedSpriteComponent::Default, numFrames, false);
 
 	
 	anim->setTexture(texture);
