@@ -41,7 +41,7 @@ private:
 	Money * _money = nullptr;
 
 	bool _isGrounded = false;
-	bool _dashIsActive = false;
+	bool _isDashing = false;
 
 	int _maxInventoryGuns = 2; //n�mero de slots en el inventario de armas 
 	vector<GunType> _gunInventory; //Ej: == {Game::BasicGun} -> indica que en el inventario solo lleva la pistola b�sica
@@ -50,8 +50,9 @@ private:
 
 	bool _dead = false;
 
-	inline bool dashIsAble() const { return _numDash > 0 && _dashIsActive; }
+	inline bool dashIsAble() const { return _numDash > 0 && _isDashing; }
 	void checkMovement(const Uint8* keyboard);
+	void handleAnimations();
 
 public:
 
@@ -75,10 +76,12 @@ public:
 	void swapGun();
 
 	void move(const Vector2D& dir, const double& speed);
-	void reload();
 	void dash(const Vector2D& dir);
 	void jump();
+
+	void melee();
 	void shoot();
+	void reload();
 
 	inline uint getCurrentState() const { return _currentState; };
 	inline void setCurrentState(uint n) { _currentState = n; };

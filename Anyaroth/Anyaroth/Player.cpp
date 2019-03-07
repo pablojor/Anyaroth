@@ -186,7 +186,7 @@ bool Player::handleInput(const SDL_Event& event)
 		if (event.key.keysym.sym == SDLK_r)
 			reload();
 		if (event.key.keysym.sym == SDLK_LSHIFT)
-			_dashIsActive = true;
+			_isDashing = true;
 	}
 	return false;
 }
@@ -230,42 +230,8 @@ void Player::update()
 
 
 
-	/*if (_anim->animationFinished() && _currentState != Player::Falling && _currentState != Player::Jumping)
-	{
-		if (_controller->currXDir() == 0)
-		{
-			_anim->playAnim(AnimatedSpriteComponent::Idle);
-			_controller->setIsAttacking(false);
-			_controller->setIsReloading(false);
 
-			_currentState = Idle;
-		}
-		else
-		{
-			if (!_anim->isFlipped())
-				_anim->playAnim(AnimatedSpriteComponent::Walk);
-			else
-				_anim->playAnim(AnimatedSpriteComponent::WalkBack);
-			_controller->setIsAttacking(false);
-			_controller->setIsReloading(false);
-
-			_currentState = Walking;
-		}
-	}
-
-	if (AmountOfCollision <= 0|| _body->getBody()->GetLinearVelocity().y > 2 && !OnGround)
-	{
-		if ( _currentState != Player::Falling && _currentState != Player::Dashing && _body->getBody()->GetLinearVelocity().y > 2)
-		{
-			_anim->playAnim(AnimatedSpriteComponent::StartFalling);
-			_currentState = Player::Falling;
-			
-		}
-		_controller->changeJump();
-		
-	}
-
-	if (_controller->amountDash() < _MaxDash)
+	/*if (_controller->amountDash() < _MaxDash)
 	{
 		if (SDL_GetTicks() > _timer + _dashCD)
 		{
@@ -331,9 +297,6 @@ void Player::checkMovement(const Uint8* keyboard)
 	if (keyboard[SDL_SCANCODE_A] && keyboard[SDL_SCANCODE_D] /*&& !_isAttacking && !_dashing && !_isReloading*/)
 	{
 		move(Vector2D(0, 0), _speed);
-
-		//_anim->playAnim(AnimatedSpriteComponent::Idle);
-		//setCurrentState(Player::Idle);
 	}
 	else if (keyboard[SDL_SCANCODE_A] /*&& !_isAttacking && !_dashing && !_isReloading*/)
 	{
@@ -341,67 +304,76 @@ void Player::checkMovement(const Uint8* keyboard)
 			dash(Vector2D(-1, 0));
 		else
 			move(Vector2D(-1, 0), _speed);
-		/*else if (!_jumping)
-		{
-		if (!_anim->isFlipped())
-		_anim->playAnim(AnimatedSpriteComponent::WalkBack);
-		else
-		_anim->playAnim(AnimatedSpriteComponent::Walk);
-
-		setCurrentState(Player::Walking);
-		}*/
 	}
 	else if (keyboard[SDL_SCANCODE_D] /*&& !_isAttacking && !_dashing && !_isReloading*/)
 	{
 		if (dashIsAble())
 			dash(Vector2D(1, 0));
-		else 
-			move(Vector2D(1, 0), _speed);
-
-		/*else if (!_jumping)
-		{
-		if (!_anim->isFlipped())
-		_anim->playAnim(AnimatedSpriteComponent::Walk);
 		else
-		_anim->playAnim(AnimatedSpriteComponent::WalkBack);
-
-		setCurrentState(Player::Walking);
-		}*/
-
-
+			move(Vector2D(1, 0), _speed);
 	}
 	else if (keyboard[SDL_SCANCODE_S] && dashIsAble() && !_isGrounded /*&& !_isAttacking && _jumping && !_dashing && _amountOfDash > 0 && !_isReloading*/)
 	{
 		dash(Vector2D(0, 1));
-		//_movement->changeDash(true);
-		//_dashing = true;
-		//_amountOfDash--;
-		//_anim->playAnim(AnimatedSpriteComponent::DashDown);
-		//setCurrentState(Player::Dashing);
 	}
-	/*else if (!_isAttacking && !_dashing && !_isReloading)
-	{
-	_movement->changeDir(0, 0); //Llamo a animacion idle
-	if (!_jumping)
-	_anim->playAnim(AnimatedSpriteComponent::Idle);
-
-	}*/
+	else
+		move(Vector2D(0, 0), _speed);
 
 	if (keyboard[SDL_SCANCODE_SPACE] && _isGrounded/* && !_isAttacking && !_jumping && !_dashing && !_isReloading*/)
-		jump();
+		jump();	
+}
 
-	
+void Player::handleAnimations()
+{
+
+	/*if (_anim->animationFinished() && _currentState != Player::Falling && _currentState != Player::Jumping)
+	{
+	if (_controller->currXDir() == 0)
+	{
+	_anim->playAnim(AnimatedSpriteComponent::Idle);
+	_controller->setIsAttacking(false);
+	_controller->setIsReloading(false);
+
+	_currentState = Idle;
+	}
+	else
+	{
+	if (!_anim->isFlipped())
+	_anim->playAnim(AnimatedSpriteComponent::Walk);
+	else
+	_anim->playAnim(AnimatedSpriteComponent::WalkBack);
+	_controller->setIsAttacking(false);
+	_controller->setIsReloading(false);
+
+	_currentState = Walking;
+	}
+	}
+
+	if (AmountOfCollision <= 0|| _body->getBody()->GetLinearVelocity().y > 2 && !OnGround)
+	{
+	if ( _currentState != Player::Falling && _currentState != Player::Dashing && _body->getBody()->GetLinearVelocity().y > 2)
+	{
+	_anim->playAnim(AnimatedSpriteComponent::StartFalling);
+	_currentState = Player::Falling;
+
+	}
+	_controller->changeJump();
+
+	}*/
 }
 
 void Player::move(const Vector2D& dir, const double& speed)
 {
-	_body->getBody()->SetLinearVelocity(b2Vec2(dir.getX() * speed, _body->getBody()->GetLinearVelocity().y));
-	if (_isGrounded)
-	{
-		if (!_anim->isFlipped())
-			_anim->playAnim(AnimatedSpriteComponent::Walk);
-		else
-			_anim->playAnim(AnimatedSpriteComponent::WalkBack);
+	if (abs(_body->getBody()->GetLinearVelocity().x) < speed) 
+	{	
+		_body->getBody()->SetLinearVelocity(b2Vec2(dir.getX() * speed, _body->getBody()->GetLinearVelocity().y));
+		if (_isGrounded)
+		{
+			if (!_anim->isFlipped())
+				_anim->playAnim(AnimatedSpriteComponent::Walk);
+			else
+				_anim->playAnim(AnimatedSpriteComponent::WalkBack);
+		}
 	}
 }
 
@@ -412,11 +384,11 @@ void Player::reload()
 
 void Player::dash(const Vector2D& dir)
 {
-	double force = 2500;
-	//_body->getBody()->ApplyLinearImpulse(b2Vec2(dir.getX() * force * 4, dir.getY() * force), _body->getBody()->GetLocalCenter(), true);
-	_body->getBody()->ApplyLinearImpulseToCenter(b2Vec2(dir.getX() * force * 4, dir.getY() * force), true);
-	//_numDash--;
-	_dashIsActive = false;
+	double force = 3250;
+	move(Vector2D(0, 0), 0);
+	_body->getBody()->ApplyLinearImpulse(b2Vec2(dir.getX() * force, dir.getY() * force * 1.5), _body->getBody()->GetWorldCenter(), true);
+	_numDash--;
+	_isDashing = false;
 
 	/*if (!_anim->isFlipped())
 		_anim->playAnim(AnimatedSpriteComponent::Dash);
@@ -425,6 +397,7 @@ void Player::dash(const Vector2D& dir)
 
 	setCurrentState(Player::Dashing);*/
 }
+
 
 void Player::jump()
 {

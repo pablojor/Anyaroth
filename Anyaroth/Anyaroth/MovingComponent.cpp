@@ -40,7 +40,7 @@ void MovingComponent::update()
 		}
 		else
 			_body->getBody()->SetLinearVelocity(b2Vec2(_dir.x*_speed * 2, _dir.y*_speed * 2));
-	}
+	}*/
 }
 
 void MovingComponent::changeDash(bool dash)
