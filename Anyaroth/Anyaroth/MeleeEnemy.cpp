@@ -14,8 +14,8 @@ MeleeEnemy::MeleeEnemy(Player* player, Game* g, PlayState* play, Texture* textur
 
 	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 13, true);
 	_anim->addAnim(AnimatedSpriteComponent::EnemyWalk, 8, true);
-	_anim->addAnim(AnimatedSpriteComponent::EnemyAttack, 11, false);
-	_anim->addAnim(AnimatedSpriteComponent::EnemyDie, 18, false);
+	_anim->addAnim(AnimatedSpriteComponent::EnemyAttack, 11, false, 100);
+	_anim->addAnim(AnimatedSpriteComponent::EnemyDie, 18, false, 100);
 
 	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 
