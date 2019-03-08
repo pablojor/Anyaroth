@@ -21,6 +21,7 @@ class Player : public GameComponent
 {
 private:
 	PlayState* _play = nullptr;
+	b2Fixture* _floorSensor;
 	Life _life = Life(100);
 	uint _currentState = 0;
 	PlayerArm* _weaponArm = nullptr;
@@ -33,11 +34,12 @@ private:
 
 	PlayerPanel* _playerPanel = nullptr;
 
-	uint32 _dashCD = 3000, _timer = 0;
+	int _dashCD = 3000;
 	int _maxDash = 2, _numDash = _maxDash;
 	Money * _money = nullptr;
 
-	bool _isGrounded = false, _isDashing = false, _dead = false;
+	bool _isDashing = false, _dead = false;
+	int _floorCount = 0;
 
 	int _maxInventoryGuns = 2; //numero de slots en el inventario de armas 
 	vector<GunType> _gunInventory; //Ej: == {Game::BasicGun} -> indica que en el inventario solo lleva la pistola basica
@@ -46,7 +48,15 @@ private:
 
 	inline bool dashIsAble() const { return _numDash > 0 && _isDashing; }
 	void checkMovement(const Uint8* keyboard);
+	void checkMouseInput(const Uint32& mouse);
+
 	void handleAnimations();
+
+	void refreshCooldowns(const Uint32& deltaTime);
+	void refreshDashCoolDown(const Uint32& deltaTime);
+	void refreshGunCadence(const Uint32& deltaTime);
+	inline const bool isGrounded() { return _floorCount; }
+	inline void setGrounded(bool grounded) { _floorCount = grounded; }
 
 public:
 	enum states { Idle, Attacking, Walking, Reloading, Dashing, Falling, Jumping };

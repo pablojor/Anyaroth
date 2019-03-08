@@ -6,9 +6,16 @@ BodyComponent::BodyComponent(GameComponent * obj) : PhysicsComponent(obj)
 {
 	_transform = obj->getComponent<TransformComponent>();
 	auto t = obj->getComponent<Texture>();
-
-	_textW = (t->getW() / t->getNumCols());
-	_textH = (t->getH() / t->getNumFils());
+	if (t != nullptr)
+	{
+		_textW = (t->getW() / t->getNumCols());
+		_textH = (t->getH() / t->getNumFils());
+	}
+	else
+	{
+		_textW = 32;
+		_textH = 32;
+	}
 
 	_aX = _transform->getAnchor().getX();
 	_aY = _transform->getAnchor().getY();
@@ -29,8 +36,9 @@ BodyComponent::BodyComponent(GameComponent * obj) : PhysicsComponent(obj)
 	_fixture.density = 1;
 	_fixture.restitution = 0;
 	_fixture.friction = 0.001;
+	
 
-	_body->CreateFixture(&_fixture);
+	_body->CreateFixture(&_fixture)->SetUserData(obj);
 	_body->SetUserData(obj);
 }
 
@@ -87,12 +95,20 @@ void BodyComponent::addCricleShape(const b2Vec2 & Center, float radius, uint16 o
 }
 
 //recive la categoria a la que pertenece y las categorias con las que colisiona (del enum _Category)
-void BodyComponent::filterCollisions(uint16 ownCategory, uint16 collidesWith)
+void BodyComponent::filterCollisions(uint16 ownCategory, uint16 collidesWith, int groupIndex)
 {
-	_body->DestroyFixture(_body->GetFixtureList());
+	auto fixture = _body->GetFixtureList();
 
-	_fixture.filter.categoryBits = ownCategory;
-	_fixture.filter.maskBits = collidesWith;
+	b2Filter filter = fixture->GetFilterData();
 
-	_body->CreateFixture(&_fixture);
+	filter.categoryBits = ownCategory;
+	filter.maskBits = collidesWith;
+	filter.groupIndex = groupIndex;
+
+	fixture->SetFilterData(filter);
+}
+
+void BodyComponent::addFixture(b2FixtureDef* fixture, void* data)
+{
+	_body->CreateFixture(fixture)->SetUserData(data);
 }

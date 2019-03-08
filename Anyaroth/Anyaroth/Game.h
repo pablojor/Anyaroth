@@ -50,8 +50,9 @@ struct GunAttributes
 enum _Category {
 	FLOOR = 1,
 	ENEMIES = 2,
-	PLAYER = 3,
-	OBJECTS = 4,
+	PLAYER = 4,
+	OBJECTS = 8,
+	FLOOR_DETECTOR = 16,
 };
 
 class Game

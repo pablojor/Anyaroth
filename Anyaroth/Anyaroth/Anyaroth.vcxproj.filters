@@ -154,10 +154,6 @@
     <ClCompile Include="DistanceEnemy.cpp">
       <Filter>Archivos de código\Objects\Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="ObjectPool.cpp">
-      <Filter>Archivos de código\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectPool.cpp" />
     <ClCompile Include="ObjectPool.cpp" />
     <ClCompile Include="Cursor.cpp">
       <Filter>Archivos de código\UIElements</Filter>
@@ -389,7 +385,6 @@
     <ClInclude Include="DistanceEnemy.h">
       <Filter>Archivos de encabezado\Objects\Enemies</Filter>
     </ClInclude>
-    <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="Cursor.h">
       <Filter>Archivos de encabezado\UIElements</Filter>
     </ClInclude>

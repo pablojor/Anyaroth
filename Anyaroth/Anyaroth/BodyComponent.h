@@ -2,6 +2,7 @@
 #include "PhysicsComponent.h"
 #include "TransformComponent.h"
 #include <Box2D/Box2D.h>
+#include <string>
 
 
 class BodyComponent : public PhysicsComponent
@@ -27,5 +28,6 @@ public:
 	inline double getH() const { return _height; }
 
 	void addCricleShape(const b2Vec2 &Center, float radius, uint16 ownCategory, uint16 collidesWith);
-	void filterCollisions(uint16 ownCategory, uint16 collidesWith);
+	void filterCollisions(uint16 ownCategory, uint16 collidesWith, int groupIndex = 0);
+	void addFixture(b2FixtureDef* fixture, void* data);
 };
