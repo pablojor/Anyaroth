@@ -262,6 +262,7 @@ void Player::addGun(GunType gunIndex)
 	int mA = getGame()->gameGuns[gunIndex].maxAmmo;
 	int mC = getGame()->gameGuns[gunIndex].maxClip;
 	double c = getGame()->gameGuns[gunIndex].cadence;
+	bool a = getGame()->gameGuns[gunIndex].automatic;
 	PoolWrapper* bp = _play->getBulletPool(type);
 
 	if (_weaponArm == nullptr) //Si todavía no se ha inicializado _weaponArm, lo creo
@@ -272,7 +273,7 @@ void Player::addGun(GunType gunIndex)
 		_hurtArm = _weaponArm->addComponent<HurtRenderComponent>();
 	}
 
-	_gunInventory.push_back(new Gun(_weaponArm, sh, bp, type, mA, mC, c));
+	_gunInventory.push_back(new Gun(_weaponArm, sh, bp, type, mA, mC, c, a));
 
 	if (_equippedGun == -1) //Si no tenía un arma equipada, le equipa la que acaba de añadir
 		equipGun(0);
