@@ -7,7 +7,7 @@
 class MartyrEnemy : public Enemy
 {
 	private:
-		int _explosionRange = 40, _impulse = 20;
+		int _explosionRange = 60, _impulse = 80;
 		int _canDie;
 
 	public:

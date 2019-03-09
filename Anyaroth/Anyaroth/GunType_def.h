@@ -5,6 +5,7 @@ enum GunType
 	BasicGun,
 	BasicShotgun,
 	BasicEnemyGun
+	BasicEnemyShotgun
 };
 
 enum MeleeType 

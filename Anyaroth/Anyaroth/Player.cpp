@@ -74,10 +74,10 @@ Player::Player(Texture* texture, Game* g, PlayState* play, string tag) : _play(p
 	
 
 	//Inventario inicial
-	_gunInventory.push_back(BasicGun);
-	_gunInventory.push_back(BasicShotgun); //para probar
+	/*_gunInventory.push_back(BasicGun);
+	_gunInventory.push_back(BasicShotgun);*/ //para probar
 	//Equipa el arma inicial
-	equipGun(_gunInventory[1]);
+	//equipGun(0);
 
 	AmountOfCollision = 0;
 	//Monedore
@@ -90,6 +90,7 @@ Player::Player(Texture* texture, Game* g, PlayState* play, string tag) : _play(p
 Player::~Player()
 {
 	delete _money;
+	for (size_t i = 0; i < _gunInventory.size(); i++)	delete _gunInventory[i];
 }
 
 void Player::beginCollision(GameComponent * other, b2Contact* contact)
@@ -259,10 +260,43 @@ void Player::update()
 
 }
 
-//Equipa un arma utilizando el array de atributos gameGuns de Game.h
-void Player::equipGun(int gunIndex)
+//Añade un arma al inventario
+void Player::addGun(GunType gunIndex)
 {
+	ShooterInterface* sh = getGame()->gameGuns[gunIndex].shooter;
+	GunType type = GunType(getGame()->gameGuns[gunIndex].type);
+	int mA = getGame()->gameGuns[gunIndex].maxAmmo;
+	int mC = getGame()->gameGuns[gunIndex].maxClip;
+	double c = getGame()->gameGuns[gunIndex].cadence;
+	bool a = getGame()->gameGuns[gunIndex].automatic;
+	PoolWrapper* bp = _play->getBulletPool(type);
+
 	if (_weaponArm == nullptr) //Si todavía no se ha inicializado _weaponArm, lo creo
+	{
+		_weaponArm = new PlayerArm(_armTextures[type], this, getGame(), _play, { 28,14 }); //Parámetros para la pistola
+		addChild(_weaponArm);
+
+		_hurtArm = _weaponArm->addComponent<HurtRenderComponent>();
+	}
+
+	_gunInventory.push_back(new Gun(_weaponArm, sh, bp, type, mA, mC, c, a));
+
+	if (_equippedGun == -1) //Si no tenía un arma equipada, le equipa la que acaba de añadir
+		equipGun(0);
+}
+
+//Equipa un arma utilizando el array de atributos gameGuns de Game.h
+void Player::equipGun(int invIndex)
+{
+	
+
+	_equippedGun = invIndex;
+	_weaponArm->setGun(_gunInventory[invIndex]);
+	_weaponArm->setArmSprite(_armTextures[invIndex]);
+	//_hurtArm = _weaponArm->addComponent<HurtRenderComponent>();
+
+
+	/*if (_weaponArm == nullptr) //Si todavía no se ha inicializado _weaponArm, lo creo
 	{
 		_weaponArm = new PlayerArm(_armTextures[gunIndex], this, getGame(), _play, { 28,14 }); //Parámetros para la pistola
 		addChild(_weaponArm);
@@ -289,7 +323,7 @@ void Player::equipGun(int gunIndex)
 
 	_weaponArm->setGun(new Gun(_weaponArm, sh, bp, type, mA, mC, c));
 	//cout << "Gun equipada" << endl << endl << endl << endl << endl << endl;
-	_equippedGun = type;
+	_equippedGun = type;*/
 }
 
 void Player::swapGun()

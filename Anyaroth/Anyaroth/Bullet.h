@@ -5,7 +5,7 @@
 #include "GameState.h"
 
 /*********************************
-	//RECORDATORIO: 
+	//RECORDATORIO:
 		Rango
 
 /*********************************/
@@ -40,16 +40,16 @@ public:
 	void setVelocity(Vector2D vel) { _velocity = vel; };
 	void setRotation(double rot) { _angle = rot; };
 
-	void init(Texture* texture, GameState* current, double speed, int damage, double angle, int range = 5);
-	
+	void init(Texture* texture, GameState* current, double speed, int damage, double angle, int range, int numFrames);
+
 	/*virtual void render() const
 	{
 		GameComponent::render();
-		
+
 	}*/
 
 	virtual void update();
 
 	void reset(Vector2D pos);
-	
+
 };

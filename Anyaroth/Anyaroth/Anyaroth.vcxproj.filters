@@ -181,12 +181,6 @@
     <ClCompile Include="DistanceStaticEnemy.cpp">
       <Filter>Archivos de código\Objects\Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="EnemyArm.cpp">
-      <Filter>Archivos de código\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerArm.cpp">
-      <Filter>Archivos de código\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="ShotgunShooter.cpp">
       <Filter>Archivos de código\Guns</Filter>
     </ClCompile>
@@ -195,9 +189,6 @@
     </ClCompile>
     <ClCompile Include="DistanceEnemy.cpp">
       <Filter>Archivos de código\Objects\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="Arm.cpp">
-      <Filter>Archivos de código\Objects</Filter>
     </ClCompile>
     <ClCompile Include="ObjectLayer.cpp">
       <Filter>Archivos de código\Objects</Filter>
@@ -216,6 +207,15 @@
     </ClCompile>
     <ClCompile Include="MeleeBox.cpp" />
     <ClCompile Include="MeleeWeapon.cpp" />
+    <ClCompile Include="Arm.cpp">
+      <Filter>Archivos de código\Objects\Arm</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyArm.cpp">
+      <Filter>Archivos de código\Objects\Arm</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerArm.cpp">
+      <Filter>Archivos de código\Objects\Arm</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -542,6 +542,9 @@
     </Filter>
     <Filter Include="Archivos de encabezado\Objects\Enemies">
       <UniqueIdentifier>{d3fbcbda-55fa-4731-a5a3-582440a69253}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código\Objects\Arm">
+      <UniqueIdentifier>{84d75d37-85b1-4338-a33a-5894ea4e4ff5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

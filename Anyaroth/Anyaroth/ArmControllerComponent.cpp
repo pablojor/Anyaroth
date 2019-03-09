@@ -72,12 +72,13 @@ void ArmControllerComponent::handleInput(const SDL_Event& event)
 		{
 			_leftClickPul = false;
 			_canShoot = true;
+			_shootInput = false;
 		}
 	}
 
 	if (_leftClickPul && _canShoot)
 	{
-		_obj->shoot();   //llamo a funci�n de disparar
+		_shootInput = true;//obj->shoot();   //llamo a funci�n de disparar
 		_canShoot = false;
 	}
 

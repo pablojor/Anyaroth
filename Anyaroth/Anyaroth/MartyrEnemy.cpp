@@ -12,7 +12,7 @@ MartyrEnemy::MartyrEnemy(Player* player, Game* g, PlayState* play,Texture* textu
 	_attackTime = 800;
 	_canDie = 1000; //Tiempo que pasa entre que el enemigo ataca y se destruye
 	_life = 50;
-	_damage = 20;
+	_damage = 80;
 
 	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 14, true);
 	_anim->addAnim(AnimatedSpriteComponent::EnemyWalk, 5, true);
@@ -87,11 +87,15 @@ void MartyrEnemy::update()
 			if (SDL_GetTicks() > _time + _attackTime)
 			{
 
-				if ((x < _attackRange && x > -_explosionRange) && y < _explosionRange && y > -_explosionRange)
+				if ((x < _explosionRange && x > -_explosionRange) && y < _explosionRange && y > -_explosionRange)
 				{
 					auto body = _player->getComponent<BodyComponent>()->getBody();
-					body->ApplyLinearImpulseToCenter(b2Vec2(_impulse * 1/x, _impulse * 1/y), true);
 					_player->subLife(_damage);
+
+					if (x < 20 && x > -20 && y < 20 && y > -20)
+						body->ApplyLinearImpulseToCenter(b2Vec2(_impulse * x * 100000, -_impulse * y * 100000), true);
+					else
+						body->ApplyLinearImpulseToCenter(b2Vec2(_impulse * x, _impulse * y), true);
 				}
 				_dead = true;
 				die();
