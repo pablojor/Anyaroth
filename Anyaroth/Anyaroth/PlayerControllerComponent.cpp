@@ -92,7 +92,7 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 
 	_dashing = _movement->isDashing();
 
-	if (_rightClickPul && !_dashing && !_isAttacking)
+	if (_rightClickPul && !_dashing && !_isAttacking && !_jumping)
 	{
 		Player* player = static_cast<Player*>(_obj);
 		_movement->changeDir(0, 0);

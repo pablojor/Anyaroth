@@ -1,17 +1,25 @@
 #include "Game.h"
+#include <json.hpp>
 
 void Game::createTextures()
 {
 	ifstream input;
-	input.open(INFO_PATH + "textures.txt");
+	input.open(INFO_PATH + "textures.json");
 	if (input.is_open())
 	{
-		for (int i = 0; i < NUM_TEXTURES; i++)
+		nlohmann::json j;
+		input >> j;
+		j = j["textures"];
+		int numTextures = j.size();
+		for (int i = 0; i < numTextures; i++)
 		{
-			string id; input >> id;
-			string name; input >> name;
-			int fil; input >> fil;
-			int col; input >> col;
+			string id, name;
+			int fil, col;
+			id = j[i][0].get<string>();
+			name = j[i][1].get<string>();
+			fil = j[i][2];
+			col = j[i][3];
+
 			textures.insert(pair <string, Texture*>(id, new Texture(renderer, SPRITE_PATH + name, fil, col)));
 			texturesName.push_back(id);
 		}

@@ -78,7 +78,7 @@ void Enemy::subLife(int damage)
 		{
 			die();
 			_hurt->die();
-			//_anim->playAnim(AnimatedSpriteComponent::EnemyDie);
+			_anim->playAnim(AnimatedSpriteComponent::EnemyDie);
 
 			_dead = true;
 		}
