@@ -8,6 +8,7 @@
 #include "Life.h"
 #include "GunType_def.h"
 #include "PlayerPanel.h"
+#include "MeleeWeapon.h"
 
 class PlayerArm;
 class Game;
@@ -31,6 +32,7 @@ private:
 	BodyComponent * _body;
 	HurtRenderComponent* _hurt;
 	HurtRenderComponent* _hurtArm;
+	MeleeWeapon* _melee = nullptr;
 
 	PlayerPanel* _playerPanel = nullptr;
 
@@ -44,6 +46,9 @@ private:
 	int _maxInventoryGuns = 2; //n�mero de slots en el inventario de armas 
 	vector<Gun*> _gunInventory; //Ej: == {Game::BasicGun} -> indica que en el inventario solo lleva la pistola b�sica
 	uint _equippedGun = -1; //El Arma en uso
+	
+	MeleeType _equippedMelee = Knife;
+
 	vector<Texture*> _armTextures;
 
 	bool _dead = false;
@@ -69,6 +74,10 @@ public:
 	void swapGun();
 
 	void reload();
+
+	void meleeAttack();
+	void changeMelee(int meleeType);
+	void endMelee();
 
 	uint getCurrentState() { return _currentState; };
 	void setCurrentState(uint n) { _currentState = n; };

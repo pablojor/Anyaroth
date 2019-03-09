@@ -83,6 +83,8 @@ Player::Player(Texture* texture, Game* g, PlayState* play, string tag) : _play(p
 	//Monedore
 	_money = new Money();
 
+	_melee = new MeleeWeapon(g);
+	addChild(_melee);
 }
 
 Player::~Player()
@@ -204,13 +206,17 @@ void Player::update()
 	{
 		if (_controller->currXDir() == 0)
 		{
+			if (_controller->isAttacking())
+			{
+				endMelee();
+				_controller->setIsAttacking(false);
+			}
 			_anim->playAnim(AnimatedSpriteComponent::Idle);
-			_controller->setIsAttacking(false);
 			_controller->setIsReloading(false);
 
 			_currentState = Idle;
 		}
-		else
+		else 
 		{
 			if (!_anim->isFlipped())
 				_anim->playAnim(AnimatedSpriteComponent::Walk);
@@ -247,7 +253,7 @@ void Player::update()
 	}
 	else
 		_timer = SDL_GetTicks();
-
+		
 	//De momento todo el rato porque hay que cambiar cosas del player, porque esto es un caos
 	_playerPanel->updateDashViewer(_controller->amountDash());
 	_playerPanel->updateAmmoViewer(_weaponArm->getCurrentGun()->getClip(), _weaponArm->getCurrentGun()->getAmmo());
@@ -329,4 +335,46 @@ void Player::swapGun()
 void Player::reload()
 {
 	_controller->reload();
+}
+
+void Player::meleeAttack()
+{
+	int dir;
+	(_anim->isFlipped()) ? dir = -1 : dir = 1;
+
+	double playerX = _body->getBody()->GetPosition().x * M_TO_PIXEL,
+		playerY = _body->getBody()->GetPosition().y *M_TO_PIXEL,
+		w = _body->getW()*M_TO_PIXEL,
+		h = _body->getH()* M_TO_PIXEL,
+		x, y;
+	MeleeAttributes meleeWeapon = getGame()->MeleeWeapons[_equippedMelee];
+
+	switch (meleeWeapon.type)
+	{
+	case(Knife):
+	case(Chainsaw):
+		x = playerX + (2 * w * dir);
+		y = playerY;
+		w *= 2;
+		h /= 2;
+		break;
+	case(Lightsaber):
+	case(Axe):
+		x = playerX + w * dir;
+		y = playerY - h * 2;
+		w *= 2;
+		h /= 2;
+		break;
+	}
+	_melee->MeleeAttack(x, y, w, h, meleeWeapon.damage, Vector2D(playerX, playerY), dir, meleeWeapon.type);
+}
+
+void Player::changeMelee(int meleeType)
+{
+	_equippedMelee = getGame()->MeleeWeapons[meleeType].type;
+}
+
+void Player::endMelee()
+{
+	_melee->endMelee();
 }

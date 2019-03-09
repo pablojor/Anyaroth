@@ -129,7 +129,6 @@ void PlayState::KillObject(const list<GameObject*>::iterator &itList)
 void PlayState::render()
 {
 	GameState::render();
-	_world->DrawDebugData();
 }
 
 bool PlayState::handleEvents(SDL_Event& e)
