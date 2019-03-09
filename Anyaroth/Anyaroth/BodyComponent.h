@@ -4,15 +4,14 @@
 #include <Box2D/Box2D.h>
 #include <string>
 
-
 class BodyComponent : public PhysicsComponent
 {
 private:
 	b2World* _world = nullptr;
 	b2Body* _body = nullptr;
+	TransformComponent* _transform = nullptr;
 	b2FixtureDef _fixture;
 	b2PolygonShape _shape;
-	TransformComponent* _transform = nullptr;
 	double _textW, _textH, _aX, _aY, _width, _height;
 
 public:

@@ -14,11 +14,11 @@
 #include "ShotgunShooter.h"
 #include "GunType_def.h"
 
-// Resolución interna del juego
+//Resolución interna del juego
 const int GAME_RESOLUTION_X = 480;
 const int GAME_RESOLUTION_Y = 270;
 
-//distancia que recorre la camara
+//Distancia que recorre la camara
 const int LEVEL_WIDTH = GAME_RESOLUTION_X * 10;
 const int LEVEL_HEIGHT = GAME_RESOLUTION_Y * 3;
 
@@ -29,8 +29,6 @@ const string SAVES_PATH = "..\\files\\saves\\";
 const string SPRITE_PATH = "..\\assets\\sprites\\";
 const string TILEMAP_PATH = "..\\files\\tilemaps\\";
 
-const int NUM_TEXTURES = 26;
-
 const int NUM_FONTS = 0;
 const int TILES_SIZE = 16;
 
@@ -39,7 +37,8 @@ const double BUTTON_SCALE = 0.25;
 
 
 //Tags
-enum _Category {
+enum _Category 
+{
 	FLOOR = 1,
 	ENEMIES = 2,
 	PLAYER = 4,

@@ -18,7 +18,6 @@ Player::Player(Game* g, int xPos, int yPos) :  GameComponent(g, "Player")
 	_transform = addComponent<TransformComponent>();
 	_transform->setPosition(xPos/*50*/,yPos /*180*/);
 
-
 	_body = addComponent<BodyComponent>();
 	_body->getBody()->SetType(b2_dynamicBody);
 	_body->getBody()->SetBullet(true);
@@ -29,6 +28,7 @@ Player::Player(Game* g, int xPos, int yPos) :  GameComponent(g, "Player")
 	_body->filterCollisions(PLAYER, OBJECTS | FLOOR /*| ENEMY_BULLETS*/);
 	_body->addCricleShape(b2Vec2(0, 1.1), 0.7, PLAYER, FLOOR);
 	_body->getBody()->SetFixedRotation(true);
+
 	double _gravScale = 3.5, _damping = 3.0;
 	_body->getBody()->SetLinearDamping(_damping);
 	_body->getBody()->SetGravityScale(_gravScale);
@@ -42,7 +42,6 @@ Player::Player(Game* g, int xPos, int yPos) :  GameComponent(g, "Player")
 	fDef.filter.maskBits = FLOOR;
 	fDef.isSensor = true;
 	_body->addFixture(&fDef, this);
-
 
 	_anim = addComponent<AnimatedSpriteComponent>();
 	_anim->addAnim(AnimatedSpriteComponent::Idle, 16, true);
@@ -86,6 +85,7 @@ void Player::beginCollision(GameComponent * other, b2Contact* contact)
 {
 	auto fA = contact->GetFixtureA();
 	auto fB = contact->GetFixtureB();
+
 	//Deteccion del suelo
 	if ((fA->IsSensor() || fB->IsSensor()) && other->getTag() == "Suelo")
 		_floorCount++;
@@ -96,6 +96,7 @@ void Player::beginCollision(GameComponent * other, b2Contact* contact)
 		damage = dynamic_cast<Bullet*>(other)->getDamage();
 		subLife(damage);
 	}*/
+
 	else if (other->getTag() == "Moneda")
 	{
 		if (other->isActive())
@@ -117,6 +118,7 @@ void Player::endCollision(GameComponent * other, b2Contact* contact)
 {
 	auto fA = contact->GetFixtureA();
 	auto fB = contact->GetFixtureB();
+
 	//Deteccion del suelo
 	if ((fA->IsSensor() || fB->IsSensor()) && other->getTag() == "Suelo")
 		_floorCount > 0 ? _floorCount-- : _floorCount = 0;

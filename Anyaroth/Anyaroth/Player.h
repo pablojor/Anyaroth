@@ -42,7 +42,6 @@ private:
 	void refreshCooldowns(const Uint32& deltaTime);
 	void refreshDashCoolDown(const Uint32& deltaTime);
 	void refreshGunCadence(const Uint32& deltaTime);
-
 	inline void setGrounded(bool grounded) { _floorCount = grounded; }
 
 	bool canReload();

@@ -32,5 +32,3 @@ void Arm::lookAtTarget(const Vector2D& target) const
 	double angle = atan2(subVec.getY(), subVec.getX()) * 180.0 / M_PI;
 	_transform->setRotation(angle);
 }
-
-
