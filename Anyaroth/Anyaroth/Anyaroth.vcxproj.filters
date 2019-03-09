@@ -61,9 +61,6 @@
     <ClCompile Include="Gun.cpp">
       <Filter>Archivos de código\Guns</Filter>
     </ClCompile>
-    <ClCompile Include="Shooter.cpp">
-      <Filter>Archivos de código\Guns</Filter>
-    </ClCompile>
     <ClCompile Include="Texture.cpp">
       <Filter>Archivos de código\Components</Filter>
     </ClCompile>
@@ -127,9 +124,6 @@
     <ClCompile Include="BossPanel.cpp">
       <Filter>Archivos de código\HUDs\BossPanel</Filter>
     </ClCompile>
-    <ClCompile Include="ShooterInterface.cpp">
-      <Filter>Archivos de código\Guns</Filter>
-    </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>Archivos de código\Objects\Enemies</Filter>
     </ClCompile>
@@ -139,16 +133,12 @@
     <ClCompile Include="DistanceStaticEnemy.cpp">
       <Filter>Archivos de código\Objects\Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="ShotgunShooter.cpp">
-      <Filter>Archivos de código\Guns</Filter>
-    </ClCompile>
     <ClCompile Include="HurtRenderComponent.cpp">
       <Filter>Archivos de código\Components</Filter>
     </ClCompile>
     <ClCompile Include="DistanceEnemy.cpp">
       <Filter>Archivos de código\Objects\Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="ObjectPool.cpp" />
     <ClCompile Include="Cursor.cpp">
       <Filter>Archivos de código\UIElements</Filter>
     </ClCompile>
@@ -208,6 +198,12 @@
     </ClCompile>
     <ClCompile Include="MovingComponent.cpp">
       <Filter>Archivos de código\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="BasicPistol.cpp">
+      <Filter>Archivos de código\Guns</Filter>
+    </ClCompile>
+    <ClCompile Include="BasicShotgun.cpp">
+      <Filter>Archivos de código\Guns</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -289,9 +285,6 @@
     <ClInclude Include="Gun.h">
       <Filter>Archivos de encabezado\Guns</Filter>
     </ClInclude>
-    <ClInclude Include="Shooter.h">
-      <Filter>Archivos de encabezado\Guns</Filter>
-    </ClInclude>
     <ClInclude Include="DebugDraw.h">
       <Filter>Archivos de encabezado\Utilities</Filter>
     </ClInclude>
@@ -352,9 +345,6 @@
     <ClInclude Include="BossPanel.h">
       <Filter>Archivos de encabezado\HUDs\BossPanel</Filter>
     </ClInclude>
-    <ClInclude Include="ShooterInterface.h">
-      <Filter>Archivos de encabezado\Guns</Filter>
-    </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>Archivos de encabezado\Objects\Enemies</Filter>
     </ClInclude>
@@ -363,12 +353,6 @@
     </ClInclude>
     <ClInclude Include="DistanceStaticEnemy.h">
       <Filter>Archivos de encabezado\Objects\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="GunType_def.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="ShotgunShooter.h">
-      <Filter>Archivos de encabezado\Guns</Filter>
     </ClInclude>
     <ClInclude Include="HurtRenderComponent.h">
       <Filter>Archivos de encabezado\Components</Filter>
@@ -438,6 +422,12 @@
     </ClInclude>
     <ClInclude Include="MovingComponent.h">
       <Filter>Archivos de encabezado\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicShotgun.h">
+      <Filter>Archivos de encabezado\Guns</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicPistol.h">
+      <Filter>Archivos de encabezado\Guns</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -89,7 +89,7 @@ void DistanceDynamicEnemy::update()
 				else if (x < 0) //Izquierda
 					_anim->flip();
 
-				_arm->shoot();
+				//_arm->shoot();
 			}
 			else
 				_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });

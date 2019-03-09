@@ -96,11 +96,6 @@ Game::~Game()
 	for (auto it = _fonts.begin(); it != _fonts.end(); it++)
 		delete it->second;
 		
-	//delete guns
-	for (int i = 0; i < gameGuns.size(); i++)
-	{
-		delete gameGuns[i].shooter;
-	}
 
 	delete stateMachine;
 	delete _world;

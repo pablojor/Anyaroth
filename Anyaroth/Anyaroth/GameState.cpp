@@ -1,6 +1,11 @@
 #include "GameState.h"
 #include "Game.h"
 
+GameState::GameState(Game* g) : _gameptr(g), _world(g->getWorld()) 
+{
+	initializeCamera(); 
+}
+
 GameState::~GameState()
 {
 	delete _mainCamera;

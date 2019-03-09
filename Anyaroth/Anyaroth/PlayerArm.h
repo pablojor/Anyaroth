@@ -11,10 +11,10 @@ private:
 	void handleFlipState(const Vector2D& target);
 
 public:
-	PlayerArm(Game* g, Player* player, Vector2D offset = { 0, 0 });
+	PlayerArm(Game* game, Player* player, Vector2D offset = { 0, 0 });
 
 	void update();
 
 	void shoot();	
-	bool reload(); 
+	void reload(); 
 };

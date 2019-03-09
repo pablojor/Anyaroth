@@ -37,14 +37,6 @@ const int TILES_SIZE = 16;
 const double M_TO_PIXEL = 8;
 const double BUTTON_SCALE = 0.25;
 
-//Las armas que hay en el juego
-struct GunAttributes
-{
-	ShooterInterface* shooter;
-	GunType type;
-	int maxAmmo;
-	int maxClip;
-};
 
 //Tags
 enum _Category {
@@ -68,12 +60,6 @@ private:
 public:
 	SDL_Renderer* renderer = nullptr;
 	vector<int> var;
-	vector<GunAttributes> gameGuns =
-	{
-		{ new Shooter(), BasicGun, 60, 12 },
-		{ new ShotgunShooter({30,0,-30}), BasicShotgun, 30, 2 },
-		{ new Shooter(), BasicEnemyGun, 60, 12 }
-	};
 
 	//Metodos
 	void createTextures();

@@ -33,29 +33,4 @@ void Arm::lookAtTarget(const Vector2D& target) const
 	_transform->setRotation(angle);
 }
 
-//Esta se va a pasar al los diferentes owners
-void Arm::shoot()
-{
-	/*if (_currentGun != nullptr)
-	{
-		double armAngle = _transform->getRotation(), armX = _transform->getPosition().getX(), armY = _transform->getPosition().getY();
-
-		//----------Posicion inicial de la bala
-		int posOffsetX = 24, posOffsetY = -1;
-
-		Vector2D bulletPosition = { armX + (_anim->isFlipped() ? -posOffsetX : posOffsetX), armY + posOffsetY };
-		bulletPosition = bulletPosition.rotateAroundPoint(armAngle, { armX, armY });
-
-		//----------Direccion de la bala
-
-		//Distincion flip-unflip
-		int bulletDirOffset = 90;
-
-		double aimAuxY = _anim->isFlipped() ? 1 : -1;
-		Vector2D bulletDir = (Vector2D(0, aimAuxY).rotate(armAngle + bulletDirOffset));
-		bulletDir.normalize();
-
-		_currentGun->shoot(bulletPosition, bulletDir, _anim->isFlipped());
-	}*/
-}
 

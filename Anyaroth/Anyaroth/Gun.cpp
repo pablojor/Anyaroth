@@ -1,116 +1,66 @@
 #include "Gun.h"
-#include "AnimatedSpriteComponent.h"
 #include <algorithm>
 
-Gun::Gun(GameComponent* shootingObj, ShooterInterface* shooterComp, PoolWrapper* bp, GunType type, int maxAmmo, int maxClip, int bulletsPerShot) : _shootingObj(shootingObj), _shooterComp(shooterComp), _bPool(bp), _type(type), _maxAmmo(maxAmmo), _maxClip(maxClip), _ammo(maxAmmo), _clip(maxClip), _bulletsPerShot(bulletsPerShot) 
+
+Gun::Gun(Texture* texture, int maxClip, int maxMagazine) : _armTexture(texture)
 {
-	_shooterComp->init(_shootingObj, _bPool);
+	_maxClip = maxClip;
+	_maxMagazine = maxMagazine;
+	_magazine = _maxMagazine;
+	_clip = _maxClip;
 }
 
-void Gun::setShooter(ShooterInterface* sh) 
+void Gun::shoot()
 {
-	_shooterComp = sh; 
+	if (_clip > 0 && _cadence <= 0)
+	{	
+		_clip--;
+		_cadence = _maxCadence;
+		//Disparar la bala aqui
 
-	if (_shootingObj != nullptr && _bPool != nullptr)
-		_shooterComp->init(_shootingObj, _bPool);
-}
-
-//metodo auxiliar de reload
-void Gun::reloadAux(int newClipValue)
-{
-	int prevClip = _clip; //cargador antes de recargar
-	_clip = newClipValue;
-	_ammo -= (_clip - prevClip); //resta a la municion total la municion recargada
-}
-
-//recarga la municion si puede y devuelve true si ha recargado
-bool Gun::reload()
-{
-	if (_clip < _maxClip) //Si el cargador no esta completo llamo a animacion de recargar
-	{
-		if (_ammo >= _maxClip)
-			reloadAux(_maxClip);
-		else if (_ammo > 0)
-			reloadAux(min(_maxClip, _clip + _ammo));
-		else
-			return false;
-
-		/*cout << "Recargando! Cubranme!" << endl;
-		cout << "Ammo: " << _ammo << "/" << _maxAmmo << endl;
-		cout << "Clip: " << _clip << "/" << _maxClip << endl;*/
-
-		return true;
 	}
-	else
-		return false;
+}
+
+void Gun::reload()
+{
+	if (_clip < _maxClip)
+	{
+		int diff = _maxClip - _clip;
+		if (diff <= _magazine)
+		{
+			_clip = _maxClip;
+			_magazine -= diff;
+		}
+		else
+		{
+			_clip += _magazine;
+			_magazine = 0;
+		}
+		_cadence = 0;
+	}
 }
 
 // Suma ammoAdded a la municion y la coloca en _ammo y _clip segun corresponda
 // USAR ESTE METODO AL RECOGER MUNICION
 void Gun::addAmmo(int ammoAdded)
 {
-	if (_ammo + ammoAdded > _maxAmmo) //Si sobran balas en _ammo
+	if (_magazine + ammoAdded > _maxMagazine) //Si sobran balas en _ammo
 	{
-		int prevAmmo = _ammo;
-		_ammo = _maxAmmo;
+		int prevAmmo = _magazine;
+		_magazine = _maxMagazine;
 
 		//Suma las balas sobrantes al cargador hasta llenarlo
-		int leftAmmo = ammoAdded - (_ammo - prevAmmo);
-		_clip = min(_maxClip, _clip + (_ammo - leftAmmo));
+		int leftAmmo = ammoAdded - (_magazine - prevAmmo);
+		_clip = min(_maxClip, _clip + (_magazine - leftAmmo));
 	}
 	else
-		_ammo += ammoAdded;
+		_magazine += ammoAdded;
 }
+
 
 //Pone al maximo la municion tanto en _ammo como en el cargador _clip
 void Gun::resetAmmo()
 {
-	_ammo = _maxAmmo;
+	_magazine = _maxMagazine;
 	_clip = _maxClip;
-}
-
-//Reduce la municion 
-void Gun::useAmmo()
-{
-	_clip = max(0, _clip - _bulletsPerShot);
-}
-
-bool Gun::shoot(Vector2D bulletPosition, Vector2D bulletDir, bool flipped)
-{
-	if (_clip >= _bulletsPerShot //Si hay suficientes balas en el cargador
-		&& _shooterComp != nullptr) //Si tiene un shooter, llama a su shoot()
-	{
-		int flippedAngle = flipped ? 180 : 0;
-		_shooterComp->shoot( bulletPosition,  bulletDir, _shootingObj->getComponent<TransformComponent>()->getRotation() - flippedAngle);
-
-		//Reduce la municion actual
-		useAmmo();
-
-		/*cout << "Piumm!" << endl;
-		cout << "Ammo: " << _ammo << "/" << _maxAmmo << endl;
-		cout << "Clip: " << _clip << "/" << _maxClip << endl;
-		*/
-
-		return true;
-	}
-	else //Si no, recarga
-	{
-		reload();
-		return false;
-	}
-
-}
-void Gun::enemyShoot(Vector2D bulletPosition, Vector2D bulletDir, bool flipped)
-{
-	if (_shooterComp != nullptr) //Si tiene un shooter, llama a su shoot()
-	{
-		int flippedAngle = flipped ? 180 : 0;
-		_shooterComp->shoot(bulletPosition, bulletDir, _shootingObj->getComponent<TransformComponent>()->getRotation() - flippedAngle);
-	}
-}
-
-//Muestra la informacion del arma por consola
-void Gun::debugInfo() 
-{
-	cout << endl << _type << endl << _maxAmmo << endl << _ammo << endl << _maxClip << endl << _clip << endl << _bulletsPerShot << endl;
 }

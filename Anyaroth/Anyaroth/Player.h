@@ -27,13 +27,11 @@ private:
 
 	//Variable auxiliares
 	int _dashCD = 3000, _maxDash = 2, _numDash = _maxDash;
-	bool _isDashing = false, _dead = false;
+	bool _isDashing = false, _isReloading = false, _isShooting = false, _isMeleeing = false, _dead = false;
 	int _floorCount = 0;
 
-	int _maxInventoryGuns = 2; //numero de slots en el inventario de armas 
-	vector<GunType> _gunInventory; //Ej: == {Game::BasicGun} -> indica que en el inventario solo lleva la pistola basica
-	GunType _equippedGun = BasicGun;
-	vector<Texture*> _armTextures;
+	Gun* _currentGun = nullptr;
+	Gun* _otherGun = nullptr;
 
 	inline bool dashIsAble() const { return _numDash > 0 && _isDashing; }
 	void checkMovement(const Uint8* keyboard);
@@ -44,8 +42,10 @@ private:
 	void refreshCooldowns(const Uint32& deltaTime);
 	void refreshDashCoolDown(const Uint32& deltaTime);
 	void refreshGunCadence(const Uint32& deltaTime);
-	inline const bool isGrounded() { return _floorCount; }
+
 	inline void setGrounded(bool grounded) { _floorCount = grounded; }
+
+	bool canReload();
 
 public:
 	Player(Game* g, int xPos, int yPos);
@@ -60,8 +60,11 @@ public:
 	void subLife(int damage);
 	void die();
 
-	//inline PlayerArm* getWeaponArm() const { return _weaponArm; }
 	void swapGun();
+	inline void changeCurrentGun(Gun* gun) { _currentGun = gun; }
+	inline void changeOtherGun(Gun* gun) { _otherGun = gun; }
+	inline Gun* getCurrentGun() const { return _currentGun; }
+	inline Gun* getOtherGun() const { return _otherGun; }
 
 	void move(const Vector2D& dir, const double& speed);
 	void dash(const Vector2D& dir);
@@ -71,5 +74,10 @@ public:
 	void shoot();
 	void reload();
 
-	inline void setPlayerPanel(PlayerPanel* p) { _playerPanel = p; }
+	void setPlayerPanel(PlayerPanel* p);
+
+	inline bool isGrounded() const { return _floorCount; }
+	bool isDashing() const;
+	bool isMeleeing() const;
+	bool isReloading() const;
 };

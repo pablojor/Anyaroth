@@ -3,21 +3,19 @@
 #include "Game.h"
 
 
-PlayerArm::PlayerArm(Game* g, Player* player, Vector2D offset) : Arm(g, player, offset) ,_player(player)
+PlayerArm::PlayerArm(Game* game, Player* player, Vector2D offset) : Arm(game, player, offset) ,_player(player)
 {
-	setTexture(g->getTexture("Arm"));
+	setTexture(game->getTexture("Arm"));
 }
 
 void PlayerArm::update()
 {
 	GameComponent::update();
 
-	/*if ((static_cast<Player*>(_owner))->getCurrentState() == Player::Attacking ||
-		(static_cast<Player*>(_owner))->getCurrentState() == Player::Reloading ||
-		(static_cast<Player*>(_owner))->getCurrentState() == Player::Dashing)
+	if (_player->isDashing() || _player->isMeleeing() || _player->isReloading())
 		_anim->setActive(false);
 	else
-		_anim->setActive(true);*/	
+		_anim->setActive(true);
 
 	//------------Rotacion del brazo
 	Vector2D mousePos = getGame()->getCurrentState()->getMousePositionInWorld(); 
@@ -28,32 +26,23 @@ void PlayerArm::update()
 		_anim->playAnim(AnimatedSpriteComponent::Idle);
 }
 
-//Dispara el arma
+//Activa animacion de disparo
 void PlayerArm::shoot()
 {
-	//Activar animacion aqui
-
-	/*Arm::shoot();
-	if (_currentGun != nullptr)
-	{
-		if(_currentGun->shoot(bulletPosition, bulletDir, _anim->isFlipped()))
-			_anim->playAnim(AnimatedSpriteComponent::Shoot);
-		else
-		{
-			if (_currentGun->getAmmo() > 0)
-				_player->reload();
-			else
-				_anim->playAnim(AnimatedSpriteComponent::NoAmmo);
-		}
-	}*/
+	if(_player->getCurrentGun()->canShoot())
+		_anim->playAnim(AnimatedSpriteComponent::Shoot); 
+	else
+		_anim->playAnim(AnimatedSpriteComponent::NoAmmo);
 }
 
-//Recarga el arma
-bool PlayerArm::reload()
+//Activa animacion de recarga o de noAmmo
+void PlayerArm::reload()
 {
 	//Activar animacion aqui
-
-	return _currentGun->reload();	
+	if (_player->getCurrentGun()->canReload())
+		//Animacion de los brazon recargando (FALTA!!!)
+		cout << "Animacion de recarga de los brazos sueltos realizada" << endl;
+		//_anim->playAnim(AnimatedSpriteComponent::Reload);
 }
 
 

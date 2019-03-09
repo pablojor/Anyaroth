@@ -13,13 +13,14 @@ private:
 	void initializeCamera();
 
 protected:
-	list <GameObject*> _stages;
 	Game* _gameptr = nullptr;
+	b2World * _world = nullptr;
+	list<GameObject*> _stages;
 	Camera* _mainCamera = nullptr;
 	Canvas* _canvas = nullptr;
 
 public:
-	GameState(Game* g) : _gameptr(g) { initializeCamera(); }
+	GameState(Game* g);
 	virtual ~GameState();
 
 	virtual void render() const;
@@ -27,7 +28,7 @@ public:
 	virtual bool handleEvents(SDL_Event& e);
 
 	inline virtual Camera* getMainCamera() const { return _mainCamera; }
-	inline virtual list <GameObject*> getObjects() const { return _stages; }
+	inline virtual list<GameObject*>& getObjects() { return _stages; }
 	inline virtual void setCanvas(Canvas* canvas) { _canvas = canvas; }
 	Vector2D getMousePositionInWorld() const;
 };

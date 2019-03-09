@@ -1,45 +1,42 @@
 #pragma once
-#include "GameComponent.h"
-#include "BodyComponent.h"
-#include "TransformComponent.h"
-#include "Game.h"
-#include "ShooterInterface.h"
 #include "BulletPool.h"
-#include "GunType_def.h"
+#include "Game.h"
 
 class Gun
 {
-private:
-	int _maxAmmo = 0, _ammo = 0, //Municion maxima / municion actual
-		_maxClip = 0, _clip = 0, //Municion maxima en el cargador/ municion actual en el cargador
-		_bulletsPerShot; //Balas usadas por disparo / rafaga
+	protected:
+		int _maxMagazine = 0, _magazine = 0;
+		int	_maxClip = 0, _clip = 0;
+		double _maxCadence = 20, _cadence = 0;	//Tiempo entre bala y bala (se actualizara con el deltaTime)
+		bool _isAutomatic = false;
 
-	GunType _type; //El nombre del arma
+		Texture* _armTexture = nullptr;
+		Texture* _bulletTexture = nullptr;
 	
-	GameComponent* _shootingObj = nullptr; //El objeto que usa el arma
-	ShooterInterface* _shooterComp = nullptr; //El componente con el metodo shoot() del arma
-	PoolWrapper* _bPool = nullptr;
+	public:
+		Gun(Texture* texture, int maxClip, int maxMagazine);
+		virtual ~Gun() {}
 
-	//RECORDATORIO: Daño de las armas (Está en Bullet), Velocidad de disparo, Rango (En Bullet ?)
+		virtual void shoot();
+		virtual void reload();
 
-	void useAmmo();
-	void reloadAux(int newClipValue);
-	
-public:
-	Gun(GameComponent* shootingObj, ShooterInterface* shooterComp, PoolWrapper* bp, GunType type, int maxAmmunition, int magazine, int bulletsPerShot = 1);
-	virtual ~Gun() {}
+		inline bool canShoot() const { return _clip > 0; }
+		inline bool canReload() const { return _magazine > 0 && _clip < _maxClip; }
 
-	void setShooter(ShooterInterface* sh);
-	inline void setBulletPool(PoolWrapper* bp) { _bPool = bp; }
-	bool shoot(Vector2D bulletPosition, Vector2D bulletDir, bool flipped);
-	void enemyShoot(Vector2D bulletPosition, Vector2D bulletDir, bool flipped);
+		void addAmmo(int ammoAdded);
+		void resetAmmo();
 
-	void addAmmo(int ammoAdded);
-	bool reload();
-	void resetAmmo();
+		inline int getMagazine() const { return _magazine; }
+		inline int getClip() const { return _clip; }
 
-	inline int getAmmo() const { return _ammo; }
-	inline int getClip() const { return _clip; }
-	inline GunType getType() const { return _type; }
-	void debugInfo();
+		inline bool hasToBeReloaded() const { return _clip == 0 && _magazine > 0; }
+
+		inline bool isAutomatic() const { return _isAutomatic; }
+
+		inline void refreshGunCadence(const Uint32& deltaTime) { _cadence > 0 ? _cadence -= deltaTime : _cadence = 0; }
+
+		inline void setBulletTexture(Texture* texture) { _bulletTexture = texture; }
+		inline Texture* getBulletTexture() const { return _bulletTexture; }
+
+		inline Texture* getArmTexture() const { return _armTexture; }
 };

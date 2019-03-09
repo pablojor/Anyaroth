@@ -15,13 +15,11 @@
 class PlayState : public GameState
 {
 private:
-	Game* _game = nullptr;
 	Player* _player = nullptr;
 	Enemy* _enemy = nullptr;
 	Coin* _coin = nullptr;
 	Layer* _layer = nullptr;
 	Layer* _colisionLayer = nullptr;
-	b2World* _world = nullptr;
 	Cursor* _cursor = nullptr;
 	CollisionManager _colManager;
 	DebugDraw _debugger;
@@ -38,7 +36,7 @@ private:
 public:
 	PlayState(Game* g);
 
-	virtual void render();
+	virtual void render() const;
 	virtual void update();
 	virtual bool handleEvents(SDL_Event& e);
 

@@ -7,15 +7,15 @@ DistanceEnemy::DistanceEnemy(Player* player, Game* g, PlayState* play, Texture* 
 	_arm->setTexture(g->getTexture("ArmPistol"));
 	addChild(_arm);
 
-	ShooterInterface* sh = getGame()->gameGuns[BasicEnemyGun].shooter;
-	GunType type = GunType(getGame()->gameGuns[BasicEnemyGun].type);
+	//ShooterInterface* sh = getGame()->gameGuns[BasicEnemyGun].shooter;
+	//GunType type = GunType(getGame()->gameGuns[BasicEnemyGun].type);
 
-	int mA = getGame()->gameGuns[BasicEnemyGun].maxAmmo;
-	int mC = getGame()->gameGuns[BasicEnemyGun].maxClip;
+	//int mA = getGame()->gameGuns[BasicEnemyGun].maxAmmo;
+	//int mC = getGame()->gameGuns[BasicEnemyGun].maxClip;
 
 	// TEMPORAL
-	PoolWrapper* bp = _play->getBulletPool(type);
-	bp->changePoolTag("EnemyBullet");
+	/*PoolWrapper* bp = _play->getBulletPool(type);
+	bp->changePoolTag("EnemyBullet");*/
 
 	//_arm->setGun(new Gun(_arm, sh, bp, type, mA, mC));
 }

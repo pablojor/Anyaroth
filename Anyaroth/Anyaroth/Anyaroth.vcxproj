@@ -129,6 +129,8 @@
     <ClCompile Include="AnimatedSpriteComponent.cpp" />
     <ClCompile Include="Arm.cpp" />
     <ClCompile Include="BackGround.cpp" />
+    <ClCompile Include="BasicPistol.cpp" />
+    <ClCompile Include="BasicShotgun.cpp" />
     <ClCompile Include="BodyComponent.cpp" />
     <ClCompile Include="Cursor.cpp" />
     <ClCompile Include="DistanceEnemy.cpp" />
@@ -180,9 +182,6 @@
     <ClCompile Include="PlayStateHUD.cpp" />
     <ClCompile Include="PoolWrapper.cpp" />
     <ClCompile Include="RenderComponent.cpp" />
-    <ClCompile Include="Shooter.cpp" />
-    <ClCompile Include="ShooterInterface.cpp" />
-    <ClCompile Include="ShotgunShooter.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
     <ClCompile Include="Money.cpp" />
     <ClCompile Include="TextUI.cpp" />
@@ -201,6 +200,8 @@
     <ClInclude Include="AnyarothError.h" />
     <ClInclude Include="Arm.h" />
     <ClInclude Include="BackGround.h" />
+    <ClInclude Include="BasicPistol.h" />
+    <ClInclude Include="BasicShotgun.h" />
     <ClInclude Include="BodyComponent.h" />
     <ClInclude Include="Cursor.h" />
     <ClInclude Include="DistanceEnemy.h" />
@@ -224,7 +225,6 @@
     <ClInclude Include="DistanceDynamicEnemy.h" />
     <ClInclude Include="DistanceStaticEnemy.h" />
     <ClInclude Include="Enemy.h" />
-    <ClInclude Include="GunType_def.h" />
     <ClInclude Include="FollowingComponent.h" />
     <ClInclude Include="MenuButton.h" />
     <ClInclude Include="ObjectLayer.h" />
@@ -258,9 +258,6 @@
     <ClInclude Include="PoolWrapper.h" />
     <ClInclude Include="RenderComponent.h" />
     <ClInclude Include="SDLError.h" />
-    <ClInclude Include="Shooter.h" />
-    <ClInclude Include="ShooterInterface.h" />
-    <ClInclude Include="ShotgunShooter.h" />
     <ClInclude Include="SpriteComponent.h" />
     <ClInclude Include="Money.h" />
     <ClInclude Include="TextUI.h" />
