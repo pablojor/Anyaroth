@@ -29,4 +29,5 @@ public:
 	inline virtual Camera* getMainCamera() const { return _mainCamera; }
 	inline virtual list <GameObject*> getObjects() const { return _stages; }
 	inline virtual void setCanvas(Canvas* canvas) { _canvas = canvas; }
+	Vector2D getMousePositionInWorld() const;
 };

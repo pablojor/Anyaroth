@@ -1,19 +1,15 @@
 ﻿#include "Arm.h"
-#include "PlayState.h"
-#include "Gun.h"
+#include "Game.h"
+#include <math.h>
 
-Arm::Arm(Texture* texture, GameComponent* owner, Game* g, PlayState* play, Vector2D offset) : GameComponent(g)
+Arm::Arm(Game* g, GameComponent* owner, Vector2D offset) : GameComponent(g), _owner(owner)
 {
-	addComponent<Texture>(texture);
-
+	addComponent<Texture>(g->getTexture("Arm"));
 	_transform = addComponent<TransformComponent>();
-
 	_anim = addComponent<AnimatedSpriteComponent>();
 
-	if (owner != nullptr)
-		setOwner(offset, owner);
-
-	_cam = play->getMainCamera();
+	_followC = addComponent<FollowingComponent>(_owner);
+	_followC->setInitialOffset(offset);
 
 	_anim->addAnim(AnimatedSpriteComponent::None, 1, false);
 	_anim->addAnim(AnimatedSpriteComponent::Shoot, 2, false);
@@ -23,46 +19,24 @@ Arm::Arm(Texture* texture, GameComponent* owner, Game* g, PlayState* play, Vecto
 	_transform->setDefaultAnchor(0.1, 0.6); //Parametros para la pistola
 }
 
-Arm::~Arm()
+void Arm::setTexture(Texture* texture)
 {
-	delete _currentGun;
-	_currentGun = nullptr;
+	_anim->setTexture(texture);
 }
 
-void Arm::setArmSprite(Texture* armTex)
+void Arm::lookAtTarget(const Vector2D& target) const
 {
-	_anim->setTexture(armTex);
+	Vector2D subVec = target - _transform->getPosition();
+	subVec.normalize();
+
+	double angle = atan2(subVec.getY(), subVec.getX()) * 180.0 / M_PI;
+	_transform->setRotation(angle);
 }
 
-void Arm::rotate(Vector2D target)
-{
-	Vector2D direction = _transform->getPosition() - target;
-
-	direction.normalize();
-
-	//Distancia del mouse al brazo
-	double distance = target.distance(_transform->getPosition());
-
-	//Actualizo angulo del brazo
-	double rot = atan2(direction.getY(), direction.getX()) * 180.0 / PI;
-
-	if (!_anim->isFlipped())
-		rot -= 180;
-
-	_transform->setRotation(rot);
-}
-
-void Arm::setOwner(Vector2D offset, GameComponent* owner)
-{
-	_owner = owner;
-	_followC = addComponent<FollowingComponent>(_owner);
-	_followC->setInitialOffset(offset);
-}
-
-//Dispara el arma
+//Esta se va a pasar al los diferentes owners
 void Arm::shoot()
 {
-	if (_currentGun != nullptr)
+	/*if (_currentGun != nullptr)
 	{
 		double armAngle = _transform->getRotation(), armX = _transform->getPosition().getX(), armY = _transform->getPosition().getY();
 
@@ -82,13 +56,6 @@ void Arm::shoot()
 		bulletDir.normalize();
 
 		_currentGun->shoot(bulletPosition, bulletDir, _anim->isFlipped());
-	}
+	}*/
 }
 
-void Arm::setGun(Gun* gun)
-{
-	if (_currentGun != nullptr) //Si ya hay un arma, llama a su destructora
-		delete _currentGun;
-
-	_currentGun = gun;
-}

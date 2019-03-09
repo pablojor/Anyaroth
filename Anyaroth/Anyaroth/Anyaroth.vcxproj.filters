@@ -28,12 +28,6 @@
     <ClCompile Include="FrameComponent.cpp">
       <Filter>Archivos de código\Components</Filter>
     </ClCompile>
-    <ClCompile Include="MovingComponent.cpp">
-      <Filter>Archivos de código\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerControllerComponent.cpp">
-      <Filter>Archivos de código\Components</Filter>
-    </ClCompile>
     <ClCompile Include="TransformComponent.cpp">
       <Filter>Archivos de código\Components</Filter>
     </ClCompile>
@@ -212,6 +206,9 @@
     <ClCompile Include="GameComponent.cpp">
       <Filter>Archivos de código</Filter>
     </ClCompile>
+    <ClCompile Include="MovingComponent.cpp">
+      <Filter>Archivos de código\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -236,12 +233,6 @@
       <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
     <ClInclude Include="FrameComponent.h">
-      <Filter>Archivos de encabezado\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="MovingComponent.h">
-      <Filter>Archivos de encabezado\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerControllerComponent.h">
       <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
     <ClInclude Include="TransformComponent.h">
@@ -443,6 +434,9 @@
       <Filter>Archivos de encabezado\Components\Base Components</Filter>
     </ClInclude>
     <ClInclude Include="SpriteComponent.h">
+      <Filter>Archivos de encabezado\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="MovingComponent.h">
       <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
   </ItemGroup>

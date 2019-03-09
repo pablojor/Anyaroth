@@ -3,7 +3,8 @@
 
 DistanceEnemy::DistanceEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag) : Enemy(player, g, play, texture, posIni, tag)
 {
-	_arm = new EnemyArm(getGame()->getTexture("ArmPistol"), this, player, getGame(), _play, { 35,30 });
+	_arm = new EnemyArm(g, this, player, { 35,30 });
+	_arm->setTexture(g->getTexture("ArmPistol"));
 	addChild(_arm);
 
 	ShooterInterface* sh = getGame()->gameGuns[BasicEnemyGun].shooter;
@@ -16,7 +17,7 @@ DistanceEnemy::DistanceEnemy(Player* player, Game* g, PlayState* play, Texture* 
 	PoolWrapper* bp = _play->getBulletPool(type);
 	bp->changePoolTag("EnemyBullet");
 
-	_arm->setGun(new Gun(_arm, sh, bp, type, mA, mC));
+	//_arm->setGun(new Gun(_arm, sh, bp, type, mA, mC));
 }
 
 void DistanceEnemy::RayCast()

@@ -49,6 +49,24 @@ bool GameState::handleEvents(SDL_Event& e)
 	return handled;
 }
 
+Vector2D GameState::getMousePositionInWorld() const
+{
+	int winWidth = 0;	int winHeight = 0;
+	SDL_GetWindowSize(_gameptr->getWindow(), &winWidth, &winHeight);
+	//Cogemos su posicion en pantalla
+	int xMousePos = 0;	int yMousePos = 0;
+	SDL_GetMouseState(&xMousePos, &yMousePos);
+
+	xMousePos = (xMousePos * GAME_RESOLUTION_X) / winWidth;
+	yMousePos = (yMousePos * GAME_RESOLUTION_Y) / winHeight;
+
+	//Lo convertimos en su posicion en el mundo
+	xMousePos += getMainCamera()->getCameraPosition().getX();
+	yMousePos += getMainCamera()->getCameraPosition().getY();
+
+	return Vector2D(xMousePos, yMousePos);
+}
+
 void GameState::initializeCamera()
 {
 	_mainCamera = new Camera();

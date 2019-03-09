@@ -6,15 +6,14 @@
 #include "AnimatedSpriteComponent.h"
 #include "PoolWrapper.h"
 #include "Coin.h"
-#include "HurtRenderComponent.h"
+//#include "HurtRenderComponent.h"
 
-Player::Player(Texture* texture, Game* g, PlayState* play, string tag) : _play(play), GameComponent(g, tag)
+Player::Player(Game* g, int xPos, int yPos) :  GameComponent(g, "Player")
 {
-	addComponent<Texture>(texture);
+	addComponent<Texture>(g->getTexture("Mk"));
 
-	//Resto de componentes
 	_transform = addComponent<TransformComponent>();
-	_transform->setPosition(50, 180);
+	_transform->setPosition(xPos/*50*/,yPos /*180*/);
 
 
 	_body = addComponent<BodyComponent>();
@@ -24,13 +23,14 @@ Player::Player(Texture* texture, Game* g, PlayState* play, string tag) : _play(p
 	_body->setW(12);
 	_body->setH(26);
 
-	_body->filterCollisions(PLAYER, /*OBJECTS |*/ FLOOR /*| ENEMY_BULLETS*/);
+	_body->filterCollisions(PLAYER, OBJECTS | FLOOR /*| ENEMY_BULLETS*/);
 	_body->addCricleShape(b2Vec2(0, 1.1), 0.7, PLAYER, FLOOR);
 	_body->getBody()->SetFixedRotation(true);
 	double _gravScale = 3.5, _damping = 3.0;
 	_body->getBody()->SetLinearDamping(_damping);
 	_body->getBody()->SetGravityScale(_gravScale);
 
+	//Sensor del suelo
 	b2PolygonShape shape;
 	shape.SetAsBox(5 / M_TO_PIXEL, 2 / M_TO_PIXEL, b2Vec2(0, 2), 0);
 	b2FixtureDef fDef;
@@ -57,7 +57,7 @@ Player::Player(Texture* texture, Game* g, PlayState* play, string tag) : _play(p
 	_anim->addAnim(AnimatedSpriteComponent::DashBack, 6, false);
 	_anim->addAnim(AnimatedSpriteComponent::ReloadShotgun, 5, false);
 
-	_hurt = addComponent<HurtRenderComponent>();
+	//_hurt = addComponent<HurtRenderComponent>();
 
 	//Inicialización del vector de texturas del brazo
 	_armTextures =
@@ -66,7 +66,8 @@ Player::Player(Texture* texture, Game* g, PlayState* play, string tag) : _play(p
 		getGame()->getTexture("ArmShotgun")
 	};
 
-
+	_playerArm = new PlayerArm(g, this, { 28, 18 });
+	addChild(_playerArm);
 
 	//Inventario inicial
 	_gunInventory.push_back(BasicGun);
@@ -76,10 +77,6 @@ Player::Player(Texture* texture, Game* g, PlayState* play, string tag) : _play(p
 
 	//Monedero
 	_money = new Money();
-
-	//Detector de suelo
-	/*_playerFloorDetector = new PlayerFloorDetector(g, this);
-	addChild(_playerFloorDetector);*/
 }
 
 Player::~Player()
@@ -95,12 +92,12 @@ void Player::beginCollision(GameComponent * other, b2Contact* contact)
 	if ((fA->IsSensor() || fB->IsSensor()) && other->getTag() == "Suelo")
 		_floorCount++;
 
-	/*else *//*if (otherTag == "EnemyBullet")
+	/*else if (other->getTag() == "EnemyBullet")
 	{
 		double damage = 0;
 		damage = dynamic_cast<Bullet*>(other)->getDamage();
 		subLife(damage);
-	}
+	}*/
 	else if (other->getTag() == "Moneda")
 	{
 		if (other->isActive())
@@ -115,7 +112,7 @@ void Player::beginCollision(GameComponent * other, b2Contact* contact)
 			_playerPanel->updateCoinsCounter(_money->getWallet());
 		}
 		contact->SetEnabled(false);
-	}*/
+	}
 }
 
 void Player::endCollision(GameComponent * other, b2Contact* contact)
@@ -124,7 +121,7 @@ void Player::endCollision(GameComponent * other, b2Contact* contact)
 	auto fB = contact->GetFixtureB();
 	//Deteccion del suelo
 	if ((fA->IsSensor() || fB->IsSensor()) && other->getTag() == "Suelo")
-		_floorCount--;
+		_floorCount > 0 ? _floorCount-- : _floorCount = 0;
 }
 
 void Player::subLife(int damage)
@@ -135,14 +132,14 @@ void Player::subLife(int damage)
 		if (_life.dead())
 		{
 			die();
-			_hurt->die();
-			_hurtArm->die();
+			//_hurt->die();
+			//_hurtArm->die();
 			_dead = true;
 		}
 		else
 		{
-			_hurt->hurt();
-			_hurtArm->hurt();
+			//_hurt->hurt();
+			//_hurtArm->hurt();
 		}
 	}
 	_playerPanel->updateLifeBar(_life.getLife(), _life.getMaxLife());
@@ -275,7 +272,7 @@ void Player::handleAnimations()
 	{
 		//Idle
 		if (vel.x == 0 && vel.y == 0 && isGrounded())
-			_anim->playAnim(Idle);
+			_anim->playAnim(AnimatedSpriteComponent::Idle);
 		//Walking
 		else if (abs(vel.x) > 0 && isGrounded() && !isDashing)
 		{
@@ -340,7 +337,7 @@ void Player::move(const Vector2D& dir, const double& speed)
 void Player::reload()
 {
 	cout << "Arma recargada" << endl;
-	_playerPanel->updateAmmoViewer(_weaponArm->getCurrentGun()->getClip(), _weaponArm->getCurrentGun()->getAmmo());
+	_playerPanel->updateAmmoViewer(_playerArm->getCurrentGun()->getClip(), _playerArm->getCurrentGun()->getAmmo());
 }
 
 void Player::dash(const Vector2D& dir)
@@ -351,7 +348,7 @@ void Player::dash(const Vector2D& dir)
 	_numDash--;
 	_isDashing = false;
 
-	if (!_anim->isFlipped())
+	if ((!_anim->isFlipped() && dir.getX() > 0) || (_anim->isFlipped() && dir.getX() < 0))
 		_anim->playAnim(AnimatedSpriteComponent::Dash);
 	else
 		_anim->playAnim(AnimatedSpriteComponent::DashBack);
@@ -377,5 +374,5 @@ void Player::melee()
 void Player::shoot()
 {
 	cout << "Disparo" << endl;
-	_playerPanel->updateAmmoViewer(_weaponArm->getCurrentGun()->getClip(), _weaponArm->getCurrentGun()->getAmmo());
+	_playerPanel->updateAmmoViewer(_playerArm->getCurrentGun()->getClip(), _playerArm->getCurrentGun()->getAmmo());
 }

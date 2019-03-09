@@ -4,40 +4,29 @@
 #include "Gun.h"
 #include "Shooter.h"
 #include "Money.h"
-#include "PlayState.h"
 #include "Life.h"
 #include "GunType_def.h"
 #include "PlayerPanel.h"
 
-class PlayerArm;
-class Game;
-
-class AnimatedSpriteComponent;
-class MovingComponent;
-class PlayState;
-class HurtRenderComponent;
-
 class Player : public GameComponent
 {
 private:
-	PlayState* _play = nullptr;
-	b2Fixture* _floorSensor;
-	Life _life = Life(100);
-	uint _currentState = 0;
-	PlayerArm* _weaponArm = nullptr;
+	//Componentes
+	TransformComponent* _transform = nullptr;
 	AnimatedSpriteComponent* _anim = nullptr;
-	MovingComponent* _movement = nullptr;
-	TransformComponent * _transform = nullptr;
-	BodyComponent * _body = nullptr;
-	HurtRenderComponent* _hurt = nullptr;
-	HurtRenderComponent* _hurtArm = nullptr;
+	BodyComponent* _body = nullptr;
+	//HurtRenderComponent* _hurt = nullptr;
 
+	//Propiedades
+	Life _life = Life(100);
+	Money * _money = nullptr;
 	PlayerPanel* _playerPanel = nullptr;
 
-	int _dashCD = 3000;
-	int _maxDash = 2, _numDash = _maxDash;
-	Money * _money = nullptr;
+	//Hijos
+	PlayerArm* _playerArm = nullptr;
 
+	//Variable auxiliares
+	int _dashCD = 3000, _maxDash = 2, _numDash = _maxDash;
 	bool _isDashing = false, _dead = false;
 	int _floorCount = 0;
 
@@ -59,9 +48,7 @@ private:
 	inline void setGrounded(bool grounded) { _floorCount = grounded; }
 
 public:
-	enum states { Idle, Attacking, Walking, Reloading, Dashing, Falling, Jumping };
-
-	Player(Texture* texture, Game* g, PlayState* play, string tag);
+	Player(Game* g, int xPos, int yPos);
 	~Player();
 
 	bool handleInput(const SDL_Event& event);
@@ -73,7 +60,7 @@ public:
 	void subLife(int damage);
 	void die();
 
-	inline PlayerArm* getWeaponArm() const { return _weaponArm; }
+	//inline PlayerArm* getWeaponArm() const { return _weaponArm; }
 	void swapGun();
 
 	void move(const Vector2D& dir, const double& speed);
@@ -84,7 +71,5 @@ public:
 	void shoot();
 	void reload();
 
-	inline uint getCurrentState() const { return _currentState; }
-	inline void setCurrentState(uint n) { _currentState = n; }
 	inline void setPlayerPanel(PlayerPanel* p) { _playerPanel = p; }
 };

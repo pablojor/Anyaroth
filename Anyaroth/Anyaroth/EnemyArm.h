@@ -8,6 +8,6 @@ private:
 	b2Body* _targetBody = nullptr;
 
 public:
-	EnemyArm(Texture* texture, GameComponent* enemy, GameComponent* target, Game* g, PlayState* play, Vector2D offset = { 0,0 });
+	EnemyArm(Game* g, GameComponent* enemy, GameComponent* target, Vector2D offset = { 0,0 });
 	void update();
 };

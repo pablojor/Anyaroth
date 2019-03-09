@@ -40,7 +40,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_pools.push_back(_enemyPool);
 
 	//Player
-	_player = new Player(g->getTexture("Mk"), g, this, "Player");
+	_player = new Player(g, 50, 180);
 	_stages.push_back(_player);
 
 	//Camera

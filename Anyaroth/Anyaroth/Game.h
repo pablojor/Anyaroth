@@ -52,7 +52,6 @@ enum _Category {
 	ENEMIES = 2,
 	PLAYER = 4,
 	OBJECTS = 8,
-	FLOOR_DETECTOR = 16,
 };
 
 class Game
@@ -88,6 +87,7 @@ public:
 	Font* getFont(string nameFont);
 
 	inline SDL_Renderer* getRenderer() const { return renderer; }
+	inline SDL_Window* getWindow() const { return window; }
 	inline b2World* getWorld() const { return _world; }
 	inline void setExit(bool quit) { exit = quit; }
 	void toggleFullscreen();

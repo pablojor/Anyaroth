@@ -133,6 +133,7 @@
     <ClCompile Include="Cursor.cpp" />
     <ClCompile Include="DistanceEnemy.cpp" />
     <ClCompile Include="EnemyArm.cpp" />
+    <ClCompile Include="MovingComponent.cpp" />
     <ClCompile Include="PlayerArm.cpp" />
     <ClCompile Include="ArmControllerComponent.cpp" />
     <ClCompile Include="BossPanel.cpp" />
@@ -172,10 +173,8 @@
     <ClCompile Include="Layer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MenuState.cpp" />
-    <ClCompile Include="MovingComponent.cpp" />
     <ClCompile Include="PauseState.cpp" />
     <ClCompile Include="PhysicsComponent.cpp" />
-    <ClCompile Include="PlayerControllerComponent.cpp" />
     <ClCompile Include="PlayerPanel.cpp" />
     <ClCompile Include="PlayState.cpp" />
     <ClCompile Include="PlayStateHUD.cpp" />
@@ -206,6 +205,7 @@
     <ClInclude Include="Cursor.h" />
     <ClInclude Include="DistanceEnemy.h" />
     <ClInclude Include="EnemyArm.h" />
+    <ClInclude Include="MovingComponent.h" />
     <ClInclude Include="PlayerArm.h" />
     <ClInclude Include="ArmControllerComponent.h" />
     <ClInclude Include="BossPanel.h" />
@@ -250,10 +250,8 @@
     <ClInclude Include="InputComponent.h" />
     <ClInclude Include="Layer.h" />
     <ClInclude Include="MenuState.h" />
-    <ClInclude Include="MovingComponent.h" />
     <ClInclude Include="PauseState.h" />
     <ClInclude Include="PhysicsComponent.h" />
-    <ClInclude Include="PlayerControllerComponent.h" />
     <ClInclude Include="PlayerPanel.h" />
     <ClInclude Include="PlayState.h" />
     <ClInclude Include="PlayStateHUD.h" />
