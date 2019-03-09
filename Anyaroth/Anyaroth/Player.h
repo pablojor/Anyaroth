@@ -26,9 +26,8 @@ private:
 	PlayerArm* _playerArm = nullptr;
 
 	//Variable auxiliares
-	int _dashCD = 3000, _maxDash = 2, _numDash = _maxDash;
+	int _dashCD = 3000, _maxDash = 2, _numDash = _maxDash, _floorCount = 0;
 	bool _isDashing = false, _dead = false;
-	int _floorCount = 0;
 
 	int _maxInventoryGuns = 2; //numero de slots en el inventario de armas 
 	vector<GunType> _gunInventory; //Ej: == {Game::BasicGun} -> indica que en el inventario solo lleva la pistola basica
@@ -44,7 +43,7 @@ private:
 	void refreshCooldowns(const Uint32& deltaTime);
 	void refreshDashCoolDown(const Uint32& deltaTime);
 	void refreshGunCadence(const Uint32& deltaTime);
-	inline const bool isGrounded() { return _floorCount; }
+	inline bool isGrounded() const { return _floorCount; }
 	inline void setGrounded(bool grounded) { _floorCount = grounded; }
 
 public:

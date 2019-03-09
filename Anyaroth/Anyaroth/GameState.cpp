@@ -53,6 +53,7 @@ Vector2D GameState::getMousePositionInWorld() const
 {
 	int winWidth = 0;	int winHeight = 0;
 	SDL_GetWindowSize(_gameptr->getWindow(), &winWidth, &winHeight);
+
 	//Cogemos su posicion en pantalla
 	int xMousePos = 0;	int yMousePos = 0;
 	SDL_GetMouseState(&xMousePos, &yMousePos);

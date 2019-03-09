@@ -58,4 +58,3 @@ void Arm::shoot()
 		_currentGun->shoot(bulletPosition, bulletDir, _anim->isFlipped());
 	}*/
 }
-

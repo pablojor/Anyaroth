@@ -66,7 +66,8 @@ Layer::Layer(string name, Texture* t, string filename, Game* g, string tag) : Ga
 
 		file.close();
 	}
-	else throw AnyarothError("No se ha encontrado el archivo");
+	else
+		throw AnyarothError("No se ha encontrado el archivo");
 }
 
 Layer::~Layer()

@@ -97,6 +97,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	//HUD
 	auto b = new PlayStateHUD(g);
 	setCanvas(b);
+
 	//Asignacion de paneles a sus controladores
 	_player->setPlayerPanel(b->getPlayerPanel());
 }

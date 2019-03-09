@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "AnyarothError.h"
 
 void Game::createTextures()
 {
@@ -6,16 +7,25 @@ void Game::createTextures()
 	input.open(INFO_PATH + "textures.txt");
 	if (input.is_open())
 	{
-		for (int i = 0; i < NUM_TEXTURES; i++)
+		bool end = false;
+		while(!end)
 		{
 			string id; input >> id;
-			string name; input >> name;
-			int fil; input >> fil;
-			int col; input >> col;
-			textures.insert(pair <string, Texture*>(id, new Texture(renderer, SPRITE_PATH + name, fil, col)));
-			texturesName.push_back(id);
+			if (id != "")
+			{
+				string name; input >> name;
+				int fil; input >> fil;
+				int col; input >> col;
+				textures.insert(pair <string, Texture*>(id, new Texture(renderer, SPRITE_PATH + name, fil, col)));
+				texturesName.push_back(id);
+			}
+			else
+				end = true;
 		}
 	}
+	else
+		throw AnyarothError("No se ha encontrado el archivo");
+
 	input.close();
 }
 
@@ -38,7 +48,6 @@ Texture* Game::getTexture(string nameText)
 {
 	return textures[nameText];
 }
-
 
 void Game::toggleFullscreen()
 {

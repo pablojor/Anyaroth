@@ -6,6 +6,7 @@ BodyComponent::BodyComponent(GameComponent * obj) : PhysicsComponent(obj)
 {
 	_transform = obj->getComponent<TransformComponent>();
 	auto t = obj->getComponent<Texture>();
+
 	if (t != nullptr)
 	{
 		_textW = (t->getW() / t->getNumCols());
@@ -36,7 +37,6 @@ BodyComponent::BodyComponent(GameComponent * obj) : PhysicsComponent(obj)
 	_fixture.density = 1;
 	_fixture.restitution = 0;
 	_fixture.friction = 0.001;
-	
 
 	_body->CreateFixture(&_fixture)->SetUserData(obj);
 	_body->SetUserData(obj);
