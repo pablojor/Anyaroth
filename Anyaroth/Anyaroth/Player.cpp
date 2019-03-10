@@ -208,12 +208,16 @@ void Player::update()
 		_controller->setIsAttacking(false);
 	}
 
+	else if (_anim->animationFinished() && _controller->isReloading())
+	{
+		_controller->setIsReloading(false);
+	}
+
 	else if (_anim->animationFinished() && _currentState != Player::Falling && _currentState != Player::Jumping)
 	{
 		if (_controller->currXDir() == 0)
 		{
 			_anim->playAnim(AnimatedSpriteComponent::Idle);
-			_controller->setIsReloading(false);
 
 			_currentState = Idle;
 		}
@@ -223,8 +227,6 @@ void Player::update()
 				_anim->playAnim(AnimatedSpriteComponent::Walk);
 			else
 				_anim->playAnim(AnimatedSpriteComponent::WalkBack);
-			_controller->setIsAttacking(false);
-			_controller->setIsReloading(false);
 
 			_currentState = Walking;
 		}

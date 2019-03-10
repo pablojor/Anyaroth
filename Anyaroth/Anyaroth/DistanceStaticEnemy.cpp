@@ -12,6 +12,7 @@ DistanceStaticEnemy::DistanceStaticEnemy(Player* player, Game* g, PlayState* pla
 	_life = 50;
 
 	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 13, true);
+	_anim->addAnim(AnimatedSpriteComponent::EnemyDie, 18, false, 100);
 
 	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 	_body->addCricleShape(b2Vec2(0, _body->getH() + _body->getH() / 20), _body->getW() - _body->getW() / 20, ENEMIES, FLOOR | PLAYER_BULLETS | MELEE);
@@ -19,9 +20,9 @@ DistanceStaticEnemy::DistanceStaticEnemy(Player* player, Game* g, PlayState* pla
 
 void DistanceStaticEnemy::update()
 {
-	Enemy::update();
 	if (!_dead && inCamera())
 	{
+		Enemy::update();
 		BodyComponent* _playerBody = _player->getComponent<BodyComponent>();
 
 		b2Vec2 enemyPos = _body->getBody()->GetPosition(),

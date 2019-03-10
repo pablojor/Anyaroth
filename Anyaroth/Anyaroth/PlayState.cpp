@@ -85,6 +85,20 @@ PlayState::PlayState(Game* g) : GameState(g)
 		_enemy->setItList(itFR);
 	}
 
+	oL = new ObjectLayer(TILEMAP_PATH + "Nivel1.json", "Distancia");
+	vector <Vector2D> disPos = oL->getObjectsPositions();
+	delete oL;
+
+	for (int i = 0; i < disPos.size(); i++)
+	{
+		if(i==0 ||i==2)
+			_enemy = new DistanceStaticEnemy(_player, g, this, g->getTexture("EnemyMartyr"), Vector2D(disPos[i].getX(), disPos[i].getY() - TILES_SIZE * 2), "Enemy", BasicEnemyGun);
+		else
+			_enemy = new DistanceStaticEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(disPos[i].getX(), disPos[i].getY() - TILES_SIZE * 2), "Enemy", BasicEnemyShotgun);
+		_stages.push_back(_enemy);
+		auto itFR = --(_stages.end());
+		_enemy->setItList(itFR);
+	}
 
 	//Coins
 	oL = new ObjectLayer(TILEMAP_PATH + "Nivel1.json", "Monedas");
