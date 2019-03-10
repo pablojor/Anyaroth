@@ -15,6 +15,7 @@ Cursor::Cursor(Texture* texture, Game* g, PlayState* play) : GameComponent(g)
 	_anim = addComponent<AnimatedSpriteComponent>();		//Como depende de Transform, en su constructura crea una si no ha encontrado Transform en el objeto.
 	_anim->addAnim(AnimatedSpriteComponent::Idle, 1, false);
 
+	_transform->setPosition({300, 200});
 
 	_cam = play->getMainCamera();
 
@@ -30,12 +31,9 @@ void Cursor::update()
 {
 	GameComponent::update();
 
-	if(!_movingMouse)
-	{
-		_mouseX += (_cam->getCameraPosition().getX() - _prevCamPos.getX());
-		_mouseY += (_cam->getCameraPosition().getY() - _prevCamPos.getY());
-		_prevCamPos = _cam->getCameraPosition();
-	}
+	_mouseX += (_cam->getCameraPosition().getX() - _prevCamPos.getX());
+	_mouseY += (_cam->getCameraPosition().getY() - _prevCamPos.getY());
+	_prevCamPos = _cam->getCameraPosition();
 
 	_transform->setPosition(_mouseX - _anim->getTexture()->getW() / 2, _mouseY - _anim->getTexture()->getH() / 2);
 }
@@ -45,14 +43,11 @@ bool Cursor::handleInput(const SDL_Event& event)
 	//si se mueve el raton, se actualiza
 	if (event.type == SDL_MOUSEMOTION)
 	{
-		_movingMouse = true;
 		_prevCamPos = _cam->getCameraPosition();
 		_mouseX = event.motion.x + _prevCamPos.getX();
 		_mouseY = event.motion.y + _prevCamPos.getY();
-
 		return true;
 	}
-	else _movingMouse = false;
 	
 
 	return false;

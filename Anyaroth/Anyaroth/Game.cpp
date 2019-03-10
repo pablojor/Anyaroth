@@ -52,6 +52,8 @@ void Game::toggleFullscreen() {
 	Uint32 FullscreenFlag = SDL_WINDOW_FULLSCREEN_DESKTOP; //fake fullscreen (windowed mode)
 	bool IsFullscreen = SDL_GetWindowFlags(window) & FullscreenFlag;
 	SDL_SetWindowFullscreen(window, IsFullscreen ? 0 : FullscreenFlag);
+
+	//SDL_SetRelativeMouseMode(IsFullscreen ? SDL_FALSE : SDL_TRUE);
 }
 
 Font * Game::getFont(string nameFont)

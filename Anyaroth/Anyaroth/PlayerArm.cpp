@@ -39,6 +39,13 @@ void PlayerArm::update()
 		_anim->setActive(true);
 	}
 
+	//Comprueba si tiene que disparar
+	if (_controller->shootButton() || _controller->flipShooting())
+	{
+		shoot();
+		_controller->toggleCanShoot();
+	}
+
 
 	if (_anim->animationFinished())
 	{
@@ -70,8 +77,16 @@ void PlayerArm::shoot()
 
 		double aimAuxY = _anim->isFlipped() ? 1 : -1;
 		Vector2D bulletDir = (Vector2D(0, aimAuxY).rotate(armAngle + bulletDirOffset));
+
+		cout << "PREV: " << armAngle << "->" << bulletDir.getX() << " " << bulletDir.getY() << endl;
+
+		/*if (((_anim->isFlipped() && armAngle > 80) || (!_anim->isFlipped() && armAngle < -80)) && bulletDir.getY() >= 0)
+			bulletDir = { bulletDir.getX(), -(bulletDir.getY()) };*/
+			//bulletDir = { bulletDir.getX(), abs(bulletDir.getY()) };
+		
+		cout << "POS: " << armAngle << "->" << bulletDir.getX() << " " << bulletDir.getY() << endl;
+
 		bulletDir.normalize();
-		//bulletDir = bulletDir * 3;
 
 		if(_currentGun->shoot(bulletPosition, bulletDir, _anim->isFlipped()))
 		{

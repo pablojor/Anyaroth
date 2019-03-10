@@ -29,6 +29,7 @@ private:
 	Vector2D _lastCamPos;
 	*/
 	TransformComponent* _cursorTC = nullptr;
+	bool _flipShot = false;
 
 public:
 	ArmControllerComponent(GameComponent* obj);
@@ -40,5 +41,8 @@ public:
 
 	bool isShooting() { return _shootInput; };
 	void setShooting(bool s) { _shootInput = s; };
+	bool shootButton() { return _leftClickPul && _canShoot; };
+	bool flipShooting() { return _flipShot; };
+	void toggleCanShoot() { _canShoot = false; _flipShot = false; };
 };
 
