@@ -19,10 +19,12 @@ Enemy::Enemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2
 	_body = addComponent<BodyComponent>();
 	_body->getBody()->SetType(b2_dynamicBody);
 	_body->getBody()->SetBullet(true);
-	_body->getBody()->SetFixedRotation(true);
+	
 	_body->setW(20);
-	_body->setH(40);
+	_body->setH(20);
 	_body->filterCollisions(ENEMIES, FLOOR | PLAYER_BULLETS | MELEE);
+	
+	_body->getBody()->SetFixedRotation(true);
 
 	//auto playerTrans = addComponent<MeleeEnemyComponent>();
 

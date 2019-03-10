@@ -61,9 +61,6 @@
     <ClCompile Include="InputComponent.cpp">
       <Filter>Archivos de código\Components\Base Components</Filter>
     </ClCompile>
-    <ClCompile Include="AmmoPackage.cpp">
-      <Filter>Archivos de código\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="PlayState.cpp">
       <Filter>Archivos de código\States</Filter>
     </ClCompile>
@@ -82,12 +79,6 @@
     <ClCompile Include="TTFclass.cpp">
       <Filter>Archivos de código\Utilities</Filter>
     </ClCompile>
-    <ClCompile Include="Layer.cpp">
-      <Filter>Archivos de código\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="Collectable.cpp">
-      <Filter>Archivos de código\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="Gun.cpp">
       <Filter>Archivos de código\Guns</Filter>
     </ClCompile>
@@ -103,20 +94,11 @@
     <ClCompile Include="GameStateMachine.cpp">
       <Filter>Archivos de código\States</Filter>
     </ClCompile>
-    <ClCompile Include="HUD.cpp">
-      <Filter>Archivos de código\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="GameComponent.cpp">
       <Filter>Archivos de código\Objects</Filter>
     </ClCompile>
     <ClCompile Include="CollisionManager.cpp">
       <Filter>Archivos de código\Utilities</Filter>
-    </ClCompile>
-    <ClCompile Include="Money.cpp">
-      <Filter>Archivos de código\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="MenuButton.cpp">
-      <Filter>Archivos de código\Objects</Filter>
     </ClCompile>
     <ClCompile Include="ImageUI.cpp">
       <Filter>Archivos de código\UIElements</Filter>
@@ -194,7 +176,22 @@
       <Filter>Archivos de código\Objects</Filter>
     </ClCompile>
     <ClCompile Include="Life.cpp">
-      <Filter>Archivos de código\Objects</Filter>
+      <Filter>Archivos de código\Objects\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Archivos de código\Objects\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Money.cpp">
+      <Filter>Archivos de código\Objects\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Layer.cpp">
+      <Filter>Archivos de código\Objects\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectLayer.cpp">
+      <Filter>Archivos de código\Objects\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Tile.cpp">
+      <Filter>Archivos de código\Objects\Map</Filter>
     </ClCompile>
     <ClCompile Include="Cursor.cpp" />
     <ClCompile Include="ObjectPool.cpp" />
@@ -281,12 +278,6 @@
     <ClInclude Include="RenderComponent.h">
       <Filter>Archivos de encabezado\Components\Base Components</Filter>
     </ClInclude>
-    <ClInclude Include="GameComponent.h">
-      <Filter>Archivos de encabezado\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="AmmoPackage.h">
-      <Filter>Archivos de encabezado\Objects</Filter>
-    </ClInclude>
     <ClInclude Include="MenuState.h">
       <Filter>Archivos de encabezado\States</Filter>
     </ClInclude>
@@ -307,9 +298,6 @@
     </ClInclude>
     <ClInclude Include="FileNotFoundError.h">
       <Filter>Archivos de encabezado\Errors</Filter>
-    </ClInclude>
-    <ClInclude Include="Layer.h">
-      <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>Archivos de encabezado\Objects</Filter>
@@ -340,12 +328,6 @@
     </ClInclude>
     <ClInclude Include="GameStateMachine.h">
       <Filter>Archivos de encabezado\States</Filter>
-    </ClInclude>
-    <ClInclude Include="HUD.h">
-      <Filter>Archivos de encabezado\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuButton.h">
-      <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
     <ClInclude Include="CollisionManager.h">
       <Filter>Archivos de encabezado\Utilities</Filter>
@@ -413,12 +395,6 @@
     <ClInclude Include="DistanceStaticEnemy.h">
       <Filter>Archivos de encabezado\Objects\Enemies</Filter>
     </ClInclude>
-    <ClInclude Include="EnemyArm.h">
-      <Filter>Archivos de encabezado\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerArm.h">
-      <Filter>Archivos de encabezado\Objects</Filter>
-    </ClInclude>
     <ClInclude Include="GunType_def.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
@@ -431,17 +407,36 @@
     <ClInclude Include="DistanceEnemy.h">
       <Filter>Archivos de encabezado\Objects\Enemies</Filter>
     </ClInclude>
-    <ClInclude Include="Arm.h">
+    <ClInclude Include="ObjectPool.h">
       <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="ObjectLayer.h">
-      <Filter>Archivos de encabezado\Objects</Filter>
+    <ClInclude Include="ObjectPool.h" />
+    <ClInclude Include="Cursor.h">
+      <Filter>Archivos de encabezado\UIElements</Filter>
     </ClInclude>
     <ClInclude Include="Money.h">
       <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
     <ClInclude Include="Life.h">
-      <Filter>Archivos de encabezado\Objects</Filter>
+      <Filter>Archivos de encabezado\Objects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Money.h">
+      <Filter>Archivos de encabezado\Objects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Archivos de encabezado\Objects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Layer.h">
+      <Filter>Archivos de encabezado\Objects\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectLayer.h">
+      <Filter>Archivos de encabezado\Objects\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile.h">
+      <Filter>Archivos de encabezado\Objects\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="GameComponent.h">
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="Cursor.h" />

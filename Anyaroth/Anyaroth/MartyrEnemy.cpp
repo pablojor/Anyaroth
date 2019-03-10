@@ -20,6 +20,10 @@ MartyrEnemy::MartyrEnemy(Player* player, Game* g, PlayState* play,Texture* textu
 	_anim->addAnim(AnimatedSpriteComponent::EnemyDie, 10, false);
 
 	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
+
+	_body->setW(30);
+	_body->setH(15);
+	_body->addCricleShape(b2Vec2(0, _body->getH() + _body->getH() / 20), _body->getW() - _body->getW() / 20, ENEMIES, FLOOR | PLAYER_BULLETS | MELEE);
 }
 
 void MartyrEnemy::update()

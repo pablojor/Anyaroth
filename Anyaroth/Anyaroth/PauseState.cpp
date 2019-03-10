@@ -24,5 +24,6 @@ void PauseState::Continue(Game * g)
 
 void PauseState::MainMenu(Game * g)
 {
+	g->popState();
 	g->changeState(new MenuState(g));
 }

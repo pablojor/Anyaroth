@@ -67,6 +67,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	for (int i = 0; i < enemiesPos.size(); i++)
 	{
 		_enemy = new MeleeEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(enemiesPos[i].getX(), enemiesPos[i].getY() - TILES_SIZE * 2), "Enemy");
+
 		_stages.push_back(_enemy);
 		auto itFR = --(_stages.end());
 		_enemy->setItList(itFR);
@@ -134,6 +135,7 @@ void PlayState::KillObject(const list<GameObject*>::iterator &itList)
 void PlayState::render()
 {
 	GameState::render();
+
 }
 
 bool PlayState::handleEvents(SDL_Event& e)
