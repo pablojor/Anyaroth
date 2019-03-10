@@ -1,7 +1,8 @@
 #pragma once
 #include "GameComponent.h"
 #include "Vector2D.h"
-#include "TransformComponent.h"
+#include "BodyComponent.h"
+#include "AnimatedSpriteComponent.h"
 
 class Bullet : public GameComponent
 {
@@ -10,28 +11,29 @@ private:
 	int _aliveTime = 0; //tiempo que lleva vivo (usado en el rango)
 	double _speed = 0;
 	int _damage = 0;
-	double _angle = 0;
 
 	bool _collided = false;
 
-	Vector2D _velocity = { 0,0 };
 	Vector2D _iniPos = { 0,0 };
 
-	TransformComponent* _trans = nullptr;
+	Texture* _texture = nullptr;
+	TransformComponent* _transform = nullptr;
+	BodyComponent* _body = nullptr;
+	AnimatedSpriteComponent* _anim = nullptr;
 
 public:
-	Bullet(Texture* texture, Vector2D iniPos, Game* g, string tag) : GameComponent(g, tag) {}
+	Bullet(Game* game);
 	Bullet() {}
 	virtual ~Bullet() {}
 
 	void beginCollision(GameComponent* other, b2Contact* contact);
-	inline void setSpeed(double speed) { _speed = speed; }
-	inline void setDamage(double damage) { _damage = damage; }
+	inline void setSpeed(const double& speed) { _speed = speed; }
+	inline void setDamage(const double& damage) { _damage = damage; }
 	inline int getDamage() const { return _damage; }
-	inline void setVelocity(Vector2D vel) { _velocity = vel; }
-	inline void setRotation(double rot) { _angle = rot; }
 
-	void init(Texture* texture, double speed, int damage, double angle, int range = 5);
+	void init(Texture* texture, const Vector2D& position, const double& speed, const double& damage, const double& angle, const double& range, const string& tag);
+
 	virtual void update();
-	void reset(Vector2D pos);
+
+	void reset();
 };

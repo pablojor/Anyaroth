@@ -2,22 +2,30 @@
 #include <algorithm>
 
 
-Gun::Gun(Texture* texture, int maxClip, int maxMagazine) : _armTexture(texture)
+Gun::Gun(Texture* armTexture, Texture* bulletTexture, double speed, double damage, double range, int maxClip, int maxMagazine) : _armTexture(armTexture), _bulletTexture(bulletTexture)
 {
 	_maxClip = maxClip;
 	_maxMagazine = maxMagazine;
 	_magazine = _maxMagazine;
 	_clip = _maxClip;
+	_range = range;
+	_damage = damage;
+	_speed = speed;
 }
 
-void Gun::shoot()
+void Gun::shoot(BulletPool* bulletPool, const Vector2D& position, const double& angle, const string& tag)
 {
 	if (_clip > 0 && _cadence <= 0)
 	{	
 		_clip--;
 		_cadence = _maxCadence;
 		//Disparar la bala aqui
-
+		Bullet* b = bulletPool->getUnusedObject();
+		Vector2D bulletPos = prepareBulletPosition(position, angle);
+		if (b != nullptr)
+			b->init(_bulletTexture, bulletPos, _speed, _damage, angle, _range, tag);
+		else
+			bulletPool->addNewBullet()->init(_bulletTexture, bulletPos, _speed, _damage, angle, _range, tag);
 	}
 }
 
@@ -64,3 +72,9 @@ void Gun::resetAmmo()
 	_magazine = _maxMagazine;
 	_clip = _maxClip;
 }
+
+Vector2D Gun::prepareBulletPosition(const Vector2D & position, const double & angle)
+{
+	return (position + _offset).rotateAroundPoint(angle, position);
+}
+

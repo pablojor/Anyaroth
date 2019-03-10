@@ -1,8 +1,27 @@
 #include "Bullet.h"
-#include "BodyComponent.h"
-#include "AnimatedSpriteComponent.h"
-#include "TransformComponent.h"
-#include "MovingComponent.h"
+#include "Game.h"
+#include <math.h>
+
+Bullet::Bullet(Game* game) : GameComponent(game)
+{
+	_texture = game->getTexture("PistolBullet");
+	addComponent<Texture>(_texture);
+
+	_transform = addComponent<TransformComponent>();
+	_transform->setAnchor(0.5);
+
+	_anim = addComponent<AnimatedSpriteComponent>();
+
+	_body = addComponent<BodyComponent>();
+	_body->filterCollisions(PLAYER_BULLETS, FLOOR | ENEMIES);
+	_body->getBody()->SetType(b2_dynamicBody);
+	_body->getBody()->SetBullet(true);
+	_body->getBody()->SetFixedRotation(true);
+	_body->getBody()->SetGravityScale(0);
+	_body->getBody()->SetActive(false);
+
+	setActive(false);
+}
 
 void Bullet::beginCollision(GameComponent * other, b2Contact* contact)
 {
@@ -14,43 +33,40 @@ void Bullet::beginCollision(GameComponent * other, b2Contact* contact)
 	contact->SetEnabled(false);
 }
 
-void Bullet::init(Texture* texture, double speed, int damage, double angle, int range)
+void Bullet::init(Texture* texture, const Vector2D& position, const double& speed, const double& damage, const double& angle, const double& range, const string& tag)
 {
-	setTag("Bullet");
+	setTag(tag);
+	_iniPos = position;
+	_transform->setPosition(position);
 	_speed = speed;
 	_damage = damage;
 	_range = range;
-	_angle = angle;
 
-	addComponent<Texture>(texture);
+	_texture = texture;
+	_transform->setRotation(angle);
 
-	_trans = addComponent<TransformComponent>();
-	_trans->setAnchor(0.5); 
-	_trans->setRotation(angle);
+	_body->getBody()->SetActive(true);
+	_body->getBody()->SetTransform({ (float32)(position.getX() / M_TO_PIXEL), (float32)(position.getY() / M_TO_PIXEL) }, _body->getBody()->GetAngle());
+	_body->getBody()->SetLinearVelocity(b2Vec2(0, 0));
 
-	auto body = addComponent<BodyComponent>();
-	body->getBody()->SetType(b2_dynamicBody);
-	body->getBody()->SetBullet(true);
-	body->getBody()->SetFixedRotation(true);
-	body->getBody()->SetGravityScale(0);
-	body->getBody()->SetActive(false);
-	
-	auto anim = addComponent<AnimatedSpriteComponent>();
-	anim->addAnim(AnimatedSpriteComponent::Default, 4, false);
-	anim->setTexture(texture);
+	_anim->setTexture(texture);
+	_anim->addAnim(AnimatedSpriteComponent::Default, 4, false);
+
+	setActive(true);
 }
 
-void Bullet::update() 
+void Bullet::update()
 {
 	if (!isActive())
 		return;
 
-	double dist = _iniPos.distance(_trans->getPosition());
+	double dist = _iniPos.distance(_transform->getPosition());
 
-	if (dist < _range  && !_collided)
+	if (dist < _range && !_collided)
 	{
 		GameComponent::update(); //<- DESCOMENTAR PARA PROBAR CON FISICAS
 
+		_body->getBody()->SetLinearVelocity(b2Vec2(_speed * cos(_transform->getRotation() * M_PI / 180.0), _speed * sin(_transform->getRotation() * M_PI / 180.0)));
 
 		// Actualiza la posicion
 		//_trans->setPosition(_trans->getPosition() + _velocity);  //<- DESCOMENTAR PARA PROBAR SIN FISICAS
@@ -68,16 +84,13 @@ void Bullet::update()
 		_aliveTime++;
 	}
 	else
-	{
-		setActive(false);
-		this->getComponent<BodyComponent>()->getBody()->SetActive(false);
-	}
+		reset();
 }
 
-void Bullet::reset(Vector2D pos)
+void Bullet::reset()
 {
-	_iniPos = pos;
-	setActive(true);
+	_body->getBody()->SetActive(false);
+	setActive(false);
 	_aliveTime = 0;
 	_collided = false;
 }

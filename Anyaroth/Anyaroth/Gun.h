@@ -10,14 +10,20 @@ class Gun
 		double _maxCadence = 20, _cadence = 0;	//Tiempo entre bala y bala (se actualizara con el deltaTime)
 		bool _isAutomatic = false;
 
+		double _damage = 0;
+		double _range = 0;
+		double _speed = 0;
+
+		Vector2D _offset = { 0, 0 };
+
 		Texture* _armTexture = nullptr;
 		Texture* _bulletTexture = nullptr;
 	
 	public:
-		Gun(Texture* texture, int maxClip, int maxMagazine);
+		Gun(Texture* armTexture, Texture* bulletTexture, double speed, double damage, double range, int maxClip, int maxMagazine);
 		virtual ~Gun() {}
 
-		virtual void shoot();
+		virtual void shoot(BulletPool* bulletPool, const Vector2D& position, const double& angle, const string& tag);
 		virtual void reload();
 
 		inline bool canShoot() const { return _clip > 0; }
@@ -30,6 +36,8 @@ class Gun
 		inline int getClip() const { return _clip; }
 
 		inline bool hasToBeReloaded() const { return _clip == 0 && _magazine > 0; }
+
+		Vector2D prepareBulletPosition(const Vector2D& position, const double& angle);
 
 		inline bool isAutomatic() const { return _isAutomatic; }
 

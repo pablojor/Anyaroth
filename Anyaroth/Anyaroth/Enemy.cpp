@@ -21,7 +21,7 @@ Enemy::Enemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2
 	_body->getBody()->SetFixedRotation(true);
 	_body->setW(20);
 	_body->setH(40);
-	_body->filterCollisions(ENEMIES, FLOOR);
+	_body->filterCollisions(ENEMIES, FLOOR | PLAYER_BULLETS);
 
 	_anim = addComponent<AnimatedSpriteComponent>();
 	_hurt = addComponent<HurtRenderComponent>();

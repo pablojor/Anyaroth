@@ -23,22 +23,23 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_colisionLayer->addComponent<BodyComponent>();
 	_stages.push_back(_colisionLayer);
 
-	//Pools balas
-	_basicBulletPool = new BulletPool<100>(g, g->getTexture("PistolBullet"), 100, 10, 1000);
-	_stages.push_back(_basicBulletPool);
-	_pools.push_back(_basicBulletPool);
+	////Pools balas
+	_playerBulletPool = new BulletPool(g/*, g->getTexture("PistolBullet"), 100, 10, 1000*/);
+	_stages.push_back(_playerBulletPool);
+	//_pools.push_back(_basicBulletPool);
 
-	_basicShotgunBulletPool = new BulletPool<100>(g, g->getTexture("PistolBullet"), 100, 25, 60);
-	_stages.push_back(_basicShotgunBulletPool);
-	_pools.push_back(_basicShotgunBulletPool);
+	//_basicShotgunBulletPool = new BulletPool(g/*, g->getTexture("PistolBullet"), 100, 25, 60*/);
+	//_stages.push_back(_basicShotgunBulletPool);
+	//_pools.push_back(_basicShotgunBulletPool);
 
-	_enemyPool = new BulletPool<200>(g, g->getTexture("PistolBullet"), 100, 10, 1000);
-	_stages.push_back(_enemyPool);
-	_pools.push_back(_enemyPool);
+	//_enemyPool = new BulletPool(g/*, g->getTexture("PistolBullet"), 100, 10, 1000*/);
+	//_stages.push_back(_enemyPool);
+	//_pools.push_back(_enemyPool);
 
 	//Player
 	_player = new Player(g, 50, 180);
 	_stages.push_back(_player);
+	_player->setPlayerBulletPool(_playerBulletPool);
 
 	//Camera
 	_mainCamera->fixCameraToObject(_player);

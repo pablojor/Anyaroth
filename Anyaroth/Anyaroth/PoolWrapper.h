@@ -11,14 +11,12 @@
 class PoolWrapper : public GameComponent
 {
 public:
-	PoolWrapper();
+	PoolWrapper(Game* game);
 	virtual ~PoolWrapper();
 
 	/*virtual void handleInput(const SDL_Event& event) = 0;
 	virtual void update() = 0;
 	virtual void render() = 0;*/
 
-	virtual void addBullet(Vector2D pos, Vector2D dir, double angle) {};
-	virtual void changePoolTag(string tag) {};
 };
 

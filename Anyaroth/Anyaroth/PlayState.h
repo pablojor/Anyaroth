@@ -24,12 +24,12 @@ private:
 	CollisionManager _colManager;
 	DebugDraw _debugger;
 
-	PoolWrapper* _enemyPool = nullptr; //TEMPORAL
+	//PoolWrapper* _enemyPool = nullptr; //TEMPORAL
 
 	//Bullet Pools
-	PoolWrapper* _basicBulletPool = nullptr; //balas basicas
-	PoolWrapper* _basicShotgunBulletPool = nullptr; //balas de escopeta
-	vector<PoolWrapper*> _pools;
+	BulletPool* _playerBulletPool = nullptr; //Balas del jugador
+	//PoolWrapper* _basicShotgunBulletPool = nullptr; //balas de escopeta
+	//vector<PoolWrapper*> _pools;
 
 	vector <list<GameObject*>::iterator> items_ToDelete;
 
@@ -41,6 +41,6 @@ public:
 	virtual bool handleEvents(SDL_Event& e);
 
 	void KillObject(const list<GameObject*>::iterator &itList);
-	inline PoolWrapper* getBulletPool(int index) const { return _pools[index]; }
+	//inline PoolWrapper* getBulletPool(int index) const { return _pools[index]; }
 	inline Cursor* getCursor() const { return _cursor; }
 };

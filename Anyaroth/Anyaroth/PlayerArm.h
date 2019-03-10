@@ -17,4 +17,7 @@ public:
 
 	void shoot();	
 	void reload(); 
+
+	inline double getAngle() const { return _transform->getRotation(); }
+	inline Vector2D getPosition() const { return _transform->getPosition(); }
 };

@@ -1,19 +1,13 @@
 ﻿#include "Player.h"
-#include "TransformComponent.h"
-#include "MovingComponent.h"
 #include "Game.h"
-#include "FollowingComponent.h"
-#include "AnimatedSpriteComponent.h"
-#include "PoolWrapper.h"
 #include "Coin.h"
 #include "BasicPistol.h"
 #include "BasicShotgun.h"
-//#include "HurtRenderComponent.h"
 
 
-Player::Player(Game* g, int xPos, int yPos) :  GameComponent(g, "Player")
+Player::Player(Game* game, int xPos, int yPos) :  GameComponent(game, "Player")
 {
-	addComponent<Texture>(g->getTexture("Mk"));
+	addComponent<Texture>(game->getTexture("Mk"));
 
 	_transform = addComponent<TransformComponent>();
 	_transform->setPosition(xPos/*50*/,yPos /*180*/);
@@ -62,12 +56,12 @@ Player::Player(Game* g, int xPos, int yPos) :  GameComponent(g, "Player")
 	//_hurt = addComponent<HurtRenderComponent>();
 
 	//Brazo
-	_playerArm = new PlayerArm(g, this, { 28, 18 });
+	_playerArm = new PlayerArm(game, this, { 28, 18 });
 	addChild(_playerArm);
 
 	//Armas (de momento esas dos)
-	_currentGun = new BasicPistol(g);
-	_otherGun = new BasicShotgun(g);
+	_currentGun = new BasicPistol(game);
+	_otherGun = new BasicShotgun(game);
 	_playerArm->setTexture(_currentGun->getArmTexture());
 
 	//Monedero
@@ -238,7 +232,7 @@ void Player::checkMovement(const Uint8* keyboard)
 	else
 		move(Vector2D(0, 0), _speed);
 
-	if (keyboard[SDL_SCANCODE_SPACE] && isGrounded() && !isMeleeing()/* && !isReloading()*/)
+	if (keyboard[SDL_SCANCODE_SPACE] && isGrounded() && !isMeleeing() && !isJumping()/* && !isReloading()*/)
 		jump();
 
 	//Recarga
@@ -269,7 +263,7 @@ void Player::handleAnimations()
 		else if (abs(vel.x) > 0 && isGrounded() && !isDashing())
 		{
 			//Esto hay que cambiarlo
-			if (!_anim->isFlipped())
+			if ((!_anim->isFlipped() && vel.x > 0) || (_anim->isFlipped() && vel.x < 0))
 				_anim->playAnim(AnimatedSpriteComponent::Walk);
 			else
 				_anim->playAnim(AnimatedSpriteComponent::WalkBack);
@@ -292,6 +286,8 @@ void Player::handleAnimations()
 		}
 		setGrounded(false);		
 	}
+	if (isGrounded() && _anim->getCurrentAnim() == AnimatedSpriteComponent::DashDown)
+		_anim->playAnim(AnimatedSpriteComponent::Idle);
 }
 
 void Player::refreshCooldowns(const Uint32& deltaTime)
@@ -359,10 +355,16 @@ bool Player::isReloading() const
 	return false;
 }
 
+bool Player::isJumping() const
+{
+	return ((_anim->getCurrentAnim() == AnimatedSpriteComponent::BeforeJump || _anim->getCurrentAnim() == AnimatedSpriteComponent::Jump
+		|| _anim->getCurrentAnim() == AnimatedSpriteComponent::Falling || _anim->getCurrentAnim() == AnimatedSpriteComponent::StartFalling) && !_anim->animationFinished());
+}
+
 
 void Player::dash(const Vector2D& dir)
 {
-	double force = 3250;
+	double force = 1000;
 	move(Vector2D(0, 0), 0);
 	_body->getBody()->ApplyLinearImpulse(b2Vec2(dir.getX() * force, dir.getY() * force * 1.5), _body->getBody()->GetWorldCenter(), true);
 	_numDash--;
@@ -401,7 +403,9 @@ void Player::shoot()
 	cout << "Disparo" << endl;
 
 	_playerArm->shoot();
-	_currentGun->shoot();
+	_currentGun->shoot(_playerBulletPool, _playerArm->getPosition(), !_anim->isFlipped() ? _playerArm->getAngle() : _playerArm->getAngle() + 180, "Bullet");
+
+	cout << _transform->getPosition().getX() << " / " << _transform->getPosition().getY() << endl;
 
 	/*if (_currentGun != nullptr)
 	{

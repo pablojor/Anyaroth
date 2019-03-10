@@ -1,12 +1,15 @@
 #pragma once
 #include "GameComponent.h"
+#include "TransformComponent.h"
+#include "AnimatedSpriteComponent.h"
+#include "BodyComponent.h"
+//#include "HurtRenderComponent.h"
 #include "PlayerArm.h"
 #include "Gun.h"
-#include "Shooter.h"
 #include "Money.h"
 #include "Life.h"
-#include "GunType_def.h"
 #include "PlayerPanel.h"
+#include "BulletPool.h"
 
 class Player : public GameComponent
 {
@@ -19,8 +22,9 @@ private:
 
 	//Propiedades
 	Life _life = Life(100);
-	Money * _money = nullptr;
+	Money* _money = nullptr;
 	PlayerPanel* _playerPanel = nullptr;
+	BulletPool* _playerBulletPool = nullptr;
 
 	//Hijos
 	PlayerArm* _playerArm = nullptr;
@@ -35,8 +39,6 @@ private:
 
 	inline bool dashIsAble() const { return _numDash > 0 && _isDashing; }
 	void checkMovement(const Uint8* keyboard);
-	void checkMouseInput(const Uint32& mouse);
-
 	void handleAnimations();
 
 	void refreshCooldowns(const Uint32& deltaTime);
@@ -74,9 +76,11 @@ public:
 	void reload();
 
 	void setPlayerPanel(PlayerPanel* p);
+	inline void setPlayerBulletPool(BulletPool* pool) { _playerBulletPool = pool; }
 
 	inline bool isGrounded() const { return _floorCount; }
 	bool isDashing() const;
 	bool isMeleeing() const;
 	bool isReloading() const;
+	bool isJumping() const;
 };
