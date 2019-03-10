@@ -41,6 +41,8 @@ void GameComponent::addChild(GameComponent* obj)
 	_children.push_back(obj);
 }
 
+
+
 bool GameComponent::handleInput(const SDL_Event& event) 
 {
 	for (InputComponent* ic : _inputComp) 

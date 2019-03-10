@@ -4,7 +4,7 @@
 #include "Player.h"
 
 
-DistanceStaticEnemy::DistanceStaticEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag) : DistanceEnemy(player, g, play, texture, posIni, tag)
+DistanceStaticEnemy::DistanceStaticEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag, GunType type) : DistanceEnemy(player, g, play, texture, posIni, tag, type)
 {
 	_vision = 700;
 	_attackRange = _vision; //No se puede poner mas peque�o que la velocidad
@@ -19,27 +19,29 @@ DistanceStaticEnemy::DistanceStaticEnemy(Player* player, Game* g, PlayState* pla
 void DistanceStaticEnemy::update()
 {
 	Enemy::update();
+	if (!_dead && inCamera())
+	{
+		BodyComponent* _playerBody = _player->getComponent<BodyComponent>();
 
-	BodyComponent* _playerBody = _player->getComponent<BodyComponent>();
-
-	b2Vec2 enemyPos = _body->getBody()->GetPosition(), 
+		b2Vec2 enemyPos = _body->getBody()->GetPosition(),
 			playerPos = _playerBody->getBody()->GetPosition();
 
-	double x = playerPos.x * 8 - enemyPos.x * 8,
+		double x = playerPos.x * 8 - enemyPos.x * 8,
 			y = playerPos.y * 8 - enemyPos.y * 8;
 
-	if (x < _vision && x > -_vision && y < _vision && y > -_vision) //Jugador en el rango
-	{
-		RayCast();
-
-		if (_armVision) //Si vemos al jugador
+		if (x < _vision && x > -_vision && y < _vision && y > -_vision) //Jugador en el rango
 		{
-			if (x > 0) //Derecha
-				_anim->unFlip();
-			else if (x < 0) //Izquierda
-				_anim->flip();
+			RayCast();
 
-			_arm->shoot();
+			if (_armVision) //Si vemos al jugador
+			{
+				if (x > 0) //Derecha
+					_anim->unFlip();
+				else if (x < 0) //Izquierda
+					_anim->flip();
+
+				_arm->shoot();
+			}
 		}
 	}
 }

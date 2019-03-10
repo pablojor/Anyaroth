@@ -14,7 +14,7 @@ struct AnimationState
 	uint numFrames;
 	bool loop;
 	bool animationFinished;
-	//uint lapse; //anyadir parametro si queremos regular la velocidad de cada animacion individualmente
+	uint lapse; //parametro si queremos regular la velocidad de cada animacion individualmente
 };
 
 class AnimatedSpriteComponent : public SpriteComponent, public PhysicsComponent
@@ -26,7 +26,7 @@ protected:
 
 	uint _frame;
 	uint _lastTimeUpdated = 0;  // last time we update a frame
-	uint _lapse = 60; // the frequency of updating frames
+	//uint _lapse = 60; 
 
 	bool _animationFinished = false;
 
@@ -34,7 +34,7 @@ protected:
 public:
 	enum Player { Idle, Walk, WalkBack, MeleeKnife, ReloadPistol, BeforeJump, Jump, StartFalling, Falling, Hurt, Dash, DashDown, DashBack, ReloadShotgun };
 	enum Gun { None, Shoot, NoAmmo };
-	enum Enemy { EnemyIdle, EnemyWalk, EnemyAttack };
+	enum Enemy { EnemyIdle, EnemyWalk, EnemyAttack, EnemyDie };
 	enum Coin { Main };
 	enum Bullet { Default };
 
@@ -45,7 +45,7 @@ public:
 	virtual void render(Camera* c) const;
 	virtual void update();
 
-	void addAnim(uint name, uint numFrames, bool loop);//(..,lapse=60) //anyadir parametro si queremos regular la velocidad de cada animacion individualmente
+	void addAnim(uint name, uint numFrames, bool loop, uint lapse = 60); // lapse = the frequency of updating frames
 	void playAnim(uint name);
 
 	bool animationFinished() { return _animations[_currentAnim].animationFinished; };

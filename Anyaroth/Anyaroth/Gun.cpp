@@ -2,15 +2,6 @@
 #include "AnimatedSpriteComponent.h"
 #include <algorithm>
 
-
-Gun::Gun(GameComponent* shootingObj, ShooterInterface* shooterComp, PoolWrapper* bp, GunType type, int maxAmmo, int maxClip, int bulletsPerShot) : _shootingObj(shootingObj), _shooterComp(shooterComp), _bPool(bp), _type(type), _maxAmmo(maxAmmo), _maxClip(maxClip), _ammo(maxAmmo), _clip(maxClip), _bulletsPerShot(bulletsPerShot) 
-{
-	_shooterComp->init(_shootingObj, _bPool);
-}
-
-Gun::~Gun() {}
-
-
 void Gun::setShooter(ShooterInterface* sh) 
 {
 	_shooterComp = sh; 
@@ -79,6 +70,7 @@ void Gun::resetAmmo()
 	_clip = _maxClip;
 }
 
+
 //Reduce la munici�n 
 void Gun::useAmmo()
 {
@@ -100,18 +92,22 @@ bool Gun::shoot(Vector2D bulletPosition, Vector2D bulletDir, bool flipped)
 {
 	if (_clip >= _bulletsPerShot //Si hay suficientes balas en el cargador
 		&& _shooterComp != nullptr) //Si tiene un shooter, llama a su shoot()
-	{
-		int flippedAngle = flipped ? 180 : 0;
-		_shooterComp->shoot( bulletPosition,  bulletDir, _shootingObj->getComponent<TransformComponent>()->getRotation() - flippedAngle);
+	{ 
+		if (canShoot())
+		{
+			int flippedAngle = flipped ? 180 : 0;
+			_shooterComp->shoot(bulletPosition, bulletDir, _shootingObj->getComponent<TransformComponent>()->getRotation() - flippedAngle);
 
-		//Reduce la munici�n actual
-		useAmmo();
+			//Reduce la munici�n actual
+			useAmmo();
 
-		//Dispara
-		/*cout << "Piumm!" << endl;
-		cout << "Ammo: " << _ammo << "/" << _maxAmmo << endl;
-		cout << "Clip: " << _clip << "/" << _maxClip << endl;
-		*/
+			//Dispara
+			/*cout << "Piumm!" << endl;
+			cout << "Ammo: " << _ammo << "/" << _maxAmmo << endl;
+			cout << "Clip: " << _clip << "/" << _maxClip << endl;
+			*/
+			_fireTimer = SDL_GetTicks();
+		}
 		return true;
 	}
 	else //Si no, recarga
@@ -123,10 +119,13 @@ bool Gun::shoot(Vector2D bulletPosition, Vector2D bulletDir, bool flipped)
 }
 void Gun::enemyShoot(Vector2D bulletPosition, Vector2D bulletDir, bool flipped)
 {
-	if (_shooterComp != nullptr) //Si tiene un shooter, llama a su shoot()
+	if (_shooterComp != nullptr && canShoot()) //Si tiene un shooter, llama a su shoot()
 	{
 		int flippedAngle = flipped ? 180 : 0;
+
 		_shooterComp->shoot(bulletPosition, bulletDir, _shootingObj->getComponent<TransformComponent>()->getRotation() - flippedAngle);
+
+		_fireTimer = SDL_GetTicks();
 	}
 
 }

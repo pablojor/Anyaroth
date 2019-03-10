@@ -14,6 +14,8 @@
 #include "ShotgunShooter.h"
 #include "GunType_def.h"
 
+#define PI 3.14159265
+
 // Resolución interna del juego
 const int GAME_RESOLUTION_X = 480;
 const int GAME_RESOLUTION_Y = 270;
@@ -27,8 +29,6 @@ const string FILES_PATH = "..\\files\\levels\\";
 const string SAVES_PATH = "..\\files\\saves\\";
 const string SPRITE_PATH = "..\\assets\\sprites\\";
 const string TILEMAP_PATH = "..\\files\\tilemaps\\";
-
-const int NUM_TEXTURES = 26;
 
 const int NUM_FONTS = 0;
 const int TILES_SIZE = 16;
@@ -46,13 +46,28 @@ struct GunAttributes
 	GunType type;
 	int maxAmmo;
 	int maxClip;
+	double cadence;
+	double velocity;
+	int damage;
+	int range;
+	bool automatic;
+};
+
+struct MeleeAttributes
+{
+	MeleeType type;
+	int damage;
 };
 
 enum _Category {
 	FLOOR = 1,
 	ENEMIES = 2,
-	PLAYER = 3,
-	OBJECTS = 4,
+	PLAYER = 4,
+	OBJECTS = 8,
+	ENEMY_BULLETS = 16,
+	PLAYER_BULLETS = 32,
+	DEAD_ENEMIES = 64,
+	MELEE = 128,
 };
 
 class Game
@@ -71,11 +86,21 @@ class Game
 		vector<int> var;
 		vector<GunAttributes> gameGuns = 
 		{
-			{new Shooter(),BasicGun,60,12},
-			{ new ShotgunShooter({30,0,-30}),BasicShotgun,30,2 },
-			{new Shooter(),BasicEnemyGun,60,12}
+			//Player
+			{ new Shooter(), BasicGun, 60, 12, 450, 100, 10, 500, true },
+			{ new ShotgunShooter({30,0,-30}), BasicShotgun, 30, 2, 1200, 100, 25, 60, false },
+			//Enemies
+			{ new Shooter(), BasicEnemyGun, 60, 12, 600, 100, 10, 500 },
+			{ new ShotgunShooter({30,0,-30}), BasicEnemyShotgun, 30, 2, 1200, 100, 25, 60 },
 		};
 
+		vector<MeleeAttributes> MeleeWeapons =
+		{
+			{Knife,10},
+			{Axe,50},
+			{Lightsaber,20},
+			{Chainsaw,30}
+		};
 		//Metodos
 		void createTextures();
 		void pushState(GameState* state);

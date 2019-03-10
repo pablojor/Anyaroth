@@ -20,5 +20,6 @@ public:
 
 	virtual void addBullet(Vector2D pos, Vector2D dir, double angle) {};
 	virtual void changePoolTag(string tag) {};
+	virtual void changePoolFilter(uint16 ownCategory, uint16 collidesWith, int groupIndex=0) {};
 };
 

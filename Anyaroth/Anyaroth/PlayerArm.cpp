@@ -21,9 +21,12 @@ void PlayerArm::update()
 	Vector2D mouseDim = { double(_cursor->getComponent<AnimatedSpriteComponent>()->getTexture()->getW()), double(_cursor->getComponent<AnimatedSpriteComponent>()->getTexture()->getH()) };
 	//------------Rotaci�n del brazo---------------------
 	rotate(Vector2D(mousePos.getX() + mouseDim.getX()/2, mousePos.getY() + mouseDim.getY() / 2));
-	//-----------------------------------------------------------
-
-
+	//------------Comprueba si tiene que disparar--------
+	if (_controller->isShooting())
+	{
+		shoot();//DISPARA
+		if(!_currentGun->isAutomatic()) _controller->setShooting(false); //Si el arma no es automática, resetea el input de disparo
+	}
 
 	if ((static_cast<Player*>(_owner))->getCurrentState() == Player::Attacking ||
 		(static_cast<Player*>(_owner))->getCurrentState() == Player::Reloading ||
@@ -46,7 +49,7 @@ void PlayerArm::update()
 //Dispara el arma
 void PlayerArm::shoot()
 {
-	if (_currentGun != nullptr)
+	if (_currentGun != nullptr && _currentGun->canShoot())
 	{
 		double armAngle = _transform->getRotation(),
 			armX = _transform->getPosition().getX(),
@@ -87,8 +90,6 @@ void PlayerArm::shoot()
 			
 		}
 	}
-	else
-		cout << "Gun Not found" << endl;
 
 }
 

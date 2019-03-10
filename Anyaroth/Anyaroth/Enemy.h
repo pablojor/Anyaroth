@@ -32,7 +32,7 @@ class Enemy : public GameComponent
 		int _vision, _attackRange, _attackTime, _damage;
 		bool _dead = false;
 
-		
+		bool inCamera();
 
 	public:
 		Enemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag);
