@@ -23,7 +23,7 @@ Enemy::Enemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2
 	_body->setW(20);
 	_body->setH(20);
 	_body->filterCollisions(ENEMIES, FLOOR | PLAYER_BULLETS | MELEE);
-	_body->addCricleShape(b2Vec2(0, _body->getH()+ _body->getH() / 20), _body->getW()- _body->getW()/20, ENEMIES, FLOOR);
+	
 	_body->getBody()->SetFixedRotation(true);
 
 	//auto playerTrans = addComponent<MeleeEnemyComponent>();

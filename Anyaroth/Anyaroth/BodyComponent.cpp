@@ -140,12 +140,18 @@ void BodyComponent::filterCollisions(uint16 ownCategory, uint16 collidesWith, in
 {
 	auto fixture = _body->GetFixtureList();
 
-	b2Filter filter = fixture->GetFilterData();
+	while (fixture != nullptr)
+	{
+		b2Filter filter = fixture->GetFilterData();
 
-	filter.categoryBits = ownCategory;
-	filter.maskBits = collidesWith;
-	filter.groupIndex = groupIndex;
+		filter.categoryBits = ownCategory;
+		filter.maskBits = collidesWith;
+		filter.groupIndex = groupIndex;
 
-	fixture->SetFilterData(filter);
+		fixture->SetFilterData(filter);
+
+		fixture = fixture->GetNext();
+	}
+	
 }
 
