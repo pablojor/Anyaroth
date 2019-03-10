@@ -50,7 +50,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 
 	 for (int i = 0; i < enemiesPos.size(); i++)
 	 {
-		_enemy = new DistanceStaticEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(enemiesPos[i].getX(), enemiesPos[i].getY() - TILES_SIZE * 2), "Enemy");
+		_enemy = new MeleeEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(enemiesPos[i].getX(), enemiesPos[i].getY() - TILES_SIZE * 2), "Enemy");
 		_stages.push_back(_enemy);
 		auto itFR = --(_stages.end());
 		_enemy->setItList(itFR);
@@ -123,10 +123,9 @@ bool PlayState::handleEvents(SDL_Event& e)
 	return handled;
 }
 
-void PlayState::update()
+void PlayState::update(double time)
 {
-	GameState::update();
-	_world->Step(1 / 20.0, 8, 3);
+	GameState::update(time);
 
 	int i = items_ToDelete.size() - 1;
 	while (i >= 0)

@@ -18,7 +18,7 @@ public:
 	FollowingComponent(GameComponent* obj, GameComponent* other);
 	virtual ~FollowingComponent() {}
 
-	virtual void update();
+	virtual void update(double time);
 
 	inline void setOffset(Vector2D offset) { _offset = offset; }
 	inline Vector2D getOffset() const { return _offset; }

@@ -32,6 +32,6 @@ public:
 	inline void setRotation(double rot) { _angle = rot; }
 
 	void init(Texture* texture, double speed, int damage, double angle, int range = 5);
-	virtual void update();
+	virtual void update(double time);
 	void reset(Vector2D pos);
 };

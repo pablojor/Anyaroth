@@ -46,9 +46,9 @@ void Enemy::beginCollision(GameComponent * other, b2Contact* contact)
 	}
 }
 
-void Enemy::update()
+void Enemy::update(double time)
 {
-	GameComponent::update();
+	GameComponent::update(time);
 }
 
 void Enemy::die()

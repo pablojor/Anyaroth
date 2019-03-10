@@ -77,7 +77,7 @@ public:
 	virtual ~GameComponent();
 
 	virtual bool handleInput(const SDL_Event& event);
-	virtual void update();
+	virtual void update(double time);
 	virtual void render(Camera* c) const;
 
 	virtual void addInputComponent(InputComponent* ic);

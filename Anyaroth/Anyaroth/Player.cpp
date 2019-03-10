@@ -188,10 +188,10 @@ bool Player::handleInput(const SDL_Event& event)
 	return false;
 }
 
-void Player::update()
+void Player::update(double time)
 {
 	const Uint8* keyboard = SDL_GetKeyboardState(NULL);
-	GameComponent::update();
+	GameComponent::update(time);
 
 	checkMovement(keyboard);
 	refreshCooldowns(16.6);
@@ -362,7 +362,7 @@ bool Player::isReloading() const
 
 void Player::dash(const Vector2D& dir)
 {
-	double force = 3250;
+	double force = 400;
 	move(Vector2D(0, 0), 0);
 	_body->getBody()->ApplyLinearImpulse(b2Vec2(dir.getX() * force, dir.getY() * force * 1.5), _body->getBody()->GetWorldCenter(), true);
 	_numDash--;
@@ -384,7 +384,7 @@ void Player::dash(const Vector2D& dir)
 
 void Player::jump()
 {
-	double _jumpForce = 1000;
+	double _jumpForce = 300;
 	_body->getBody()->ApplyLinearImpulse(b2Vec2(0, -_jumpForce), _body->getBody()->GetWorldCenter(), true);
 	setGrounded(false);
 	_anim->playAnim(AnimatedSpriteComponent::BeforeJump);

@@ -13,7 +13,7 @@ private:
 public:
 	PlayerArm(Game* game, Player* player, Vector2D offset = { 0, 0 });
 
-	void update();
+	void update(double time);
 
 	void shoot();	
 	void reload(); 

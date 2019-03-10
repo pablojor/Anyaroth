@@ -14,9 +14,9 @@ DistanceStaticEnemy::DistanceStaticEnemy(Player* player, Game* g, PlayState* pla
 	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 }
 
-void DistanceStaticEnemy::update()
+void DistanceStaticEnemy::update(double time)
 {
-	Enemy::update();
+	Enemy::update(time);
 
 	BodyComponent* _playerBody = _player->getComponent<BodyComponent>();
 

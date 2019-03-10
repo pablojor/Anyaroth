@@ -9,9 +9,9 @@ EnemyArm::EnemyArm(Game* g, GameComponent* enemy, GameComponent* target, Vector2
 	_targetBody = _target->getComponent<BodyComponent>()->getBody();
 }
 
-void EnemyArm::update()
+void EnemyArm::update(double time)
 {
-	GameComponent::update();
+	GameComponent::update(time);
 
 	if (dynamic_cast<DistanceEnemy*>(_owner)->ArmVision())
 	{

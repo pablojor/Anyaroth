@@ -7,12 +7,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Archivos de código</Filter>
     </ClCompile>
-    <ClCompile Include="BulletPool.cpp">
-      <Filter>Archivos de código\Pools</Filter>
-    </ClCompile>
-    <ClCompile Include="PoolWrapper.cpp">
-      <Filter>Archivos de código\Pools</Filter>
-    </ClCompile>
     <ClCompile Include="AnimatedSpriteComponent.cpp">
       <Filter>Archivos de código\Components</Filter>
     </ClCompile>
@@ -429,6 +423,9 @@
     <ClInclude Include="BasicPistol.h">
       <Filter>Archivos de encabezado\Guns</Filter>
     </ClInclude>
+    <ClInclude Include="ObjectPool.h">
+      <Filter>Archivos de encabezado\Pools</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de encabezado">
@@ -445,9 +442,6 @@
     </Filter>
     <Filter Include="Archivos de encabezado\Pools">
       <UniqueIdentifier>{95d06e66-9ace-4bbb-844f-923a06627b24}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de código\Pools">
-      <UniqueIdentifier>{00654719-5756-4373-86fb-fcecbcdffea9}</UniqueIdentifier>
     </Filter>
     <Filter Include="Archivos de encabezado\Components">
       <UniqueIdentifier>{e21cb26b-faad-42f8-bf39-7769a3cf4386}</UniqueIdentifier>

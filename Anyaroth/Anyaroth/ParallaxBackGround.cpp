@@ -7,10 +7,10 @@ ParallaxBackGround::~ParallaxBackGround()
 		delete i;
 }
 
-void ParallaxBackGround::update()
+void ParallaxBackGround::update(double time)
 {
 	for (ParallaxLayer* i : _layers)
-		i->update();
+		i->update(time);
 }
 
 void ParallaxBackGround::render() const

@@ -20,7 +20,7 @@ public:
 	Cursor(Texture* texture, Game* g, PlayState* play);
 	~Cursor() {}
 
-	void update();
+	void update(double time);
 	virtual bool handleInput(const SDL_Event& event);
 
 	Vector2D getPosition();

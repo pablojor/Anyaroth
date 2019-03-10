@@ -8,9 +8,9 @@ PlayerArm::PlayerArm(Game* game, Player* player, Vector2D offset) : Arm(game, pl
 	setTexture(game->getTexture("Arm"));
 }
 
-void PlayerArm::update()
+void PlayerArm::update(double time)
 {
-	GameComponent::update();
+	GameComponent::update(time);
 
 	if (_player->isDashing() || _player->isMeleeing() || _player->isReloading())
 		_anim->setActive(false);

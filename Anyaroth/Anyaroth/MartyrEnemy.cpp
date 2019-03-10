@@ -18,9 +18,9 @@ MartyrEnemy::MartyrEnemy(Player* player, Game* g, PlayState* play,Texture* textu
 	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 }
 
-void MartyrEnemy::update()
+void MartyrEnemy::update(double time)
 {
-	Enemy::update();
+	Enemy::update(time);
 
 	BodyComponent* _playerBody = _player->getComponent<BodyComponent>();
 

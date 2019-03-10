@@ -11,5 +11,5 @@ private:
 public:
 	MeleeEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag);
 	virtual ~MeleeEnemy() {}
-	virtual void update();
+	virtual void update(double time);
 };

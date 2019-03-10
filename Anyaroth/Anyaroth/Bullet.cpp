@@ -40,7 +40,7 @@ void Bullet::init(Texture* texture, double speed, int damage, double angle, int 
 	anim->setTexture(texture);
 }
 
-void Bullet::update() 
+void Bullet::update(double time) 
 {
 	if (!isActive())
 		return;
@@ -49,7 +49,7 @@ void Bullet::update()
 
 	if (dist < _range  && !_collided)
 	{
-		GameComponent::update(); //<- DESCOMENTAR PARA PROBAR CON FISICAS
+		GameComponent::update(time); //<- DESCOMENTAR PARA PROBAR CON FISICAS
 
 
 		// Actualiza la posicion
