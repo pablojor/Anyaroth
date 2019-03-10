@@ -175,47 +175,6 @@
     <ClCompile Include="ObjectLayer.cpp">
       <Filter>Archivos de código\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="ObjectPool.cpp">
-      <Filter>Archivos de código\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectPool.cpp" />
-    <ClCompile Include="ObjectPool.cpp" />
-    <ClCompile Include="Cursor.cpp">
-      <Filter>Archivos de código\UIElements</Filter>
-    </ClCompile>
-    <ClCompile Include="AmmoPackage.cpp">
-      <Filter>Archivos de código\Objects\Collectables</Filter>
-    </ClCompile>
-    <ClCompile Include="Coin.cpp">
-      <Filter>Archivos de código\Objects\Collectables</Filter>
-    </ClCompile>
-    <ClCompile Include="Collectable.cpp">
-      <Filter>Archivos de código\Objects\Collectables</Filter>
-    </ClCompile>
-    <ClCompile Include="MartyrEnemy.cpp">
-      <Filter>Archivos de código\Objects\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="MeleeEnemy.cpp">
-      <Filter>Archivos de código\Objects\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="HUD.cpp">
-      <Filter>Archivos de código\HUDs</Filter>
-    </ClCompile>
-    <ClCompile Include="MenuButton.cpp">
-      <Filter>Archivos de código\HUDs</Filter>
-    </ClCompile>
-    <ClCompile Include="Arm.cpp">
-      <Filter>Archivos de código\Objects\Arms</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyArm.cpp">
-      <Filter>Archivos de código\Objects\Arms</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerArm.cpp">
-      <Filter>Archivos de código\Objects\Arms</Filter>
-    </ClCompile>
-    <ClCompile Include="Bullet.cpp">
-      <Filter>Archivos de código\Objects\Player</Filter>
-    </ClCompile>
     <ClCompile Include="Life.cpp">
       <Filter>Archivos de código\Objects\Player</Filter>
     </ClCompile>
@@ -458,43 +417,6 @@
     <ClInclude Include="Money.h">
       <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="ObjectPool.h" />
-    <ClInclude Include="Cursor.h">
-      <Filter>Archivos de encabezado\UIElements</Filter>
-    </ClInclude>
-    <ClInclude Include="MartyrEnemy.h">
-      <Filter>Archivos de encabezado\Objects\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="MeleeEnemy.h">
-      <Filter>Archivos de encabezado\Objects\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="HUD.h">
-      <Filter>Archivos de encabezado\HUDs</Filter>
-    </ClInclude>
-    <ClInclude Include="Coin.h">
-      <Filter>Archivos de encabezado\Objects\Collectables</Filter>
-    </ClInclude>
-    <ClInclude Include="Collectable.h">
-      <Filter>Archivos de encabezado\Objects\Collectables</Filter>
-    </ClInclude>
-    <ClInclude Include="AmmoPackage.h">
-      <Filter>Archivos de encabezado\Objects\Collectables</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuButton.h">
-      <Filter>Archivos de encabezado\HUDs</Filter>
-    </ClInclude>
-    <ClInclude Include="Arm.h">
-      <Filter>Archivos de encabezado\Objects\Arms</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyArm.h">
-      <Filter>Archivos de encabezado\Objects\Arms</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerArm.h">
-      <Filter>Archivos de encabezado\Objects\Arms</Filter>
-    </ClInclude>
-    <ClInclude Include="Bullet.h">
-      <Filter>Archivos de encabezado\Objects\Player</Filter>
-    </ClInclude>
     <ClInclude Include="Life.h">
       <Filter>Archivos de encabezado\Objects\Player</Filter>
     </ClInclude>
@@ -618,29 +540,6 @@
     </Filter>
     <Filter Include="Archivos de código\Objects\Arm">
       <UniqueIdentifier>{84d75d37-85b1-4338-a33a-5894ea4e4ff5}</UniqueIdentifier>
-    <Filter Include="Archivos de código\Objects\Collectables">
-      <UniqueIdentifier>{0700e80f-a1e0-40f5-b108-87ad35e6a94b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de código\Objects\Arms">
-      <UniqueIdentifier>{24a78bbf-dabd-4f68-8cff-010076cbf2b3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de código\Objects\Player">
-      <UniqueIdentifier>{2b3975b0-fb7f-413b-a2d9-7c1fc4f0b797}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de código\Objects\Map">
-      <UniqueIdentifier>{e43c52f9-2f5c-403d-ae48-e0b0d3cc6e98}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Objects\Collectables">
-      <UniqueIdentifier>{87374515-8419-4d63-a5ee-eacaae0e3bb4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Objects\Arms">
-      <UniqueIdentifier>{c9d5b099-aac4-490c-a2ad-5e89dc661c14}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Objects\Player">
-      <UniqueIdentifier>{7425c257-6f8a-411f-8d2f-b6b9b2ca6332}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Objects\Map">
-      <UniqueIdentifier>{2fab9afa-aee8-4a0c-b3c4-e75540abff52}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
