@@ -199,6 +199,12 @@
     <ClCompile Include="BasicShotgun.cpp">
       <Filter>Archivos de código\Guns</Filter>
     </ClCompile>
+    <ClCompile Include="BulletPool.cpp">
+      <Filter>Archivos de código\Pools</Filter>
+    </ClCompile>
+    <ClCompile Include="PoolWrapper.cpp">
+      <Filter>Archivos de código\Pools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -535,6 +541,9 @@
     </Filter>
     <Filter Include="Archivos de encabezado\Objects\Map">
       <UniqueIdentifier>{2fab9afa-aee8-4a0c-b3c4-e75540abff52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código\Pools">
+      <UniqueIdentifier>{bdbd79a4-1a96-476c-95bc-807bff9b1b38}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
