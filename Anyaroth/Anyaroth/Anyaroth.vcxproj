@@ -133,6 +133,8 @@
     <ClCompile Include="Cursor.cpp" />
     <ClCompile Include="DistanceEnemy.cpp" />
     <ClCompile Include="EnemyArm.cpp" />
+    <ClCompile Include="MeleeBox.cpp" />
+    <ClCompile Include="MeleeWeapon.cpp" />
     <ClCompile Include="PlayerArm.cpp" />
     <ClCompile Include="ArmControllerComponent.cpp" />
     <ClCompile Include="BossPanel.cpp" />
@@ -207,6 +209,8 @@
     <ClInclude Include="Cursor.h" />
     <ClInclude Include="DistanceEnemy.h" />
     <ClInclude Include="EnemyArm.h" />
+    <ClInclude Include="MeleeBox.h" />
+    <ClInclude Include="MeleeWeapon.h" />
     <ClInclude Include="PlayerArm.h" />
     <ClInclude Include="ArmControllerComponent.h" />
     <ClInclude Include="BossPanel.h" />

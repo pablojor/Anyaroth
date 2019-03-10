@@ -16,6 +16,7 @@ private:
 
 public:
 	BodyComponent(GameComponent* obj);
+	BodyComponent(GameComponent* obj, double x, double y, double h, double w);
 	virtual ~BodyComponent();
 
 	virtual void update();
@@ -28,5 +29,5 @@ public:
 
 	void addCricleShape(const b2Vec2 & Center, float radius, uint16 ownCategory, uint16 collidesWith);
 
-	void filterCollisions(uint16 ownCategory, uint16 collidesWith);
+	void filterCollisions(uint16 ownCategory, uint16 collidesWith, int groupIndex=0);
 };

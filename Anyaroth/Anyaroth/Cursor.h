@@ -14,7 +14,6 @@ private:
 	AnimatedSpriteComponent* _anim;
 	Camera* _cam;
 	Vector2D _prevCamPos;
-	bool _movingMouse = false;
 
 	int _mouseX, _mouseY;
 public:

@@ -11,6 +11,7 @@
 #include "BulletPool.h"
 #include "Coin.h"
 #include "Cursor.h"
+#include "GunType_def.h"
 
 
 class PlayState : public GameState
@@ -27,13 +28,14 @@ class PlayState : public GameState
 		DebugDraw _debugger;
 		Cursor* _cursor = nullptr;
 
-		PoolWrapper* _enemyPool = nullptr; //TEMPORAL
 		//Bullet Pools
-		PoolWrapper* _basicBulletPool = nullptr; //balas bï¿½sicas
-		PoolWrapper* _basicShotgunBulletPool = nullptr; //balas de escopeta
 		vector<PoolWrapper*> _pools;
 
 		vector <list<GameObject*>::iterator> items_ToDelete;
+		
+		//vector con los índices de las armas que el jugador lleva en el inventario este nivel
+		//Se pasa al state que corresponda al cambiar de nivel y el state lo consulta para crear las armas
+		vector <GunType> _selectedGuns; 
 
 	public:
 		PlayState(Game* g);

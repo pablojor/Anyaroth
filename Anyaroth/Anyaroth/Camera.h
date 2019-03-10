@@ -24,11 +24,12 @@ class Camera
 
 		void setCameraPosition(double x, double y);
 		void setCameraSize(double w, double h);
-
 		void setBackGround(BackGround* bg) { _backGround = bg; }
 
 		Vector2D getCameraPosition() { return Vector2D(_cameraRect.x, _cameraRect.y); }
 		Vector2D getCameraSize() { return Vector2D(_cameraRect.w, _cameraRect.h); }
+
+		bool inCamera(Vector2D pos) { return (pos.getX() > _cameraRect.x && pos.getX() < _cameraRect.x + _cameraRect.w && pos.getY() > _cameraRect.y && pos.getY() < _cameraRect.y + _cameraRect.h);}
 
 		void fixCameraToObject(GameComponent* object) { _followedObject = object; };
 		void looseFixedObject();

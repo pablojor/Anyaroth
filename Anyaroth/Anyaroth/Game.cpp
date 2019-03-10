@@ -1,17 +1,25 @@
 #include "Game.h"
+#include <json.hpp>
 
 void Game::createTextures()
 {
 	ifstream input;
-	input.open(INFO_PATH + "textures.txt");
+	input.open(INFO_PATH + "textures.json");
 	if (input.is_open())
 	{
-		for (int i = 0; i < NUM_TEXTURES; i++)
+		nlohmann::json j;
+		input >> j;
+		j = j["textures"];
+		int numTextures = j.size();
+		for (int i = 0; i < numTextures; i++)
 		{
-			string id; input >> id;
-			string name; input >> name;
-			int fil; input >> fil;
-			int col; input >> col;
+			string id, name;
+			int fil, col;
+			id = j[i][0].get<string>();
+			name = j[i][1].get<string>();
+			fil = j[i][2];
+			col = j[i][3];
+
 			textures.insert(pair <string, Texture*>(id, new Texture(renderer, SPRITE_PATH + name, fil, col)));
 			texturesName.push_back(id);
 		}
@@ -44,6 +52,8 @@ void Game::toggleFullscreen() {
 	Uint32 FullscreenFlag = SDL_WINDOW_FULLSCREEN_DESKTOP; //fake fullscreen (windowed mode)
 	bool IsFullscreen = SDL_GetWindowFlags(window) & FullscreenFlag;
 	SDL_SetWindowFullscreen(window, IsFullscreen ? 0 : FullscreenFlag);
+
+	//SDL_SetRelativeMouseMode(IsFullscreen ? SDL_FALSE : SDL_TRUE);
 }
 
 Font * Game::getFont(string nameFont)
@@ -153,6 +163,8 @@ void Game::render(Uint32 time) const
 {
 	SDL_RenderClear(renderer);
 	stateMachine->currentState()->render();
+	_world->DrawDebugData();
+
 	SDL_RenderPresent(renderer);
 }
 

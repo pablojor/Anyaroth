@@ -26,7 +26,7 @@ Player::Player(Texture* texture, Game* g, PlayState* play, string tag) : _play(p
 	_body->setW(12);
 	_body->setH(26);
 	
-	_body->filterCollisions(PLAYER, OBJECTS | FLOOR /*| ENEMY_BULLETS*/);
+	_body->filterCollisions(PLAYER, OBJECTS | FLOOR  | ENEMY_BULLETS);
 	_body->addCricleShape(b2Vec2(0, 1.1), 0.7, PLAYER, FLOOR);
 	_body->getBody()->SetFixedRotation(true);
 
@@ -74,20 +74,23 @@ Player::Player(Texture* texture, Game* g, PlayState* play, string tag) : _play(p
 	
 
 	//Inventario inicial
-	_gunInventory.push_back(BasicGun);
-	_gunInventory.push_back(BasicShotgun); //para probar
+	/*_gunInventory.push_back(BasicGun);
+	_gunInventory.push_back(BasicShotgun);*/ //para probar
 	//Equipa el arma inicial
-	equipGun(_gunInventory[1]);
+	//equipGun(0);
 
 	AmountOfCollision = 0;
 	//Monedore
 	_money = new Money();
 
+	_melee = new MeleeWeapon(g);
+	addChild(_melee);
 }
 
 Player::~Player()
 {
 	delete _money;
+	for (size_t i = 0; i < _gunInventory.size(); i++)	delete _gunInventory[i];
 }
 
 void Player::beginCollision(GameComponent * other, b2Contact* contact)
@@ -104,7 +107,7 @@ void Player::beginCollision(GameComponent * other, b2Contact* contact)
 		AmountOfCollision += 1;
 
 
-		if (_transform->getPosition().getY() + (myH+ 0.4) * (M_TO_PIXEL * 2) < otherTransform->getPosition().getY())
+		if (_transform->getPosition().getY() + (myH+ 0.35) * (M_TO_PIXEL * 2) < otherTransform->getPosition().getY())
 		{
 			OnGround = true;
  			_controller->ableJump();
@@ -151,7 +154,7 @@ void Player::endCollision(GameComponent * other, b2Contact* contact)
 	{
 		AmountOfCollision -= 1;
 
-		if (_transform->getPosition().getY() + (myH + 0.4) * (M_TO_PIXEL * 2) < otherTransform->getPosition().getY())
+		if (_transform->getPosition().getY() + (myH + 0.35) * (M_TO_PIXEL * 2) < otherTransform->getPosition().getY())
 		{
 			OnGround = false;
 
@@ -198,18 +201,23 @@ void Player::update()
 {
 
 	GameComponent::update();
+	
+	if (_anim->animationFinished() && _controller->isAttacking())
+	{
+		endMelee();
+		_controller->setIsAttacking(false);
+	}
 
-	if (_anim->animationFinished() && _currentState != Player::Falling && _currentState != Player::Jumping)
+	else if (_anim->animationFinished() && _currentState != Player::Falling && _currentState != Player::Jumping)
 	{
 		if (_controller->currXDir() == 0)
 		{
 			_anim->playAnim(AnimatedSpriteComponent::Idle);
-			_controller->setIsAttacking(false);
 			_controller->setIsReloading(false);
 
 			_currentState = Idle;
 		}
-		else
+		else 
 		{
 			if (!_anim->isFlipped())
 				_anim->playAnim(AnimatedSpriteComponent::Walk);
@@ -246,17 +254,50 @@ void Player::update()
 	}
 	else
 		_timer = SDL_GetTicks();
-
+		
 	//De momento todo el rato porque hay que cambiar cosas del player, porque esto es un caos
 	_playerPanel->updateDashViewer(_controller->amountDash());
 	_playerPanel->updateAmmoViewer(_weaponArm->getCurrentGun()->getClip(), _weaponArm->getCurrentGun()->getAmmo());
 
 }
 
-//Equipa un arma utilizando el array de atributos gameGuns de Game.h
-void Player::equipGun(int gunIndex)
+//Añade un arma al inventario
+void Player::addGun(GunType gunIndex)
 {
+	ShooterInterface* sh = getGame()->gameGuns[gunIndex].shooter;
+	GunType type = GunType(getGame()->gameGuns[gunIndex].type);
+	int mA = getGame()->gameGuns[gunIndex].maxAmmo;
+	int mC = getGame()->gameGuns[gunIndex].maxClip;
+	double c = getGame()->gameGuns[gunIndex].cadence;
+	bool a = getGame()->gameGuns[gunIndex].automatic;
+	PoolWrapper* bp = _play->getBulletPool(type);
+
 	if (_weaponArm == nullptr) //Si todavía no se ha inicializado _weaponArm, lo creo
+	{
+		_weaponArm = new PlayerArm(_armTextures[type], this, getGame(), _play, { 28,14 }); //Parámetros para la pistola
+		addChild(_weaponArm);
+
+		_hurtArm = _weaponArm->addComponent<HurtRenderComponent>();
+	}
+
+	_gunInventory.push_back(new Gun(_weaponArm, sh, bp, type, mA, mC, c, a));
+
+	if (_equippedGun == -1) //Si no tenía un arma equipada, le equipa la que acaba de añadir
+		equipGun(0);
+}
+
+//Equipa un arma utilizando el array de atributos gameGuns de Game.h
+void Player::equipGun(int invIndex)
+{
+	
+
+	_equippedGun = invIndex;
+	_weaponArm->setGun(_gunInventory[invIndex]);
+	_weaponArm->setArmSprite(_armTextures[invIndex]);
+	//_hurtArm = _weaponArm->addComponent<HurtRenderComponent>();
+
+
+	/*if (_weaponArm == nullptr) //Si todavía no se ha inicializado _weaponArm, lo creo
 	{
 		_weaponArm = new PlayerArm(_armTextures[gunIndex], this, getGame(), _play, { 28,14 }); //Parámetros para la pistola
 		addChild(_weaponArm);
@@ -273,6 +314,7 @@ void Player::equipGun(int gunIndex)
 	GunType type = GunType(getGame()->gameGuns[gunIndex].type);
 	int mA = getGame()->gameGuns[gunIndex].maxAmmo;
 	int mC = getGame()->gameGuns[gunIndex].maxClip;
+	double c = getGame()->gameGuns[gunIndex].cadence;
 
 	// TEMPORAL
 	PoolWrapper* bp = _play->getBulletPool(type);
@@ -280,9 +322,9 @@ void Player::equipGun(int gunIndex)
 
 	
 
-	_weaponArm->setGun(new Gun(_weaponArm, sh, bp, type, mA, mC));
+	_weaponArm->setGun(new Gun(_weaponArm, sh, bp, type, mA, mC, c));
 	//cout << "Gun equipada" << endl << endl << endl << endl << endl << endl;
-	_equippedGun = type;
+	_equippedGun = type;*/
 }
 
 void Player::swapGun()
@@ -294,4 +336,46 @@ void Player::swapGun()
 void Player::reload()
 {
 	_controller->reload();
+}
+
+void Player::meleeAttack()
+{
+	int dir;
+	(_anim->isFlipped()) ? dir = -1 : dir = 1;
+
+	double playerX = _body->getBody()->GetPosition().x * M_TO_PIXEL,
+		playerY = _body->getBody()->GetPosition().y *M_TO_PIXEL,
+		w = _body->getW()*M_TO_PIXEL,
+		h = _body->getH()* M_TO_PIXEL,
+		x, y;
+	MeleeAttributes meleeWeapon = getGame()->MeleeWeapons[_equippedMelee];
+
+	switch (meleeWeapon.type)
+	{
+	case(Knife):
+	case(Chainsaw):
+		x = playerX + (2 * w * dir);
+		y = playerY;
+		w *= 2;
+		h /= 2;
+		break;
+	case(Lightsaber):
+	case(Axe):
+		x = playerX + w * dir;
+		y = playerY - h * 2;
+		w *= 2;
+		h /= 2;
+		break;
+	}
+	_melee->MeleeAttack(x, y, w, h, meleeWeapon.damage, Vector2D(playerX, playerY), dir, meleeWeapon.type);
+}
+
+void Player::changeMelee(int meleeType)
+{
+	_equippedMelee = getGame()->MeleeWeapons[meleeType].type;
+}
+
+void Player::endMelee()
+{
+	_melee->endMelee();
 }

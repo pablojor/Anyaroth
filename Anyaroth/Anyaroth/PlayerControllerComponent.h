@@ -29,8 +29,8 @@ public:
 	
 
 	inline bool IsSpaceDown() {return _spacePul;}
-	inline bool currYDir() { return _spacePul; }
-	inline bool currXDir() { if (_aPul)return -1; else if (_dPul) return 1; else 0; }
+	inline int currYDir() { return  _movement->getDirY(); }
+	inline int currXDir() { return  _movement->getDirX(); };
 	inline bool isAttacking() { return _isAttacking; }
 	inline void setIsAttacking(bool b) { _isAttacking = b; }
 	inline void newDash() { _amountOfDash++; }

@@ -21,9 +21,12 @@ void PlayerArm::update()
 	Vector2D mouseDim = { double(_cursor->getComponent<AnimatedSpriteComponent>()->getTexture()->getW()), double(_cursor->getComponent<AnimatedSpriteComponent>()->getTexture()->getH()) };
 	//------------Rotaci�n del brazo---------------------
 	rotate(Vector2D(mousePos.getX() + mouseDim.getX()/2, mousePos.getY() + mouseDim.getY() / 2));
-	//-----------------------------------------------------------
-
-
+	//------------Comprueba si tiene que disparar--------
+	if (_controller->isShooting())
+	{
+		shoot();//DISPARA
+		if(!_currentGun->isAutomatic()) _controller->setShooting(false); //Si el arma no es automática, resetea el input de disparo
+	}
 
 	if ((static_cast<Player*>(_owner))->getCurrentState() == Player::Attacking ||
 		(static_cast<Player*>(_owner))->getCurrentState() == Player::Reloading ||
@@ -36,6 +39,13 @@ void PlayerArm::update()
 		_anim->setActive(true);
 	}
 
+	//Comprueba si tiene que disparar
+	if (_controller->shootButton() || _controller->flipShooting())
+	{
+		shoot();
+		_controller->toggleCanShoot();
+	}
+
 
 	if (_anim->animationFinished())
 	{
@@ -46,7 +56,7 @@ void PlayerArm::update()
 //Dispara el arma
 void PlayerArm::shoot()
 {
-	if (_currentGun != nullptr)
+	if (_currentGun != nullptr && _currentGun->canShoot())
 	{
 		double armAngle = _transform->getRotation(),
 			armX = _transform->getPosition().getX(),
@@ -67,8 +77,16 @@ void PlayerArm::shoot()
 
 		double aimAuxY = _anim->isFlipped() ? 1 : -1;
 		Vector2D bulletDir = (Vector2D(0, aimAuxY).rotate(armAngle + bulletDirOffset));
+
+		cout << "PREV: " << armAngle << "->" << bulletDir.getX() << " " << bulletDir.getY() << endl;
+
+		/*if (((_anim->isFlipped() && armAngle > 80) || (!_anim->isFlipped() && armAngle < -80)) && bulletDir.getY() >= 0)
+			bulletDir = { bulletDir.getX(), -(bulletDir.getY()) };*/
+			//bulletDir = { bulletDir.getX(), abs(bulletDir.getY()) };
+		
+		cout << "POS: " << armAngle << "->" << bulletDir.getX() << " " << bulletDir.getY() << endl;
+
 		bulletDir.normalize();
-		//bulletDir = bulletDir * 3;
 
 		if(_currentGun->shoot(bulletPosition, bulletDir, _anim->isFlipped()))
 		{
@@ -87,8 +105,6 @@ void PlayerArm::shoot()
 			
 		}
 	}
-	else
-		cout << "Gun Not found" << endl;
 
 }
 
