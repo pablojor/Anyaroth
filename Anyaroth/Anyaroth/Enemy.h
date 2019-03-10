@@ -41,7 +41,7 @@ public:
 
 	virtual inline void noLongerAttacking() { _attacking = false; }
 
-	virtual void update();
+	virtual void update(double time);
 
 	void die();
 	void subLife(int damage);

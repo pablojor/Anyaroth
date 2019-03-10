@@ -37,7 +37,7 @@ public:
 	PlayState(Game* g);
 
 	virtual void render() const;
-	virtual void update();
+	virtual void update(double time);
 	virtual bool handleEvents(SDL_Event& e);
 
 	void KillObject(const list<GameObject*>::iterator &itList);

@@ -29,12 +29,10 @@ const string SAVES_PATH = "..\\files\\saves\\";
 const string SPRITE_PATH = "..\\assets\\sprites\\";
 const string TILEMAP_PATH = "..\\files\\tilemaps\\";
 
-const int NUM_FONTS = 0;
+const int FRAME_RATE = 1000 / 60;
 const int TILES_SIZE = 16;
-
 const double M_TO_PIXEL = 8;
 const double BUTTON_SCALE = 0.25;
-
 
 //Tags
 enum _Category 
@@ -49,39 +47,41 @@ enum _Category
 class Game
 {
 private:
-	SDL_Window* window = nullptr;
-	map <string, Texture*> textures;
+	SDL_Window* _window = nullptr;
+	map <string, Texture*> _textures;
 	map <string, Font*> _fonts;
-	GameStateMachine* stateMachine = new GameStateMachine();
-	vector<string> texturesName;
+	GameStateMachine* _stateMachine = new GameStateMachine();
+	vector<string> _texturesName;
+	vector<string> _fontsName;
 	b2World* _world = nullptr;
-	bool exit = false;
+	bool _exit = false;
 
 public:
-	SDL_Renderer* renderer = nullptr;
-	vector<int> var;
+	SDL_Renderer* _renderer = nullptr;
+	vector<int> _var;
 
 	//Metodos
 	void createTextures();
+	void createFonts();
 
 	void pushState(GameState* state);
 	void changeState(GameState* state);
 	void popState();
 
-	inline GameState* getCurrentState() const { return stateMachine->currentState(); }
+	inline GameState* getCurrentState() const { return _stateMachine->currentState(); }
 	Texture* getTexture(string nameText);
 	Font* getFont(string nameFont);
 
-	inline SDL_Renderer* getRenderer() const { return renderer; }
-	inline SDL_Window* getWindow() const { return window; }
+	inline SDL_Renderer* getRenderer() const { return _renderer; }
+	inline SDL_Window* getWindow() const { return _window; }
 	inline b2World* getWorld() const { return _world; }
-	inline void setExit(bool quit) { exit = quit; }
+	inline void setExit(bool quit) { _exit = quit; }
 	void toggleFullscreen();
 
 	Game();
 	~Game();
 	void run();
-	void update(Uint32 time);
-	void render(Uint32 time) const;
-	void handleEvents(Uint32 time);
+	void update(double time);
+	void render() const;
+	void handleEvents();
 };

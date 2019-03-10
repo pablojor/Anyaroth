@@ -182,10 +182,10 @@ bool Player::handleInput(const SDL_Event& event)
 	return false;
 }
 
-void Player::update()
+void Player::update(double time)
 {
 	const Uint8* keyboard = SDL_GetKeyboardState(NULL);
-	GameComponent::update();
+	GameComponent::update(time);
 
 	checkMovement(keyboard);
 	refreshCooldowns(16.6);
@@ -364,7 +364,7 @@ bool Player::isJumping() const
 
 void Player::dash(const Vector2D& dir)
 {
-	double force = 1000;
+	double force = 400;
 	move(Vector2D(0, 0), 0);
 	_body->getBody()->ApplyLinearImpulse(b2Vec2(dir.getX() * force, dir.getY() * force * 1.5), _body->getBody()->GetWorldCenter(), true);
 	_numDash--;
@@ -386,7 +386,7 @@ void Player::dash(const Vector2D& dir)
 
 void Player::jump()
 {
-	double _jumpForce = 1000;
+	double _jumpForce = 300;
 	_body->getBody()->ApplyLinearImpulse(b2Vec2(0, -_jumpForce), _body->getBody()->GetWorldCenter(), true);
 	setGrounded(false);
 	_anim->playAnim(AnimatedSpriteComponent::BeforeJump);
@@ -400,34 +400,9 @@ void Player::melee()
 
 void Player::shoot()
 {
-	cout << "Disparo" << endl;
-
 	_playerArm->shoot();
 	_currentGun->shoot(_playerBulletPool, _playerArm->getPosition(), !_anim->isFlipped() ? _playerArm->getAngle() : _playerArm->getAngle() + 180, "Bullet");
 
-	cout << _transform->getPosition().getX() << " / " << _transform->getPosition().getY() << endl;
-
-	/*if (_currentGun != nullptr)
-	{
-	double armAngle = _transform->getRotation(), armX = _transform->getPosition().getX(), armY = _transform->getPosition().getY();
-
-	//----------Posicion inicial de la bala
-	int posOffsetX = 24, posOffsetY = -1;
-
-	Vector2D bulletPosition = { armX + (_anim->isFlipped() ? -posOffsetX : posOffsetX), armY + posOffsetY };
-	bulletPosition = bulletPosition.rotateAroundPoint(armAngle, { armX, armY });
-
-	//----------Direccion de la bala
-
-	//Distincion flip-unflip
-	int bulletDirOffset = 90;
-
-	double aimAuxY = _anim->isFlipped() ? 1 : -1;
-	Vector2D bulletDir = (Vector2D(0, aimAuxY).rotate(armAngle + bulletDirOffset));
-	bulletDir.normalize();
-
-	_currentGun->shoot(bulletPosition, bulletDir, _anim->isFlipped());
-	}*/
 	_playerPanel->updateAmmoViewer(_currentGun->getClip(), _currentGun->getMagazine());
 	if (!_currentGun->isAutomatic())
 		_isShooting = false;

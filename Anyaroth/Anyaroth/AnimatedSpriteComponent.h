@@ -13,7 +13,7 @@ struct AnimationState
 	uint numFrames;
 	bool loop;
 	bool animationFinished;
-	//uint lapse; //poner parametro si queremos regular la velocidad de cada animacion individualmente
+	double lapse;
 };
 
 class AnimatedSpriteComponent : public SpriteComponent, public PhysicsComponent
@@ -24,8 +24,7 @@ protected:
 	uint _currentAnim = 0;
 
 	uint _frame;
-	uint _lastTimeUpdated = 0;  //last time we update a frame
-	uint _lapse = 60; //the frequency of updating frames
+	double _timer;
 
 	bool _animationFinished = false;
 	bool _active = true;
@@ -41,9 +40,9 @@ public:
 	virtual ~AnimatedSpriteComponent() {}
 
 	virtual void render(Camera* c) const;
-	virtual void update();
+	virtual void update(double time);
 
-	void addAnim(uint name, uint numFrames, bool loop); //(.., lapse = 60) //poner parametro si queremos regular la velocidad de cada animacion individualmente
+	void addAnim(uint name, uint numFrames, bool loop);
 	void playAnim(uint name);
 
 	inline bool animationFinished() { return _animations[_currentAnim].animationFinished; }

@@ -9,5 +9,5 @@ private:
 
 public:
 	EnemyArm(Game* g, GameComponent* enemy, GameComponent* target, Vector2D offset = { 0,0 });
-	void update();
+	void update(double time);
 };

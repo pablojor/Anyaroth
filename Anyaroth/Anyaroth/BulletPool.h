@@ -6,11 +6,6 @@
 class BulletPool : public ObjectPool<Bullet, 100>
 {
 	private:
-		/*Texture* _bulletTexture = nullptr;
-		double _bulletSpeed = 0;
-		int _bulletDamage = 0;
-		int _bulletRange = 0;
-		double _bulletAngle = 0;*/
 
 		void initBullets();
 

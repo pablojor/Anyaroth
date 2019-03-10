@@ -17,9 +17,9 @@ MeleeEnemy::MeleeEnemy(Player* player, Game* g, PlayState* play,Texture* texture
 	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 }
 
-void MeleeEnemy::update()
+void MeleeEnemy::update(double time)
 {
-	Enemy::update();
+	Enemy::update(time);
 
 	BodyComponent* _playerBody = _player->getComponent<BodyComponent>();
 

@@ -9,7 +9,7 @@ MovingComponent::MovingComponent(GameComponent* obj) : PhysicsComponent(obj)
 	_body->getBody()->SetGravityScale(_gravScale);
 }
 
-void MovingComponent::update() 
+void MovingComponent::update(double time) 
 {
 	b2Vec2 pos = _body->getBody()->GetPosition();
 	double x = pos.x;

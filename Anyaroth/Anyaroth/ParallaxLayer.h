@@ -17,7 +17,7 @@ public:
 	~ParallaxLayer() {};
 
 	virtual void render() const;
-	virtual void update();
+	virtual void update(double time);
 
 	inline void setSpeed(float s) { _speed = s; }
 	inline float getSpeed() const { return _speed; }

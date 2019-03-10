@@ -24,9 +24,9 @@ public:
 			delete t;
 	};
 
-	//virtual void handleInput(const SDL_Event& event) = 0; //Ya están en GameObject
-	virtual void update();
+	virtual void update(double time);
 	virtual void render(Camera* c) const;
+	virtual void addBullet(Vector2D pos, Vector2D dir, double angle) {}
 
 	virtual void addObject(T* object) {	_objects.push_back(object); }
 
@@ -40,7 +40,7 @@ public:
 	}
 
 	//Coge el objeto _objects[i]
-	T* getObject(int i) 
+	T* getObject(int i)
 	{
 		return _objects[i];
 	}
@@ -48,13 +48,12 @@ public:
 	vector<T*> _objects;
 };
 
-
 template <typename T, int SIZE>
-void ObjectPool<T, SIZE>::update() 
+void ObjectPool<T, SIZE>::update(double time) 
 {
 	for (int i = 0; i < SIZE; i++)
 		if (_objects[i]->isActive()) 
-			_objects[i]->update();
+			_objects[i]->update(time);
 }
 
 template <typename T, int SIZE>

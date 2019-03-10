@@ -35,6 +35,6 @@ public:
 
 	inline GameComponent* getFollowedObject() const { return _followedObject; };
 
-	void update();
+	void update(double time);
 	void render() const;
 };

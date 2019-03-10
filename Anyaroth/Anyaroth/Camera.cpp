@@ -66,12 +66,12 @@ void Camera::looseFixedObject()
 		_followedObject = nullptr;
 }
 
-void Camera::update()
+void Camera::update(double time)
 {
 	moveCamera();
 	if (_backGround != nullptr)
 		if (_backGround->checkCameraStatus(_cameraStatus))
-			_backGround->update();
+			_backGround->update(time);
 }
 
 void Camera::render() const

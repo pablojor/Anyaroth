@@ -28,12 +28,12 @@ void GameState::render() const
 		_canvas->render();
 }
 
-void GameState::update()
+void GameState::update(double time)
 {
-	_mainCamera->update();
+	_mainCamera->update(time);
 
 	for (GameObject* o : _stages)
-		o->update(); // Carlos says: si no le pasáis un único delta, gatitos morirán.
+		o->update(time);
 
 	if (_canvas != nullptr)
 		_canvas->update();

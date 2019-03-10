@@ -18,9 +18,9 @@ Cursor::Cursor(Texture* texture, Game* g, PlayState* play) : GameComponent(g)
 	_anim->playAnim(AnimatedSpriteComponent::Idle);
 }
 
-void Cursor::update()
+void Cursor::update(double time)
 {
-	GameComponent::update();
+	GameComponent::update(time);
 
 	if(!_movingMouse)
 	{

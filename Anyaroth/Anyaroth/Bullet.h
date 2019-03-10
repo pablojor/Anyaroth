@@ -7,7 +7,7 @@
 class Bullet : public GameComponent
 {
 private:
-	int _range = 200; //rango del arma (en píxeles)
+	int _range = 200; //rango del arma (en pï¿½xeles)
 	int _aliveTime = 0; //tiempo que lleva vivo (usado en el rango)
 	double _speed = 0;
 	int _damage = 0;
@@ -32,8 +32,6 @@ public:
 	inline int getDamage() const { return _damage; }
 
 	void init(Texture* texture, const Vector2D& position, const double& speed, const double& damage, const double& angle, const double& range, const string& tag);
-
-	virtual void update();
-
+	virtual void update(double time);
 	void reset();
 };
