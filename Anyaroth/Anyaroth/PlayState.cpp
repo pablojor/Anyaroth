@@ -66,18 +66,23 @@ PlayState::PlayState(Game* g) : GameState(g)
 
 	for (int i = 0; i < enemiesPos.size(); i++)
 	{
-		_enemy = new DistanceStaticEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(enemiesPos[i].getX(), enemiesPos[i].getY() - TILES_SIZE * 2), "Enemy", BasicEnemyShotgun);
+		_enemy = new MeleeEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(enemiesPos[i].getX(), enemiesPos[i].getY() - TILES_SIZE * 2), "Enemy");
 		_stages.push_back(_enemy);
 		auto itFR = --(_stages.end());
 		_enemy->setItList(itFR);
 	}
 
-	//prueba martyr y melee
-	//_enemy = new MartyrEnemy(_player, g, this, g->getTexture("EnemyMartyr"), Vector2D(400, 300 - TILES_SIZE * 2), "Enemy");
-	_enemy = new MeleeEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(400, 300 - TILES_SIZE * 2), "Enemy");
-	_stages.push_back(_enemy);
-	auto itFR = --(_stages.end());
-	_enemy->setItList(itFR);
+	oL = new ObjectLayer(TILEMAP_PATH + "Nivel1.json", "Martires");
+	vector <Vector2D> marirsPos = oL->getObjectsPositions();
+	delete oL;
+
+	for (int i = 0; i < marirsPos.size(); i++)
+	{
+		_enemy = new MartyrEnemy(_player, g, this, g->getTexture("EnemyMartyr"), Vector2D(marirsPos[i].getX(), marirsPos[i].getY() - TILES_SIZE * 2), "Enemy");
+		_stages.push_back(_enemy);
+		auto itFR = --(_stages.end());
+		_enemy->setItList(itFR);
+	}
 
 
 	//Coins

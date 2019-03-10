@@ -201,16 +201,17 @@ void Player::update()
 {
 
 	GameComponent::update();
+	
+	if (_anim->animationFinished() && _controller->isAttacking())
+	{
+		endMelee();
+		_controller->setIsAttacking(false);
+	}
 
-	if (_anim->animationFinished() && _currentState != Player::Falling && _currentState != Player::Jumping)
+	else if (_anim->animationFinished() && _currentState != Player::Falling && _currentState != Player::Jumping)
 	{
 		if (_controller->currXDir() == 0)
 		{
-			if (_controller->isAttacking())
-			{
-				endMelee();
-				_controller->setIsAttacking(false);
-			}
 			_anim->playAnim(AnimatedSpriteComponent::Idle);
 			_controller->setIsReloading(false);
 
