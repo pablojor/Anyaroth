@@ -97,6 +97,13 @@ void BodyComponent::setH(double h)
 	_body->CreateFixture(&_fixture);
 }
 
+void BodyComponent::moveShape(const b2Vec2 & Center)
+{
+	_body->DestroyFixture(_body->GetFixtureList());
+	_shape.SetAsBox(_width, _height,Center,0);
+	_body->CreateFixture(&_fixture);
+}
+
 void BodyComponent::addCricleShape(const b2Vec2 & Center, float radius, uint16 ownCategory, uint16 collidesWith)
 {
 	b2CircleShape* circulo = new b2CircleShape();
