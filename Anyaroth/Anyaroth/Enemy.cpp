@@ -15,13 +15,16 @@ Enemy::Enemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2
 	_transform = addComponent<TransformComponent>();
 	_transform->setPosition(posIni.getX(), posIni.getY());
 
+
 	_body = addComponent<BodyComponent>();
 	_body->getBody()->SetType(b2_dynamicBody);
 	_body->getBody()->SetBullet(true);
-	_body->getBody()->SetFixedRotation(true);
+	
 	_body->setW(20);
-	_body->setH(40);
-	_body->filterCollisions(ENEMIES, FLOOR | PLAYER_BULLETS);
+	_body->setH(20);
+	_body->filterCollisions(ENEMIES, FLOOR | PLAYER_BULLETS | MELEE);
+	
+	_body->getBody()->SetFixedRotation(true);
 
 	_anim = addComponent<AnimatedSpriteComponent>();
 	_hurt = addComponent<HurtRenderComponent>();
@@ -53,7 +56,8 @@ void Enemy::update(double time)
 
 void Enemy::die()
 {
-	_play->KillObject(_itList);
+	//_play->KillObject(_itList);
+	_body->filterCollisions(DEAD_ENEMIES, FLOOR);
 }
 
 void Enemy::subLife(int damage)
@@ -65,9 +69,16 @@ void Enemy::subLife(int damage)
 		{
 			die();
 			_hurt->die();
+			_anim->playAnim(AnimatedSpriteComponent::EnemyDie);
+
 			_dead = true;
 		}
 		else
 			_hurt->hurt();
 	}
+}
+
+bool Enemy::inCamera()
+{
+	return _play->getMainCamera()->inCamera(Vector2D(_body->getBody()->GetPosition().x * 8, _body->getBody()->GetPosition().y * 8));
 }

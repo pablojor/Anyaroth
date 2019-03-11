@@ -41,10 +41,8 @@ void PlayerArm::reload()
 	//Activar animacion aqui
 	if (_player->getCurrentGun()->canReload())
 		//Animacion de los brazon recargando (FALTA!!!)
-		cout << "Animacion de recarga de los brazos sueltos realizada" << endl;
 		//_anim->playAnim(AnimatedSpriteComponent::Reload);
 }
-
 
 void PlayerArm::handleFlipState(const Vector2D& target)
 {

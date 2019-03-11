@@ -1,23 +1,23 @@
 #include "DistanceEnemy.h"
 #include "Game.h"
 
-DistanceEnemy::DistanceEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag) : Enemy(player, g, play, texture, posIni, tag)
+DistanceEnemy::DistanceEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag, GunType type) : Enemy(player, g, play, texture, posIni, tag)
 {
 	_arm = new EnemyArm(g, this, player, { 35,30 });
 	_arm->setTexture(g->getTexture("ArmPistol"));
 	addChild(_arm);
 
-	//ShooterInterface* sh = getGame()->gameGuns[BasicEnemyGun].shooter;
-	//GunType type = GunType(getGame()->gameGuns[BasicEnemyGun].type);
+	// ShooterInterface* sh = getGame()->gameGuns[type].shooter;
+	// int mA = getGame()->gameGuns[type].maxAmmo;
+	// int mC = getGame()->gameGuns[type].maxClip;
+	// double c = getGame()->gameGuns[type].cadence;
+	
+	//_arm->setGun(new Gun(_arm, sh, bp, type, mA, mC, c));
+}
 
-	//int mA = getGame()->gameGuns[BasicEnemyGun].maxAmmo;
-	//int mC = getGame()->gameGuns[BasicEnemyGun].maxClip;
-
-	// TEMPORAL
-	/*PoolWrapper* bp = _play->getBulletPool(type);
-	bp->changePoolTag("EnemyBullet");*/
-
-	//_arm->setGun(new Gun(_arm, sh, bp, type, mA, mC));
+DistanceEnemy::~DistanceEnemy()
+{
+	delete _arm->getCurrentGun();
 }
 
 void DistanceEnemy::RayCast()

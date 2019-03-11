@@ -32,12 +32,23 @@ void DebugDraw::DrawSolidPolygon(const b2Vec2* vertices, int32 vertexCount, cons
 
 void DebugDraw::DrawCircle(const b2Vec2& center, float32 radius, const b2Color& color)
 {
-	bool a;
+	SDL_Rect poly;
+	poly.x=(center.x-radius)*M_TO_PIXEL - _camera->getCameraPosition().getX();
+	poly.y = (center.y - radius)*M_TO_PIXEL - _camera->getCameraPosition().getY();
+	poly.h = abs(radius*2)*M_TO_PIXEL;
+	poly.w = abs(radius*2)*M_TO_PIXEL;
+	_texture->render(poly);
+	//bool a;
 }
 
 void DebugDraw::DrawSolidCircle(const b2Vec2& center, float32 radius, const b2Vec2& axis, const b2Color& color)
 {
-	bool a;
+	SDL_Rect poly;
+	poly.x = (center.x - radius)*M_TO_PIXEL - _camera->getCameraPosition().getX();
+	poly.y = (center.y - radius)*M_TO_PIXEL - _camera->getCameraPosition().getY();
+	poly.h = abs(radius * 2)*M_TO_PIXEL;
+	poly.w = abs(radius * 2)*M_TO_PIXEL;
+	_texture->render(poly);
 }
 
 void DebugDraw::DrawSegment(const b2Vec2& p1, const b2Vec2& p2, const b2Color& color)

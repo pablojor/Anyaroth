@@ -7,7 +7,7 @@
 class Bullet : public GameComponent
 {
 private:
-	int _range = 200; //rango del arma (en p�xeles)
+	int _range = 200; //rango del arma (en pixeles)
 	int _aliveTime = 0; //tiempo que lleva vivo (usado en el rango)
 	double _speed = 0;
 	int _damage = 0;

@@ -9,12 +9,9 @@
 #include "PlayState.h"
 #include "PauseState.h"
 #include "Gun.h"
-#include "ShooterInterface.h"
-#include "Shooter.h"
-#include "ShotgunShooter.h"
 #include "GunType_def.h"
 
-//Resolución interna del juego
+// Resolución interna del juego
 const int GAME_RESOLUTION_X = 480;
 const int GAME_RESOLUTION_Y = 270;
 
@@ -34,14 +31,22 @@ const int TILES_SIZE = 16;
 const double M_TO_PIXEL = 8;
 const double BUTTON_SCALE = 0.25;
 
-//Tags
-enum _Category 
+struct MeleeAttributes
+{
+	MeleeType type;
+	int damage;
+};
+
+enum _Category
 {
 	FLOOR = 1,
 	ENEMIES = 2,
 	PLAYER = 4,
 	OBJECTS = 8,
-	PLAYER_BULLETS = 16,
+	ENEMY_BULLETS = 16,
+	PLAYER_BULLETS = 32,
+	DEAD_ENEMIES = 64,
+	MELEE = 128,
 };
 
 class Game
@@ -60,10 +65,18 @@ public:
 	SDL_Renderer* _renderer = nullptr;
 	vector<int> _var;
 
+	vector<MeleeAttributes> MeleeWeapons =
+	{
+		{Knife,10},
+		{Axe,50},
+		{Lightsaber,20},
+		{Chainsaw,30}
+	};
+
 	//Metodos
 	void createTextures();
 	void createFonts();
-
+	
 	void pushState(GameState* state);
 	void changeState(GameState* state);
 	void popState();

@@ -1,16 +1,17 @@
 #pragma once
-//
-//class BasicPistol : public Gun
-//{
-//
-//};
-//
-//class BasicShotGun : public Gun
-//{
-//
-//};
-//
-//class BasicEnemyGun : public Gun
-//{
-//
-//};
+
+enum GunType
+{
+	BasicGun,
+	BasicShotgun,
+	BasicEnemyGun,
+	BasicEnemyShotgun
+};
+
+enum MeleeType 
+{ 
+	Knife, 
+	Axe, 
+	Lightsaber, 
+	Chainsaw 
+};

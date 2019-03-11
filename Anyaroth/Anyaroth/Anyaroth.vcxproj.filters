@@ -210,6 +210,21 @@
     <ClInclude Include="Game.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="Coin.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Collectable.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
     <ClInclude Include="BulletPool.h">
       <Filter>Archivos de encabezado\Pools</Filter>
     </ClInclude>
@@ -518,29 +533,8 @@
     <Filter Include="Archivos de encabezado\Objects\Enemies">
       <UniqueIdentifier>{d3fbcbda-55fa-4731-a5a3-582440a69253}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de código\Objects\Collectables">
-      <UniqueIdentifier>{0700e80f-a1e0-40f5-b108-87ad35e6a94b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de código\Objects\Arms">
-      <UniqueIdentifier>{24a78bbf-dabd-4f68-8cff-010076cbf2b3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de código\Objects\Player">
-      <UniqueIdentifier>{2b3975b0-fb7f-413b-a2d9-7c1fc4f0b797}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de código\Objects\Map">
-      <UniqueIdentifier>{e43c52f9-2f5c-403d-ae48-e0b0d3cc6e98}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Objects\Collectables">
-      <UniqueIdentifier>{87374515-8419-4d63-a5ee-eacaae0e3bb4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Objects\Arms">
-      <UniqueIdentifier>{c9d5b099-aac4-490c-a2ad-5e89dc661c14}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Objects\Player">
-      <UniqueIdentifier>{7425c257-6f8a-411f-8d2f-b6b9b2ca6332}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Objects\Map">
-      <UniqueIdentifier>{2fab9afa-aee8-4a0c-b3c4-e75540abff52}</UniqueIdentifier>
+    <Filter Include="Archivos de código\Objects\Arm">
+      <UniqueIdentifier>{84d75d37-85b1-4338-a33a-5894ea4e4ff5}</UniqueIdentifier>
     </Filter>
     <Filter Include="Archivos de código\Pools">
       <UniqueIdentifier>{bdbd79a4-1a96-476c-95bc-807bff9b1b38}</UniqueIdentifier>

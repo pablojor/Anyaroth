@@ -4,7 +4,6 @@
 #include "BasicPistol.h"
 #include "BasicShotgun.h"
 
-
 Player::Player(Game* game, int xPos, int yPos) :  GameComponent(game, "Player")
 {
 	addComponent<Texture>(game->getTexture("Mk"));
@@ -18,8 +17,8 @@ Player::Player(Game* game, int xPos, int yPos) :  GameComponent(game, "Player")
 
 	_body->setW(12);
 	_body->setH(26);
-
-	_body->filterCollisions(PLAYER, OBJECTS | FLOOR /*| ENEMY_BULLETS*/);
+	
+	_body->filterCollisions(PLAYER, OBJECTS | FLOOR  | ENEMY_BULLETS);
 	_body->addCricleShape(b2Vec2(0, 1.1), 0.7, PLAYER, FLOOR);
 	_body->getBody()->SetFixedRotation(true);
 
@@ -66,6 +65,10 @@ Player::Player(Game* game, int xPos, int yPos) :  GameComponent(game, "Player")
 
 	//Monedero
 	_money = new Money();
+
+	//Melee
+	_melee = new MeleeWeapon(g);
+	addChild(_melee);
 }
 
 Player::~Player()
@@ -141,7 +144,6 @@ void Player::subLife(int damage)
 
 void Player::die()
 {
-	cout << "Has Muerto" << endl;
 	//getGame()->changeState(Play);
 }
 
@@ -418,4 +420,44 @@ bool Player::canReload()
 
 	_isReloading = false;
 	return false;
+}
+
+void Player::meleeAttack()
+{
+	int dir;
+	(_anim->isFlipped()) ? dir = -1 : dir = 1;
+
+	double playerX = _body->getBody()->GetPosition().x * M_TO_PIXEL, playerY = _body->getBody()->GetPosition().y *M_TO_PIXEL,
+		w = _body->getW()*M_TO_PIXEL, h = _body->getH()* M_TO_PIXEL, x, y;
+		
+	MeleeAttributes meleeWeapon = getGame()->MeleeWeapons[_equippedMelee];
+
+	switch (meleeWeapon.type)
+	{
+	case(Knife):
+	case(Chainsaw):
+		x = playerX + (2 * w * dir);
+		y = playerY;
+		w *= 2;
+		h /= 2;
+		break;
+	case(Lightsaber):
+	case(Axe):
+		x = playerX + w * dir;
+		y = playerY - h * 2;
+		w *= 2;
+		h /= 2;
+		break;
+	}
+	_melee->MeleeAttack(x, y, w, h, meleeWeapon.damage, Vector2D(playerX, playerY), dir, meleeWeapon.type);
+}
+
+void Player::changeMelee(int meleeType)
+{
+	_equippedMelee = getGame()->MeleeWeapons[meleeType].type;
+}
+
+void Player::endMelee()
+{
+	_melee->endMelee();
 }

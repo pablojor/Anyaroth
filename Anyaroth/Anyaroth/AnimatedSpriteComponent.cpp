@@ -53,7 +53,7 @@ void AnimatedSpriteComponent::playAnim(uint name)
 	}
 }
 
-void AnimatedSpriteComponent::addAnim(uint name, uint numFrames, bool loop)
+void AnimatedSpriteComponent::addAnim(uint name, uint numFrames, bool loop, uint lapse)
 {
 	double lapse = FRAME_RATE * numFrames;
 	_animations.push_back({ name, numFrames, loop, false, lapse });

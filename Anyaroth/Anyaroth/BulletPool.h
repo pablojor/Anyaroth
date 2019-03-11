@@ -2,11 +2,9 @@
 #include "ObjectPool.h"
 #include "Bullet.h"
 
-
 class BulletPool : public ObjectPool<Bullet, 100>
 {
 	private:
-
 		void initBullets();
 
 	public:

@@ -19,6 +19,7 @@ void Gun::shoot(BulletPool* bulletPool, const Vector2D& position, const double& 
 	{	
 		_clip--;
 		_cadence = _maxCadence;
+
 		//Disparar la bala aqui
 		Bullet* b = bulletPool->getUnusedObject();
 		Vector2D bulletPos = prepareBulletPosition(position, angle);
@@ -49,7 +50,6 @@ void Gun::reload()
 }
 
 // Suma ammoAdded a la municion y la coloca en _ammo y _clip segun corresponda
-// USAR ESTE METODO AL RECOGER MUNICION
 void Gun::addAmmo(int ammoAdded)
 {
 	if (_magazine + ammoAdded > _maxMagazine) //Si sobran balas en _ammo
@@ -65,7 +65,6 @@ void Gun::addAmmo(int ammoAdded)
 		_magazine += ammoAdded;
 }
 
-
 //Pone al maximo la municion tanto en _ammo como en el cargador _clip
 void Gun::resetAmmo()
 {
@@ -77,4 +76,3 @@ Vector2D Gun::prepareBulletPosition(const Vector2D & position, const double & an
 {
 	return (position + _offset).rotateAroundPoint(angle, position);
 }
-

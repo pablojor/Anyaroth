@@ -4,8 +4,6 @@
 #include <iostream>
 #include "PlayerArm.h"
 
-//#define PI 3.14159265
-
 ArmControllerComponent::ArmControllerComponent(GameComponent* obj) : InputComponent(obj)
 {
 	_transform = obj->getComponent<TransformComponent>();
@@ -18,7 +16,6 @@ ArmControllerComponent::ArmControllerComponent(GameComponent* obj) : InputCompon
 
 void ArmControllerComponent::handleInput(const SDL_Event& event)
 {
-	//------------Flip del brazo---------------------
 	if (!_anim->isFlipped() && _cursorTC->getPosition().getX() < _transform->getPosition().getX())
 	{
 		_anim->flip();
@@ -34,26 +31,30 @@ void ArmControllerComponent::handleInput(const SDL_Event& event)
 		_followC->setOffset({ _followC->getInitialOffset().getX(), _followC->getInitialOffset().getY() });
 	}
 
-	if (event.type == SDL_MOUSEBUTTONDOWN)
+		if (event.type == SDL_MOUSEBUTTONDOWN)
+			_flipShot = true;
+	}
+	else if(event.type == SDL_MOUSEBUTTONDOWN)
 	{
 		if (event.button.button == SDL_BUTTON_LEFT)
 		{
 			_leftClickPul = true;
 		}
 	}
-
+	
 	if (event.type == SDL_MOUSEBUTTONUP)
 	{
 		if (event.button.button == SDL_BUTTON_LEFT)
 		{
 			_leftClickPul = false;
 			_canShoot = true;
+			_shootInput = false;
 		}
 	}
 
 	if (_leftClickPul && _canShoot)
 	{
-		_obj->shoot();   //llamo a funcion de disparar
+		_obj->shoot();
 		_canShoot = false;
 	}
 }

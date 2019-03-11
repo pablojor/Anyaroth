@@ -34,6 +34,7 @@ protected:
 public:
 	Enemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag);
 	virtual ~Enemy() {}
+	bool inCamera();
 
 	virtual void beginCollision(GameComponent* other, b2Contact* contact);
 

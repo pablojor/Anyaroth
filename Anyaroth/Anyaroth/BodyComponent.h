@@ -16,6 +16,7 @@ private:
 
 public:
 	BodyComponent(GameComponent* obj);
+	BodyComponent(GameComponent* obj, double x, double y, double h, double w);
 	virtual ~BodyComponent();
 
 	virtual void update(double time);

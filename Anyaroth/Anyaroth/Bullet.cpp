@@ -25,9 +25,9 @@ Bullet::Bullet(Game* game) : GameComponent(game)
 
 void Bullet::beginCollision(GameComponent * other, b2Contact* contact)
 {
-	if(getTag() == "Bullet" && other->getTag() != "EnemyBullet" && other->getTag() != "Player" && other->getTag() != "Bullet")
+	if(getTag() == "Bullet" && (other->getTag() == "Suelo" || other->getTag() == "Enemy"))
 		_collided = true;
-	else if (getTag() == "EnemyBullet" && other->getTag() != "Bullet" && other->getTag() != "Enemy" && other->getTag() != "EnemyBullet")
+	else if (getTag() == "EnemyBullet" && (other->getTag() == "Suelo" || other->getTag() == "Player"))
 		_collided = true;
 
 	contact->SetEnabled(false);
@@ -64,23 +64,9 @@ void Bullet::update(double time)
 
 	if (dist < _range && !_collided)
 	{
-		GameComponent::update(time); //<- DESCOMENTAR PARA PROBAR CON FISICAS
+		GameComponent::update(time);
 
 		_body->getBody()->SetLinearVelocity(b2Vec2(_speed * cos(_transform->getRotation() * M_PI / 180.0), _speed * sin(_transform->getRotation() * M_PI / 180.0)));
-
-		// Actualiza la posicion
-		//_trans->setPosition(_trans->getPosition() + _velocity);  //<- DESCOMENTAR PARA PROBAR SIN FISICAS
-
-		// Desactiva la bala al salir de la pantalla (por hacer)
-
-		/*
-		if (position_.getX() + width_ <= 0
-			|| position_.getX() >= getGame()->getWindowWidth()
-			|| position_.getY() + height_ <= 0
-			|| position_.getY() >= getGame()->getWindowHeight()) {
-			toggleActive();
-		}
-		*/
 		_aliveTime++;
 	}
 	else

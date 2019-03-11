@@ -26,10 +26,12 @@ public:
 	void changeJump();
 	void ableJump();
 
-	inline bool IsSpaceDown() const {return _spacePul;}
-	inline bool currYDir() const { return _spacePul; }
-	inline bool currXDir() const { if (_aPul) return -1; else if (_dPul) return 1; else return 0; }
-	inline bool isAttacking() const { return _isAttacking; }
+	
+
+	inline bool IsSpaceDown() {return _spacePul;}
+	inline int currYDir() { return  _movement->getDirY(); }
+	inline int currXDir() { return  _movement->getDirX(); };
+	inline bool isAttacking() { return _isAttacking; }
 	inline void setIsAttacking(bool b) { _isAttacking = b; }
 	inline void newDash() { _amountOfDash++; }
 	inline int amountDash() const { return _amountOfDash; }

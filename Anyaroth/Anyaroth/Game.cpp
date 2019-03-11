@@ -1,26 +1,28 @@
 #include "Game.h"
 #include "AnyarothError.h"
+#include <json.hpp>
 
 void Game::createTextures()
 {
 	ifstream input;
-	input.open(INFO_PATH + "textures.txt");
+	input.open(INFO_PATH + "textures.json");
 	if (input.is_open())
 	{
-		bool end = false;
-		while(!end)
+		nlohmann::json j;
+		input >> j;
+		j = j["textures"];
+		int numTextures = j.size();
+		for (int i = 0; i < numTextures; i++)
 		{
-			string id; input >> id;
-			if (id != "")
-			{
-				string name; input >> name;
-				int fil; input >> fil;
-				int col; input >> col;
-				_textures.insert(pair <string, Texture*>(id, new Texture(_renderer, SPRITE_PATH + name, fil, col)));
-				_texturesName.push_back(id);
-			}
-			else
-				end = true;
+			string id, name;
+			int fil, col;
+			id = j[i][0].get<string>();
+			name = j[i][1].get<string>();
+			fil = j[i][2];
+			col = j[i][3];
+
+			textures.insert(pair <string, Texture*>(id, new Texture(renderer, SPRITE_PATH + name, fil, col)));
+			texturesName.push_back(id);
 		}
 	}
 	else
@@ -48,7 +50,6 @@ void Game::createFonts()
 			}
 			else
 				end = true;
-		}
 	}
 	else
 		throw AnyarothError("No se ha encontrado el archivo");

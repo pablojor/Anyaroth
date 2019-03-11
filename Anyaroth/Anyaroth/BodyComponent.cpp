@@ -42,6 +42,29 @@ BodyComponent::BodyComponent(GameComponent * obj) : PhysicsComponent(obj)
 	_body->SetUserData(obj);
 }
 
+BodyComponent::BodyComponent(GameComponent * obj, double x, double y, double h, double w) : PhysicsComponent(obj)
+{
+	_world = obj->getWorld();
+
+	b2BodyDef _bodydef;
+	_bodydef.type = b2_dynamicBody;
+	_bodydef.position = b2Vec2(x/ M_TO_PIXEL, y / M_TO_PIXEL);
+	_bodydef.angle = 0.0;
+	_body = _world->CreateBody(&_bodydef);
+
+	_shape.SetAsBox(w / M_TO_PIXEL, h / M_TO_PIXEL);
+	_fixture.shape = &_shape;
+	_fixture.density = 1;
+	_fixture.restitution = 0;
+	_fixture.friction = 0.001;
+
+
+
+	_body->CreateFixture(&_fixture);
+	_body->SetUserData(obj);
+	_body->SetFixedRotation(true);
+}
+
 BodyComponent::~BodyComponent()
 {
 	if (_body != nullptr)
@@ -99,13 +122,18 @@ void BodyComponent::filterCollisions(uint16 ownCategory, uint16 collidesWith, in
 {
 	auto fixture = _body->GetFixtureList();
 
-	b2Filter filter = fixture->GetFilterData();
+	while (fixture != nullptr)
+	{
+		b2Filter filter = fixture->GetFilterData();
 
-	filter.categoryBits = ownCategory;
-	filter.maskBits = collidesWith;
-	filter.groupIndex = groupIndex;
+		filter.categoryBits = ownCategory;
+		filter.maskBits = collidesWith;
+		filter.groupIndex = groupIndex;
 
-	fixture->SetFilterData(filter);
+		fixture->SetFilterData(filter);
+
+		fixture = fixture->GetNext();
+	}
 }
 
 void BodyComponent::addFixture(b2FixtureDef* fixture, void* data)

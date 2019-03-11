@@ -74,13 +74,15 @@ void PlayerControllerComponent::handleInput(const SDL_Event& event)
 
 	_dashing = _movement->isDashing();
 
-	if (_rightClickPul && !_dashing)
+	if (_rightClickPul && !_dashing && !_isAttacking && !_jumping)
 	{
+		Player* player = static_cast<Player*>(_obj);
 		_movement->changeDir(0, 0);
 		_isAttacking = true;
-		//llamo a funcion de melee
-		static_cast<Player*>(_obj)->setCurrentState(Player::Attacking);
-		_anim->playAnim(AnimatedSpriteComponent::MeleeKnife); //llamo animacion del melee dependiendo del arma cuerpo a cuerpo
+		//llamo a funci�n de melee
+		player->meleeAttack();
+		player->setCurrentState(Player::Attacking);
+		_anim->playAnim(AnimatedSpriteComponent::MeleeKnife);//llamo animacion del melee dependiendo del arma cuerpo a cuerpo
 	}
 
 	if ((_aPul &&_dPul) && !_isAttacking && !_dashing && !_isReloading)

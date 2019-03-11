@@ -11,6 +11,7 @@
 #include "BulletPool.h"
 #include "Coin.h"
 #include "Cursor.h"
+#include "GunType_def.h"
 
 class PlayState : public GameState
 {
@@ -24,12 +25,10 @@ private:
 	CollisionManager _colManager;
 	DebugDraw _debugger;
 
-	//PoolWrapper* _enemyPool = nullptr; //TEMPORAL
+	//PoolWrapper* _enemyPool = nullptr;
 
 	//Bullet Pools
 	BulletPool* _playerBulletPool = nullptr; //Balas del jugador
-	//PoolWrapper* _basicShotgunBulletPool = nullptr; //balas de escopeta
-	//vector<PoolWrapper*> _pools;
 
 	vector <list<GameObject*>::iterator> items_ToDelete;
 
@@ -41,6 +40,5 @@ public:
 	virtual bool handleEvents(SDL_Event& e);
 
 	void KillObject(const list<GameObject*>::iterator &itList);
-	//inline PoolWrapper* getBulletPool(int index) const { return _pools[index]; }
 	inline Cursor* getCursor() const { return _cursor; }
 };

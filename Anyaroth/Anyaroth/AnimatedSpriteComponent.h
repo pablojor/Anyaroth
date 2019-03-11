@@ -32,7 +32,7 @@ protected:
 public:
 	enum Player { Idle, Walk, WalkBack, MeleeKnife, ReloadPistol, BeforeJump, Jump, StartFalling, Falling, Hurt, Dash, DashDown, DashBack, ReloadShotgun };
 	enum Gun { None, Shoot, NoAmmo };
-	enum Enemy { EnemyIdle, EnemyWalk, EnemyAttack };
+	enum Enemy { EnemyIdle, EnemyWalk, EnemyAttack, EnemyDie };
 	enum Coin { Main };
 	enum Bullet { Default };
 

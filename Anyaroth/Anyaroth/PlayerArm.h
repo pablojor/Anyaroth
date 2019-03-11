@@ -7,7 +7,6 @@ class PlayerArm : public Arm
 {
 private:
 	Player* _player = nullptr;
-
 	void handleFlipState(const Vector2D& target);
 
 public:
