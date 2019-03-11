@@ -1,6 +1,7 @@
 #include "MeleeBox.h"
 #include "Enemy.h"
 #include "Game.h"
+#include <math.h>
 
 MeleeBox::MeleeBox(Game* g, double x, double y, double w, double h, double damage, Vector2D center, int dir,int type) : _damage(damage), _center(center), _type(type), _dir(dir), GameComponent(g, "Melee")
 {
@@ -24,8 +25,8 @@ void MeleeBox::update()
 	case(Lightsaber):
 	case(Axe):
 		double x, y;
-		x = _center.getX() + _r*cos(_angle *PI / 180);
-		y = _center.getY() + _r*sin(_angle * PI / 180);
+		x = _center.getX() + _r*cos(_angle *M_PI / 180);
+		y = _center.getY() + _r*sin(_angle * M_PI / 180);
 		_body->getBody()->SetTransform(b2Vec2(x/M_TO_PIXEL, y/M_TO_PIXEL), 0);
 		break;
 	}

@@ -11,6 +11,7 @@
 #include "PlayerPanel.h"
 #include "BulletPool.h"
 #include "MeleeWeapon.h"
+#include "GunType_def.h"
 
 class Player : public GameComponent
 {

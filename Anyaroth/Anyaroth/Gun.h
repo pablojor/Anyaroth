@@ -13,7 +13,7 @@ protected:
 
 	Vector2D _offset = { 0, 0 };
 
-	Texture* _armTexture = nullptr, _bulletTexture = nullptr;
+	Texture* _armTexture = nullptr, *_bulletTexture = nullptr;
 
 public:
 	Gun(Texture* armTexture, Texture* bulletTexture, double speed, double damage, double range, int maxClip, int maxMagazine);

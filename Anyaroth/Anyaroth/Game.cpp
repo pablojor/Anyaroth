@@ -21,8 +21,8 @@ void Game::createTextures()
 			fil = j[i][2];
 			col = j[i][3];
 
-			textures.insert(pair <string, Texture*>(id, new Texture(renderer, SPRITE_PATH + name, fil, col)));
-			texturesName.push_back(id);
+			_textures.insert(pair <string, Texture*>(id, new Texture(_renderer, SPRITE_PATH + name, fil, col)));
+			_texturesName.push_back(id);
 		}
 	}
 	else
@@ -50,6 +50,7 @@ void Game::createFonts()
 			}
 			else
 				end = true;
+		}
 	}
 	else
 		throw AnyarothError("No se ha encontrado el archivo");

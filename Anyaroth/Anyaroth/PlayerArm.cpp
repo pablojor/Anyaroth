@@ -39,7 +39,7 @@ void PlayerArm::shoot()
 void PlayerArm::reload()
 {
 	//Activar animacion aqui
-	if (_player->getCurrentGun()->canReload())
+	//if (_player->getCurrentGun()->canReload())
 		//Animacion de los brazon recargando (FALTA!!!)
 		//_anim->playAnim(AnimatedSpriteComponent::Reload);
 }

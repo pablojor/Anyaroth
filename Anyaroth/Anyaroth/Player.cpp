@@ -67,7 +67,7 @@ Player::Player(Game* game, int xPos, int yPos) :  GameComponent(game, "Player")
 	_money = new Money();
 
 	//Melee
-	_melee = new MeleeWeapon(g);
+	_melee = new MeleeWeapon(game);
 	addChild(_melee);
 }
 

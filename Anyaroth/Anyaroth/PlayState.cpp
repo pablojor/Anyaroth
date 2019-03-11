@@ -17,9 +17,6 @@ PlayState::PlayState(Game* g) : GameState(g)
 	//hide cursor
 	//SDL_ShowCursor(false);
 
-	//TEMPORAL
-	_selectedGuns = { BasicGun, BasicShotgun };
-
 	//Tilemap
 	_layer = new Layer("Mapa", g->getTexture("tileset"), TILEMAP_PATH + "Nivel1.json", g, "Mapa");
 	_stages.push_back(_layer);
