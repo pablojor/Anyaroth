@@ -4,14 +4,14 @@
 #include "AnimatedSpriteComponent.h"
 #include "Gun.h"
 
-EnemyArm::EnemyArm(Texture* texture, GameComponent* enemy, GameComponent* target, Game* g, PlayState* play, Vector2D offset) : Arm(texture, enemy, g, play, offset), _target(target)
+EnemyArm::EnemyArm(Game* g, GameComponent* enemy, GameComponent* target, Vector2D offset) : Arm(g, enemy, offset), _target(target)
 {
 	_targetBody = _target->getComponent<BodyComponent>()->getBody();
 }
 
-void EnemyArm::update()
+void EnemyArm::update(double time)
 {
-	GameComponent::update();
+	GameComponent::update(time);
 
 	if (dynamic_cast<DistanceEnemy*>(_owner)->ArmVision())
 	{
@@ -22,7 +22,7 @@ void EnemyArm::update()
 
 			_followC->setOffset({ _followC->getInitialOffset().getX(), _followC->getInitialOffset().getY() });
 
-			rotate(Vector2D(_targetBody->GetPosition().x * 8, _targetBody->GetPosition().y * 8));
+			lookAtTarget(Vector2D(_targetBody->GetPosition().x * 8, _targetBody->GetPosition().y * 8));
 		}
 		else
 		{
@@ -31,7 +31,7 @@ void EnemyArm::update()
 
 			_followC->setOffset({ _followC->getInitialOffset().getX() + 8, _followC->getInitialOffset().getY() });
 
-			rotate(Vector2D(_targetBody->GetPosition().x * 8, _targetBody->GetPosition().y * 8));
+			lookAtTarget(Vector2D(_targetBody->GetPosition().x * 8, _targetBody->GetPosition().y * 8));
 		}
 
 	}
@@ -49,5 +49,4 @@ void EnemyArm::update()
 
 		_followC->setOffset({ _followC->getInitialOffset().getX(), _followC->getInitialOffset().getY() });
 	}
-
 }

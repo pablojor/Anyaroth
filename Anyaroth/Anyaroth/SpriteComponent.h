@@ -7,19 +7,20 @@ class GameComponent;
 
 class SpriteComponent : public virtual RenderComponent
 {
-	protected:
-		Texture * _texture = nullptr;
-		TransformComponent* _transform = nullptr;
-		bool _flip = false;
+protected:
+	Texture* _texture = nullptr;
+	TransformComponent* _transform = nullptr;
+	bool _flip = false;
 
-	public:
-		SpriteComponent(GameComponent* obj);
-		~SpriteComponent() {}
-		virtual void render(Camera* c) const;
-		void flip();
-		void unFlip();
-		bool isFlipped() { return _flip; };
+public:
+	SpriteComponent(GameComponent* obj);
+	~SpriteComponent() {}
 
-		Texture* getTexture() { return _texture; };
-		void setTexture(Texture* texture) { _texture = texture; };
+	virtual void render(Camera* c) const;
+	void flip();
+	void unFlip();
+	inline bool isFlipped() { return _flip; };
+
+	inline Texture* getTexture() const { return _texture; };
+	inline void setTexture(Texture* texture) { _texture = texture; };
 };

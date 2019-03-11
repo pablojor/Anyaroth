@@ -3,9 +3,7 @@
 
 class DistanceDynamicEnemy : public DistanceEnemy
 {
-	public:
-		DistanceDynamicEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag, GunType type);
-
-		virtual void update();
+public:
+	DistanceDynamicEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag, GunType type);
+	virtual void update(double time);
 };
-

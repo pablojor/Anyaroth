@@ -1,17 +1,6 @@
 #include "ShotgunShooter.h"
 #include "TransformComponent.h"
 
-
-ShotgunShooter::ShotgunShooter(const vector<double> &bulletAngles) : _bulletAngles(bulletAngles)
-{
-}
-
-
-ShotgunShooter::~ShotgunShooter()
-{
-}
-
-
 void ShotgunShooter::shoot(Vector2D bulletPosition, Vector2D bulletDir, double angle)
 {
 	Vector2D auxBulletPos = bulletPosition;
@@ -22,12 +11,11 @@ void ShotgunShooter::shoot(Vector2D bulletPosition, Vector2D bulletDir, double a
 	{
 		bulletPosition = auxBulletPos.rotateAroundPoint(_bulletAngles[i], { auxBulletPos.getX(), auxBulletPos.getY() });
 
-		bulletDir = auxBulletDir.rotate(_bulletAngles[i]/*, { _shootingObject->getComponent<TransformComponent>()->getPosition().getX(), _shootingObject->getComponent<TransformComponent>()->getPosition().getY() }*/);
+		bulletDir = auxBulletDir.rotate(_bulletAngles[i]);
 		bulletDir.normalize();
 
 		angle = auxAngle + _bulletAngles[i];
 
 		_bPool->addBullet(bulletPosition, bulletDir, angle);
 	}
-
 }

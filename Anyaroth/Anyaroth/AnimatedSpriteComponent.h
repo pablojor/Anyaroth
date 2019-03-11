@@ -1,5 +1,4 @@
 #pragma once
-
 #include "SpriteComponent.h"
 #include "PhysicsComponent.h"
 #include <vector>
@@ -14,7 +13,7 @@ struct AnimationState
 	uint numFrames;
 	bool loop;
 	bool animationFinished;
-	uint lapse; //parametro si queremos regular la velocidad de cada animacion individualmente
+	double lapse;
 };
 
 class AnimatedSpriteComponent : public SpriteComponent, public PhysicsComponent
@@ -25,12 +24,11 @@ protected:
 	uint _currentAnim = 0;
 
 	uint _frame;
-	uint _lastTimeUpdated = 0;  // last time we update a frame
-	//uint _lapse = 60; 
+	double _timer;
 
 	bool _animationFinished = false;
-
 	bool _active = true;
+
 public:
 	enum Player { Idle, Walk, WalkBack, MeleeKnife, ReloadPistol, BeforeJump, Jump, StartFalling, Falling, Hurt, Dash, DashDown, DashBack, ReloadShotgun };
 	enum Gun { None, Shoot, NoAmmo };
@@ -38,19 +36,17 @@ public:
 	enum Coin { Main };
 	enum Bullet { Default };
 
-
-	AnimatedSpriteComponent(GameComponent* obj);
-	virtual ~AnimatedSpriteComponent();
+	AnimatedSpriteComponent(GameComponent* obj) : SpriteComponent(obj), PhysicsComponent(obj), RenderComponent(obj), Component() {}
+	virtual ~AnimatedSpriteComponent() {}
 
 	virtual void render(Camera* c) const;
-	virtual void update();
+	virtual void update(double time);
 
-	void addAnim(uint name, uint numFrames, bool loop, uint lapse = 60); // lapse = the frequency of updating frames
+	void addAnim(uint name, uint numFrames, bool loop);
 	void playAnim(uint name);
 
-	bool animationFinished() { return _animations[_currentAnim].animationFinished; };
-	uint getCurrentAnim() { return _currentAnim; };
+	inline bool animationFinished() { return _animations[_currentAnim].animationFinished; }
+	inline uint getCurrentAnim() const { return _currentAnim; }
 
-	void setActive(bool b) { _active = b; };
+	inline void setActive(bool b) { _active = b; }
 };
-

@@ -40,20 +40,16 @@ ObjectLayer::ObjectLayer(string filename, string name)
 					it = j[i].find("y");
 					if (it != j[i].end())
 						y = *it;
+
 					_objectsPos.push_back(Vector2D(x, y));
 				}
 			}
 			else
 				throw AnyarothError("No se ha encontrado la capa introducida");
+
 			file.close();
 		}
 		else
 			throw AnyarothError("No se ha encontrado el archivo introducido");
 	}
-}
-
-
-
-ObjectLayer::~ObjectLayer()
-{
 }

@@ -1,18 +1,7 @@
 #include "AnimatedSpriteComponent.h"
 #include "GameComponent.h"
 #include "Camera.h"
-
-
-AnimatedSpriteComponent::AnimatedSpriteComponent(GameComponent* obj) : SpriteComponent(obj), PhysicsComponent(obj), RenderComponent(obj), Component()
-{
-
-}
-
-
-AnimatedSpriteComponent::~AnimatedSpriteComponent()
-{
-
-}
+#include "Game.h"
 
 void AnimatedSpriteComponent::render(Camera* c) const
 {
@@ -30,29 +19,26 @@ void AnimatedSpriteComponent::render(Camera* c) const
 	}
 }
 
-void AnimatedSpriteComponent::update()
+void AnimatedSpriteComponent::update(double time)
 {
-	// we update the frame every _freq ms
-	if (SDL_GetTicks() - _lastTimeUpdated >= _animations[_currentAnim].lapse)
+	_timer += time;
+
+	if (_timer >= _animations[_currentAnim].lapse)
 	{
 		if (_animations[_currentAnim].loop)
-		{
 			_frame = (_frame + 1) % _animations[_currentAnim].numFrames;
-		}
+
 		else if (!_animations[_currentAnim].animationFinished)
 		{
 			_frame++;
 
 			if (_frame == _animations[_currentAnim].numFrames)
 			{
-				//cout << "animation finished!" << endl;
 				_animations[_currentAnim].animationFinished = true;
 				_frame = _animations[_currentAnim].numFrames - 1;
 			}
 		}
-
-
-		_lastTimeUpdated = SDL_GetTicks();//time;
+		_timer = 0;
 	}
 }
 
@@ -64,11 +50,11 @@ void AnimatedSpriteComponent::playAnim(uint name)
 	{
 		_currentAnim = name;
 		_frame = 0;
-		//cout << "animation changed to: " << _currentAnim << endl << endl;
 	}
 }
 
-void AnimatedSpriteComponent::addAnim(uint name, uint numFrames, bool loop, uint lapse)
+void AnimatedSpriteComponent::addAnim(uint name, uint numFrames, bool loop)
 {
+	double lapse = FRAME_RATE * numFrames;
 	_animations.push_back({ name, numFrames, loop, false, lapse });
 }

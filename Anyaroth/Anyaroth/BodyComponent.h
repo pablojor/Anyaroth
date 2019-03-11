@@ -2,32 +2,32 @@
 #include "PhysicsComponent.h"
 #include "TransformComponent.h"
 #include <Box2D/Box2D.h>
-
+#include <string>
 
 class BodyComponent : public PhysicsComponent
 {
 private:
-	b2World* _world;
+	b2World* _world = nullptr;
 	b2Body* _body = nullptr;
+	TransformComponent* _transform = nullptr;
 	b2FixtureDef _fixture;
-	TransformComponent* _transform;
-	double _textW, _textH, _aX, _aY, _width, _height;
 	b2PolygonShape _shape;
+	double _textW, _textH, _aX, _aY, _width, _height;
 
 public:
 	BodyComponent(GameComponent* obj);
 	BodyComponent(GameComponent* obj, double x, double y, double h, double w);
 	virtual ~BodyComponent();
 
-	virtual void update();
-	b2Body* getBody();
+	virtual void update(double time);
+	inline b2Body* getBody() const { return _body; }
 	void setW(double w);
 	void setH(double h);
 
-	double getW();
-	double getH();
+	inline double getW() const { return _width; }
+	inline double getH() const { return _height; }
 
-	void addCricleShape(const b2Vec2 & Center, float radius, uint16 ownCategory, uint16 collidesWith);
-
-	void filterCollisions(uint16 ownCategory, uint16 collidesWith, int groupIndex=0);
+	void addCricleShape(const b2Vec2 &Center, float radius, uint16 ownCategory, uint16 collidesWith);
+	void filterCollisions(uint16 ownCategory, uint16 collidesWith, int groupIndex = 0);
+	void addFixture(b2FixtureDef* fixture, void* data);
 };

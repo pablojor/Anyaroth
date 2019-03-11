@@ -4,11 +4,10 @@
 #include "Player.h"
 #include "BodyComponent.h"
 
-
 MartyrEnemy::MartyrEnemy(Player* player, Game* g, PlayState* play,Texture* texture, Vector2D posIni, string tag) : Enemy(player, g, play,texture, posIni, tag)
 {
 	_vision = 300;
-	_attackRange = 25; //No se puede poner mas peque�o que la velocidad
+	_attackRange = 25; //No se puede poner mas pequeño que la velocidad
 	_attackTime = 800;
 	_canDie = 1000; //Tiempo que pasa entre que el enemigo ataca y se destruye
 	_life = 50;
@@ -27,18 +26,17 @@ MartyrEnemy::MartyrEnemy(Player* player, Game* g, PlayState* play,Texture* textu
 	_body->addCricleShape(b2Vec2(0, _body->getH() + _body->getH() / 20), _body->getW() - _body->getW() / 20, ENEMIES, FLOOR | PLAYER_BULLETS | MELEE);
 }
 
-void MartyrEnemy::update()
+void MartyrEnemy::update(double time)
 {
-	Enemy::update();
+
 	if (!_dead && inCamera())
 	{
+		Enemy::update(time);
 		BodyComponent* _playerBody = _player->getComponent<BodyComponent>();
 
-		b2Vec2 enemyPos = _body->getBody()->GetPosition(),
-			playerPos = _playerBody->getBody()->GetPosition();
+		b2Vec2 enemyPos = _body->getBody()->GetPosition(), playerPos = _playerBody->getBody()->GetPosition();
 
-		double x = playerPos.x * 8 - enemyPos.x * 8,
-			y = playerPos.y * 8 - enemyPos.y * 8;
+		double x = playerPos.x * 8 - enemyPos.x * 8, y = playerPos.y * 8 - enemyPos.y * 8;
 
 		if (!_attacking && x < _vision && x > -_vision && y < _vision && y > -_vision)
 		{

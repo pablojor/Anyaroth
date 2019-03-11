@@ -1,7 +1,6 @@
 #include "PlayerPanel.h"
 #include "Game.h"
 
-
 PlayerPanel::PlayerPanel(Game* game) : PanelUI(game)
 {
 	//Inicializamos
@@ -20,9 +19,4 @@ PlayerPanel::PlayerPanel(Game* game) : PanelUI(game)
 	addChild(_coinsCounter);
 	addChild(_weaponryViewer);
 	addChild(_dashViewer);
-}
-
-
-PlayerPanel::~PlayerPanel()
-{
 }

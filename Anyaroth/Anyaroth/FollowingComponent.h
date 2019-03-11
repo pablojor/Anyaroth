@@ -1,5 +1,4 @@
 #pragma once
-
 #include "PhysicsComponent.h"
 #include "TransformComponent.h"
 #include "Texture.h"
@@ -9,23 +8,23 @@ class GameComponent;
 class FollowingComponent : public PhysicsComponent
 {
 protected:
-	TransformComponent* _transform;
-	TransformComponent* _transformOther;
+	TransformComponent* _transform = nullptr;
+	TransformComponent* _transformOther = nullptr;
+	GameComponent* _other = nullptr;
 	Vector2D _offset;
 	Vector2D _initialOffset;
-	GameComponent* _other;
+
 public:
 	FollowingComponent(GameComponent* obj, GameComponent* other);
-	virtual ~FollowingComponent();
+	virtual ~FollowingComponent() {}
 
-	virtual void update();
+	virtual void update(double time);
 
-	void setOffset(Vector2D offset) { _offset = offset; }
-	Vector2D getOffset() { return _offset; }
+	inline void setOffset(Vector2D offset) { _offset = offset; }
+	inline Vector2D getOffset() const { return _offset; }
 
-	void setInitialOffset(Vector2D offset) { _initialOffset = offset; _offset = offset; }
-	Vector2D getInitialOffset() { return _initialOffset; }
+	inline void setInitialOffset(Vector2D offset) { _initialOffset = offset; _offset = offset; }
+	inline Vector2D getInitialOffset() const { return _initialOffset; }
 
-	GameComponent* getOther() { return _other; };
+	inline GameComponent* getOther() const { return _other; }
 };
-

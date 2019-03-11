@@ -44,6 +44,7 @@ Layer::Layer(string name, Texture* t, string filename, Game* g, string tag) : Ga
 			it = j.find("data");
 			if (it != j.end())
 				j = *it;
+
 			int temp;
 			for (int y = 0; y < h; y++)
 			{
@@ -51,6 +52,7 @@ Layer::Layer(string name, Texture* t, string filename, Game* g, string tag) : Ga
 				{
 					temp = j[(y*w) + (x)];
 					temp--;
+
 					if (temp >= 0)
 					{
 						Tile* tile = new Tile(x * TILES_SIZE, y * TILES_SIZE, (temp / t->getNumCols()), temp % t->getNumCols(), _tileset, g, tag);
@@ -61,24 +63,21 @@ Layer::Layer(string name, Texture* t, string filename, Game* g, string tag) : Ga
 		}
 		else
 			throw AnyarothError("No se ha encontrado la capa introducida");
+
 		file.close();
 	}
-	else throw AnyarothError("No se ha encontrado el archivo");
+	else
+		throw AnyarothError("No se ha encontrado el archivo");
 }
 
 Layer::~Layer()
 {
 	for (Tile* t : _tilemap)
-	{
 		delete t;
-	}
 }
-
 
 void Layer::render(Camera* c) const
 {
 	for (Tile* t : _tilemap)
-	{
 		t->render(c);
-	}
 }

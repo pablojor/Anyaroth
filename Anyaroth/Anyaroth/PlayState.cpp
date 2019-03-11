@@ -14,47 +14,29 @@
 
 PlayState::PlayState(Game* g) : GameState(g)
 {
-	_game = g;
-	_world = g->getWorld();
-
 	//hide cursor
-	SDL_ShowCursor(false);
-
-	//TEMPORAL
-	_selectedGuns = { BasicGun, BasicShotgun };
+	//SDL_ShowCursor(false);
 
 	//Tilemap
 	_layer = new Layer("Mapa", g->getTexture("tileset"), TILEMAP_PATH + "Nivel1.json", g, "Mapa");
 	_stages.push_back(_layer);
+
 	_colisionLayer = new Layer("Suelo", g->getTexture("tileset"), TILEMAP_PATH + "Nivel1.json", g, "Suelo");
 	_colisionLayer->addComponent<BodyComponent>();
 	_stages.push_back(_colisionLayer);
 
-	//Pools balas
-	PoolWrapper* _basicBulletPool = new BulletPool<100>(g, g->getTexture("PistolBullet"), this, g->gameGuns[BasicGun].velocity, g->gameGuns[BasicGun].damage, g->gameGuns[BasicGun].range);
-	_basicBulletPool->changePoolFilter(PLAYER_BULLETS, FLOOR | ENEMIES);
-	_stages.push_back(_basicBulletPool);
-	_pools.push_back(_basicBulletPool);
+	////Pool player
+	_playerBulletPool = new BulletPool(g);
+	_stages.push_back(_playerBulletPool);
 
-	PoolWrapper* _basicShotgunBulletPool = new BulletPool<100>(g, g->getTexture("ShotgunBullet"), this, g->gameGuns[BasicShotgun].velocity, g->gameGuns[BasicShotgun].damage, g->gameGuns[BasicShotgun].range, 0.0, 2);
-	_basicShotgunBulletPool->changePoolFilter(PLAYER_BULLETS, FLOOR | ENEMIES);
-	_stages.push_back(_basicShotgunBulletPool);
-	_pools.push_back(_basicShotgunBulletPool);
-
-	PoolWrapper*_enemyBasicGunPool = new BulletPool<200>(g, g->getTexture("PistolBullet"), this, g->gameGuns[BasicEnemyGun].velocity, g->gameGuns[BasicEnemyGun].damage, g->gameGuns[BasicEnemyGun].range);
-	_enemyBasicGunPool->changePoolFilter(ENEMY_BULLETS, FLOOR | PLAYER);
-	_stages.push_back(_enemyBasicGunPool);
-	_pools.push_back(_enemyBasicGunPool);
-
-	PoolWrapper* _enemyBasicShotgunBulletPool = new BulletPool<100>(g, g->getTexture("PistolBullet"), this, g->gameGuns[BasicEnemyShotgun].velocity, g->gameGuns[BasicEnemyShotgun].damage, g->gameGuns[BasicEnemyShotgun].range);
-	_basicShotgunBulletPool->changePoolFilter(PLAYER_BULLETS, FLOOR | ENEMIES);
-	_stages.push_back(_enemyBasicShotgunBulletPool);
-	_pools.push_back(_enemyBasicShotgunBulletPool);
+	//_enemyPool = new BulletPool(g/*, g->getTexture("PistolBullet"), 100, 10, 1000*/);
+	//_stages.push_back(_enemyPool);
+	//_pools.push_back(_enemyPool);
 
 	//Player
-	_player = new Player(g->getTexture("Mk"), g, this, "Player");
+	_player = new Player(g, 50, 180);
 	_stages.push_back(_player);
-	for (int i = 0; i < _selectedGuns.size(); i++) _player->addGun(_selectedGuns[i]);
+	_player->setPlayerBulletPool(_playerBulletPool);
 
 	//Camera
 	_mainCamera->fixCameraToObject(_player);
@@ -67,7 +49,6 @@ PlayState::PlayState(Game* g) : GameState(g)
 	for (int i = 0; i < enemiesPos.size(); i++)
 	{
 		_enemy = new MeleeEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(enemiesPos[i].getX(), enemiesPos[i].getY() - TILES_SIZE * 2), "Enemy");
-
 		_stages.push_back(_enemy);
 		auto itFR = --(_stages.end());
 		_enemy->setItList(itFR);
@@ -129,14 +110,15 @@ PlayState::PlayState(Game* g) : GameState(g)
 	a->addLayer(new ParallaxLayer(g->getTexture("BgZ1L3"), _mainCamera, 0.75));
 	_mainCamera->setBackGround(a);
 
-	//cursor
+	//Cursor
 	_cursor = new Cursor(g->getTexture("GunCursor"), g, this);
 	_stages.push_back(_cursor);
-	_player->getWeaponArm()->setCursor(_cursor);
+	//_player->getWeaponArm()->setCursor(_cursor);
 
 	//HUD
 	auto b = new PlayStateHUD(g);
 	setCanvas(b);
+
 	//Asignacion de paneles a sus controladores
 	_player->setPlayerPanel(b->getPlayerPanel());
 }
@@ -146,10 +128,9 @@ void PlayState::KillObject(const list<GameObject*>::iterator &itList)
 	items_ToDelete.push_back(itList);
 }
 
-void PlayState::render()
+void PlayState::render() const
 {
 	GameState::render();
-
 }
 
 bool PlayState::handleEvents(SDL_Event& e)
@@ -159,16 +140,15 @@ bool PlayState::handleEvents(SDL_Event& e)
 	bool handled = false;
 	if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE)
 	{
-		_game->pushState(new PauseState(_game));
+		_gameptr->pushState(new PauseState(_gameptr));
 		handled = true;
 	}
 	return handled;
 }
 
-void PlayState::update()
+void PlayState::update(double time)
 {
-	GameState::update();
-	_world->Step(1 / 20.0, 8, 3);
+	GameState::update(time);
 
 	int i = items_ToDelete.size() - 1;
 	while (i >= 0)

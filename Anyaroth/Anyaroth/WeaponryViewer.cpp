@@ -1,8 +1,6 @@
 #include "WeaponryViewer.h"
 #include "Game.h"
 
-
-
 WeaponryViewer::WeaponryViewer(Game* game, int xPos, int yPos) : PanelUI(game)
 {
 	_currentWeapon = new ImageUI(game, game->getTexture("WeaponFrame"), xPos, yPos);
@@ -13,7 +11,6 @@ WeaponryViewer::WeaponryViewer(Game* game, int xPos, int yPos) : PanelUI(game)
 	addChild(_otherWeapon);
 	addChild(_currentWeapon);
 }
-
 
 void WeaponryViewer::updateWeaponryViewer()
 {

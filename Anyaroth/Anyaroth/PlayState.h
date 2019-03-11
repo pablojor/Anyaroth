@@ -13,36 +13,32 @@
 #include "Cursor.h"
 #include "GunType_def.h"
 
-
 class PlayState : public GameState
 {
-	private:
-		Game* _game = nullptr;
-		Player* _player = nullptr;
-		Enemy* _enemy = nullptr;
-		Coin* _coin = nullptr;
-		Layer* _layer = nullptr;
-		Layer* _colisionLayer = nullptr;
-		b2World* _world;
-		CollisionManager _colManager;
-		DebugDraw _debugger;
-		Cursor* _cursor = nullptr;
+private:
+	Player* _player = nullptr;
+	Enemy* _enemy = nullptr;
+	Coin* _coin = nullptr;
+	Layer* _layer = nullptr;
+	Layer* _colisionLayer = nullptr;
+	Cursor* _cursor = nullptr;
+	CollisionManager _colManager;
+	DebugDraw _debugger;
 
-		//Bullet Pools
-		vector<PoolWrapper*> _pools;
+	//PoolWrapper* _enemyPool = nullptr;
 
-		vector <list<GameObject*>::iterator> items_ToDelete;
-		
-		//vector con los índices de las armas que el jugador lleva en el inventario este nivel
-		//Se pasa al state que corresponda al cambiar de nivel y el state lo consulta para crear las armas
-		vector <GunType> _selectedGuns; 
+	//Bullet Pools
+	BulletPool* _playerBulletPool = nullptr; //Balas del jugador
 
-	public:
-		PlayState(Game* g);
-		void KillObject(const list<GameObject*>::iterator &itList);
-		virtual void render();
-		virtual void update();
-		virtual bool handleEvents(SDL_Event& e);
-		inline PoolWrapper* getBulletPool(int index) { return _pools[index]; };
-		Cursor* getCursor() { return _cursor; };
+	vector <list<GameObject*>::iterator> items_ToDelete;
+
+public:
+	PlayState(Game* g);
+
+	virtual void render() const;
+	virtual void update(double time);
+	virtual bool handleEvents(SDL_Event& e);
+
+	void KillObject(const list<GameObject*>::iterator &itList);
+	inline Cursor* getCursor() const { return _cursor; }
 };

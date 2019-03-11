@@ -5,9 +5,3 @@ RenderComponent::RenderComponent(GameComponent* obj)
 { 
 	obj->addRenderComponent(this); 
 }
-
-RenderComponent::~RenderComponent() 
-{
-
-}
-

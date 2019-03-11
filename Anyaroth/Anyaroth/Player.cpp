@@ -1,28 +1,20 @@
 ﻿#include "Player.h"
-#include "PlayerControllerComponent.h"
-#include "TransformComponent.h"
-#include "MovingComponent.h"
 #include "Game.h"
-#include "FollowingComponent.h"
-#include "AnimatedSpriteComponent.h"
-#include "PoolWrapper.h"
 #include "Coin.h"
-#include "HurtRenderComponent.h"
+#include "BasicPistol.h"
+#include "BasicShotgun.h"
 
-Player::Player(Texture* texture, Game* g, PlayState* play, string tag) : _play(play), GameComponent(g, tag)
+Player::Player(Game* game, int xPos, int yPos) :  GameComponent(game, "Player")
 {
-	//Siempre primero los componentes que tienen que estar SI o SI.
-	addComponent<Texture>(texture);
+	addComponent<Texture>(game->getTexture("Mk"));
 
-	//Resto de componentes
-	_transform = addComponent<TransformComponent>();		//Como en el metodo anterior se ha creado este componente, imprime por pantalla que ya existe uno.
-	_transform->setPosition(50, 180);
-
+	_transform = addComponent<TransformComponent>();
+	_transform->setPosition(xPos/*50*/,yPos /*180*/);
 
 	_body = addComponent<BodyComponent>();
 	_body->getBody()->SetType(b2_dynamicBody);
 	_body->getBody()->SetBullet(true);
-	
+
 	_body->setW(12);
 	_body->setH(26);
 	
@@ -30,8 +22,21 @@ Player::Player(Texture* texture, Game* g, PlayState* play, string tag) : _play(p
 	_body->addCricleShape(b2Vec2(0, 1.1), 0.7, PLAYER, FLOOR);
 	_body->getBody()->SetFixedRotation(true);
 
+	double _gravScale = 3.5, _damping = 3.0;
+	_body->getBody()->SetLinearDamping(_damping);
+	_body->getBody()->SetGravityScale(_gravScale);
 
-	_anim = addComponent<AnimatedSpriteComponent>();		//Como depende de Transform, en su constructura crea una si no ha encontrado Transform en el objeto.
+	//Sensor del suelo
+	b2PolygonShape shape;
+	shape.SetAsBox(5 / M_TO_PIXEL, 2 / M_TO_PIXEL, b2Vec2(0, 2), 0);
+	b2FixtureDef fDef;
+	fDef.shape = &shape;
+	fDef.filter.categoryBits = PLAYER;
+	fDef.filter.maskBits = FLOOR;
+	fDef.isSensor = true;
+	_body->addFixture(&fDef, this);
+
+	_anim = addComponent<AnimatedSpriteComponent>();
 	_anim->addAnim(AnimatedSpriteComponent::Idle, 16, true);
 	_anim->addAnim(AnimatedSpriteComponent::Walk, 10, true);
 	_anim->addAnim(AnimatedSpriteComponent::WalkBack, 10, true);
@@ -47,80 +52,48 @@ Player::Player(Texture* texture, Game* g, PlayState* play, string tag) : _play(p
 	_anim->addAnim(AnimatedSpriteComponent::DashBack, 6, false);
 	_anim->addAnim(AnimatedSpriteComponent::ReloadShotgun, 5, false);
 
-	_hurt = addComponent<HurtRenderComponent>();
+	//_hurt = addComponent<HurtRenderComponent>();
 
-	addComponent<MovingComponent>();
-	_controller = addComponent<PlayerControllerComponent>();
+	//Brazo
+	_playerArm = new PlayerArm(game, this, { 28, 18 });
+	addChild(_playerArm);
 
-	/*//brazo de atr�s
-	auto armBack = new Arm(g->getTexture("Armback"), this, getGame(), { 11,5 });
-	addChild(armBack);*/
+	//Armas (de momento esas dos)
+	_currentGun = new BasicPistol(game);
+	_otherGun = new BasicShotgun(game);
+	_playerArm->setTexture(_currentGun->getArmTexture());
 
-	//Brazo con arma
-	//_weaponArm = new Arm(getGame()->getTexture("ArmPistol"), this, getGame(), { 10,12 }); 
-
-	//_weaponArm = new Arm(getGame()->getTexture("ArmPistol"), this, getGame(), { 26,5 }); //Parámetros para la pistola
-
-	///_weaponArm = new Arm(getGame()->getTexture("ArmPistol"), this, getGame(), { 28,14 }); //Parámetros para la pistola
-	///addChild(_weaponArm);
-
-	//Inicialización del vector de texturas del brazo
-	_armTextures =
-	{
-		getGame()->getTexture("ArmPistol"),
-		getGame()->getTexture("ArmShotgun")
-	};
-
-	
-
-	//Inventario inicial
-	/*_gunInventory.push_back(BasicGun);
-	_gunInventory.push_back(BasicShotgun);*/ //para probar
-	//Equipa el arma inicial
-	//equipGun(0);
-
-	AmountOfCollision = 0;
-	//Monedore
+	//Monedero
 	_money = new Money();
 
-	_melee = new MeleeWeapon(g);
+	//Melee
+	_melee = new MeleeWeapon(game);
 	addChild(_melee);
 }
 
 Player::~Player()
 {
 	delete _money;
-	for (size_t i = 0; i < _gunInventory.size(); i++)	delete _gunInventory[i];
+	delete _currentGun;
+	delete _otherGun;
 }
 
 void Player::beginCollision(GameComponent * other, b2Contact* contact)
 {
+	auto fA = contact->GetFixtureA();
+	auto fB = contact->GetFixtureB();
 
-	auto otherTransform = other->getComponent<TransformComponent>();
-	auto otherBody = other->getComponent<BodyComponent>();
+	//Deteccion del suelo
+	if ((fA->IsSensor() || fB->IsSensor()) && other->getTag() == "Suelo")
+		_floorCount++;
 
-	double myH = _body->getH(), myW = _body->getW();
-	double otherH = otherBody->getH(), otherW = otherBody->getW();
-	string otherTag = other->getTag();
-	if (otherTag == "Suelo")
-	{
-		AmountOfCollision += 1;
-
-
-		if (_transform->getPosition().getY() + (myH+ 0.35) * (M_TO_PIXEL * 2) < otherTransform->getPosition().getY())
-		{
-			OnGround = true;
- 			_controller->ableJump();
-		
-
-		}
-	}
-	else if (otherTag == "EnemyBullet")
+	/*else if (other->getTag() == "EnemyBullet")
 	{
 		double damage = 0;
 		damage = dynamic_cast<Bullet*>(other)->getDamage();
 		subLife(damage);
-	}
+	}*/
+
 	else if (other->getTag() == "Moneda")
 	{
 		if (other->isActive())
@@ -131,7 +104,7 @@ void Player::beginCollision(GameComponent * other, b2Contact* contact)
 			coin->destroy();
 			cout << "Moneda cogida" << endl;
 			cout << "Cantidad monedero: " << _money->getWallet() << endl;
-			
+
 			_playerPanel->updateCoinsCounter(_money->getWallet());
 		}
 		contact->SetEnabled(false);
@@ -140,34 +113,12 @@ void Player::beginCollision(GameComponent * other, b2Contact* contact)
 
 void Player::endCollision(GameComponent * other, b2Contact* contact)
 {
+	auto fA = contact->GetFixtureA();
+	auto fB = contact->GetFixtureB();
 
-
-
-	auto otherTransform = other->getComponent<TransformComponent>();
-	auto otherBody = other->getComponent<BodyComponent>();
-
-	double myH = _body->getH(), myW = _body->getW();
-	double otherH = otherBody->getH(), otherW = otherBody->getW();
-
-	string otherTag = other->getTag();
-	if (otherTag == "Suelo")
-	{
-		AmountOfCollision -= 1;
-
-		if (_transform->getPosition().getY() + (myH + 0.35) * (M_TO_PIXEL * 2) < otherTransform->getPosition().getY())
-		{
-			OnGround = false;
-
-			if ((_body->getBody()->GetLinearVelocity().y < -2))
-			{
-				if(_controller->IsSpaceDown())
-				_currentState = Player::Jumping;
-				_controller->changeJump();
-			}
-			
-		}
-		
-	}
+	//Deteccion del suelo
+	if ((fA->IsSensor() || fB->IsSensor()) && other->getTag() == "Suelo")
+		_floorCount > 0 ? _floorCount-- : _floorCount = 0;
 }
 
 void Player::subLife(int damage)
@@ -178,14 +129,14 @@ void Player::subLife(int damage)
 		if (_life.dead())
 		{
 			die();
-			_hurt->die();
-			_hurtArm->die();
+			//_hurt->die();
+			//_hurtArm->die();
 			_dead = true;
 		}
 		else
 		{
-			_hurt->hurt();
-			_hurtArm->hurt();
+			//_hurt->hurt();
+			//_hurtArm->hurt();
 		}
 	}
 	_playerPanel->updateLifeBar(_life.getLife(), _life.getMaxLife());
@@ -193,151 +144,282 @@ void Player::subLife(int damage)
 
 void Player::die()
 {
-	cout << "Has Muerto" << endl;
 	//getGame()->changeState(Play);
 }
 
-void Player::update()
+bool Player::handleInput(const SDL_Event& event)
 {
+	GameComponent::handleInput(event);
 
-	GameComponent::update();
-	
-	if (_anim->animationFinished() && _controller->isAttacking())
+	if (event.type == SDL_KEYDOWN && !event.key.repeat) // Captura solo el primer frame que se pulsa
 	{
-		endMelee();
-		_controller->setIsAttacking(false);
+		if (event.key.keysym.sym == SDLK_q)
+			swapGun();
+		else if (event.key.keysym.sym == SDLK_r)
+			_isReloading = true;
+		else if (event.key.keysym.sym == SDLK_LSHIFT)
+			_isDashing = true;
 	}
-
-	else if (_anim->animationFinished() && _controller->isReloading())
+	else if (event.type == SDL_KEYUP && !event.key.repeat)
 	{
-		_controller->setIsReloading(false);
+		if (event.key.keysym.sym == SDLK_r)
+			_isReloading = false;
+		else if (event.key.keysym.sym == SDLK_LSHIFT)
+			_isDashing = false;
 	}
-
-	else if (_anim->animationFinished() && _currentState != Player::Falling && _currentState != Player::Jumping)
+	else if (event.type == SDL_MOUSEBUTTONDOWN && event.button.state == SDL_PRESSED)
 	{
-		if (_controller->currXDir() == 0)
-		{
-			_anim->playAnim(AnimatedSpriteComponent::Idle);
-
-			_currentState = Idle;
-		}
-		else 
-		{
-			if (!_anim->isFlipped())
-				_anim->playAnim(AnimatedSpriteComponent::Walk);
-			else
-				_anim->playAnim(AnimatedSpriteComponent::WalkBack);
-
-			_currentState = Walking;
-		}
+		if (event.button.button == SDL_BUTTON_LEFT)
+			_isShooting = true;
+		else if (event.button.button == SDL_BUTTON_RIGHT)
+			_isMeleeing = true;
 	}
-
-	if (AmountOfCollision <= 0|| _body->getBody()->GetLinearVelocity().y > 2 && !OnGround)
+	else if (event.type == SDL_MOUSEBUTTONUP)
 	{
-		if ( _currentState != Player::Falling && _currentState != Player::Dashing && _body->getBody()->GetLinearVelocity().y > 2)
-		{
-			_anim->playAnim(AnimatedSpriteComponent::StartFalling);
-			_currentState = Player::Falling;
-			
-		}
-		_controller->changeJump();
-		
+		if (event.button.button == SDL_BUTTON_LEFT)
+			_isShooting = false;
+		else if (event.button.button == SDL_BUTTON_RIGHT)
+			_isMeleeing = false;
 	}
-
-	if (_controller->amountDash() < _MaxDash)
-	{
-		if (SDL_GetTicks() > _timer + _dashCD)
-		{
-
-			_controller->newDash();
-			_timer = SDL_GetTicks();
-			_playerPanel->updateDashViewer(_controller->amountDash());
-		}
-	}
-	else
-		_timer = SDL_GetTicks();
-		
-	//De momento todo el rato porque hay que cambiar cosas del player, porque esto es un caos
-	_playerPanel->updateDashViewer(_controller->amountDash());
-	_playerPanel->updateAmmoViewer(_weaponArm->getCurrentGun()->getClip(), _weaponArm->getCurrentGun()->getAmmo());
-
+	return false;
 }
 
-//Añade un arma al inventario
-void Player::addGun(GunType gunIndex)
+void Player::update(double time)
 {
-	ShooterInterface* sh = getGame()->gameGuns[gunIndex].shooter;
-	GunType type = GunType(getGame()->gameGuns[gunIndex].type);
-	int mA = getGame()->gameGuns[gunIndex].maxAmmo;
-	int mC = getGame()->gameGuns[gunIndex].maxClip;
-	double c = getGame()->gameGuns[gunIndex].cadence;
-	bool a = getGame()->gameGuns[gunIndex].automatic;
-	PoolWrapper* bp = _play->getBulletPool(type);
+	const Uint8* keyboard = SDL_GetKeyboardState(NULL);
+	GameComponent::update(time);
 
-	if (_weaponArm == nullptr) //Si todavía no se ha inicializado _weaponArm, lo creo
-	{
-		_weaponArm = new PlayerArm(_armTextures[type], this, getGame(), _play, { 28,14 }); //Parámetros para la pistola
-		addChild(_weaponArm);
-
-		_hurtArm = _weaponArm->addComponent<HurtRenderComponent>();
-	}
-
-	_gunInventory.push_back(new Gun(_weaponArm, sh, bp, type, mA, mC, c, a));
-
-	if (_equippedGun == -1) //Si no tenía un arma equipada, le equipa la que acaba de añadir
-		equipGun(0);
-}
-
-//Equipa un arma utilizando el array de atributos gameGuns de Game.h
-void Player::equipGun(int invIndex)
-{
-	
-
-	_equippedGun = invIndex;
-	_weaponArm->setGun(_gunInventory[invIndex]);
-	_weaponArm->setArmSprite(_armTextures[invIndex]);
-	//_hurtArm = _weaponArm->addComponent<HurtRenderComponent>();
-
-
-	/*if (_weaponArm == nullptr) //Si todavía no se ha inicializado _weaponArm, lo creo
-	{
-		_weaponArm = new PlayerArm(_armTextures[gunIndex], this, getGame(), _play, { 28,14 }); //Parámetros para la pistola
-		addChild(_weaponArm);
-
-		_hurtArm = _weaponArm->addComponent<HurtRenderComponent>();
-	}
-	else //Si no, simplemente cambio la textura
-	{
-		_weaponArm->setArmSprite(_armTextures[gunIndex]);
-		//_hurtArm = _weaponArm->addComponent<HurtRenderComponent>();
-	}
-
-	ShooterInterface* sh = getGame()->gameGuns[gunIndex].shooter;
-	GunType type = GunType(getGame()->gameGuns[gunIndex].type);
-	int mA = getGame()->gameGuns[gunIndex].maxAmmo;
-	int mC = getGame()->gameGuns[gunIndex].maxClip;
-	double c = getGame()->gameGuns[gunIndex].cadence;
-
-	// TEMPORAL
-	PoolWrapper* bp = _play->getBulletPool(type);
-	//
-
-	
-
-	_weaponArm->setGun(new Gun(_weaponArm, sh, bp, type, mA, mC, c));
-	//cout << "Gun equipada" << endl << endl << endl << endl << endl << endl;
-	_equippedGun = type;*/
+	checkMovement(keyboard);
+	refreshCooldowns(16.6);
+	handleAnimations();
 }
 
 void Player::swapGun()
 {
-	equipGun((_equippedGun + 1) % _maxInventoryGuns); //equipa el arma del siguiente slot
+	Gun* auxGun = _currentGun;
+	_currentGun = _otherGun;
+	_otherGun = auxGun;
+	_playerArm->setTexture(_currentGun->getArmTexture());
+	_playerPanel->updateAmmoViewer(_currentGun->getClip(), _currentGun->getMagazine());
 	_playerPanel->updateWeaponryViewer();
+}
+
+
+void Player::checkMovement(const Uint8* keyboard)
+{
+	double _speed = 15;
+
+	if (keyboard[SDL_SCANCODE_A] && keyboard[SDL_SCANCODE_D] && !isMeleeing() && !isDashing())
+	{
+		move(Vector2D(0, 0), _speed);
+	}
+	else if (keyboard[SDL_SCANCODE_A] && !isMeleeing() && !isDashing())
+	{
+		if (dashIsAble())
+			dash(Vector2D(-1, 0));
+		else
+			move(Vector2D(-1, 0), _speed);
+	}
+	else if (keyboard[SDL_SCANCODE_D] && !isMeleeing() && !isDashing())
+	{
+		if (dashIsAble())
+			dash(Vector2D(1, 0));
+		else
+			move(Vector2D(1, 0), _speed);
+	}
+	else if (keyboard[SDL_SCANCODE_S] && dashIsAble() && !isGrounded() && !isMeleeing() /*&& !isReloading()*/)
+	{
+		dash(Vector2D(0, 1));
+	}
+	else
+		move(Vector2D(0, 0), _speed);
+
+	if (keyboard[SDL_SCANCODE_SPACE] && isGrounded() && !isMeleeing() && !isJumping()/* && !isReloading()*/)
+		jump();
+
+	//Recarga
+	if (canReload() && !isMeleeing())
+		reload();
+	//Disparo
+	if (_isShooting && !isMeleeing())
+		shoot();
+	//Melee
+	if (_isMeleeing && isGrounded())
+		melee();
+	//Cambio de arma
+	//Esta bien en el handleInput
+}
+
+void Player::handleAnimations()
+{	//La animacion del Dash se activa en la funcion del Dash, 
+	//ya que se trata de una habilidad y no del movimiento "normal" del personaje
+	auto vel = _body->getBody()->GetLinearVelocity();
+
+	//Idle&Walking
+	if (isGrounded() && !isDashing() && !isMeleeing())
+	{
+		//Idle
+		if (vel.x == 0 && vel.y == 0 && isGrounded())
+			_anim->playAnim(AnimatedSpriteComponent::Idle);
+		//Walking
+		else if (abs(vel.x) > 0 && isGrounded() && !isDashing())
+		{
+			//Esto hay que cambiarlo
+			if ((!_anim->isFlipped() && vel.x > 0) || (_anim->isFlipped() && vel.x < 0))
+				_anim->playAnim(AnimatedSpriteComponent::Walk);
+			else
+				_anim->playAnim(AnimatedSpriteComponent::WalkBack);
+		}
+	}
+	//Jumping&Falling (Si no esta en el suelo esta Saltando/Cayendo)
+	else if (!isGrounded() && !isDashing() && !isMeleeing())
+	{
+		if (vel.y > 2)
+		{
+			_anim->playAnim(AnimatedSpriteComponent::Falling);
+		}
+		else if (vel.y < 2 && vel.y > -2)
+		{
+			_anim->playAnim(AnimatedSpriteComponent::StartFalling);
+		}
+		else if (vel.y < -2)
+		{
+			_anim->playAnim(AnimatedSpriteComponent::Jump);
+		}
+		setGrounded(false);		
+	}
+	if (isGrounded() && _anim->getCurrentAnim() == AnimatedSpriteComponent::DashDown)
+		_anim->playAnim(AnimatedSpriteComponent::Idle);
+}
+
+void Player::refreshCooldowns(const Uint32& deltaTime)
+{
+	refreshDashCoolDown(deltaTime);
+	refreshGunCadence(deltaTime);
+}
+
+void Player::refreshDashCoolDown(const Uint32& deltaTime)
+{
+	if (_numDash < _maxDash) {
+		_dashCD -= deltaTime;
+		if (_dashCD <= 0)
+		{
+			_numDash++;
+			_playerPanel->updateDashViewer(_numDash);
+			_dashCD = 3000; //Se restablecen los 3 segundos
+		}
+	}
+}
+
+void Player::refreshGunCadence(const Uint32& deltaTime)
+{
+	_currentGun->refreshGunCadence(deltaTime);
+	_otherGun->refreshGunCadence(deltaTime);
+}
+
+void Player::move(const Vector2D& dir, const double& speed)
+{
+	if (abs(_body->getBody()->GetLinearVelocity().x) < speed)
+		_body->getBody()->SetLinearVelocity(b2Vec2(dir.getX() * speed, _body->getBody()->GetLinearVelocity().y));
 }
 
 void Player::reload()
 {
-	_controller->reload();
+	_playerArm->reload();
+	_currentGun->reload();
+	_playerPanel->updateAmmoViewer(_currentGun->getClip(), _currentGun->getMagazine());
+}
+
+void Player::setPlayerPanel(PlayerPanel * p)
+{
+	_playerPanel = p;
+
+	//Actualizamos de primeras el aspecto del Panel del Jugador
+	_playerPanel->updateAmmoViewer(_currentGun->getClip(), _currentGun->getMagazine());
+	_playerPanel->updateDashViewer(_numDash);
+	_playerPanel->updateCoinsCounter(_money->getWallet());
+	_playerPanel->updateLifeBar(_life.getLife(), _life.getMaxLife());
+}
+
+bool Player::isDashing() const
+{
+	return ((_anim->getCurrentAnim() == AnimatedSpriteComponent::Dash || _anim->getCurrentAnim() == AnimatedSpriteComponent::DashBack 
+		|| _anim->getCurrentAnim() == AnimatedSpriteComponent::DashDown) && !_anim->animationFinished());
+}
+
+bool Player::isMeleeing() const
+{
+	return ((_anim->getCurrentAnim() == AnimatedSpriteComponent::MeleeKnife || _anim->getCurrentAnim() == AnimatedSpriteComponent::MeleeKnife) && !_anim->animationFinished());
+}
+
+bool Player::isReloading() const
+{
+	return false;
+}
+
+bool Player::isJumping() const
+{
+	return ((_anim->getCurrentAnim() == AnimatedSpriteComponent::BeforeJump || _anim->getCurrentAnim() == AnimatedSpriteComponent::Jump
+		|| _anim->getCurrentAnim() == AnimatedSpriteComponent::Falling || _anim->getCurrentAnim() == AnimatedSpriteComponent::StartFalling) && !_anim->animationFinished());
+}
+
+
+void Player::dash(const Vector2D& dir)
+{
+	double force = 400;
+	move(Vector2D(0, 0), 0);
+	_body->getBody()->ApplyLinearImpulse(b2Vec2(dir.getX() * force, dir.getY() * force * 1.5), _body->getBody()->GetWorldCenter(), true);
+	_numDash--;
+	_isDashing = false;
+
+	if (dir.getY() == 0) 
+	{
+		if ((!_anim->isFlipped() && dir.getX() > 0) || (_anim->isFlipped() && dir.getX() < 0))
+			_anim->playAnim(AnimatedSpriteComponent::Dash);
+		else
+			_anim->playAnim(AnimatedSpriteComponent::DashBack);
+	}
+	else
+		_anim->playAnim(AnimatedSpriteComponent::DashDown);
+
+	_playerPanel->updateDashViewer(_numDash);
+}
+
+
+void Player::jump()
+{
+	double _jumpForce = 300;
+	_body->getBody()->ApplyLinearImpulse(b2Vec2(0, -_jumpForce), _body->getBody()->GetWorldCenter(), true);
+	setGrounded(false);
+	_anim->playAnim(AnimatedSpriteComponent::BeforeJump);
+}
+
+void Player::melee()
+{
+	_anim->playAnim(AnimatedSpriteComponent::MeleeKnife);
+	_isMeleeing = false;
+}
+
+void Player::shoot()
+{
+	_playerArm->shoot();
+	_currentGun->shoot(_playerBulletPool, _playerArm->getPosition(), !_anim->isFlipped() ? _playerArm->getAngle() : _playerArm->getAngle() + 180, "Bullet");
+
+	_playerPanel->updateAmmoViewer(_currentGun->getClip(), _currentGun->getMagazine());
+	if (!_currentGun->isAutomatic())
+		_isShooting = false;
+
+	if (_currentGun->hasToBeReloaded())
+		reload();
+}
+
+bool Player::canReload()
+{
+	if (_isReloading && isGrounded())
+		return _currentGun->canReload();
+
+	_isReloading = false;
+	return false;
 }
 
 void Player::meleeAttack()
@@ -345,11 +427,9 @@ void Player::meleeAttack()
 	int dir;
 	(_anim->isFlipped()) ? dir = -1 : dir = 1;
 
-	double playerX = _body->getBody()->GetPosition().x * M_TO_PIXEL,
-		playerY = _body->getBody()->GetPosition().y *M_TO_PIXEL,
-		w = _body->getW()*M_TO_PIXEL,
-		h = _body->getH()* M_TO_PIXEL,
-		x, y;
+	double playerX = _body->getBody()->GetPosition().x * M_TO_PIXEL, playerY = _body->getBody()->GetPosition().y *M_TO_PIXEL,
+		w = _body->getW()*M_TO_PIXEL, h = _body->getH()* M_TO_PIXEL, x, y;
+		
 	MeleeAttributes meleeWeapon = getGame()->MeleeWeapons[_equippedMelee];
 
 	switch (meleeWeapon.type)

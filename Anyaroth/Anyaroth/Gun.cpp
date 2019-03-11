@@ -1,138 +1,78 @@
 #include "Gun.h"
-#include "AnimatedSpriteComponent.h"
 #include <algorithm>
 
-void Gun::setShooter(ShooterInterface* sh) 
-{
-	_shooterComp = sh; 
 
-	if (_shootingObj != nullptr && _bPool != nullptr)
-		_shooterComp->init(_shootingObj, _bPool);
-	else
-		cout << "No se pudo inicializar Shooter del arma" << endl;
+Gun::Gun(Texture* armTexture, Texture* bulletTexture, double speed, double damage, double range, int maxClip, int maxMagazine) : _armTexture(armTexture), _bulletTexture(bulletTexture)
+{
+	_maxClip = maxClip;
+	_maxMagazine = maxMagazine;
+	_magazine = _maxMagazine;
+	_clip = _maxClip;
+	_range = range;
+	_damage = damage;
+	_speed = speed;
 }
 
-
-//m�todo auxiliar de reload
-void Gun::reloadAux(int newClipValue)
+void Gun::shoot(BulletPool* bulletPool, const Vector2D& position, const double& angle, const string& tag)
 {
-	int prevClip = _clip; //cargador antes de recargar
-	_clip = newClipValue;
-	_ammo -= (_clip - prevClip); //resta a la munici�n total la munici�n recargada
-}
+	if (_clip > 0 && _cadence <= 0)
+	{	
+		_clip--;
+		_cadence = _maxCadence;
 
-//Recarga la munici�n si puede y devuelve true si ha recargado
-bool Gun::reload()
-{
-	if (_clip < _maxClip) { //Si el cargador no est� completo
-		//llamo a animaci�n de recargar
-
-
-
-		if (_ammo >= _maxClip)
-			reloadAux(_maxClip);
-		else if (_ammo > 0) reloadAux(min(_maxClip, _clip + _ammo));
-		else return false;
-
-		cout << "Recargando! Cubranme!" << endl;
-		cout << "Ammo: " << _ammo << "/" << _maxAmmo << endl;
-		cout << "Clip: " << _clip << "/" << _maxClip << endl;
-
-		return true;
+		//Disparar la bala aqui
+		Bullet* b = bulletPool->getUnusedObject();
+		Vector2D bulletPos = prepareBulletPosition(position, angle);
+		if (b != nullptr)
+			b->init(_bulletTexture, bulletPos, _speed, _damage, angle, _range, tag);
+		else
+			bulletPool->addNewBullet()->init(_bulletTexture, bulletPos, _speed, _damage, angle, _range, tag);
 	}
-	else
-		return false;
 }
 
-// Suma ammoAdded a la munici�n y la coloca en _ammo y _clip seg�n corresponda
-// USAR ESTE M�TODO AL RECOGER MUNICI�N
+void Gun::reload()
+{
+	if (_clip < _maxClip)
+	{
+		int diff = _maxClip - _clip;
+		if (diff <= _magazine)
+		{
+			_clip = _maxClip;
+			_magazine -= diff;
+		}
+		else
+		{
+			_clip += _magazine;
+			_magazine = 0;
+		}
+		_cadence = 0;
+	}
+}
+
+// Suma ammoAdded a la municion y la coloca en _ammo y _clip segun corresponda
 void Gun::addAmmo(int ammoAdded)
 {
-	if (_ammo + ammoAdded > _maxAmmo) //Si sobran balas en _ammo
+	if (_magazine + ammoAdded > _maxMagazine) //Si sobran balas en _ammo
 	{
-		int prevAmmo = _ammo;
-		_ammo = _maxAmmo;
+		int prevAmmo = _magazine;
+		_magazine = _maxMagazine;
 
 		//Suma las balas sobrantes al cargador hasta llenarlo
-		int leftAmmo = ammoAdded - (_ammo - prevAmmo);
-		_clip = min(_maxClip, _clip + (_ammo - leftAmmo));
+		int leftAmmo = ammoAdded - (_magazine - prevAmmo);
+		_clip = min(_maxClip, _clip + (_magazine - leftAmmo));
 	}
 	else
-	{
-		_ammo += ammoAdded;
-	}
+		_magazine += ammoAdded;
 }
 
-//Pone al m�ximo la munici�n tanto en _ammo como en el cargador _clip
+//Pone al maximo la municion tanto en _ammo como en el cargador _clip
 void Gun::resetAmmo()
 {
-	_ammo = _maxAmmo;
+	_magazine = _maxMagazine;
 	_clip = _maxClip;
 }
 
-
-//Reduce la munici�n 
-void Gun::useAmmo()
+Vector2D Gun::prepareBulletPosition(const Vector2D & position, const double & angle)
 {
-	/*
-	if (_clip - _bulletsPerShot >= 0)
-	{
-		_clip -= _bulletsPerShot;
-	}
-	*/
-
-	_clip = max(0, _clip - _bulletsPerShot);
-
-	/*
-	if(_clip == 0) reload();
-	*/
-}
-
-bool Gun::shoot(Vector2D bulletPosition, Vector2D bulletDir, bool flipped)
-{
-	if (_clip >= _bulletsPerShot //Si hay suficientes balas en el cargador
-		&& _shooterComp != nullptr) //Si tiene un shooter, llama a su shoot()
-	{ 
-		if (canShoot())
-		{
-			int flippedAngle = flipped ? 180 : 0;
-			_shooterComp->shoot(bulletPosition, bulletDir, _shootingObj->getComponent<TransformComponent>()->getRotation() - flippedAngle);
-
-			//Reduce la munici�n actual
-			useAmmo();
-
-			//Dispara
-			/*cout << "Piumm!" << endl;
-			cout << "Ammo: " << _ammo << "/" << _maxAmmo << endl;
-			cout << "Clip: " << _clip << "/" << _maxClip << endl;
-			*/
-			_fireTimer = SDL_GetTicks();
-		}
-		return true;
-	}
-	else //Si no, recarga
-	{
-		reload();
-		return false;
-	}
-
-}
-void Gun::enemyShoot(Vector2D bulletPosition, Vector2D bulletDir, bool flipped)
-{
-	if (_shooterComp != nullptr && canShoot()) //Si tiene un shooter, llama a su shoot()
-	{
-		int flippedAngle = flipped ? 180 : 0;
-
-		_shooterComp->shoot(bulletPosition, bulletDir, _shootingObj->getComponent<TransformComponent>()->getRotation() - flippedAngle);
-
-		_fireTimer = SDL_GetTicks();
-	}
-
-}
-
-
-//Muestra la informaci�n del arma por consola
-void Gun::debugInfo() 
-{
-	cout << endl << _type << endl << _maxAmmo << endl << _ammo << endl << _maxClip << endl << _clip << endl << _bulletsPerShot << endl;
+	return (position + _offset).rotateAroundPoint(angle, position);
 }

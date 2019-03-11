@@ -1,9 +1,5 @@
 #include "Life.h"
 
-Life::~Life()
-{
-}
-
 void Life::setLife(int amount)
 {
 	if (amount > 0 && amount <= _maxLife)

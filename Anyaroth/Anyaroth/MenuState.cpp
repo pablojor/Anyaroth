@@ -19,10 +19,6 @@ MenuState::MenuState(Game* g) : GameState(g)
 	_mainCamera->setBackGround(a);
 }
 
-MenuState::~MenuState()
-{
-}
-
 void MenuState::startGame(Game * g)
 {
 	g->changeState(new PlayState(g));

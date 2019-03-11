@@ -1,6 +1,6 @@
 #include "AmmoPackage.h"
 
-string AmmoPackage::getType()
+string AmmoPackage::getType() const
 {
 	switch (_type) //Si eso continuar
 	{

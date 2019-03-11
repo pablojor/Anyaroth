@@ -1,66 +1,46 @@
 #pragma once
-#include "GameComponent.h"
-#include "BodyComponent.h"
-#include "TransformComponent.h"
-#include "Game.h"
-#include "ShooterInterface.h"
 #include "BulletPool.h"
-#include "GunType_def.h"
+#include "Game.h"
 
 class Gun
 {
-private:
-	/*
-		_maxAmmo -> m�xima munici�n que almacena el arma
-		_ammo -> munici�n almacenada actualmente en el arma
+protected:
+	int _maxMagazine = 0, _magazine = 0, _maxClip = 0, _clip = 0;
+	double _maxCadence = 20, _cadence = 0;	//Tiempo entre bala y bala (se actualizara con el deltaTime)
+	bool _isAutomatic = false;
 
-		_maxClip -> m�xima munici�n que almacena el arma en el cargador
-		_clip -> munici�n almacenada actualmente en el cargador
-	*/
+	double _damage = 0, _range = 0, _speed = 0;
 
-	int _maxAmmo = 0, _ammo = 0, //Munici�n m�xima / munici�n actual
-		_maxClip = 0, _clip = 0, //Munici�n m�xima en el cargador/ munici�n actual en el cargador
-		_bulletsPerShot; //Balas usadas por disparo / r�faga
-	double _cadence, _fireTimer = 0;
-	bool _automatic = false;
+	Vector2D _offset = { 0, 0 };
 
-	GunType _type; //El nombre del arma
-	
-	GameComponent* _shootingObj = nullptr; //El objeto que usa el arma
-	ShooterInterface* _shooterComp; //El componente con el m�todo shoot() del arma
-	PoolWrapper* _bPool = nullptr;
+	Texture* _armTexture = nullptr, *_bulletTexture = nullptr;
 
-
-	/*********************************
-	//RECORDATORIO: Da�o de las armas (Está en Bullet)
-					Velocidad de disparo
-					Rango (En Bullet ?)
-
-	/*********************************/
-
-	void useAmmo();
-	void reloadAux(int newClipValue);
-	
 public:
-	Gun(GameComponent* shootingObj, ShooterInterface* shooterComp, PoolWrapper* bp, GunType type, int maxAmmo, int maxClip, double cadence, bool automatic = false, int bulletsPerShot = 1) : 
-		_shootingObj(shootingObj), _shooterComp(shooterComp), _bPool(bp), _type(type), _maxAmmo(maxAmmo), _maxClip(maxClip), _ammo(maxAmmo), _clip(maxClip), _bulletsPerShot(bulletsPerShot), _cadence(cadence), _automatic(automatic) { _shooterComp->init(_shootingObj, _bPool); }
+	Gun(Texture* armTexture, Texture* bulletTexture, double speed, double damage, double range, int maxClip, int maxMagazine);
+	virtual ~Gun() {}
 
-	void setShooter(ShooterInterface* sh);
-	void setBulletPool(PoolWrapper* bp) { _bPool = bp; };
-	bool shoot(Vector2D bulletPosition, Vector2D bulletDir, bool flipped);
-	void enemyShoot(Vector2D bulletPosition, Vector2D bulletDir, bool flipped);
+	virtual void shoot(BulletPool* bulletPool, const Vector2D& position, const double& angle, const string& tag);
+	virtual void reload();
+
+	inline bool canShoot() const { return _clip > 0; }
+	inline bool canReload() const { return _magazine > 0 && _clip < _maxClip; }
 
 	void addAmmo(int ammoAdded);
-	bool reload();
 	void resetAmmo();
 
-	bool inline canShoot() { return SDL_GetTicks() > _fireTimer + _cadence; }
+	inline int getMagazine() const { return _magazine; }
+	inline int getClip() const { return _clip; }
 
-	int getAmmo() { return _ammo; };
-	int getClip() { return _clip; }
-	GunType getType() { return _type; };
-	bool isAutomatic() { return _automatic; };
+	inline bool hasToBeReloaded() const { return _clip == 0 && _magazine > 0; }
 
-	void debugInfo();
+	Vector2D prepareBulletPosition(const Vector2D& position, const double& angle);
 
+	inline bool isAutomatic() const { return _isAutomatic; }
+
+	inline void refreshGunCadence(const Uint32& deltaTime) { _cadence > 0 ? _cadence -= deltaTime : _cadence = 0; }
+
+	inline void setBulletTexture(Texture* texture) { _bulletTexture = texture; }
+	
+	inline Texture* getBulletTexture() const { return _bulletTexture; }
+	inline Texture* getArmTexture() const { return _armTexture; }
 };

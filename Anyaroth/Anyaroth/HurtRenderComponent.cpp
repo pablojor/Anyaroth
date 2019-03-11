@@ -7,25 +7,22 @@ HurtRenderComponent::HurtRenderComponent(GameComponent * obj) : PhysicsComponent
 	_texture = obj->getComponent<Texture>();
 }
 
-
-HurtRenderComponent::~HurtRenderComponent()
+void HurtRenderComponent::update(double time)
 {
-}
+	_timer += time;
 
-void HurtRenderComponent::update()
-{
-	if (_hurt && SDL_GetTicks() > _startTime)
+	if (_hurt && _timer >= _startTime)
 	{
 		_texture->setColor(255, 255, 255); //color original
 		_hurt = false;
-		
+		_timer = 0;
 	}
 }
 
 void HurtRenderComponent::hurt()
 {
 	_texture->setColor(255, 0, 0);
-	_startTime = SDL_GetTicks() + _hurtTime;
+	_startTime = _timer + _hurtTime;
 	_hurt = true;
 }
 

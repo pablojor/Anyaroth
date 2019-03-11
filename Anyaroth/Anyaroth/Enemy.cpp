@@ -26,23 +26,13 @@ Enemy::Enemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2
 	
 	_body->getBody()->SetFixedRotation(true);
 
-	//auto playerTrans = addComponent<MeleeEnemyComponent>();
-
 	_anim = addComponent<AnimatedSpriteComponent>();
 	_hurt = addComponent<HurtRenderComponent>();
 
-	/*
-	_anim->addAnim(AnimatedSpriteComponent::Idle, 16, true);
-	_anim->addAnim(AnimatedSpriteComponent::Walk, 10, true);
-	_anim->addAnim(AnimatedSpriteComponent::WalkBack, 10, true); //esta en realidad es opcional
-	_anim->addAnim(AnimatedSpriteComponent::MeleeKnife, 6, false);
-
-	_anim->playAnim(AnimatedSpriteComponent::Idle);
-	*/
 	_life = Life(50);
 	_movement = addComponent<MovingComponent>();
-
 }
+
 void Enemy::setItList(list<GameObject*>::iterator itFR)
 {
 	_itList = itFR;
@@ -59,11 +49,10 @@ void Enemy::beginCollision(GameComponent * other, b2Contact* contact)
 	}
 }
 
-void Enemy::update()
+void Enemy::update(double time)
 {
-	GameComponent::update();
+	GameComponent::update(time);
 }
-
 
 void Enemy::die()
 {
@@ -85,14 +74,11 @@ void Enemy::subLife(int damage)
 			_dead = true;
 		}
 		else
-		{
 			_hurt->hurt();
-		}
 	}
 }
 
 bool Enemy::inCamera()
 {
-
 	return _play->getMainCamera()->inCamera(Vector2D(_body->getBody()->GetPosition().x * 8, _body->getBody()->GetPosition().y * 8));
 }

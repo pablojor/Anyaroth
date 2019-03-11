@@ -5,38 +5,38 @@
 
 class Camera
 {
-	private:
-		GameComponent * _followedObject = nullptr;
-		SDL_Rect _cameraRect;
-		BackGround* _backGround = nullptr;
+private:
+	GameComponent * _followedObject = nullptr;
+	SDL_Rect _cameraRect;
+	BackGround* _backGround = nullptr;
 
-		void moveCamera();
+	void moveCamera();
 
-		pair<bool, int> _cameraStatus = pair<bool, int>(false, 0);
+	pair<bool, int> _cameraStatus = pair<bool, int>(false, 0);
 
-	public:
-		Camera() {};
-		Camera(GameComponent* followObject);
-		Camera(SDL_Rect rect) : _cameraRect(rect) {};
-		~Camera();
+public:
+	Camera() {}
+	Camera(GameComponent* followObject);
+	Camera(SDL_Rect rect) : _cameraRect(rect) {}
+	~Camera();
 
-		SDL_Rect* getCameraRect() { return &_cameraRect; }
+	inline SDL_Rect* getCameraRect() { return &_cameraRect; }
 
-		void setCameraPosition(double x, double y);
-		void setCameraSize(double w, double h);
-		void setBackGround(BackGround* bg) { _backGround = bg; }
+	void setCameraPosition(double x, double y);
+	void setCameraSize(double w, double h);
 
-		Vector2D getCameraPosition() { return Vector2D(_cameraRect.x, _cameraRect.y); }
-		Vector2D getCameraSize() { return Vector2D(_cameraRect.w, _cameraRect.h); }
+	inline void setBackGround(BackGround* bg) { _backGround = bg; }
 
-		bool inCamera(Vector2D pos) { return (pos.getX() > _cameraRect.x && pos.getX() < _cameraRect.x + _cameraRect.w && pos.getY() > _cameraRect.y && pos.getY() < _cameraRect.y + _cameraRect.h);}
+	inline Vector2D getCameraPosition() const { return Vector2D(_cameraRect.x, _cameraRect.y); }
+	inline Vector2D getCameraSize() const { return Vector2D(_cameraRect.w, _cameraRect.h); }
 
-		void fixCameraToObject(GameComponent* object) { _followedObject = object; };
-		void looseFixedObject();
+	inline bool inCamera(const Vector2D& pos) const { return (pos.getX() > _cameraRect.x && pos.getX() < _cameraRect.x + _cameraRect.w && pos.getY() > _cameraRect.y && pos.getY() < _cameraRect.y + _cameraRect.h); }
 
-		GameComponent* getFollowedObject() { return _followedObject; };
+	void fixCameraToObject(GameComponent* object) { _followedObject = object; };
+	void looseFixedObject();
 
-		void update();
-		void render() const;
+	inline GameComponent* getFollowedObject() const { return _followedObject; };
+
+	void update(double time);
+	void render() const;
 };
-

@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "AnyarothError.h"
 #include <json.hpp>
 
 void Game::createTextures()
@@ -20,169 +21,174 @@ void Game::createTextures()
 			fil = j[i][2];
 			col = j[i][3];
 
-			textures.insert(pair <string, Texture*>(id, new Texture(renderer, SPRITE_PATH + name, fil, col)));
-			texturesName.push_back(id);
+			_textures.insert(pair <string, Texture*>(id, new Texture(_renderer, SPRITE_PATH + name, fil, col)));
+			_texturesName.push_back(id);
 		}
 	}
+	else
+		throw AnyarothError("No se ha encontrado el archivo");
+
+	input.close();
+}
+
+void Game::createFonts()
+{
+	ifstream input;
+	input.open(INFO_PATH + "fonts.txt");
+	if (input.is_open())
+	{
+		bool end = false;
+		while (!end)
+		{
+			string id; input >> id;
+			if (id != "")
+			{
+				string fileName; input >> fileName;
+				int size; input >> size;
+				_fonts.insert(pair <string, Font*>(id, new Font(FONTS_PATH + fileName, size)));
+				_fontsName.push_back(id);
+			}
+			else
+				end = true;
+		}
+	}
+	else
+		throw AnyarothError("No se ha encontrado el archivo");
+
 	input.close();
 }
 
 void Game::pushState(GameState* state)
 {
-	stateMachine->pushState(state);
+	_stateMachine->pushState(state);
 }
 
 void Game::changeState(GameState* state)
 {
-	stateMachine->changeState(state);
+	_stateMachine->changeState(state);
 }
 
 void Game::popState()
 {
-	stateMachine->popState();
+	_stateMachine->popState();
 }
 
 Texture* Game::getTexture(string nameText)
 {
-	return textures[nameText];
-}
-
-
-void Game::toggleFullscreen() {
-	Uint32 FullscreenFlag = SDL_WINDOW_FULLSCREEN_DESKTOP; //fake fullscreen (windowed mode)
-	bool IsFullscreen = SDL_GetWindowFlags(window) & FullscreenFlag;
-	SDL_SetWindowFullscreen(window, IsFullscreen ? 0 : FullscreenFlag);
-
-	//SDL_SetRelativeMouseMode(IsFullscreen ? SDL_FALSE : SDL_TRUE);
+	return _textures[nameText];
 }
 
 Font * Game::getFont(string nameFont)
 {
 	return _fonts[nameFont];
-
 }
 
-void Game::newGame()
+void Game::toggleFullscreen()
 {
-
-}
-
-void Game::load()
-{
-
-}
-
-void Game::save()
-{
-
+	Uint32 FullscreenFlag = SDL_WINDOW_FULLSCREEN_DESKTOP; //fake fullscreen (windowed mode)
+	bool IsFullscreen = SDL_GetWindowFlags(_window) & FullscreenFlag;
+	SDL_SetWindowFullscreen(_window, IsFullscreen ? 0 : FullscreenFlag);
 }
 
 Game::Game()
 {
-	SDL_Init(SDL_INIT_TIMER | SDL_INIT_AUDIO | SDL_INIT_VIDEO | SDL_INIT_EVENTS /*SDL_INIT_EVERYTHING*/);
-	TTF_Init();//Ventana del tama�o de la pantalla de cada dispositivo
+	SDL_Init(SDL_INIT_TIMER | SDL_INIT_AUDIO | SDL_INIT_VIDEO | SDL_INIT_EVENTS);
+	TTF_Init(); //Ventana del tamaño de la pantalla de cada dispositivo
 	SDL_DisplayMode monitor;
 	SDL_GetCurrentDisplayMode(0, &monitor);
 	auto win_width = monitor.w - 50;
 	auto win_height = monitor.h - 80;
 
-	window = SDL_CreateWindow("Anyaroth", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, win_width, win_height, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_MAXIMIZED);
-	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-	SDL_RenderSetLogicalSize(renderer, GAME_RESOLUTION_X, GAME_RESOLUTION_Y);
+	_window = SDL_CreateWindow("Anyaroth", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, win_width, win_height, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_MAXIMIZED);
+	_renderer = SDL_CreateRenderer(_window, -1, SDL_RENDERER_ACCELERATED);
+	SDL_RenderSetLogicalSize(_renderer, GAME_RESOLUTION_X, GAME_RESOLUTION_Y);
 
 	//Icon
 	SDL_Surface* icon = IMG_Load("..\\icon.png");
-	SDL_SetWindowIcon(window, icon);
+	SDL_SetWindowIcon(_window, icon);
 
 	//Show cursor
 	SDL_ShowCursor(true);
-	//-----------------------------------------
-	//Ajustamos el viewPort
-	/*SDL_Rect viewport;
-	viewport.x = 0;
-	viewport.y = 0;
-	viewport.w = 480 * RESOLUTION;
-	viewport.h = 270 * RESOLUTION;
-	SDL_RenderSetViewport(renderer, &viewport);*/
-	//-----------------------------------------
 
 	//---Create textures
 	createTextures();
+	//---Create fonts
+	createFonts();
 	//---Create world
 	_world = new b2World(b2Vec2(0.0, 9.8));
-	//---Create fonts
-	_fonts["ARIAL12"] = new Font(FONTS_PATH + "arial.ttf", 12);
 	//---Create states
-	stateMachine->pushState(new MenuState(this));
+	_stateMachine->pushState(new MenuState(this));
 }
 
 Game::~Game()
 {
-	int tamV = texturesName.size();
-	for (int i = 0; i < tamV; i++)
+	//delete textures
+	int tamTextures = _texturesName.size();
+	for (int i = 0; i < tamTextures; i++)
 	{
-		delete textures[texturesName[i]];
-		textures.erase(texturesName[i]);
+		delete _textures[_texturesName[i]];
+		_textures.erase(_texturesName[i]);
 	}
 
-	for (auto it = _fonts.begin(); it != _fonts.end(); it++)
-		delete it->second;
-		
-	//delete guns
-	for (int i = 0; i < gameGuns.size(); i++)
+	//delete fonts
+	int tamFonts = _fontsName.size();
+	for (int i = 0; i < tamFonts; i++)
 	{
-		delete gameGuns[i].shooter;
+		delete _fonts[_fontsName[i]];
+		_fonts.erase(_fontsName[i]);
 	}
-	delete stateMachine;
+
+	delete _stateMachine;
 	delete _world;
-	SDL_DestroyRenderer(renderer);
-	SDL_DestroyWindow(window);
+	SDL_DestroyRenderer(_renderer);
+	SDL_DestroyWindow(_window);
 	SDL_Quit();
 }
 
 void Game::run()
 {
-	while (!exit) {
-		Uint32 startTime = SDL_GetTicks();
-		handleEvents(startTime);
-		update(startTime);
-		render(startTime);
+	double frameTime = FRAME_RATE;
 
-		Uint32 frameTime = SDL_GetTicks() - startTime;
-		if (frameTime < 60)
-			SDL_Delay(60 - frameTime);
+	while (!_exit)
+	{
+		double startTime = SDL_GetTicks();
+
+		handleEvents();
+		update(frameTime);
+		_world->Step(1 / 60.0, 8, 3);
+		render();
+
+		frameTime = SDL_GetTicks() - startTime;
+
+		if (frameTime < FRAME_RATE)
+			SDL_Delay(FRAME_RATE - frameTime);
 	}
 }
 
-void Game::update(Uint32 time)
+void Game::update(double time)
 {
-	stateMachine->currentState()->update();
+	_stateMachine->currentState()->update(time);
 }
 
-void Game::render(Uint32 time) const
+void Game::render() const
 {
-	SDL_RenderClear(renderer);
-	stateMachine->currentState()->render();
-	//_world->DrawDebugData();
-
-	SDL_RenderPresent(renderer);
+	SDL_RenderClear(_renderer);
+	_stateMachine->currentState()->render();
+	_world->DrawDebugData();
+	SDL_RenderPresent(_renderer);
 }
 
-void Game::handleEvents(Uint32 time)
+void Game::handleEvents()
 {
 	SDL_Event event;
-	while (SDL_PollEvent(&event) && !exit)
+	while (SDL_PollEvent(&event) && !_exit)
 	{
 		if (event.type == SDL_QUIT)
-			exit = true;
+			_exit = true;
 		else if (event.type == SDL_KEYDOWN)
-		{
 			if (event.key.keysym.sym == SDLK_F11)
-			{
 				toggleFullscreen();
-			}
-		}
 
-		stateMachine->currentState()->handleEvents(event);
+		_stateMachine->currentState()->handleEvents(event);
 	}
 }

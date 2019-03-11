@@ -1,121 +1,64 @@
 #include "PlayerArm.h"
-#include "ArmControllerComponent.h"
-#include "Gun.h"
+#include "Player.h"
+#include "Game.h"
 
 
-
-PlayerArm::PlayerArm(Texture* texture, GameComponent* player, Game* g, PlayState* play, Vector2D offset) : Arm(texture, player, g, play, offset)
+PlayerArm::PlayerArm(Game* game, Player* player, Vector2D offset) : Arm(game, player, offset) ,_player(player)
 {
-	_controller = addComponent<ArmControllerComponent>();
-	//_cursor = play->getCursor();
+	setTexture(game->getTexture("Arm"));
 }
 
-void PlayerArm::update()
+void PlayerArm::update(double time)
 {
-		/*cout << "ARM_X: " << getComponent<TransformComponent>()->getPosition().getX() << "	ARM_Y: " << getComponent<TransformComponent>()->getPosition().getY() << endl << endl;*/
-	
+	GameComponent::update(time);
 
-	GameComponent::update();
-
-	Vector2D mousePos = _cursor->getComponent<TransformComponent>()->getPosition();
-	Vector2D mouseDim = { double(_cursor->getComponent<AnimatedSpriteComponent>()->getTexture()->getW()), double(_cursor->getComponent<AnimatedSpriteComponent>()->getTexture()->getH()) };
-	//------------Rotaci�n del brazo---------------------
-	rotate(Vector2D(mousePos.getX() + mouseDim.getX()/2, mousePos.getY() + mouseDim.getY() / 2));
-	//------------Comprueba si tiene que disparar--------
-	if (_controller->isShooting())
-	{
-		shoot();//DISPARA
-		if(!_currentGun->isAutomatic()) _controller->setShooting(false); //Si el arma no es automática, resetea el input de disparo
-	}
-
-	if ((static_cast<Player*>(_owner))->getCurrentState() == Player::Attacking ||
-		(static_cast<Player*>(_owner))->getCurrentState() == Player::Reloading ||
-		(static_cast<Player*>(_owner))->getCurrentState() == Player::Dashing)
-	{
+	if (_player->isDashing() || _player->isMeleeing() || _player->isReloading())
 		_anim->setActive(false);
+	else
+		_anim->setActive(true);
+
+	//------------Rotacion del brazo
+	Vector2D mousePos = getGame()->getCurrentState()->getMousePositionInWorld(); 
+	lookAtTarget(mousePos);
+	handleFlipState(mousePos);
+
+	if (_anim->animationFinished())
+		_anim->playAnim(AnimatedSpriteComponent::Idle);
+}
+
+//Activa animacion de disparo
+void PlayerArm::shoot()
+{
+	if(_player->getCurrentGun()->canShoot())
+		_anim->playAnim(AnimatedSpriteComponent::Shoot); 
+	else
+		_anim->playAnim(AnimatedSpriteComponent::NoAmmo);
+}
+
+//Activa animacion de recarga o de noAmmo
+void PlayerArm::reload()
+{
+	//Activar animacion aqui
+	//if (_player->getCurrentGun()->canReload())
+		//Animacion de los brazon recargando (FALTA!!!)
+		//_anim->playAnim(AnimatedSpriteComponent::Reload);
+}
+
+void PlayerArm::handleFlipState(const Vector2D& target)
+{
+	if (target.getX() < _transform->getPosition().getX())
+	{
+		_transform->setAnchor(1 - _transform->getDefaultAnchor().getX(), _transform->getDefaultAnchor().getY());
+		_followC->setOffset({ _followC->getInitialOffset().getX() + 8 /*flipPosOffset*/, _followC->getInitialOffset().getY() });
+		_transform->setRotation(_transform->getRotation() + 180);
+		_anim->flip();
+		_player->getComponent<AnimatedSpriteComponent>()->flip();
 	}
 	else
 	{
-		_anim->setActive(true);
+		_transform->setAnchor(_transform->getDefaultAnchor().getX(), _transform->getDefaultAnchor().getY());
+		_followC->setOffset({ _followC->getInitialOffset().getX(), _followC->getInitialOffset().getY() });
+		_anim->unFlip();
+		_player->getComponent<AnimatedSpriteComponent>()->unFlip();
 	}
-
-	//Comprueba si tiene que disparar
-	if (_controller->shootButton() || _controller->flipShooting())
-	{
-		shoot();
-		_controller->toggleCanShoot();
-	}
-
-
-	if (_anim->animationFinished())
-	{
-		_anim->playAnim(AnimatedSpriteComponent::Idle);
-	}
-}
-
-//Dispara el arma
-void PlayerArm::shoot()
-{
-	if (_currentGun != nullptr && _currentGun->canShoot())
-	{
-		double armAngle = _transform->getRotation(),
-			armX = _transform->getPosition().getX(),
-			armY = _transform->getPosition().getY();
-    
-		//----------Posici�n inicial de la bala
-		int posOffsetX = 24,
-			posOffsetY = -1;
-
-		Vector2D bulletPosition = { armX + (_anim->isFlipped() ? -posOffsetX : posOffsetX), armY + posOffsetY };
-		bulletPosition = bulletPosition.rotateAroundPoint(armAngle, { armX, armY });
-
-
-		//----------Direcci�n de la bala
-
-		//Distinci�n flip-unflip
-		int bulletDirOffset = 90;//_anim->isFlipped() ? 90 : 90;
-
-		double aimAuxY = _anim->isFlipped() ? 1 : -1;
-		Vector2D bulletDir = (Vector2D(0, aimAuxY).rotate(armAngle + bulletDirOffset));
-
-		cout << "PREV: " << armAngle << "->" << bulletDir.getX() << " " << bulletDir.getY() << endl;
-
-		/*if (((_anim->isFlipped() && armAngle > 80) || (!_anim->isFlipped() && armAngle < -80)) && bulletDir.getY() >= 0)
-			bulletDir = { bulletDir.getX(), -(bulletDir.getY()) };*/
-			//bulletDir = { bulletDir.getX(), abs(bulletDir.getY()) };
-		
-		cout << "POS: " << armAngle << "->" << bulletDir.getX() << " " << bulletDir.getY() << endl;
-
-		bulletDir.normalize();
-
-		if(_currentGun->shoot(bulletPosition, bulletDir, _anim->isFlipped()))
-		{
-			_anim->playAnim(AnimatedSpriteComponent::Shoot);
-		}
-		else
-		{
-			if (_currentGun->getAmmo() > 0)
-			{
-				static_cast<Player*>(_owner)->reload();
-			}
-			else
-			{
-				_anim->playAnim(AnimatedSpriteComponent::NoAmmo);
-			}
-			
-		}
-	}
-
-}
-
-//Recarga el arma
-bool PlayerArm::reload()
-{
-	return _currentGun->reload();	
-}
-
-void PlayerArm::setCursor(Cursor* c)
-{
-	_cursor = c;
-	_controller->setCursorTC(c);
 }

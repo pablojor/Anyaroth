@@ -2,29 +2,25 @@
 #include <string>
 #include "Tile.h"
 
-class Layer : public GameComponent 
+class Layer : public GameComponent
 {
-	protected:
-		Texture* _tileset;
-		vector<Tile*> _tilemap;
-	public:
-		Layer(string name, Texture* t, string filename, Game* g, string tag);
-		~Layer();
+protected:
+	Texture* _tileset = nullptr;
+	vector<Tile*> _tilemap;
 
-		void render(Camera* c) const;
+public:
+	Layer(string name, Texture* t, string filename, Game* g, string tag);
+	~Layer();
 
-		vector<Tile*> getTilemap() { return _tilemap; };
+	void render(Camera* c) const;
+	inline vector<Tile*> getTilemap() const { return _tilemap; }
 
+	template<typename ComponentType>
+	ComponentType* addComponent() //Redefino addComponent() para que, en vez de añadir el componente al layer, lo añada a cada tile
+	{
+		for (Tile* t : _tilemap)
+			t->addComponent<ComponentType>();
 
-		template<typename ComponentType>
-		ComponentType* addComponent() //Redefino addComponent() para que, en vez de anyadir el componente a la layer, lo anyade a cada tile
-		{
-			for (Tile* t : _tilemap)
-			{
-				t->addComponent<ComponentType>();
-			}
-
-			return nullptr;
-			//return add_component<ComponentType>(typeid(ComponentType).name());
-		}
+		return nullptr;
+	}
 };

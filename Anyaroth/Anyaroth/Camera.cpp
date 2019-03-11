@@ -15,23 +15,14 @@ void Camera::moveCamera()
 
 	//Aqui se haran los ajustes para que no se salga del mundo
 	if (_cameraRect.x < 0)
-	{
 		_cameraRect.x = 0;
-	}
 	else if (_cameraRect.x > LEVEL_WIDTH - _cameraRect.w)
-	{
 		_cameraRect.x = LEVEL_WIDTH - _cameraRect.w;
-	}
-
 
 	if (_cameraRect.y < 0)
-	{
 		_cameraRect.y = 0;
-	}
 	else if (_cameraRect.y > LEVEL_HEIGHT - _cameraRect.h)
-	{
 		_cameraRect.y = LEVEL_HEIGHT - _cameraRect.h;
-	}
 
 	//Comparamos los cambios de la camara con su aspecto anterior
 	if (preChange.x != _cameraRect.x)
@@ -75,13 +66,12 @@ void Camera::looseFixedObject()
 		_followedObject = nullptr;
 }
 
-void Camera::update()
+void Camera::update(double time)
 {
 	moveCamera();
-	if (_backGround != nullptr) {
+	if (_backGround != nullptr)
 		if (_backGround->checkCameraStatus(_cameraStatus))
-			_backGround->update();
-	}
+			_backGround->update(time);
 }
 
 void Camera::render() const

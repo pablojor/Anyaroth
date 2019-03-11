@@ -1,11 +1,11 @@
 #include "PoolWrapper.h"
+#include "Game.h"
 
 
 
-PoolWrapper::PoolWrapper() : GameComponent()
+PoolWrapper::PoolWrapper(Game * game) : GameComponent(game)
 {
 }
-
 
 PoolWrapper::~PoolWrapper()
 {

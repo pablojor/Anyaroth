@@ -9,8 +9,8 @@ class GameComponent;
 class PlayerControllerComponent : public InputComponent
 {
 private:
-	AnimatedSpriteComponent* _anim;
-	GameComponent* _obj;
+	AnimatedSpriteComponent* _anim = nullptr;
+	GameComponent* _obj = nullptr;
 	MovingComponent* _movement = nullptr;
 	bool _spacePul = false, _aPul = false, _sPul = false, _dPul = false, _sfPul = false;
 	bool _rightClickPul = false, _isAttacking = false;
@@ -34,11 +34,10 @@ public:
 	inline bool isAttacking() { return _isAttacking; }
 	inline void setIsAttacking(bool b) { _isAttacking = b; }
 	inline void newDash() { _amountOfDash++; }
-	inline int amountDash() { return _amountOfDash; }
+	inline int amountDash() const { return _amountOfDash; }
 
-	inline bool isReloading() { return _isReloading; };
-	inline void setIsReloading(bool b) { _isReloading = b; };
+	inline bool isReloading() const { return _isReloading; }
+	inline void setIsReloading(bool b) { _isReloading = b; }
 
 	void reload();
-
 };

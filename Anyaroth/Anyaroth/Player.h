@@ -1,86 +1,95 @@
 #pragma once
 #include "GameComponent.h"
+#include "TransformComponent.h"
+#include "AnimatedSpriteComponent.h"
+#include "BodyComponent.h"
+//#include "HurtRenderComponent.h"
 #include "PlayerArm.h"
 #include "Gun.h"
-#include "Shooter.h"
 #include "Money.h"
-#include "PlayState.h"
 #include "Life.h"
-#include "GunType_def.h"
 #include "PlayerPanel.h"
+#include "BulletPool.h"
 #include "MeleeWeapon.h"
-
-class PlayerArm;
-class Game;
-
-class AnimatedSpriteComponent;
-class PlayerControllerComponent;
-class PlayState;
-class HurtRenderComponent;
+#include "GunType_def.h"
 
 class Player : public GameComponent
 {
 private:
-	PlayState* _play = nullptr;
-	Life _life = Life(100);
-	int AmountOfCollision;
-	uint _currentState = 0;
-	PlayerArm* _weaponArm = nullptr;
-	AnimatedSpriteComponent* _anim;
-	PlayerControllerComponent* _controller;
-	TransformComponent * _transform;
-	BodyComponent * _body;
-	HurtRenderComponent* _hurt;
-	HurtRenderComponent* _hurtArm;
+	//Componentes
+	TransformComponent* _transform = nullptr;
+	AnimatedSpriteComponent* _anim = nullptr;
+	BodyComponent* _body = nullptr;
+	//HurtRenderComponent* _hurt = nullptr;
+	//HurtRenderComponent* _hurtArm; poner en el brazo
 	MeleeWeapon* _melee = nullptr;
 
+	//Propiedades
+	Life _life = Life(100);
+	Money* _money = nullptr;
 	PlayerPanel* _playerPanel = nullptr;
+	BulletPool* _playerBulletPool = nullptr;
 
-	uint32 _dashCD = 3000;
-	uint32 _timer = 0;
-	int _MaxDash = 2;
-	Money * _money = nullptr;
+	//Hijos
+	PlayerArm* _playerArm = nullptr;
 
-	bool OnGround = false;
+	//Variable auxiliares
+	int _dashCD = 3000, _maxDash = 2, _numDash = _maxDash;
+	bool _isDashing = false, _isReloading = false, _isShooting = false, _isMeleeing = false, _dead = false;
+	int _floorCount = 0;
 
-	int _maxInventoryGuns = 2; //n�mero de slots en el inventario de armas 
-	vector<Gun*> _gunInventory; //Ej: == {Game::BasicGun} -> indica que en el inventario solo lleva la pistola b�sica
-	uint _equippedGun = -1; //El Arma en uso
-	
+	Gun* _currentGun = nullptr;
+	Gun* _otherGun = nullptr;
 	MeleeType _equippedMelee = Knife;
 
-	vector<Texture*> _armTextures;
+	inline bool dashIsAble() const { return _numDash > 0 && _isDashing; }
+	void checkMovement(const Uint8* keyboard);
+	void handleAnimations();
 
-	bool _dead = false;
+	void refreshCooldowns(const Uint32& deltaTime);
+	void refreshDashCoolDown(const Uint32& deltaTime);
+	void refreshGunCadence(const Uint32& deltaTime);
+	inline void setGrounded(bool grounded) { _floorCount = grounded; }
+
+	bool canReload();
 
 public:
-
-	enum states { Idle, Attacking, Walking, Reloading, Dashing, Falling, Jumping };
-
-	Player(Texture* texture, Game* g, PlayState* play, string tag);
+	Player(Game* g, int xPos, int yPos);
 	~Player();
 
-	void update();
+	bool handleInput(const SDL_Event& event);
+	void update(double time);
+
 	virtual void beginCollision(GameComponent* other, b2Contact* contact);
 	virtual void endCollision(GameComponent* other, b2Contact* contact);
 
 	void subLife(int damage);
 	void die();
 
-	void setArm(PlayerArm* arm) { _weaponArm = arm; };
-	PlayerArm* getWeaponArm() { return _weaponArm; }
-	void addGun(GunType type);
-	void equipGun(int invIndex);
 	void swapGun();
+	inline void changeCurrentGun(Gun* gun) { _currentGun = gun; }
+	inline void changeOtherGun(Gun* gun) { _otherGun = gun; }
+	inline Gun* getCurrentGun() const { return _currentGun; }
+	inline Gun* getOtherGun() const { return _otherGun; }
 
+	void move(const Vector2D& dir, const double& speed);
+	void dash(const Vector2D& dir);
+	void jump();
+
+	void melee();
+	void shoot();
 	void reload();
 
+	void setPlayerPanel(PlayerPanel* p);
+	inline void setPlayerBulletPool(BulletPool* pool) { _playerBulletPool = pool; }
+	
 	void meleeAttack();
 	void changeMelee(int meleeType);
 	void endMelee();
 
-	uint getCurrentState() { return _currentState; };
-	void setCurrentState(uint n) { _currentState = n; };
-
-	inline void setPlayerPanel(PlayerPanel* p) { _playerPanel = p; }
+	inline bool isGrounded() const { return _floorCount; }
+	bool isDashing() const;
+	bool isMeleeing() const;
+	bool isReloading() const;
+	bool isJumping() const;
 };

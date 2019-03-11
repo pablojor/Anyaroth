@@ -5,11 +5,11 @@
 
 class MenuState : public GameState
 {
-	private:
-		static void startGame(Game* g);
-		static void exitGame(Game* g);
+private:
+	static void startGame(Game* g);
+	static void exitGame(Game* g);
 
-	public:
-		MenuState(Game* g);
-		~MenuState();
+public:
+	MenuState(Game* g);
+	~MenuState() {}
 };

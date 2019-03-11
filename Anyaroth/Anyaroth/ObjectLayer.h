@@ -1,15 +1,14 @@
 #pragma once
 #include "GameComponent.h"
+
 class ObjectLayer : public GameComponent
 {
-public:
-	ObjectLayer(string filename, string name);
-	virtual ~ObjectLayer();
-
-	vector<Vector2D> const getObjectsPositions() { return _objectsPos; };
 private:
 	vector<Vector2D> _objectsPos;
+
+public:
+	ObjectLayer(string filename, string name);
+	virtual ~ObjectLayer() {}
+
+	inline vector<Vector2D> getObjectsPositions() const { return _objectsPos; }
 };
-
-
-

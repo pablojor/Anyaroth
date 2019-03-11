@@ -1,30 +1,22 @@
 #pragma once
-
 #include "Arm.h"
-#include "Game.h"
-#include "Cursor.h"
 
-class Gun;
-class ArmControllerComponent;
+class Player;
 
 class PlayerArm : public Arm
 {
-protected:
-	
-	ArmControllerComponent* _controller;
-	Cursor* _cursor;
-	
-	double _minAimDistance = 48;
-	int _flipPosOffset = 8;
+private:
+	Player* _player = nullptr;
+	void handleFlipState(const Vector2D& target);
 
 public:
-	PlayerArm(Texture* texture, GameComponent* player, Game* g, PlayState* play, Vector2D offset = { 0,0 });
+	PlayerArm(Game* game, Player* player, Vector2D offset = { 0, 0 });
 
-	void update();
+	void update(double time);
 
 	void shoot();	
+	void reload(); 
 
-	bool reload(); 
-	void setCursor(Cursor* c); //usado por el controller
+	inline double getAngle() const { return _transform->getRotation(); }
+	inline Vector2D getPosition() const { return _transform->getPosition(); }
 };
-
