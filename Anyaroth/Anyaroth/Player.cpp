@@ -190,7 +190,7 @@ void Player::update(double time)
 	GameComponent::update(time);
 
 	checkMovement(keyboard);
-	refreshCooldowns(16.6);
+	refreshCooldowns(time);
 	handleAnimations();
 }
 
@@ -402,12 +402,15 @@ void Player::melee()
 
 void Player::shoot()
 {
-	_playerArm->shoot();
-	_currentGun->shoot(_playerBulletPool, _playerArm->getPosition(), !_anim->isFlipped() ? _playerArm->getAngle() : _playerArm->getAngle() + 180, "Bullet");
+	if (_currentGun->canShoot() /*&& isReloading()*/)
+	{
+		_playerArm->shoot();
+		_currentGun->shoot(_playerBulletPool, _playerArm->getPosition(), !_anim->isFlipped() ? _playerArm->getAngle() : _playerArm->getAngle() + 180, "Bullet");
 
-	_playerPanel->updateAmmoViewer(_currentGun->getClip(), _currentGun->getMagazine());
-	if (!_currentGun->isAutomatic())
-		_isShooting = false;
+		_playerPanel->updateAmmoViewer(_currentGun->getClip(), _currentGun->getMagazine());
+		if (!_currentGun->isAutomatic())
+			_isShooting = false;
+	}
 
 	if (_currentGun->hasToBeReloaded())
 		reload();

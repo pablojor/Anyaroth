@@ -2,7 +2,7 @@
 
 
 
-BasicShotgun::BasicShotgun(Game * game) : Gun(game->getTexture("ArmShotgun"), game->getTexture("PistolBullet"), 100, 25, 60, 2, 30)
+BasicShotgun::BasicShotgun(Game * game) : Gun(game->getTexture("ArmShotgun"), game->getTexture("PistolBullet"), 100, 25, 60, 2, 30, 800)
 {
 	_offset = { 28, -1 };
 }

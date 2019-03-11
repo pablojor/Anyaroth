@@ -6,7 +6,7 @@ class Gun
 {
 protected:
 	int _maxMagazine = 0, _magazine = 0, _maxClip = 0, _clip = 0;
-	double _maxCadence = 20, _cadence = 0;	//Tiempo entre bala y bala (se actualizara con el deltaTime)
+	double _maxCadence = 0, _cadence = 0;	//Tiempo entre bala y bala (se actualizara con el deltaTime)
 	bool _isAutomatic = false;
 
 	double _damage = 0, _range = 0, _speed = 0;
@@ -16,13 +16,13 @@ protected:
 	Texture* _armTexture = nullptr, *_bulletTexture = nullptr;
 
 public:
-	Gun(Texture* armTexture, Texture* bulletTexture, double speed, double damage, double range, int maxClip, int maxMagazine);
+	Gun(Texture* armTexture, Texture* bulletTexture, double speed, double damage, double range, int maxClip, int maxMagazine, double maxCadence);
 	virtual ~Gun() {}
 
 	virtual void shoot(BulletPool* bulletPool, const Vector2D& position, const double& angle, const string& tag);
 	virtual void reload();
 
-	inline bool canShoot() const { return _clip > 0; }
+	inline bool canShoot() const { return _clip > 0 && _cadence <= 0; }
 	inline bool canReload() const { return _magazine > 0 && _clip < _maxClip; }
 
 	void addAmmo(int ammoAdded);

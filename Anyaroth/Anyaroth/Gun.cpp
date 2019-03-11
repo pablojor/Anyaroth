@@ -2,8 +2,9 @@
 #include <algorithm>
 
 
-Gun::Gun(Texture* armTexture, Texture* bulletTexture, double speed, double damage, double range, int maxClip, int maxMagazine) : _armTexture(armTexture), _bulletTexture(bulletTexture)
+Gun::Gun(Texture* armTexture, Texture* bulletTexture, double speed, double damage, double range, int maxClip, int maxMagazine, double maxCadence) : _armTexture(armTexture), _bulletTexture(bulletTexture)
 {
+	_maxCadence = maxCadence;
 	_maxClip = maxClip;
 	_maxMagazine = maxMagazine;
 	_magazine = _maxMagazine;
