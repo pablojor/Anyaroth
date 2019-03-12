@@ -21,7 +21,7 @@ void DistanceDynamicEnemy::update(double time)
 {
 	if (!_dead && inCamera())
 	{
-		Enemy::update(time);
+		DistanceEnemy::update(time);
 		BodyComponent* _playerBody = _player->getComponent<BodyComponent>();
 
 		b2Vec2 enemyPos = _body->getBody()->GetPosition(), playerPos = _playerBody->getBody()->GetPosition();
@@ -89,7 +89,8 @@ void DistanceDynamicEnemy::update(double time)
 					else if (x < 0) //Izquierda
 						_anim->flip();
 
-					//_arm->shoot();
+					_arm->shoot();
+					_myGun->enemyShoot(_myBulletPool, _arm->getPosition(), !_anim->isFlipped() ? _arm->getAngle() : _arm->getAngle() + 180, "EnemyBullet");
 				}
 				else
 					_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });

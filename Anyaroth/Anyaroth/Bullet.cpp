@@ -80,3 +80,8 @@ void Bullet::reset()
 	_aliveTime = 0;
 	_collided = false;
 }
+
+void Bullet::changeFilter() 
+{
+	_body->filterCollisions(ENEMY_BULLETS, FLOOR | PLAYER);
+}

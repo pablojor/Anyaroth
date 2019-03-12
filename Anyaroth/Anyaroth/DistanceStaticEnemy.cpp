@@ -42,7 +42,7 @@ void DistanceStaticEnemy::update(double time)
 					_anim->flip();
 
 				_arm->shoot();
-				_myGun->shoot(_myBulletPool, _arm->getPosition(), !_anim->isFlipped() ? _arm->getAngle() : _arm->getAngle() + 180, "EnemyBullet");
+				_myGun->enemyShoot(_myBulletPool, _arm->getPosition(), !_anim->isFlipped() ? _arm->getAngle() : _arm->getAngle() + 180, "EnemyBullet");
 			}
 		}
 	}
