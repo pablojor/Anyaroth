@@ -3,7 +3,7 @@
 
 DistanceEnemy::DistanceEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag, GunType type) : Enemy(player, g, play, texture, posIni, tag)
 {
-	_arm = new EnemyArm(g, this, player, { 35,30 });
+	_arm = new EnemyArm(g, this, player, this, { 35, 30 });
 	_arm->setTexture(g->getTexture("ArmPistol"));
 	addChild(_arm);
 
