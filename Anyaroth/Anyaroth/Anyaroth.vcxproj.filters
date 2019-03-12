@@ -211,6 +211,7 @@
     <ClCompile Include="AmmoPackage.cpp">
       <Filter>Archivos de código\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="SafeZoneScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -459,6 +460,7 @@
     <ClInclude Include="PlayerArm.h">
       <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
+    <ClInclude Include="SafeZoneScene.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de encabezado">

@@ -15,30 +15,30 @@
 
 class PlayState : public GameState
 {
-private:
-	Player* _player = nullptr;
-	Enemy* _enemy = nullptr;
-	Coin* _coin = nullptr;
-	Layer* _layer = nullptr;
-	Layer* _colisionLayer = nullptr;
-	Cursor* _cursor = nullptr;
-	CollisionManager _colManager;
-	DebugDraw _debugger;
+	private:
+		Player* _player = nullptr;
+		Enemy* _enemy = nullptr;
+		Coin* _coin = nullptr;
+		Layer* _layer = nullptr;
+		Layer* _colisionLayer = nullptr;
+		Cursor* _cursor = nullptr;
+		CollisionManager _colManager;
+		DebugDraw _debugger;
 
-	//PoolWrapper* _enemyPool = nullptr;
+		//PoolWrapper* _enemyPool = nullptr;
 
-	//Bullet Pools
-	BulletPool* _playerBulletPool = nullptr; //Balas del jugador
+		//Bullet Pools
+		BulletPool* _playerBulletPool = nullptr; //Balas del jugador
 
-	vector <list<GameObject*>::iterator> items_ToDelete;
+		vector <list<GameObject*>::iterator> items_ToDelete;
 
-public:
-	PlayState(Game* g);
+	public:
+		PlayState(Game* g);
 
-	virtual void render() const;
-	virtual void update(double time);
-	virtual bool handleEvents(SDL_Event& e);
+		virtual void render() const;
+		virtual void update(double time);
+		virtual bool handleEvents(SDL_Event& e);
 
-	void KillObject(const list<GameObject*>::iterator &itList);
-	inline Cursor* getCursor() const { return _cursor; }
+		void KillObject(const list<GameObject*>::iterator &itList);
+		inline Cursor* getCursor() const { return _cursor; }
 };
