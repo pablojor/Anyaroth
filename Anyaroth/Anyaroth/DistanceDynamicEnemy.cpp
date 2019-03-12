@@ -3,7 +3,7 @@
 #include "AnimatedSpriteComponent.h"
 #include "Player.h"
 
-DistanceDynamicEnemy::DistanceDynamicEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag, GunType type) : DistanceEnemy(player, g, play, texture, posIni, tag, type)
+DistanceDynamicEnemy::DistanceDynamicEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag, BulletPool* pool) : DistanceEnemy(player, g, play, texture, posIni, tag, pool)
 {
 	_vision = 200;
 	_attackRange = 120; //No se puede poner mas pequeño que la velocidad

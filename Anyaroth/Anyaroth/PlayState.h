@@ -29,6 +29,7 @@ private:
 
 	//Bullet Pools
 	BulletPool* _playerBulletPool = nullptr; //Balas del jugador
+	BulletPool* _enemyBulletPool = nullptr; //Balas del jugador
 
 	vector <list<GameObject*>::iterator> items_ToDelete;
 

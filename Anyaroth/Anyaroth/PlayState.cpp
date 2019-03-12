@@ -29,9 +29,10 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_playerBulletPool = new BulletPool(g);
 	_stages.push_back(_playerBulletPool);
 
-	//_enemyPool = new BulletPool(g/*, g->getTexture("PistolBullet"), 100, 10, 1000*/);
-	//_stages.push_back(_enemyPool);
-	//_pools.push_back(_enemyPool);
+	////Pool enemy
+	_enemyBulletPool = new BulletPool(g);
+	_stages.push_back(_enemyBulletPool);
+	_enemyBulletPool->changePoolTag("EnemyBullets");
 
 	//Player
 	_player = new Player(g, 50, 180);
@@ -48,7 +49,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 
 	for (int i = 0; i < enemiesPos.size(); i++)
 	{
-		_enemy = new DistanceStaticEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(enemiesPos[i].getX(), enemiesPos[i].getY() - TILES_SIZE * 2), "Enemy", BasicEnemyGun);
+		_enemy = new DistanceStaticEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(enemiesPos[i].getX(), enemiesPos[i].getY() - TILES_SIZE * 2), "Enemy", _enemyBulletPool);
 		_stages.push_back(_enemy);
 		auto itFR = --(_stages.end());
 		_enemy->setItList(itFR);
@@ -60,7 +61,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 
 	for (int i = 0; i < marirsPos.size(); i++)
 	{
-		_enemy = new DistanceStaticEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(marirsPos[i].getX(), marirsPos[i].getY() - TILES_SIZE * 2), "Enemy", BasicEnemyGun);
+		_enemy = new DistanceStaticEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(marirsPos[i].getX(), marirsPos[i].getY() - TILES_SIZE * 2), "Enemy", _enemyBulletPool);
 		_stages.push_back(_enemy);
 		auto itFR = --(_stages.end());
 		_enemy->setItList(itFR);
@@ -73,9 +74,9 @@ PlayState::PlayState(Game* g) : GameState(g)
 	for (int i = 0; i < disPos.size(); i++)
 	{
 		if(i==0 ||i==2)
-			_enemy = new DistanceStaticEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(disPos[i].getX(), disPos[i].getY() - TILES_SIZE * 2), "Enemy", BasicEnemyGun);
+			_enemy = new DistanceStaticEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(disPos[i].getX(), disPos[i].getY() - TILES_SIZE * 2), "Enemy", _enemyBulletPool);
 		else
-			_enemy = new DistanceStaticEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(disPos[i].getX(), disPos[i].getY() - TILES_SIZE * 2), "Enemy", BasicEnemyShotgun);
+			_enemy = new DistanceStaticEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(disPos[i].getX(), disPos[i].getY() - TILES_SIZE * 2), "Enemy", _enemyBulletPool);
 		_stages.push_back(_enemy);
 		auto itFR = --(_stages.end());
 		_enemy->setItList(itFR);

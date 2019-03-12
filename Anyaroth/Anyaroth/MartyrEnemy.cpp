@@ -12,6 +12,7 @@ MartyrEnemy::MartyrEnemy(Player* player, Game* g, PlayState* play,Texture* textu
 	_canDie = 1000; //Tiempo que pasa entre que el enemigo ataca y se destruye
 	_life = 50;
 	_damage = 80;
+	_speed = 20;
 
 	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 14, true);
 	_anim->addAnim(AnimatedSpriteComponent::EnemyWalk, 5, true);
@@ -48,7 +49,7 @@ void MartyrEnemy::update(double time)
 
 				if ((x > _attackRange))
 				{
-					_body->getBody()->SetLinearVelocity({ 20,_body->getBody()->GetLinearVelocity().y });
+					_body->getBody()->SetLinearVelocity({ _speed,_body->getBody()->GetLinearVelocity().y });
 					_anim->playAnim(AnimatedSpriteComponent::EnemyWalk);
 				}
 				else if (y > _attackRange || y < -_attackRange)
@@ -70,7 +71,7 @@ void MartyrEnemy::update(double time)
 
 				if (x < -_attackRange)
 				{
-					_body->getBody()->SetLinearVelocity({ -20,_body->getBody()->GetLinearVelocity().y });
+					_body->getBody()->SetLinearVelocity({ -_speed,_body->getBody()->GetLinearVelocity().y });
 					_anim->playAnim(AnimatedSpriteComponent::EnemyWalk);
 				}
 				else if (y > _attackRange || y < -_attackRange)

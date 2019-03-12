@@ -10,6 +10,7 @@ MeleeEnemy::MeleeEnemy(Player* player, Game* g, PlayState* play, Texture* textur
 	_attackTime = 800;
 	_life = 50;
 	_damage = 10;
+	_speed = 8;
 
 	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 13, true);
 	_anim->addAnim(AnimatedSpriteComponent::EnemyWalk, 8, true);
@@ -38,7 +39,7 @@ void MeleeEnemy::update(double time)
 				_anim->unFlip();
 				if (x > _attackRange)
 				{
-					_body->getBody()->SetLinearVelocity({ 8,_body->getBody()->GetLinearVelocity().y });
+					_body->getBody()->SetLinearVelocity({ _speed,_body->getBody()->GetLinearVelocity().y });
 					_anim->playAnim(AnimatedSpriteComponent::EnemyWalk);
 				}
 				else if (y > _attackRange || y < -_attackRange)
@@ -61,7 +62,7 @@ void MeleeEnemy::update(double time)
 
 				if (x < -_attackRange)
 				{
-					_body->getBody()->SetLinearVelocity({ -8,_body->getBody()->GetLinearVelocity().y });
+					_body->getBody()->SetLinearVelocity({ -_speed,_body->getBody()->GetLinearVelocity().y });
 					_anim->playAnim(AnimatedSpriteComponent::EnemyWalk);
 				}
 				else if (y > _attackRange || y < -_attackRange)

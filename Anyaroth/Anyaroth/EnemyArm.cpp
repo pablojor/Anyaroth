@@ -55,3 +55,8 @@ void EnemyArm::update(double time)
 		_followC->setOffset({ _followC->getInitialOffset().getX(), _followC->getInitialOffset().getY() });
 	}
 }
+
+void EnemyArm::shoot()
+{
+	_anim->playAnim(AnimatedSpriteComponent::Shoot);
+}

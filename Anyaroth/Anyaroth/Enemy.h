@@ -30,6 +30,7 @@ protected:
 	bool _attacking = false, _dead = false;
 	double _time;
 	int _vision, _attackRange, _attackTime, _damage;
+	float32 _speed;
 
 public:
 	Enemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag);
