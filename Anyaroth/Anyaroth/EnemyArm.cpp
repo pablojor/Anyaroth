@@ -32,9 +32,10 @@ void EnemyArm::update(double time)
 			_transform->setAnchor(1 - _transform->getDefaultAnchor().getX(), _transform->getDefaultAnchor().getY());
 
 			_followC->setOffset({ _followC->getInitialOffset().getX() + 8, _followC->getInitialOffset().getY() });
-			_transform->setRotation(_transform->getRotation() + 180);
+			
 
 			lookAtTarget(Vector2D(_targetBody->GetPosition().x * 8, _targetBody->GetPosition().y * 8));
+			_transform->setRotation(_transform->getRotation() + 180);
 			_anim->flip();
 		}
 
@@ -44,7 +45,6 @@ void EnemyArm::update(double time)
 		_anim->flip();
 		_transform->setAnchor(1 - _transform->getDefaultAnchor().getX(), _transform->getDefaultAnchor().getY());
 
-		_transform->setRotation(_transform->getRotation() + 180);
 		_followC->setOffset({ _followC->getInitialOffset().getX() + 8, _followC->getInitialOffset().getY() });
 	}
 	else
