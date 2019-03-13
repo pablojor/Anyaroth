@@ -29,5 +29,8 @@
         ["Punto2", "DisparoJugador.png", 1, 1],
         ["GunCursor", "gunCursor.png", 1, 1],
 		["BgMenu", "bg_menu.png", 1, 1]
+    ],
+    "fonts" : [
+        ["ARIAL12", "arial.ttf", 12]
     ]
 }

@@ -246,7 +246,7 @@ void Player::checkMovement(const Uint8* keyboard)
 	if (_isShooting && !isMeleeing())
 		shoot();
 	//Melee
-	if (_isMeleeing && isGrounded())
+	if (_isMeleeing && !isMeleeing() && isGrounded())
 		melee();
 	//Cambio de arma
 	//Esta bien en el handleInput
@@ -398,6 +398,8 @@ void Player::jump()
 
 void Player::melee()
 {
+	if (_melee->isActive())
+		_melee->endMelee();
 	_anim->playAnim(AnimatedSpriteComponent::MeleeKnife);
 	_melee->meleeAttack(_body->getBody()->GetPosition().x* M_TO_PIXEL, _body->getBody()->GetPosition().y*M_TO_PIXEL, (_anim->isFlipped()) ? -1 : 1);
 	_isMeleeing = false;

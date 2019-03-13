@@ -5,7 +5,7 @@
 void Game::createTextures()
 {
 	ifstream input;
-	input.open(INFO_PATH + "textures.json");
+	input.open(INFO_PATH + "assets.json");
 	if (input.is_open())
 	{
 		nlohmann::json j;
@@ -34,22 +34,23 @@ void Game::createTextures()
 void Game::createFonts()
 {
 	ifstream input;
-	input.open(INFO_PATH + "fonts.txt");
+	input.open(INFO_PATH + "assets.json");
 	if (input.is_open())
 	{
-		bool end = false;
-		while (!end)
+		nlohmann::json j;
+		input >> j;
+		j = j["fonts"];
+		int numFonts = j.size();
+		string id, name;
+		int size;
+		for (int i = 0; i < numFonts; i++)
 		{
-			string id; input >> id;
-			if (id != "")
-			{
-				string fileName; input >> fileName;
-				int size; input >> size;
-				_fonts.insert(pair <string, Font*>(id, new Font(FONTS_PATH + fileName, size)));
-				_fontsName.push_back(id);
-			}
-			else
-				end = true;
+			id = j[i][0].get<string>();
+			name = j[i][1].get<string>();
+			size = j[i][2];
+
+			_fonts.insert(pair <string, Font*>(id, new Font(FONTS_PATH + name, size)));
+			_fontsName.push_back(id);
 		}
 	}
 	else
