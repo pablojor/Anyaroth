@@ -16,16 +16,19 @@ private:
 
 public:
 	BodyComponent(GameComponent* obj);
-	BodyComponent(GameComponent* obj, double x, double y, double h, double w);
+	BodyComponent(GameComponent* obj, double x, double y, double w, double h);
 	virtual ~BodyComponent();
 
 	virtual void update(double time);
 	inline b2Body* getBody() const { return _body; }
 	void setW(double w);
 	void setH(double h);
+	void setBody(GameComponent* obj, double x, double y, double w, double h);
 
 	inline double getW() const { return _width; }
 	inline double getH() const { return _height; }
+
+	void deleteBody();
 
 	void moveShape(const b2Vec2 &Center);
 	void addCricleShape(const b2Vec2 &Center, float radius, uint16 ownCategory, uint16 collidesWith);

@@ -14,7 +14,7 @@ DistanceDynamicEnemy::DistanceDynamicEnemy(Player* player, Game* g, PlayState* p
 	_anim->addAnim(AnimatedSpriteComponent::EnemyWalk, 8, true);
 	_anim->addAnim(AnimatedSpriteComponent::EnemyAttack, 11, false);
 	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
-	_body->addCricleShape(b2Vec2(0, _body->getH() + _body->getH() / 20), _body->getW() - _body->getW() / 20, ENEMIES, FLOOR | PLAYER_BULLETS | MELEE);
+	_body->addCricleShape(b2Vec2(0, _body->getH() + _body->getH() / 20), _body->getW() - _body->getW() / 20, ENEMIES, FLOOR);
 }
 
 void DistanceDynamicEnemy::update(double time)

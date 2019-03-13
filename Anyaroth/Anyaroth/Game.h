@@ -9,7 +9,6 @@
 #include "PlayState.h"
 #include "PauseState.h"
 #include "Gun.h"
-#include "GunType_def.h"
 
 // Resolución interna del juego
 const int GAME_RESOLUTION_X = 480;
@@ -30,12 +29,6 @@ const int FRAME_RATE = 1000 / 60;
 const int TILES_SIZE = 16;
 const double M_TO_PIXEL = 8;
 const double BUTTON_SCALE = 0.25;
-
-struct MeleeAttributes
-{
-	MeleeType type;
-	int damage;
-};
 
 enum _Category
 {
@@ -64,14 +57,6 @@ private:
 public:
 	SDL_Renderer* _renderer = nullptr;
 	vector<int> _var;
-
-	vector<MeleeAttributes> MeleeWeapons =
-	{
-		{Knife,10},
-		{Axe,50},
-		{Lightsaber,20},
-		{Chainsaw,30}
-	};
 
 	//Metodos
 	void createTextures();

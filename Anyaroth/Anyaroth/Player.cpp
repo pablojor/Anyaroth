@@ -3,6 +3,7 @@
 #include "Coin.h"
 #include "BasicPistol.h"
 #include "BasicShotgun.h"
+#include "Axe.h"
 
 Player::Player(Game* game, int xPos, int yPos) :  GameComponent(game, "Player")
 {
@@ -67,7 +68,7 @@ Player::Player(Game* game, int xPos, int yPos) :  GameComponent(game, "Player")
 	_money = new Money();
 
 	//Melee
-	_melee = new MeleeWeapon(game);
+	_melee = new Melee(game);
 	addChild(_melee);
 }
 
@@ -190,6 +191,7 @@ void Player::update(double time)
 	GameComponent::update(time);
 
 	checkMovement(keyboard);
+	checkMelee();
 	refreshCooldowns(time);
 	handleAnimations();
 }
@@ -397,6 +399,7 @@ void Player::jump()
 void Player::melee()
 {
 	_anim->playAnim(AnimatedSpriteComponent::MeleeKnife);
+	_melee->meleeAttack(_body->getBody()->GetPosition().x* M_TO_PIXEL, _body->getBody()->GetPosition().y*M_TO_PIXEL, (_anim->isFlipped()) ? -1 : 1);
 	_isMeleeing = false;
 }
 
@@ -425,42 +428,13 @@ bool Player::canReload()
 	return false;
 }
 
-void Player::meleeAttack()
+void Player::checkMelee()
 {
-	int dir;
-	(_anim->isFlipped()) ? dir = -1 : dir = 1;
-
-	double playerX = _body->getBody()->GetPosition().x * M_TO_PIXEL, playerY = _body->getBody()->GetPosition().y *M_TO_PIXEL,
-		w = _body->getW()*M_TO_PIXEL, h = _body->getH()* M_TO_PIXEL, x, y;
-		
-	MeleeAttributes meleeWeapon = getGame()->MeleeWeapons[_equippedMelee];
-
-	switch (meleeWeapon.type)
-	{
-	case(Knife):
-	case(Chainsaw):
-		x = playerX + (2 * w * dir);
-		y = playerY;
-		w *= 2;
-		h /= 2;
-		break;
-	case(Lightsaber):
-	case(Axe):
-		x = playerX + w * dir;
-		y = playerY - h * 2;
-		w *= 2;
-		h /= 2;
-		break;
-	}
-	_melee->MeleeAttack(x, y, w, h, meleeWeapon.damage, Vector2D(playerX, playerY), dir, meleeWeapon.type);
+	if (!isMeleeing() && _melee != nullptr && _melee->isActive())
+		_melee->endMelee();
 }
 
-void Player::changeMelee(int meleeType)
+void Player::changeMelee(Melee* newMelee)
 {
-	_equippedMelee = getGame()->MeleeWeapons[meleeType].type;
-}
-
-void Player::endMelee()
-{
-	_melee->endMelee();
+	_melee = newMelee;
 }

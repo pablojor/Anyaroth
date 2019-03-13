@@ -190,12 +190,6 @@
     <ClCompile Include="Life.cpp">
       <Filter>Archivos de código\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="MeleeBox.cpp">
-      <Filter>Archivos de código\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="MeleeWeapon.cpp">
-      <Filter>Archivos de código\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="Money.cpp">
       <Filter>Archivos de código\Objects</Filter>
     </ClCompile>
@@ -210,6 +204,12 @@
     </ClCompile>
     <ClCompile Include="AmmoPackage.cpp">
       <Filter>Archivos de código\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Axe.cpp">
+      <Filter>Archivos de código\Melee</Filter>
+    </ClCompile>
+    <ClCompile Include="Melee.cpp">
+      <Filter>Archivos de código\Melee</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -444,12 +444,6 @@
     <ClInclude Include="Life.h">
       <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="MeleeBox.h">
-      <Filter>Archivos de encabezado\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="MeleeWeapon.h">
-      <Filter>Archivos de encabezado\Objects</Filter>
-    </ClInclude>
     <ClInclude Include="Money.h">
       <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
@@ -458,6 +452,12 @@
     </ClInclude>
     <ClInclude Include="PlayerArm.h">
       <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Axe.h">
+      <Filter>Archivos de encabezado\Melee</Filter>
+    </ClInclude>
+    <ClInclude Include="Melee.h">
+      <Filter>Archivos de encabezado\Melee</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -547,6 +547,12 @@
     </Filter>
     <Filter Include="Archivos de código\Pools">
       <UniqueIdentifier>{bdbd79a4-1a96-476c-95bc-807bff9b1b38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Melee">
+      <UniqueIdentifier>{1db162cf-0eca-4cdb-960d-3504e32685dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código\Melee">
+      <UniqueIdentifier>{36c1cf67-8b51-4fad-a240-8b9818e16d0c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

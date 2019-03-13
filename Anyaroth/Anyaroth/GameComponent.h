@@ -123,6 +123,16 @@ public:
 		}
 	}
 
+	template<class ComponentType>
+	void deleteComponent(ComponentType* ct)
+	{
+		string name = typeid(*ct).name();
+		if (_components.find(name) != _components.end())
+		{
+			_components.erase(name);
+		}
+	}
+
 	//Para el Following Component
 	template<class ComponentType>
 	ComponentType* addComponent(GameComponent* gc)

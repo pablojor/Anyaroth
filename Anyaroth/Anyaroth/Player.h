@@ -10,8 +10,7 @@
 #include "Life.h"
 #include "PlayerPanel.h"
 #include "BulletPool.h"
-#include "MeleeWeapon.h"
-#include "GunType_def.h"
+#include "Melee.h"
 
 class Player : public GameComponent
 {
@@ -22,7 +21,7 @@ private:
 	BodyComponent* _body = nullptr;
 	//HurtRenderComponent* _hurt = nullptr;
 	//HurtRenderComponent* _hurtArm; poner en el brazo
-	MeleeWeapon* _melee = nullptr;
+	Melee* _melee = nullptr;
 
 	//Propiedades
 	Life _life = Life(100);
@@ -40,7 +39,6 @@ private:
 
 	Gun* _currentGun = nullptr;
 	Gun* _otherGun = nullptr;
-	MeleeType _equippedMelee = Knife;
 
 	inline bool dashIsAble() const { return _numDash > 0 && _isDashing; }
 	void checkMovement(const Uint8* keyboard);
@@ -52,6 +50,7 @@ private:
 	inline void setGrounded(bool grounded) { _floorCount = grounded; }
 
 	bool canReload();
+	void checkMelee();
 
 public:
 	Player(Game* g, int xPos, int yPos);
@@ -83,9 +82,7 @@ public:
 	void setPlayerPanel(PlayerPanel* p);
 	inline void setPlayerBulletPool(BulletPool* pool) { _playerBulletPool = pool; }
 	
-	void meleeAttack();
-	void changeMelee(int meleeType);
-	void endMelee();
+	void changeMelee(Melee* newMelee);
 
 	inline bool isGrounded() const { return _floorCount; }
 	bool isDashing() const;

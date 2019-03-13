@@ -128,6 +128,7 @@
     <ClCompile Include="AmmoViewer.cpp" />
     <ClCompile Include="AnimatedSpriteComponent.cpp" />
     <ClCompile Include="Arm.cpp" />
+    <ClCompile Include="Axe.cpp" />
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="BasicPistol.cpp" />
     <ClCompile Include="BasicShotgun.cpp" />
@@ -137,8 +138,7 @@
     <ClCompile Include="DistanceEnemy.cpp" />
     <ClCompile Include="EnemyArm.cpp" />
     <ClCompile Include="MovingComponent.cpp" />
-    <ClCompile Include="MeleeBox.cpp" />
-    <ClCompile Include="MeleeWeapon.cpp" />
+    <ClCompile Include="Melee.cpp" />
     <ClCompile Include="PlayerArm.cpp" />
     <ClCompile Include="ArmControllerComponent.cpp" />
     <ClCompile Include="BossPanel.cpp" />
@@ -201,6 +201,7 @@
     <ClInclude Include="AnimatedSpriteComponent.h" />
     <ClInclude Include="AnyarothError.h" />
     <ClInclude Include="Arm.h" />
+    <ClInclude Include="Axe.h" />
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="BasicPistol.h" />
     <ClInclude Include="BasicShotgun.h" />
@@ -210,8 +211,7 @@
     <ClInclude Include="EnemyArm.h" />
     <ClInclude Include="MovingComponent.h" />
     <ClInclude Include="ObjectPool.h" />
-    <ClInclude Include="MeleeBox.h" />
-    <ClInclude Include="MeleeWeapon.h" />
+    <ClInclude Include="Melee.h" />
     <ClInclude Include="PlayerArm.h" />
     <ClInclude Include="ArmControllerComponent.h" />
     <ClInclude Include="BossPanel.h" />
