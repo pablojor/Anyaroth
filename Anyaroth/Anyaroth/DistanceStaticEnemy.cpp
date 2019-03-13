@@ -41,8 +41,9 @@ void DistanceStaticEnemy::update(double time)
 				else if (x < 0) //Izquierda
 					_anim->flip();
 
+				
 				_arm->shoot();
-				_myGun->enemyShoot(_myBulletPool, _arm->getPosition(), !_anim->isFlipped() ? _arm->getAngle() : _arm->getAngle() + 180, "EnemyBullet");
+				_myGun->enemyShoot(_myBulletPool, _arm->getPosition(), !_anim->isFlipped() ? _arm->getAngle() + random(-_fail, _fail) : _arm->getAngle() + 180 + random(-_fail, _fail), "EnemyBullet");
 			}
 		}
 	}

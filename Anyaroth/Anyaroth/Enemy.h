@@ -48,4 +48,7 @@ public:
 	void die();
 	void subLife(int damage);
 	inline Life getLife() const { return _life; }
+	int random(int low, int high) {
+		return low + (rand() % abs(high - low));
+	}
 };

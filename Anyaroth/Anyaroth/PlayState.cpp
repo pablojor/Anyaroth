@@ -9,6 +9,7 @@
 #include "ParallaxBackGround.h"
 #include "ParallaxLayer.h"
 #include "PlayStateHUD.h"
+#include <time.h>
 
 
 
@@ -16,7 +17,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 {
 	//hide cursor
 	//SDL_ShowCursor(false);
-
+	srand(time(0));
 	//Tilemap
 	_layer = new Layer("Mapa", g->getTexture("tileset"), TILEMAP_PATH + "Nivel1.json", g, "Mapa");
 	_stages.push_back(_layer);
@@ -48,7 +49,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 
 	for (int i = 0; i < enemiesPos.size(); i++)
 	{
-		_enemy = new DistanceDynamicEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(enemiesPos[i].getX(), enemiesPos[i].getY() - TILES_SIZE * 2), "Enemy", _enemyBulletPool);
+		_enemy = new DistanceStaticEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(enemiesPos[i].getX(), enemiesPos[i].getY() - TILES_SIZE * 2), "Enemy", _enemyBulletPool);
 		_stages.push_back(_enemy);
 		auto itFR = --(_stages.end());
 		_enemy->setItList(itFR);
@@ -60,7 +61,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 
 	for (int i = 0; i < marirsPos.size(); i++)
 	{
-		_enemy = new DistanceDynamicEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(marirsPos[i].getX(), marirsPos[i].getY() - TILES_SIZE * 2), "Enemy", _enemyBulletPool);
+		_enemy = new DistanceStaticEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(marirsPos[i].getX(), marirsPos[i].getY() - TILES_SIZE * 2), "Enemy", _enemyBulletPool);
 		_stages.push_back(_enemy);
 		auto itFR = --(_stages.end());
 		_enemy->setItList(itFR);
@@ -73,9 +74,9 @@ PlayState::PlayState(Game* g) : GameState(g)
 	for (int i = 0; i < disPos.size(); i++)
 	{
 		if(i==0 ||i==2)
-			_enemy = new DistanceDynamicEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(disPos[i].getX(), disPos[i].getY() - TILES_SIZE * 2), "Enemy", _enemyBulletPool);
+			_enemy = new DistanceStaticEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(disPos[i].getX(), disPos[i].getY() - TILES_SIZE * 2), "Enemy", _enemyBulletPool);
 		else
-			_enemy = new DistanceDynamicEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(disPos[i].getX(), disPos[i].getY() - TILES_SIZE * 2), "Enemy", _enemyBulletPool);
+			_enemy = new DistanceStaticEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(disPos[i].getX(), disPos[i].getY() - TILES_SIZE * 2), "Enemy", _enemyBulletPool);
 		_stages.push_back(_enemy);
 		auto itFR = --(_stages.end());
 		_enemy->setItList(itFR);

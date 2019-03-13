@@ -13,6 +13,7 @@ protected:
 	bool _armVision = false;
 	Gun* _myGun = nullptr;
 	BulletPool* _myBulletPool = nullptr;
+	double _fail = 7.5;
 
 public:
 	DistanceEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag, BulletPool* pool);
@@ -20,6 +21,6 @@ public:
 
 	inline bool ArmVision() const { return _armVision; }
 	void RayCast();
-
+	Gun* getGun() { return _myGun; }
 	virtual void update(double time);
 };
