@@ -20,11 +20,11 @@ MartyrEnemy::MartyrEnemy(Player* player, Game* g, PlayState* play,Texture* textu
 
 	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 
-	_body->setW(30);
+	_body->setW(22);
 	_body->setH(15);
 	
-	_body->moveShape(b2Vec2(0, _body->getH() ));
-	_body->addCricleShape(b2Vec2(0, _body->getH() + _body->getH()/2), _body->getH() + _body->getH()/2, ENEMIES, FLOOR);
+	_body->moveShape(b2Vec2(0.3, _body->getH()+0.1 ));
+	_body->addCricleShape(b2Vec2(0.4, _body->getH() + _body->getH()*2/3), _body->getH() + _body->getH()/3, ENEMIES, FLOOR);
 	_body->filterCollisions(ENEMIES, FLOOR | PLAYER_BULLETS | MELEE);
 }
 

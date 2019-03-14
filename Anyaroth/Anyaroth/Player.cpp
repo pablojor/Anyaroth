@@ -124,23 +124,26 @@ void Player::endCollision(GameComponent * other, b2Contact* contact)
 
 void Player::subLife(int damage)
 {
-	_life.subLife(damage);
-	if (!_dead)
+	if (!isDashing())
 	{
-		if (_life.dead())
+		_life.subLife(damage);
+		if (!_dead)
 		{
-			die();
-			//_hurt->die();
-			//_hurtArm->die();
-			_dead = true;
+			if (_life.dead())
+			{
+				die();
+				//_hurt->die();
+				//_hurtArm->die();
+				_dead = true;
+			}
+			else
+			{
+				//_hurt->hurt();
+				//_hurtArm->hurt();
+			}
 		}
-		else
-		{
-			//_hurt->hurt();
-			//_hurtArm->hurt();
-		}
+		_playerPanel->updateLifeBar(_life.getLife(), _life.getMaxLife());
 	}
-	_playerPanel->updateLifeBar(_life.getLife(), _life.getMaxLife());
 }
 
 void Player::die()
@@ -290,8 +293,18 @@ void Player::handleAnimations()
 		}
 		setGrounded(false);		
 	}
-	if (isGrounded() && _anim->getCurrentAnim() == AnimatedSpriteComponent::DashDown)
+	if ((isGrounded() || _body->getBody()->GetLinearVelocity().y == 0) && _anim->getCurrentAnim() == AnimatedSpriteComponent::DashDown)
+	{
 		_anim->playAnim(AnimatedSpriteComponent::Idle);
+		_onDash = false;
+		dashOff();
+		
+	}
+	if (!isDashing() && _onDash)
+	{
+		_onDash = false;
+		dashOff();
+	}
 }
 
 void Player::refreshCooldowns(const Uint32& deltaTime)
@@ -321,7 +334,9 @@ void Player::refreshGunCadence(const Uint32& deltaTime)
 
 void Player::move(const Vector2D& dir, const double& speed)
 {
-	if (abs(_body->getBody()->GetLinearVelocity().x) < speed)
+	if (abs(_body->getBody()->GetLinearVelocity().x) < speed ||dir.getX()==0)
+		_body->getBody()->ApplyLinearImpulseToCenter(b2Vec2(dir.getX() * speed, 0),true);
+	else
 		_body->getBody()->SetLinearVelocity(b2Vec2(dir.getX() * speed, _body->getBody()->GetLinearVelocity().y));
 }
 
@@ -368,12 +383,14 @@ bool Player::isJumping() const
 
 void Player::dash(const Vector2D& dir)
 {
-	double force = 400;
-	move(Vector2D(0, 0), 0);
-	_body->getBody()->ApplyLinearImpulse(b2Vec2(dir.getX() * force, dir.getY() * force * 1.5), _body->getBody()->GetWorldCenter(), true);
+	double force = 30;
+	//move(Vector2D(0, 0), 0);
+	_body->getBody()->SetLinearVelocity(b2Vec2(dir.getX() * force, dir.getY() * force * 1.5));
 	_numDash--;
 	_isDashing = false;
-
+	_onDash = true;
+	_body->getBody()->SetLinearDamping(0);
+	_body->getBody()->SetGravityScale(0);
 	if (dir.getY() == 0) 
 	{
 		if ((!_anim->isFlipped() && dir.getX() > 0) || (_anim->isFlipped() && dir.getX() < 0))
@@ -387,10 +404,19 @@ void Player::dash(const Vector2D& dir)
 	_playerPanel->updateDashViewer(_numDash);
 }
 
+void Player::dashOff()
+{
+
+	double _gravScale = 4, _damping = 3.0;
+	_body->getBody()->SetLinearDamping(_damping);
+	_body->getBody()->SetGravityScale(_gravScale);
+}
+
 
 void Player::jump()
 {
-	double _jumpForce = 300;
+	double _jumpForce = 360;
+	_body->getBody()->SetLinearVelocity(b2Vec2(_body->getBody()->GetLinearVelocity().x, 0));
 	_body->getBody()->ApplyLinearImpulse(b2Vec2(0, -_jumpForce), _body->getBody()->GetWorldCenter(), true);
 	setGrounded(false);
 	_anim->playAnim(AnimatedSpriteComponent::BeforeJump);
