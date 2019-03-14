@@ -211,6 +211,7 @@
     <ClCompile Include="Melee.cpp">
       <Filter>Archivos de código\Melee</Filter>
     </ClCompile>
+    <ClCompile Include="SoundManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -459,6 +460,7 @@
     <ClInclude Include="Melee.h">
       <Filter>Archivos de encabezado\Melee</Filter>
     </ClInclude>
+    <ClInclude Include="SoundManager.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de encabezado">
