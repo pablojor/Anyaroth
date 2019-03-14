@@ -1,6 +1,7 @@
 #pragma once
 #include "DistanceEnemy.h"
 
+
 class DistanceDynamicEnemy : public DistanceEnemy
 {
 public:
