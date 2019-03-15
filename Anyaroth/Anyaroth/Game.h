@@ -52,6 +52,7 @@ private:
 	vector<string> _texturesName;
 	vector<string> _fontsName;
 	b2World* _world = nullptr;
+	float _timestep = 1 / 60.0;
 	bool _exit = false;
 
 public:
@@ -73,6 +74,7 @@ public:
 	inline SDL_Renderer* getRenderer() const { return _renderer; }
 	inline SDL_Window* getWindow() const { return _window; }
 	inline b2World* getWorld() const { return _world; }
+	inline void setTimestep(float timestep) { _timestep = timestep; }
 	inline void setExit(bool quit) { _exit = quit; }
 	void toggleFullscreen();
 

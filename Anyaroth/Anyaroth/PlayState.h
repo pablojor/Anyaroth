@@ -1,31 +1,20 @@
 #pragma once
 #include "GameState.h"
-#include "Layer.h"
 #include "Player.h"
 #include "DebugDraw.h"
 #include "CollisionManager.h"
-#include "MeleeEnemy.h"
-#include "MartyrEnemy.h"
-#include "DistanceStaticEnemy.h"
-#include "DistanceDynamicEnemy.h"
 #include "BulletPool.h"
-#include "Coin.h"
 #include "Cursor.h"
-#include "GunType_def.h"
+#include "Map.h"
 
 class PlayState : public GameState
 {
 private:
 	Player* _player = nullptr;
-	Enemy* _enemy = nullptr;
-	Coin* _coin = nullptr;
-	Layer* _layer = nullptr;
-	Layer* _colisionLayer = nullptr;
 	Cursor* _cursor = nullptr;
+	Map* _level1 = nullptr;
 	CollisionManager _colManager;
 	DebugDraw _debugger;
-
-	//PoolWrapper* _enemyPool = nullptr;
 
 	//Bullet Pools
 	BulletPool* _playerBulletPool = nullptr; //Balas del jugador

@@ -5,7 +5,6 @@
 class Layer : public GameComponent
 {
 protected:
-	Texture* _tileset = nullptr;
 	vector<Tile*> _tilemap;
 
 public:

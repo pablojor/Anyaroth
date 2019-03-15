@@ -156,7 +156,7 @@ void Game::run()
 
 		handleEvents();
 		update(frameTime);
-		_world->Step(1 / 60.0, 8, 3);
+		_world->Step(_timestep, 8, 3);
 		render();
 
 		frameTime = SDL_GetTicks() - startTime;

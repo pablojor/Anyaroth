@@ -169,8 +169,44 @@
     <ClCompile Include="EnemyArm.cpp">
       <Filter>Archivos de código\Objects\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="Axe.cpp">
+      <Filter>Archivos de código\Melee</Filter>
+    </ClCompile>
+    <ClCompile Include="Melee.cpp">
+      <Filter>Archivos de código\Melee</Filter>
+    </ClCompile>
+    <ClCompile Include="AmmoPackage.cpp">
+      <Filter>Archivos de código\Objects\Collectables</Filter>
+    </ClCompile>
+    <ClCompile Include="Coin.cpp">
+      <Filter>Archivos de código\Objects\Collectables</Filter>
+    </ClCompile>
+    <ClCompile Include="Collectable.cpp">
+      <Filter>Archivos de código\Objects\Collectables</Filter>
+    </ClCompile>
+    <ClCompile Include="Layer.cpp">
+      <Filter>Archivos de código\Objects\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectLayer.cpp">
+      <Filter>Archivos de código\Objects\Map</Filter>
+    </ClCompile>
     <ClCompile Include="Tile.cpp">
-      <Filter>Archivos de código\Objects</Filter>
+      <Filter>Archivos de código\Objects\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Archivos de código\Objects\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Life.cpp">
+      <Filter>Archivos de código\Objects\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Money.cpp">
+      <Filter>Archivos de código\Objects\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Archivos de código\Objects\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerArm.cpp">
+      <Filter>Archivos de código\Objects\Player</Filter>
     </ClCompile>
     <ClCompile Include="Arm.cpp">
       <Filter>Archivos de código\Objects</Filter>
@@ -178,55 +214,10 @@
     <ClCompile Include="Bullet.cpp">
       <Filter>Archivos de código\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="Coin.cpp">
-      <Filter>Archivos de código\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="Collectable.cpp">
-      <Filter>Archivos de código\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="Layer.cpp">
-      <Filter>Archivos de código\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="Life.cpp">
-      <Filter>Archivos de código\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="Money.cpp">
-      <Filter>Archivos de código\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectLayer.cpp">
-      <Filter>Archivos de código\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Archivos de código\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerArm.cpp">
-      <Filter>Archivos de código\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="AmmoPackage.cpp">
-      <Filter>Archivos de código\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="Axe.cpp">
-      <Filter>Archivos de código\Melee</Filter>
-    </ClCompile>
-    <ClCompile Include="Melee.cpp">
-      <Filter>Archivos de código\Melee</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
       <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Coin.h">
-      <Filter>Archivos de encabezado\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="Collectable.h">
-      <Filter>Archivos de encabezado\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Archivos de encabezado\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="Tile.h">
-      <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
     <ClInclude Include="Bullet.h">
       <Filter>Archivos de encabezado\Objects</Filter>
@@ -284,9 +275,6 @@
     </ClInclude>
     <ClInclude Include="FileNotFoundError.h">
       <Filter>Archivos de encabezado\Errors</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
     <ClInclude Include="SDLError.h">
       <Filter>Archivos de encabezado\Errors</Filter>
@@ -426,38 +414,56 @@
     <ClInclude Include="BasicPistol.h">
       <Filter>Archivos de encabezado\Guns</Filter>
     </ClInclude>
-    <ClInclude Include="ObjectPool.h">
-      <Filter>Archivos de encabezado\Pools</Filter>
-    </ClInclude>
-    <ClInclude Include="AmmoPackage.h">
-      <Filter>Archivos de encabezado\Objects</Filter>
-    </ClInclude>
     <ClInclude Include="Arm.h">
       <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
     <ClInclude Include="EnemyArm.h">
       <Filter>Archivos de encabezado\Objects\Enemies</Filter>
     </ClInclude>
-    <ClInclude Include="Layer.h">
-      <Filter>Archivos de encabezado\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="Life.h">
-      <Filter>Archivos de encabezado\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="Money.h">
-      <Filter>Archivos de encabezado\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectLayer.h">
-      <Filter>Archivos de encabezado\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerArm.h">
-      <Filter>Archivos de encabezado\Objects</Filter>
-    </ClInclude>
     <ClInclude Include="Axe.h">
       <Filter>Archivos de encabezado\Melee</Filter>
     </ClInclude>
     <ClInclude Include="Melee.h">
       <Filter>Archivos de encabezado\Melee</Filter>
+    </ClInclude>
+    <ClInclude Include="AmmoPackage.h">
+      <Filter>Archivos de encabezado\Objects\Collectables</Filter>
+    </ClInclude>
+    <ClInclude Include="Coin.h">
+      <Filter>Archivos de encabezado\Objects\Collectables</Filter>
+    </ClInclude>
+    <ClInclude Include="Collectable.h">
+      <Filter>Archivos de encabezado\Objects\Collectables</Filter>
+    </ClInclude>
+    <ClInclude Include="Layer.h">
+      <Filter>Archivos de encabezado\Objects\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectLayer.h">
+      <Filter>Archivos de encabezado\Objects\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile.h">
+      <Filter>Archivos de encabezado\Objects\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Archivos de encabezado\Objects\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Life.h">
+      <Filter>Archivos de encabezado\Objects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Money.h">
+      <Filter>Archivos de encabezado\Objects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Archivos de encabezado\Objects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerArm.h">
+      <Filter>Archivos de encabezado\Objects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectPool.h">
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -553,6 +559,24 @@
     </Filter>
     <Filter Include="Archivos de código\Melee">
       <UniqueIdentifier>{36c1cf67-8b51-4fad-a240-8b9818e16d0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código\Objects\Collectables">
+      <UniqueIdentifier>{b19a7d27-bce4-4ee2-be5b-0042e8bbff6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código\Objects\Map">
+      <UniqueIdentifier>{6aab409d-7b4e-4571-b5ad-f08aec6efcbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código\Objects\Player">
+      <UniqueIdentifier>{d90cef3f-4805-43c6-b317-385376267b64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Objects\Collectables">
+      <UniqueIdentifier>{d681bc5b-f9e2-4456-bdbd-efadce39c092}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Objects\Map">
+      <UniqueIdentifier>{129c1268-00a7-4959-ab70-117a51077b0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Objects\Player">
+      <UniqueIdentifier>{5bb67332-30c4-4ce2-aaac-56e201a041e7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

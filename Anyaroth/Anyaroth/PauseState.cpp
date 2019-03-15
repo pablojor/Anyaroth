@@ -1,7 +1,7 @@
 #include "PauseState.h"
 #include "MenuState.h"
 
-PauseState::PauseState(Game* g) : GameState(g) 
+PauseState::PauseState(Game* g) : GameState(g)
 {
 	//Show cursor
 	SDL_ShowCursor(true);
@@ -15,6 +15,7 @@ PauseState::PauseState(Game* g) : GameState(g)
 
 void PauseState::Continue(Game * g)
 {
+	g->setTimestep(1 / 60.0);
 	g->popState();
 }
 

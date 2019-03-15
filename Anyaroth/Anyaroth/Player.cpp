@@ -10,7 +10,7 @@ Player::Player(Game* game, int xPos, int yPos) :  GameComponent(game, "Player")
 	addComponent<Texture>(game->getTexture("Mk"));
 
 	_transform = addComponent<TransformComponent>();
-	_transform->setPosition(xPos/*50*/,yPos /*180*/);
+	_transform->setPosition(xPos, yPos);
 
 	_body = addComponent<BodyComponent>();
 	_body->getBody()->SetType(b2_dynamicBody);
@@ -85,7 +85,7 @@ void Player::beginCollision(GameComponent * other, b2Contact* contact)
 	auto fB = contact->GetFixtureB();
 
 	//Deteccion del suelo
-	if ((fA->IsSensor() || fB->IsSensor()) && other->getTag() == "Suelo")
+	if ((fA->IsSensor() || fB->IsSensor()) && other->getTag() == "Ground")
 		_floorCount++;
 
 	/*else if (other->getTag() == "EnemyBullet")
@@ -95,7 +95,7 @@ void Player::beginCollision(GameComponent * other, b2Contact* contact)
 		subLife(damage);
 	}*/
 
-	else if (other->getTag() == "Moneda")
+	else if (other->getTag() == "Coin")
 	{
 		if (other->isActive())
 		{
@@ -118,7 +118,7 @@ void Player::endCollision(GameComponent * other, b2Contact* contact)
 	auto fB = contact->GetFixtureB();
 
 	//Deteccion del suelo
-	if ((fA->IsSensor() || fB->IsSensor()) && other->getTag() == "Suelo")
+	if ((fA->IsSensor() || fB->IsSensor()) && other->getTag() == "Ground")
 		_floorCount > 0 ? _floorCount-- : _floorCount = 0;
 }
 
