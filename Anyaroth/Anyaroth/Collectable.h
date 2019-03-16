@@ -7,7 +7,7 @@ class PlayState;
 class Collectable : public GameComponent
 {
 private:
-	list<GameObject*>::iterator _itList;
+	list<GameComponent*>::iterator _itList;
 	PlayState* _play = nullptr;
 	int _value = 0;
 
@@ -16,6 +16,6 @@ public:
 	virtual ~Collectable() {}
 
 	void destroy();
-	inline void setItList(list<GameObject*>::iterator itFR) { _itList = itFR; }
+	inline void setItList(list<GameComponent*>::iterator itFR) { _itList = itFR; }
 	inline virtual int getValue() const { return _value; }
 };

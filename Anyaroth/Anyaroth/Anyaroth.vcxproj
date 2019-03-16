@@ -137,6 +137,7 @@
     <ClCompile Include="Cursor.cpp" />
     <ClCompile Include="DistanceEnemy.cpp" />
     <ClCompile Include="EnemyArm.cpp" />
+    <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MovingComponent.cpp" />
     <ClCompile Include="Melee.cpp" />
@@ -210,6 +211,7 @@
     <ClInclude Include="Cursor.h" />
     <ClInclude Include="DistanceEnemy.h" />
     <ClInclude Include="EnemyArm.h" />
+    <ClInclude Include="LevelManager.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MovingComponent.h" />
     <ClInclude Include="ObjectPool.h" />

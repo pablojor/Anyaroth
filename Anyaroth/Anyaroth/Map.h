@@ -13,8 +13,10 @@ class Map : public GameComponent
 {
 private:
 	Game* _game = nullptr;
-	PlayState* _play = nullptr;
+	PlayState* _playState = nullptr;
 	Player* _player = nullptr;
+
+	list<GameComponent*> _mapObjects;
 
 	map < string, Layer*> _layers;
 	vector<string> _layersNames;
@@ -22,9 +24,12 @@ private:
 	map < string, ObjectLayer* > _objects;
 	vector<string> _objectsNames;
 
+	int _coinValue = 10;
+
 public:
-	Map(string filename, Texture* tileset, Game* game, PlayState* play, Player* player, list<GameObject*>& list);
+	Map(string filename, Texture* tileset, Game* game, PlayState* playstate, Player* player);
 	~Map();
 
-	void createObjects(list<GameObject*>& list);
+	void createObjects();
+	inline list<GameComponent*> getMapObjects() const { return _mapObjects; }
 };

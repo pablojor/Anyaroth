@@ -214,6 +214,9 @@
     <ClCompile Include="Bullet.cpp">
       <Filter>Archivos de código\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="LevelManager.cpp">
+      <Filter>Archivos de código\Utilities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -464,6 +467,9 @@
     </ClInclude>
     <ClInclude Include="ObjectPool.h">
       <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelManager.h">
+      <Filter>Archivos de encabezado\Utilities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

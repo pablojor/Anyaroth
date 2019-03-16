@@ -4,7 +4,7 @@
 
 using namespace nlohmann;
 
-Layer::Layer(string name, Texture* t, string filename, Game* g, string tag) : GameComponent(g)
+Layer::Layer(string filename, string name, Texture* t, Game* g, string tag) : GameComponent(g)
 {
 	json j;
 	_tilemap.clear();
@@ -26,7 +26,6 @@ Layer::Layer(string name, Texture* t, string filename, Game* g, string tag) : Ga
 					i++;
 			}
 		}
-
 		if (i != j.size())
 		{
 			int index, h = 0, w = 0;
@@ -66,7 +65,7 @@ Layer::Layer(string name, Texture* t, string filename, Game* g, string tag) : Ga
 		file.close();
 	}
 	else
-		throw AnyarothError("No se ha encontrado el archivo");
+		throw AnyarothError("No se ha encontrado el archivo introducido");
 }
 
 Layer::~Layer()

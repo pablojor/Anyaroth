@@ -15,7 +15,7 @@ PauseState::PauseState(Game* g) : GameState(g)
 
 void PauseState::Continue(Game * g)
 {
-	g->setTimestep(1 / 60.0);
+	g->getWorld()->Step(1 / 60.0, 8, 3);
 	g->popState();
 }
 

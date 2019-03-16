@@ -46,36 +46,38 @@ class Game
 {
 private:
 	SDL_Window* _window = nullptr;
+
 	map <string, Texture*> _textures;
-	map <string, Font*> _fonts;
-	GameStateMachine* _stateMachine = new GameStateMachine();
 	vector<string> _texturesName;
+	map <string, Font*> _fonts;
 	vector<string> _fontsName;
+
+	GameStateMachine* _stateMachine = new GameStateMachine();
+
 	b2World* _world = nullptr;
-	float _timestep = 1 / 60.0;
 	bool _exit = false;
 
 public:
 	SDL_Renderer* _renderer = nullptr;
-	vector<int> _var;
 
 	//Metodos
 	void createTextures();
 	void createFonts();
-	
-	void pushState(GameState* state);
-	void changeState(GameState* state);
-	void popState();
 
 	inline GameState* getCurrentState() const { return _stateMachine->currentState(); }
-	Texture* getTexture(string nameText);
-	Font* getFont(string nameFont);
+	inline void pushState(GameState* state) { _stateMachine->pushState(state); }
+	inline void changeState(GameState* state) { _stateMachine->changeState(state); }
+	inline void popState() { _stateMachine->popState(); }
+
+	inline Texture* getTexture(string nameText) { return _textures[nameText]; }
+	inline Font* getFont(string nameFont) { return _fonts[nameFont]; }
 
 	inline SDL_Renderer* getRenderer() const { return _renderer; }
 	inline SDL_Window* getWindow() const { return _window; }
+
 	inline b2World* getWorld() const { return _world; }
-	inline void setTimestep(float timestep) { _timestep = timestep; }
 	inline void setExit(bool quit) { _exit = quit; }
+
 	void toggleFullscreen();
 
 	Game();

@@ -26,7 +26,7 @@ void Game::createTextures()
 		}
 	}
 	else
-		throw AnyarothError("No se ha encontrado el archivo");
+		throw AnyarothError("No se ha encontrado el archivo introducido");
 
 	input.close();
 }
@@ -54,34 +54,9 @@ void Game::createFonts()
 		}
 	}
 	else
-		throw AnyarothError("No se ha encontrado el archivo");
+		throw AnyarothError("No se ha encontrado el archivo introducido");
 
 	input.close();
-}
-
-void Game::pushState(GameState* state)
-{
-	_stateMachine->pushState(state);
-}
-
-void Game::changeState(GameState* state)
-{
-	_stateMachine->changeState(state);
-}
-
-void Game::popState()
-{
-	_stateMachine->popState();
-}
-
-Texture* Game::getTexture(string nameText)
-{
-	return _textures[nameText];
-}
-
-Font * Game::getFont(string nameFont)
-{
-	return _fonts[nameFont];
 }
 
 void Game::toggleFullscreen()
@@ -126,18 +101,14 @@ Game::~Game()
 	//delete textures
 	int tamTextures = _texturesName.size();
 	for (int i = 0; i < tamTextures; i++)
-	{
 		delete _textures[_texturesName[i]];
-		_textures.erase(_texturesName[i]);
-	}
+	_texturesName.clear();
 
 	//delete fonts
 	int tamFonts = _fontsName.size();
 	for (int i = 0; i < tamFonts; i++)
-	{
 		delete _fonts[_fontsName[i]];
-		_fonts.erase(_fontsName[i]);
-	}
+	_fontsName.clear();
 
 	delete _stateMachine;
 	delete _world;
@@ -154,9 +125,9 @@ void Game::run()
 	{
 		double startTime = SDL_GetTicks();
 
+		_world->Step(1 / 60.0, 8, 3);
 		handleEvents();
 		update(frameTime);
-		_world->Step(_timestep, 8, 3);
 		render();
 
 		frameTime = SDL_GetTicks() - startTime;
