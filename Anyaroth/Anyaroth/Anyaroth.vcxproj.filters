@@ -212,6 +212,7 @@
       <Filter>Archivos de código\Objects</Filter>
     </ClCompile>
     <ClCompile Include="SafeZoneScene.cpp" />
+    <ClCompile Include="Shop.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -461,6 +462,7 @@
       <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
     <ClInclude Include="SafeZoneScene.h" />
+    <ClInclude Include="Shop.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de encabezado">

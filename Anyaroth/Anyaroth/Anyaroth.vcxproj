@@ -185,6 +185,7 @@
     <ClCompile Include="PoolWrapper.cpp" />
     <ClCompile Include="RenderComponent.cpp" />
     <ClCompile Include="SafeZoneScene.cpp" />
+    <ClCompile Include="Shop.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
     <ClCompile Include="Money.cpp" />
     <ClCompile Include="TextUI.cpp" />
@@ -265,6 +266,7 @@
     <ClInclude Include="RenderComponent.h" />
     <ClInclude Include="SafeZoneScene.h" />
     <ClInclude Include="SDLError.h" />
+    <ClInclude Include="Shop.h" />
     <ClInclude Include="SpriteComponent.h" />
     <ClInclude Include="Money.h" />
     <ClInclude Include="TextUI.h" />
