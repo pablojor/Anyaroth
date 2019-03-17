@@ -8,7 +8,7 @@
 #include "MenuState.h"
 #include "PlayState.h"
 #include "PauseState.h"
-#include "Gun.h"
+#include "SoundManager.h"
 
 // Resolución interna del juego
 const int GAME_RESOLUTION_X = 480;
@@ -24,6 +24,7 @@ const string FILES_PATH = "..\\files\\levels\\";
 const string SAVES_PATH = "..\\files\\saves\\";
 const string SPRITE_PATH = "..\\assets\\sprites\\";
 const string TILEMAP_PATH = "..\\files\\tilemaps\\";
+const string SOUNDS_PATH = "..\\assets\\sounds\\";
 
 const int FRAME_RATE = 1000 / 60;
 const int TILES_SIZE = 16;
@@ -46,18 +47,17 @@ class Game
 {
 private:
 	SDL_Window* _window = nullptr;
+	SDL_Renderer* _renderer = nullptr;
+
+	SoundManager* _soundManager = new SoundManager();
+
 	map <string, Texture*> _textures;
 	map <string, Font*> _fonts;
 	GameStateMachine* _stateMachine = new GameStateMachine();
-	vector<string> _texturesName;
-	vector<string> _fontsName;
 	b2World* _world = nullptr;
 	bool _exit = false;
 
 public:
-	SDL_Renderer* _renderer = nullptr;
-	vector<int> _var;
-
 	//Metodos
 	void createTextures();
 	void createFonts();
@@ -72,6 +72,9 @@ public:
 
 	inline SDL_Renderer* getRenderer() const { return _renderer; }
 	inline SDL_Window* getWindow() const { return _window; }
+
+	inline SoundManager* getSoundManager() const { return _soundManager; }
+
 	inline b2World* getWorld() const { return _world; }
 	inline void setExit(bool quit) { _exit = quit; }
 	void toggleFullscreen();

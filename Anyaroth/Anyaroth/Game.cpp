@@ -22,7 +22,6 @@ void Game::createTextures()
 			col = j[i][3];
 
 			_textures.insert(pair <string, Texture*>(id, new Texture(_renderer, SPRITE_PATH + name, fil, col)));
-			_texturesName.push_back(id);
 		}
 	}
 	else
@@ -50,7 +49,6 @@ void Game::createFonts()
 			size = j[i][2];
 
 			_fonts.insert(pair <string, Font*>(id, new Font(FONTS_PATH + name, size)));
-			_fontsName.push_back(id);
 		}
 	}
 	else
@@ -124,23 +122,20 @@ Game::Game()
 Game::~Game()
 {
 	//delete textures
-	int tamTextures = _texturesName.size();
-	for (int i = 0; i < tamTextures; i++)
+	for (auto it = _textures.begin(); it != _textures.end(); it++)
 	{
-		delete _textures[_texturesName[i]];
-		_textures.erase(_texturesName[i]);
+		delete (*it).second;
 	}
 
 	//delete fonts
-	int tamFonts = _fontsName.size();
-	for (int i = 0; i < tamFonts; i++)
+	for (auto it = _fonts.begin(); it != _fonts.end(); it++)
 	{
-		delete _fonts[_fontsName[i]];
-		_fonts.erase(_fontsName[i]);
+		delete (*it).second;
 	}
 
 	delete _stateMachine;
 	delete _world;
+	delete _soundManager;
 	SDL_DestroyRenderer(_renderer);
 	SDL_DestroyWindow(_window);
 	SDL_Quit();
