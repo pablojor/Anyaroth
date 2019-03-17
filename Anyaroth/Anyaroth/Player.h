@@ -12,9 +12,13 @@
 #include "BulletPool.h"
 #include "Melee.h"
 
+class Game;
+
 class Player : public GameComponent
 {
 private:
+	Game* _game = nullptr;
+
 	//Componentes
 	TransformComponent* _transform = nullptr;
 	AnimatedSpriteComponent* _anim = nullptr;
@@ -62,8 +66,10 @@ public:
 	virtual void beginCollision(GameComponent* other, b2Contact* contact);
 	virtual void endCollision(GameComponent* other, b2Contact* contact);
 
-	void subLife(int damage);
 	void die();
+	void revive();
+	void subLife(int damage);
+	inline bool isDead() const { return _dead; }
 
 	void swapGun();
 	inline void changeCurrentGun(Gun* gun) { _currentGun = gun; }
@@ -81,6 +87,7 @@ public:
 
 	void setPlayerPanel(PlayerPanel* p);
 	inline void setPlayerBulletPool(BulletPool* pool) { _playerBulletPool = pool; }
+	inline void setPlayerPosition(Vector2D pos) { _body->getBody()->SetTransform(b2Vec2(pos.getX(), pos.getY()), 0); }
 	
 	void changeMelee(Melee* newMelee);
 

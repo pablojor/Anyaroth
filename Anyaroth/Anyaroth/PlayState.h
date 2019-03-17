@@ -20,6 +20,9 @@ private:
 
 	vector <list<GameComponent*>::iterator> itemsToDelete;
 
+	int _currentZone;
+	int _currentLevel;
+
 public:
 	PlayState(Game* g);
 
@@ -29,4 +32,8 @@ public:
 
 	inline void killObjects(const list<GameComponent*>::iterator &itList) { itemsToDelete.push_back(itList); }
 	inline Cursor* getCursor() const { return _cursor; }
+
+	inline void changeLevel(int zone, int level) { _currentZone = zone; _currentLevel = level; _levelManager->changeLevel(zone, level); }
+	inline int getCurrentZone() const { return _currentZone; }
+	inline int getCurrentLevel() const { return _currentLevel; }
 };

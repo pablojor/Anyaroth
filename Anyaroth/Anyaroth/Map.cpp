@@ -67,7 +67,11 @@ void Map::createObjects()
 
 		for (int j = 0; j < pos.size(); j++)
 		{
-			if (name == "Melee")
+			if (name == "Player")
+			{
+				_player->setPlayerPosition(Vector2D(pos[j].getX() / M_TO_PIXEL, (pos[j].getY() - TILES_SIZE * 2) / M_TO_PIXEL));
+			}
+			else if (name == "Melee")
 			{
 				addChild(new MeleeEnemy(_player, _game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), name));
 			}

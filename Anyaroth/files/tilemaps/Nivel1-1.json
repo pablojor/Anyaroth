@@ -27,6 +27,29 @@
         }, 
         {
          "draworder":"topdown",
+         "id":17,
+         "name":"Player",
+         "objects":[
+                {
+                 "gid":26,
+                 "height":16,
+                 "id":177,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":64,
+                 "y":400
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
          "id":9,
          "name":"Melee",
          "objects":[
@@ -933,8 +956,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":17,
- "nextobjectid":177,
+ "nextlayerid":18,
+ "nextobjectid":178,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.2.1",

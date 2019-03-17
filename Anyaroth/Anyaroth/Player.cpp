@@ -7,6 +7,8 @@
 
 Player::Player(Game* game, int xPos, int yPos) :  GameComponent(game, "Player")
 {
+	_game = game;
+
 	addComponent<Texture>(game->getTexture("Mk"));
 
 	_transform = addComponent<TransformComponent>();
@@ -122,6 +124,28 @@ void Player::endCollision(GameComponent * other, b2Contact* contact)
 		_floorCount > 0 ? _floorCount-- : _floorCount = 0;
 }
 
+void Player::die()
+{
+	_body->getBody()->SetType(b2_staticBody);
+}
+
+void Player::revive()
+{
+	_dead = false;
+
+	_life.resetLife();
+	_playerPanel->updateLifeBar(_life.getLife(), _life.getMaxLife());
+
+	_money->restartWallet();
+	_playerPanel->updateCoinsCounter(_money->getWallet());
+
+	_currentGun->resetAmmo();
+	_otherGun->resetAmmo();
+	_playerPanel->updateAmmoViewer(_currentGun->getClip(), _currentGun->getMagazine());
+
+	_body->getBody()->SetType(b2_dynamicBody);
+}
+
 void Player::subLife(int damage)
 {
 	_life.subLife(damage);
@@ -141,11 +165,6 @@ void Player::subLife(int damage)
 		}
 	}
 	_playerPanel->updateLifeBar(_life.getLife(), _life.getMaxLife());
-}
-
-void Player::die()
-{
-	//getGame()->changeState(Play);
 }
 
 bool Player::handleInput(const SDL_Event& event)

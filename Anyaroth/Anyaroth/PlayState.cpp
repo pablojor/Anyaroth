@@ -21,9 +21,11 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_player->setPlayerBulletPool(_playerBulletPool);
 
 	//Levels
+	_currentZone = _currentLevel = 1;
+
 	_levelManager = new LevelManager(g, this, _player, _stages);
 	_stages.push_back(_levelManager);
-	_levelManager->setLevel(1, 1);
+	_levelManager->setLevel(_currentZone, _currentLevel);
 
 	//Camera
 	_mainCamera->fixCameraToObject(_player);
@@ -33,9 +35,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	setCanvas(b);
 	_player->setPlayerPanel(b->getPlayerPanel());
 
-	//World, collisions and debugger
-	g->getWorld()->Step(1 / 60.0, 8, 3);
-
+	//Collisions and debugger
 	g->getWorld()->SetContactListener(&_colManager);
 	g->getWorld()->SetDebugDraw(&_debugger);
 
@@ -57,16 +57,25 @@ bool PlayState::handleEvents(SDL_Event& e)
 	bool handled = false;
 	if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE)
 	{
-		_gameptr->getWorld()->Step(0, 8, 3);
+		_gameptr->setTimestep(0);
 		_gameptr->pushState(new PauseState(_gameptr));
 		handled = true;
 	}
+	else if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_0)
+		_levelManager->changeLevel(1, 1);
+
 	return handled;
 }
 
 void PlayState::update(double time)
 {
 	GameState::update(time);
+
+	if (_player->isDead())
+	{
+		changeLevel(_currentZone, _currentLevel);
+		_player->revive();
+	}
 
 	int i = itemsToDelete.size() - 1;
 	while (i >= 0)

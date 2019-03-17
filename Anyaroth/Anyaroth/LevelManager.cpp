@@ -29,6 +29,8 @@ void LevelManager::setLevel(int zone, int level)
 	case 1:
 		_currentMap = new Map(TILEMAP_PATH + "Nivel1-" + to_string(level) + ".json", _tilesetZone1, _game, _playState, _player);
 		_stages->push_back(_currentMap);
+		_it = --_stages->end();
+
 		_mainCamera->setBackGround(_parallaxZone1);
 	default:
 		break;
@@ -38,5 +40,6 @@ void LevelManager::setLevel(int zone, int level)
 void LevelManager::changeLevel(int zone, int level)
 {
 	delete _currentMap;
+	_stages->erase(_it);
 	setLevel(zone, level);
 }
