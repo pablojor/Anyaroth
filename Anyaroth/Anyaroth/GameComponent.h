@@ -3,6 +3,7 @@
 #include "Component.h"
 #include <vector>
 #include <map>
+#include <list>
 #include <Box2D/Box2D.h>
 
 using namespace std;
@@ -20,13 +21,12 @@ private:
 	vector<RenderComponent*> _renderComp;
 	map<string, Component*> _components;
 
-	b2World* _world = nullptr;
-	string _tag;
-	vector<GameComponent*> _children; //vector de hijos del objeto
+	list<GameComponent*> _children; //lista de hijos del objeto
 
 	Game* _game = nullptr; //puntero a game
-
+	b2World* _world = nullptr; //puntero a world
 	bool _active = false;
+	string _tag;
 
 	inline void add_component(Component* c, string name) { _components[name] = c; }
 
@@ -88,7 +88,7 @@ public:
 	virtual void delPhysicsComponent(PhysicsComponent* pc);
 	virtual void delRenderComponent(RenderComponent* rc);
 
-	b2World* getWorld() const;
+	inline b2World* getWorld() const { return _world; }
 	inline void setWorld(b2World* world) { _world = world; }
 
 	virtual void beginCollision(GameComponent* other, b2Contact* contact) {}
@@ -96,7 +96,9 @@ public:
 	virtual void preCollision(GameComponent* other, b2Contact* contact) {}
 	virtual void postCollision(GameComponent* other, b2Contact* contact) {}
 
-	void addChild(GameComponent* obj);
+	inline void addChild(GameComponent* obj) { _children.push_back(obj); }
+	inline void delChild(const list<GameComponent*>::iterator& it) { delete *it; _children.erase(it); }
+	inline list<GameComponent*>::iterator getLastChild() { return --_children.end(); }
 
 	inline Game* getGame() const { return _game; }
 

@@ -32,7 +32,7 @@ Map::Map(string filename, Texture* tileset, Game* game, PlayState* playstate, Pl
 					if(*it=="Ground")
 						_layers[*it]->addComponent<BodyComponent>();
 
-					_mapObjects.push_back(_layers[*it]);
+					addChild(_layers[*it]);
 				}
 				else
 				{
@@ -47,9 +47,6 @@ Map::Map(string filename, Texture* tileset, Game* game, PlayState* playstate, Pl
 		throw AnyarothError("No se ha encontrado el archivo introducido");
 
 	createObjects();
-
-	for (auto it = _mapObjects.begin(); it != _mapObjects.end(); it++)
-		addChild(*it);
 }
 
 Map::~Map()
@@ -72,26 +69,27 @@ void Map::createObjects()
 		{
 			if (name == "Melee")
 			{
-				_mapObjects.push_back(new MeleeEnemy(_player, _game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), name));
+				addChild(new MeleeEnemy(_player, _game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), name));
 			}
 			else if (name == "Martyr")
 			{
-				_mapObjects.push_back(new MartyrEnemy(_player, _game, _playState, _game->getTexture("EnemyMartyr"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), name));
+				addChild(new MartyrEnemy(_player, _game, _playState, _game->getTexture("EnemyMartyr"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), name));
 			}
 			else if (name == "DistanceEstatic")
 			{
-				_mapObjects.push_back(new DistanceStaticEnemy(_player, _game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), name, BasicEnemyGun));
+				addChild(new DistanceStaticEnemy(_player, _game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), name, BasicEnemyGun));
 			}
 			else if (name == "DistanceDynamic")
 			{
-				_mapObjects.push_back(new DistanceDynamicEnemy(_player, _game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), name, BasicEnemyGun));
+				addChild(new DistanceDynamicEnemy(_player, _game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), name, BasicEnemyGun));
 			}
 			else if (name == "Coin")
 			{
 				Coin* coin = new Coin(_playState, _game, _game->getTexture("Coin"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE), _coinValue);
-				_mapObjects.push_back(coin);
-				auto itFR = --(_mapObjects.end());
-				coin->setItList(itFR);
+
+				addChild(coin);
+				auto it = getLastChild();
+				coin->setItList(it);
 			}
 		}
 	}

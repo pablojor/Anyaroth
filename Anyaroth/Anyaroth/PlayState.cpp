@@ -68,12 +68,11 @@ void PlayState::update(double time)
 {
 	GameState::update(time);
 
-	/*int i = itemsToDelete.size() - 1;
+	int i = itemsToDelete.size() - 1;
 	while (i >= 0)
 	{
-		delete *itemsToDelete[i];
-		_levelManager->getCurrentMap()->getMapObjects().erase(itemsToDelete[i]);
+		_levelManager->getCurrentMap()->delChild(itemsToDelete[i]);
 		itemsToDelete.pop_back();
 		i--;
-	}*/
+	}
 }

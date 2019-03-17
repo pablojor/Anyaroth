@@ -29,14 +29,6 @@ GameComponent::~GameComponent()
 		delete child;
 }
 
-//Añade un hijo al objeto
-void GameComponent::addChild(GameComponent* obj) 
-{
-	_children.push_back(obj);
-}
-
-
-
 bool GameComponent::handleInput(const SDL_Event& event) 
 {
 	for (InputComponent* ic : _inputComp)
@@ -104,9 +96,4 @@ void GameComponent::delRenderComponent(RenderComponent* rc) {
 
 	if (position != _renderComp.end())
 		_renderComp.erase(position);
-}
-
-b2World* GameComponent::getWorld() const
-{
-	return _world;
 }

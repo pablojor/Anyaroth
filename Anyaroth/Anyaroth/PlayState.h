@@ -27,6 +27,6 @@ public:
 	virtual void update(double time);
 	virtual bool handleEvents(SDL_Event& e);
 
-	inline void KillObjects(const list<GameComponent*>::iterator &itList) { itemsToDelete.push_back(itList); }
+	inline void killObjects(const list<GameComponent*>::iterator &itList) { itemsToDelete.push_back(itList); }
 	inline Cursor* getCursor() const { return _cursor; }
 };

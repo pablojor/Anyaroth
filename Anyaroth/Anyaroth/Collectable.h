@@ -16,6 +16,6 @@ public:
 	virtual ~Collectable() {}
 
 	void destroy();
-	inline void setItList(list<GameComponent*>::iterator itFR) { _itList = itFR; }
+	inline void setItList(list<GameComponent*>::iterator it) { _itList = it; }
 	inline virtual int getValue() const { return _value; }
 };

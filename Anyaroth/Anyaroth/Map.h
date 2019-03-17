@@ -16,8 +16,6 @@ private:
 	PlayState* _playState = nullptr;
 	Player* _player = nullptr;
 
-	list<GameComponent*> _mapObjects;
-
 	map < string, Layer*> _layers;
 	vector<string> _layersNames;
 
@@ -31,5 +29,4 @@ public:
 	~Map();
 
 	void createObjects();
-	inline list<GameComponent*> getMapObjects() const { return _mapObjects; }
 };
