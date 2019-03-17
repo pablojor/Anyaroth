@@ -61,6 +61,7 @@ public:
 	//Metodos
 	void createTextures();
 	void createFonts();
+	void createSounds();
 	
 	void pushState(GameState* state);
 	void changeState(GameState* state);

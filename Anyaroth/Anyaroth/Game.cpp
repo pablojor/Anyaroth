@@ -57,6 +57,11 @@ void Game::createFonts()
 	input.close();
 }
 
+void Game::createSounds()
+{
+	_soundManager->addSFX("example", SOUNDS_PATH + "example1.wav");
+}
+
 void Game::pushState(GameState* state)
 {
 	_stateMachine->pushState(state);
@@ -113,6 +118,8 @@ Game::Game()
 	createTextures();
 	//---Create fonts
 	createFonts();
+	//---Create sounds
+	createSounds();
 	//---Create world
 	_world = new b2World(b2Vec2(0.0, 9.8));
 	//---Create states
@@ -181,9 +188,13 @@ void Game::handleEvents()
 	{
 		if (event.type == SDL_QUIT)
 			_exit = true;
-		else if (event.type == SDL_KEYDOWN)
+		else if (event.type == SDL_KEYDOWN) 
+		{
 			if (event.key.keysym.sym == SDLK_F11)
 				toggleFullscreen();
+			else if (event.key.keysym.sym == SDLK_1)
+				_soundManager->playSFX("example");
+		}
 
 		_stateMachine->currentState()->handleEvents(event);
 	}
