@@ -41,5 +41,6 @@ public:
 	virtual bool handleEvents(SDL_Event& e);
 
 	void KillObject(const list<GameObject*>::iterator &itList);
+	void addObject(GameComponent* n);
 	inline Cursor* getCursor() const { return _cursor; }
 };

@@ -82,3 +82,8 @@ bool Enemy::inCamera()
 {
 	return _play->getMainCamera()->inCamera(Vector2D(_body->getBody()->GetPosition().x * 8, _body->getBody()->GetPosition().y * 8));
 }
+
+void Enemy::enemySpawn(Enemy* newEnemy)
+{
+	_play->addObject(newEnemy);
+}

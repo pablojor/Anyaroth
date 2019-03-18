@@ -49,7 +49,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 
 	for (int i = 0; i < enemiesPos.size(); i++)
 	{
-		_enemy = new DistanceStaticEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(enemiesPos[i].getX(), enemiesPos[i].getY() - TILES_SIZE * 2), "Enemy", _enemyBulletPool);
+		_enemy = new MeleeEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(enemiesPos[i].getX(), enemiesPos[i].getY() - TILES_SIZE * 2), "Enemy");
 		_stages.push_back(_enemy);
 		auto itFR = --(_stages.end());
 		_enemy->setItList(itFR);
@@ -61,7 +61,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 
 	for (int i = 0; i < marirsPos.size(); i++)
 	{
-		_enemy = new DistanceStaticEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(marirsPos[i].getX(), marirsPos[i].getY() - TILES_SIZE * 2), "Enemy", _enemyBulletPool);
+		_enemy = new MeleeEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(marirsPos[i].getX(), marirsPos[i].getY() - TILES_SIZE * 2), "Enemy");
 		_stages.push_back(_enemy);
 		auto itFR = --(_stages.end());
 		_enemy->setItList(itFR);
@@ -74,9 +74,9 @@ PlayState::PlayState(Game* g) : GameState(g)
 	for (int i = 0; i < disPos.size(); i++)
 	{
 		if(i==0 ||i==2)
-			_enemy = new DistanceStaticEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(disPos[i].getX(), disPos[i].getY() - TILES_SIZE * 2), "Enemy", _enemyBulletPool);
+			_enemy = new MeleeEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(disPos[i].getX(), disPos[i].getY() - TILES_SIZE * 2), "Enemy");
 		else
-			_enemy = new DistanceStaticEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(disPos[i].getX(), disPos[i].getY() - TILES_SIZE * 2), "Enemy", _enemyBulletPool);
+			_enemy = new MeleeEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(disPos[i].getX(), disPos[i].getY() - TILES_SIZE * 2), "Enemy");
 		_stages.push_back(_enemy);
 		auto itFR = --(_stages.end());
 		_enemy->setItList(itFR);
@@ -127,6 +127,13 @@ PlayState::PlayState(Game* g) : GameState(g)
 void PlayState::KillObject(const list<GameObject*>::iterator &itList)
 {
 	items_ToDelete.push_back(itList);
+}
+
+void PlayState::addObject(GameComponent* n)
+{
+	_stages.push_back(n);
+	auto itFR = --(_stages.end());
+	n->setItList(itFR);
 }
 
 void PlayState::render() const

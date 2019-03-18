@@ -51,4 +51,6 @@ public:
 	int random(int low, int high) {
 		return low + (rand() % abs(high - low));
 	}
+	void enemySpawn(Enemy* newEnemy);
+	
 };
