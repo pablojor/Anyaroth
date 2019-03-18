@@ -15,7 +15,10 @@ void AnimatedSpriteComponent::render(Camera* c) const
 
 		SDL_Point anchor = { _transform->getAnchor().getX() * destRect.w, _transform->getAnchor().getY() * destRect.h };
 
-		_texture->renderFrame(destRect, _currentAnim, _frame, _transform->getRotation(), anchor, (_flip ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE));
+		SDL_Rect winRect = {	destRect.x * GAME_RESOLUTION_X / CAMERA_RESOLUTION_X ,destRect.y * GAME_RESOLUTION_Y / CAMERA_RESOLUTION_Y ,
+								destRect.w * GAME_RESOLUTION_X / CAMERA_RESOLUTION_X, destRect.h * GAME_RESOLUTION_Y / CAMERA_RESOLUTION_Y };
+
+		_texture->renderFrame(winRect, _currentAnim, _frame, _transform->getRotation(), anchor, (_flip ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE));
 	}
 }
 

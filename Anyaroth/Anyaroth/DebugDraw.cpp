@@ -27,7 +27,11 @@ void DebugDraw::DrawSolidPolygon(const b2Vec2* vertices, int32 vertexCount, cons
 
 	poly.h = abs(vertices[0].y - vertices[2].y)*M_TO_PIXEL;
 	poly.w = abs(vertices[0].x - vertices[2].x)*M_TO_PIXEL;
-	_texture->render(poly);
+
+	SDL_Rect winRect = { poly.x * GAME_RESOLUTION_X / CAMERA_RESOLUTION_X ,poly.y * GAME_RESOLUTION_Y / CAMERA_RESOLUTION_Y ,
+		poly.w * GAME_RESOLUTION_X / CAMERA_RESOLUTION_X, poly.h * GAME_RESOLUTION_Y / CAMERA_RESOLUTION_Y };
+
+	_texture->render(winRect);
 }
 
 void DebugDraw::DrawCircle(const b2Vec2& center, float32 radius, const b2Color& color)
@@ -37,8 +41,11 @@ void DebugDraw::DrawCircle(const b2Vec2& center, float32 radius, const b2Color& 
 	poly.y = (center.y - radius)*M_TO_PIXEL - _camera->getCameraPosition().getY();
 	poly.h = abs(radius*2)*M_TO_PIXEL;
 	poly.w = abs(radius*2)*M_TO_PIXEL;
-	_texture->render(poly);
-	//bool a;
+
+	SDL_Rect winRect = { poly.x * GAME_RESOLUTION_X / CAMERA_RESOLUTION_X ,poly.y * GAME_RESOLUTION_Y / CAMERA_RESOLUTION_Y ,
+		poly.w * GAME_RESOLUTION_X / CAMERA_RESOLUTION_X, poly.h * GAME_RESOLUTION_Y / CAMERA_RESOLUTION_Y };
+
+	_texture->render(winRect);
 }
 
 void DebugDraw::DrawSolidCircle(const b2Vec2& center, float32 radius, const b2Vec2& axis, const b2Color& color)
@@ -48,7 +55,11 @@ void DebugDraw::DrawSolidCircle(const b2Vec2& center, float32 radius, const b2Ve
 	poly.y = (center.y - radius)*M_TO_PIXEL - _camera->getCameraPosition().getY();
 	poly.h = abs(radius * 2)*M_TO_PIXEL;
 	poly.w = abs(radius * 2)*M_TO_PIXEL;
-	_texture->render(poly);
+
+	SDL_Rect winRect = { poly.x * GAME_RESOLUTION_X / CAMERA_RESOLUTION_X ,poly.y * GAME_RESOLUTION_Y / CAMERA_RESOLUTION_Y ,
+		poly.w * GAME_RESOLUTION_X / CAMERA_RESOLUTION_X, poly.h * GAME_RESOLUTION_Y / CAMERA_RESOLUTION_Y };
+
+	_texture->render(winRect);
 }
 
 void DebugDraw::DrawSegment(const b2Vec2& p1, const b2Vec2& p2, const b2Color& color)
@@ -78,5 +89,6 @@ void DebugDraw::DrawAABB(b2AABB* aabb, const b2Color& c)
 	poly.y = aabb->upperBound.y;
 	poly.w = aabb->GetExtents().x * 2;
 	poly.h = aabb->GetExtents().y * 2;
+
 	SDL_RenderFillRect(_renderer, &poly);
 }

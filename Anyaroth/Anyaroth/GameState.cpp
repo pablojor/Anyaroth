@@ -63,8 +63,8 @@ Vector2D GameState::getMousePositionInWorld() const
 	int xMousePos = 0;	int yMousePos = 0;
 	SDL_GetMouseState(&xMousePos, &yMousePos);
 
-	xMousePos = (xMousePos * GAME_RESOLUTION_X) / winWidth;
-	yMousePos = (yMousePos * GAME_RESOLUTION_Y) / winHeight;
+	xMousePos = (xMousePos * CAMERA_RESOLUTION_X) / winWidth;
+	yMousePos = (yMousePos * CAMERA_RESOLUTION_Y) / winHeight;
 
 	//Lo convertimos en su posicion en el mundo
 	xMousePos += getMainCamera()->getCameraPosition().getX();
@@ -77,5 +77,5 @@ void GameState::initializeCamera()
 {
 	_mainCamera = new Camera();
 	_mainCamera->setCameraPosition(0, 0);
-	_mainCamera->setCameraSize(GAME_RESOLUTION_X, GAME_RESOLUTION_Y);
+	_mainCamera->setCameraSize(CAMERA_RESOLUTION_X, CAMERA_RESOLUTION_Y);
 }
