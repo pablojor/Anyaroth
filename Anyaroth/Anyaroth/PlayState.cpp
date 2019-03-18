@@ -9,6 +9,7 @@
 #include "ParallaxBackGround.h"
 #include "ParallaxLayer.h"
 #include "PlayStateHUD.h"
+#include "FlyingEnemy.h"
 #include <time.h>
 
 
@@ -46,6 +47,11 @@ PlayState::PlayState(Game* g) : GameState(g)
 	auto oL = new ObjectLayer(TILEMAP_PATH + "Nivel1.json", "Enemigos");
 	vector <Vector2D> enemiesPos = oL->getObjectsPositions();
 	delete oL;
+
+	_enemy = new FlyingEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(100, 100), "Enemy");
+	_stages.push_back(_enemy);
+	auto itFR = --(_stages.end());
+	_enemy->setItList(itFR);
 
 	for (int i = 0; i < enemiesPos.size(); i++)
 	{
