@@ -20,12 +20,12 @@ void PanelUI::render() const
 				e->render();
 }
 
-void PanelUI::update()
+void PanelUI::update(double time)
 {
 	if (_visible)
 		for (UIElement* e : _children)
 			if (e->isVisible())
-				e->update();
+				e->update(time);
 }
 
 void PanelUI::handleEvent(const SDL_Event & event)

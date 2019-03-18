@@ -135,6 +135,8 @@
     <ClCompile Include="BodyComponent.cpp" />
     <ClCompile Include="BulletPool.cpp" />
     <ClCompile Include="Cursor.cpp" />
+    <ClCompile Include="DialoguePanel.cpp" />
+    <ClCompile Include="DialogueTextUI.cpp" />
     <ClCompile Include="DistanceEnemy.cpp" />
     <ClCompile Include="EnemyArm.cpp" />
     <ClCompile Include="MovingComponent.cpp" />
@@ -207,6 +209,8 @@
     <ClInclude Include="BasicShotgun.h" />
     <ClInclude Include="BodyComponent.h" />
     <ClInclude Include="Cursor.h" />
+    <ClInclude Include="DialoguePanel.h" />
+    <ClInclude Include="DialogueTextUI.h" />
     <ClInclude Include="DistanceEnemy.h" />
     <ClInclude Include="EnemyArm.h" />
     <ClInclude Include="MovingComponent.h" />

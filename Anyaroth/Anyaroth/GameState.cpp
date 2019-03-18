@@ -36,7 +36,7 @@ void GameState::update(double time)
 		o->update(time);
 
 	if (_canvas != nullptr)
-		_canvas->update();
+		_canvas->update(time);
 }
 
 bool GameState::handleEvents(SDL_Event& e)
