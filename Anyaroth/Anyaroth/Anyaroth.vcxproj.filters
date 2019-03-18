@@ -214,6 +214,9 @@
     <ClCompile Include="SpawnerEnemy.cpp">
       <Filter>Archivos de código\Objects\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="Capsule.cpp">
+      <Filter>Archivos de código\Objects\Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -463,6 +466,9 @@
       <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
     <ClInclude Include="SpawnerEnemy.h">
+      <Filter>Archivos de encabezado\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Capsule.h">
       <Filter>Archivos de encabezado\Objects\Enemies</Filter>
     </ClInclude>
   </ItemGroup>

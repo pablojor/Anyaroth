@@ -46,7 +46,7 @@ public:
 	virtual void update(double time);
 
 	void die();
-	void subLife(int damage);
+	virtual void subLife(int damage);
 	inline Life getLife() const { return _life; }
 	int random(int low, int high) {
 		return low + (rand() % abs(high - low));

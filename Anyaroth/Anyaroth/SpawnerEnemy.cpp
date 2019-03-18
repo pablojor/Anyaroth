@@ -2,6 +2,8 @@
 #include "GameComponent.h"
 #include "AnimatedSpriteComponent.h"
 #include "Player.h"
+#include "HurtRenderComponent.h"
+#include "Capsule.h"
 
 SpawnerEnemy::SpawnerEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag) : Enemy(player, g, play, texture, posIni, tag)
 {
@@ -11,7 +13,7 @@ SpawnerEnemy::SpawnerEnemy(Player* player, Game* g, PlayState* play, Texture* te
 
 	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 13, true);
 	_anim->addAnim(AnimatedSpriteComponent::EnemyWalk, 8, true);
-	//_anim->addAnim(AnimatedSpriteComponent::EnemySpawn, 11, false);
+	_anim->addAnim(AnimatedSpriteComponent::EnemyAttack, 11, false);
 	_anim->addAnim(AnimatedSpriteComponent::EnemyDie, 18, false);
 
 	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
@@ -40,10 +42,41 @@ void SpawnerEnemy::update(double time)
 			else
 				_speed = 8;
 		}
+		else
+		{
+			if (time > _time)
+			{
+				enemySpawn(new Capsule(_player, _game, _play, _game->getTexture("EnemyMelee"), Vector2D(enemyPos.x * 8, enemyPos.y * 8), "Enemy"));
+				_time = time + _spawnTime;
+			}
+		}
+
 	}
 	else 
 	{
 		if (x < _vision && x > -_vision && y < _vision && y > -_vision)
+		{
 			_activated = true;
+			_time = time + 300;
+		}
+	}
+}
+
+void SpawnerEnemy::subLife(int damage)
+{
+	if (!_dead)
+	{
+		_life.subLife(damage);
+		if (_life.dead())
+		{
+			die();
+			_hurt->die();
+			_anim->playAnim(AnimatedSpriteComponent::EnemyDie);
+			_body->getBody()->SetGravityScale(1);
+
+			_dead = true;
+		}
+		else
+			_hurt->hurt();
 	}
 }
