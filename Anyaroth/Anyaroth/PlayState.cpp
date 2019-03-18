@@ -111,7 +111,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_mainCamera->setBackGround(a);
 
 	//Cursor
-	_cursor = new Cursor(g->getTexture("GunCursor"), g, this);
+	_cursor = new Cursor(g);
 	_stages.push_back(_cursor);
 	//_player->getWeaponArm()->setCursor(_cursor);
 
