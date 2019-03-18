@@ -8,6 +8,7 @@
 #include "MartyrEnemy.h"
 #include "DistanceStaticEnemy.h"
 #include "DistanceDynamicEnemy.h"
+#include "SpawnerEnemy.h"
 #include "BulletPool.h"
 #include "Coin.h"
 #include "Cursor.h"

@@ -4,7 +4,7 @@
 class SpawnerEnemy : public Enemy
 {
 private:
-	bool _spawning = false, _activated = false;
+	bool _spawning = false, _activated = true;
 	int _realRange = 15, _stopDmg = 1000;
 
 public:

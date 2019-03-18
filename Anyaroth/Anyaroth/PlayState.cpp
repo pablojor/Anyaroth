@@ -47,7 +47,11 @@ PlayState::PlayState(Game* g) : GameState(g)
 	vector <Vector2D> enemiesPos = oL->getObjectsPositions();
 	delete oL;
 
-	for (int i = 0; i < enemiesPos.size(); i++)
+	_enemy = new SpawnerEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(50, 150), "Enemy");
+	_stages.push_back(_enemy);
+	auto itFR = --(_stages.end());
+	_enemy->setItList(itFR);
+	/*for (int i = 0; i < enemiesPos.size(); i++)
 	{
 		_enemy = new MeleeEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(enemiesPos[i].getX(), enemiesPos[i].getY() - TILES_SIZE * 2), "Enemy");
 		_stages.push_back(_enemy);
@@ -80,7 +84,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 		_stages.push_back(_enemy);
 		auto itFR = --(_stages.end());
 		_enemy->setItList(itFR);
-	}
+	}*/
 
 	//Coins
 	oL = new ObjectLayer(TILEMAP_PATH + "Nivel1.json", "Monedas");
