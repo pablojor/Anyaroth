@@ -5,6 +5,7 @@
 #include "BasicShotgun.h"
 #include "Axe.h"
 
+
 Player::Player(Game* game, int xPos, int yPos) :  GameComponent(game, "Player")
 {
 	addComponent<Texture>(game->getTexture("Mk"));
@@ -53,11 +54,13 @@ Player::Player(Game* game, int xPos, int yPos) :  GameComponent(game, "Player")
 	_anim->addAnim(AnimatedSpriteComponent::DashBack, 6, false);
 	_anim->addAnim(AnimatedSpriteComponent::ReloadShotgun, 5, false);
 
-	//_hurt = addComponent<HurtRenderComponent>();
-
+	_hurt = addComponent<HurtRenderComponent>();
+	
 	//Brazo
 	_playerArm = new PlayerArm(game, this, { 28, 18 });
 	addChild(_playerArm);
+
+	//_playerArm->addComponent<HurtRenderComponent>();
 
 	//Armas (de momento esas dos)
 	_currentGun = new BasicPistol(game);
@@ -103,8 +106,6 @@ void Player::beginCollision(GameComponent * other, b2Contact* contact)
 			auto cant = coin->getValue();
 			_money->store(cant);
 			coin->destroy();
-			cout << "Moneda cogida" << endl;
-			cout << "Cantidad monedero: " << _money->getWallet() << endl;
 
 			_playerPanel->updateCoinsCounter(_money->getWallet());
 		}
@@ -132,13 +133,13 @@ void Player::subLife(int damage)
 			if (_life.dead())
 			{
 				die();
-				//_hurt->die();
+				_hurt->die();
 				//_hurtArm->die();
 				_dead = true;
 			}
 			else
 			{
-				//_hurt->hurt();
+				_hurt->hurt();
 				//_hurtArm->hurt();
 			}
 		}
