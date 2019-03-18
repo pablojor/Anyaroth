@@ -5,8 +5,8 @@
 
 SoundManager::SoundManager()
 {
-	if (SDL_Init(SDL_INIT_AUDIO))
-		if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048))
+	if (SDL_Init(SDL_INIT_AUDIO) == 0)
+		if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) != 0)
 			cout << "No se ha iniciado el SoundManager de manera correcta: " << Mix_GetError() << endl;
 }
 
@@ -73,7 +73,7 @@ void SoundManager::playMusic(const string& name, const bool& loops)
 	if (_music.find(name) != _music.end())
 		Mix_PlayMusic(_music[name], loops ? -1 : 0);
 	else
-		cout << "Imposible reproducir, no existe el SFX con nombre: " << name << endl;
+		cout << "Imposible reproducir, no existe la musica con nombre: " << name << endl;
 }
 
 void SoundManager::resumeMusic()

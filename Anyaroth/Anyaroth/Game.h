@@ -49,7 +49,7 @@ private:
 	SDL_Window* _window = nullptr;
 	SDL_Renderer* _renderer = nullptr;
 
-	SoundManager* _soundManager = new SoundManager();
+	SoundManager* _soundManager;
 
 	map <string, Texture*> _textures;
 	map <string, Font*> _fonts;

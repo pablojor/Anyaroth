@@ -59,7 +59,9 @@ void Game::createFonts()
 
 void Game::createSounds()
 {
-	_soundManager->addSFX("example", SOUNDS_PATH + "example1.wav");
+	_soundManager->addSFX("example", SOUNDS_PATH + "example.wav");
+	_soundManager->addMusic("bgMusic", SOUNDS_PATH + "bgMusic.wav");
+	_soundManager->addSFX("example1", SOUNDS_PATH + "example1.wav");
 }
 
 void Game::pushState(GameState* state)
@@ -108,7 +110,7 @@ Game::Game()
 	SDL_RenderSetLogicalSize(_renderer, GAME_RESOLUTION_X, GAME_RESOLUTION_Y);
 
 	//Icon
-	SDL_Surface* icon = IMG_Load("..\\icon.png");
+	SDL_Surface* icon = IMG_Load((SPRITE_PATH + "icon.png").c_str());
 	SDL_SetWindowIcon(_window, icon);
 
 	//Show cursor
@@ -119,6 +121,7 @@ Game::Game()
 	//---Create fonts
 	createFonts();
 	//---Create sounds
+	_soundManager = new SoundManager();
 	createSounds();
 	//---Create world
 	_world = new b2World(b2Vec2(0.0, 9.8));
@@ -194,6 +197,8 @@ void Game::handleEvents()
 				toggleFullscreen();
 			else if (event.key.keysym.sym == SDLK_1)
 				_soundManager->playSFX("example");
+			else if (event.key.keysym.sym == SDLK_2)
+				_soundManager->playSFX("example1");
 		}
 
 		_stateMachine->currentState()->handleEvents(event);
