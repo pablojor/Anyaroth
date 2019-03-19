@@ -31,8 +31,13 @@ void FlyingEnemy::update(double time)
 
 	double angle = atan2(_playerPos.getY() - _originalPos.getY(), _playerPos.getX() - _originalPos.getX()) * 180/M_PI;
 
+	
 	double dis = _playerPos.distance(_bodyPos);
-	double xDir = (dis > 0) ? 1 : -1;
+	double xDir = (_playerPos.getX() < _bodyPos.getX()) ? -1 : 1;//(dis >  5 ) ? 1 : -1;
+	if (abs(angle) > 90 && xDir == -1)
+		xDir = 1;
+	else if (abs(angle) > 90 && xDir == 1)
+		xDir = -1;
 	//Ondas Sinusoidales vertical y horizontal
 	double x = prevPos.getX() + _velocity.getX() *xDir;
 	double y = _originalPos.getY() +_amplitude * sin(_k * x - _angularFrequency * time / 1000 );

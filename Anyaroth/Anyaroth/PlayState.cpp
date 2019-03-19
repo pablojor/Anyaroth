@@ -48,7 +48,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	vector <Vector2D> enemiesPos = oL->getObjectsPositions();
 	delete oL;
 
-	_enemy = new FlyingEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(100, 200), "Enemy");
+	_enemy = new FlyingEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(300, 200), "Enemy");
 	_stages.push_back(_enemy);
 	auto itFR = --(_stages.end());
 	_enemy->setItList(itFR);
