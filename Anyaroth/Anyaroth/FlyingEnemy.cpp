@@ -14,7 +14,7 @@ FlyingEnemy::FlyingEnemy(Player* player, Game* g, PlayState* play, Texture* text
 
 	_originalPos= Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL);
 	_playerBody = _player->getComponent<BodyComponent>();
-	prevPos = _originalPos;
+	_prevPos = _originalPos;
 }
 
 
