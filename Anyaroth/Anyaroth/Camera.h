@@ -11,8 +11,10 @@ private:
 	BackGround* _backGround = nullptr;
 
 	void moveCamera();
+	void smoothCameraZoom(const double& time);
 
 	pair<bool, int> _cameraStatus = pair<bool, int>(false, 0);
+	float _zoom = 1.f; float _zoomGoal = _zoom;
 
 public:
 	Camera() {}
@@ -37,6 +39,9 @@ public:
 
 	inline GameComponent* getFollowedObject() const { return _followedObject; };
 
-	void update(double time);
+	void setZoom(const float& zoomRatio, const bool& smoothZoom = false);
+	float getZoom() const { return _zoom; }
+
+	void update(const double& time);
 	void render() const;
 };

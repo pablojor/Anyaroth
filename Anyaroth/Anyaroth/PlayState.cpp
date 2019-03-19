@@ -121,6 +121,8 @@ PlayState::PlayState(Game* g) : GameState(g)
 
 	//Asignacion de paneles a sus controladores
 	_player->setPlayerPanel(b->getPlayerPanel());
+
+	_mainCamera->setZoom(5, true);
 }
 
 void PlayState::KillObject(const list<GameObject*>::iterator &itList)

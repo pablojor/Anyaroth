@@ -82,8 +82,8 @@ Vector2D GameState::getMousePositionInWorld() const
 	xMousePos -= xBorder / 2;
 	yMousePos -= yBorder / 2;
 
-	xMousePos = (xMousePos * CAMERA_RESOLUTION_X) / gameWidth;
-	yMousePos = (yMousePos * CAMERA_RESOLUTION_Y) / gameHeight;
+	xMousePos = (xMousePos * _mainCamera->getCameraSize().getX()) / gameWidth;
+	yMousePos = (yMousePos * _mainCamera->getCameraSize().getY()) / gameHeight;
 
 	//Lo convertimos en su posicion en el mundo
 	xMousePos += getMainCamera()->getCameraPosition().getX();
