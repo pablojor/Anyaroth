@@ -2,14 +2,21 @@
 
 #include "PanelUI.h"
 #include "DialogueTextUI.h"
+#include "ImageUI.h"
+#include "FramedImageUI.h"
+#include "TextUI.h"
 
 class Game;
 
 class DialoguePanel : public PanelUI
 {
 private:
-	DialogueTextUI* _testDialogue = nullptr;
 
+	ImageUI* _backgroundImage = nullptr;
+	FramedImageUI* _faceImage = nullptr;
+	ImageUI* _indicatorImage = nullptr;
+	TextUI* _nameText = nullptr;
+	DialogueTextUI* _dialogueText = nullptr;
 public:
 	DialoguePanel() {};
 	DialoguePanel(Game* game);

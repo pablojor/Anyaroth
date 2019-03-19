@@ -213,6 +213,7 @@
     </ClCompile>
     <ClCompile Include="DialogueTextUI.cpp" />
     <ClCompile Include="DialoguePanel.cpp" />
+    <ClCompile Include="FramedImageUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -463,6 +464,7 @@
     </ClInclude>
     <ClInclude Include="DialogueTextUI.h" />
     <ClInclude Include="DialoguePanel.h" />
+    <ClInclude Include="FramedImageUI.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de encabezado">

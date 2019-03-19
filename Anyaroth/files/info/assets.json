@@ -28,7 +28,10 @@
         ["Punto1", "DisparoEnemigo.png", 1, 1],
         ["Punto2", "DisparoJugador.png", 1, 1],
         ["GunCursor", "gunCursor.png", 1, 1],
-		["BgMenu", "bg_menu.png", 1, 1]
+		["BgMenu", "bg_menu.png", 1, 1],
+		["DialogueIndicator", "dialogueIndicator.png", 1, 1],
+		["DialogueBg", "dialogueBg.png", 1, 1],
+		["DialogueFace", "faces.png", 1, 3]
     ],
     "fonts" : [
         ["ARIAL12", "arial.ttf", 12]

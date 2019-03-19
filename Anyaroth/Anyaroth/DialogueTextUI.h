@@ -11,7 +11,7 @@ private:
 	double _waitTime;
 	double _time = 0;
 
-	string _textToType = "Sans al habla... Esto es una prueba. Repito. Esto es una maldita prueba.";
+	string _textToType = "Mk al habla... Esto es una prueba. Repito. Esto es una prueba.";
 	vector<char> _dialogueText;
 
 	bool _textTyped = false;
