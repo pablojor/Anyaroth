@@ -14,7 +14,7 @@ DialoguePanel::DialoguePanel(Game* game) : PanelUI(game)
 	};
 
 	//Inicializamos
-	_backgroundImage = new ImageUI(game, game->getTexture("DialogueBg"), 3, 192);
+	_backgroundImage = new AnimatedImageUI(game, game->getTexture("DialogueBg"), 3, 192);
 	_faceImage = new FramedImageUI(game, game->getTexture("DialogueFace"), _backgroundImage->getX() + 11, _backgroundImage->getY() + 11);
 	_indicatorImage = new ImageUI(game, game->getTexture("DialogueIndicator"), _backgroundImage->getW() - 22, _backgroundImage->getY() + 58);
 	_nameText = new TextUI(game, " ", game->getFont("ARIAL12"), 12, _faceImage->getW() - 20, _faceImage->getY() - 20, { 145, 255, 255, 255 });
@@ -22,13 +22,22 @@ DialoguePanel::DialoguePanel(Game* game) : PanelUI(game)
 	_dialogueText = new DialogueTextUI(game, " ", game->getFont("ARIAL12"), 12, _faceImage->getW() + 25, _faceImage->getY(), { 255, 255, 255, 255 });
 
 
+	_backgroundImage->addAnim(AnimatedImageUI::Default, 1, false);
+	_backgroundImage->addAnim(AnimatedImageUI::End, 8, false);
+	_backgroundImage->addAnim(AnimatedImageUI::Start, 8, false);
+
+
+	_backgroundImage->playAnim(AnimatedImageUI::Default);
+
+
+
 	//Desactivamos todo
 	//_backgroundImage->setVisible(false);
-	/*_indicatorImage->setVisible(false);
+	_indicatorImage->setVisible(false);
 	_faceImage->setVisible(false);
 	_nameText->setVisible(false);
 
-	_dialogueText->setVisible(false);*/
+	_dialogueText->setVisible(false);
 
 	setVisible(false);
 
@@ -53,9 +62,11 @@ void DialoguePanel::startDialogue(const Dialogue& dialogue)
 	_nameText->setText(_dialogue.name);
 	_faceImage->setImage(_dialogue.face);
 
-	//comenzamos dialogo
-	_faceImage->changeFrame(_dialogue.faces[_currentText]);
-	_dialogueText->type(_dialogue.conversation[0]);
+
+
+
+	_backgroundImage->playAnim(AnimatedImageUI::Start);
+
 
 
 	//ponemos visible todo
@@ -80,15 +91,17 @@ void DialoguePanel::endDialogue()
 	//_dialogueText->setText("");
 	//_faceImage->
 
-	//ponemos visible todo
-	/*_indicatorImage->setVisible(false);
+	//ponemos invisible todo
+	_indicatorImage->setVisible(false);
 	_faceImage->setVisible(false);
 	_nameText->setVisible(false);
-	_indicatorImage->setVisible(false);
 
-	_dialogueText->setVisible(false);*/
+	_dialogueText->setVisible(false);
 
-	setVisible(false);
+
+	_backgroundImage->playAnim(AnimatedImageUI::End);
+
+	//setVisible(false);
 
 	_isConversating = false;
 
@@ -133,7 +146,30 @@ void DialoguePanel::update(double time)
 
 	if (_visible)
 	{
-		if (!_indicatorImage->isVisible() && _dialogueText->textTyped())
+		//Cuando termine animacion
+		if (_backgroundImage->getCurrentAnim() == AnimatedImageUI::End && _backgroundImage->animationFinished())
+		{
+			_backgroundImage->playAnim(AnimatedImageUI::Default);
+			_backgroundImage->setVisible(false);
+		}
+		//Cuando termine animacion
+		else if (_backgroundImage->getCurrentAnim() == AnimatedImageUI::Start && _backgroundImage->animationFinished())
+		{
+			_backgroundImage->playAnim(AnimatedImageUI::Default);
+
+			_faceImage->setVisible(true);
+			_nameText->setVisible(true);
+
+			_dialogueText->setVisible(true);
+
+			//comenzamos dialogo
+			_faceImage->changeFrame(_dialogue.faces[_currentText]);
+			_dialogueText->type(_dialogue.conversation[0]);
+		}
+
+
+		//Hacer visible indicador cuando termina de escribir el texto
+		else if (_isConversating &&!_indicatorImage->isVisible() && _dialogueText->textTyped())
 		{
 			_indicatorImage->setVisible(true);
 		}

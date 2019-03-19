@@ -30,7 +30,7 @@
         ["GunCursor", "gunCursor.png", 1, 1],
 		["BgMenu", "bg_menu.png", 1, 1],
 		["DialogueIndicator", "dialogueIndicator.png", 1, 1],
-		["DialogueBg", "dialogueBg.png", 1, 1],
+		["DialogueBg", "dialogueBg.png", 3, 8],
 		["DialogueFace", "faces.png", 1, 3]
     ],
     "fonts" : [

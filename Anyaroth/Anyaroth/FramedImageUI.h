@@ -4,7 +4,7 @@
 
 class FramedImageUI : public ImageUI
 {
-private:
+protected:
 	int _frame = 0;
 public:
 	FramedImageUI(Game* game, Texture* image, int xPos = 0, int yPos = 0);

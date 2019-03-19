@@ -3,6 +3,7 @@
 #include "PanelUI.h"
 #include "DialogueTextUI.h"
 #include "ImageUI.h"
+#include "AnimatedImageUI.h"
 #include "FramedImageUI.h"
 #include "TextUI.h"
 
@@ -13,7 +14,7 @@ struct Dialogue
 	Texture* face = nullptr;
 	string name;
 	//Voz
-
+	//Sonido especial
 	vector<string> conversation;
 	vector<int> faces;			//0->feliz, 1->triste, 2->enfadado // esto iria con un enum
 };
@@ -25,7 +26,7 @@ class DialoguePanel : public PanelUI
 {
 private:
 
-	ImageUI* _backgroundImage = nullptr;
+	AnimatedImageUI* _backgroundImage = nullptr;
 	FramedImageUI* _faceImage = nullptr;
 	ImageUI* _indicatorImage = nullptr;
 	TextUI* _nameText = nullptr;
