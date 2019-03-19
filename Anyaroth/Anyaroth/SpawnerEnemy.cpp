@@ -37,12 +37,24 @@ void SpawnerEnemy::update(double time)
 	{
 		_body->getBody()->SetLinearVelocity({ _speed, _body->getBody()->GetLinearVelocity().y });
 
-		if (!inCamera())
+		if (!inCameraOnlyX() || _move)
 		{
-			if (x < 0)
-				_speed = -8;
+			if (_bloqueDer && playerPos.x > enemyPos.x)
+			{
+				_speed = _dir;
+				_move = false;
+				_bloqueDer = false;
+			}
+			else if (_bloqueIzq && playerPos.x < enemyPos.x)
+			{
+				_speed = -_dir;
+				_move = false;
+				_bloqueIzq = false;
+			}
+			else if (x < 0)
+				_speed = -_dir;
 			else
-				_speed = 8;
+				_speed = _dir;
 		}
 		else
 		{
@@ -82,5 +94,28 @@ void SpawnerEnemy::subLife(int damage)
 		}
 		else
 			_hurt->hurt();
+	}
+}
+void SpawnerEnemy::beginCollision(GameComponent * other, b2Contact* contact)
+{
+	Enemy::beginCollision(other,contact);
+
+	string otherTag = other->getTag();
+	if (otherTag == "Suelo")
+	{
+		double x = other->getComponent<BodyComponent>()->getBody()->GetPosition().x;
+		double y = _body->getBody()->GetPosition().x;
+		if ( x < y )
+		{
+			_bloqueDer = true;
+			_move = true;
+		}
+		else
+		{
+			_bloqueIzq = true;
+			_move = true;
+		}
+			
+
 	}
 }
