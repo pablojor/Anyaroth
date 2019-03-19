@@ -8,7 +8,7 @@ class BomberEnemy :
 	public Enemy
 {
 private:
-	bool _spawning = false, _activated = true;
+	bool _spawning = false, _activated = false;
 	double _spawnTime = 1000;
 	int _range = 600;
 	BulletPool* _myBulletPool = nullptr;

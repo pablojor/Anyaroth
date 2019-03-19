@@ -3,7 +3,7 @@
 #include "Bullet.h"
 #include "ExplosiveBullet.h"
 
-class BulletPool : public ObjectPool<Bullet, 100>
+class BulletPool : public ObjectPool<Bullet, 0>
 {
 	private:
 		void initBullets();

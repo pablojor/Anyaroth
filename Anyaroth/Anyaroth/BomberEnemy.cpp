@@ -51,7 +51,7 @@ void BomberEnemy::update(double time)
 			if (_time >= _spawnTime)
 			{
 				//enemySpawn(new Capsule(_player, _game, _play, _game->getTexture("EnemyMelee"), Vector2D(enemyPos.x * 8 - 30 /*Numero a ajustar dependiendo del sprite*/, enemyPos.y * 8 - 25 /*Numero a ajustar dependiendo del sprite*/), "Enemy"));
-				Throw(Vector2D(_body->getBody()->GetPosition().x, _body->getBody()->GetPosition().y), 90, "EnemyBullet");
+				Throw(Vector2D(_body->getBody()->GetPosition().x*8, _body->getBody()->GetPosition().y*8), 90, "EnemyBullet");
 				_time = 0;
 			}
 			else
@@ -95,13 +95,14 @@ void BomberEnemy::Throw(const Vector2D& position, const double& angle, const str
 	Vector2D bulletPos = helpPos.rotateAroundPoint(angle, position);
 	if (b != nullptr)
 	{
-		b->init(_bulletTexture, bulletPos, _speed, _damage, angle, _range, tag);
+		b->init(_bulletTexture, position, 0, 10, angle, _range, tag);
 		b->changeFilter();
 	}
 	else
 	{
-		Bullet* b2 = _myBulletPool->addNewBullet();
-		b2->init(_bulletTexture, bulletPos, _speed, _damage, angle, _range, tag);
+		Bullet* b2 = _myBulletPool->addNewExplosiveBullet();
+		
+		b2->init(_bulletTexture, position, 0, 10, angle, _range, tag);
 		b2->changeFilter();
 	}
 }
