@@ -121,8 +121,6 @@ PlayState::PlayState(Game* g) : GameState(g)
 
 	//Asignacion de paneles a sus controladores
 	_player->setPlayerPanel(b->getPlayerPanel());
-
-	_mainCamera->setZoom(5, true);
 }
 
 void PlayState::KillObject(const list<GameObject*>::iterator &itList)
@@ -145,6 +143,10 @@ bool PlayState::handleEvents(SDL_Event& e)
 		_gameptr->pushState(new PauseState(_gameptr));
 		handled = true;
 	}
+	else if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_KP_MINUS)
+		_mainCamera->zoomOut();
+	else if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_KP_PLUS)
+		_mainCamera->zoomIn();
 	return handled;
 }
 

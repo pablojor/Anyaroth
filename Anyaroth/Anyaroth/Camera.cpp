@@ -82,12 +82,12 @@ void Camera::looseFixedObject()
 		_followedObject = nullptr;
 }
 
-void Camera::setZoom(const float & zoomRatio, const bool & smoothZoom)
+void Camera::setZoom(const float& zoomRatio, const bool& smoothZoom)
 {
 	_zoomGoal = zoomRatio;
 	if (!smoothZoom)
 	{
-		_zoom = zoomRatio;
+		_zoom = _zoomGoal;
 		setCameraSize(CAMERA_RESOLUTION_X * _zoom, CAMERA_RESOLUTION_Y * _zoom);
 	}
 }
