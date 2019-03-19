@@ -30,7 +30,7 @@ void Capsule::update(double time)
 		//if( animacion de spawn terminada)
 		b2Vec2 enemyPos = _body->getBody()->GetPosition();
 
-		enemySpawn(new MeleeEnemy(_player, _game, _play, _game->getTexture("EnemyMelee"), Vector2D(enemyPos.x * 8, enemyPos.y * 8), "Enemy"));
+		enemySpawn(new MeleeEnemy(_player, _game, _play, _game->getTexture("EnemyMelee"), Vector2D(enemyPos.x * 8 - 30/*Numero a ajustar dependiendo del sprite*/, enemyPos.y * 8 - 30/*Numero a ajustar dependiendo del sprite*/), "Enemy"));
 		_play->KillObject(_itList);
 	}
 }

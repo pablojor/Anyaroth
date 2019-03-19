@@ -10,6 +10,8 @@ SpawnerEnemy::SpawnerEnemy(Player* player, Game* g, PlayState* play, Texture* te
 	_attackTime = 2000;
 	_life = 300;
 	_speed = -8;
+	_vision = 300;
+
 
 	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 13, true);
 	_anim->addAnim(AnimatedSpriteComponent::EnemyWalk, 8, true);
@@ -44,11 +46,13 @@ void SpawnerEnemy::update(double time)
 		}
 		else
 		{
-			if (time > _time)
+			if (_time >= _spawnTime)
 			{
-				enemySpawn(new Capsule(_player, _game, _play, _game->getTexture("EnemyMelee"), Vector2D(enemyPos.x * 8, enemyPos.y * 8), "Enemy"));
-				_time = time + _spawnTime;
+				enemySpawn(new Capsule(_player, _game, _play, _game->getTexture("EnemyMelee"), Vector2D(enemyPos.x * 8 - 30 /*Numero a ajustar dependiendo del sprite*/ , enemyPos.y * 8 - 25 /*Numero a ajustar dependiendo del sprite*/), "Enemy"));
+				_time = 0;
 			}
+			else
+				_time += time;
 		}
 
 	}
@@ -57,7 +61,7 @@ void SpawnerEnemy::update(double time)
 		if (x < _vision && x > -_vision && y < _vision && y > -_vision)
 		{
 			_activated = true;
-			_time = time + 300;
+			_time = 0;
 		}
 	}
 }
