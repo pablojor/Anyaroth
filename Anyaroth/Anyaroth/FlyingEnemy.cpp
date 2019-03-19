@@ -43,7 +43,13 @@ void FlyingEnemy::update(double time)
 	double y3 = _body->getBody()->GetPosition().y * M_TO_PIXEL + _velocity.getY() * intDir.getY();
 	double x3 = _originalPos.getX()+ (acumulatedVel* intDir.getX()) + _amplitude * cos(_k * y1 + _angularFrequency * time / 1000);
 
-	_body->getBody()->SetTransform(b2Vec2(x2 / M_TO_PIXEL, y2 / M_TO_PIXEL), 0);
+	
+	double x4 = _body->getBody()->GetPosition().x * M_TO_PIXEL + _velocity.getX() * intDir.getX();
+	double y4 = _body->getBody()->GetPosition().y * M_TO_PIXEL + _velocity.getY() * intDir.getY();
+	double x5 = _originalPos.getX() + _amplitude * cos(_k * y4 + _angularFrequency * time / 1000);
+	double y5 = _originalPos.getY() + _amplitude * sin(_k * x4 + _angularFrequency * time / 1000);
+
+	_body->getBody()->SetTransform(b2Vec2(x5 / M_TO_PIXEL, y5 / M_TO_PIXEL), 0);
 
 	//Seguimiento del jugador
 	//_body->getBody()->SetLinearVelocity(b2Vec2(_velocity * cos(angle), _velocity * sin(angle)));

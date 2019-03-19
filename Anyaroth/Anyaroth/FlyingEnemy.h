@@ -4,8 +4,8 @@
 class FlyingEnemy :	public Enemy
 {
 private: 
-	Vector2D _playerPos, _originalPos, _velocity = Vector2D(0.5,0.5);
-	double _amplitude = 50, _angularFrequency = 0.5, acumulatedVel=0, _k = _angularFrequency / _velocity.distance(Vector2D());
+	Vector2D _playerPos, _originalPos, _velocity = Vector2D(0.0005,0.00005);
+	double _amplitude = 25, _angularFrequency = 0.5, acumulatedVel=0, _k = _angularFrequency / _velocity.distance(Vector2D());
 	TransformComponent* _playerTransform;
 public:
 	FlyingEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag);
