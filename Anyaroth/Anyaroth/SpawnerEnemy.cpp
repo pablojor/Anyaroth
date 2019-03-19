@@ -56,7 +56,7 @@ void SpawnerEnemy::update(double time)
 			else
 				_speed = _dir;
 		}
-		else
+		if(inCameraOnlyX())
 		{
 			if (_time >= _spawnTime)
 			{
