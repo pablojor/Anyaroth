@@ -33,8 +33,8 @@ private:
 	PlayerArm* _playerArm = nullptr;
 
 	//Variable auxiliares
-	int _dashCD = 3000, _maxDash = 2, _numDash = _maxDash, _onDash = false;
-	bool _isDashing = false, _isReloading = false, _isShooting = false, _isMeleeing = false, _dead = false;
+	int _dashCD = 3000, _maxDash = 2, _numDash = _maxDash, dashDur =250;
+	bool _isDashing = false, _isReloading = false, _isShooting = false, _isMeleeing = false, _onDash = false, dashDown = false, _dead = false;
 	int _floorCount = 0;
 
 	Gun* _currentGun = nullptr;
@@ -46,6 +46,7 @@ private:
 
 	void refreshCooldowns(const Uint32& deltaTime);
 	void refreshDashCoolDown(const Uint32& deltaTime);
+	void dashTimer(const Uint32& deltaTime);
 	void refreshGunCadence(const Uint32& deltaTime);
 	inline void setGrounded(bool grounded) { _floorCount = grounded; }
 
