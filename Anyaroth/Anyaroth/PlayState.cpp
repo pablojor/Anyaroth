@@ -147,6 +147,10 @@ bool PlayState::handleEvents(SDL_Event& e)
 		_mainCamera->zoomOut();
 	else if (e.type == SDL_KEYDOWN && (e.key.keysym.sym == SDLK_KP_PLUS || e.key.keysym.sym == SDLK_PLUS))
 		_mainCamera->zoomIn();
+	else if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_z)
+		_mainCamera->setZoom(_mainCamera->getZoomRatio() + 1, true);
+	else if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_x)
+		_mainCamera->setZoom(_mainCamera->getZoomRatio() - 1, true);
 	return handled;
 }
 

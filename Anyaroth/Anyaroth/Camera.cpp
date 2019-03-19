@@ -34,19 +34,18 @@ void Camera::moveCamera()
 		_cameraStatus.first = false;
 }
 
-void Camera::smoothCameraZoom(const double& time)
+void Camera::smoothCameraZoom()
 {
-	float smoothVel = 0.5f;
-	bool _isMinor = false;
 	if (_zoom != _zoomGoal)
 	{
+		bool _isMinor = false;
 		if (_zoomGoal > _zoom) _isMinor = true;
-		_isMinor ? _zoom += smoothVel * time / 1000.0 : _zoom -= smoothVel * time / 1000.0;
-		
+		_isMinor ? _zoom++ : _zoom--;
+
 		if ((_isMinor && _zoom >= _zoomGoal) || (!_isMinor && _zoom <= _zoomGoal))
 			_zoom = _zoomGoal;
 
-		setCameraSize(CAMERA_RESOLUTION_X * _zoom, CAMERA_RESOLUTION_Y * _zoom);
+		setCameraSize(CAMERA_ASPECT_RATIO_X * _zoom, CAMERA_ASPECT_RATIO_Y * _zoom);
 	}
 }
 
@@ -84,11 +83,11 @@ void Camera::looseFixedObject()
 
 void Camera::setZoom(const float& zoomRatio, const bool& smoothZoom)
 {
-	_zoomGoal = zoomRatio;
+	_zoomGoal = CAMERA_SCALE_FACTOR * zoomRatio;
 	if (!smoothZoom)
 	{
 		_zoom = _zoomGoal;
-		setCameraSize(CAMERA_RESOLUTION_X * _zoom, CAMERA_RESOLUTION_Y * _zoom);
+		setCameraSize(CAMERA_ASPECT_RATIO_X * _zoom, CAMERA_ASPECT_RATIO_Y * _zoom);
 	}
 }
 
@@ -98,7 +97,7 @@ void Camera::update(const double& time)
 	if (_backGround != nullptr)
 		if (_backGround->checkCameraStatus(_cameraStatus))
 			_backGround->update(time);
-	smoothCameraZoom(time);
+	smoothCameraZoom();
 }
 
 void Camera::render() const
