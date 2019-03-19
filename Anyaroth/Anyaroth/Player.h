@@ -37,6 +37,7 @@ private:
 	bool _isDashing = false, _isReloading = false, _isShooting = false, _isMeleeing = false, _dead = false;
 	int _floorCount = 0;
 
+	vector<Gun*> _gameWeapons;
 	Gun* _currentGun = nullptr;
 	Gun* _otherGun = nullptr;
 

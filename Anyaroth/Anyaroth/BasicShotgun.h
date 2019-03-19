@@ -1,14 +1,13 @@
 #pragma once
-#include "Gun.h"
+#include "Shotgun.h"
 
-class BasicShotgun : public Gun
+class BasicShotgun : public Shotgun
 {
-private:
-	int _angleBetweenBullet = 10;
+
 public:
 	BasicShotgun(Game* game);
 	~BasicShotgun();
 
-	virtual void shoot(BulletPool* bulletPool, const Vector2D& position, const double& angle, const string& tag);
+	
 };
 

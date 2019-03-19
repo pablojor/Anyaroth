@@ -2,7 +2,7 @@
 #include <algorithm>
 
 
-Gun::Gun(Texture* armTexture, Texture* bulletTexture, double speed, double damage, double range, int maxClip, int maxMagazine, double maxCadence) : _armTexture(armTexture), _bulletTexture(bulletTexture)
+Gun::Gun(Texture* armTexture, Texture* bulletTexture, double speed, double damage, double range, int maxClip, int maxMagazine, double maxCadence, bool automatic) : _armTexture(armTexture), _bulletTexture(bulletTexture)
 {
 	_maxCadence = maxCadence;
 	_maxClip = maxClip;
@@ -12,6 +12,7 @@ Gun::Gun(Texture* armTexture, Texture* bulletTexture, double speed, double damag
 	_range = range;
 	_damage = damage;
 	_speed = speed;
+	_isAutomatic = automatic;
 }
 
 void Gun::shoot(BulletPool* bulletPool, const Vector2D& position, const double& angle, const string& tag)

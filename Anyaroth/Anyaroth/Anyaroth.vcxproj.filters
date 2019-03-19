@@ -211,6 +211,16 @@
     <ClCompile Include="Melee.cpp">
       <Filter>Archivos de código\Melee</Filter>
     </ClCompile>
+    <ClCompile Include="ImprovedShotgun.cpp">
+      <Filter>Archivos de código\Guns</Filter>
+    </ClCompile>
+    <ClCompile Include="Shotgun.cpp">
+      <Filter>Archivos de código\Guns</Filter>
+    </ClCompile>
+    <ClCompile Include="BasicRifle.cpp">
+      <Filter>Archivos de código\Guns</Filter>
+    </ClCompile>
+    <ClCompile Include="ImprovedRifle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -459,6 +469,16 @@
     <ClInclude Include="Melee.h">
       <Filter>Archivos de encabezado\Melee</Filter>
     </ClInclude>
+    <ClInclude Include="ImprovedShotgun.h">
+      <Filter>Archivos de encabezado\Guns</Filter>
+    </ClInclude>
+    <ClInclude Include="Shotgun.h">
+      <Filter>Archivos de encabezado\Guns</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicRifle.h">
+      <Filter>Archivos de encabezado\Guns</Filter>
+    </ClInclude>
+    <ClInclude Include="ImprovedRifle.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de encabezado">
