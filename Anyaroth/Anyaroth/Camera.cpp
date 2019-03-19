@@ -40,7 +40,7 @@ void Camera::smoothCameraZoom()
 	{
 		bool _isMinor = false;
 		if (_zoomGoal > _zoom) _isMinor = true;
-		_isMinor ? _zoom++ : _zoom--;
+		_isMinor ? _zoom++ : (_zoom - 1 < 0 ? _zoom = 0 : _zoom--);
 
 		if ((_isMinor && _zoom >= _zoomGoal) || (!_isMinor && _zoom <= _zoomGoal))
 			_zoom = _zoomGoal;
@@ -84,6 +84,8 @@ void Camera::looseFixedObject()
 void Camera::setZoom(const float& zoomRatio, const bool& smoothZoom)
 {
 	_zoomGoal = CAMERA_SCALE_FACTOR * zoomRatio;
+	if (_zoomGoal < 0) _zoomGoal = 0;
+
 	if (!smoothZoom)
 	{
 		_zoom = _zoomGoal;
