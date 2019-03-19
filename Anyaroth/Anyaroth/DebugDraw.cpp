@@ -28,8 +28,8 @@ void DebugDraw::DrawSolidPolygon(const b2Vec2* vertices, int32 vertexCount, cons
 	poly.h = abs(vertices[0].y - vertices[2].y)*M_TO_PIXEL;
 	poly.w = abs(vertices[0].x - vertices[2].x)*M_TO_PIXEL;
 
-	SDL_Rect winRect = { poly.x * GAME_RESOLUTION_X / CAMERA_RESOLUTION_X ,poly.y * GAME_RESOLUTION_Y / CAMERA_RESOLUTION_Y ,
-		poly.w * GAME_RESOLUTION_X / CAMERA_RESOLUTION_X, poly.h * GAME_RESOLUTION_Y / CAMERA_RESOLUTION_Y };
+	SDL_Rect winRect = { poly.x * GAME_RESOLUTION_X / _camera->getCameraSize().getX() ,poly.y * GAME_RESOLUTION_Y / _camera->getCameraSize().getY() ,
+		poly.w * GAME_RESOLUTION_X / _camera->getCameraSize().getX() + 1, poly.h * GAME_RESOLUTION_Y / _camera->getCameraSize().getY() + 1 }; //+1 para el tema del Zoom
 
 	_texture->render(winRect);
 }
@@ -42,8 +42,8 @@ void DebugDraw::DrawCircle(const b2Vec2& center, float32 radius, const b2Color& 
 	poly.h = abs(radius*2)*M_TO_PIXEL;
 	poly.w = abs(radius*2)*M_TO_PIXEL;
 
-	SDL_Rect winRect = { poly.x * GAME_RESOLUTION_X / CAMERA_RESOLUTION_X ,poly.y * GAME_RESOLUTION_Y / CAMERA_RESOLUTION_Y ,
-		poly.w * GAME_RESOLUTION_X / CAMERA_RESOLUTION_X, poly.h * GAME_RESOLUTION_Y / CAMERA_RESOLUTION_Y };
+	SDL_Rect winRect = { poly.x * GAME_RESOLUTION_X / _camera->getCameraSize().getX() ,poly.y * GAME_RESOLUTION_Y / _camera->getCameraSize().getY() ,
+		poly.w * GAME_RESOLUTION_X / _camera->getCameraSize().getX() + 1, poly.h * GAME_RESOLUTION_Y / _camera->getCameraSize().getY() + 1 }; //+1 para el tema del Zoom
 
 	_texture->render(winRect);
 }
@@ -56,8 +56,8 @@ void DebugDraw::DrawSolidCircle(const b2Vec2& center, float32 radius, const b2Ve
 	poly.h = abs(radius * 2)*M_TO_PIXEL;
 	poly.w = abs(radius * 2)*M_TO_PIXEL;
 
-	SDL_Rect winRect = { poly.x * GAME_RESOLUTION_X / CAMERA_RESOLUTION_X ,poly.y * GAME_RESOLUTION_Y / CAMERA_RESOLUTION_Y ,
-		poly.w * GAME_RESOLUTION_X / CAMERA_RESOLUTION_X, poly.h * GAME_RESOLUTION_Y / CAMERA_RESOLUTION_Y };
+	SDL_Rect winRect = { poly.x * GAME_RESOLUTION_X / _camera->getCameraSize().getX() ,poly.y * GAME_RESOLUTION_Y / _camera->getCameraSize().getY() ,
+		poly.w * GAME_RESOLUTION_X / _camera->getCameraSize().getX() + 1, poly.h * GAME_RESOLUTION_Y / _camera->getCameraSize().getY() + 1 }; //+1 para el tema del Zoom
 
 	_texture->render(winRect);
 }

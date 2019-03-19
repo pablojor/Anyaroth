@@ -143,9 +143,9 @@ bool PlayState::handleEvents(SDL_Event& e)
 		_gameptr->pushState(new PauseState(_gameptr));
 		handled = true;
 	}
-	else if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_KP_MINUS)
+	else if (e.type == SDL_KEYDOWN && (e.key.keysym.sym == SDLK_KP_MINUS || e.key.keysym.sym == SDLK_MINUS))
 		_mainCamera->zoomOut();
-	else if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_KP_PLUS)
+	else if (e.type == SDL_KEYDOWN && (e.key.keysym.sym == SDLK_KP_PLUS || e.key.keysym.sym == SDLK_PLUS))
 		_mainCamera->zoomIn();
 	return handled;
 }
