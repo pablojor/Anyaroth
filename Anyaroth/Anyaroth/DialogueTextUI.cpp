@@ -21,41 +21,45 @@ void DialogueTextUI::render() const
 
 void DialogueTextUI::update(double time)
 {
-	if (_character < _textToType.length() && !_textTyped)
+	if (_visible)
 	{
-		//Tiempos de espera para cada caracter
-		switch (_textToType[_character])
+		if (_character < _textToType.length() && !_textTyped)
 		{
-		case '.':
-			_waitTime = 200;
-			break;
-		default:
-			_waitTime = 25;
-			break;
+			//Tiempos de espera para cada caracter
+			switch (_textToType[_character])
+			{
+			case '.':
+				_waitTime = 150;
+				break;
+			default:
+				_waitTime = 20;
+				break;
+			}
+
+			if (_time > _waitTime)
+			{
+				_dialogueText.push_back(_textToType[_character]);
+
+				string s(_dialogueText.begin(), _dialogueText.end());
+				setText(s);
+
+				//if(_textToType[_character]!=' ')
+				//		 play talk sound with random pitch
+
+				_time = 0;
+				_character++;
+			}
+			_time += time;
 		}
-
-		if (_time > _waitTime)
-		{
-			_dialogueText.push_back(_textToType[_character]);
-
-			string s(_dialogueText.begin(), _dialogueText.end());
-			setText(s);
-
-			//if(_textToType[_character]!=' ')
-			//		 play talk sound with random pitch
-
-			_time = 0;
-			_character++;
-		}
-		_time += time;
+		else
+			_textTyped = true;
 	}
-	else
-		_textTyped = true;
 }
 
 void DialogueTextUI::type(string text)
 {
 	_dialogueText.clear();
+	_character = 0;
 	_textToType = text;
 	_textTyped = false;
 }

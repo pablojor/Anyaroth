@@ -20,4 +20,5 @@ public:
 
 	inline PlayerPanel* getPlayerPanel() const { return _playerPanel; }
 	inline BossPanel* getBossPanel() const { return _bossPanel; }
+	inline DialoguePanel* getDialoguePanel() const { return _dialoguePanel; }
 };

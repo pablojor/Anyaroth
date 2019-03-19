@@ -10,8 +10,9 @@ public:
 	FramedImageUI(Game* game, Texture* image, int xPos = 0, int yPos = 0);
 	~FramedImageUI();
 
-	void render() const;
+	virtual void render() const;
 
 	inline void changeFrame(int frame) { _frame = frame; }
+	inline const int getFrame() const { return _frame; }
 };
 

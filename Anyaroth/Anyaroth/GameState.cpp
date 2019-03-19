@@ -48,6 +48,11 @@ bool GameState::handleEvents(SDL_Event& e)
 	{
 		if ((*it)->handleInput(e))
 			handled = true;
+		else if (_canvas != nullptr)
+		{
+			_canvas->handleEvent(e);
+			handled = true;
+		}
 		else
 			it++;
 	}
