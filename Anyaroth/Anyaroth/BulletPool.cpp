@@ -14,6 +14,13 @@ Bullet* BulletPool::addNewBullet()
 	return b;
 }
 
+Bullet * BulletPool::addNewExplosiveBullet()
+{
+	Bullet* b = new ExplosiveBullet(getGame());
+	_objects.push_back(b);
+	return b;
+}
+
 void BulletPool::changePoolTag(string tag) {
 	for (int i = 0; i < _objects.size(); i++)
 	{

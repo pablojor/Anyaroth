@@ -1,6 +1,7 @@
 #pragma once
 #include "ObjectPool.h"
 #include "Bullet.h"
+#include "ExplosiveBullet.h"
 
 class BulletPool : public ObjectPool<Bullet, 100>
 {
@@ -12,5 +13,6 @@ class BulletPool : public ObjectPool<Bullet, 100>
 		virtual ~BulletPool() {};
 
 		Bullet* addNewBullet();
+		Bullet* addNewExplosiveBullet();
 		void changePoolTag(string tag);
 };
