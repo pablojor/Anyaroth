@@ -8,8 +8,7 @@ MartyrEnemy::MartyrEnemy(Player* player, Game* g, PlayState* play,Texture* textu
 {
 	_vision = 300;
 	_attackRange = 25; //No se puede poner mas pequeño que la velocidad
-	_attackTime = 800;
-	_canDie = 1000; //Tiempo que pasa entre que el enemigo ataca y se destruye
+	_attackTime = 850;
 	_life = 50;
 	_damage = 80;
 
@@ -30,10 +29,10 @@ MartyrEnemy::MartyrEnemy(Player* player, Game* g, PlayState* play,Texture* textu
 
 void MartyrEnemy::update(double time)
 {
-
+	Enemy::update(time);
 	if (!_dead && inCamera())
 	{
-		Enemy::update(time);
+		
 		BodyComponent* _playerBody = _player->getComponent<BodyComponent>();
 
 		b2Vec2 enemyPos = _body->getBody()->GetPosition(), playerPos = _playerBody->getBody()->GetPosition();
@@ -60,7 +59,7 @@ void MartyrEnemy::update(double time)
 				{
 					_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
 					_anim->playAnim(AnimatedSpriteComponent::EnemyAttack); //Llamas a animacion de ataque
-					_time = SDL_GetTicks();
+					_time = 0;
 					_attacking = true;
 				}
 			}
@@ -82,14 +81,15 @@ void MartyrEnemy::update(double time)
 				{
 					_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
 					_anim->playAnim(AnimatedSpriteComponent::EnemyAttack); //Llamas a animacion de ataque
-					_time = SDL_GetTicks();
+					_time = 0;
 					_attacking = true;
 				}
 			}
 		}
 		else if (_attacking)
 		{
-			if (SDL_GetTicks() > _time + _attackTime)
+			if(_attackTime<_time)
+			//if (time > _time + _attackTime)
 			{
 
 				if ((x < _explosionRange && x > -_explosionRange) && y < _explosionRange && y > -_explosionRange)
@@ -98,13 +98,14 @@ void MartyrEnemy::update(double time)
 					_player->subLife(_damage);
 
 					if (x < 20 && x > -20 && y < 20 && y > -20)
-						body->ApplyLinearImpulseToCenter(b2Vec2(_impulse * x * 100000, -_impulse * y * 100000), true);
+						body->ApplyLinearImpulseToCenter(b2Vec2(_impulse * x * 3, _impulse * y * 2), true);
 					else
 						body->ApplyLinearImpulseToCenter(b2Vec2(_impulse * x, _impulse * y), true);
 				}
 				_dead = true;
 				die();
 			}
+			_time += time;
 		}
 		else
 		{

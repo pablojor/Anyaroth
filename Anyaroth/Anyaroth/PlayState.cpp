@@ -15,7 +15,7 @@
 PlayState::PlayState(Game* g) : GameState(g)
 {
 	//hide cursor
-	//SDL_ShowCursor(false);
+	SDL_ShowCursor(false);
 
 	//Tilemap
 	_layer = new Layer("Mapa", g->getTexture("tileset"), TILEMAP_PATH + "Nivel1.json", g, "Mapa");
