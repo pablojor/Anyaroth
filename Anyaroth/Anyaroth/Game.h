@@ -11,8 +11,8 @@
 #include "SoundManager.h"
 
 // Resolución interna del juego
-const int GAME_RESOLUTION_X = 480;
-const int GAME_RESOLUTION_Y = 270;
+const int GAME_RESOLUTION_X = 1920;
+const int GAME_RESOLUTION_Y = 1080;
 
 //Distancia que recorre la camara
 const int LEVEL_WIDTH = GAME_RESOLUTION_X * 10;
