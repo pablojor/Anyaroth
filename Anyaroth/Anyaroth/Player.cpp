@@ -93,7 +93,6 @@ void Player::beginCollision(GameComponent * other, b2Contact* contact)
 		damage = dynamic_cast<Bullet*>(other)->getDamage();
 		subLife(damage);
 	}
-
 	else if (other->getTag() == "Moneda")
 	{
 		if (other->isActive())
