@@ -15,6 +15,8 @@ struct Dialogue
 	string name;
 	//Voz
 	//Sonido especial al inicio/final de la conversacion
+
+	//Sonidos de cada texto (0->sin sonido, 1->sonido de sorpresa etc etc)
 	vector<string> conversation;
 	vector<int> faces;			//0->feliz, 1->triste, 2->enfadado // esto iria con un enum
 };

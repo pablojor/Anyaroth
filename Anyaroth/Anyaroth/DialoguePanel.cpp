@@ -77,6 +77,8 @@ void DialoguePanel::startDialogue(const Dialogue& dialogue)
 
 		//comenzamos animación de abrir diálogo
 		_backgroundImage->playAnim(AnimatedImageUI::Start);
+
+		//REPRODUCIR SONIDO DE ABRIR DIALOGO
 	}
 }
 
@@ -99,6 +101,8 @@ void DialoguePanel::endDialogue()
 
 	//comenzamos animacion de cerrar diálogo
 	_backgroundImage->playAnim(AnimatedImageUI::End);
+
+	//REPRODUCIR SONIDO DE CERRAR DIALOGO
 }
 
 void DialoguePanel::nextText()
@@ -115,9 +119,9 @@ void DialoguePanel::nextText()
 				_faceImage->changeFrame(_dialogue.faces[_currentText]);
 
 			//REPRODUCIR SONIDO DE PASO DE TEXTO DEL DIALOGO
-
+			
 			//ANIMACION DE INDICADOR DE PASO DE TEXTO DEL DIALOGO
-
+			_game->getSoundManager()->playSFX("example");
 			_dialogueText->type(_dialogue.conversation[_currentText]);
 		}
 		else //Si _currentText ya es el último, se termina la conversación y se cierra el diálogo.

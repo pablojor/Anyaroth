@@ -211,17 +211,6 @@
     <ClCompile Include="Melee.cpp">
       <Filter>Archivos de código\Melee</Filter>
     </ClCompile>
-    <ClCompile Include="DialoguePanel.cpp">
-      <Filter>Archivos de código\HUDs</Filter>
-    </ClCompile>
-    <ClCompile Include="FramedImageUI.cpp">
-      <Filter>Archivos de código\UIElements</Filter>
-    </ClCompile>
-    <ClCompile Include="DialogueTextUI.cpp">
-      <Filter>Archivos de código\UIElements</Filter>
-    </ClCompile>
-    <ClCompile Include="AnimatedImageUI.cpp">
-      <Filter>Archivos de código\UIElements</Filter>
     <ClCompile Include="SoundManager.cpp">
       <Filter>Archivos de código\Utilities</Filter>
     </ClCompile>
@@ -473,17 +462,6 @@
     <ClInclude Include="Melee.h">
       <Filter>Archivos de encabezado\Melee</Filter>
     </ClInclude>
-    <ClInclude Include="DialogueTextUI.h">
-      <Filter>Archivos de encabezado\UIElements</Filter>
-    </ClInclude>
-    <ClInclude Include="FramedImageUI.h">
-      <Filter>Archivos de encabezado\UIElements</Filter>
-    </ClInclude>
-    <ClInclude Include="DialoguePanel.h">
-      <Filter>Archivos de código\HUDs</Filter>
-    </ClInclude>
-    <ClInclude Include="AnimatedImageUI.h">
-      <Filter>Archivos de encabezado\UIElements</Filter>
     <ClInclude Include="SoundManager.h">
       <Filter>Archivos de encabezado\Utilities</Filter>
     </ClInclude>

@@ -10,7 +10,7 @@ protected:
 
 public:
 	PanelUI() : UIElement(nullptr) {}
-	PanelUI(Game* game) {}
+	PanelUI(Game* game);
 	virtual ~PanelUI();
 
 	virtual void render() const;

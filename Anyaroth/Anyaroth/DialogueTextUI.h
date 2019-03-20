@@ -19,7 +19,6 @@ public:
 	DialogueTextUI(Game* game, string text, Font* font, uint fontSize = 12, int xPos = 0, int yPos = 0, SDL_Color color = { 0, 0, 0, 255 });
 	virtual ~DialogueTextUI();
 
-	virtual void render() const;
 	virtual void update(double time);
 
 	void type(string text);

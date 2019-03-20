@@ -1,6 +1,5 @@
 #include "DialogueTextUI.h"
-
-
+#include "Game.h"
 
 DialogueTextUI::DialogueTextUI(Game* game, string text, Font* font, uint fontSize, int xPos, int yPos, SDL_Color color) :
 	TextUI(game, text, font, fontSize, xPos, yPos, color)
@@ -11,12 +10,6 @@ DialogueTextUI::DialogueTextUI(Game* game, string text, Font* font, uint fontSiz
 
 DialogueTextUI::~DialogueTextUI()
 {
-}
-
-void DialogueTextUI::render() const
-{
-	if (_visible)
-		_texture->render(_destRect);
 }
 
 void DialogueTextUI::update(double time)
@@ -43,8 +36,9 @@ void DialogueTextUI::update(double time)
 				string s(_dialogueText.begin(), _dialogueText.end());
 				setText(s);
 
-				//if(_textToType[_character]!=' ')
-				//		 play talk sound with random pitch
+				//reproducir sonido cuando la letra no es un espacio
+				if (_textToType[_character] != ' ')
+					_game->getSoundManager()->playSFX("example1");
 
 				_time = 0;
 				_character++;
