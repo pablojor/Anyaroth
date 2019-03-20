@@ -9,8 +9,11 @@ void DashViewer::render() const
 	{
 		SDL_Rect auxRect = _destRect;
 		for (int i = 0; i < _dashNumber; i++)		
-		{
-			_image->render(auxRect, _clipArea);
+		{	
+			SDL_Rect winRect = { auxRect.x * GAME_RESOLUTION_X / CAMERA_RESOLUTION_X ,auxRect.y * GAME_RESOLUTION_Y / CAMERA_RESOLUTION_Y ,
+				auxRect.w * GAME_RESOLUTION_X / CAMERA_RESOLUTION_X, auxRect.h * GAME_RESOLUTION_Y / CAMERA_RESOLUTION_Y };
+
+			_image->render(winRect, _clipArea);
 			auxRect.x += _image->getW() + 2;
 		}
 	}

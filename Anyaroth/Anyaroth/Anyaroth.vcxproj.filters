@@ -222,6 +222,8 @@
     </ClCompile>
     <ClCompile Include="AnimatedImageUI.cpp">
       <Filter>Archivos de código\UIElements</Filter>
+    <ClCompile Include="SoundManager.cpp">
+      <Filter>Archivos de código\Utilities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -482,6 +484,8 @@
     </ClInclude>
     <ClInclude Include="AnimatedImageUI.h">
       <Filter>Archivos de encabezado\UIElements</Filter>
+    <ClInclude Include="SoundManager.h">
+      <Filter>Archivos de encabezado\Utilities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
