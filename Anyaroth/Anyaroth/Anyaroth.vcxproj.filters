@@ -217,6 +217,10 @@
     <ClCompile Include="Capsule.cpp">
       <Filter>Archivos de código\Objects\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="BomberEnemy.cpp">
+      <Filter>Archivos de código\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="ExplosiveBullet.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -471,6 +475,10 @@
     <ClInclude Include="Capsule.h">
       <Filter>Archivos de encabezado\Objects\Enemies</Filter>
     </ClInclude>
+    <ClInclude Include="BomberEnemy.h">
+      <Filter>Archivos de encabezado\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="ExplosiveBullet.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de encabezado">

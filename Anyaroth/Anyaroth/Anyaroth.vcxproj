@@ -132,11 +132,13 @@
     <ClCompile Include="BasicPistol.cpp" />
     <ClCompile Include="BasicShotgun.cpp" />
     <ClCompile Include="BodyComponent.cpp" />
+    <ClCompile Include="BomberEnemy.cpp" />
     <ClCompile Include="BulletPool.cpp" />
     <ClCompile Include="Capsule.cpp" />
     <ClCompile Include="Cursor.cpp" />
     <ClCompile Include="DistanceEnemy.cpp" />
     <ClCompile Include="EnemyArm.cpp" />
+    <ClCompile Include="ExplosiveBullet.cpp" />
     <ClCompile Include="MovingComponent.cpp" />
     <ClCompile Include="MeleeBox.cpp" />
     <ClCompile Include="MeleeWeapon.cpp" />
@@ -207,10 +209,12 @@
     <ClInclude Include="BasicPistol.h" />
     <ClInclude Include="BasicShotgun.h" />
     <ClInclude Include="BodyComponent.h" />
+    <ClInclude Include="BomberEnemy.h" />
     <ClInclude Include="Capsule.h" />
     <ClInclude Include="Cursor.h" />
     <ClInclude Include="DistanceEnemy.h" />
     <ClInclude Include="EnemyArm.h" />
+    <ClInclude Include="ExplosiveBullet.h" />
     <ClInclude Include="MovingComponent.h" />
     <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="MeleeBox.h" />

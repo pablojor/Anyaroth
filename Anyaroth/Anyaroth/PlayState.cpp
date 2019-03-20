@@ -34,6 +34,8 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_enemyBulletPool = new BulletPool(g);
 	_stages.push_back(_enemyBulletPool);
 
+	_explosivePool = new BulletPool(g);
+	_stages.push_back(_explosivePool);
 	//Player
 	_player = new Player(g, 50, 180);
 	_stages.push_back(_player);
@@ -47,7 +49,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	vector <Vector2D> enemiesPos = oL->getObjectsPositions();
 	delete oL;
 
-	_enemy = new SpawnerEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(50, 150), "Enemy");
+	_enemy = new BomberEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(50, 150), "Enemy", _explosivePool);
 	_stages.push_back(_enemy);
 	auto itFR = --(_stages.end());
 	_enemy->setItList(itFR);

@@ -9,6 +9,7 @@
 #include "DistanceStaticEnemy.h"
 #include "DistanceDynamicEnemy.h"
 #include "SpawnerEnemy.h"
+#include "BomberEnemy.h"
 #include "BulletPool.h"
 #include "Coin.h"
 #include "Cursor.h"
@@ -31,6 +32,7 @@ private:
 	//Bullet Pools
 	BulletPool* _playerBulletPool = nullptr; //Balas del jugador
 	BulletPool* _enemyBulletPool = nullptr; //Balas del jugador
+	BulletPool* _explosivePool = nullptr;
 
 	vector <list<GameObject*>::iterator> items_ToDelete;
 
