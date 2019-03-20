@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "Component.h"
 #include <vector>
+#include <list>
 #include <map>
 #include <Box2D/Box2D.h>
 
@@ -23,8 +24,6 @@ private:
 	b2World* _world = nullptr;
 	string _tag;
 	vector<GameComponent*> _children; //vector de hijos del objeto
-
-	Game* _game = nullptr; //puntero a game
 
 	bool _active = false;
 
@@ -70,7 +69,8 @@ private:
 			c = dynamic_cast<ComponentType*>(it->second);
 		return c; //Sera nullptr si no lo encuentra
 	}
-
+protected:
+	Game* _game = nullptr; //puntero a game
 public:
 	GameComponent();
 	GameComponent(Game* g, string tag = "");
@@ -135,4 +135,6 @@ public:
 	{
 		return get_component<ComponentType>(typeid(ComponentType).name());
 	}
+
+	virtual void setItList(list<GameObject*>::iterator itFR) {}
 };

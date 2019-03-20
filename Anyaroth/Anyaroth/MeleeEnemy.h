@@ -1,6 +1,5 @@
 #pragma once
 #include "Enemy.h"
-#include "MovingComponent.h"
 
 class MeleeEnemy : public Enemy
 {
