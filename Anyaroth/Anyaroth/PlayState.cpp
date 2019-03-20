@@ -59,8 +59,8 @@ bool PlayState::handleEvents(SDL_Event& e)
 		_gameptr->pushState(new PauseState(_gameptr));
 		handled = true;
 	}
-	else if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_0)
-		_levelManager.restartLevel();
+	else if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_0) //Boton de prueba para reiniciar el nivel
+		_levelManager.resetLevel();
 
 	return handled;
 }
@@ -71,7 +71,7 @@ void PlayState::update(double time)
 
 	if (_player->isDead())
 	{
-		_levelManager.restartLevel();
+		_levelManager.resetLevel();
 		_player->revive();
 	}
 }

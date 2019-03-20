@@ -34,7 +34,7 @@ Map::Map(string filename, Game* game, PlayState* playstate, Texture* tileset, in
 					if(*it=="Ground")
 						_layers[*it]->addComponent<BodyComponent>();
 
-					addChild(_layers[*it]);
+					_levelObjects.push_back(_layers[*it]);
 				}
 				else
 				{
@@ -55,11 +55,15 @@ Map::Map(string filename, Game* game, PlayState* playstate, Texture* tileset, in
 
 Map::~Map()
 {
-	int tam = _objectsNames.size();
-	for (int i = 0; i < tam; i++)
+	for (int i = 0; i < _objectsNames.size(); i++)
 		delete _objects[_objectsNames[i]];
 
 	_objects.clear();
+
+	for (auto it = _levelObjects.begin(); it != _levelObjects.end(); ++it)
+		delete *it;
+
+	_levelObjects.clear();
 }
 
 void Map::createObjects()
@@ -77,29 +81,53 @@ void Map::createObjects()
 			}
 			else if (name == "Melee")
 			{
-				addChild(new MeleeEnemy(_player, _game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), name));
+				_levelObjects.push_back(new MeleeEnemy(_player, _game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), name));
 			}
 			else if (name == "Martyr")
 			{
-				addChild(new MartyrEnemy(_player, _game, _playState, _game->getTexture("EnemyMartyr"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), name));
+				_levelObjects.push_back(new MartyrEnemy(_player, _game, _playState, _game->getTexture("EnemyMartyr"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), name));
 			}
 			else if (name == "DistanceEstatic")
 			{
-				addChild(new DistanceStaticEnemy(_player, _game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), name, BasicEnemyGun));
+				_levelObjects.push_back(new DistanceStaticEnemy(_player, _game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), name, BasicEnemyGun));
 			}
 			else if (name == "DistanceDynamic")
 			{
-				addChild(new DistanceDynamicEnemy(_player, _game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), name, BasicEnemyGun));
+				_levelObjects.push_back(new DistanceDynamicEnemy(_player, _game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), name, BasicEnemyGun));
 			}
 			else if (name == "Coin")
 			{
-				addChild(new Coin(_game, _game->getTexture("Coin"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE), _coinValue));
+				_levelObjects.push_back(new Coin(_game, _game->getTexture("Coin"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE), _coinValue));
 			}
 		}
 	}
 }
 
-void Map::resetLevel()
+bool Map::handleInput(const SDL_Event & event)
 {
+	GameComponent::handleInput(event);
 
+	for (GameComponent* o : _levelObjects)
+		if (o->isActive())
+			o->handleInput(event);
+
+	return false;
+}
+
+void Map::update(double time)
+{
+	GameComponent::update(time);
+
+	for (GameComponent* o : _levelObjects)
+		if (o->isActive())
+			o->update(time);
+}
+
+void Map::render(Camera * c) const
+{
+	GameComponent::render(c);
+
+	for (GameComponent* o : _levelObjects)
+		if (o->isActive())
+			o->render(c);
 }

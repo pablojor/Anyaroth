@@ -97,9 +97,6 @@ public:
 	virtual void postCollision(GameComponent* other, b2Contact* contact) {}
 
 	inline void addChild(GameComponent* obj) { _children.push_back(obj); }
-	inline void delChild(const list<GameComponent*>::iterator& it) { delete *it; _children.erase(it); }
-
-	inline list<GameComponent*> getChildren() const { return _children; }
 
 	inline Game* getGame() const { return _game; }
 

@@ -26,7 +26,7 @@ public:
 
 	void setLevel(int zone, int level);
 	void changeLevel(int zone, int level);
-	inline void restartLevel() { _currentMap->resetLevel(); }
+	void resetLevel();
 
 	inline Map* getCurrentMap() const { return _currentMap; }
 };

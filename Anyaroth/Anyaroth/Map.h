@@ -22,6 +22,8 @@ private:
 	map < string, ObjectLayer* > _objects;
 	vector<string> _objectsNames;
 
+	list<GameComponent*> _levelObjects;
+
 	int _coinValue;
 
 public:
@@ -29,5 +31,8 @@ public:
 	~Map();
 
 	void createObjects();
-	void resetLevel();
+
+	virtual bool handleInput(const SDL_Event& event);
+	virtual void update(double time);
+	virtual void render(Camera* c) const;
 };

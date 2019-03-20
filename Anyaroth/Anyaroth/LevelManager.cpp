@@ -57,3 +57,8 @@ void LevelManager::changeLevel(int zone, int level)
 	_stages->erase(_itMap);
 	setLevel(zone, level);
 }
+
+void LevelManager::resetLevel()
+{
+	changeLevel(_playState->getCurrentZone(), _playState->getCurrentLevel());
+}
