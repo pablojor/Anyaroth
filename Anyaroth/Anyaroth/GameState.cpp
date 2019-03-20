@@ -10,8 +10,10 @@ GameState::~GameState()
 {
 	delete _mainCamera;
 
-	if (_canvas != nullptr)
+	if (_canvas != nullptr) {
 		delete _canvas;
+		_canvas = nullptr;
+	}
 
 	for (GameObject* o : _stages)
 		delete o;
@@ -51,6 +53,8 @@ bool GameState::handleEvents(SDL_Event& e)
 		else
 			it++;
 	}
+	if (_canvas != nullptr && !handled)
+		_canvas->handleEvent(e);
 	return handled;
 }
 

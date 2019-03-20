@@ -30,7 +30,7 @@ Player::Player(Game* game, int xPos, int yPos) :  GameComponent(game, "Player")
 
 	//Sensor del suelo
 	b2PolygonShape shape;
-	shape.SetAsBox(5 / M_TO_PIXEL, 2 / M_TO_PIXEL, b2Vec2(0, 2), 0);
+	shape.SetAsBox(5 / M_TO_PIXEL, 3 / M_TO_PIXEL, b2Vec2(0, 3), 0);
 	b2FixtureDef fDef;
 	fDef.shape = &shape;
 	fDef.filter.categoryBits = PLAYER;
@@ -88,8 +88,11 @@ void Player::beginCollision(GameComponent * other, b2Contact* contact)
 	auto fB = contact->GetFixtureB();
 
 	//Deteccion del suelo
-	if ((fA->IsSensor() || fB->IsSensor()) && other->getTag() == "Suelo")
+	if ((fA->IsSensor() || fB->IsSensor()) && other->getTag() == "Suelo") 
+	{
 		_floorCount++;
+		setGrounded(true);
+	}
 
 	/*else if (other->getTag() == "EnemyBullet")
 	{
@@ -240,8 +243,11 @@ void Player::checkMovement(const Uint8* keyboard)
 	else
 		move(Vector2D(0, 0), _speed);
 
-	if (keyboard[SDL_SCANCODE_SPACE] && isGrounded() && !isMeleeing() && !isJumping()/* && !isReloading()*/)
-		jump();
+	if (keyboard[SDL_SCANCODE_SPACE] && !isMeleeing() && !isJumping()/* && !isReloading()*/)
+	{
+		if((isGrounded() && !isFalling()) || (!isGrounded() && isFalling() && _timeToJump > 0))
+			jump();
+	}
 
 	//Recarga
 	if (canReload() && !isMeleeing())
@@ -294,29 +300,30 @@ void Player::handleAnimations()
 		}
 		setGrounded(false);		
 	}
-	if ((isGrounded() || _body->getBody()->GetLinearVelocity().y == 0) && isDashing()&&dashDown)
+	if ((isGrounded() || _body->getBody()->GetLinearVelocity().y == 0) && isDashing() && dashDown)
 	{
 		_anim->playAnim(AnimatedSpriteComponent::Idle);
 		_onDash = false;
 		dashDown = false;
-		dashOff();
-		
+		dashOff();		
 	}
 	if (!isDashing())
-	{
-		
+	{		
 		dashOff();
 	}
 }
 
-void Player::refreshCooldowns(const Uint32& deltaTime)
+void Player::refreshCooldowns(const double& deltaTime)
 {
 	dashTimer(deltaTime);
 	refreshDashCoolDown(deltaTime);
 	refreshGunCadence(deltaTime);
+
+	if (!isGrounded() && _timeToJump > 0)
+		_timeToJump -= deltaTime;
 }
 
-void Player::refreshDashCoolDown(const Uint32& deltaTime)
+void Player::refreshDashCoolDown(const double& deltaTime)
 {
 	if (_numDash < _maxDash) {
 		_dashCD -= deltaTime;
@@ -329,7 +336,7 @@ void Player::refreshDashCoolDown(const Uint32& deltaTime)
 	}
 }
 
-void Player::dashTimer(const Uint32 & deltaTime)
+void Player::dashTimer(const double & deltaTime)
 {
 	if (_onDash&&!dashDown)
 	{
@@ -342,7 +349,7 @@ void Player::dashTimer(const Uint32 & deltaTime)
 	}
 }
 
-void Player::refreshGunCadence(const Uint32& deltaTime)
+void Player::refreshGunCadence(const double& deltaTime)
 {
 	_currentGun->refreshGunCadence(deltaTime);
 	_otherGun->refreshGunCadence(deltaTime);
@@ -393,8 +400,12 @@ bool Player::isReloading() const
 
 bool Player::isJumping() const
 {
-	return ((_anim->getCurrentAnim() == AnimatedSpriteComponent::BeforeJump || _anim->getCurrentAnim() == AnimatedSpriteComponent::Jump
-		|| _anim->getCurrentAnim() == AnimatedSpriteComponent::Falling || _anim->getCurrentAnim() == AnimatedSpriteComponent::StartFalling) && !_anim->animationFinished());
+	return (_anim->getCurrentAnim() == AnimatedSpriteComponent::BeforeJump || _anim->getCurrentAnim() == AnimatedSpriteComponent::Jump) && !_anim->animationFinished();
+}
+
+bool Player::isFalling() const
+{
+	return (_anim->getCurrentAnim() == AnimatedSpriteComponent::Falling || _anim->getCurrentAnim() == AnimatedSpriteComponent::StartFalling) && !_anim->animationFinished();
 }
 
 
@@ -439,6 +450,7 @@ void Player::jump()
 	_body->getBody()->SetLinearVelocity(b2Vec2(_body->getBody()->GetLinearVelocity().x, 0));
 	_body->getBody()->ApplyLinearImpulse(b2Vec2(0, -_jumpForce), _body->getBody()->GetWorldCenter(), true);
 	setGrounded(false);
+	_timeToJump = 0.f;
 	_anim->playAnim(AnimatedSpriteComponent::BeforeJump);
 }
 
