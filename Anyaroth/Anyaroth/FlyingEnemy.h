@@ -4,7 +4,7 @@
 class FlyingEnemy :	public Enemy
 {
 private: 
-	Vector2D _playerPos, _originalPos, _prevPos, pos, _bodyPos, _velocity = Vector2D(0.5,0.5);
+	Vector2D _playerPos, pos, _bodyPos, _velocity = Vector2D(0.5,0.5), prevPos;
 	double _amplitude = 25, _damage = 50, _angularFrequency = 0.05, _k = _angularFrequency / _velocity.distance(Vector2D());
 	BodyComponent* _playerBody;
 public:

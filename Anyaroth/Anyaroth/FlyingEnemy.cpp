@@ -13,9 +13,8 @@ FlyingEnemy::FlyingEnemy(Player* player, Game* g, PlayState* play, Texture* text
 	_body->getBody()->SetGravityScale(0);
 	_body->getBody()->GetFixtureList()->SetSensor(true);
 
-	_originalPos= Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL);
+	prevPos= Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL);
 	_playerBody = _player->getComponent<BodyComponent>();
-	_prevPos = _originalPos;
 }
 
 
@@ -30,31 +29,23 @@ void FlyingEnemy::update(double time)
 	_playerPos = Vector2D(_playerBody->getBody()->GetPosition().x * M_TO_PIXEL, _playerBody->getBody()->GetPosition().y * M_TO_PIXEL);
 	_bodyPos = Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL);
 
-	double angle = atan2(_playerPos.getY() - _originalPos.getY(), _playerPos.getX() - _originalPos.getX()) * 180/M_PI;
+	Vector2D dir = Vector2D((_playerPos.getX() < _bodyPos.getX()) ? -1 : 1, (_playerPos.getY() < _bodyPos.getY()) ? -1 : 1);
 
-	double xDir = (_playerPos.getX() < _bodyPos.getX()) ? -1 : 1;//(dis >  5 ) ? 1 : -1;
-	if (abs(angle) > 90 && xDir == -1)
-		xDir = 1;
-	else if (abs(angle) > 90 && xDir == 1)
-		xDir = -1;
 	//Onda Sinusoidal vertical 
-	double x = _prevPos.getX() + _velocity.getX() *xDir;
-	double y = _originalPos.getY() +_amplitude * sin(_k * x - _angularFrequency * time / 1000 );
+	double x = _bodyPos.getX() + _velocity.getX() *dir.getX();
 
-	_prevPos = Vector2D(x, y);
-	Vector2D pos = _prevPos.rotateAroundPoint(angle, _originalPos);
+	double prevY = prevPos.getY() + _velocity.getY() *dir.getY();
+	prevPos = Vector2D(x, prevY);
 
-	_body->getBody()->SetTransform(b2Vec2(pos.getX() / M_TO_PIXEL, pos.getY() / M_TO_PIXEL), 0);
+	double y = prevY +_amplitude * sin(_k * x - _angularFrequency * time / 1000 );
 
+	_body->getBody()->SetTransform(b2Vec2(x / M_TO_PIXEL, y / M_TO_PIXEL), 0);
 }
 
 void FlyingEnemy::beginCollision(GameComponent * other, b2Contact * contact)
 {
-	if (other->getTag() == "Suelo")
-	{
-		setActive(false);
-		_play->KillObject(_itList);
-	}
-	else if (other->getTag() == "Player")
+	if (other->getTag() == "Player")
 		_player->subLife(_damage);
+	setActive(false);
+	_play->KillObject(_itList);
 }
