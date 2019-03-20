@@ -24,10 +24,14 @@ Bullet * BulletPool::addNewExplosiveBullet()
 }
 
 void BulletPool::changePoolTag(string tag) {
-	for (int i = 0; i < _objects.size(); i++)
+	for (auto b : _objects)
+	{
+		b->setTag(tag);
+	}
+	/*for (int i = 0; i < _objects.size(); i++)
 	{
 		Bullet* b = getObject(i);
 		b->setTag(tag);
-	}
+	}*/
 }
 

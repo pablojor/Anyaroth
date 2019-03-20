@@ -221,6 +221,7 @@
       <Filter>Archivos de código\Objects\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="ExplosiveBullet.cpp" />
+    <ClCompile Include="FlyingEnemy.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -479,6 +480,7 @@
       <Filter>Archivos de encabezado\Objects\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="ExplosiveBullet.h" />
+    <ClInclude Include="FlyingEnemy.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de encabezado">
