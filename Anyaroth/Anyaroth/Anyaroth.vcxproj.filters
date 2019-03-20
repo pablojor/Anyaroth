@@ -214,6 +214,18 @@
     <ClCompile Include="SoundManager.cpp">
       <Filter>Archivos de código\Utilities</Filter>
     </ClCompile>
+    <ClCompile Include="AnimatedImageUI.cpp">
+      <Filter>Archivos de código\UIElements</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogueTextUI.cpp">
+      <Filter>Archivos de código\UIElements</Filter>
+    </ClCompile>
+    <ClCompile Include="FramedImageUI.cpp">
+      <Filter>Archivos de código\UIElements</Filter>
+    </ClCompile>
+    <ClCompile Include="DialoguePanel.cpp">
+      <Filter>Archivos de código\HUDs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -464,6 +476,18 @@
     </ClInclude>
     <ClInclude Include="SoundManager.h">
       <Filter>Archivos de encabezado\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogueTextUI.h">
+      <Filter>Archivos de encabezado\UIElements</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimatedImageUI.h">
+      <Filter>Archivos de encabezado\UIElements</Filter>
+    </ClInclude>
+    <ClInclude Include="FramedImageUI.h">
+      <Filter>Archivos de encabezado\UIElements</Filter>
+    </ClInclude>
+    <ClInclude Include="DialoguePanel.h">
+      <Filter>Archivos de encabezado\HUDs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
