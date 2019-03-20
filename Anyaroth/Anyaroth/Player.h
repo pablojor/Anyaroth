@@ -33,9 +33,10 @@ private:
 	PlayerArm* _playerArm = nullptr;
 
 	//Variable auxiliares
-	int _dashCD = 3000, _maxDash = 2, _numDash = _maxDash, dashDur =250;
+	int _dashCD = 3000, _maxDash = 2, _numDash = _maxDash, dashDur = 250;
 	bool _isDashing = false, _isReloading = false, _isShooting = false, _isMeleeing = false, _onDash = false, dashDown = false, _dead = false;
 	int _floorCount = 0;
+	float _timeToJump = 100.f;
 
 	Gun* _currentGun = nullptr;
 	Gun* _otherGun = nullptr;
@@ -44,11 +45,11 @@ private:
 	void checkMovement(const Uint8* keyboard);
 	void handleAnimations();
 
-	void refreshCooldowns(const Uint32& deltaTime);
-	void refreshDashCoolDown(const Uint32& deltaTime);
-	void dashTimer(const Uint32& deltaTime);
-	void refreshGunCadence(const Uint32& deltaTime);
-	inline void setGrounded(bool grounded) { _floorCount = grounded; }
+	void refreshCooldowns(const double& deltaTime);
+	void refreshDashCoolDown(const double& deltaTime);
+	void dashTimer(const double& deltaTime);
+	void refreshGunCadence(const double& deltaTime);
+	inline void setGrounded(bool grounded) { grounded ? _timeToJump = 100.f : _floorCount = grounded; }
 
 	bool canReload();
 	void checkMelee();
@@ -92,4 +93,5 @@ public:
 	bool isMeleeing() const;
 	bool isReloading() const;
 	bool isJumping() const;
+	bool isFalling() const;
 };
