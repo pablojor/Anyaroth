@@ -30,7 +30,7 @@ Player::Player(Game* game, int xPos, int yPos) :  GameComponent(game, "Player")
 
 	//Sensor del suelo
 	b2PolygonShape shape;
-	shape.SetAsBox(5 / M_TO_PIXEL, 2 / M_TO_PIXEL, b2Vec2(0, 2), 0);
+	shape.SetAsBox(5 / M_TO_PIXEL, 3 / M_TO_PIXEL, b2Vec2(0, 3), 0);
 	b2FixtureDef fDef;
 	fDef.shape = &shape;
 	fDef.filter.categoryBits = PLAYER;
