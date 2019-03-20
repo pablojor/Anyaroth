@@ -49,7 +49,8 @@ PlayState::PlayState(Game* g) : GameState(g)
 	vector <Vector2D> enemiesPos = oL->getObjectsPositions();
 	delete oL;
 
-	_enemy = new BomberEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(50, 150), "Enemy", _explosivePool);
+	//_enemy = new BomberEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(50, 150), "Enemy", _explosivePool);
+	_enemy = new SpawnerEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(50, 150), "Enemy");
 	_stages.push_back(_enemy);
 	auto itFR = --(_stages.end());
 	_enemy->setItList(itFR);
