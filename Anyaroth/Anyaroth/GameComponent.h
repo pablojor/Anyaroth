@@ -98,7 +98,8 @@ public:
 
 	inline void addChild(GameComponent* obj) { _children.push_back(obj); }
 	inline void delChild(const list<GameComponent*>::iterator& it) { delete *it; _children.erase(it); }
-	inline list<GameComponent*>::iterator getLastChild() { return --_children.end(); }
+
+	inline list<GameComponent*> getChildren() const { return _children; }
 
 	inline Game* getGame() const { return _game; }
 

@@ -1,10 +1,9 @@
 #pragma once
-#include "GameComponent.h"
 #include "Map.h"
 #include "ParallaxBackGround.h"
 #include <list>
 
-class LevelManager : public GameComponent
+class LevelManager
 {
 private:
 	Game* _game = nullptr;
@@ -16,14 +15,18 @@ private:
 	ParallaxBackGround* _parallaxZone1 = nullptr;
 
 	Map* _currentMap = nullptr;
+
 	list<GameObject*>* _stages = nullptr;
-	list<GameObject*>::iterator _it;
+	list<GameObject*>::iterator _itMap;
 
 public:
-	LevelManager(Game* g, PlayState* playstate, Player* player, list<GameObject*>& list);
+	LevelManager() {}
+	LevelManager(Game* game, PlayState* playstate);
 	~LevelManager();
 
 	void setLevel(int zone, int level);
 	void changeLevel(int zone, int level);
+	inline void restartLevel() { _currentMap->resetLevel(); }
+
 	inline Map* getCurrentMap() const { return _currentMap; }
 };

@@ -11,6 +11,8 @@ MenuButton::MenuButton(Vector2D pos, Texture* texture, Game* g, callback* cb) : 
 	transform->setScale(BUTTON_SCALE);
 
 	addComponent<SpriteComponent>();
+
+	setActive(true);
 }
 
 SDL_Rect MenuButton::getRect() const

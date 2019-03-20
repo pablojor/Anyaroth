@@ -22,11 +22,12 @@ private:
 	map < string, ObjectLayer* > _objects;
 	vector<string> _objectsNames;
 
-	int _coinValue = 10;
+	int _coinValue;
 
 public:
-	Map(string filename, Texture* tileset, Game* game, PlayState* playstate, Player* player);
+	Map(string filename, Game* game, PlayState* playstate, Texture* tileset, int coinValue);
 	~Map();
 
 	void createObjects();
+	void resetLevel();
 };

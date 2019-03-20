@@ -10,8 +10,10 @@
 
 using namespace nlohmann;
 
-Map::Map(string filename, Texture* tileset, Game* game, PlayState* playstate, Player* player) : _game(game), _playState(playstate), _player(player)
+Map::Map(string filename, Game* game, PlayState* playstate, Texture* tileset, int coinValue) : _game(game), _playState(playstate), _coinValue(coinValue)
 {
+	_player = _playState->getPlayer();
+
 	json j;
 	fstream file;
 	file.open(filename);
@@ -47,6 +49,8 @@ Map::Map(string filename, Texture* tileset, Game* game, PlayState* playstate, Pl
 		throw AnyarothError("No se ha encontrado el archivo introducido");
 
 	createObjects();
+
+	setActive(true);
 }
 
 Map::~Map()
@@ -89,12 +93,13 @@ void Map::createObjects()
 			}
 			else if (name == "Coin")
 			{
-				Coin* coin = new Coin(_playState, _game, _game->getTexture("Coin"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE), _coinValue);
-
-				addChild(coin);
-				auto it = getLastChild();
-				coin->setItList(it);
+				addChild(new Coin(_game, _game->getTexture("Coin"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE), _coinValue));
 			}
 		}
 	}
+}
+
+void Map::resetLevel()
+{
+
 }

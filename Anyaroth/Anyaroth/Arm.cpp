@@ -17,6 +17,8 @@ Arm::Arm(Game* g, GameComponent* owner, Vector2D offset) : GameComponent(g), _ow
 	_anim->playAnim(AnimatedSpriteComponent::None);
 
 	_transform->setDefaultAnchor(0.1, 0.6); //Parametros para la pistola
+
+	setActive(true);
 }
 
 void Arm::setTexture(Texture* texture)

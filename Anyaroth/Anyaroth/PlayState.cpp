@@ -1,6 +1,6 @@
 #include "PlayState.h"
-#include "PauseState.h"
 #include "Game.h"
+#include "PauseState.h"
 #include "PlayStateHUD.h"
 #include "checkML.h"
 
@@ -22,10 +22,8 @@ PlayState::PlayState(Game* g) : GameState(g)
 
 	//Levels
 	_currentZone = _currentLevel = 1;
-
-	_levelManager = new LevelManager(g, this, _player, _stages);
-	_stages.push_back(_levelManager);
-	_levelManager->setLevel(_currentZone, _currentLevel);
+	_levelManager = LevelManager(g, this);
+	_levelManager.setLevel(_currentZone, _currentLevel);
 
 	//Camera
 	_mainCamera->fixCameraToObject(_player);
@@ -62,7 +60,7 @@ bool PlayState::handleEvents(SDL_Event& e)
 		handled = true;
 	}
 	else if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_0)
-		_levelManager->changeLevel(1, 1);
+		_levelManager.restartLevel();
 
 	return handled;
 }
@@ -73,15 +71,7 @@ void PlayState::update(double time)
 
 	if (_player->isDead())
 	{
-		changeLevel(_currentZone, _currentLevel);
+		_levelManager.restartLevel();
 		_player->revive();
-	}
-
-	int i = itemsToDelete.size() - 1;
-	while (i >= 0)
-	{
-		_levelManager->getCurrentMap()->delChild(itemsToDelete[i]);
-		itemsToDelete.pop_back();
-		i--;
 	}
 }

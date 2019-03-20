@@ -13,7 +13,7 @@ private:
 	string _tag = "AmmoPackage";
 
 public:
-	AmmoPackage(AmmoType type, PlayState* play, Game* g, Texture* texture, Vector2D iniPos, int value) : _type(type), Collectable(play, g, texture, iniPos, value, _tag) {}
+	AmmoPackage(AmmoType type, Game* g, Texture* texture, Vector2D iniPos, int value) : _type(type), Collectable(g, texture, iniPos, value, _tag) {}
 	virtual ~AmmoPackage() {}
 
 	string getType() const;

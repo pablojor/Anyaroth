@@ -39,7 +39,8 @@ enum _Category
 	ENEMY_BULLETS = 16,
 	PLAYER_BULLETS = 32,
 	DEAD_ENEMIES = 64,
-	MELEE = 128,
+	COLLECTED_OBJECTS = 128,
+	MELEE = 256,
 };
 
 class Game

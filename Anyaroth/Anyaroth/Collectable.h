@@ -1,21 +1,20 @@
 #pragma once
-#include <list>
 #include "GameComponent.h"
-
-class PlayState;
+#include "Game.h"
+#include <list>
 
 class Collectable : public GameComponent
 {
 private:
-	list<GameComponent*>::iterator _itList;
-	PlayState* _play = nullptr;
-	int _value = 0;
+	BodyComponent* _body = nullptr;
+
+	int _value;
 
 public:
-	Collectable(PlayState* play, Game* g, Texture* texture, Vector2D iniPos, int value, string tag);
+	Collectable(Game* g, Texture* texture, Vector2D iniPos, int value, string tag);
 	virtual ~Collectable() {}
 
-	void destroy();
-	inline void setItList(list<GameComponent*>::iterator it) { _itList = it; }
 	inline virtual int getValue() const { return _value; }
+
+	void collect();
 };

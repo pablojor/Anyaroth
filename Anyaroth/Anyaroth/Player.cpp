@@ -72,6 +72,8 @@ Player::Player(Game* game, int xPos, int yPos) :  GameComponent(game, "Player")
 	//Melee
 	_melee = new Melee(game);
 	addChild(_melee);
+
+	setActive(true);
 }
 
 Player::~Player()
@@ -104,7 +106,7 @@ void Player::beginCollision(GameComponent * other, b2Contact* contact)
 			auto coin = dynamic_cast<Coin*>(other);
 			auto cant = coin->getValue();
 			_money->store(cant);
-			coin->destroy();
+			coin->collect();
 			cout << "Moneda cogida" << endl;
 			cout << "Cantidad monedero: " << _money->getWallet() << endl;
 

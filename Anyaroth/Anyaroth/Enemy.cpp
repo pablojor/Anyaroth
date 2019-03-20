@@ -31,6 +31,8 @@ Enemy::Enemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2
 
 	_life = Life(50);
 	_movement = addComponent<MovingComponent>();
+
+	setActive(true);
 }
 
 void Enemy::setItList(list<GameObject*>::iterator itFR)
