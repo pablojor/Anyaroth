@@ -20,6 +20,16 @@ Capsule::Capsule(Player* player, Game* g, PlayState* play, Texture* texture, Vec
 
 	_body->filterCollisions(DEAD_ENEMIES, FLOOR);
 
+	//Sensor del suelo
+	b2PolygonShape shape;
+	shape.SetAsBox(5 / M_TO_PIXEL, 2 / M_TO_PIXEL, b2Vec2(0, 2.25 /*Dependera del sprite final */), 0);
+	b2FixtureDef fDef;
+	fDef.shape = &shape;
+	fDef.filter.categoryBits = PLAYER;
+	fDef.filter.maskBits = FLOOR;
+	fDef.isSensor = true;
+	_body->addFixture(&fDef, this);
+
 }
 
 void Capsule::update(double time)
@@ -37,9 +47,11 @@ void Capsule::update(double time)
 void Capsule::beginCollision(GameComponent * other, b2Contact* contact)
 {
 	string otherTag = other->getTag();
-	if (otherTag == "Suelo")
-	{
+	auto fA = contact->GetFixtureA();
+	auto fB = contact->GetFixtureB();
+
+	//Deteccion del suelo
+	if ((fA->IsSensor() || fB->IsSensor()) && other->getTag() == "Suelo")
 		_spawning = true;
-		//Animacion de spawn
-	}
+
 }
