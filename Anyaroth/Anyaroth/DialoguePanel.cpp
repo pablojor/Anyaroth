@@ -21,7 +21,7 @@ DialoguePanel::DialoguePanel(Game* game) : PanelUI(game)
 	//Inicializamos
 	_backgroundImage = new AnimatedImageUI(game, game->getTexture("DialogueBg"), 3, 192);
 	_faceImage = new FramedImageUI(game, game->getTexture("DialogueFace"), _backgroundImage->getX() + 11, _backgroundImage->getY() + 11);
-	_indicatorImage = new ImageUI(game, game->getTexture("DialogueIndicator"), _backgroundImage->getW() - 22, _backgroundImage->getY() + 58);
+	_indicatorImage = new AnimatedImageUI(game, game->getTexture("DialogueIndicator"), _backgroundImage->getW() - 22, _backgroundImage->getY() + 58);
 	_nameText = new TextUI(game, " ", game->getFont("ARIAL12"), 12, _faceImage->getW() - 20, _faceImage->getY() - 20, { 145, 255, 255, 255 });
 
 	_dialogueText = new DialogueTextUI(game, " ", game->getFont("ARIAL12"), 12, _faceImage->getW() + 25, _faceImage->getY(), { 255, 255, 255, 255 });
@@ -31,8 +31,10 @@ DialoguePanel::DialoguePanel(Game* game) : PanelUI(game)
 	_backgroundImage->addAnim(AnimatedImageUI::End, 8, false);
 	_backgroundImage->addAnim(AnimatedImageUI::Start, 8, false);
 
+	_indicatorImage->addAnim(AnimatedImageUI::Idle, 7, true);
 
 	_backgroundImage->playAnim(AnimatedImageUI::Default);
+	_indicatorImage->playAnim(AnimatedImageUI::Idle);
 
 	//Ponemos invisible todo inicialmente
 	//_backgroundImage->setVisible(false);
@@ -93,6 +95,8 @@ void DialoguePanel::endDialogue()
 	_nameText->setText(" ");
 	_dialogueText->setText(" ");
 
+	//REPRODUCIR SONIDO ESPECIAL DE FINAL DE DIALOGO
+
 	//comenzamos animacion de cerrar diálogo
 	_backgroundImage->playAnim(AnimatedImageUI::End);
 }
@@ -109,6 +113,10 @@ void DialoguePanel::nextText()
 		{
 			if (_faceImage->getFrame() != _dialogue.faces[_currentText])
 				_faceImage->changeFrame(_dialogue.faces[_currentText]);
+
+			//REPRODUCIR SONIDO DE PASO DE TEXTO DEL DIALOGO
+
+			//ANIMACION DE INDICADOR DE PASO DE TEXTO DEL DIALOGO
 
 			_dialogueText->type(_dialogue.conversation[_currentText]);
 		}
@@ -144,6 +152,8 @@ void DialoguePanel::update(double time)
 			_nameText->setVisible(true);
 
 			_dialogueText->setVisible(true);
+
+			//REPRODUCIR SONIDO ESPECIAL DE INICIO DE DIALOGO
 
 			//comenzamos dialogo
 			_faceImage->changeFrame(_dialogue.faces[_currentText]);
