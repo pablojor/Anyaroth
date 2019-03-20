@@ -14,18 +14,14 @@ struct Dialogue
 	Texture* face = nullptr;
 	string name;
 	//Voz
-	//Sonido especial
+	//Sonido especial al inicio/final de la conversacion
 	vector<string> conversation;
 	vector<int> faces;			//0->feliz, 1->triste, 2->enfadado // esto iria con un enum
 };
 
-
-
-
 class DialoguePanel : public PanelUI
 {
 private:
-
 	AnimatedImageUI* _backgroundImage = nullptr;
 	FramedImageUI* _faceImage = nullptr;
 	ImageUI* _indicatorImage = nullptr;
@@ -45,6 +41,8 @@ public:
 
 	virtual void update(double time);
 	virtual void handleEvent(const SDL_Event& event);
+
+	inline bool isConversating() const { return _isConversating; }
 
 	void startDialogue(const Dialogue& dialogue);
 	void endDialogue();

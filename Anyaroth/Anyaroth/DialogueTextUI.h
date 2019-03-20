@@ -25,5 +25,7 @@ public:
 	void type(string text);
 
 	inline bool textTyped() const { return _textTyped; }
+
+	inline void setTextTyped(const bool& b) { _textTyped = b; }
 };
 
