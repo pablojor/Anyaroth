@@ -26,18 +26,23 @@ private:
 	FramedImageUI* _faceImage = nullptr;
 	AnimatedImageUI* _indicatorImage = nullptr;
 	TextUI* _nameText = nullptr;
-	DialogueTextUI* _dialogueText = nullptr;
+
+	int _lines = 3;
+	int _gap = 10;
+
+	vector<DialogueTextUI*> _dialogueTexts = {};
 
 	Dialogue _testDialogue = {};
 
 	Dialogue _dialogue;
 	int _currentText = 0;
+	int _linesTyped = 0;
 	bool _isConversating = false;
 
 public:
 	DialoguePanel() {};
 	DialoguePanel(Game* game);
-	~DialoguePanel() {}
+	~DialoguePanel();
 
 	virtual void update(double time);
 	virtual void handleEvent(const SDL_Event& event);
@@ -47,4 +52,7 @@ public:
 	void startDialogue(const Dialogue& dialogue);
 	void endDialogue();
 	void nextText();
+
+	//bool allTextTyped() const;
+
 };

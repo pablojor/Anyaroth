@@ -14,7 +14,7 @@ private:
 	string _voice;
 
 	string _textToType = "Mk al habla... Esto es una prueba. Repito. Esto es una prueba.";
-	vector<char> _dialogueText;
+	vector<char> _dialogueTexts;
 
 	bool _textTyped = false;
 public:

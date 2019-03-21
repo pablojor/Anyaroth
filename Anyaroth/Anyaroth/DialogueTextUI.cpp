@@ -31,9 +31,9 @@ void DialogueTextUI::update(double time)
 
 			if (_time > _waitTime)
 			{
-				_dialogueText.push_back(_textToType[_character]);
+				_dialogueTexts.push_back(_textToType[_character]);
 
-				string s(_dialogueText.begin(), _dialogueText.end());
+				string s(_dialogueTexts.begin(), _dialogueTexts.end());
 				setText(s);
 
 				//reproducir sonido cuando la letra no es un espacio
@@ -55,7 +55,7 @@ void DialogueTextUI::update(double time)
 
 void DialogueTextUI::type(string text)
 {
-	_dialogueText.clear();
+	_dialogueTexts.clear();
 	_character = 0;
 	_textToType = text;
 	_textTyped = false;
