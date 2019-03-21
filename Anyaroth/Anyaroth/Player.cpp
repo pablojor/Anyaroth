@@ -94,13 +94,12 @@ void Player::beginCollision(GameComponent * other, b2Contact* contact)
 		setGrounded(true);
 	}
 
-	/*else if (other->getTag() == "EnemyBullet")
+	else if (other->getTag() == "EnemyBullet")
 	{
 		double damage = 0;
 		damage = dynamic_cast<Bullet*>(other)->getDamage();
 		subLife(damage);
-	}*/
-
+	}
 	else if (other->getTag() == "Moneda")
 	{
 		if (other->isActive())

@@ -41,6 +41,7 @@ enum _Category
 	PLAYER_BULLETS = 32,
 	DEAD_ENEMIES = 64,
 	MELEE = 128,
+	PLATFORMS = 256,
 };
 
 class Game

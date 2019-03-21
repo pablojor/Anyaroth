@@ -9,14 +9,16 @@
 #include "ParallaxBackGround.h"
 #include "ParallaxLayer.h"
 #include "PlayStateHUD.h"
+#include "StaticSpawnerEnemy.h"
+#include <time.h>
 
 
 
 PlayState::PlayState(Game* g) : GameState(g)
 {
 	//hide cursor
-	SDL_ShowCursor(false);
-
+	//SDL_ShowCursor(false);
+	srand(time(0));
 	//Tilemap
 	_layer = new Layer("Mapa", g->getTexture("tileset"), TILEMAP_PATH + "Nivel1.json", g, "Mapa");
 	_stages.push_back(_layer);
@@ -29,10 +31,12 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_playerBulletPool = new BulletPool(g);
 	_stages.push_back(_playerBulletPool);
 
-	//_enemyPool = new BulletPool(g/*, g->getTexture("PistolBullet"), 100, 10, 1000*/);
-	//_stages.push_back(_enemyPool);
-	//_pools.push_back(_enemyPool);
+	////Pool enemy
+	_enemyBulletPool = new BulletPool(g);
+	_stages.push_back(_enemyBulletPool);
 
+	_explosivePool = new BulletPool(g);
+	_stages.push_back(_explosivePool);
 	//Player
 	_player = new Player(g, 50, 180);
 	_stages.push_back(_player);
@@ -46,7 +50,20 @@ PlayState::PlayState(Game* g) : GameState(g)
 	vector <Vector2D> enemiesPos = oL->getObjectsPositions();
 	delete oL;
 
-	for (int i = 0; i < enemiesPos.size(); i++)
+	_enemy = new BomberEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(50, 150), "Enemy", _explosivePool);
+	//_enemy = new SpawnerEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(50, 150), "Enemy");
+	_stages.push_back(_enemy);
+	auto itFR = --(_stages.end());
+	_enemy->setItList(itFR);
+	
+
+	_enemy = new StaticSpawnerEnemy(_player, g, this, g->getTexture("EnemyMartyr"), Vector2D(300, 200), "Enemy");
+	_stages.push_back(_enemy);
+	 itFR = --(_stages.end());
+	_enemy->setItList(itFR);
+
+	/*for (int i = 0; i < enemiesPos.size(); i++)
+
 	{
 		_enemy = new MeleeEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(enemiesPos[i].getX(), enemiesPos[i].getY() - TILES_SIZE * 2), "Enemy");
 		_stages.push_back(_enemy);
@@ -60,7 +77,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 
 	for (int i = 0; i < marirsPos.size(); i++)
 	{
-		_enemy = new MartyrEnemy(_player, g, this, g->getTexture("EnemyMartyr"), Vector2D(marirsPos[i].getX(), marirsPos[i].getY() - TILES_SIZE * 2), "Enemy");
+		_enemy = new MeleeEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(marirsPos[i].getX(), marirsPos[i].getY() - TILES_SIZE * 2), "Enemy");
 		_stages.push_back(_enemy);
 		auto itFR = --(_stages.end());
 		_enemy->setItList(itFR);
@@ -73,13 +90,13 @@ PlayState::PlayState(Game* g) : GameState(g)
 	for (int i = 0; i < disPos.size(); i++)
 	{
 		if(i==0 ||i==2)
-			_enemy = new DistanceStaticEnemy(_player, g, this, g->getTexture("EnemyMartyr"), Vector2D(disPos[i].getX(), disPos[i].getY() - TILES_SIZE * 2), "Enemy", BasicEnemyGun);
+			_enemy = new MeleeEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(disPos[i].getX(), disPos[i].getY() - TILES_SIZE * 2), "Enemy");
 		else
-			_enemy = new DistanceStaticEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(disPos[i].getX(), disPos[i].getY() - TILES_SIZE * 2), "Enemy", BasicEnemyShotgun);
+			_enemy = new MeleeEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(disPos[i].getX(), disPos[i].getY() - TILES_SIZE * 2), "Enemy");
 		_stages.push_back(_enemy);
 		auto itFR = --(_stages.end());
 		_enemy->setItList(itFR);
-	}
+	}*/
 
 	//Coins
 	oL = new ObjectLayer(TILEMAP_PATH + "Nivel1.json", "Monedas");
@@ -126,6 +143,13 @@ PlayState::PlayState(Game* g) : GameState(g)
 void PlayState::KillObject(const list<GameObject*>::iterator &itList)
 {
 	items_ToDelete.push_back(itList);
+}
+
+void PlayState::addObject(GameComponent* n)
+{
+	_stages.push_back(n);
+	auto itFR = --(_stages.end());
+	n->setItList(itFR);
 }
 
 void PlayState::render() const

@@ -8,6 +8,8 @@
 #include "MartyrEnemy.h"
 #include "DistanceStaticEnemy.h"
 #include "DistanceDynamicEnemy.h"
+#include "SpawnerEnemy.h"
+#include "BomberEnemy.h"
 #include "BulletPool.h"
 #include "Coin.h"
 #include "Cursor.h"
@@ -29,6 +31,8 @@ private:
 
 	//Bullet Pools
 	BulletPool* _playerBulletPool = nullptr; //Balas del jugador
+	BulletPool* _enemyBulletPool = nullptr; //Balas del jugador
+	BulletPool* _explosivePool = nullptr;
 
 	vector <list<GameObject*>::iterator> items_ToDelete;
 
@@ -40,5 +44,6 @@ public:
 	virtual bool handleEvents(SDL_Event& e);
 
 	void KillObject(const list<GameObject*>::iterator &itList);
+	void addObject(GameComponent* n);
 	inline Cursor* getCursor() const { return _cursor; }
 };

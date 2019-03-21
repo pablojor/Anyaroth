@@ -3,7 +3,7 @@
 #include "AnimatedSpriteComponent.h"
 #include "Player.h"
 
-DistanceDynamicEnemy::DistanceDynamicEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag, GunType type) : DistanceEnemy(player, g, play, texture, posIni, tag, type)
+DistanceDynamicEnemy::DistanceDynamicEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag, BulletPool* pool) : DistanceEnemy(player, g, play, texture, posIni, tag, pool)
 {
 	_vision = 200;
 	_attackRange = 120; //No se puede poner mas pequeño que la velocidad
@@ -22,7 +22,7 @@ void DistanceDynamicEnemy::update(double time)
 	Enemy::update(time);
 	if (!_dead && inCamera())
 	{
-		
+		DistanceEnemy::update(time);
 		BodyComponent* _playerBody = _player->getComponent<BodyComponent>();
 
 		b2Vec2 enemyPos = _body->getBody()->GetPosition(), playerPos = _playerBody->getBody()->GetPosition();
@@ -90,7 +90,8 @@ void DistanceDynamicEnemy::update(double time)
 					else if (x < 0) //Izquierda
 						_anim->flip();
 
-					//_arm->shoot();
+					_arm->shoot();
+					_myGun->enemyShoot(_myBulletPool, _arm->getPosition(), !_anim->isFlipped() ? _arm->getAngle() + random(-_fail, _fail) : _arm->getAngle() + 180 + random(-_fail, _fail), "EnemyBullet");
 				}
 				else
 					_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });

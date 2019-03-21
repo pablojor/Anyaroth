@@ -30,11 +30,13 @@ protected:
 	bool _attacking = false, _dead = false;
 	double _time;
 	int _vision, _attackRange, _attackTime, _damage;
+	float32 _speed;
 
 public:
 	Enemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag);
 	virtual ~Enemy() {}
 	bool inCamera();
+	bool inCameraOnlyX();
 
 	virtual void beginCollision(GameComponent* other, b2Contact* contact);
 
@@ -45,6 +47,11 @@ public:
 	virtual void update(double time);
 
 	void die();
-	void subLife(int damage);
+	virtual void subLife(int damage);
 	inline Life getLife() const { return _life; }
+	int random(int low, int high) {
+		return low + (rand() % abs(high - low));
+	}
+	void enemySpawn(Enemy* newEnemy);
+	
 };

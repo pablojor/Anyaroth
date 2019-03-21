@@ -30,6 +30,28 @@ void Gun::shoot(BulletPool* bulletPool, const Vector2D& position, const double& 
 			bulletPool->addNewBullet()->init(_bulletTexture, bulletPos, _speed, _damage, angle, _range, tag);
 	}
 }
+void Gun::enemyShoot(BulletPool* bulletPool, const Vector2D& position, const double& angle, const string& tag)
+{
+	if (_cadence <= 0)
+	{
+		_cadence = _maxCadence;
+
+		//Disparar la bala aqui
+		Bullet* b = bulletPool->getUnusedObject();
+		Vector2D bulletPos = prepareBulletPosition(position, angle);
+		if (b != nullptr)
+		{
+			b->init(_bulletTexture, bulletPos, _speed, _damage, angle, _range, tag);
+			b->changeFilter();
+		}
+		else
+		{
+			Bullet* b2 = bulletPool->addNewBullet();
+			b2->init(_bulletTexture, bulletPos, _speed, _damage, angle, _range, tag);
+			b2->changeFilter();
+		}
+	}
+}
 
 void Gun::reload()
 {
