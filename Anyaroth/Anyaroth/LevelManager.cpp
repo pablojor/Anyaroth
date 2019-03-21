@@ -16,11 +16,6 @@ LevelManager::LevelManager(Game* game, PlayState* playstate) : _game(game), _pla
 	_parallaxZone1->addLayer(new ParallaxLayer(game->getTexture("BgZ1L3"), playstate->getMainCamera(), 0.75));
 }
 
-LevelManager::~LevelManager()
-{
-
-}
-
 void LevelManager::setLevel(int zone, int level)
 {
 	switch (zone)
@@ -56,9 +51,4 @@ void LevelManager::changeLevel(int zone, int level)
 	delete _currentMap;
 	_stages->erase(_itMap);
 	setLevel(zone, level);
-}
-
-void LevelManager::resetLevel()
-{
-	changeLevel(_playState->getCurrentZone(), _playState->getCurrentLevel());
 }

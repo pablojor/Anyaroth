@@ -28,18 +28,15 @@ Map::Map(string filename, Game* game, PlayState* playstate, Texture* tileset, in
 			{
 				if (*it == "Map" || *it == "Ground")
 				{
-					_layers[*it] = new Layer(filename, *it, tileset, game, *it);
-					_layersNames.push_back(*it);
+					_layers.push_back(new Layer(filename, *it, tileset, game, *it));
 
 					if(*it=="Ground")
-						_layers[*it]->addComponent<BodyComponent>();
-
-					_levelObjects.push_back(_layers[*it]);
+						_layers.back()->addComponent<BodyComponent>();
 				}
 				else
 				{
-					_objects[*it] = new ObjectLayer(filename, *it);
-					_objectsNames.push_back(*it);
+					_objectLayers[*it] = new ObjectLayer(filename, *it);
+					_objectLayersNames.push_back(*it);
 				}
 			}
 		}
@@ -55,23 +52,28 @@ Map::Map(string filename, Game* game, PlayState* playstate, Texture* tileset, in
 
 Map::~Map()
 {
-	for (int i = 0; i < _objectsNames.size(); i++)
-		delete _objects[_objectsNames[i]];
+	for (int j = 0; j < _layers.size(); j++)
+		delete _layers[j];
+
+	_layers.clear();
+
+	for (int i = 0; i < _objectLayersNames.size(); i++)
+		delete _objectLayers[_objectLayersNames[i]];
+
+	_objectLayers.clear();
+
+	for (int k = 0; k < _objects.size(); k++)
+		delete _objects[k];
 
 	_objects.clear();
-
-	for (auto it = _levelObjects.begin(); it != _levelObjects.end(); ++it)
-		delete *it;
-
-	_levelObjects.clear();
 }
 
 void Map::createObjects()
 {
-	for (int i = 0; i < _objectsNames.size(); i++)
+	for (int i = 0; i < _objectLayersNames.size(); i++)
 	{
-		string name = _objectsNames[i];
-		vector<Vector2D> pos = _objects[name]->getObjectsPositions();
+		string name = _objectLayersNames[i];
+		vector<Vector2D> pos = _objectLayers[name]->getObjectsPositions();
 
 		for (int j = 0; j < pos.size(); j++)
 		{
@@ -81,33 +83,46 @@ void Map::createObjects()
 			}
 			else if (name == "Melee")
 			{
-				_levelObjects.push_back(new MeleeEnemy(_player, _game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), name));
+				_objects.push_back(new MeleeEnemy(_player, _game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), name));
 			}
 			else if (name == "Martyr")
 			{
-				_levelObjects.push_back(new MartyrEnemy(_player, _game, _playState, _game->getTexture("EnemyMartyr"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), name));
+				_objects.push_back(new MartyrEnemy(_player, _game, _playState, _game->getTexture("EnemyMartyr"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), name));
 			}
 			else if (name == "DistanceEstatic")
 			{
-				_levelObjects.push_back(new DistanceStaticEnemy(_player, _game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), name, BasicEnemyGun));
+				_objects.push_back(new DistanceStaticEnemy(_player, _game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), name, BasicEnemyGun));
 			}
 			else if (name == "DistanceDynamic")
 			{
-				_levelObjects.push_back(new DistanceDynamicEnemy(_player, _game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), name, BasicEnemyGun));
+				_objects.push_back(new DistanceDynamicEnemy(_player, _game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), name, BasicEnemyGun));
 			}
 			else if (name == "Coin")
 			{
-				_levelObjects.push_back(new Coin(_game, _game->getTexture("Coin"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE), _coinValue));
+				_objects.push_back(new Coin(_game, _game->getTexture("Coin"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE), _coinValue));
 			}
 		}
 	}
+}
+
+void Map::restartLevel()
+{
+	for (int i = 0; i < _objects.size(); i++)
+		delete _objects[i];
+
+	_objects.clear();
+	createObjects();
 }
 
 bool Map::handleInput(const SDL_Event & event)
 {
 	GameComponent::handleInput(event);
 
-	for (GameComponent* o : _levelObjects)
+	for (Layer* l : _layers)
+		if (l->isActive())
+			l->handleInput(event);
+
+	for (GameComponent* o : _objects)
 		if (o->isActive())
 			o->handleInput(event);
 
@@ -118,7 +133,11 @@ void Map::update(double time)
 {
 	GameComponent::update(time);
 
-	for (GameComponent* o : _levelObjects)
+	for (Layer* l : _layers)
+		if (l->isActive())
+			l->update(time);
+
+	for (GameComponent* o : _objects)
 		if (o->isActive())
 			o->update(time);
 }
@@ -127,7 +146,11 @@ void Map::render(Camera * c) const
 {
 	GameComponent::render(c);
 
-	for (GameComponent* o : _levelObjects)
+	for (Layer* l : _layers)
+		if (l->isActive())
+			l->render(c);
+
+	for (GameComponent* o : _objects)
 		if (o->isActive())
 			o->render(c);
 }

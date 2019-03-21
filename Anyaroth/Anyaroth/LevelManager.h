@@ -22,11 +22,11 @@ private:
 public:
 	LevelManager() {}
 	LevelManager(Game* game, PlayState* playstate);
-	~LevelManager();
+	~LevelManager() {}
 
 	void setLevel(int zone, int level);
 	void changeLevel(int zone, int level);
-	void resetLevel();
+	inline void resetLevel() { _currentMap->restartLevel(); }
 
 	inline Map* getCurrentMap() const { return _currentMap; }
 };

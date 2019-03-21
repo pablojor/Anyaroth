@@ -71,7 +71,7 @@ void PlayState::update(double time)
 
 	if (_player->isDead())
 	{
-		_levelManager.resetLevel();
 		_player->revive();
+		_levelManager.resetLevel();
 	}
 }

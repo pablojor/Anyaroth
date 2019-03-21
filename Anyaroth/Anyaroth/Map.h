@@ -2,9 +2,7 @@
 #include "GameComponent.h"
 #include "Layer.h"
 #include "ObjectLayer.h"
-#include <map>
 #include <vector>
-#include <list>
 
 class PlayState;
 class Player;
@@ -16,13 +14,12 @@ private:
 	PlayState* _playState = nullptr;
 	Player* _player = nullptr;
 
-	map < string, Layer*> _layers;
-	vector<string> _layersNames;
+	vector<Layer*> _layers;
 
-	map < string, ObjectLayer* > _objects;
-	vector<string> _objectsNames;
+	map < string, ObjectLayer* > _objectLayers;
+	vector<string> _objectLayersNames;
 
-	list<GameComponent*> _levelObjects;
+	vector<GameComponent*> _objects;
 
 	int _coinValue;
 
@@ -31,6 +28,7 @@ public:
 	~Map();
 
 	void createObjects();
+	void restartLevel();
 
 	virtual bool handleInput(const SDL_Event& event);
 	virtual void update(double time);
