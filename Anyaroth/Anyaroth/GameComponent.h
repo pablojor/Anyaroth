@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "Component.h"
 #include <vector>
+#include <list>
 #include <map>
 #include <list>
 #include <Box2D/Box2D.h>
@@ -23,7 +24,6 @@ private:
 
 	list<GameComponent*> _children; //lista de hijos del objeto
 
-	Game* _game = nullptr; //puntero a game
 	b2World* _world = nullptr; //puntero a world
 	bool _active = true;
 	string _tag;
@@ -70,6 +70,8 @@ private:
 			c = dynamic_cast<ComponentType*>(it->second);
 		return c; //Sera nullptr si no lo encuentra
 	}
+protected:
+	Game* _game = nullptr; //puntero a game
 
 public:
 	GameComponent();
@@ -106,6 +108,8 @@ public:
 	inline bool isActive() const { return _active; }
 	inline void setActive(bool active) { _active = active; }
 
+	virtual void setItList(list<GameObject*>::iterator itFR) {}
+	
 	template<class ComponentType>
 	ComponentType* addComponent()
 	{
@@ -118,9 +122,7 @@ public:
 	{
 		string name = typeid(*ct).name();
 		if (_components.find(name) == _components.end())
-		{
 			_components[name] = ct;
-		}
 	}
 
 	template<class ComponentType>
@@ -128,9 +130,7 @@ public:
 	{
 		string name = typeid(*ct).name();
 		if (_components.find(name) != _components.end())
-		{
 			_components.erase(name);
-		}
 	}
 
 	//Para el Following Component

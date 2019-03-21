@@ -73,7 +73,14 @@
     <Import Project="..\Anyaroth.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>$(SolutionDir)SDL2_mixer-2.0.4\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)SDL2_mixer-2.0.4\lib\x86;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>D:\gtada\Desktop\Repositorio - GitHUB\Anyaroth\Anyaroth\SDL2_mixer-2.0.4\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\gtada\Desktop\Repositorio - GitHUB\Anyaroth\Anyaroth\SDL2_mixer-2.0.4\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -84,7 +91,7 @@
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Box2D.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -107,6 +114,7 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -133,12 +141,16 @@
     <ClCompile Include="BasicPistol.cpp" />
     <ClCompile Include="BasicShotgun.cpp" />
     <ClCompile Include="BodyComponent.cpp" />
+    <ClCompile Include="BomberEnemy.cpp" />
     <ClCompile Include="BulletPool.cpp" />
+    <ClCompile Include="Capsule.cpp" />
     <ClCompile Include="Cursor.cpp" />
     <ClCompile Include="DistanceEnemy.cpp" />
     <ClCompile Include="EnemyArm.cpp" />
     <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="ExplosiveBullet.cpp" />
+    <ClCompile Include="FlyingEnemy.cpp" />
     <ClCompile Include="MovingComponent.cpp" />
     <ClCompile Include="Melee.cpp" />
     <ClCompile Include="PlayerArm.cpp" />
@@ -186,8 +198,11 @@
     <ClCompile Include="PlayStateHUD.cpp" />
     <ClCompile Include="PoolWrapper.cpp" />
     <ClCompile Include="RenderComponent.cpp" />
+    <ClCompile Include="SpawnerEnemy.cpp" />
+    <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
     <ClCompile Include="Money.cpp" />
+    <ClCompile Include="StaticSpawnerEnemy.cpp" />
     <ClCompile Include="TextUI.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Tile.cpp" />
@@ -208,11 +223,15 @@
     <ClInclude Include="BasicPistol.h" />
     <ClInclude Include="BasicShotgun.h" />
     <ClInclude Include="BodyComponent.h" />
+    <ClInclude Include="BomberEnemy.h" />
+    <ClInclude Include="Capsule.h" />
     <ClInclude Include="Cursor.h" />
     <ClInclude Include="DistanceEnemy.h" />
     <ClInclude Include="EnemyArm.h" />
     <ClInclude Include="LevelManager.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="ExplosiveBullet.h" />
+    <ClInclude Include="FlyingEnemy.h" />
     <ClInclude Include="MovingComponent.h" />
     <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="Melee.h" />
@@ -267,8 +286,11 @@
     <ClInclude Include="PoolWrapper.h" />
     <ClInclude Include="RenderComponent.h" />
     <ClInclude Include="SDLError.h" />
+    <ClInclude Include="SpawnerEnemy.h" />
+    <ClInclude Include="SoundManager.h" />
     <ClInclude Include="SpriteComponent.h" />
     <ClInclude Include="Money.h" />
+    <ClInclude Include="StaticSpawnerEnemy.h" />
     <ClInclude Include="TextUI.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Tile.h" />

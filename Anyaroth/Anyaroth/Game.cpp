@@ -22,7 +22,6 @@ void Game::createTextures()
 			col = j[i][3];
 
 			_textures.insert(pair <string, Texture*>(id, new Texture(_renderer, SPRITE_PATH + name, fil, col)));
-			_texturesName.push_back(id);
 		}
 	}
 	else
@@ -50,13 +49,19 @@ void Game::createFonts()
 			size = j[i][2];
 
 			_fonts.insert(pair <string, Font*>(id, new Font(FONTS_PATH + name, size)));
-			_fontsName.push_back(id);
 		}
 	}
 	else
 		throw AnyarothError("No se ha encontrado el archivo introducido");
 
 	input.close();
+}
+
+void Game::createSounds()
+{
+	_soundManager->addSFX("example", SOUNDS_PATH + "example.wav");
+	_soundManager->addMusic("bgMusic", SOUNDS_PATH + "bgMusic.wav");
+	_soundManager->addSFX("example1", SOUNDS_PATH + "example1.wav");
 }
 
 void Game::toggleFullscreen()
@@ -80,7 +85,7 @@ Game::Game()
 	SDL_RenderSetLogicalSize(_renderer, GAME_RESOLUTION_X, GAME_RESOLUTION_Y);
 
 	//Icon
-	SDL_Surface* icon = IMG_Load("..\\icon.png");
+	SDL_Surface* icon = IMG_Load((SPRITE_PATH + "icon.png").c_str());
 	SDL_SetWindowIcon(_window, icon);
 
 	//Show cursor
@@ -90,6 +95,9 @@ Game::Game()
 	createTextures();
 	//---Create fonts
 	createFonts();
+	//---Create sounds
+	_soundManager = new SoundManager();
+	createSounds();
 	//---Create world
 	_world = new b2World(b2Vec2(0.0, 9.8));
 	//---Create states
@@ -99,19 +107,16 @@ Game::Game()
 Game::~Game()
 {
 	//delete textures
-	int tamTextures = _texturesName.size();
-	for (int i = 0; i < tamTextures; i++)
-		delete _textures[_texturesName[i]];
-	_texturesName.clear();
+	for (auto it = _textures.begin(); it != _textures.end(); it++)
+		delete (*it).second;
 
 	//delete fonts
-	int tamFonts = _fontsName.size();
-	for (int i = 0; i < tamFonts; i++)
-		delete _fonts[_fontsName[i]];
-	_fontsName.clear();
+	for (auto it = _fonts.begin(); it != _fonts.end(); it++)
+		delete (*it).second;
 
 	delete _stateMachine;
 	delete _world;
+	delete _soundManager;
 	SDL_DestroyRenderer(_renderer);
 	SDL_DestroyWindow(_window);
 	SDL_Quit();
@@ -157,9 +162,15 @@ void Game::handleEvents()
 	{
 		if (event.type == SDL_QUIT)
 			_exit = true;
-		else if (event.type == SDL_KEYDOWN)
+		else if (event.type == SDL_KEYDOWN) 
+		{
 			if (event.key.keysym.sym == SDLK_F11)
 				toggleFullscreen();
+			else if (event.key.keysym.sym == SDLK_1)
+				_soundManager->playSFX("example");
+			else if (event.key.keysym.sym == SDLK_2)
+				_soundManager->playSFX("example1");
+		}
 
 		_stateMachine->currentState()->handleEvents(event);
 	}

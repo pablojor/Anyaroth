@@ -11,8 +11,12 @@ class PlayState : public GameState
 {
 private:
 	Player* _player = nullptr;
-	BulletPool* _playerBulletPool = nullptr; //Balas del jugador
 	Cursor* _cursor = nullptr;
+
+	//Bullet Pools
+	BulletPool* _playerBulletPool = nullptr; //Balas del jugador
+	BulletPool* _enemyBulletPool = nullptr; //Balas de los enemigos
+	BulletPool* _explosivePool = nullptr;
 
 	LevelManager _levelManager;
 	CollisionManager _colManager;
@@ -21,8 +25,13 @@ private:
 	int _currentZone;
 	int _currentLevel;
 
+	vector <list<GameObject*>::iterator> items_ToDelete;
+
 public:
 	PlayState(Game* g);
+
+	void addObject(GameComponent* n);
+	void deleteObject(const list<GameObject*>::iterator &itList);
 
 	virtual void render() const;
 	virtual void update(double time);

@@ -51,7 +51,7 @@ public:
 template <typename T, int SIZE>
 void ObjectPool<T, SIZE>::update(double time) 
 {
-	for (int i = 0; i < SIZE; i++)
+	for (int i = 0; i < _objects.size(); i++)
 		if (_objects[i]->isActive()) 
 			_objects[i]->update(time);
 }
@@ -59,7 +59,7 @@ void ObjectPool<T, SIZE>::update(double time)
 template <typename T, int SIZE>
 void ObjectPool<T, SIZE>::render(Camera* c) const 
 {
-	for (int i = 0; i < SIZE; i++)
+	for (int i = 0; i < _objects.size(); i++)
 		if (_objects[i]->isActive())
 			_objects[i]->render(c);
 }

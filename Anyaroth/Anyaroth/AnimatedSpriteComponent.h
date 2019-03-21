@@ -13,7 +13,7 @@ struct AnimationState
 	uint numFrames;
 	bool loop;
 	bool animationFinished;
-	double lapse;
+	uint lapse;
 };
 
 class AnimatedSpriteComponent : public SpriteComponent, public PhysicsComponent
@@ -42,7 +42,7 @@ public:
 	virtual void render(Camera* c) const;
 	virtual void update(double time);
 
-	void addAnim(uint name, uint numFrames, bool loop);
+	void addAnim(uint name, uint numFrames, bool loop, uint lapse = 60);
 	void playAnim(uint name);
 
 	inline bool animationFinished() { return _animations[_currentAnim].animationFinished; }

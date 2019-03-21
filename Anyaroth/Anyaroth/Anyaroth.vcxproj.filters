@@ -198,6 +198,16 @@
     </ClCompile>
     <ClCompile Include="DistanceDynamicEnemy.cpp">
       <Filter>Archivos de código\Objects\Enemies\Distanceenemies</Filter>
+    <ClCompile Include="SpawnerEnemy.cpp">
+      <Filter>Archivos de código\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Capsule.cpp">
+      <Filter>Archivos de código\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="BomberEnemy.cpp">
+      <Filter>Archivos de código\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="ExplosiveBullet.cpp" />
     </ClCompile>
     <ClCompile Include="DistanceEnemy.cpp">
       <Filter>Archivos de código\Objects\Enemies\Distanceenemies</Filter>
@@ -217,6 +227,13 @@
     <ClCompile Include="MenuButton.cpp">
       <Filter>Archivos de código\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="SoundManager.cpp">
+      <Filter>Archivos de código\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="FlyingEnemy.cpp">
+      <Filter>Archivos de código\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticSpawnerEnemy.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -452,6 +469,16 @@
     </ClInclude>
     <ClInclude Include="DistanceEnemy.h">
       <Filter>Archivos de encabezado\Objects\Enemies\DistanceEnemies</Filter>
+    <ClInclude Include="SpawnerEnemy.h">
+      <Filter>Archivos de encabezado\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Capsule.h">
+      <Filter>Archivos de encabezado\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="BomberEnemy.h">
+      <Filter>Archivos de encabezado\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="ExplosiveBullet.h" />
     </ClInclude>
     <ClInclude Include="DistanceDynamicEnemy.h">
       <Filter>Archivos de encabezado\Objects\Enemies\DistanceEnemies</Filter>
@@ -471,6 +498,13 @@
     <ClInclude Include="MenuButton.h">
       <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
+    <ClInclude Include="SoundManager.h">
+      <Filter>Archivos de encabezado\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="FlyingEnemy.h">
+      <Filter>Archivos de encabezado\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticSpawnerEnemy.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de encabezado">

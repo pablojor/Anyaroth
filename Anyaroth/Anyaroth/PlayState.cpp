@@ -3,6 +3,9 @@
 #include "PauseState.h"
 #include "PlayStateHUD.h"
 #include "checkML.h"
+#include <time.h>
+
+
 
 PlayState::PlayState(Game* g) : GameState(g)
 {
@@ -15,10 +18,17 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_player = new Player(g, 0, 0);
 	_stages.push_back(_player);
 
-	////Pool player
+	//Pool player
 	_playerBulletPool = new BulletPool(g);
 	_stages.push_back(_playerBulletPool);
 	_player->setPlayerBulletPool(_playerBulletPool);
+
+	//Pool enemy
+	_enemyBulletPool = new BulletPool(g);
+	_stages.push_back(_enemyBulletPool);
+
+	_explosivePool = new BulletPool(g);
+	_stages.push_back(_explosivePool);
 
 	//Levels
 	_currentZone = _currentLevel = 1;
@@ -43,6 +53,18 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_debugger.getCamera(_mainCamera);
 }
 
+void PlayState::addObject(GameComponent* n)
+{
+	_stages.push_back(n);
+	auto itFR = --(_stages.end());
+	n->setItList(itFR);
+}
+
+void PlayState::deleteObject(const list<GameObject*>::iterator &itList)
+{
+	items_ToDelete.push_back(itList);
+}
+
 void PlayState::render() const
 {
 	GameState::render();
@@ -61,6 +83,14 @@ bool PlayState::handleEvents(SDL_Event& e)
 	}
 	else if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_0) //Boton de prueba para reiniciar el nivel
 		_levelManager.resetLevel();
+	else if (e.type == SDL_KEYDOWN && (e.key.keysym.sym == SDLK_KP_MINUS || e.key.keysym.sym == SDLK_MINUS) //Para probar el Zoom y sus distintan opciones
+		_mainCamera->zoomOut();
+	else if (e.type == SDL_KEYDOWN && (e.key.keysym.sym == SDLK_KP_PLUS || e.key.keysym.sym == SDLK_PLUS))
+		_mainCamera->zoomIn();
+	else if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_z)
+		_mainCamera->setZoom(_mainCamera->getZoomRatio() + 1, true);
+	else if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_x)
+		_mainCamera->setZoom(_mainCamera->getZoomRatio() - 1, true);
 
 	return handled;
 }
