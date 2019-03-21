@@ -3,6 +3,14 @@
 #include "BackGround.h"
 #include <utility>
 
+//Valores predeterminados
+const int CAMERA_ASPECT_RATIO_X = 16;
+const int CAMERA_ASPECT_RATIO_Y = 9;
+const int CAMERA_SCALE_FACTOR = 30;
+const int CAMERA_RESOLUTION_X = CAMERA_ASPECT_RATIO_X * CAMERA_SCALE_FACTOR;
+const int CAMERA_RESOLUTION_Y = CAMERA_ASPECT_RATIO_Y * CAMERA_SCALE_FACTOR;
+
+
 class Camera
 {
 private:
@@ -11,8 +19,10 @@ private:
 	BackGround* _backGround = nullptr;
 
 	void moveCamera();
+	void smoothCameraZoom(/*const double& time*/);
 
 	pair<bool, int> _cameraStatus = pair<bool, int>(false, 0);
+	int _zoom = CAMERA_SCALE_FACTOR; int _zoomGoal = CAMERA_SCALE_FACTOR;
 
 public:
 	Camera() {}
@@ -38,6 +48,13 @@ public:
 
 	inline GameComponent* getFollowedObject() const { return _followedObject; };
 
-	void update(double time);
+	void setZoom(const float& zoomRatio, const bool& smoothZoom = false);
+	inline int getZoom() const { return _zoom; }
+	inline float getZoomRatio() const { return float(_zoom) / float(CAMERA_SCALE_FACTOR); };
+
+	inline void zoomOut() { _zoom++; _zoomGoal = _zoom; setCameraSize(CAMERA_ASPECT_RATIO_X * _zoom, CAMERA_ASPECT_RATIO_Y * _zoom); }
+	inline void zoomIn() { _zoom - 1 < 0 ? _zoom = 0 : _zoom--; _zoomGoal = _zoom; setCameraSize(CAMERA_ASPECT_RATIO_X * _zoom, CAMERA_ASPECT_RATIO_Y * _zoom); }
+
+	void update(const double& time);
 	void render() const;
 };

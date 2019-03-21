@@ -3,6 +3,7 @@
 #include <cmath>
 #include <iostream>
 #include "PlayerArm.h"
+#include "Player.h"
 
 ArmControllerComponent::ArmControllerComponent(GameComponent* obj) : InputComponent(obj)
 {
@@ -40,7 +41,7 @@ void ArmControllerComponent::handleInput(const SDL_Event& event)
 			_leftClickPul = true;
 		}
 	}
-	
+
 	if (event.type == SDL_MOUSEBUTTONUP)
 	{
 		if (event.button.button == SDL_BUTTON_LEFT)

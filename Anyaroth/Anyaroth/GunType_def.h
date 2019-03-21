@@ -7,11 +7,3 @@ enum GunType
 	BasicEnemyGun,
 	BasicEnemyShotgun
 };
-
-enum MeleeType 
-{ 
-	Knife, 
-	Axe, 
-	Lightsaber, 
-	Chainsaw 
-};

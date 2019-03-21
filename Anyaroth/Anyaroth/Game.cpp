@@ -5,7 +5,7 @@
 void Game::createTextures()
 {
 	ifstream input;
-	input.open(INFO_PATH + "textures.json");
+	input.open(INFO_PATH + "assets.json");
 	if (input.is_open())
 	{
 		nlohmann::json j;
@@ -22,7 +22,6 @@ void Game::createTextures()
 			col = j[i][3];
 
 			_textures.insert(pair <string, Texture*>(id, new Texture(_renderer, SPRITE_PATH + name, fil, col)));
-			_texturesName.push_back(id);
 		}
 	}
 	else
@@ -34,28 +33,35 @@ void Game::createTextures()
 void Game::createFonts()
 {
 	ifstream input;
-	input.open(INFO_PATH + "fonts.txt");
+	input.open(INFO_PATH + "assets.json");
 	if (input.is_open())
 	{
-		bool end = false;
-		while (!end)
+		nlohmann::json j;
+		input >> j;
+		j = j["fonts"];
+		int numFonts = j.size();
+		string id, name;
+		int size;
+		for (int i = 0; i < numFonts; i++)
 		{
-			string id; input >> id;
-			if (id != "")
-			{
-				string fileName; input >> fileName;
-				int size; input >> size;
-				_fonts.insert(pair <string, Font*>(id, new Font(FONTS_PATH + fileName, size)));
-				_fontsName.push_back(id);
-			}
-			else
-				end = true;
+			id = j[i][0].get<string>();
+			name = j[i][1].get<string>();
+			size = j[i][2];
+
+			_fonts.insert(pair <string, Font*>(id, new Font(FONTS_PATH + name, size)));
 		}
 	}
 	else
 		throw AnyarothError("No se ha encontrado el archivo");
 
 	input.close();
+}
+
+void Game::createSounds()
+{
+	_soundManager->addSFX("example", SOUNDS_PATH + "example.wav");
+	_soundManager->addMusic("bgMusic", SOUNDS_PATH + "bgMusic.wav");
+	_soundManager->addSFX("example1", SOUNDS_PATH + "example1.wav");
 }
 
 void Game::pushState(GameState* state)
@@ -104,7 +110,7 @@ Game::Game()
 	SDL_RenderSetLogicalSize(_renderer, GAME_RESOLUTION_X, GAME_RESOLUTION_Y);
 
 	//Icon
-	SDL_Surface* icon = IMG_Load("..\\icon.png");
+	SDL_Surface* icon = IMG_Load((SPRITE_PATH + "icon.png").c_str());
 	SDL_SetWindowIcon(_window, icon);
 
 	//Show cursor
@@ -114,6 +120,9 @@ Game::Game()
 	createTextures();
 	//---Create fonts
 	createFonts();
+	//---Create sounds
+	_soundManager = new SoundManager();
+	createSounds();
 	//---Create world
 	_world = new b2World(b2Vec2(0.0, 9.8));
 	//---Create states
@@ -123,23 +132,20 @@ Game::Game()
 Game::~Game()
 {
 	//delete textures
-	int tamTextures = _texturesName.size();
-	for (int i = 0; i < tamTextures; i++)
+	for (auto it = _textures.begin(); it != _textures.end(); it++)
 	{
-		delete _textures[_texturesName[i]];
-		_textures.erase(_texturesName[i]);
+		delete (*it).second;
 	}
 
 	//delete fonts
-	int tamFonts = _fontsName.size();
-	for (int i = 0; i < tamFonts; i++)
+	for (auto it = _fonts.begin(); it != _fonts.end(); it++)
 	{
-		delete _fonts[_fontsName[i]];
-		_fonts.erase(_fontsName[i]);
+		delete (*it).second;
 	}
 
 	delete _stateMachine;
 	delete _world;
+	delete _soundManager;
 	SDL_DestroyRenderer(_renderer);
 	SDL_DestroyWindow(_window);
 	SDL_Quit();
@@ -155,7 +161,7 @@ void Game::run()
 
 		handleEvents();
 		update(frameTime);
-		_world->Step(1 / 60.0, 8, 3);
+		_world->Step(1 / 62.0, 8, 3);
 		render();
 
 		frameTime = SDL_GetTicks() - startTime;
@@ -185,9 +191,15 @@ void Game::handleEvents()
 	{
 		if (event.type == SDL_QUIT)
 			_exit = true;
-		else if (event.type == SDL_KEYDOWN)
+		else if (event.type == SDL_KEYDOWN) 
+		{
 			if (event.key.keysym.sym == SDLK_F11)
 				toggleFullscreen();
+			else if (event.key.keysym.sym == SDLK_1)
+				_soundManager->playSFX("example");
+			else if (event.key.keysym.sym == SDLK_2)
+				_soundManager->playSFX("example1");
+		}
 
 		_stateMachine->currentState()->handleEvents(event);
 	}

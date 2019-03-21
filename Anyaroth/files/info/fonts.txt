@@ -1,1 +1,0 @@
-ARIAL12 arial.ttf 12

@@ -9,8 +9,12 @@ ImageUI::ImageUI(Game* game, Texture* image, int xPos, int yPos) : UIElement(gam
 
 void ImageUI::render() const
 {
-	if (_visible) 
-		_image->render(_destRect, _clipArea);
+	if (_visible) {
+		SDL_Rect winRect = { _destRect.x * GAME_RESOLUTION_X / CAMERA_RESOLUTION_X ,_destRect.y * GAME_RESOLUTION_Y / CAMERA_RESOLUTION_Y ,
+			_destRect.w * GAME_RESOLUTION_X / CAMERA_RESOLUTION_X, _destRect.h * GAME_RESOLUTION_Y / CAMERA_RESOLUTION_Y };
+
+		_image->render(winRect, _clipArea);
+	}
 }
 
 void ImageUI::setPosition(int x, int y)

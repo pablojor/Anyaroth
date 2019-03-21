@@ -16,6 +16,9 @@ Arm::Arm(Game* g, GameComponent* owner, Vector2D offset) : GameComponent(g), _ow
 	_anim->addAnim(AnimatedSpriteComponent::NoAmmo, 2, false);
 	_anim->playAnim(AnimatedSpriteComponent::None);
 
+	//_hurt = addComponent<HurtRenderComponent>();
+
+
 	_transform->setDefaultAnchor(0.1, 0.6); //Parametros para la pistola
 }
 
@@ -33,3 +36,13 @@ void Arm::lookAtTarget(const Vector2D& target) const
 
 	_transform->setRotation(angle);
 }
+
+/*void Arm::hurt() const
+{
+	_hurt->hurt();
+}
+
+void Arm::die() const
+{
+	_hurt->die();
+}*/

@@ -42,7 +42,7 @@ BodyComponent::BodyComponent(GameComponent * obj) : PhysicsComponent(obj)
 	_body->SetUserData(obj);
 }
 
-BodyComponent::BodyComponent(GameComponent * obj, double x, double y, double h, double w) : PhysicsComponent(obj)
+BodyComponent::BodyComponent(GameComponent * obj, double x, double y, double w, double h) : PhysicsComponent(obj)
 {
 	_world = obj->getWorld();
 
@@ -73,7 +73,7 @@ BodyComponent::~BodyComponent()
 
 void BodyComponent::update(double time)
 {
-	if (_body->GetType() != b2_staticBody && _transform != nullptr)
+	if (_body!=nullptr && (_body->GetType() != b2_staticBody && _transform != nullptr))
 		_transform->setPosition(((double)_body->GetPosition().x*M_TO_PIXEL) - _textW * (0.5 - _aX), ((double)_body->GetPosition().y*M_TO_PIXEL) - _textH * (0.5 - _aY));
 }
 
@@ -95,6 +95,33 @@ void BodyComponent::setH(double h)
 	
 	_shape.SetAsBox(_width, _height);
 	_body->CreateFixture(&_fixture);
+}
+
+void BodyComponent::setBody(GameComponent * obj, double x, double y, double w, double h)
+{
+	b2BodyDef _bodydef;
+	_bodydef.type = b2_dynamicBody;
+	_bodydef.position = b2Vec2(x / M_TO_PIXEL, y / M_TO_PIXEL);
+	_bodydef.angle = 0.0;
+	_body = _world->CreateBody(&_bodydef);
+
+	_shape.SetAsBox(w / M_TO_PIXEL, h / M_TO_PIXEL);
+	_fixture.shape = &_shape;
+	_fixture.density = 1;
+	_fixture.restitution = 0;
+	_fixture.friction = 0.001;
+
+
+
+	_body->CreateFixture(&_fixture);
+	_body->SetUserData(obj);
+	_body->SetFixedRotation(true);
+}
+
+void BodyComponent::deleteBody()
+{
+	_world->DestroyBody(_body);
+	_body = nullptr;
 }
 
 void BodyComponent::moveShape(const b2Vec2 & Center)

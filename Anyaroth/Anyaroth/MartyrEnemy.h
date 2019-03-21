@@ -4,7 +4,7 @@
 class MartyrEnemy : public Enemy
 {
 private:
-	int _explosionRange = 60, _impulse = 80, _canDie;
+	int _explosionRange = 60, _impulse = 15;
 
 public:
 	MartyrEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag);

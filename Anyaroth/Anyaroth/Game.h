@@ -8,12 +8,11 @@
 #include "MenuState.h"
 #include "PlayState.h"
 #include "PauseState.h"
-#include "Gun.h"
-#include "GunType_def.h"
+#include "SoundManager.h"
 
 // Resolución interna del juego
-const int GAME_RESOLUTION_X = 480;
-const int GAME_RESOLUTION_Y = 270;
+const int GAME_RESOLUTION_X = 1920;
+const int GAME_RESOLUTION_Y = 1080;
 
 //Distancia que recorre la camara
 const int LEVEL_WIDTH = GAME_RESOLUTION_X * 10;
@@ -25,17 +24,12 @@ const string FILES_PATH = "..\\files\\levels\\";
 const string SAVES_PATH = "..\\files\\saves\\";
 const string SPRITE_PATH = "..\\assets\\sprites\\";
 const string TILEMAP_PATH = "..\\files\\tilemaps\\";
+const string SOUNDS_PATH = "..\\assets\\sounds\\";
 
 const int FRAME_RATE = 1000 / 60;
 const int TILES_SIZE = 16;
 const double M_TO_PIXEL = 8;
 const double BUTTON_SCALE = 0.25;
-
-struct MeleeAttributes
-{
-	MeleeType type;
-	int damage;
-};
 
 enum _Category
 {
@@ -54,29 +48,21 @@ class Game
 {
 private:
 	SDL_Window* _window = nullptr;
+	SDL_Renderer* _renderer = nullptr;
+
+	SoundManager* _soundManager;
+
 	map <string, Texture*> _textures;
 	map <string, Font*> _fonts;
 	GameStateMachine* _stateMachine = new GameStateMachine();
-	vector<string> _texturesName;
-	vector<string> _fontsName;
 	b2World* _world = nullptr;
 	bool _exit = false;
 
 public:
-	SDL_Renderer* _renderer = nullptr;
-	vector<int> _var;
-
-	vector<MeleeAttributes> MeleeWeapons =
-	{
-		{Knife,10},
-		{Axe,50},
-		{Lightsaber,20},
-		{Chainsaw,30}
-	};
-
 	//Metodos
 	void createTextures();
 	void createFonts();
+	void createSounds();
 	
 	void pushState(GameState* state);
 	void changeState(GameState* state);
@@ -88,6 +74,9 @@ public:
 
 	inline SDL_Renderer* getRenderer() const { return _renderer; }
 	inline SDL_Window* getWindow() const { return _window; }
+
+	inline SoundManager* getSoundManager() const { return _soundManager; }
+
 	inline b2World* getWorld() const { return _world; }
 	inline void setExit(bool quit) { _exit = quit; }
 	void toggleFullscreen();

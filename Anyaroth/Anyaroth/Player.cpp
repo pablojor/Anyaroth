@@ -3,6 +3,8 @@
 #include "Coin.h"
 #include "BasicPistol.h"
 #include "BasicShotgun.h"
+#include "Axe.h"
+
 
 Player::Player(Game* game, int xPos, int yPos) :  GameComponent(game, "Player")
 {
@@ -28,7 +30,7 @@ Player::Player(Game* game, int xPos, int yPos) :  GameComponent(game, "Player")
 
 	//Sensor del suelo
 	b2PolygonShape shape;
-	shape.SetAsBox(5 / M_TO_PIXEL, 2 / M_TO_PIXEL, b2Vec2(0, 2), 0);
+	shape.SetAsBox(5 / M_TO_PIXEL, 3 / M_TO_PIXEL, b2Vec2(0, 3), 0);
 	b2FixtureDef fDef;
 	fDef.shape = &shape;
 	fDef.filter.categoryBits = PLAYER;
@@ -52,11 +54,13 @@ Player::Player(Game* game, int xPos, int yPos) :  GameComponent(game, "Player")
 	_anim->addAnim(AnimatedSpriteComponent::DashBack, 6, false);
 	_anim->addAnim(AnimatedSpriteComponent::ReloadShotgun, 5, false);
 
-	//_hurt = addComponent<HurtRenderComponent>();
-
+	_hurt = addComponent<HurtRenderComponent>();
+	
 	//Brazo
 	_playerArm = new PlayerArm(game, this, { 28, 18 });
 	addChild(_playerArm);
+
+	//_playerArm->addComponent<HurtRenderComponent>();
 
 	//Armas (de momento esas dos)
 	_currentGun = new BasicPistol(game);
@@ -67,7 +71,7 @@ Player::Player(Game* game, int xPos, int yPos) :  GameComponent(game, "Player")
 	_money = new Money();
 
 	//Melee
-	_melee = new MeleeWeapon(game);
+	_melee = new Melee(game);
 	addChild(_melee);
 }
 
@@ -84,8 +88,11 @@ void Player::beginCollision(GameComponent * other, b2Contact* contact)
 	auto fB = contact->GetFixtureB();
 
 	//Deteccion del suelo
-	if ((fA->IsSensor() || fB->IsSensor()) && other->getTag() == "Suelo")
+	if ((fA->IsSensor() || fB->IsSensor()) && other->getTag() == "Suelo") 
+	{
 		_floorCount++;
+		setGrounded(true);
+	}
 
 	else if (other->getTag() == "EnemyBullet")
 	{
@@ -101,8 +108,6 @@ void Player::beginCollision(GameComponent * other, b2Contact* contact)
 			auto cant = coin->getValue();
 			_money->store(cant);
 			coin->destroy();
-			cout << "Moneda cogida" << endl;
-			cout << "Cantidad monedero: " << _money->getWallet() << endl;
 
 			_playerPanel->updateCoinsCounter(_money->getWallet());
 		}
@@ -122,23 +127,26 @@ void Player::endCollision(GameComponent * other, b2Contact* contact)
 
 void Player::subLife(int damage)
 {
-	_life.subLife(damage);
-	if (!_dead)
+	if (!isDashing())
 	{
-		if (_life.dead())
+		_life.subLife(damage);
+		if (!_dead)
 		{
-			die();
-			//_hurt->die();
-			//_hurtArm->die();
-			_dead = true;
+			if (_life.dead())
+			{
+				die();
+				_hurt->die();
+				//_hurtArm->die();
+				_dead = true;
+			}
+			else
+			{
+				_hurt->hurt();
+				//_hurtArm->hurt();
+			}
 		}
-		else
-		{
-			//_hurt->hurt();
-			//_hurtArm->hurt();
-		}
+		_playerPanel->updateLifeBar(_life.getLife(), _life.getMaxLife());
 	}
-	_playerPanel->updateLifeBar(_life.getLife(), _life.getMaxLife());
 }
 
 void Player::die()
@@ -189,6 +197,7 @@ void Player::update(double time)
 	GameComponent::update(time);
 
 	checkMovement(keyboard);
+	checkMelee();
 	refreshCooldowns(time);
 	handleAnimations();
 }
@@ -233,8 +242,11 @@ void Player::checkMovement(const Uint8* keyboard)
 	else
 		move(Vector2D(0, 0), _speed);
 
-	if (keyboard[SDL_SCANCODE_SPACE] && isGrounded() && !isMeleeing() && !isJumping()/* && !isReloading()*/)
-		jump();
+	if (keyboard[SDL_SCANCODE_SPACE] && !isMeleeing() && !isJumping()/* && !isReloading()*/)
+	{
+		if((isGrounded() && !isFalling()) || (!isGrounded() && isFalling() && _timeToJump > 0))
+			jump();
+	}
 
 	//Recarga
 	if (canReload() && !isMeleeing())
@@ -243,7 +255,7 @@ void Player::checkMovement(const Uint8* keyboard)
 	if (_isShooting && !isMeleeing())
 		shoot();
 	//Melee
-	if (_isMeleeing && isGrounded())
+	if (_isMeleeing && !isMeleeing() && isGrounded())
 		melee();
 	//Cambio de arma
 	//Esta bien en el handleInput
@@ -287,17 +299,30 @@ void Player::handleAnimations()
 		}
 		setGrounded(false);		
 	}
-	if (isGrounded() && _anim->getCurrentAnim() == AnimatedSpriteComponent::DashDown)
+	if ((isGrounded() || _body->getBody()->GetLinearVelocity().y == 0) && isDashing() && dashDown)
+	{
 		_anim->playAnim(AnimatedSpriteComponent::Idle);
+		_onDash = false;
+		dashDown = false;
+		dashOff();		
+	}
+	if (!isDashing())
+	{		
+		dashOff();
+	}
 }
 
-void Player::refreshCooldowns(const Uint32& deltaTime)
+void Player::refreshCooldowns(const double& deltaTime)
 {
+	dashTimer(deltaTime);
 	refreshDashCoolDown(deltaTime);
 	refreshGunCadence(deltaTime);
+
+	if (!isGrounded() && _timeToJump > 0)
+		_timeToJump -= deltaTime;
 }
 
-void Player::refreshDashCoolDown(const Uint32& deltaTime)
+void Player::refreshDashCoolDown(const double& deltaTime)
 {
 	if (_numDash < _maxDash) {
 		_dashCD -= deltaTime;
@@ -310,7 +335,20 @@ void Player::refreshDashCoolDown(const Uint32& deltaTime)
 	}
 }
 
-void Player::refreshGunCadence(const Uint32& deltaTime)
+void Player::dashTimer(const double & deltaTime)
+{
+	if (_onDash&&!dashDown)
+	{
+		dashDur -= deltaTime;
+		if (dashDur <= 0)
+		{
+			dashDur = 250;
+			_onDash = false;
+		}
+	}
+}
+
+void Player::refreshGunCadence(const double& deltaTime)
 {
 	_currentGun->refreshGunCadence(deltaTime);
 	_otherGun->refreshGunCadence(deltaTime);
@@ -318,7 +356,9 @@ void Player::refreshGunCadence(const Uint32& deltaTime)
 
 void Player::move(const Vector2D& dir, const double& speed)
 {
-	if (abs(_body->getBody()->GetLinearVelocity().x) < speed)
+	if (abs(_body->getBody()->GetLinearVelocity().x) < speed ||dir.getX()==0)
+		_body->getBody()->ApplyLinearImpulseToCenter(b2Vec2(dir.getX() * speed, 0),true);
+	else
 		_body->getBody()->SetLinearVelocity(b2Vec2(dir.getX() * speed, _body->getBody()->GetLinearVelocity().y));
 }
 
@@ -342,8 +382,9 @@ void Player::setPlayerPanel(PlayerPanel * p)
 
 bool Player::isDashing() const
 {
-	return ((_anim->getCurrentAnim() == AnimatedSpriteComponent::Dash || _anim->getCurrentAnim() == AnimatedSpriteComponent::DashBack 
-		|| _anim->getCurrentAnim() == AnimatedSpriteComponent::DashDown) && !_anim->animationFinished());
+	/*return ((_anim->getCurrentAnim() == AnimatedSpriteComponent::Dash || _anim->getCurrentAnim() == AnimatedSpriteComponent::DashBack 
+		|| _anim->getCurrentAnim() == AnimatedSpriteComponent::DashDown) && !_anim->animationFinished());*/
+	return _onDash;
 }
 
 bool Player::isMeleeing() const
@@ -358,19 +399,25 @@ bool Player::isReloading() const
 
 bool Player::isJumping() const
 {
-	return ((_anim->getCurrentAnim() == AnimatedSpriteComponent::BeforeJump || _anim->getCurrentAnim() == AnimatedSpriteComponent::Jump
-		|| _anim->getCurrentAnim() == AnimatedSpriteComponent::Falling || _anim->getCurrentAnim() == AnimatedSpriteComponent::StartFalling) && !_anim->animationFinished());
+	return (_anim->getCurrentAnim() == AnimatedSpriteComponent::BeforeJump || _anim->getCurrentAnim() == AnimatedSpriteComponent::Jump) && !_anim->animationFinished();
+}
+
+bool Player::isFalling() const
+{
+	return (_anim->getCurrentAnim() == AnimatedSpriteComponent::Falling || _anim->getCurrentAnim() == AnimatedSpriteComponent::StartFalling) && !_anim->animationFinished();
 }
 
 
 void Player::dash(const Vector2D& dir)
 {
-	double force = 400;
-	move(Vector2D(0, 0), 0);
-	_body->getBody()->ApplyLinearImpulse(b2Vec2(dir.getX() * force, dir.getY() * force * 1.5), _body->getBody()->GetWorldCenter(), true);
+	double force = 40;
+	//move(Vector2D(0, 0), 0);
+	_body->getBody()->SetLinearVelocity(b2Vec2(dir.getX() * force, dir.getY() * force * 1.5));
 	_numDash--;
 	_isDashing = false;
-
+	_onDash = true;
+	_body->getBody()->SetLinearDamping(0);
+	_body->getBody()->SetGravityScale(0);
 	if (dir.getY() == 0) 
 	{
 		if ((!_anim->isFlipped() && dir.getX() > 0) || (_anim->isFlipped() && dir.getX() < 0))
@@ -379,23 +426,39 @@ void Player::dash(const Vector2D& dir)
 			_anim->playAnim(AnimatedSpriteComponent::DashBack);
 	}
 	else
+	{
 		_anim->playAnim(AnimatedSpriteComponent::DashDown);
+		dashDown = true;
+	}
 
 	_playerPanel->updateDashViewer(_numDash);
+}
+
+void Player::dashOff()
+{
+
+	double _gravScale = 4, _damping = 3.0;
+	_body->getBody()->SetLinearDamping(_damping);
+	_body->getBody()->SetGravityScale(_gravScale);
 }
 
 
 void Player::jump()
 {
-	double _jumpForce = 300;
+	double _jumpForce = 360;
+	_body->getBody()->SetLinearVelocity(b2Vec2(_body->getBody()->GetLinearVelocity().x, 0));
 	_body->getBody()->ApplyLinearImpulse(b2Vec2(0, -_jumpForce), _body->getBody()->GetWorldCenter(), true);
 	setGrounded(false);
+	_timeToJump = 0.f;
 	_anim->playAnim(AnimatedSpriteComponent::BeforeJump);
 }
 
 void Player::melee()
 {
+	if (_melee->isActive())
+		_melee->endMelee();
 	_anim->playAnim(AnimatedSpriteComponent::MeleeKnife);
+	_melee->meleeAttack(_body->getBody()->GetPosition().x* M_TO_PIXEL, _body->getBody()->GetPosition().y*M_TO_PIXEL, (_anim->isFlipped()) ? -1 : 1);
 	_isMeleeing = false;
 }
 
@@ -424,42 +487,13 @@ bool Player::canReload()
 	return false;
 }
 
-void Player::meleeAttack()
+void Player::checkMelee()
 {
-	int dir;
-	(_anim->isFlipped()) ? dir = -1 : dir = 1;
-
-	double playerX = _body->getBody()->GetPosition().x * M_TO_PIXEL, playerY = _body->getBody()->GetPosition().y *M_TO_PIXEL,
-		w = _body->getW()*M_TO_PIXEL, h = _body->getH()* M_TO_PIXEL, x, y;
-		
-	MeleeAttributes meleeWeapon = getGame()->MeleeWeapons[_equippedMelee];
-
-	switch (meleeWeapon.type)
-	{
-	case(Knife):
-	case(Chainsaw):
-		x = playerX + (2 * w * dir);
-		y = playerY;
-		w *= 2;
-		h /= 2;
-		break;
-	case(Lightsaber):
-	case(Axe):
-		x = playerX + w * dir;
-		y = playerY - h * 2;
-		w *= 2;
-		h /= 2;
-		break;
-	}
-	_melee->MeleeAttack(x, y, w, h, meleeWeapon.damage, Vector2D(playerX, playerY), dir, meleeWeapon.type);
+	if (!isMeleeing() && _melee != nullptr && _melee->isActive())
+		_melee->endMelee();
 }
 
-void Player::changeMelee(int meleeType)
+void Player::changeMelee(Melee* newMelee)
 {
-	_equippedMelee = getGame()->MeleeWeapons[meleeType].type;
-}
-
-void Player::endMelee()
-{
-	_melee->endMelee();
+	_melee = newMelee;
 }

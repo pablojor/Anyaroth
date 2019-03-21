@@ -15,15 +15,15 @@ DistanceStaticEnemy::DistanceStaticEnemy(Player* player, Game* g, PlayState* pla
 	_anim->addAnim(AnimatedSpriteComponent::EnemyDie, 18, false);
 
 	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
-	_body->addCricleShape(b2Vec2(0, _body->getH() + _body->getH() / 20), _body->getW() - _body->getW() / 20, ENEMIES, FLOOR | PLAYER_BULLETS | MELEE);
+	_body->addCricleShape(b2Vec2(0, _body->getH() + _body->getH() / 20), _body->getW() - _body->getW() / 20, ENEMIES, FLOOR);
 }
 
 void DistanceStaticEnemy::update(double time)
 {
+
 	if (!_dead && inCamera())
 	{
 		DistanceEnemy::update(time);
-
 		BodyComponent* _playerBody = _player->getComponent<BodyComponent>();
 
 		b2Vec2 enemyPos = _body->getBody()->GetPosition(), playerPos = _playerBody->getBody()->GetPosition();

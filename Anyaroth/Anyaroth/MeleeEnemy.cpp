@@ -14,18 +14,19 @@ MeleeEnemy::MeleeEnemy(Player* player, Game* g, PlayState* play, Texture* textur
 
 	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 13, true);
 	_anim->addAnim(AnimatedSpriteComponent::EnemyWalk, 8, true);
-	_anim->addAnim(AnimatedSpriteComponent::EnemyAttack, 11, false);
+	_anim->addAnim(AnimatedSpriteComponent::EnemyAttack, 11, false, 100);
 	_anim->addAnim(AnimatedSpriteComponent::EnemyDie, 18, false);
 
 	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
-	_body->addCricleShape(b2Vec2(0, _body->getH() + _body->getH() / 20), _body->getW() - _body->getW() / 20, ENEMIES, FLOOR | PLAYER_BULLETS | MELEE);
+	_body->addCricleShape(b2Vec2(0, _body->getH() + _body->getH() / 20), _body->getW() - _body->getW() / 20, ENEMIES, FLOOR);
 }
 
 void MeleeEnemy::update(double time)
 {
+	Enemy::update(time);
 	if (!_dead && inCamera())
 	{
-		Enemy::update(time);
+		
 		BodyComponent* _playerBody = _player->getComponent<BodyComponent>();
 
 		b2Vec2 enemyPos = _body->getBody()->GetPosition(), playerPos = _playerBody->getBody()->GetPosition();
@@ -51,7 +52,7 @@ void MeleeEnemy::update(double time)
 				{
 					_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
 					_anim->playAnim(AnimatedSpriteComponent::EnemyAttack); //Llamas a animacion de ataque
-					_time = SDL_GetTicks();
+					_time = 0;
 					_attackingR = true;
 					_attacking = true;
 				}
@@ -74,7 +75,7 @@ void MeleeEnemy::update(double time)
 				{
 					_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
 					_anim->playAnim(AnimatedSpriteComponent::EnemyAttack); //Llamas a animacion de ataque
-					_time = SDL_GetTicks();
+					_time = 0;
 					_attackingL = true;
 					_attacking = true;
 				}
@@ -87,10 +88,11 @@ void MeleeEnemy::update(double time)
 				_attackingR = _attackingL = _attacking = false;
 				_anim->playAnim(AnimatedSpriteComponent::Idle);
 			}
-			else if (SDL_GetTicks() > _time + _stopDmg && _attacking)
+			else if (_time > _stopDmg && _attacking)
+			//else if (time > _time + _stopDmg && _attacking)
 				_attacking = false;
-
-			else if (SDL_GetTicks() > _time + _attackTime && _attacking)
+			else if (_time > _attackTime && _attacking)
+			//else if (time > _time + _attackTime && _attacking)
 			{
 				if (_attackingR && (x < _attackRange + _realRange && x > 0) && y < _attackRange + _realRange && y > -_attackRange)
 				{
@@ -103,6 +105,7 @@ void MeleeEnemy::update(double time)
 					_attacking = false;
 				}
 			}
+			_time += time;
 		}
 		else
 		{

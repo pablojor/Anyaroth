@@ -128,7 +128,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_mainCamera->setBackGround(a);
 
 	//Cursor
-	_cursor = new Cursor(g->getTexture("GunCursor"), g, this);
+	_cursor = new Cursor(g);
 	_stages.push_back(_cursor);
 	//_player->getWeaponArm()->setCursor(_cursor);
 
@@ -167,6 +167,15 @@ bool PlayState::handleEvents(SDL_Event& e)
 		_gameptr->pushState(new PauseState(_gameptr));
 		handled = true;
 	}
+	//Para probar el Zoom y sus distintan opciones
+	else if (e.type == SDL_KEYDOWN && (e.key.keysym.sym == SDLK_KP_MINUS || e.key.keysym.sym == SDLK_MINUS))
+		_mainCamera->zoomOut();
+	else if (e.type == SDL_KEYDOWN && (e.key.keysym.sym == SDLK_KP_PLUS || e.key.keysym.sym == SDLK_PLUS))
+		_mainCamera->zoomIn();
+	else if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_z)
+		_mainCamera->setZoom(_mainCamera->getZoomRatio() + 1, true);
+	else if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_x)
+		_mainCamera->setZoom(_mainCamera->getZoomRatio() - 1, true);
 	return handled;
 }
 
