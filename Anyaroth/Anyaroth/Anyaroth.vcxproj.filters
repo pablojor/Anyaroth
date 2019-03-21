@@ -121,29 +121,14 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>Archivos de código\Objects\Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="DistanceDynamicEnemy.cpp">
-      <Filter>Archivos de código\Objects\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="DistanceStaticEnemy.cpp">
-      <Filter>Archivos de código\Objects\Enemies</Filter>
-    </ClCompile>
     <ClCompile Include="HurtRenderComponent.cpp">
       <Filter>Archivos de código\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="DistanceEnemy.cpp">
-      <Filter>Archivos de código\Objects\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="Cursor.cpp">
-      <Filter>Archivos de código\UIElements</Filter>
     </ClCompile>
     <ClCompile Include="MartyrEnemy.cpp">
       <Filter>Archivos de código\Objects\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="MeleeEnemy.cpp">
       <Filter>Archivos de código\Objects\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="MenuButton.cpp">
-      <Filter>Archivos de código\HUDs</Filter>
     </ClCompile>
     <ClCompile Include="SpriteComponent.cpp">
       <Filter>Archivos de código\Components</Filter>
@@ -166,14 +151,11 @@
     <ClCompile Include="PoolWrapper.cpp">
       <Filter>Archivos de código\Pools</Filter>
     </ClCompile>
-    <ClCompile Include="EnemyArm.cpp">
-      <Filter>Archivos de código\Objects\Enemies</Filter>
-    </ClCompile>
     <ClCompile Include="Axe.cpp">
-      <Filter>Archivos de código\Melee</Filter>
+      <Filter>Archivos de código\Objects\Melee</Filter>
     </ClCompile>
     <ClCompile Include="Melee.cpp">
-      <Filter>Archivos de código\Melee</Filter>
+      <Filter>Archivos de código\Objects\Melee</Filter>
     </ClCompile>
     <ClCompile Include="AmmoPackage.cpp">
       <Filter>Archivos de código\Objects\Collectables</Filter>
@@ -205,17 +187,35 @@
     <ClCompile Include="Player.cpp">
       <Filter>Archivos de código\Objects\Player</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerArm.cpp">
-      <Filter>Archivos de código\Objects\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="Arm.cpp">
-      <Filter>Archivos de código\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="Bullet.cpp">
       <Filter>Archivos de código\Objects</Filter>
     </ClCompile>
     <ClCompile Include="LevelManager.cpp">
       <Filter>Archivos de código\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Cursor.cpp">
+      <Filter>Archivos de código\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="DistanceDynamicEnemy.cpp">
+      <Filter>Archivos de código\Objects\Enemies\Distanceenemies</Filter>
+    </ClCompile>
+    <ClCompile Include="DistanceEnemy.cpp">
+      <Filter>Archivos de código\Objects\Enemies\Distanceenemies</Filter>
+    </ClCompile>
+    <ClCompile Include="DistanceStaticEnemy.cpp">
+      <Filter>Archivos de código\Objects\Enemies\Distanceenemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Arm.cpp">
+      <Filter>Archivos de código\Objects\Arms</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyArm.cpp">
+      <Filter>Archivos de código\Objects\Arms</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerArm.cpp">
+      <Filter>Archivos de código\Objects\Arms</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuButton.cpp">
+      <Filter>Archivos de código\Objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -360,20 +360,8 @@
     <ClInclude Include="Enemy.h">
       <Filter>Archivos de encabezado\Objects\Enemies</Filter>
     </ClInclude>
-    <ClInclude Include="DistanceDynamicEnemy.h">
-      <Filter>Archivos de encabezado\Objects\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="DistanceStaticEnemy.h">
-      <Filter>Archivos de encabezado\Objects\Enemies</Filter>
-    </ClInclude>
     <ClInclude Include="HurtRenderComponent.h">
       <Filter>Archivos de encabezado\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="DistanceEnemy.h">
-      <Filter>Archivos de encabezado\Objects\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="Cursor.h">
-      <Filter>Archivos de encabezado\UIElements</Filter>
     </ClInclude>
     <ClInclude Include="MartyrEnemy.h">
       <Filter>Archivos de encabezado\Objects\Enemies</Filter>
@@ -386,9 +374,6 @@
     </ClInclude>
     <ClInclude Include="Collectable.h">
       <Filter>Archivos de encabezado\Objects\Collectables</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuButton.h">
-      <Filter>Archivos de encabezado\HUDs</Filter>
     </ClInclude>
     <ClInclude Include="Bullet.h">
       <Filter>Archivos de encabezado\Objects\Player</Filter>
@@ -417,17 +402,11 @@
     <ClInclude Include="BasicPistol.h">
       <Filter>Archivos de encabezado\Guns</Filter>
     </ClInclude>
-    <ClInclude Include="Arm.h">
-      <Filter>Archivos de encabezado\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyArm.h">
-      <Filter>Archivos de encabezado\Objects\Enemies</Filter>
-    </ClInclude>
     <ClInclude Include="Axe.h">
-      <Filter>Archivos de encabezado\Melee</Filter>
+      <Filter>Archivos de encabezado\Objects\Melee</Filter>
     </ClInclude>
     <ClInclude Include="Melee.h">
-      <Filter>Archivos de encabezado\Melee</Filter>
+      <Filter>Archivos de encabezado\Objects\Melee</Filter>
     </ClInclude>
     <ClInclude Include="AmmoPackage.h">
       <Filter>Archivos de encabezado\Objects\Collectables</Filter>
@@ -459,9 +438,6 @@
     <ClInclude Include="Player.h">
       <Filter>Archivos de encabezado\Objects\Player</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerArm.h">
-      <Filter>Archivos de encabezado\Objects\Player</Filter>
-    </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
@@ -470,6 +446,30 @@
     </ClInclude>
     <ClInclude Include="LevelManager.h">
       <Filter>Archivos de encabezado\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Cursor.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="DistanceEnemy.h">
+      <Filter>Archivos de encabezado\Objects\Enemies\DistanceEnemies</Filter>
+    </ClInclude>
+    <ClInclude Include="DistanceDynamicEnemy.h">
+      <Filter>Archivos de encabezado\Objects\Enemies\DistanceEnemies</Filter>
+    </ClInclude>
+    <ClInclude Include="DistanceStaticEnemy.h">
+      <Filter>Archivos de encabezado\Objects\Enemies\DistanceEnemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Arm.h">
+      <Filter>Archivos de encabezado\Objects\Arms</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyArm.h">
+      <Filter>Archivos de encabezado\Objects\Arms</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerArm.h">
+      <Filter>Archivos de encabezado\Objects\Arms</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuButton.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -560,12 +560,6 @@
     <Filter Include="Archivos de código\Pools">
       <UniqueIdentifier>{bdbd79a4-1a96-476c-95bc-807bff9b1b38}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de encabezado\Melee">
-      <UniqueIdentifier>{1db162cf-0eca-4cdb-960d-3504e32685dd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de código\Melee">
-      <UniqueIdentifier>{36c1cf67-8b51-4fad-a240-8b9818e16d0c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Archivos de código\Objects\Collectables">
       <UniqueIdentifier>{b19a7d27-bce4-4ee2-be5b-0042e8bbff6d}</UniqueIdentifier>
     </Filter>
@@ -583,6 +577,24 @@
     </Filter>
     <Filter Include="Archivos de encabezado\Objects\Player">
       <UniqueIdentifier>{5bb67332-30c4-4ce2-aaac-56e201a041e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Objects\Enemies\DistanceEnemies">
+      <UniqueIdentifier>{481930d9-3eb8-4deb-934c-a69e04034ebc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Objects\Arms">
+      <UniqueIdentifier>{64525575-24ef-4adf-a265-99f350417bce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Objects\Melee">
+      <UniqueIdentifier>{1db162cf-0eca-4cdb-960d-3504e32685dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código\Objects\Enemies\Distanceenemies">
+      <UniqueIdentifier>{eb605368-bf83-4049-be81-235af7aedaf0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código\Objects\Arms">
+      <UniqueIdentifier>{e78dcebb-8f07-4678-925a-d31773018b9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código\Objects\Melee">
+      <UniqueIdentifier>{36c1cf67-8b51-4fad-a240-8b9818e16d0c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -12,8 +12,6 @@ Collectable::Collectable(Game* g, Texture* texture, Vector2D iniPos, int value, 
 	_body = addComponent<BodyComponent>();
 	_body->getBody()->SetType(b2_kinematicBody);
 	_body->filterCollisions(OBJECTS, PLAYER);
-
-	setActive(true);
 }
 
 void Collectable::collect()

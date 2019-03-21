@@ -46,8 +46,6 @@ Map::Map(string filename, Game* game, PlayState* playstate, Texture* tileset, in
 		throw AnyarothError("No se ha encontrado el archivo introducido");
 
 	createObjects();
-
-	setActive(true);
 }
 
 Map::~Map()

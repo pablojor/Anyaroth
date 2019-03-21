@@ -16,8 +16,6 @@ Cursor::Cursor(Texture* texture, Game* g, PlayState* play) : GameComponent(g)
 	_cam = play->getMainCamera();
 
 	_anim->playAnim(AnimatedSpriteComponent::Idle);
-
-	setActive(true);
 }
 
 void Cursor::update(double time)

@@ -72,8 +72,6 @@ Player::Player(Game* game, int xPos, int yPos) :  GameComponent(game, "Player")
 	//Melee
 	_melee = new Melee(game);
 	addChild(_melee);
-
-	setActive(true);
 }
 
 Player::~Player()

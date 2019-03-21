@@ -10,6 +10,4 @@ Tile::Tile(double x, double y, int f, int c, Texture* t, Game* g, string tag) : 
 	auto frame = addComponent<FrameComponent>();
 	transform->setPosition(x, y);
 	frame->setFilAndCol(f, c);
-
-	setActive(true);
 }

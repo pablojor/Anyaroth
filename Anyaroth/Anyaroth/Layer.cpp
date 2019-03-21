@@ -66,8 +66,6 @@ Layer::Layer(string filename, string name, Texture* t, Game* g, string tag) : Ga
 	}
 	else
 		throw AnyarothError("No se ha encontrado el archivo introducido");
-
-	setActive(true);
 }
 
 Layer::~Layer()

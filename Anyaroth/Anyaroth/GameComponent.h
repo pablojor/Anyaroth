@@ -25,7 +25,7 @@ private:
 
 	Game* _game = nullptr; //puntero a game
 	b2World* _world = nullptr; //puntero a world
-	bool _active = false;
+	bool _active = true;
 	string _tag;
 
 	inline void add_component(Component* c, string name) { _components[name] = c; }
