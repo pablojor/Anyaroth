@@ -12,13 +12,11 @@ class Game;
 struct Dialogue
 {
 	Texture* face = nullptr;
+	string voice;	//Voz
 	string name;
-	//Voz
-	//Sonido especial al inicio/final de la conversacion
-
-	//Sonidos de cada texto (0->sin sonido, 1->sonido de sorpresa etc etc)
 	vector<string> conversation;
-	vector<int> faces;			//0->feliz, 1->triste, 2->enfadado // esto iria con un enum
+	vector<int> faces;			//Caras de cada texto (0->feliz, 1->triste, 2->enfadado) // esto iria con un enum
+	vector<string> sounds;		//Sonidos de cada texto (" "->sin sonido, "surprise"->sonido de sorpresa etc etc) //Sonido inicio/final de la conversacion
 };
 
 class DialoguePanel : public PanelUI

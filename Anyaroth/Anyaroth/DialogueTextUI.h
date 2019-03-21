@@ -11,6 +11,8 @@ private:
 	double _waitTime;
 	double _time = 0;
 
+	string _voice;
+
 	string _textToType = "Mk al habla... Esto es una prueba. Repito. Esto es una prueba.";
 	vector<char> _dialogueText;
 
@@ -22,6 +24,8 @@ public:
 	virtual void update(double time);
 
 	void type(string text);
+
+	inline void setVoice(const string& s) { _voice = s; }
 
 	inline bool textTyped() const { return _textTyped; }
 

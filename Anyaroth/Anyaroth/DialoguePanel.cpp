@@ -10,9 +10,11 @@ DialoguePanel::DialoguePanel(Game* game) : PanelUI(game)
 	//dialogo de prueba, esto iria leido de un json o algo
 	_testDialogue = Dialogue{
 		game->getTexture("DialogueFace"),
+		"exampleVoice",
 		"Jagh",
 		{ "*Bzzt..Bip, bip..* Hey, ¿qué tal?", "Ajá, con que programando... ya veo...", "¡Pues sigue con eso, chaval! ¡Adew! *Bip*" },
-		{0,1,2}
+		{0,1,2},
+		{" ", " ", " ", " "}
 	};
 
 	/***********/
@@ -47,7 +49,6 @@ DialoguePanel::DialoguePanel(Game* game) : PanelUI(game)
 	setVisible(false);
 
 	//Asignamos lo que necesite cada quien
-	////////////////////
 
 	//Añadimos al panel
 	addChild(_backgroundImage);
@@ -70,6 +71,7 @@ void DialoguePanel::startDialogue(const Dialogue& dialogue)
 		_nameText->setText(_dialogue.name);
 		_faceImage->setImage(_dialogue.face);
 		_dialogueText->setTextTyped(false);
+		_dialogueText->setVoice(_dialogue.voice);
 
 		//ponemos visible el cuadro de dialogo primero antes que las demas cosas
 		setVisible(true);
@@ -79,12 +81,12 @@ void DialoguePanel::startDialogue(const Dialogue& dialogue)
 		_backgroundImage->playAnim(AnimatedImageUI::Start);
 
 		//REPRODUCIR SONIDO DE ABRIR DIALOGO
+		_game->getSoundManager()->playSFX("openDialogue");
 	}
 }
 
 void DialoguePanel::endDialogue()
 {
-	_dialogue = {};
 	_isConversating = false;
 
 	//ponemos invisible todo
@@ -98,11 +100,16 @@ void DialoguePanel::endDialogue()
 	_dialogueText->setText(" ");
 
 	//REPRODUCIR SONIDO ESPECIAL DE FINAL DE DIALOGO
+	if (_dialogue.sounds[_currentText] != " ")
+		_game->getSoundManager()->playSFX(_dialogue.sounds[_currentText]);
 
 	//comenzamos animacion de cerrar diálogo
 	_backgroundImage->playAnim(AnimatedImageUI::End);
 
 	//REPRODUCIR SONIDO DE CERRAR DIALOGO
+	_game->getSoundManager()->playSFX("closeDialogue");
+
+	_dialogue = {};
 }
 
 void DialoguePanel::nextText()
@@ -119,9 +126,12 @@ void DialoguePanel::nextText()
 				_faceImage->changeFrame(_dialogue.faces[_currentText]);
 
 			//REPRODUCIR SONIDO DE PASO DE TEXTO DEL DIALOGO
-			
-			//ANIMACION DE INDICADOR DE PASO DE TEXTO DEL DIALOGO
-			_game->getSoundManager()->playSFX("example");
+			_game->getSoundManager()->playSFX("example1");
+			///ANIMACION DE INDICADOR DE PASO DE TEXTO DEL DIALOGO
+			//REPRODUCIR SONIDO ESPECIAL DE TEXTO DEL DIALOGO
+			if (_dialogue.sounds[_currentText] != " ")
+				_game->getSoundManager()->playSFX(_dialogue.sounds[_currentText]);
+
 			_dialogueText->type(_dialogue.conversation[_currentText]);
 		}
 		else //Si _currentText ya es el último, se termina la conversación y se cierra el diálogo.
@@ -158,6 +168,8 @@ void DialoguePanel::update(double time)
 			_dialogueText->setVisible(true);
 
 			//REPRODUCIR SONIDO ESPECIAL DE INICIO DE DIALOGO
+			if (_dialogue.sounds[_currentText] != " ")
+				_game->getSoundManager()->playSFX(_dialogue.sounds[_currentText]);
 
 			//comenzamos dialogo
 			_faceImage->changeFrame(_dialogue.faces[_currentText]);

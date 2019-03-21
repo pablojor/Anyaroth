@@ -4,7 +4,7 @@
 DialogueTextUI::DialogueTextUI(Game* game, string text, Font* font, uint fontSize, int xPos, int yPos, SDL_Color color) :
 	TextUI(game, text, font, fontSize, xPos, yPos, color)
 {
-	
+
 }
 
 
@@ -22,7 +22,7 @@ void DialogueTextUI::update(double time)
 			switch (_textToType[_character])
 			{
 			case '.':
-				_waitTime = 150;
+				_waitTime = 150; //Poner parámetro aquí para la velocidad de reproduccion
 				break;
 			default:
 				_waitTime = 20;
@@ -38,7 +38,10 @@ void DialogueTextUI::update(double time)
 
 				//reproducir sonido cuando la letra no es un espacio
 				if (_textToType[_character] != ' ')
-					_game->getSoundManager()->playSFX("example1");
+				{
+					_game->getSoundManager()->playSFX(_voice + to_string(rand() % 3));
+				}
+
 
 				_time = 0;
 				_character++;
