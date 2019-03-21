@@ -211,6 +211,17 @@
     <ClCompile Include="AmmoPackage.cpp">
       <Filter>Archivos de código\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="SpawnerEnemy.cpp">
+      <Filter>Archivos de código\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Capsule.cpp">
+      <Filter>Archivos de código\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="BomberEnemy.cpp">
+      <Filter>Archivos de código\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="ExplosiveBullet.cpp" />
+    <ClCompile Include="FlyingEnemy.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -459,6 +470,17 @@
     <ClInclude Include="PlayerArm.h">
       <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
+    <ClInclude Include="SpawnerEnemy.h">
+      <Filter>Archivos de encabezado\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Capsule.h">
+      <Filter>Archivos de encabezado\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="BomberEnemy.h">
+      <Filter>Archivos de encabezado\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="ExplosiveBullet.h" />
+    <ClInclude Include="FlyingEnemy.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de encabezado">
