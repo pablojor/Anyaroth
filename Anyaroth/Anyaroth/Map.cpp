@@ -4,6 +4,9 @@
 #include "MartyrEnemy.h"
 #include "DistanceStaticEnemy.h"
 #include "DistanceDynamicEnemy.h"
+#include "BomberEnemy.h"
+#include "SpawnerEnemy.h"
+#include "StaticSpawnerEnemy.h"
 #include "Coin.h"
 #include "GunType_def.h"
 #include <json.hpp>
@@ -81,19 +84,31 @@ void Map::createObjects()
 			}
 			else if (name == "Melee")
 			{
-				_objects.push_back(new MeleeEnemy(_player, _game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), name));
+				_objects.push_back(new MeleeEnemy(_player, _game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), "Enemy"));
 			}
 			else if (name == "Martyr")
 			{
-				_objects.push_back(new MartyrEnemy(_player, _game, _playState, _game->getTexture("EnemyMartyr"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), name));
+				_objects.push_back(new MartyrEnemy(_player, _game, _playState, _game->getTexture("EnemyMartyr"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), "Enemy"));
 			}
-			else if (name == "DistanceEstatic")
+			else if (name == "DistanceStatic")
 			{
-				_objects.push_back(new DistanceStaticEnemy(_player, _game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), name, BasicEnemyGun));
+				_objects.push_back(new DistanceStaticEnemy(_player, _game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), "Enemy", _playState->getEnemyPool()));
 			}
 			else if (name == "DistanceDynamic")
 			{
-				_objects.push_back(new DistanceDynamicEnemy(_player, _game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), name, BasicEnemyGun));
+				_objects.push_back(new DistanceDynamicEnemy(_player, _game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), "Enemy", _playState->getEnemyPool()));
+			}
+			else if (name == "Bomber")
+			{
+				_objects.push_back(new BomberEnemy(_player, _game, _playState, _game->getTexture("EnemyMartyr"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), "Enemy", _playState->getExplosivePool()));
+			}
+			else if (name == "Spawner")
+			{
+				_objects.push_back(new SpawnerEnemy(_player, _game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), "Enemy"));
+			}
+			else if (name == "SpawnerStatic")
+			{
+				_objects.push_back(new StaticSpawnerEnemy(_player, _game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), "Enemy"));
 			}
 			else if (name == "Coin")
 			{

@@ -2,6 +2,7 @@
 #include "GameComponent.h"
 #include "AnimatedSpriteComponent.h"
 #include "Player.h"
+#include "MeleeEnemy.h"
 
 Capsule::Capsule(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag) : Enemy(player, g, play, texture, posIni, tag)
 {
@@ -41,9 +42,10 @@ void Capsule::update(double time)
 		b2Vec2 enemyPos = _body->getBody()->GetPosition();
 
 		enemySpawn(new MeleeEnemy(_player, _game, _play, _game->getTexture("EnemyMelee"), Vector2D(enemyPos.x * 8 - 30/*Numero a ajustar dependiendo del sprite*/, enemyPos.y * 8 - 30/*Numero a ajustar dependiendo del sprite*/), "Enemy"));
-		_play->KillObject(_itList);
+		_play->deleteObject(_itList);
 	}
 }
+
 void Capsule::beginCollision(GameComponent * other, b2Contact* contact)
 {
 	string otherTag = other->getTag();
@@ -51,7 +53,6 @@ void Capsule::beginCollision(GameComponent * other, b2Contact* contact)
 	auto fB = contact->GetFixtureB();
 
 	//Deteccion del suelo
-	if ((fA->IsSensor() || fB->IsSensor()) && other->getTag() == "Suelo")
+	if ((fA->IsSensor() || fB->IsSensor()) && other->getTag() == "Ground")
 		_spawning = true;
-
 }

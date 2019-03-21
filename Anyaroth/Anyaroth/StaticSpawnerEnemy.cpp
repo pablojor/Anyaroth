@@ -1,8 +1,8 @@
 #include "StaticSpawnerEnemy.h"
 #include "GameComponent.h"
 #include "AnimatedSpriteComponent.h"
-#include "Player.h"
 #include "HurtRenderComponent.h"
+#include "Player.h"
 #include "FlyingEnemy.h"
 
 StaticSpawnerEnemy::StaticSpawnerEnemy(Player * player, Game * g, PlayState * play, Texture * texture, Vector2D posIni, string tag) : Enemy(player, g, play, texture, posIni, tag)
@@ -31,13 +31,14 @@ void StaticSpawnerEnemy::update(double time)
 	{
 		Enemy::update(time);
 		currentEnemies = activeEnemies();
+
 		if (inCamera())
 		{
 			if (_time >= _spawnTime && currentEnemies < maxEnemies)
 			{
 
-				enemies.push_back(new FlyingEnemy(_player, _game, _play, _game->getTexture("EnemyMelee"), Vector2D(enemyPos.x * M_TO_PIXEL, enemyPos.y * M_TO_PIXEL), "Enemy"));
-				enemySpawn(enemies.back());
+				_enemies.push_back(new FlyingEnemy(_player, _game, _play, _game->getTexture("EnemyMelee"), Vector2D(enemyPos.x * M_TO_PIXEL, enemyPos.y * M_TO_PIXEL), "Enemy"));
+				enemySpawn(_enemies.back());
 				_time = 0;
 
 			}
@@ -57,11 +58,10 @@ void StaticSpawnerEnemy::update(double time)
 
 int StaticSpawnerEnemy::activeEnemies()
 {
-	int count=0;
-	for (auto enemy : enemies)
-	{
+	int count = 0;
+	for (auto enemy : _enemies)
 		if (enemy->isActive())
 			count++;
-	}
+
 	return count;
 }

@@ -1,15 +1,11 @@
 #include "BasicShotgun.h"
 
-
-
 BasicShotgun::BasicShotgun(Game * game) : Gun(game->getTexture("ArmShotgun"), game->getTexture("PistolBullet"), 100, 25, 60, 2, 30, 800)
 {
 	_offset = { 28, -1 };
 }
 
-BasicShotgun::~BasicShotgun()
-{
-}
+BasicShotgun::~BasicShotgun() {}
 
 void BasicShotgun::shoot(BulletPool * bulletPool, const Vector2D & position, const double & angle, const string & tag)
 {
@@ -30,4 +26,3 @@ void BasicShotgun::shoot(BulletPool * bulletPool, const Vector2D & position, con
 		}
 	}
 }
-

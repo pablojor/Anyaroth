@@ -383,6 +383,75 @@
         }, 
         {
          "draworder":"topdown",
+         "id":18,
+         "name":"Bomber",
+         "objects":[
+                {
+                 "gid":10,
+                 "height":16,
+                 "id":178,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":176,
+                 "y":288
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":19,
+         "name":"Spawner",
+         "objects":[
+                {
+                 "gid":10,
+                 "height":16,
+                 "id":179,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":240,
+                 "y":288
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":20,
+         "name":"SpawnerStatic",
+         "objects":[
+                {
+                 "gid":10,
+                 "height":16,
+                 "id":180,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":208,
+                 "y":400
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
          "id":10,
          "name":"Coin",
          "objects":[
@@ -956,8 +1025,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":18,
- "nextobjectid":178,
+ "nextlayerid":21,
+ "nextobjectid":181,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.2.1",

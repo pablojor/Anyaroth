@@ -11,12 +11,6 @@ DistanceEnemy::DistanceEnemy(Player* player, Game* g, PlayState* play, Texture* 
 	_myGun = new BasicPistol(g);
 
 	_myBulletPool = pool;
-	// ShooterInterface* sh = getGame()->gameGuns[type].shooter;
-	// int mA = getGame()->gameGuns[type].maxAmmo;
-	// int mC = getGame()->gameGuns[type].maxClip;
-	// double c = getGame()->gameGuns[type].cadence;
-	
-	//_arm->setGun(new Gun(_arm, sh, bp, type, mA, mC, c));
 }
 
 void DistanceEnemy::RayCast()

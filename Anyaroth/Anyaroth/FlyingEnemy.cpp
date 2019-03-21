@@ -13,19 +13,16 @@ FlyingEnemy::FlyingEnemy(Player* player, Game* g, PlayState* play, Texture* text
 	_body->getBody()->SetGravityScale(0);
 	_body->getBody()->GetFixtureList()->SetSensor(true);
 
-	prevPos= Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL);
+	_prevPos= Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL);
 	_playerBody = _player->getComponent<BodyComponent>();
-	setActive(true);
 }
 
-
-FlyingEnemy::~FlyingEnemy()
-{
-}
+FlyingEnemy::~FlyingEnemy() {}
 
 void FlyingEnemy::update(double time)
 {
 	Enemy::update(time);
+
 	_playerPos = Vector2D(_playerBody->getBody()->GetPosition().x * M_TO_PIXEL, _playerBody->getBody()->GetPosition().y * M_TO_PIXEL);
 	_bodyPos = Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL);
 
@@ -34,8 +31,8 @@ void FlyingEnemy::update(double time)
 	//Onda Sinusoidal vertical 
 	double x = _bodyPos.getX() + _velocity.getX() *dir.getX();
 
-	double prevY = prevPos.getY() + _velocity.getY() *dir.getY();
-	prevPos = Vector2D(x, prevY);
+	double prevY = _prevPos.getY() + _velocity.getY() *dir.getY();
+	_prevPos = Vector2D(x, prevY);
 
 	double y = prevY + _amplitude * sin(_k * x - _angularFrequency * time / 1000);
 
@@ -46,6 +43,8 @@ void FlyingEnemy::beginCollision(GameComponent * other, b2Contact * contact)
 {
 	if (other->getTag() == "Player")
 		_player->subLife(_damage);
+
 	setActive(false);
-	_play->KillObject(_itList);
+
+	_play->deleteObject(_itList);
 }

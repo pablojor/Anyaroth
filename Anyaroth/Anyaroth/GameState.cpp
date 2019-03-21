@@ -10,7 +10,8 @@ GameState::~GameState()
 {
 	delete _mainCamera;
 
-	if (_canvas != nullptr) {
+	if (_canvas != nullptr)
+	{
 		delete _canvas;
 		_canvas = nullptr;
 	}
@@ -53,8 +54,10 @@ bool GameState::handleEvents(SDL_Event& e)
 		else
 			it++;
 	}
+
 	if (_canvas != nullptr && !handled)
 		_canvas->handleEvent(e);
+
 	return handled;
 }
 
@@ -66,6 +69,7 @@ Vector2D GameState::getMousePositionInWorld() const
 	//Sacamos la resolucion real que tiene el juego en la ventana
 	int gameWidth; int gameHeight;
 	gameWidth = GAME_RESOLUTION_X * winHeight / GAME_RESOLUTION_Y;
+
 	if (gameWidth > winWidth)
 	{
 		gameHeight = GAME_RESOLUTION_Y * winWidth / GAME_RESOLUTION_X;
@@ -73,7 +77,6 @@ Vector2D GameState::getMousePositionInWorld() const
 	}
 	else
 		gameHeight = GAME_RESOLUTION_Y * gameWidth / GAME_RESOLUTION_X;
-
 
 	//Bordes negros
 	int xBorder = winWidth - gameWidth;

@@ -2,7 +2,6 @@
 #include "Camera.h"
 #include "Game.h"
 
-
 void ParallaxLayer::render() const
 {
 	_texture->render(_mainRect);

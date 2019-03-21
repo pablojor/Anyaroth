@@ -96,12 +96,13 @@ void MartyrEnemy::update(double time)
 				if ((x < _explosionRange && x > -_explosionRange) && y < _explosionRange && y > -_explosionRange)
 				{
 					auto body = _player->getComponent<BodyComponent>()->getBody();
-					_player->subLife(_damage);
 
 					if (x < 20 && x > -20 && y < 20 && y > -20)
 						body->ApplyLinearImpulseToCenter(b2Vec2(_impulse * x * 3, _impulse * y * 2), true);
 					else
 						body->ApplyLinearImpulseToCenter(b2Vec2(_impulse * x, _impulse * y), true);
+
+					_player->subLife(_damage);
 				}
 				_dead = true;
 				die();

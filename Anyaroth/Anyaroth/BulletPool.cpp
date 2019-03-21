@@ -2,19 +2,11 @@
 #include "Game.h"
 
 
-BulletPool::BulletPool(Game* game) : ObjectPool<Bullet, 0>(game) {}
+BulletPool::BulletPool(Game* game) : ObjectPool<Bullet, 100>(game) {}
 
 Bullet* BulletPool::addNewBullet() 
 {
 	Bullet* b = new Bullet(getGame());
-	_objects.push_back(b);
-	b->setWorld(_game->getWorld());
-	return b;
-}
-
-Bullet * BulletPool::addNewExplosiveBullet()
-{
-	ExplosiveBullet* b = new ExplosiveBullet(getGame());
 	_objects.push_back(b);
 	b->setWorld(_game->getWorld());
 	return b;

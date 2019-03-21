@@ -5,12 +5,10 @@
 #include "checkML.h"
 #include <time.h>
 
-
-
 PlayState::PlayState(Game* g) : GameState(g)
 {
 	//Cursor
-	_cursor = new Cursor(g->getTexture("GunCursor"), g, this);
+	_cursor = new Cursor(g);
 	_stages.push_back(_cursor);
 	//SDL_ShowCursor(false);
 
@@ -27,7 +25,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_enemyBulletPool = new BulletPool(g);
 	_stages.push_back(_enemyBulletPool);
 
-	_explosivePool = new BulletPool(g);
+	_explosivePool = new ExplosiveBulletPool(g);
 	_stages.push_back(_explosivePool);
 
 	//Levels
@@ -83,7 +81,7 @@ bool PlayState::handleEvents(SDL_Event& e)
 	}
 	else if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_0) //Boton de prueba para reiniciar el nivel
 		_levelManager.resetLevel();
-	else if (e.type == SDL_KEYDOWN && (e.key.keysym.sym == SDLK_KP_MINUS || e.key.keysym.sym == SDLK_MINUS) //Para probar el Zoom y sus distintan opciones
+	else if (e.type == SDL_KEYDOWN && (e.key.keysym.sym == SDLK_KP_MINUS || e.key.keysym.sym == SDLK_MINUS)) //Para probar el Zoom y sus distintan opciones
 		_mainCamera->zoomOut();
 	else if (e.type == SDL_KEYDOWN && (e.key.keysym.sym == SDLK_KP_PLUS || e.key.keysym.sym == SDLK_PLUS))
 		_mainCamera->zoomIn();
@@ -103,5 +101,14 @@ void PlayState::update(double time)
 	{
 		_player->revive();
 		_levelManager.resetLevel();
+	}
+
+	int i = items_ToDelete.size() - 1;
+	while (i >= 0)
+	{
+		delete *items_ToDelete[i];
+		_stages.erase(items_ToDelete[i]);
+		items_ToDelete.pop_back();
+		i--;
 	}
 }

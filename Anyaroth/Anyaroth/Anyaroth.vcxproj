@@ -147,6 +147,7 @@
     <ClCompile Include="Cursor.cpp" />
     <ClCompile Include="DistanceEnemy.cpp" />
     <ClCompile Include="EnemyArm.cpp" />
+    <ClCompile Include="ExplosiveBulletPool.cpp" />
     <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="ExplosiveBullet.cpp" />
@@ -228,6 +229,7 @@
     <ClInclude Include="Cursor.h" />
     <ClInclude Include="DistanceEnemy.h" />
     <ClInclude Include="EnemyArm.h" />
+    <ClInclude Include="ExplosiveBulletPool.h" />
     <ClInclude Include="LevelManager.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="ExplosiveBullet.h" />

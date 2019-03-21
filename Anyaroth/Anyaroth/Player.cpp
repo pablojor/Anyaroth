@@ -125,7 +125,9 @@ void Player::endCollision(GameComponent * other, b2Contact* contact)
 
 void Player::die()
 {
-	_body->getBody()->SetType(b2_staticBody);
+	_dead = true;
+	_body->getBody()->SetLinearVelocity(b2Vec2(0.0, 0.0));
+	_body->getBody()->SetAngularVelocity(0);
 }
 
 void Player::revive()
@@ -141,8 +143,6 @@ void Player::revive()
 	_currentGun->resetAmmo();
 	_otherGun->resetAmmo();
 	_playerPanel->updateAmmoViewer(_currentGun->getClip(), _currentGun->getMagazine());
-
-	_body->getBody()->SetType(b2_dynamicBody);
 }
 
 void Player::subLife(int damage)
@@ -155,8 +155,7 @@ void Player::subLife(int damage)
 			if (_life.dead())
 			{
 				die();
-				_hurt->die();
-				_dead = true;
+				//_hurt->die();
 			}
 			else
 				_hurt->hurt();
@@ -285,8 +284,7 @@ void Player::handleAnimations()
 				_anim->playAnim(AnimatedSpriteComponent::WalkBack);
 		}
 	}
-	//Jumping&Falling (Si no esta en el suelo esta Saltando/Cayendo)
-	else if (!isGrounded() && !isDashing() && !isMeleeing())
+	else if (!isGrounded() && !isDashing() && !isMeleeing()) //Jumping&Falling (Si no esta en el suelo esta Saltando/Cayendo)
 	{
 		if (vel.y > 2)
 			_anim->playAnim(AnimatedSpriteComponent::Falling);

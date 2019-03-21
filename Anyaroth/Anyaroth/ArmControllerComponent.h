@@ -20,6 +20,7 @@ private:
 
 public:
 	ArmControllerComponent(GameComponent* obj);
+
 	virtual void handleInput(const SDL_Event& event);
 
 	int mouseX = 0; int mouseY = 0;

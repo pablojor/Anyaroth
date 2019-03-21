@@ -88,7 +88,6 @@ public:
 	void shoot();
 	void reload();
 
-
 	void setPlayerPanel(PlayerPanel* p);
 	inline void setPlayerBulletPool(BulletPool* pool) { _playerBulletPool = pool; }
 	inline void setPlayerPosition(Vector2D pos) { _body->getBody()->SetTransform(b2Vec2(pos.getX(), pos.getY()), 0); }
