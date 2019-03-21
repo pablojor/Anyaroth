@@ -23,8 +23,8 @@ void DistanceDynamicEnemy::update(double time)
 	if (!_dead && inCamera())
 	{
 		DistanceEnemy::update(time);
-		BodyComponent* _playerBody = _player->getComponent<BodyComponent>();
 
+		BodyComponent* _playerBody = _player->getComponent<BodyComponent>();
 		b2Vec2 enemyPos = _body->getBody()->GetPosition(), playerPos = _playerBody->getBody()->GetPosition();
 
 		double x = playerPos.x * 8 - enemyPos.x * 8, y = playerPos.y * 8 - enemyPos.y * 8;

@@ -1,15 +1,14 @@
 #pragma once
-#include <string>
 #include "Tile.h"
+#include <string>
 
 class Layer : public GameComponent
 {
 protected:
-	Texture* _tileset = nullptr;
 	vector<Tile*> _tilemap;
 
 public:
-	Layer(string name, Texture* t, string filename, Game* g, string tag);
+	Layer(string filename, string name, Texture* t, Game* g, string tag);
 	~Layer();
 
 	void render(Camera* c) const;

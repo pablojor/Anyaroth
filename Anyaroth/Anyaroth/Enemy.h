@@ -35,6 +35,7 @@ protected:
 public:
 	Enemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag);
 	virtual ~Enemy() {}
+
 	bool inCamera();
 	bool inCameraOnlyX();
 
@@ -49,9 +50,8 @@ public:
 	void die();
 	virtual void subLife(int damage);
 	inline Life getLife() const { return _life; }
-	int random(int low, int high) {
-		return low + (rand() % abs(high - low));
-	}
+
+	inline int random(int low, int high) const { return low + (rand() % abs(high - low)); }
+
 	void enemySpawn(Enemy* newEnemy);
-	
 };

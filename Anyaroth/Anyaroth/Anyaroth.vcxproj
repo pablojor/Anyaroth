@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -147,6 +147,9 @@
     <ClCompile Include="Cursor.cpp" />
     <ClCompile Include="DistanceEnemy.cpp" />
     <ClCompile Include="EnemyArm.cpp" />
+    <ClCompile Include="ExplosiveBulletPool.cpp" />
+    <ClCompile Include="LevelManager.cpp" />
+    <ClCompile Include="Map.cpp" />
     <ClCompile Include="ExplosiveBullet.cpp" />
     <ClCompile Include="FlyingEnemy.cpp" />
     <ClCompile Include="MovingComponent.cpp" />
@@ -226,6 +229,9 @@
     <ClInclude Include="Cursor.h" />
     <ClInclude Include="DistanceEnemy.h" />
     <ClInclude Include="EnemyArm.h" />
+    <ClInclude Include="ExplosiveBulletPool.h" />
+    <ClInclude Include="LevelManager.h" />
+    <ClInclude Include="Map.h" />
     <ClInclude Include="ExplosiveBullet.h" />
     <ClInclude Include="FlyingEnemy.h" />
     <ClInclude Include="MovingComponent.h" />

@@ -1,7 +1,7 @@
 #include "PauseState.h"
 #include "MenuState.h"
 
-PauseState::PauseState(Game* g) : GameState(g) 
+PauseState::PauseState(Game* g) : GameState(g)
 {
 	//Show cursor
 	SDL_ShowCursor(true);
@@ -9,17 +9,19 @@ PauseState::PauseState(Game* g) : GameState(g)
 	int buttonH = g->getTexture("Continue")->getH()*BUTTON_SCALE;
 	int buttonW = g->getTexture("Continue")->getW()*BUTTON_SCALE;
 
-	_stages.push_back(new MenuButton(Vector2D(GAME_RESOLUTION_X / 2 - buttonW / 2, GAME_RESOLUTION_Y / 2 - buttonH), g->getTexture("Continue"), g, Continue));
-	_stages.push_back(new MenuButton(Vector2D(GAME_RESOLUTION_X / 2 - buttonW / 2, GAME_RESOLUTION_Y / 2 + buttonH), g->getTexture("Menu"), g, MainMenu));
+	_stages.push_back(new MenuButton(Vector2D(CAMERA_RESOLUTION_X / 2 - buttonW / 2, CAMERA_RESOLUTION_Y / 2 - buttonH), g->getTexture("Continue"), g, Continue));
+	_stages.push_back(new MenuButton(Vector2D(CAMERA_RESOLUTION_X / 2 - buttonW / 2, CAMERA_RESOLUTION_Y / 2 + buttonH), g->getTexture("Menu"), g, MainMenu));
 }
 
 void PauseState::Continue(Game * g)
 {
+	g->setTimestep(1 / 60.0);
 	g->popState();
 }
 
 void PauseState::MainMenu(Game * g)
 {
+	g->setTimestep(1 / 60.0);
 	g->popState();
 	g->changeState(new MenuState(g));
 }

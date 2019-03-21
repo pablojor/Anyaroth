@@ -4,6 +4,7 @@
 #include <vector>
 #include <list>
 #include <map>
+#include <list>
 #include <Box2D/Box2D.h>
 
 using namespace std;
@@ -21,11 +22,11 @@ private:
 	vector<RenderComponent*> _renderComp;
 	map<string, Component*> _components;
 
-	b2World* _world = nullptr;
-	string _tag;
-	vector<GameComponent*> _children; //vector de hijos del objeto
+	list<GameComponent*> _children; //lista de hijos del objeto
 
-	bool _active = false;
+	b2World* _world = nullptr; //puntero a world
+	bool _active = true;
+	string _tag;
 
 	inline void add_component(Component* c, string name) { _components[name] = c; }
 
@@ -71,6 +72,7 @@ private:
 	}
 protected:
 	Game* _game = nullptr; //puntero a game
+
 public:
 	GameComponent();
 	GameComponent(Game* g, string tag = "");
@@ -88,7 +90,7 @@ public:
 	virtual void delPhysicsComponent(PhysicsComponent* pc);
 	virtual void delRenderComponent(RenderComponent* rc);
 
-	b2World* getWorld() const;
+	inline b2World* getWorld() const { return _world; }
 	inline void setWorld(b2World* world) { _world = world; }
 
 	virtual void beginCollision(GameComponent* other, b2Contact* contact) {}
@@ -96,7 +98,7 @@ public:
 	virtual void preCollision(GameComponent* other, b2Contact* contact) {}
 	virtual void postCollision(GameComponent* other, b2Contact* contact) {}
 
-	void addChild(GameComponent* obj);
+	inline void addChild(GameComponent* obj) { _children.push_back(obj); }
 
 	inline Game* getGame() const { return _game; }
 
@@ -106,6 +108,8 @@ public:
 	inline bool isActive() const { return _active; }
 	inline void setActive(bool active) { _active = active; }
 
+	virtual void setItList(list<GameObject*>::iterator itFR) {}
+	
 	template<class ComponentType>
 	ComponentType* addComponent()
 	{
@@ -118,9 +122,7 @@ public:
 	{
 		string name = typeid(*ct).name();
 		if (_components.find(name) == _components.end())
-		{
 			_components[name] = ct;
-		}
 	}
 
 	template<class ComponentType>
@@ -128,9 +130,7 @@ public:
 	{
 		string name = typeid(*ct).name();
 		if (_components.find(name) != _components.end())
-		{
 			_components.erase(name);
-		}
 	}
 
 	//Para el Following Component
@@ -145,6 +145,4 @@ public:
 	{
 		return get_component<ComponentType>(typeid(ComponentType).name());
 	}
-
-	virtual void setItList(list<GameObject*>::iterator itFR) {}
 };

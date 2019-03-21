@@ -12,7 +12,7 @@ public:
 	virtual ~Life() {}
 
 	void setLife(int amount);
-	inline void resetLife() { _life = _maxLife; }
+	inline void resetLife() { _life = _maxLife; _dead = false; }
 
 	void addLife(int amount);
 	void subLife(int amount);

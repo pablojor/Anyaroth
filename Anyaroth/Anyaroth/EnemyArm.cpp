@@ -18,7 +18,6 @@ void EnemyArm::update(double time)
 	{
 		if (!_myEnemy->getComponent<AnimatedSpriteComponent>()->isFlipped())
 		{
-			
 			_transform->setAnchor(_transform->getDefaultAnchor().getX(), _transform->getDefaultAnchor().getY());
 
 			_followC->setOffset({ _followC->getInitialOffset().getX(), _followC->getInitialOffset().getY() });
@@ -28,17 +27,14 @@ void EnemyArm::update(double time)
 		}
 		else
 		{
-			
 			_transform->setAnchor(1 - _transform->getDefaultAnchor().getX(), _transform->getDefaultAnchor().getY());
 
 			_followC->setOffset({ _followC->getInitialOffset().getX() + 8, _followC->getInitialOffset().getY() });
 			
-
 			lookAtTarget(Vector2D(_targetBody->GetPosition().x * 8, _targetBody->GetPosition().y * 8));
 			_transform->setRotation(_transform->getRotation() + 180);
 			_anim->flip();
 		}
-
 	}
 	else if(_myEnemy->getComponent<AnimatedSpriteComponent>()->isFlipped())
 	{

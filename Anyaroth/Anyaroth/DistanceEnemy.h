@@ -20,7 +20,10 @@ public:
 	virtual ~DistanceEnemy() { delete _myGun; }
 
 	inline bool ArmVision() const { return _armVision; }
+
 	void RayCast();
+
 	Gun* getGun() { return _myGun; }
+
 	virtual void update(double time);
 };

@@ -2,29 +2,28 @@
 #include "Enemy.h"
 #include "GameComponent.h"
 #include "AnimatedSpriteComponent.h"
-#include "Player.h"
 #include "HurtRenderComponent.h"
-class BomberEnemy :
-	public Enemy
+#include "Player.h"
+
+class BomberEnemy : public Enemy
 {
 private:
-	bool _spawning = false, _activated = false;
+	bool _spawning = false, _activated = false, _bloqueDer = false, _bloqueIzq = false, _move = false;
 	double _spawnTime = 1000;
-	int _range = 600;
+	int _range = 600, _dir = 8;
 
-	int _dir = 8;
-
-	bool _bloqueDer = false, _bloqueIzq = false, _move = false;
-
-	BulletPool* _myBulletPool = nullptr;
+	ExplosiveBulletPool* _myBulletPool = nullptr;
 	Texture* _bulletTexture = nullptr;
+
 public:
-	BomberEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag, BulletPool* pool);
+	BomberEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag, ExplosiveBulletPool* pool);
 	virtual ~BomberEnemy();
+
 	virtual void update(double time);
+
 	virtual void subLife(int damage);
+
 	virtual void beginCollision(GameComponent* other, b2Contact* contact);
-	void Throw(const Vector2D& position, const double& angle, const string& tag);
 
+	void throwBomb(const Vector2D& position, const double& angle, const string& tag);
 };
-

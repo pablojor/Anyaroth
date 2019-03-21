@@ -22,6 +22,7 @@ public:
 	void removeMusic(const string& name);
 
 	void playSFX(const string& name);
+
 	/*void resumeSFX(const string& name);
 	void pauseSFX(const string& name);
 	void stopSFX(const string& name);		//Estos metodos no tendrian sentido con los efectos de sonido
@@ -44,4 +45,3 @@ public:
 	void setMusicVolume(const float& volumeRatio);
 	void setSFXVolume(const string& name, const float& volumeRatio);
 };
-

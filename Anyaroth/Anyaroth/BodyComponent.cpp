@@ -58,8 +58,6 @@ BodyComponent::BodyComponent(GameComponent * obj, double x, double y, double w, 
 	_fixture.restitution = 0;
 	_fixture.friction = 0.001;
 
-
-
 	_body->CreateFixture(&_fixture);
 	_body->SetUserData(obj);
 	_body->SetFixedRotation(true);
@@ -110,8 +108,6 @@ void BodyComponent::setBody(GameComponent * obj, double x, double y, double w, d
 	_fixture.density = 1;
 	_fixture.restitution = 0;
 	_fixture.friction = 0.001;
-
-
 
 	_body->CreateFixture(&_fixture);
 	_body->SetUserData(obj);

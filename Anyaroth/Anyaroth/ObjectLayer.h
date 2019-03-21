@@ -8,7 +8,6 @@ private:
 
 public:
 	ObjectLayer(string filename, string name);
-	virtual ~ObjectLayer() {}
 
 	inline vector<Vector2D> getObjectsPositions() const { return _objectsPos; }
 };

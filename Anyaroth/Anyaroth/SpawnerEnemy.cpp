@@ -1,8 +1,8 @@
 #include "SpawnerEnemy.h"
 #include "GameComponent.h"
 #include "AnimatedSpriteComponent.h"
-#include "Player.h"
 #include "HurtRenderComponent.h"
+#include "Player.h"
 #include "Capsule.h"
 
 SpawnerEnemy::SpawnerEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag) : Enemy(player, g, play, texture, posIni, tag)
@@ -12,7 +12,6 @@ SpawnerEnemy::SpawnerEnemy(Player* player, Game* g, PlayState* play, Texture* te
 	_speed = -8;
 	_vision = 300;
 
-
 	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 13, true);
 	_anim->addAnim(AnimatedSpriteComponent::EnemyWalk, 8, true);
 	_anim->addAnim(AnimatedSpriteComponent::EnemyAttack, 11, false);
@@ -21,12 +20,12 @@ SpawnerEnemy::SpawnerEnemy(Player* player, Game* g, PlayState* play, Texture* te
 	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 	_body->addCricleShape(b2Vec2(0, _body->getH() + _body->getH() / 20), _body->getW() - _body->getW() / 20, ENEMIES, FLOOR | PLAYER_BULLETS | MELEE);
 	_body->getBody()->SetGravityScale(0);
-
 }
 
 void SpawnerEnemy::update(double time)
 {
 	Enemy::update(time);
+
 	BodyComponent* _playerBody = _player->getComponent<BodyComponent>();
 
 	b2Vec2 enemyPos = _body->getBody()->GetPosition(), playerPos = _playerBody->getBody()->GetPosition();
@@ -56,6 +55,7 @@ void SpawnerEnemy::update(double time)
 			else
 				_speed = _dir;
 		}
+
 		if(inCameraOnlyX())
 		{
 			if (_time >= _spawnTime)
@@ -66,7 +66,6 @@ void SpawnerEnemy::update(double time)
 			else
 				_time += time;
 		}
-
 	}
 	else 
 	{
@@ -96,15 +95,18 @@ void SpawnerEnemy::subLife(int damage)
 			_hurt->hurt();
 	}
 }
+
 void SpawnerEnemy::beginCollision(GameComponent * other, b2Contact* contact)
 {
 	Enemy::beginCollision(other,contact);
 
 	string otherTag = other->getTag();
+
 	if (otherTag == "Suelo")
 	{
 		double x = other->getComponent<BodyComponent>()->getBody()->GetPosition().x;
 		double y = _body->getBody()->GetPosition().x;
+
 		if ( x < y )
 		{
 			_bloqueDer = true;
@@ -115,7 +117,5 @@ void SpawnerEnemy::beginCollision(GameComponent * other, b2Contact* contact)
 			_bloqueIzq = true;
 			_move = true;
 		}
-			
-
 	}
 }

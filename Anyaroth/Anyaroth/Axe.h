@@ -5,9 +5,10 @@ class Axe :	public Melee
 {
 private:
 	double _angle = 90;
+
 public:
 	Axe(Game* g);
-	virtual ~Axe();
+	virtual ~Axe() {}
+
 	void update(double time);
 };
-
