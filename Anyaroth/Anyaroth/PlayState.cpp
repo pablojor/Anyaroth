@@ -9,7 +9,7 @@
 #include "ParallaxBackGround.h"
 #include "ParallaxLayer.h"
 #include "PlayStateHUD.h"
-#include "FlyingEnemy.h"
+#include "StaticSpawnerEnemy.h"
 #include <time.h>
 
 
@@ -50,18 +50,18 @@ PlayState::PlayState(Game* g) : GameState(g)
 	vector <Vector2D> enemiesPos = oL->getObjectsPositions();
 	delete oL;
 
-	//_enemy = new BomberEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(50, 150), "Enemy", _explosivePool);
-	_enemy = new SpawnerEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(50, 150), "Enemy");
+	_enemy = new BomberEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(50, 150), "Enemy", _explosivePool);
+	//_enemy = new SpawnerEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(50, 150), "Enemy");
 	_stages.push_back(_enemy);
 	auto itFR = --(_stages.end());
 	_enemy->setItList(itFR);
 	
-/*
-	_enemy = new FlyingEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(300, 200), "Enemy");
+
+	_enemy = new StaticSpawnerEnemy(_player, g, this, g->getTexture("EnemyMartyr"), Vector2D(300, 200), "Enemy");
 	_stages.push_back(_enemy);
-	auto itFR = --(_stages.end());
+	 itFR = --(_stages.end());
 	_enemy->setItList(itFR);
-*/
+
 	/*for (int i = 0; i < enemiesPos.size(); i++)
 
 	{

@@ -215,7 +215,6 @@
       <Filter>Archivos de código\Objects\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="ExplosiveBullet.cpp" />
-    <ClCompile Include="FlyingEnemy.cpp" />
     <ClCompile Include="Axe.cpp">
       <Filter>Archivos de código\Melee</Filter>
     </ClCompile>
@@ -225,6 +224,10 @@
     <ClCompile Include="SoundManager.cpp">
       <Filter>Archivos de código\Utilities</Filter>
     </ClCompile>
+    <ClCompile Include="FlyingEnemy.cpp">
+      <Filter>Archivos de código\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticSpawnerEnemy.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -477,7 +480,6 @@
       <Filter>Archivos de encabezado\Objects\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="ExplosiveBullet.h" />
-    <ClInclude Include="FlyingEnemy.h" />
     <ClInclude Include="Axe.h">
       <Filter>Archivos de encabezado\Melee</Filter>
     </ClInclude>
@@ -487,6 +489,10 @@
     <ClInclude Include="SoundManager.h">
       <Filter>Archivos de encabezado\Utilities</Filter>
     </ClInclude>
+    <ClInclude Include="FlyingEnemy.h">
+      <Filter>Archivos de encabezado\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticSpawnerEnemy.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de encabezado">
