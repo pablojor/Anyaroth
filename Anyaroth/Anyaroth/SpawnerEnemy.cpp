@@ -102,7 +102,7 @@ void SpawnerEnemy::beginCollision(GameComponent * other, b2Contact* contact)
 
 	string otherTag = other->getTag();
 
-	if (otherTag == "Suelo")
+	if (otherTag == "Ground")
 	{
 		double x = other->getComponent<BodyComponent>()->getBody()->GetPosition().x;
 		double y = _body->getBody()->GetPosition().x;
