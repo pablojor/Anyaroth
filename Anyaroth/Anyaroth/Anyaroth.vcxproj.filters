@@ -220,7 +220,13 @@
     <ClCompile Include="BasicRifle.cpp">
       <Filter>Archivos de código\Guns</Filter>
     </ClCompile>
-    <ClCompile Include="ImprovedRifle.cpp" />
+    <ClCompile Include="ImprovedRifle.cpp">
+      <Filter>Archivos de código\Guns</Filter>
+    </ClCompile>
+    <ClCompile Include="BouncingBullet.cpp">
+      <Filter>Archivos de código\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="BounceOrbCannon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -478,7 +484,13 @@
     <ClInclude Include="BasicRifle.h">
       <Filter>Archivos de encabezado\Guns</Filter>
     </ClInclude>
-    <ClInclude Include="ImprovedRifle.h" />
+    <ClInclude Include="ImprovedRifle.h">
+      <Filter>Archivos de encabezado\Guns</Filter>
+    </ClInclude>
+    <ClInclude Include="BouncingBullet.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="BounceOrbCannon.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de encabezado">

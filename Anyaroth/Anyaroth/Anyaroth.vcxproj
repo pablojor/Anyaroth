@@ -134,6 +134,8 @@
     <ClCompile Include="BasicRifle.cpp" />
     <ClCompile Include="BasicShotgun.cpp" />
     <ClCompile Include="BodyComponent.cpp" />
+    <ClCompile Include="BounceOrbCannon.cpp" />
+    <ClCompile Include="BouncingBullet.cpp" />
     <ClCompile Include="BulletPool.cpp" />
     <ClCompile Include="Cursor.cpp" />
     <ClCompile Include="DistanceEnemy.cpp" />
@@ -211,6 +213,8 @@
     <ClInclude Include="BasicRifle.h" />
     <ClInclude Include="BasicShotgun.h" />
     <ClInclude Include="BodyComponent.h" />
+    <ClInclude Include="BounceOrbCannon.h" />
+    <ClInclude Include="BouncingBullet.h" />
     <ClInclude Include="Cursor.h" />
     <ClInclude Include="DistanceEnemy.h" />
     <ClInclude Include="EnemyArm.h" />

@@ -2,6 +2,13 @@
 #include "ObjectPool.h"
 #include "Bullet.h"
 
+enum BulletType
+{
+	Normal,
+	Bouncing,
+	Gravity
+};
+
 class BulletPool : public ObjectPool<Bullet, 100>
 {
 	private:
@@ -11,6 +18,6 @@ class BulletPool : public ObjectPool<Bullet, 100>
 		BulletPool(Game* game);
 		virtual ~BulletPool() {};
 
-		Bullet* addNewBullet();
+		Bullet* addNewBullet(BulletType type = Normal);
 		void changePoolTag(string tag);
 };

@@ -7,7 +7,7 @@
 #include "BasicRifle.h"
 #include "ImprovedRifle.h"
 //#include "PlasmaSniper.h"
-//#include "EnergyCannon.h"
+#include "BounceOrbCannon.h"
 //#include "GravitationalBombCannon.h"
 #include "Axe.h"
 #include "GunType_def.h"
@@ -77,9 +77,12 @@ Player::Player(Game* game, int xPos, int yPos) :  GameComponent(game, "Player")
 	_gameWeapons.push_back(new ImprovedShotgun(game));
 	_gameWeapons.push_back(new BasicRifle(game));
 	_gameWeapons.push_back(new ImprovedRifle(game));
+	_gameWeapons.push_back(new ImprovedRifle(game)); //Plasma Sniper
+	_gameWeapons.push_back(new BounceOrbCannon(game));
+	_gameWeapons.push_back(new ImprovedRifle(game)); //Gravity Cannon
 	
 	_currentGun = _gameWeapons[BasicRifle_Weapon];
-	_otherGun = _gameWeapons[Pistol_Weapon];
+	_otherGun = _gameWeapons[BounceOrbCannon_Weapon];
 	_playerArm->setTexture(_currentGun->getArmTexture());
 
 	//Monedero

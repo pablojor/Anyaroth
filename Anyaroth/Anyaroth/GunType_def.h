@@ -8,7 +8,7 @@ enum GunType
 	BasicRifle_Weapon,
 	ImprovedRifle_Weapon,
 	PlasmaSniper_Weapon,
-	EnergyCannon_Weapon,
+	BounceOrbCannon_Weapon,
 	GravitationalBombCannon_Weapon,
 	BasicEnemyGun_Weapon,
 	BasicEnemyShotgun_Weapon
