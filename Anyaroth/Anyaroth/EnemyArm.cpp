@@ -4,15 +4,15 @@
 #include "AnimatedSpriteComponent.h"
 #include "Gun.h"
 
-EnemyArm::EnemyArm(Game* g, GameComponent* owner, GameComponent* target, DistanceEnemy* enemy, Vector2D offset) : Arm(g, owner, offset), _target(target)
+EnemyArm::EnemyArm(Game* g, GameObject* owner, GameObject* target, DistanceEnemy* enemy, Vector2D offset) : Arm(g, owner, offset), _target(target)
 {
 	_targetBody = _target->getComponent<BodyComponent>()->getBody();
 	_myEnemy = enemy;
 }
 
-void EnemyArm::update(double time)
+void EnemyArm::update(const double& deltaTime)
 {
-	GameComponent::update(time);
+	GameObject::update(deltaTime);
 
 	if (_myEnemy->ArmVision())
 	{

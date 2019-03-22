@@ -11,10 +11,10 @@ private:
 	bool _hurt = false;
 
 public:
-	HurtRenderComponent(GameComponent * obj);
+	HurtRenderComponent(GameObject * obj);
 	virtual ~HurtRenderComponent() {}
 
-	virtual void update(double time);
+	virtual void update(const double& deltaTime);
 
 	void hurt();
 	void die();

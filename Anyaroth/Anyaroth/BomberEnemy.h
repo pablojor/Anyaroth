@@ -1,6 +1,6 @@
 #pragma once
 #include "Enemy.h"
-#include "GameComponent.h"
+#include "GameObject.h"
 #include "AnimatedSpriteComponent.h"
 #include "HurtRenderComponent.h"
 #include "Player.h"
@@ -19,11 +19,11 @@ public:
 	BomberEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag, ExplosiveBulletPool* pool);
 	virtual ~BomberEnemy();
 
-	virtual void update(double time);
+	virtual void update(const double& deltaTime);
 
 	virtual void subLife(int damage);
 
-	virtual void beginCollision(GameComponent* other, b2Contact* contact);
+	virtual void beginCollision(GameObject* other, b2Contact* contact);
 
 	void throwBomb(const Vector2D& position, const double& angle, const string& tag);
 };

@@ -1,5 +1,5 @@
 #include "SpawnerEnemy.h"
-#include "GameComponent.h"
+#include "GameObject.h"
 #include "AnimatedSpriteComponent.h"
 #include "HurtRenderComponent.h"
 #include "Player.h"
@@ -22,9 +22,9 @@ SpawnerEnemy::SpawnerEnemy(Player* player, Game* g, PlayState* play, Texture* te
 	_body->getBody()->SetGravityScale(0);
 }
 
-void SpawnerEnemy::update(double time)
+void SpawnerEnemy::update(const double& deltaTime)
 {
-	Enemy::update(time);
+	Enemy::update(deltaTime);
 
 	BodyComponent* _playerBody = _player->getComponent<BodyComponent>();
 
@@ -64,7 +64,7 @@ void SpawnerEnemy::update(double time)
 				_time = 0;
 			}
 			else
-				_time += time;
+				_time += deltaTime;
 		}
 	}
 	else 
@@ -96,7 +96,7 @@ void SpawnerEnemy::subLife(int damage)
 	}
 }
 
-void SpawnerEnemy::beginCollision(GameComponent * other, b2Contact* contact)
+void SpawnerEnemy::beginCollision(GameObject * other, b2Contact* contact)
 {
 	Enemy::beginCollision(other,contact);
 

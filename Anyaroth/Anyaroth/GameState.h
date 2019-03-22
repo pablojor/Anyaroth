@@ -17,7 +17,9 @@ private:
 protected:
 	Game* _gameptr = nullptr;
 	b2World * _world = nullptr;
+
 	list<GameObject*> _stages;
+
 	Camera* _mainCamera = nullptr;
 	Canvas* _canvas = nullptr;
 
@@ -26,9 +28,9 @@ public:
 	virtual ~GameState();
 
 	virtual void render() const;
-	virtual void update(double time);
+	virtual void update(const double& deltaTime);
 	void post_update();
-	virtual bool handleEvents(SDL_Event& e);
+	virtual bool handleEvent(const SDL_Event& event);
 
 	void addObject(GameObject* obj);
 	void destroyObject(GameObject* obj);

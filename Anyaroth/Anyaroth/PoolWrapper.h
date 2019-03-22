@@ -1,7 +1,7 @@
 #pragma once
-#include "GameComponent.h"
+#include "GameObject.h"
 
-class PoolWrapper : public GameComponent
+class PoolWrapper : public GameObject
 {
 public:
 	PoolWrapper(Game* game);

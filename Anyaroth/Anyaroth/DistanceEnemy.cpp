@@ -36,9 +36,9 @@ void DistanceEnemy::RayCast()
 				_armVision = false;
 }
 
-void DistanceEnemy::update(double time)
+void DistanceEnemy::update(const double& deltaTime)
 {
-	Enemy::update(time);
+	Enemy::update(deltaTime);
 
-	_myGun->refreshGunCadence(time);
+	_myGun->refreshGunCadence(deltaTime);
 }

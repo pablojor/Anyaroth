@@ -1,5 +1,5 @@
 #pragma once
-#include "GameComponent.h"
+#include "GameObject.h"
 #include "TransformComponent.h"
 #include "AnimatedSpriteComponent.h"
 #include "FollowingComponent.h"
@@ -8,17 +8,17 @@
 
 class Gun;
 
-class Arm : public GameComponent
+class Arm : public GameObject
 {
 protected:
-	GameComponent* _owner = nullptr;
+	GameObject* _owner = nullptr;
 	TransformComponent* _transform = nullptr;
 	AnimatedSpriteComponent* _anim = nullptr;
 	FollowingComponent* _followC = nullptr;
 	//HurtRenderComponent* _hurt = nullptr;
 
 public:
-	Arm(Game* g, GameComponent* owner, Vector2D offset = { 0,0 });
+	Arm(Game* g, GameObject* owner, Vector2D offset = { 0,0 });
 	virtual ~Arm() {};
 
 	void setTexture(Texture* armTex);

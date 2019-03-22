@@ -1,6 +1,6 @@
 #pragma once
 #include <list>
-#include "GameComponent.h"
+#include "GameObject.h"
 #include "Life.h"
 #include "EnemyArm.h"
 
@@ -13,7 +13,7 @@ class TransformComponent;
 class BodyComponent;
 class HurtRenderComponent;
 
-class Enemy : public GameComponent
+class Enemy : public GameObject
 {
 protected:
 	AnimatedSpriteComponent* _anim = nullptr;
@@ -39,13 +39,13 @@ public:
 	bool inCamera();
 	bool inCameraOnlyX();
 
-	virtual void beginCollision(GameComponent* other, b2Contact* contact);
+	virtual void beginCollision(GameObject* other, b2Contact* contact);
 
 	void setItList(list<GameObject*>::iterator itFR);
 
 	virtual inline void noLongerAttacking() { _attacking = false; }
 
-	virtual void update(double time);
+	virtual void update(const double& deltaTime);
 
 	void die();
 	virtual void subLife(int damage);

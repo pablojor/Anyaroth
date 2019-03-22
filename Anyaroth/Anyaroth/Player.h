@@ -1,5 +1,5 @@
 #pragma once
-#include "GameComponent.h"
+#include "GameObject.h"
 #include "TransformComponent.h"
 #include "AnimatedSpriteComponent.h"
 #include "BodyComponent.h"
@@ -14,7 +14,7 @@
 
 class Game;
 
-class Player : public GameComponent
+class Player : public GameObject
 {
 private:
 	Game* _game = nullptr;
@@ -62,11 +62,11 @@ public:
 	Player(Game* g, int xPos, int yPos);
 	~Player();
 
-	bool handleInput(const SDL_Event& event);
-	void update(double time);
+	bool handleEvent(const SDL_Event& event);
+	void update(const double& deltaTime);
 
-	virtual void beginCollision(GameComponent* other, b2Contact* contact);
-	virtual void endCollision(GameComponent* other, b2Contact* contact);
+	virtual void beginCollision(GameObject* other, b2Contact* contact);
+	virtual void endCollision(GameObject* other, b2Contact* contact);
 
 	void die();
 	void revive();

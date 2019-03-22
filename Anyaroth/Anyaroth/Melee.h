@@ -1,8 +1,8 @@
 #pragma once
-#include "GameComponent.h"
+#include "GameObject.h"
 #include "BodyComponent.h"
 
-class Melee : public GameComponent
+class Melee : public GameObject
 {
 protected:
 	BodyComponent* _body = nullptr;
@@ -14,10 +14,10 @@ public:
 	Melee(Game* g);
 	virtual ~Melee() {}
 
-	virtual void update(double time) {}
+	virtual void update(const double& deltaTime) {}
 
 	void meleeAttack(double x, double y, int dir);
-	void beginCollision(GameComponent * other, b2Contact* contact);
+	void beginCollision(GameObject * other, b2Contact* contact);
 	void endMelee();
 
 	inline bool isActive() const { return (_body != nullptr && _body->getBody() != nullptr); }

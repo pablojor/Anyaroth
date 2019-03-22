@@ -3,7 +3,7 @@
 #include "Game.h"
 #include <math.h>
 
-Melee::Melee(Game * g) :  GameComponent(g, "Melee") {}
+Melee::Melee(Game * g) :  GameObject(g, "Melee") {}
 
 void Melee::meleeAttack(double x, double y, int dir)
 {
@@ -25,7 +25,7 @@ void Melee::meleeAttack(double x, double y, int dir)
 	_r = y + _offset.getY() - _center.getY();
 }
 
-void Melee::beginCollision(GameComponent * other, b2Contact * contact)
+void Melee::beginCollision(GameObject * other, b2Contact * contact)
 {
 	if (other->getTag() == "Enemy")
 		static_cast<Enemy*>(other)->subLife(_damage);

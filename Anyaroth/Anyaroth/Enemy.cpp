@@ -8,7 +8,7 @@
 #include "Bullet.h"
 #include "HurtRenderComponent.h"
 
-Enemy::Enemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag) : _player(player), _play(play), GameComponent(g, tag)
+Enemy::Enemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag) : _player(player), _play(play), GameObject(g, tag)
 {
 	addComponent<Texture>(texture);
 
@@ -37,7 +37,7 @@ void Enemy::setItList(list<GameObject*>::iterator itFR)
 	_itList = itFR;
 }
 
-void Enemy::beginCollision(GameComponent * other, b2Contact* contact)
+void Enemy::beginCollision(GameObject * other, b2Contact* contact)
 {
 	string otherTag = other->getTag();
 	if (otherTag == "Bullet")
@@ -48,9 +48,9 @@ void Enemy::beginCollision(GameComponent * other, b2Contact* contact)
 	}
 }
 
-void Enemy::update(double time)
+void Enemy::update(const double& deltaTime)
 {
-	GameComponent::update(time);
+	GameObject::update(deltaTime);
 }
 
 void Enemy::die()

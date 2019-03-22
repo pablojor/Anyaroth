@@ -6,7 +6,7 @@
 #include "Axe.h"
 
 
-Player::Player(Game* game, int xPos, int yPos) :  GameComponent(game, "Player")
+Player::Player(Game* game, int xPos, int yPos) :  GameObject(game, "Player")
 {
 	_game = game;
 
@@ -82,7 +82,7 @@ Player::~Player()
 	delete _otherGun;
 }
 
-void Player::beginCollision(GameComponent * other, b2Contact* contact)
+void Player::beginCollision(GameObject * other, b2Contact* contact)
 {
 	auto fA = contact->GetFixtureA();
 	auto fB = contact->GetFixtureB();
@@ -114,7 +114,7 @@ void Player::beginCollision(GameComponent * other, b2Contact* contact)
 	}
 }
 
-void Player::endCollision(GameComponent * other, b2Contact* contact)
+void Player::endCollision(GameObject * other, b2Contact* contact)
 {
 	auto fA = contact->GetFixtureA();
 	auto fB = contact->GetFixtureB();
@@ -165,9 +165,9 @@ void Player::subLife(int damage)
 	}
 }
 
-bool Player::handleInput(const SDL_Event& event)
+bool Player::handleEvent(const SDL_Event& event)
 {
-	GameComponent::handleInput(event);
+	GameObject::handleEvent(event);
 
 	if (event.type == SDL_KEYDOWN && !event.key.repeat) // Captura solo el primer frame que se pulsa
 	{
@@ -202,14 +202,14 @@ bool Player::handleInput(const SDL_Event& event)
 	return false;
 }
 
-void Player::update(double time)
+void Player::update(const double& deltaTime)
 {
 	const Uint8* keyboard = SDL_GetKeyboardState(NULL);
-	GameComponent::update(time);
+	GameObject::update(deltaTime);
 
 	checkMovement(keyboard);
 	checkMelee();
-	refreshCooldowns(time);
+	refreshCooldowns(deltaTime);
 	handleAnimations();
 }
 

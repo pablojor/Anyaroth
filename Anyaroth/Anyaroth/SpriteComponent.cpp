@@ -1,9 +1,9 @@
 #include "SpriteComponent.h"
-#include "GameComponent.h"
+#include "GameObject.h"
 #include "Camera.h"
 #include "Game.h"
 
-SpriteComponent::SpriteComponent(GameComponent* obj) : RenderComponent(obj)
+SpriteComponent::SpriteComponent(GameObject* obj) : RenderComponent(obj)
 {
 	_texture = obj->getComponent<Texture>();
 	_transform = obj->getComponent<TransformComponent>();

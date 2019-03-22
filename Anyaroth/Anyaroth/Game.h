@@ -89,7 +89,7 @@ public:
 	Game();
 	~Game();
 	void run();
-	void update(double time);
+	void update(const double& deltaTime);
 	void render() const;
 	void handleEvents();
 };

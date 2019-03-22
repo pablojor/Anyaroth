@@ -3,8 +3,6 @@
 #include "Texture.h"
 #include "TransformComponent.h"
 
-class GameComponent;
-
 class SpriteComponent : public virtual RenderComponent
 {
 protected:
@@ -13,7 +11,7 @@ protected:
 	bool _flip = false;
 
 public:
-	SpriteComponent(GameComponent* obj);
+	SpriteComponent(GameObject* obj);
 	~SpriteComponent() {}
 
 	virtual void render(Camera* c) const;

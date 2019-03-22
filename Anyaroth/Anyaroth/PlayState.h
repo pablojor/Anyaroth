@@ -31,8 +31,8 @@ public:
 	PlayState(Game* g);
 
 	virtual void render() const;
-	virtual void update(double time);
-	virtual bool handleEvents(SDL_Event& e);
+	virtual void update(const double& deltaTime);
+	virtual bool handleEvent(const SDL_Event& event);
 
 	inline Player* getPlayer() const { return _player; }
 	inline BulletPool* getEnemyPool() const { return _enemyBulletPool; }

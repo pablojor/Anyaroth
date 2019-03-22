@@ -1,15 +1,15 @@
 #include "HurtRenderComponent.h"
 #include "Texture.h"
-#include "GameComponent.h"
+#include "GameObject.h"
 
-HurtRenderComponent::HurtRenderComponent(GameComponent * obj) : PhysicsComponent(obj)
+HurtRenderComponent::HurtRenderComponent(GameObject * obj) : PhysicsComponent(obj)
 {
 	_texture = obj->getComponent<Texture>();
 }
 
-void HurtRenderComponent::update(double time)
+void HurtRenderComponent::update(const double& deltaTime)
 {
-	_timer += time;
+	_timer += deltaTime;
 
 	if (_hurt && _timer >= _startTime)
 	{

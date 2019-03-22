@@ -5,8 +5,6 @@
 
 typedef unsigned int uint;
 
-class GameComponent;
-
 struct AnimationState
 {
 	uint name;
@@ -23,8 +21,8 @@ protected:
 
 	uint _currentAnim = 0;
 
-	uint _frame;
-	double _timer;
+	uint _frame = 0;
+	double _timer = 0.0;
 
 	bool _animationFinished = false;
 	bool _active = true;
@@ -36,11 +34,11 @@ public:
 	enum Coin { Main };
 	enum Bullet { Default };
 
-	AnimatedSpriteComponent(GameComponent* obj) : SpriteComponent(obj), PhysicsComponent(obj), RenderComponent(obj), Component() {}
+	AnimatedSpriteComponent(GameObject* obj) : SpriteComponent(obj), PhysicsComponent(obj), RenderComponent(obj), Component() {}
 	virtual ~AnimatedSpriteComponent() {}
 
 	virtual void render(Camera* c) const;
-	virtual void update(double time);
+	virtual void update(const double& deltaTime);
 
 	void addAnim(uint name, uint numFrames, bool loop, uint lapse = 60);
 	void playAnim(uint name);

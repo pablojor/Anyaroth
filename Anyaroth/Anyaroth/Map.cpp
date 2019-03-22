@@ -13,12 +13,12 @@
 
 using namespace nlohmann;
 
-Map::Map(string filename, Game* game, PlayState* playstate, Texture* tileset, int coinValue) : GameComponent(game), _playState(playstate), _coinValue(coinValue)
+Map::Map(string filename, Game* game, PlayState* playstate, Texture* tileset, int coinValue) : GameObject(game), _playState(playstate), _coinValue(coinValue)
 {
 	_player = _playState->getPlayer();
 
-	_layers = new GameComponent(_game); addChild(_layers);
-	_objects = new GameComponent(_game); addChild(_objects);
+	_layers = new GameObject(_game); addChild(_layers);
+	_objects = new GameObject(_game); addChild(_objects);
 
 	json j;
 	fstream file;
@@ -120,29 +120,29 @@ void Map::restartLevel()
 	createObjects();
 }
 
-bool Map::handleInput(const SDL_Event & event)
+bool Map::handleEvent(const SDL_Event & event)
 {
-	GameComponent::handleInput(event);
+	GameObject::handleEvent(event);
 
 	/*for (Layer* l : _layers)
 		if (l->isActive())
-			l->handleInput(event);*/
+			l->handleEvent(event);*/
 
 	return false;
 }
 
-void Map::update(double time)
+void Map::update(const double& deltaTime)
 {
-	GameComponent::update(time);
+	GameObject::update(deltaTime);
 
 	/*for (Layer* l : _layers)
 		if (l->isActive())
-			l->update(time);*/
+			l->update(deltaTime);*/
 }
 
 void Map::render(Camera * c) const
 {
-	GameComponent::render(c);
+	GameObject::render(c);
 
 	/*for (Layer* l : _layers)
 		if (l->isActive())

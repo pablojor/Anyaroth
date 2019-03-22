@@ -57,34 +57,34 @@ void PlayState::render() const
 	GameState::render();
 }
 
-bool PlayState::handleEvents(SDL_Event& e)
+bool PlayState::handleEvent(const SDL_Event& event)
 {
-	GameState::handleEvents(e);
+	GameState::handleEvent(event);
 
 	bool handled = false;
-	if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE)
+	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)
 	{
 		_gameptr->setTimestep(0);
 		_gameptr->pushState(new PauseState(_gameptr));
 		handled = true;
 	}
-	else if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_0) //Boton de prueba para reiniciar el nivel
+	else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_0) //Boton de prueba para reiniciar el nivel
 		_levelManager.resetLevel();
-	else if (e.type == SDL_KEYDOWN && (e.key.keysym.sym == SDLK_KP_MINUS || e.key.keysym.sym == SDLK_MINUS)) //Para probar el Zoom y sus distintan opciones
+	else if (event.type == SDL_KEYDOWN && (event.key.keysym.sym == SDLK_KP_MINUS || event.key.keysym.sym == SDLK_MINUS)) //Para probar el Zoom y sus distintan opciones
 		_mainCamera->zoomOut();
-	else if (e.type == SDL_KEYDOWN && (e.key.keysym.sym == SDLK_KP_PLUS || e.key.keysym.sym == SDLK_PLUS))
+	else if (event.type == SDL_KEYDOWN && (event.key.keysym.sym == SDLK_KP_PLUS || event.key.keysym.sym == SDLK_PLUS))
 		_mainCamera->zoomIn();
-	else if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_z)
+	else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_z)
 		_mainCamera->setZoom(_mainCamera->getZoomRatio() + 1, true);
-	else if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_x)
+	else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_x)
 		_mainCamera->setZoom(_mainCamera->getZoomRatio() - 1, true);
 
 	return handled;
 }
 
-void PlayState::update(double time)
+void PlayState::update(const double& deltaTime)
 {
-	GameState::update(time);
+	GameState::update(deltaTime);
 
 	if (_player->isDead())
 	{

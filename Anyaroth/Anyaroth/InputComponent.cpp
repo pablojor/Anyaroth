@@ -1,7 +1,7 @@
 #include "InputComponent.h"
-#include "GameComponent.h"
+#include "GameObject.h"
 
-InputComponent::InputComponent(GameComponent* obj) 
+InputComponent::InputComponent(GameObject* obj) 
 {
 	obj->addInputComponent(this);
 }

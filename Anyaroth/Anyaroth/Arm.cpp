@@ -2,7 +2,7 @@
 #include "Game.h"
 #include <math.h>
 
-Arm::Arm(Game* g, GameComponent* owner, Vector2D offset) : GameComponent(g), _owner(owner)
+Arm::Arm(Game* g, GameObject* owner, Vector2D offset) : GameObject(g), _owner(owner)
 {
 	addComponent<Texture>(g->getTexture("Arm"));
 	_transform = addComponent<TransformComponent>();

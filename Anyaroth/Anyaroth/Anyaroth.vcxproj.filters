@@ -4,9 +4,6 @@
     <ClCompile Include="AnimatedSpriteComponent.cpp">
       <Filter>Archivos de código fuente\Components</Filter>
     </ClCompile>
-    <ClCompile Include="ArmControllerComponent.cpp">
-      <Filter>Archivos de código fuente\Components</Filter>
-    </ClCompile>
     <ClCompile Include="BodyComponent.cpp">
       <Filter>Archivos de código fuente\Components</Filter>
     </ClCompile>
@@ -232,30 +229,21 @@
     <ClCompile Include="main.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
-    <ClCompile Include="GameComponent.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
     <ClCompile Include="ExplosiveBulletPool.cpp">
       <Filter>Archivos de código fuente\Pools</Filter>
     </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="GameComponent.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="AnimatedSpriteComponent.h">
-      <Filter>Archivos de encabezado\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="ArmControllerComponent.h">
       <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
     <ClInclude Include="BodyComponent.h">
@@ -503,6 +491,9 @@
     </ClInclude>
     <ClInclude Include="ExplosiveBulletPool.h">
       <Filter>Archivos de encabezado\Pools</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,5 @@
 #include "StaticSpawnerEnemy.h"
-#include "GameComponent.h"
+#include "GameObject.h"
 #include "AnimatedSpriteComponent.h"
 #include "HurtRenderComponent.h"
 #include "Player.h"
@@ -23,7 +23,7 @@ StaticSpawnerEnemy::~StaticSpawnerEnemy()
 {
 }
 
-void StaticSpawnerEnemy::update(double time)
+void StaticSpawnerEnemy::update(const double& deltaTime)
 {
 	BodyComponent* _playerBody = _player->getComponent<BodyComponent>();
 
@@ -33,7 +33,7 @@ void StaticSpawnerEnemy::update(double time)
 
 	if (!_dead && _activated)
 	{
-		Enemy::update(time);
+		Enemy::update(deltaTime);
 		currentEnemies = activeEnemies();
 
 		if (inCamera())
@@ -44,7 +44,7 @@ void StaticSpawnerEnemy::update(double time)
 				_time = 0;
 			}
 			else
-				_time += time;
+				_time += deltaTime;
 		}
 	}
 	else

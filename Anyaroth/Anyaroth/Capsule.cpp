@@ -1,5 +1,5 @@
 #include "Capsule.h"
-#include "GameComponent.h"
+#include "GameObject.h"
 #include "AnimatedSpriteComponent.h"
 #include "Player.h"
 #include "MeleeEnemy.h"
@@ -33,9 +33,9 @@ Capsule::Capsule(Player* player, Game* g, PlayState* play, Texture* texture, Vec
 
 }
 
-void Capsule::update(double time)
+void Capsule::update(const double& deltaTime)
 {
-	Enemy::update(time);
+	Enemy::update(deltaTime);
 	if (_spawning)
 	{
 		//if( animacion de spawn terminada)
@@ -46,7 +46,7 @@ void Capsule::update(double time)
 	}
 }
 
-void Capsule::beginCollision(GameComponent * other, b2Contact* contact)
+void Capsule::beginCollision(GameObject * other, b2Contact* contact)
 {
 	string otherTag = other->getTag();
 	auto fA = contact->GetFixtureA();

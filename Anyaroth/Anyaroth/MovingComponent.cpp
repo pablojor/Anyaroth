@@ -1,15 +1,15 @@
 #include "MovingComponent.h"
-#include "GameComponent.h"
+#include "GameObject.h"
 #include <iostream>
 
-MovingComponent::MovingComponent(GameComponent* obj) : PhysicsComponent(obj)
+MovingComponent::MovingComponent(GameObject* obj) : PhysicsComponent(obj)
 {
 	_body = obj->getComponent<BodyComponent>();
 	_body->getBody()->SetLinearDamping(_damping);
 	_body->getBody()->SetGravityScale(_gravScale);
 }
 
-void MovingComponent::update(double time) 
+void MovingComponent::update(const double& deltaTime) 
 {
 	b2Vec2 pos = _body->getBody()->GetPosition();
 	double x = pos.x;

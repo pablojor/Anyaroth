@@ -1,16 +1,15 @@
 #pragma once
-#include "GameComponent.h"
+#include "GameObject.h"
 #include "Game.h"
 #include <functional>
 
 typedef void callback(Game*);
 
-class MenuButton : public GameComponent
+class MenuButton : public GameObject
 {
 private:
 	Vector2D _pos;
 	Texture* _texture = nullptr;
-	Game* g = nullptr;
 	callback* cb = nullptr;
 
 public:
@@ -18,5 +17,5 @@ public:
 	virtual ~MenuButton() {}
 
 	SDL_Rect getRect() const;
-	bool handleInput(const SDL_Event& event);
+	bool handleEvent(const SDL_Event& event);
 };

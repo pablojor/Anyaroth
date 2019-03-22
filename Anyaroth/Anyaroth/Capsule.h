@@ -10,7 +10,7 @@ public:
 	Capsule(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag);
 	virtual ~Capsule() {}
 
-	virtual void update(double time);
+	virtual void update(const double& deltaTime);
 
-	virtual void beginCollision(GameComponent* other, b2Contact* contact);
+	virtual void beginCollision(GameObject* other, b2Contact* contact);
 };

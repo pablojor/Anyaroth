@@ -155,7 +155,6 @@
     <ClCompile Include="MovingComponent.cpp" />
     <ClCompile Include="Melee.cpp" />
     <ClCompile Include="PlayerArm.cpp" />
-    <ClCompile Include="ArmControllerComponent.cpp" />
     <ClCompile Include="BossPanel.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -184,7 +183,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="FrameComponent.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="GameComponent.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="GameStateMachine.cpp" />
     <ClCompile Include="Gun.cpp" />
@@ -238,7 +237,6 @@
     <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="Melee.h" />
     <ClInclude Include="PlayerArm.h" />
-    <ClInclude Include="ArmControllerComponent.h" />
     <ClInclude Include="BossPanel.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Camera.h" />
@@ -272,7 +270,6 @@
     <ClInclude Include="FileNotFoundError.h" />
     <ClInclude Include="FrameComponent.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="GameComponent.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GameStateMachine.h" />

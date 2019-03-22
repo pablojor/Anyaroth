@@ -2,7 +2,7 @@
 #include "Game.h"
 #include <math.h>
 
-Bullet::Bullet(Game* game) : GameComponent(game)
+Bullet::Bullet(Game* game) : GameObject(game)
 {
 	_texture = game->getTexture("PistolBullet");
 	addComponent<Texture>(_texture);
@@ -23,7 +23,7 @@ Bullet::Bullet(Game* game) : GameComponent(game)
 	setActive(false);
 }
 
-void Bullet::beginCollision(GameComponent * other, b2Contact* contact)
+void Bullet::beginCollision(GameObject * other, b2Contact* contact)
 {
 	if(getTag() == "Bullet" && (other->getTag() == "Ground" || other->getTag() == "Enemy"))
 		_collided = true;
@@ -55,7 +55,7 @@ void Bullet::init(Texture* texture, const Vector2D& position, const double& spee
 	setActive(true);
 }
 
-void Bullet::update(double time) 
+void Bullet::update(const double& deltaTime) 
 {
 	if (!isActive())
 		return;
@@ -64,7 +64,7 @@ void Bullet::update(double time)
 
 	if (dist < _range && !_collided)
 	{
-		GameComponent::update(time);
+		GameObject::update(deltaTime);
 
 		_body->getBody()->SetLinearVelocity(b2Vec2(_speed * cos(_transform->getRotation() * M_PI / 180.0), _speed * sin(_transform->getRotation() * M_PI / 180.0)));
 		_aliveTime++;

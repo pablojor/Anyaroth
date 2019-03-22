@@ -7,7 +7,7 @@ Axe::Axe(Game* g) : Melee(g)
 	_offset = Vector2D(15, -20);
 }
 
-void Axe::update(double time)
+void Axe::update(const double& deltaTime)
 {
 	if (isActive())
 	{

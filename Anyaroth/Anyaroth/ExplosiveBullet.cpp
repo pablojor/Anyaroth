@@ -16,7 +16,7 @@ ExplosiveBullet::ExplosiveBullet(Game* game):Bullet(game)
 
 ExplosiveBullet::~ExplosiveBullet() {}
 
-void ExplosiveBullet::beginCollision(GameComponent * other, b2Contact * contact)
+void ExplosiveBullet::beginCollision(GameObject * other, b2Contact * contact)
 {
 	if (getTag() == "Bullet" && (other->getTag() == "Ground" || other->getTag() == "Enemy"))
 		_collided = true;
@@ -26,7 +26,7 @@ void ExplosiveBullet::beginCollision(GameComponent * other, b2Contact * contact)
 	contact->SetEnabled(false);
 }
 
-void ExplosiveBullet::update(double time)
+void ExplosiveBullet::update(const double& deltaTime)
 {
 	if (!isActive())
 		return;
@@ -37,7 +37,7 @@ void ExplosiveBullet::update(double time)
 	{
 		if (dist < _range && !_collided)
 		{
-			GameComponent::update(time);
+			GameObject::update(deltaTime);
 			//_body->getBody()->SetLinearVelocity(b2Vec2(_speed * cos(_transform->getRotation() * M_PI / 180.0), _speed * sin(_transform->getRotation() * M_PI / 180.0)));
 			_aliveTime++;
 		}
@@ -59,7 +59,7 @@ void ExplosiveBullet::update(double time)
 			_body->getBody()->SetGravityScale(4);
 		}
 		else
-			_time += time;
+			_time += deltaTime;
 	}
 }
 

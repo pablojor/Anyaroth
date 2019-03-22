@@ -1,9 +1,9 @@
 #pragma once
-#include "GameComponent.h"
+#include "GameObject.h"
 #include "Game.h"
 #include <list>
 
-class Collectable : public GameComponent
+class Collectable : public GameObject
 {
 private:
 	BodyComponent* _body = nullptr;

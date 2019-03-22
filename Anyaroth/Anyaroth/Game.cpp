@@ -142,9 +142,9 @@ void Game::run()
 	}
 }
 
-void Game::update(double time)
+void Game::update(const double& deltaTime)
 {
-	_stateMachine->currentState()->update(time);
+	_stateMachine->currentState()->update(deltaTime);
 	_stateMachine->currentState()->post_update();
 }
 
@@ -173,6 +173,6 @@ void Game::handleEvents()
 				_soundManager->playSFX("example1");
 		}
 
-		_stateMachine->currentState()->handleEvents(event);
+		_stateMachine->currentState()->handleEvent(event);
 	}
 }

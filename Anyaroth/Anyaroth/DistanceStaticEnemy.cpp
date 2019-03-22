@@ -1,5 +1,5 @@
 ﻿#include "DistanceStaticEnemy.h"
-#include "GameComponent.h"
+#include "GameObject.h"
 #include "AnimatedSpriteComponent.h"
 #include "Player.h"
 #include"Game.h"
@@ -18,11 +18,11 @@ DistanceStaticEnemy::DistanceStaticEnemy(Player* player, Game* g, PlayState* pla
 	_body->addCricleShape(b2Vec2(0, _body->getH() + _body->getH() / 20), _body->getW() - _body->getW() / 20, ENEMIES, FLOOR);
 }
 
-void DistanceStaticEnemy::update(double time)
+void DistanceStaticEnemy::update(const double& deltaTime)
 {
 	if (!_dead && inCamera())
 	{
-		DistanceEnemy::update(time);
+		DistanceEnemy::update(deltaTime);
 		BodyComponent* _playerBody = _player->getComponent<BodyComponent>();
 
 		b2Vec2 enemyPos = _body->getBody()->GetPosition(), playerPos = _playerBody->getBody()->GetPosition();
