@@ -145,6 +145,7 @@ void Game::run()
 void Game::update(double time)
 {
 	_stateMachine->currentState()->update(time);
+	_stateMachine->currentState()->post_update();
 }
 
 void Game::render() const

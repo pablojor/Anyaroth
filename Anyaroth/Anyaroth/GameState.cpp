@@ -42,6 +42,18 @@ void GameState::update(double time)
 		_canvas->update();
 }
 
+void GameState::post_update()
+{
+	int i = items_ToDelete.size() - 1;
+	while (i >= 0)
+	{
+		delete items_ToDelete[i];
+		_stages.remove(items_ToDelete[i]);
+		items_ToDelete.pop_back();
+		i--;
+	}
+}
+
 bool GameState::handleEvents(SDL_Event& e)
 {
 	bool handled = false;
@@ -59,6 +71,18 @@ bool GameState::handleEvents(SDL_Event& e)
 		_canvas->handleEvent(e);
 
 	return handled;
+}
+
+void GameState::addObject(GameObject* n)
+{
+	_stages.push_back(n);/*
+	auto itFR = --(_stages.end());
+	n->setItList(itFR);*/
+}
+
+void GameState::destroyObject(GameObject* obj)
+{
+	items_ToDelete.push_back(obj);
 }
 
 Vector2D GameState::getMousePositionInWorld() const

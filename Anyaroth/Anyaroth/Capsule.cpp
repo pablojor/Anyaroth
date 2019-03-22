@@ -42,7 +42,7 @@ void Capsule::update(double time)
 		b2Vec2 enemyPos = _body->getBody()->GetPosition();
 
 		enemySpawn(new MeleeEnemy(_player, _game, _play, _game->getTexture("EnemyMelee"), Vector2D(enemyPos.x * 8 - 30/*Numero a ajustar dependiendo del sprite*/, enemyPos.y * 8 - 30/*Numero a ajustar dependiendo del sprite*/), "Enemy"));
-		_play->deleteObject(_itList);
+		destroy();
 	}
 }
 

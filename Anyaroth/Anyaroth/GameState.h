@@ -10,6 +10,8 @@ class Game;
 class GameState
 {
 private:
+	vector<GameObject*> items_ToDelete;
+
 	void initializeCamera();
 
 protected:
@@ -25,7 +27,11 @@ public:
 
 	virtual void render() const;
 	virtual void update(double time);
+	void post_update();
 	virtual bool handleEvents(SDL_Event& e);
+
+	void addObject(GameObject* obj);
+	void destroyObject(GameObject* obj);
 
 	inline virtual Camera* getMainCamera() const { return _mainCamera; }
 	inline virtual list<GameObject*>& getObjects() { return _stages; }

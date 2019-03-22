@@ -19,6 +19,10 @@ StaticSpawnerEnemy::StaticSpawnerEnemy(Player * player, Game * g, PlayState * pl
 	_body->getBody()->SetGravityScale(0);
 }
 
+StaticSpawnerEnemy::~StaticSpawnerEnemy()
+{
+}
+
 void StaticSpawnerEnemy::update(double time)
 {
 	BodyComponent* _playerBody = _player->getComponent<BodyComponent>();
@@ -36,11 +40,8 @@ void StaticSpawnerEnemy::update(double time)
 		{
 			if (_time >= _spawnTime && currentEnemies < maxEnemies)
 			{
-
-				_enemies.push_back(new FlyingEnemy(_player, _game, _play, _game->getTexture("EnemyMelee"), Vector2D(enemyPos.x * M_TO_PIXEL, enemyPos.y * M_TO_PIXEL), "Enemy"));
-				enemySpawn(_enemies.back());
+				addChild(new FlyingEnemy(_player, _game, _play, _game->getTexture("EnemyMelee"), Vector2D(enemyPos.x * M_TO_PIXEL, enemyPos.y * M_TO_PIXEL), "Enemy"));
 				_time = 0;
-
 			}
 			else
 				_time += time;
@@ -58,10 +59,5 @@ void StaticSpawnerEnemy::update(double time)
 
 int StaticSpawnerEnemy::activeEnemies()
 {
-	int count = 0;
-	for (auto enemy : _enemies)
-		if (enemy->isActive())
-			count++;
-
-	return count;
+	return getChildren().size();
 }

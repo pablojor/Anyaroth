@@ -10,16 +10,17 @@ class Player;
 class Map : public GameComponent
 {
 private:
-	Game* _game = nullptr;
-	PlayState* _playState = nullptr;
 	Player* _player = nullptr;
+	PlayState* _playState = nullptr;
 
-	vector<Layer*> _layers;
+	//vector<Layer*> _layers;
+	GameComponent* _layers;
 
-	map < string, ObjectLayer* > _objectLayers;
-	vector<string> _objectLayersNames;
+	vector <ObjectLayer*> _objectLayers;
+	//vector<string> _objectLayersNames;
 
-	vector<GameComponent*> _objects;
+	//list<GameObject*>* _objects;
+	GameComponent* _objects;
 
 	int _coinValue;
 

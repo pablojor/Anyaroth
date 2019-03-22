@@ -17,7 +17,6 @@ private:
 	Map* _currentMap = nullptr;
 
 	list<GameObject*>* _stages = nullptr;
-	list<GameObject*>::iterator _itMap;
 
 public:
 	LevelManager() {}

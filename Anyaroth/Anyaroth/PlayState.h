@@ -26,13 +26,9 @@ private:
 	int _currentZone;
 	int _currentLevel;
 
-	vector <list<GameObject*>::iterator> items_ToDelete;
 
 public:
 	PlayState(Game* g);
-
-	void addObject(GameComponent* n);
-	void deleteObject(const list<GameObject*>::iterator &itList);
 
 	virtual void render() const;
 	virtual void update(double time);

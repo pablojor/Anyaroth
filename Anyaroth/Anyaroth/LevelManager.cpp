@@ -27,7 +27,6 @@ void LevelManager::setLevel(int zone, int level)
 		case 1:
 			_currentMap = new Map(TILEMAP_PATH + "Nivel1.json", _game, _playState, _tilesetZone1, 10);
 			_stages->push_back(_currentMap);
-			_itMap = --_stages->end();
 			break;
 		case 2:
 			break;
@@ -48,7 +47,7 @@ void LevelManager::setLevel(int zone, int level)
 
 void LevelManager::changeLevel(int zone, int level)
 {
+	_stages->remove(_currentMap);
 	delete _currentMap;
-	_stages->erase(_itMap);
 	setLevel(zone, level);
 }

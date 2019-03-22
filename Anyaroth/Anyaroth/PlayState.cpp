@@ -51,17 +51,6 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_debugger.getCamera(_mainCamera);
 }
 
-void PlayState::addObject(GameComponent* n)
-{
-	_stages.push_back(n);
-	auto itFR = --(_stages.end());
-	n->setItList(itFR);
-}
-
-void PlayState::deleteObject(const list<GameObject*>::iterator &itList)
-{
-	items_ToDelete.push_back(itList);
-}
 
 void PlayState::render() const
 {
@@ -101,14 +90,5 @@ void PlayState::update(double time)
 	{
 		_player->revive();
 		_levelManager.resetLevel();
-	}
-
-	int i = items_ToDelete.size() - 1;
-	while (i >= 0)
-	{
-		delete *items_ToDelete[i];
-		_stages.erase(items_ToDelete[i]);
-		items_ToDelete.pop_back();
-		i--;
 	}
 }

@@ -46,5 +46,5 @@ void FlyingEnemy::beginCollision(GameComponent * other, b2Contact * contact)
 
 	setActive(false);
 
-	_play->deleteObject(_itList);
+	destroy();
 }

@@ -22,6 +22,7 @@ private:
 	vector<RenderComponent*> _renderComp;
 	map<string, Component*> _components;
 
+	GameComponent* _parent = nullptr;
 	list<GameComponent*> _children; //lista de hijos del objeto
 
 	b2World* _world = nullptr; //puntero a world
@@ -98,7 +99,9 @@ public:
 	virtual void preCollision(GameComponent* other, b2Contact* contact) {}
 	virtual void postCollision(GameComponent* other, b2Contact* contact) {}
 
-	inline void addChild(GameComponent* obj) { _children.push_back(obj); }
+	inline void addChild(GameComponent* obj) { obj->_parent = this; _children.push_back(obj); }
+	inline list<GameComponent*>& getChildren() { return _children; }
+	void destroyAllChildren();
 
 	inline Game* getGame() const { return _game; }
 
@@ -108,7 +111,8 @@ public:
 	inline bool isActive() const { return _active; }
 	inline void setActive(bool active) { _active = active; }
 
-	virtual void setItList(list<GameObject*>::iterator itFR) {}
+	void destroy();
+	inline void kill() { setActive(false); };
 	
 	template<class ComponentType>
 	ComponentType* addComponent()

@@ -110,6 +110,7 @@ void Player::beginCollision(GameComponent * other, b2Contact* contact)
 			_playerPanel->updateCoinsCounter(_money->getWallet());
 		}
 		contact->SetEnabled(false);
+		other->destroy();
 	}
 }
 

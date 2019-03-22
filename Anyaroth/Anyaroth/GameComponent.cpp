@@ -100,3 +100,19 @@ void GameComponent::delRenderComponent(RenderComponent* rc) {
 	if (position != _renderComp.end())
 		_renderComp.erase(position);
 }
+
+void GameComponent::destroyAllChildren()
+{
+	for(GameComponent* child : _children)
+		_game->getCurrentState()->destroyObject(child);
+	_children.clear();
+}
+
+void GameComponent::destroy()
+{
+	if (_game->getCurrentState() != nullptr) {
+		if (_parent != nullptr)
+			_parent->_children.remove(this);
+		_game->getCurrentState()->destroyObject(this);
+	}
+}
