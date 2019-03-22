@@ -3,12 +3,20 @@
 
 WeaponryViewer::WeaponryViewer(Game* game, int xPos, int yPos) : PanelUI(game)
 {
-	_currentWeapon = new ImageUI(game, game->getTexture("WeaponFrame"), xPos, yPos);
-	_otherWeapon = new ImageUI(game, game->getTexture("WeaponFrame"), xPos, yPos + _currentWeapon->getH() + 1);
-	_meleeWeapon = new ImageUI(game, game->getTexture("WeaponFrame"), xPos, _otherWeapon->getY() + _otherWeapon->getH() + 1);
+	_marco = new ImageUI(game, game->getTexture("CurrentWeapon"));
 
-	addChild(_meleeWeapon);
-	addChild(_otherWeapon);
+	int marcoPosX = xPos,
+		marcoPosY = yPos - _marco->getH() - 3;
+
+	_marco->setPosition(marcoPosX, marcoPosY);
+
+	_currentWeapon = new ImageUI(game, game->getTexture("WeaponFrame"));
+	_currentWeapon->setPosition(marcoPosX + (_marco->getW() - _currentWeapon->getW()) / 2,
+								marcoPosY + (_marco->getH() - _currentWeapon->getH()) / 2);
+
+	_otherWeapon = new ImageUI(game, game->getTexture("DashIcon"));
+
+	addChild(_marco);
 	addChild(_currentWeapon);
 }
 

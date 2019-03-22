@@ -3,9 +3,13 @@
 
 class LifeBar : public ImageUI
 {
-public:
-	LifeBar(Game* game, int xPos = 0, int yPos = 0);
-	~LifeBar() {}
+	private:
+		bool inUse;
+	public:
+		LifeBar(Game* game, string textName, int xPos = 0, int yPos = 0, bool inUse = true);
+		~LifeBar() {}
 
-	void updateLifeBar(const int& life, const int& maxLife);
+		void updateLifeBar(const int& life, const int& maxLife);
+
+		void setInUse(bool b) { inUse = b; }
 };

@@ -4,8 +4,8 @@
 
 CoinsCounter::CoinsCounter(Game* game, int xPos, int yPos) : PanelUI(game)
 {
-	_coinText = new TextUI(game, to_string(0), game->getFont("ARIAL12"), 12, xPos, yPos + 1, { 255, 255, 255, 255 });
-	_coinImage = new ImageUI(game, game->getTexture("CoinIcon"), xPos + _coinText->getW(), yPos - 1);
+	_coinText = new TextUI(game, to_string(0), game->getFont("ARIAL12"), 12, xPos, yPos, { 255, 255, 255, 255 });
+	_coinImage = new ImageUI(game, game->getTexture("GearIcon"), xPos + _coinText->getW() + 3, yPos);
 
 	addChild(_coinText);
 	addChild(_coinImage);
