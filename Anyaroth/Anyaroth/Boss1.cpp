@@ -31,8 +31,11 @@ void Boss1::update(double time)
 			Fase1(time);
 		else if (fase2)
 			Fase2(time);
-		else
+		else if (fase3)
 			Fase3(time);
+		else
+			beetwenFases(time);
+
 	}
 }
 void Boss1::movement(double time)
@@ -52,6 +55,7 @@ void Boss1::movement(double time)
 
 void Boss1::bomberAttack(double time)
 {
+	timeOnBomberAttack += time;
 	if (timeOnBomberAttack >= bomberAttackTime)
 	{
 		bomberAttacking = false;
@@ -60,7 +64,6 @@ void Boss1::bomberAttack(double time)
 	}
 	else
 	{ 
-		timeOnBomberAttack += time;
 		if (timeOnBomberAttack >= timeBeetwenBombs)
 		{
 			throwBomb();

@@ -6,7 +6,7 @@ class Boss1 : public DistanceEnemy
 {
 	private:
 
-		bool fase1 = true, fase2 = false;
+		bool fase1 = true, fase2 = false, fase3 = false, beetwenFase = false;
 		Vector2D _bodyPos, _prevPos, _velocity = Vector2D(0.5, 0.5), _dir = Vector2D(1,0);
 		double _amplitude = 25, _damage = 50, _angularFrequency = 0.05, _k = _angularFrequency / _velocity.distance(Vector2D());
 
