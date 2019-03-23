@@ -80,7 +80,7 @@ void Map::createObjects()
 			}
 			else if (name == "Melee")
 			{
-				_objects->addChild(new MeleeEnemy(_game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), "Enemy"));
+				_objects->addChild(new MeleeEnemy(_game, _player, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), "Enemy"));
 			}
 			else if (name == "Martyr")
 			{

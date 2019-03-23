@@ -16,8 +16,6 @@ protected:
 	MovingComponent* _movement = nullptr;
 	CustomAnimatedSpriteComponent* _anim = nullptr;
 
-	PlayState* _playstate = nullptr;
-
 	Player* _player = nullptr;
 	Vector2D _playerDistance;
 
@@ -28,7 +26,7 @@ protected:
 	float32 _speed;
 
 public:
-	Enemy(Game* g, PlayState* playstate, Texture* texture, Vector2D posIni, string tag);
+	Enemy(Game* g, Player* player, Texture* texture, Vector2D pos, string tag);
 	virtual ~Enemy() {}
 
 	bool inCamera();

@@ -3,7 +3,7 @@
 #include "Player.h"
 #include "Bullet.h"
 
-Enemy::Enemy(Game* g, PlayState* playstate, Texture* texture, Vector2D posIni, string tag) : GameObject(g, tag), _playstate(playstate)
+Enemy::Enemy(Game* g, Player* player, Texture* texture, Vector2D posIni, string tag) : GameObject(g, tag), _player(player)
 {
 	addComponent<Texture>(texture);
 
@@ -24,8 +24,6 @@ Enemy::Enemy(Game* g, PlayState* playstate, Texture* texture, Vector2D posIni, s
 	_anim = addComponent<CustomAnimatedSpriteComponent>();
 
 	_life = Life(50);
-
-	_player = _playstate->getPlayer();
 }
 
 void Enemy::beginCollision(GameObject * other, b2Contact* contact)
@@ -69,15 +67,15 @@ void Enemy::subLife(int damage)
 
 bool Enemy::inCamera()
 {
-	return _playstate->getMainCamera()->inCamera(Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL));
+	return _game->getCurrentState()->getMainCamera()->inCamera(Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL));
 }
 
 bool Enemy::inCameraOnlyX()
 {
-	return _playstate->getMainCamera()->inCameraOnlyX(Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL));
+	return _game->getCurrentState()->getMainCamera()->inCameraOnlyX(Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL));
 }
 
 void Enemy::enemySpawn(Enemy* newEnemy)
 {
-	_playstate->addObject(newEnemy);
+	_game->getCurrentState()->addObject(newEnemy);
 }

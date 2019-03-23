@@ -4,7 +4,7 @@
 #include "Player.h"
 #include "BodyComponent.h"
 
-MartyrEnemy::MartyrEnemy(Player* player, Game* g, PlayState* play,Texture* texture, Vector2D posIni, string tag) : Enemy(g, play,texture, posIni, tag)
+MartyrEnemy::MartyrEnemy(Player* player, Game* g, PlayState* play,Texture* texture, Vector2D posIni, string tag) : Enemy(g, player,texture, posIni, tag)
 {
 	_vision = 300;
 	_attackRangeX = _attackRangeY = 25; //No se puede poner mas pequeño que la velocidad

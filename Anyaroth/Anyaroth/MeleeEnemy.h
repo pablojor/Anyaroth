@@ -8,7 +8,7 @@ private:
 	int _realRange = 15;
 
 public:
-	MeleeEnemy(Game* g, PlayState* playstate, Texture* texture, Vector2D posIni, string tag);
+	MeleeEnemy(Game* g, Player* player, Texture* texture, Vector2D posIni, string tag);
 	virtual ~MeleeEnemy() {}
 
 	virtual void update(const double& deltaTime);

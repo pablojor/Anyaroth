@@ -4,7 +4,7 @@
 #include "Player.h"
 #include "FlyingEnemy.h"
 
-StaticSpawnerEnemy::StaticSpawnerEnemy(Player * player, Game * g, PlayState * play, Texture * texture, Vector2D posIni, string tag) : Enemy(g, play, texture, posIni, tag)
+StaticSpawnerEnemy::StaticSpawnerEnemy(Player * player, Game * g, PlayState * play, Texture * texture, Vector2D posIni, string tag) : Enemy(g, player, texture, posIni, tag)
 {
 	_life = 300;
 	_vision = 300;
@@ -39,7 +39,7 @@ void StaticSpawnerEnemy::update(const double& deltaTime)
 		{
 			if (_time >= _spawnTime && currentEnemies < maxEnemies)
 			{
-				addChild(new FlyingEnemy(_player, _game, _playstate, _game->getTexture("EnemyMelee"), Vector2D(enemyPos.x * M_TO_PIXEL, enemyPos.y * M_TO_PIXEL), "Enemy"));
+				//addChild(new FlyingEnemy(_player, _game, _playstate, _game->getTexture("EnemyMelee"), Vector2D(enemyPos.x * M_TO_PIXEL, enemyPos.y * M_TO_PIXEL), "Enemy"));
 				_time = 0;
 			}
 			else

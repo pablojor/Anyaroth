@@ -1,6 +1,6 @@
 #include "BomberEnemy.h"
 
-BomberEnemy::BomberEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag, ExplosiveBulletPool* pool) : Enemy(g, play, texture, posIni, tag)
+BomberEnemy::BomberEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag, ExplosiveBulletPool* pool) : Enemy(g, player, texture, posIni, tag)
 {
 	_myBulletPool = pool;
 	_bulletTexture = g->getTexture("PistolBullet");

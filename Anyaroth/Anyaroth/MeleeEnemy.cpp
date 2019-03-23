@@ -3,7 +3,7 @@
 #include "AnimatedSpriteComponent.h"
 #include "Player.h"
 
-MeleeEnemy::MeleeEnemy(Game* g, PlayState* playstate, Texture* texture, Vector2D posIni, string tag) : Enemy(g, playstate, texture, posIni, tag)
+MeleeEnemy::MeleeEnemy(Game* g, Player* player, Texture* texture, Vector2D posIni, string tag) : Enemy(g, player, texture, posIni, tag)
 {
 	_vision = 300;
 	_life = 50;
