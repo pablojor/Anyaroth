@@ -5,14 +5,18 @@
 
 class BossPanel : public PanelUI
 {
-private:
-	LifeBar* _lifeBar = nullptr;
-	TextUI* _bossName = nullptr;
+	private:
+		ImageUI* _marco = nullptr;
+		LifeBar* _lifeBar_1 = nullptr;
+		LifeBar* _lifeBar_2 = nullptr;
+		LifeBar* _lifeBar_3 = nullptr;
+		TextUI* _bossName = nullptr;
 
-public:
-	BossPanel(Game* game);
-	~BossPanel() {}
+	public:
+		BossPanel(Game* game, string bossName);
+		~BossPanel() {}
 
-	inline void updateLifeBar(const int& life, const int& maxLife) { _lifeBar->updateLifeBar(life, maxLife); }
-	inline void updateBossName(const string& name) { _bossName->setText(name); }
+		void updateLifeBar(const int& life, const int& maxLife);
+
+		inline void updateBossName(const string& name) { _bossName->setText(name); }
 };

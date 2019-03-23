@@ -1,7 +1,7 @@
 #include "LifeBar.h"
 #include "Game.h"
 
-LifeBar::LifeBar(Game* game, string textName, int xPos, int yPos, bool inUse) : ImageUI(game, game->getTexture(textName), xPos, yPos) 
+LifeBar::LifeBar(Game* game, string textName, int xPos, int yPos) : ImageUI(game, game->getTexture(textName), xPos, yPos) 
 {
 	_image->setColor(77, 77, 77);
 }
