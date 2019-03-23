@@ -1,9 +1,8 @@
 #pragma once
 #include "GameObject.h"
 #include "TransformComponent.h"
-#include "AnimatedSpriteComponent.h"
+#include "CustomAnimatedSpriteComponent.h"
 #include "BodyComponent.h"
-#include "HurtRenderComponent.h"
 #include "PlayerArm.h"
 #include "Gun.h"
 #include "Money.h"
@@ -21,10 +20,8 @@ private:
 
 	//Componentes
 	TransformComponent* _transform = nullptr;
-	AnimatedSpriteComponent* _anim = nullptr;
+	CustomAnimatedSpriteComponent* _anim = nullptr;
 	BodyComponent* _body = nullptr;
-	HurtRenderComponent* _hurt = nullptr;
-	//HurtRenderComponent* _hurtArm; poner en el brazo
 	Melee* _melee = nullptr;
 
 	//Propiedades

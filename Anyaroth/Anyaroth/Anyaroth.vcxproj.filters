@@ -13,9 +13,6 @@
     <ClCompile Include="FrameComponent.cpp">
       <Filter>Archivos de código fuente\Components</Filter>
     </ClCompile>
-    <ClCompile Include="HurtRenderComponent.cpp">
-      <Filter>Archivos de código fuente\Components</Filter>
-    </ClCompile>
     <ClCompile Include="InputComponent.cpp">
       <Filter>Archivos de código fuente\Components</Filter>
     </ClCompile>
@@ -238,6 +235,9 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
+    <ClCompile Include="CustomAnimatedSpriteComponent.cpp">
+      <Filter>Archivos de código fuente\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -256,9 +256,6 @@
       <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
     <ClInclude Include="FrameComponent.h">
-      <Filter>Archivos de encabezado\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="HurtRenderComponent.h">
       <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
     <ClInclude Include="InputComponent.h">
@@ -494,6 +491,9 @@
     </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomAnimatedSpriteComponent.h">
+      <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

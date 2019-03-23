@@ -1,12 +1,11 @@
 #include "Enemy.h"
 #include "TransformComponent.h"
 #include "BodyComponent.h"
-#include "AnimatedSpriteComponent.h"
+#include "CustomAnimatedSpriteComponent.h"
 #include "MovingComponent.h"
 #include "Game.h"
 #include "Player.h"
 #include "Bullet.h"
-#include "HurtRenderComponent.h"
 
 Enemy::Enemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag) : _player(player), _play(play), GameObject(g, tag)
 {
@@ -25,8 +24,7 @@ Enemy::Enemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2
 	
 	_body->getBody()->SetFixedRotation(true);
 
-	_anim = addComponent<AnimatedSpriteComponent>();
-	_hurt = addComponent<HurtRenderComponent>();
+	_anim = addComponent<CustomAnimatedSpriteComponent>();
 
 	_life = Life(50);
 	_movement = addComponent<MovingComponent>();
@@ -66,12 +64,12 @@ void Enemy::subLife(int damage)
 		if (_life.dead())
 		{
 			die();
-			_hurt->die();
+			_anim->die();
 			_anim->playAnim(AnimatedSpriteComponent::EnemyDie);
 			_dead = true;
 		}
 		else
-			_hurt->hurt();
+			_anim->hurt();
 	}
 }
 

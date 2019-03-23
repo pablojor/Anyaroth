@@ -145,6 +145,7 @@
     <ClCompile Include="BulletPool.cpp" />
     <ClCompile Include="Capsule.cpp" />
     <ClCompile Include="Cursor.cpp" />
+    <ClCompile Include="CustomAnimatedSpriteComponent.cpp" />
     <ClCompile Include="DistanceEnemy.cpp" />
     <ClCompile Include="EnemyArm.cpp" />
     <ClCompile Include="ExplosiveBulletPool.cpp" />
@@ -173,7 +174,6 @@
     <ClCompile Include="ObjectLayer.cpp" />
     <ClCompile Include="ImageUI.cpp" />
     <ClCompile Include="LifeBar.cpp" />
-    <ClCompile Include="HurtRenderComponent.cpp" />
     <ClCompile Include="Life.cpp" />
     <ClCompile Include="MartyrEnemy.cpp" />
     <ClCompile Include="MeleeEnemy.cpp" />
@@ -226,6 +226,7 @@
     <ClInclude Include="BomberEnemy.h" />
     <ClInclude Include="Capsule.h" />
     <ClInclude Include="Cursor.h" />
+    <ClInclude Include="CustomAnimatedSpriteComponent.h" />
     <ClInclude Include="DistanceEnemy.h" />
     <ClInclude Include="EnemyArm.h" />
     <ClInclude Include="ExplosiveBulletPool.h" />
@@ -258,7 +259,6 @@
     <ClInclude Include="ObjectLayer.h" />
     <ClInclude Include="ImageUI.h" />
     <ClInclude Include="LifeBar.h" />
-    <ClInclude Include="HurtRenderComponent.h" />
     <ClInclude Include="Life.h" />
     <ClInclude Include="MartyrEnemy.h" />
     <ClInclude Include="MeleeEnemy.h" />

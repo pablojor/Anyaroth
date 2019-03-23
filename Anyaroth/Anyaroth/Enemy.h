@@ -7,7 +7,7 @@
 class Player;
 class PlayState;
 
-class AnimatedSpriteComponent;
+class CustomAnimatedSpriteComponent;
 class MovingComponent;
 class TransformComponent;
 class BodyComponent;
@@ -16,12 +16,11 @@ class HurtRenderComponent;
 class Enemy : public GameObject
 {
 protected:
-	AnimatedSpriteComponent* _anim = nullptr;
+	CustomAnimatedSpriteComponent* _anim = nullptr;
 	MovingComponent* _movement = nullptr;
 	TransformComponent* _transform = nullptr;
 	Player* _player = nullptr;
 	BodyComponent* _body = nullptr;
-	HurtRenderComponent* _hurt = nullptr;
 
 	PlayState* _play = nullptr;
 	list<GameObject*>::iterator _itList;

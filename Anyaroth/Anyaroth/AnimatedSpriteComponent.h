@@ -16,7 +16,7 @@ struct AnimationState
 
 class AnimatedSpriteComponent : public SpriteComponent, public PhysicsComponent
 {
-protected:
+private:
 	vector<AnimationState> _animations = {};
 
 	uint _currentAnim = 0;

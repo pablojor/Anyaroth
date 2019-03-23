@@ -2,7 +2,6 @@
 #include "Enemy.h"
 #include "GameObject.h"
 #include "AnimatedSpriteComponent.h"
-#include "HurtRenderComponent.h"
 #include "Player.h"
 
 class BomberEnemy : public Enemy

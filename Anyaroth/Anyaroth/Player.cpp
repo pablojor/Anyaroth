@@ -40,7 +40,7 @@ Player::Player(Game* game, int xPos, int yPos) :  GameObject(game, "Player")
 	fDef.isSensor = true;
 	_body->addFixture(&fDef, this);
 
-	_anim = addComponent<AnimatedSpriteComponent>();
+	_anim = addComponent<CustomAnimatedSpriteComponent>();
 	_anim->addAnim(AnimatedSpriteComponent::Idle, 16, true);
 	_anim->addAnim(AnimatedSpriteComponent::Walk, 10, true);
 	_anim->addAnim(AnimatedSpriteComponent::WalkBack, 10, true);
@@ -55,8 +55,6 @@ Player::Player(Game* game, int xPos, int yPos) :  GameObject(game, "Player")
 	_anim->addAnim(AnimatedSpriteComponent::DashDown, 3, true);
 	_anim->addAnim(AnimatedSpriteComponent::DashBack, 6, false);
 	_anim->addAnim(AnimatedSpriteComponent::ReloadShotgun, 5, false);
-
-	_hurt = addComponent<HurtRenderComponent>();
 	
 	//Brazo
 	_playerArm = new PlayerArm(game, this, { 28, 18 });
@@ -157,9 +155,13 @@ void Player::subLife(int damage)
 			{
 				die();
 				//_hurt->die();
+				//_playerArm->die();
 			}
 			else
-				_hurt->hurt();
+			{
+				_anim->hurt();
+				_playerArm->hurt();
+			}
 		}
 		_playerPanel->updateLifeBar(_life.getLife(), _life.getMaxLife());
 	}

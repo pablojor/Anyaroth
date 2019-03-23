@@ -1,7 +1,6 @@
 #include "StaticSpawnerEnemy.h"
 #include "GameObject.h"
 #include "AnimatedSpriteComponent.h"
-#include "HurtRenderComponent.h"
 #include "Player.h"
 #include "FlyingEnemy.h"
 

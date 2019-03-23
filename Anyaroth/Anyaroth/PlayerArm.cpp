@@ -54,14 +54,14 @@ void PlayerArm::handleFlipState(const Vector2D& target)
 			_followC->setOffset({ _followC->getInitialOffset().getX() + 8 /*flipPosOffset*/, _followC->getInitialOffset().getY() });
 			_transform->setRotation(_transform->getRotation() + 180);
 			_anim->flip();
-			_player->getComponent<AnimatedSpriteComponent>()->flip();
+			_player->getComponent<CustomAnimatedSpriteComponent>()->flip();
 		}
 		else
 		{
 			_transform->setAnchor(_transform->getDefaultAnchor().getX(), _transform->getDefaultAnchor().getY());
 			_followC->setOffset({ _followC->getInitialOffset().getX(), _followC->getInitialOffset().getY() });
 			_anim->unFlip();
-			_player->getComponent<AnimatedSpriteComponent>()->unFlip();
+			_player->getComponent<CustomAnimatedSpriteComponent>()->unFlip();
 		}
 	}
 }

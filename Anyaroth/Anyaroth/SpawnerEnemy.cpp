@@ -1,7 +1,6 @@
 #include "SpawnerEnemy.h"
 #include "GameObject.h"
 #include "AnimatedSpriteComponent.h"
-#include "HurtRenderComponent.h"
 #include "Player.h"
 #include "Capsule.h"
 
@@ -85,14 +84,14 @@ void SpawnerEnemy::subLife(int damage)
 		if (_life.dead())
 		{
 			die();
-			_hurt->die();
+			_anim->die();
 			_anim->playAnim(AnimatedSpriteComponent::EnemyDie);
 			_body->getBody()->SetGravityScale(1);
 
 			_dead = true;
 		}
 		else
-			_hurt->hurt();
+			_anim->hurt();
 	}
 }
 

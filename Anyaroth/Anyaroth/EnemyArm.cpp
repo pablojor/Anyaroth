@@ -16,7 +16,7 @@ void EnemyArm::update(const double& deltaTime)
 
 	if (_myEnemy->ArmVision())
 	{
-		if (!_myEnemy->getComponent<AnimatedSpriteComponent>()->isFlipped())
+		if (!_myEnemy->getComponent<CustomAnimatedSpriteComponent>()->isFlipped())
 		{
 			_transform->setAnchor(_transform->getDefaultAnchor().getX(), _transform->getDefaultAnchor().getY());
 
@@ -36,7 +36,7 @@ void EnemyArm::update(const double& deltaTime)
 			_anim->flip();
 		}
 	}
-	else if(_myEnemy->getComponent<AnimatedSpriteComponent>()->isFlipped())
+	else if(_myEnemy->getComponent<CustomAnimatedSpriteComponent>()->isFlipped())
 	{
 		_anim->flip();
 		_transform->setAnchor(1 - _transform->getDefaultAnchor().getX(), _transform->getDefaultAnchor().getY());

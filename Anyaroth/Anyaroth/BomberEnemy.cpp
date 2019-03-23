@@ -82,13 +82,13 @@ void BomberEnemy::subLife(int damage)
 		if (_life.dead())
 		{
 			die();
-			_hurt->die();
+			_anim->die();
 			_anim->playAnim(AnimatedSpriteComponent::EnemyDie);
 			_body->getBody()->SetGravityScale(1);
 			_dead = true;
 		}
 		else
-			_hurt->hurt();
+			_anim->hurt();
 	}
 }
 
