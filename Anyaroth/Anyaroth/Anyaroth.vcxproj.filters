@@ -241,6 +241,9 @@
     <ClCompile Include="ExplosiveBulletPool.cpp">
       <Filter>Archivos de código fuente\Pools</Filter>
     </ClCompile>
+    <ClCompile Include="Boss1.cpp">
+      <Filter>Archivos de código fuente\Objects\Enemies\Bosses</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -504,6 +507,9 @@
     <ClInclude Include="ExplosiveBulletPool.h">
       <Filter>Archivos de encabezado\Pools</Filter>
     </ClInclude>
+    <ClInclude Include="Boss1.h">
+      <Filter>Archivos de encabezado\Objects\Enemies\Bosses</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de código fuente">
@@ -634,6 +640,12 @@
     </Filter>
     <Filter Include="Archivos de código fuente\Objects\Player">
       <UniqueIdentifier>{fbeacda4-f6f1-4d13-989f-c1371de5a063}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código fuente\Objects\Enemies\Bosses">
+      <UniqueIdentifier>{c03f4dd0-3410-41bb-a91d-023234e49cb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Objects\Enemies\Bosses">
+      <UniqueIdentifier>{ae89c5cd-2224-4756-ae5f-329f67ee3d17}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

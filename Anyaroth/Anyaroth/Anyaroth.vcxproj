@@ -142,6 +142,7 @@
     <ClCompile Include="BasicShotgun.cpp" />
     <ClCompile Include="BodyComponent.cpp" />
     <ClCompile Include="BomberEnemy.cpp" />
+    <ClCompile Include="Boss1.cpp" />
     <ClCompile Include="BulletPool.cpp" />
     <ClCompile Include="Capsule.cpp" />
     <ClCompile Include="Cursor.cpp" />
@@ -225,6 +226,7 @@
     <ClInclude Include="BasicShotgun.h" />
     <ClInclude Include="BodyComponent.h" />
     <ClInclude Include="BomberEnemy.h" />
+    <ClInclude Include="Boss1.h" />
     <ClInclude Include="Capsule.h" />
     <ClInclude Include="Cursor.h" />
     <ClInclude Include="DistanceEnemy.h" />

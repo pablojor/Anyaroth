@@ -4,12 +4,15 @@
 #include "Player.h"
 
 
-Boss1::Boss1(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag, BulletPool* pool) : DistanceEnemy(player, g, play, texture, posIni, tag, pool)
+Boss1::Boss1(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag, BulletPool* pool, ExplosiveBulletPool* explosivePool) : DistanceEnemy(player, g, play, texture, posIni, tag, pool)
 {
-	_vision = 200;
+	_myExplosivePool = explosivePool;
+	_bombTexture = g->getTexture("PistolBullet");
+
+
 	_attackRange = 120; //No se puede poner mas pequeño que la velocidad
 	_attackTime = 1300; //La animacion tarda unos 450
-	_life = 50;
+	_life = 1000;
 
 	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 13, true);
 	_anim->addAnim(AnimatedSpriteComponent::EnemyWalk, 8, true);
@@ -46,13 +49,40 @@ void Boss1::movement(double time)
 
 	_body->getBody()->SetTransform(b2Vec2(x / M_TO_PIXEL, y / M_TO_PIXEL), 0);
 }
+
+void Boss1::bomberAttack(double time)
+{
+	if (timeOnBomberAttack >= bomberAttackTime)
+	{
+		bomberAttacking = false;
+		timeOnBomberAttack = 0;
+		timeBeetwenBombs = 0;
+	}
+	else
+	{ 
+		timeOnBomberAttack += time;
+		if (timeOnBomberAttack >= timeBeetwenBombs)
+		{
+			throwBomb();
+			timeBeetwenBombs += random(100, 300);
+		}
+
+	}
+}
+
 void Boss1::Fase1(double time)
 {
 
 }
 void Boss1::Fase2(double time)
 {
-
+	/*if(porcentaje)
+	{
+		
+		bomberAttacking = true;
+		bomberAttack(time);
+		
+	}*/
 }
 void Boss1::Fase3(double time)
 {
@@ -62,4 +92,25 @@ void Boss1::Fase3(double time)
 void Boss1::beetwenFases(double time)
 {
 
+}
+
+
+void Boss1::throwBomb()
+{
+	Bullet* b = _myExplosivePool->getUnusedObject();
+	Vector2D helpPos = Vector2D(random(0,500 /*Fututo tope por la derecha*/), 0);
+	Vector2D bulletPos = helpPos.rotateAroundPoint(90, helpPos);
+
+	if (b != nullptr)
+	{
+		b->init(_bombTexture, helpPos, 0, 10, 90, _bombRange, "PistolBullet");
+		b->changeFilter();
+	}
+	else
+	{
+		Bullet* b2 = _myExplosivePool->addNewBullet();
+
+		b2->init(_bombTexture, helpPos, 0, 10, 90, _bombRange, "PistolBullet");
+		b2->changeFilter();
+	}
 }
