@@ -1,7 +1,7 @@
 #include "DashViewer.h"
 #include "Game.h"
 
-DashViewer::DashViewer(Game * game, int xPos, int yPos) : ImageUI(game, game->getTexture("DashIcon"), xPos, yPos) {}
+DashViewer::DashViewer(Game * game, int xPos, int yPos) : ImageUI(game, game->getTexture("Dash"), xPos, yPos) {}
 
 void DashViewer::render() const
 {

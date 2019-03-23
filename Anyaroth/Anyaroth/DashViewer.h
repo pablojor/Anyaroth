@@ -3,15 +3,15 @@
 
 class DashViewer : public ImageUI
 {
-private:
-	uint _dashNumber = 0;
+	private:
+		uint _dashNumber = 0;
 
-public:
-	DashViewer(Game* game, int xPos, int yPos);
-	~DashViewer() {}
+	public:
+		DashViewer(Game* game, int xPos, int yPos);
+		~DashViewer() {}
 
-	void render() const;
+		void render() const;
 
-	inline void setDashes(const uint& n) { _dashNumber = n; }
-	inline uint getDashesNumber() const { return _dashNumber; }
+		inline void setDashes(const uint& n) { _dashNumber = n; }
+		inline uint getDashesNumber() const { return _dashNumber; }
 };
