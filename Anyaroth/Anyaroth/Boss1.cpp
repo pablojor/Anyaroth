@@ -72,17 +72,25 @@ void Boss1::bomberAttack(double time)
 
 void Boss1::Fase1(double time)
 {
-
+	movement(time);
 }
 void Boss1::Fase2(double time)
 {
-	/*if(porcentaje)
+	if (!bomberAttacking)
 	{
-		
-		bomberAttacking = true;
+		int ra = random(0, 100);
+		if (ra >= 70)
+		{
+
+			bomberAttacking = true;
+			bomberAttack(time);
+
+		}
+		else
+			Fase1(time);
+	}
+	else
 		bomberAttack(time);
-		
-	}*/
 }
 void Boss1::Fase3(double time)
 {
