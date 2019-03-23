@@ -149,9 +149,10 @@ void Player::subLife(int damage)
 	if (!isDashing())
 	{
 		_life.subLife(damage);
+
 		if (!_dead)
 		{
-			if (_life.dead())
+			if (_life.getLife() == 0)
 			{
 				die();
 				//_hurt->die();

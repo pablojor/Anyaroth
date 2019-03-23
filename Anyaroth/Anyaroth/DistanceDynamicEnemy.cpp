@@ -6,7 +6,7 @@
 DistanceDynamicEnemy::DistanceDynamicEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag, BulletPool* pool) : DistanceEnemy(player, g, play, texture, posIni, tag, pool)
 {
 	_vision = 200;
-	_attackRange = 120; //No se puede poner mas pequeño que la velocidad
+	_attackRangeX = _attackRangeY = 120; //No se puede poner mas pequeño que la velocidad
 	_attackTime = 1300; //La animacion tarda unos 450
 	_life = 50;
 
@@ -34,12 +34,12 @@ void DistanceDynamicEnemy::update(const double& deltaTime)
 			if (x > 0)//Derecha
 			{
 				_anim->unFlip();
-				if (x > _attackRange)
+				if (x > _attackRangeX)
 				{
 					_body->getBody()->SetLinearVelocity({ 8,_body->getBody()->GetLinearVelocity().y });
 					_anim->playAnim(AnimatedSpriteComponent::EnemyWalk);
 				}
-				else if (y > _attackRange || y < -_attackRange)
+				else if (y > _attackRangeY || y < -_attackRangeY)
 				{
 					_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
 					_anim->playAnim(AnimatedSpriteComponent::Idle);
@@ -56,12 +56,12 @@ void DistanceDynamicEnemy::update(const double& deltaTime)
 			{
 				_anim->flip();
 
-				if (x < -_attackRange)
+				if (x < -_attackRangeX)
 				{
 					_body->getBody()->SetLinearVelocity({ -8,_body->getBody()->GetLinearVelocity().y });
 					_anim->playAnim(AnimatedSpriteComponent::EnemyWalk);
 				}
-				else if (y > _attackRange || y < -_attackRange)
+				else if (y > _attackRangeY || y < -_attackRangeY)
 				{
 					_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
 					_anim->playAnim(AnimatedSpriteComponent::Idle);
@@ -77,7 +77,7 @@ void DistanceDynamicEnemy::update(const double& deltaTime)
 		}
 		else if (_attacking) //Ya estoy a una distancia optima, ataco al jugador
 		{
-			if (x < -_attackRange || x > _attackRange || y < -_attackRange || y > _attackRange) //Si has perdido de vista al jugador dejas de atacar
+			if (x < -_attackRangeX || x > _attackRangeX || y < -_attackRangeY || y > _attackRangeY) //Si has perdido de vista al jugador dejas de atacar
 				_attacking = false;
 			else
 			{

@@ -4,10 +4,10 @@
 #include "Player.h"
 #include "BodyComponent.h"
 
-MartyrEnemy::MartyrEnemy(Player* player, Game* g, PlayState* play,Texture* texture, Vector2D posIni, string tag) : Enemy(player, g, play,texture, posIni, tag)
+MartyrEnemy::MartyrEnemy(Player* player, Game* g, PlayState* play,Texture* texture, Vector2D posIni, string tag) : Enemy(g, play,texture, posIni, tag)
 {
 	_vision = 300;
-	_attackRange = 25; //No se puede poner mas pequeño que la velocidad
+	_attackRangeX = _attackRangeY = 25; //No se puede poner mas pequeño que la velocidad
 	_attackTime = 850;
 	_life = 50;
 	_damage = 80;
@@ -46,12 +46,12 @@ void MartyrEnemy::update(const double& deltaTime)
 			{
 				_anim->unFlip();
 
-				if ((x > _attackRange))
+				if ((x > _attackRangeX))
 				{
 					_body->getBody()->SetLinearVelocity({ _speed,_body->getBody()->GetLinearVelocity().y });
 					_anim->playAnim(AnimatedSpriteComponent::EnemyWalk);
 				}
-				else if (y > _attackRange || y < -_attackRange)
+				else if (y > _attackRangeY || y < -_attackRangeY)
 				{
 					_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
 					_anim->playAnim(AnimatedSpriteComponent::Idle);
@@ -68,12 +68,12 @@ void MartyrEnemy::update(const double& deltaTime)
 			{
 				_anim->flip();
 
-				if (x < -_attackRange)
+				if (x < -_attackRangeX)
 				{
 					_body->getBody()->SetLinearVelocity({ -_speed,_body->getBody()->GetLinearVelocity().y });
 					_anim->playAnim(AnimatedSpriteComponent::EnemyWalk);
 				}
-				else if (y > _attackRange || y < -_attackRange)
+				else if (y > _attackRangeY || y < -_attackRangeY)
 				{
 					_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
 					_anim->playAnim(AnimatedSpriteComponent::Idle);

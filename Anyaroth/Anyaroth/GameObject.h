@@ -43,7 +43,7 @@ private:
 			return c;
 		}
 		else
-			cout << "Se ha intentado anyadir un componente ya existente" << endl;
+			std::cout << "Se ha intentado anyadir un componente ya existente" << endl;
 
 		return nullptr;
 	}
@@ -59,7 +59,7 @@ private:
 			return c;
 		}
 		else
-			cout << "Se ha intentado anyadir un componente ya existente" << endl;
+			std::cout << "Se ha intentado anyadir un componente ya existente" << endl;
 
 		return nullptr;
 	}

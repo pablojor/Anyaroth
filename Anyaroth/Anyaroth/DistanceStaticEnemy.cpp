@@ -7,7 +7,7 @@
 DistanceStaticEnemy::DistanceStaticEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag, BulletPool* pool) : DistanceEnemy(player, g, play, texture, posIni, tag, pool)
 {
 	_vision = 700;
-	_attackRange = _vision; //No se puede poner mas pequeño que la velocidad
+	_attackRangeX = _attackRangeY = _vision; //No se puede poner mas pequeño que la velocidad
 	_attackTime = 1300; //La animacion tarda unos 450
 	_life = 50;
 

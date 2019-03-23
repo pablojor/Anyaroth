@@ -80,35 +80,35 @@ void Map::createObjects()
 			}
 			else if (name == "Melee")
 			{
-				_objects->addChild(new MeleeEnemy(_player, _game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), "Enemy"));
+				_objects->addChild(new MeleeEnemy(_game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), "Enemy"));
 			}
 			else if (name == "Martyr")
 			{
-				_objects->addChild(new MartyrEnemy(_player, _game, _playState, _game->getTexture("EnemyMartyr"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), "Enemy"));
+				//_objects->addChild(new MartyrEnemy(_player, _game, _playState, _game->getTexture("EnemyMartyr"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), "Enemy"));
 			}
 			else if (name == "DistanceStatic")
 			{
-				_objects->addChild(new DistanceStaticEnemy(_player, _game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), "Enemy", _playState->getEnemyPool()));
+				//_objects->addChild(new DistanceStaticEnemy(_player, _game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), "Enemy", _playState->getEnemyPool()));
 			}
 			else if (name == "DistanceDynamic")
 			{
-				_objects->addChild(new DistanceDynamicEnemy(_player, _game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), "Enemy", _playState->getEnemyPool()));
+				//_objects->addChild(new DistanceDynamicEnemy(_player, _game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), "Enemy", _playState->getEnemyPool()));
 			}
 			else if (name == "Bomber")
 			{
-				_objects->addChild(new BomberEnemy(_player, _game, _playState, _game->getTexture("EnemyMartyr"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), "Enemy", _playState->getExplosivePool()));
+				//_objects->addChild(new BomberEnemy(_player, _game, _playState, _game->getTexture("EnemyMartyr"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), "Enemy", _playState->getExplosivePool()));
 			}
 			else if (name == "Spawner")
 			{
-				_objects->addChild(new SpawnerEnemy(_player, _game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), "Enemy"));
+				//_objects->addChild(new SpawnerEnemy(_player, _game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), "Enemy"));
 			}
 			else if (name == "SpawnerStatic")
 			{
-				_objects->addChild(new StaticSpawnerEnemy(_player, _game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), "Enemy"));
+				//_objects->addChild(new StaticSpawnerEnemy(_player, _game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), "Enemy"));
 			}
 			else if (name == "Coin")
 			{
-				_objects->addChild(new Coin(_game, _game->getTexture("Coin"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE), _coinValue));
+				//_objects->addChild(new Coin(_game, _game->getTexture("Coin"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE), _coinValue));
 			}
 		}
 	}

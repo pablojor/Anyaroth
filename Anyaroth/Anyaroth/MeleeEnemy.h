@@ -4,11 +4,18 @@
 class MeleeEnemy : public Enemy
 {
 private:
-	bool _attackingR = false, _attackingL = false;
-	int _realRange = 15, _stopDmg = 1000;
+	Vector2D _dir = Vector2D();
+	int _realRange = 15;
 
 public:
-	MeleeEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag);
+	MeleeEnemy(Game* g, PlayState* playstate, Texture* texture, Vector2D posIni, string tag);
 	virtual ~MeleeEnemy() {}
+
 	virtual void update(const double& deltaTime);
+
+	void idle();
+	void moving(Vector2D& dir);
+
+	void attack();
+	void attacking(const double& deltaTime);
 };

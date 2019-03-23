@@ -1,38 +1,34 @@
 #pragma once
-#include <list>
 #include "GameObject.h"
+#include "TransformComponent.h"
+#include "BodyComponent.h"
+#include "MovingComponent.h"
+#include "CustomAnimatedSpriteComponent.h"
 #include "Life.h"
 #include "EnemyArm.h"
-
-class Player;
-class PlayState;
-
-class CustomAnimatedSpriteComponent;
-class MovingComponent;
-class TransformComponent;
-class BodyComponent;
-class HurtRenderComponent;
+#include "PlayState.h"
 
 class Enemy : public GameObject
 {
 protected:
-	CustomAnimatedSpriteComponent* _anim = nullptr;
-	MovingComponent* _movement = nullptr;
 	TransformComponent* _transform = nullptr;
-	Player* _player = nullptr;
 	BodyComponent* _body = nullptr;
+	MovingComponent* _movement = nullptr;
+	CustomAnimatedSpriteComponent* _anim = nullptr;
 
-	PlayState* _play = nullptr;
-	list<GameObject*>::iterator _itList;
+	PlayState* _playstate = nullptr;
+
+	Player* _player = nullptr;
+	Vector2D _playerDistance;
 
 	Life _life;
 	bool _attacking = false, _dead = false;
+	int _vision, _attackRangeX, _attackRangeY, _attackTime, _damage;
 	double _time;
-	int _vision, _attackRange, _attackTime, _damage;
 	float32 _speed;
 
 public:
-	Enemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag);
+	Enemy(Game* g, PlayState* playstate, Texture* texture, Vector2D posIni, string tag);
 	virtual ~Enemy() {}
 
 	bool inCamera();
@@ -40,9 +36,7 @@ public:
 
 	virtual void beginCollision(GameObject* other, b2Contact* contact);
 
-	void setItList(list<GameObject*>::iterator itFR);
-
-	virtual inline void noLongerAttacking() { _attacking = false; }
+	virtual inline void noAttacking() { _attacking = false; }
 
 	virtual void update(const double& deltaTime);
 

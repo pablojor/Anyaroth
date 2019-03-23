@@ -1,13 +1,9 @@
 #include "Enemy.h"
-#include "TransformComponent.h"
-#include "BodyComponent.h"
-#include "CustomAnimatedSpriteComponent.h"
-#include "MovingComponent.h"
 #include "Game.h"
 #include "Player.h"
 #include "Bullet.h"
 
-Enemy::Enemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag) : _player(player), _play(play), GameObject(g, tag)
+Enemy::Enemy(Game* g, PlayState* playstate, Texture* texture, Vector2D posIni, string tag) : GameObject(g, tag), _playstate(playstate)
 {
 	addComponent<Texture>(texture);
 
@@ -24,15 +20,12 @@ Enemy::Enemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2
 	
 	_body->getBody()->SetFixedRotation(true);
 
+	_movement = addComponent<MovingComponent>();
 	_anim = addComponent<CustomAnimatedSpriteComponent>();
 
 	_life = Life(50);
-	_movement = addComponent<MovingComponent>();
-}
 
-void Enemy::setItList(list<GameObject*>::iterator itFR)
-{
-	_itList = itFR;
+	_player = _playstate->getPlayer();
 }
 
 void Enemy::beginCollision(GameObject * other, b2Contact* contact)
@@ -40,8 +33,7 @@ void Enemy::beginCollision(GameObject * other, b2Contact* contact)
 	string otherTag = other->getTag();
 	if (otherTag == "Bullet")
 	{
-		int damage = 0;
-		damage=dynamic_cast<Bullet*>(other)->getDamage();
+		int damage = dynamic_cast<Bullet*>(other)->getDamage();
 		subLife(damage);
 	}
 }
@@ -49,10 +41,16 @@ void Enemy::beginCollision(GameObject * other, b2Contact* contact)
 void Enemy::update(const double& deltaTime)
 {
 	GameObject::update(deltaTime);
+
+	b2Vec2 playerPos = _player->getComponent<BodyComponent>()->getBody()->GetPosition(), enemyPos = _body->getBody()->GetPosition();
+	_playerDistance = Vector2D((playerPos.x - enemyPos.x)*M_TO_PIXEL, (playerPos.y - enemyPos.y)*M_TO_PIXEL);
 }
 
 void Enemy::die()
 {
+	_anim->die();
+	_anim->playAnim(AnimatedSpriteComponent::EnemyDie);
+	_dead = true;
 	_body->filterCollisions(DEAD_ENEMIES, FLOOR);
 }
 
@@ -61,13 +59,9 @@ void Enemy::subLife(int damage)
 	if (!_dead)
 	{
 		_life.subLife(damage);
-		if (_life.dead())
-		{
+
+		if (_life.getLife() == 0)
 			die();
-			_anim->die();
-			_anim->playAnim(AnimatedSpriteComponent::EnemyDie);
-			_dead = true;
-		}
 		else
 			_anim->hurt();
 	}
@@ -75,15 +69,15 @@ void Enemy::subLife(int damage)
 
 bool Enemy::inCamera()
 {
-	return _play->getMainCamera()->inCamera(Vector2D(_body->getBody()->GetPosition().x * 8, _body->getBody()->GetPosition().y * 8));
+	return _playstate->getMainCamera()->inCamera(Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL));
 }
 
 bool Enemy::inCameraOnlyX()
 {
-	return _play->getMainCamera()->inCameraOnlyX(Vector2D(_body->getBody()->GetPosition().x * 8, _body->getBody()->GetPosition().y * 8));
+	return _playstate->getMainCamera()->inCameraOnlyX(Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL));
 }
 
 void Enemy::enemySpawn(Enemy* newEnemy)
 {
-	_play->addObject(newEnemy);
+	_playstate->addObject(newEnemy);
 }

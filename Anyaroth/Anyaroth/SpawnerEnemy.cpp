@@ -4,7 +4,7 @@
 #include "Player.h"
 #include "Capsule.h"
 
-SpawnerEnemy::SpawnerEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag) : Enemy(player, g, play, texture, posIni, tag)
+SpawnerEnemy::SpawnerEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag) : Enemy(g, play, texture, posIni, tag)
 {
 	_attackTime = 2000;
 	_life = 300;
@@ -59,7 +59,7 @@ void SpawnerEnemy::update(const double& deltaTime)
 		{
 			if (_time >= _spawnTime)
 			{
-				enemySpawn(new Capsule(_player, _game, _play, _game->getTexture("EnemyMelee"), Vector2D(enemyPos.x * 8 - 30 /*Numero a ajustar dependiendo del sprite*/ , enemyPos.y * 8 - 25 /*Numero a ajustar dependiendo del sprite*/), "Enemy"));
+				enemySpawn(new Capsule(_player, _game, _playstate, _game->getTexture("EnemyMelee"), Vector2D(enemyPos.x * 8 - 30 /*Numero a ajustar dependiendo del sprite*/ , enemyPos.y * 8 - 25 /*Numero a ajustar dependiendo del sprite*/), "Enemy"));
 				_time = 0;
 			}
 			else
@@ -81,7 +81,7 @@ void SpawnerEnemy::subLife(int damage)
 	if (!_dead)
 	{
 		_life.subLife(damage);
-		if (_life.dead())
+		if (_life.getLife() == 0)
 		{
 			die();
 			_anim->die();

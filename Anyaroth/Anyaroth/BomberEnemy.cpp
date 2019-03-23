@@ -1,6 +1,6 @@
 #include "BomberEnemy.h"
 
-BomberEnemy::BomberEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag, ExplosiveBulletPool* pool) : Enemy(player, g, play, texture, posIni, tag)
+BomberEnemy::BomberEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag, ExplosiveBulletPool* pool) : Enemy(g, play, texture, posIni, tag)
 {
 	_myBulletPool = pool;
 	_bulletTexture = g->getTexture("PistolBullet");
@@ -79,7 +79,7 @@ void BomberEnemy::subLife(int damage)
 	if (!_dead)
 	{
 		_life.subLife(damage);
-		if (_life.dead())
+		if (_life.getLife() == 0)
 		{
 			die();
 			_anim->die();
