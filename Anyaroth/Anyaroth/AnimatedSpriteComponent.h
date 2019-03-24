@@ -7,7 +7,7 @@ typedef unsigned int uint;
 
 class GameComponent;
 
-struct AnimationState
+struct AnimationStateImage
 {
 	uint name;
 	uint numFrames;
@@ -19,7 +19,7 @@ struct AnimationState
 class AnimatedSpriteComponent : public SpriteComponent, public PhysicsComponent
 {
 protected:
-	vector<AnimationState> _animations = {};
+	vector<AnimationStateImage> _animations = {};
 
 	uint _currentAnim = 0;
 

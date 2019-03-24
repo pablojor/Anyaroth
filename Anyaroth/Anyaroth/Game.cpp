@@ -1,4 +1,5 @@
 #include "Game.h"
+#include <ctime>
 #include "AnyarothError.h"
 #include <json.hpp>
 
@@ -59,9 +60,26 @@ void Game::createFonts()
 
 void Game::createSounds()
 {
-	_soundManager->addSFX("example", SOUNDS_PATH + "example.wav");
+	
 	_soundManager->addMusic("bgMusic", SOUNDS_PATH + "bgMusic.wav");
 	_soundManager->addSFX("example1", SOUNDS_PATH + "example1.wav");
+
+	//UI SOUNDS
+		//Next Text (CAMBIAR)
+	_soundManager->addSFX("example", SOUNDS_PATH + "example.wav");
+		//Dialogue
+	_soundManager->addSFX("openDialogue", SOUNDS_PATH + "openDialogue.wav");
+	_soundManager->addSFX("closeDialogue", SOUNDS_PATH + "closeDialogue.wav");
+
+	//VOICES
+		//Example
+	_soundManager->addSFX("exampleVoice0", SOUNDS_PATH + "exampleVoice0.wav");
+	_soundManager->addSFX("exampleVoice1", SOUNDS_PATH + "exampleVoice1.wav");
+	_soundManager->addSFX("exampleVoice2", SOUNDS_PATH + "exampleVoice2.wav");
+		//Boss
+	_soundManager->addSFX("bossVoice0", SOUNDS_PATH + "bossVoice0.wav");
+	_soundManager->addSFX("bossVoice1", SOUNDS_PATH + "bossVoice1.wav");
+	_soundManager->addSFX("bossVoice2", SOUNDS_PATH + "bossVoice2.wav");
 }
 
 void Game::toggleFullscreen()
@@ -73,6 +91,8 @@ void Game::toggleFullscreen()
 
 Game::Game()
 {
+	srand(time(NULL));//random seed
+
 	SDL_Init(SDL_INIT_TIMER | SDL_INIT_AUDIO | SDL_INIT_VIDEO | SDL_INIT_EVENTS);
 	TTF_Init(); //Ventana del tamaño de la pantalla de cada dispositivo
 	SDL_DisplayMode monitor;

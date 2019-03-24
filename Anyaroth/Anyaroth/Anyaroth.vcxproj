@@ -134,6 +134,8 @@
   <ItemGroup>
     <ClCompile Include="AmmoPackage.cpp" />
     <ClCompile Include="AmmoViewer.cpp" />
+    <ClCompile Include="AnimatedImageUI.cpp" />
+    <ClCompile Include="FramedImageUI.cpp" />
     <ClCompile Include="AnimatedSpriteComponent.cpp" />
     <ClCompile Include="Arm.cpp" />
     <ClCompile Include="Axe.cpp" />
@@ -145,6 +147,8 @@
     <ClCompile Include="BulletPool.cpp" />
     <ClCompile Include="Capsule.cpp" />
     <ClCompile Include="Cursor.cpp" />
+    <ClCompile Include="DialoguePanel.cpp" />
+    <ClCompile Include="DialogueTextUI.cpp" />
     <ClCompile Include="DistanceEnemy.cpp" />
     <ClCompile Include="EnemyArm.cpp" />
     <ClCompile Include="ExplosiveBulletPool.cpp" />
@@ -216,6 +220,8 @@
   <ItemGroup>
     <ClInclude Include="AmmoPackage.h" />
     <ClInclude Include="AmmoViewer.h" />
+    <ClInclude Include="AnimatedImageUI.h" />
+    <ClInclude Include="FramedImageUI.h" />
     <ClInclude Include="AnimatedSpriteComponent.h" />
     <ClInclude Include="AnyarothError.h" />
     <ClInclude Include="Arm.h" />
@@ -227,6 +233,8 @@
     <ClInclude Include="BomberEnemy.h" />
     <ClInclude Include="Capsule.h" />
     <ClInclude Include="Cursor.h" />
+    <ClInclude Include="DialoguePanel.h" />
+    <ClInclude Include="DialogueTextUI.h" />
     <ClInclude Include="DistanceEnemy.h" />
     <ClInclude Include="EnemyArm.h" />
     <ClInclude Include="ExplosiveBulletPool.h" />
