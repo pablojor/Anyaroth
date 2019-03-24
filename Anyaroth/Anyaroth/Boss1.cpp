@@ -198,12 +198,20 @@ void Boss1::beginCollision(GameComponent * other, b2Contact * contact)
 			_beetwenFase = false;
 			_fase2 = true;
 			_armVision = true;
+
+			_bomberAttacking = false;
+			_timeOnBomberAttack = 0;
+			_timeBeetwenBombs = 0;
 		}
 		else if (_lastFase == 2)
 		{
 			_beetwenFase = false;
 			_fase3 = true;
 			_armVision = true;
+
+			_bomberAttacking = false;
+			_timeOnBomberAttack = 0;
+			_timeBeetwenBombs = 0;
 		}
 		else
 		{
