@@ -12,7 +12,6 @@ Boss1::Boss1(Player* player, Game* g, PlayState* play, Texture* texture, Vector2
 
 	_attackRange = 120; //No se puede poner mas pequeño que la velocidad
 	_attackTime = 1300; //La animacion tarda unos 450
-	_life = 1000;
 
 	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 13, true);
 	_anim->addAnim(AnimatedSpriteComponent::EnemyWalk, 8, true);
@@ -27,15 +26,58 @@ void Boss1::update(double time)
 {
 	if (!_dead)
 	{
-		if (fase1)
+		if (_fase1)
 			Fase1(time);
-		else if (fase2)
+		else if (_fase2)
 			Fase2(time);
-		else if (fase3)
+		else if (_fase3)
 			Fase3(time);
 		else
 			beetwenFases(time);
 
+	}
+}
+void Boss1::subLife(int damage)
+{
+	if (!_dead)
+	{
+		if (_life1.getLife() > 0)
+		{
+			_hurt->hurt();
+			_life1.subLife(damage);
+			if (_life1.dead())
+			{
+				_fase1 = false;
+				_fase2 = true;
+			}
+		}
+		else if (_life2.getLife > 0)
+		{
+			_hurt->hurt();
+			_life2.subLife(damage);
+			if (_life2.dead())
+			{
+				_fase2 = false;
+				_fase3 = true;
+			}
+		}
+		else
+		{
+			
+			_life3.subLife(damage);
+			if (_life3.dead())
+			{
+				die();
+				_hurt->die();
+				_anim->playAnim(AnimatedSpriteComponent::EnemyDie);
+				_dead = true;
+
+				_fase3 = false;
+			}
+			else
+				_hurt->hurt();
+		}
+		
 	}
 }
 void Boss1::movement(double time)
@@ -55,19 +97,19 @@ void Boss1::movement(double time)
 
 void Boss1::bomberAttack(double time)
 {
-	timeOnBomberAttack += time;
-	if (timeOnBomberAttack >= bomberAttackTime)
+	_timeOnBomberAttack += time;
+	if (_timeOnBomberAttack >= _bomberAttackTime)
 	{
-		bomberAttacking = false;
-		timeOnBomberAttack = 0;
-		timeBeetwenBombs = 0;
+		_bomberAttacking = false;
+		_timeOnBomberAttack = 0;
+		_timeBeetwenBombs = 0;
 	}
 	else
 	{ 
-		if (timeOnBomberAttack >= timeBeetwenBombs)
+		if (_timeOnBomberAttack >= _timeBeetwenBombs)
 		{
 			throwBomb();
-			timeBeetwenBombs += random(100, 300);
+			_timeBeetwenBombs += random(100, 300);
 		}
 
 	}
@@ -79,13 +121,13 @@ void Boss1::Fase1(double time)
 }
 void Boss1::Fase2(double time)
 {
-	if (!bomberAttacking)
+	if (!_bomberAttacking)
 	{
 		int ra = random(0, 100);
 		if (ra >= 70)
 		{
 
-			bomberAttacking = true;
+			_bomberAttacking = true;
 			bomberAttack(time);
 
 		}
