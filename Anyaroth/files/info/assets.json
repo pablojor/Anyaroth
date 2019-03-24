@@ -26,7 +26,7 @@
 	["CurrentWeapon", "current_weapon.png", 1, 1],
 	["AmmoIcon", "ammo_icon.png", 1, 1],
         ["Dash", "dashIcon.png", 1, 1],
-	["DashIcon", "dash_spritesheet.png", 82, 2],
+	["DashIcon", "dash_spritesheet.png", 2, 81],
 	["LifeBar", "life_bar.png", 1, 1],
 	["LifeBarMask", "life_bar_mask.png", 1, 1],
 	["BossLifeBar", "boss_life_bar.png", 1, 1],

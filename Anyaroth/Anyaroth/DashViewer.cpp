@@ -6,14 +6,9 @@ DashViewer::DashViewer(Game * game, int xPos, int yPos) : AnimatedImageUI(game, 
 void DashViewer::createAnims(const uint& lapse)
 {
 	addAnim(DashAnimations::Icon, 1);
-	addAnim(DashAnimations::Cooldown, 81, false, lapse);
+	addAnim(DashAnimations::Cooldown, 81, false, lapse / 81);
 
 	playAnim(DashAnimations::Icon);
-}
-
-void DashViewer::startAnimCD()
-{
-	playAnim(DashAnimations::Cooldown);
 }
 
 void DashViewer::update(double time)

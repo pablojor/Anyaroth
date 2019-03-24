@@ -30,4 +30,5 @@ class PlayerPanel : public PanelUI
 		inline void updateDashViewer(const uint& n) { _dashViewer->createAnims(n); }
 
 		inline void startAnimDashCD() { _dashViewer->startAnimCD(); }
+		inline void resetDashViewer() { _dashViewer->reset(); }
 };

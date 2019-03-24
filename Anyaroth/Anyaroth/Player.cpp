@@ -143,6 +143,8 @@ void Player::revive()
 	_currentGun->resetAmmo();
 	_otherGun->resetAmmo();
 	_playerPanel->updateAmmoViewer(_currentGun->getClip(), _currentGun->getMagazine());
+
+	_playerPanel->resetDashViewer();
 }
 
 void Player::subLife(int damage)
