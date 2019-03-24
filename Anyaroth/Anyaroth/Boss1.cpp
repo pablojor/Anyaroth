@@ -134,6 +134,7 @@ void Boss1::movement(double time)
 void Boss1::bomberAttack(double time)
 {
 	_timeOnBomberAttack += time;
+	_armVision = false;
 	move = false;
 	if (_timeOnBomberAttack >= _bomberAttackTime)
 	{
@@ -141,6 +142,7 @@ void Boss1::bomberAttack(double time)
 		_timeOnBomberAttack = 0;
 		_timeBeetwenBombs = 0;
 		move = true;
+		_armVision = true;
 	}
 	else
 	{ 
@@ -222,9 +224,9 @@ void Boss1::Fase1(double time)
 	{
 		meleeAttack();
 
-		_doSomething = random(1500, 2000);
+		_doSomething = random(1500, 1800);
 	}
-	else if (ra >= 15 && !isMeleeing())
+	else if (!isMeleeing())
 	{
 		armShoot();
 		_doSomething = random(200, 400);

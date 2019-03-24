@@ -40,7 +40,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 
 	_stages.push_back(new BotonLanzaMisiles(boss, g, this, g->getTexture("EnemyMartyr"), Vector2D(100, 550), "Boton"));
 	_stages.push_back(new BotonLanzaMisiles(boss, g, this, g->getTexture("EnemyMartyr"), Vector2D(375, 625), "Boton"));
-	_stages.push_back(new BotonLanzaMisiles(boss, g, this, g->getTexture("EnemyMartyr"), Vector2D(500, 550), "Boton"));
+	_stages.push_back(new BotonLanzaMisiles(boss, g, this, g->getTexture("EnemyMartyr"), Vector2D(650, 575), "Boton"));
 	//Camera
 	_mainCamera->fixCameraToObject(_player);
 
