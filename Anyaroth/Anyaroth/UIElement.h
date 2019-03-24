@@ -5,18 +5,18 @@ class Game;
 
 class UIElement
 {
-protected:
-	bool _visible = true;
-	Game* _game = nullptr;
+	protected:
+		bool _visible = true;
+		Game* _game = nullptr;
 
-public:
-	UIElement() {}
-	UIElement(Game* game);
-	virtual ~UIElement() {}
+	public:
+		UIElement() {}
+		UIElement(Game* game);
+		virtual ~UIElement() {}
 
-	virtual void render() const = 0;
-	virtual void update() = 0;
-	virtual void handleEvent(const SDL_Event& event) = 0;
+		virtual void render() const = 0;
+		virtual void update(double time) = 0;
+		virtual void handleEvent(const SDL_Event& event) = 0;
 
-	inline bool isVisible() const { return _visible; }
+		inline bool isVisible() const { return _visible; }
 };

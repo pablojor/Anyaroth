@@ -135,6 +135,7 @@
     <ClCompile Include="AmmoPackage.cpp" />
     <ClCompile Include="AmmoViewer.cpp" />
     <ClCompile Include="AnimatedSpriteComponent.cpp" />
+    <ClCompile Include="AnimationUI.cpp" />
     <ClCompile Include="Arm.cpp" />
     <ClCompile Include="Axe.cpp" />
     <ClCompile Include="BackGround.cpp" />
@@ -217,6 +218,7 @@
     <ClInclude Include="AmmoPackage.h" />
     <ClInclude Include="AmmoViewer.h" />
     <ClInclude Include="AnimatedSpriteComponent.h" />
+    <ClInclude Include="AnimationUI.h" />
     <ClInclude Include="AnyarothError.h" />
     <ClInclude Include="Arm.h" />
     <ClInclude Include="Axe.h" />

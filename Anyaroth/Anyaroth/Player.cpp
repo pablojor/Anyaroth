@@ -372,7 +372,7 @@ void Player::setPlayerPanel(PlayerPanel * p)
 
 	//Actualizamos de primeras el aspecto del Panel del Jugador
 	_playerPanel->updateAmmoViewer(_currentGun->getClip(), _currentGun->getMagazine());
-	_playerPanel->updateDashViewer(_numDash);
+	_playerPanel->updateDashViewer(_dashCD);
 	_playerPanel->updateCoinsCounter(_money->getWallet());
 	_playerPanel->updateLifeBar(_life.getLife(), _life.getMaxLife());
 }

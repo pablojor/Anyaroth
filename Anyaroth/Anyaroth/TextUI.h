@@ -23,7 +23,7 @@ class TextUI : public UIElement
 		~TextUI() { if (_texture != nullptr) delete _texture; }
 
 		virtual void render() const;
-		virtual void update() {}
+		virtual void update(double time) {}
 		virtual void handleEvent(const SDL_Event& event) {}
 
 		inline string getText() const { return _text; }
