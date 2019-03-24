@@ -24,6 +24,8 @@ Boss1::Boss1(Player* player, Game* g, PlayState* play, Texture* texture, Vector2
 	_melee = new Axe(g, { 200,0 }, PLAYER, 20, 25,25, 0);
 	addChild(_melee);
 
+	_armVision = true;
+
 	_playerBody = _player->getComponent<BodyComponent>();
 }
 
@@ -33,14 +35,25 @@ void Boss1::update(double time)
 	if (!_dead)
 	{
 		DistanceEnemy::update(time);
-		if (_fase1)
-			Fase1(time);
-		else if (_fase2)
-			Fase2(time);
-		else if (_fase3)
-			Fase3(time);
+
+		movement(time);
+		checkMelee();
+
+		if (_noAction > _doSomething)
+		{
+			if (_fase1)
+				Fase1(time);
+			else if (_fase2)
+				Fase2(time);
+			else if (_fase3)
+				Fase3(time);
+			else
+				beetwenFases(time);
+
+			_noAction = 0;
+		}
 		else
-			beetwenFases(time);
+			_noAction += time;
 
 	}
 }
@@ -56,6 +69,9 @@ void Boss1::subLife(int damage)
 			{
 				_fase1 = false;
 				_beetwenFase = true;
+
+				_doSomething = 0;
+				_armVision = false;
 			}
 		}
 		else if (_life2.getLife() > 0)
@@ -66,6 +82,9 @@ void Boss1::subLife(int damage)
 			{
 				_fase2 = false;
 				_beetwenFase = true;
+
+				_doSomething = 0;
+				_armVision = false;
 			}
 		}
 		else
@@ -108,11 +127,13 @@ void Boss1::movement(double time)
 void Boss1::bomberAttack(double time)
 {
 	_timeOnBomberAttack += time;
+	move = false;
 	if (_timeOnBomberAttack >= _bomberAttackTime)
 	{
 		_bomberAttacking = false;
 		_timeOnBomberAttack = 0;
 		_timeBeetwenBombs = 0;
+		move = true;
 	}
 	else
 	{ 
@@ -132,6 +153,7 @@ void Boss1::meleeAttack()
 	_melee->meleeAttack(_bodyPos.getX(), _bodyPos.getY(), dir);
 	_anim->playAnim(AnimatedSpriteComponent::EnemyAttack);
 	move = false;
+	_armVision = false;
 }
 
 void Boss1::checkMelee()
@@ -142,28 +164,44 @@ void Boss1::checkMelee()
 		//Provisional
 		_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 		move = true;
+		_armVision = true;;
 	}
+}
+
+void Boss1::armShoot()
+{
+	_arm->shoot();
+	_myGun->enemyShoot(_myBulletPool, _arm->getPosition(), !_anim->isFlipped() ? _arm->getAngle() + random(-_fail, _fail) : _arm->getAngle() + 180 + random(-_fail, _fail), "EnemyBullet");
 }
 
 void Boss1::Fase1(double time)
 {
-	movement(time);
-	checkMelee();
 	int ra = random(0, 100);
-	if (ra >= 99 && !isMeleeing())
+	if (ra >= 60 && !isMeleeing())
+	{
 		meleeAttack();
+
+		_doSomething = random(1500, 2500);
+	}
+	else if (ra >= 30 && !isMeleeing())
+	{
+		armShoot();
+		_doSomething = random(200, 600);
+	}
+	
 }
 void Boss1::Fase2(double time)
 {
 	if (!_bomberAttacking)
 	{
 		int ra = random(0, 100);
-		if (ra >= 70)
+		if (ra >= 80)
 		{
 
 			_bomberAttacking = true;
 			bomberAttack(time);
 
+			_doSomething = random(2500, 3200);
 		}
 		else
 			Fase1(time);

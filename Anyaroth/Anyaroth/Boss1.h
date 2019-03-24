@@ -25,6 +25,9 @@ class Boss1 : public DistanceEnemy
 		//Cosas Melee
 		Melee* _melee;
 
+		//Tiempo entre acciones
+		int _doSomething = 1000, _noAction = 0;
+
 	public:
 		Boss1(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag, BulletPool* pool, ExplosiveBulletPool* explosivePool);
 		virtual ~Boss1() {};
@@ -38,6 +41,7 @@ class Boss1 : public DistanceEnemy
 		void meleeAttack();
 		bool inline const isMeleeing() { return ((_anim->getCurrentAnim() == AnimatedSpriteComponent::EnemyAttack) && !_anim->animationFinished()); }
 		void checkMelee();
+		void armShoot();
 
 		void Fase1(double time);
 		void Fase2(double time);
