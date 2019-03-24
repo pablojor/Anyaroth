@@ -48,7 +48,7 @@ void Boss1::subLife(int damage)
 			if (_life1.dead())
 			{
 				_fase1 = false;
-				_fase2 = true;
+				_beetwenFase = true;
 			}
 		}
 		else if (_life2.getLife > 0)
@@ -58,12 +58,11 @@ void Boss1::subLife(int damage)
 			if (_life2.dead())
 			{
 				_fase2 = false;
-				_fase3 = true;
+				_beetwenFase = true;
 			}
 		}
 		else
 		{
-			
 			_life3.subLife(damage);
 			if (_life3.dead())
 			{
@@ -144,7 +143,8 @@ void Boss1::Fase3(double time)
 
 void Boss1::beetwenFases(double time)
 {
-
+	throwBomb();
+	//En algun momento pone fase1 = ture; fase2 = true; etc
 }
 
 
