@@ -51,7 +51,7 @@ void Boss1::subLife(int damage)
 				_beetwenFase = true;
 			}
 		}
-		else if (_life2.getLife > 0)
+		else if (_life2.getLife() > 0)
 		{
 			_hurt->hurt();
 			_life2.subLife(damage);
@@ -108,7 +108,7 @@ void Boss1::bomberAttack(double time)
 		if (_timeOnBomberAttack >= _timeBeetwenBombs)
 		{
 			throwBomb();
-			_timeBeetwenBombs += random(100, 300);
+			_timeBeetwenBombs += random(200, 400);
 		}
 
 	}
@@ -143,7 +143,7 @@ void Boss1::Fase3(double time)
 
 void Boss1::beetwenFases(double time)
 {
-	throwBomb();
+	bomberAttack(time);
 	//En algun momento pone fase1 = ture; fase2 = true; etc
 }
 
@@ -151,7 +151,7 @@ void Boss1::beetwenFases(double time)
 void Boss1::throwBomb()
 {
 	Bullet* b = _myExplosivePool->getUnusedObject();
-	Vector2D helpPos = Vector2D(random(0,500 /*Fututo tope por la derecha*/), 0);
+	Vector2D helpPos = Vector2D(random(0,500 /*Fututo tope por la derecha*/), _body->getBody()->GetPosition().y);
 	Vector2D bulletPos = helpPos.rotateAroundPoint(90, helpPos);
 
 	if (b != nullptr)
