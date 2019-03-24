@@ -4,14 +4,18 @@
 #include "Player.h"
 #include "BodyComponent.h"
 
-MartyrEnemy::MartyrEnemy(Player* player, Game* g, PlayState* play,Texture* texture, Vector2D posIni, string tag) : Enemy(g, player,texture, posIni, tag)
+MartyrEnemy::MartyrEnemy(Game* g, Player* player, Vector2D pos) : Enemy(g, player, pos, g->getTexture("EnemyMartyr"))
 {
 	_vision = 300;
-	_attackRangeX = _attackRangeY = 25; //No se puede poner mas pequeño que la velocidad
-	_attackTime = 850;
 	_life = 50;
 	_damage = 80;
 	_speed = 20;
+	_attackRangeX = 25; //No se puede poner mas pequeño que la velocidad
+	_attackRangeY = 20;
+	_attackTime = 850;
+
+	if (_attackRangeX < _speed)
+		_attackRangeX += _speed;
 
 	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 14, true);
 	_anim->addAnim(AnimatedSpriteComponent::EnemyWalk, 5, true);
@@ -22,97 +26,113 @@ MartyrEnemy::MartyrEnemy(Player* player, Game* g, PlayState* play,Texture* textu
 
 	_body->setW(22);
 	_body->setH(15);
-	
-	_body->moveShape(b2Vec2(0.3, _body->getH()+0.1 ));
-	_body->addCricleShape(b2Vec2(0.4, _body->getH() + _body->getH()*2/3), _body->getH() + _body->getH()/3, ENEMIES, FLOOR);
+	_body->moveShape(b2Vec2(0.3, _body->getH() + 0.1));
 	_body->filterCollisions(ENEMIES, FLOOR | PLAYER_BULLETS | MELEE);
+
+	_body->addCricleShape(b2Vec2(0.4, _body->getH() + _body->getH() * 2 / 3), _body->getH() + _body->getH() / 3, ENEMIES, FLOOR);
 }
 
 void MartyrEnemy::update(const double& deltaTime)
 {
 	Enemy::update(deltaTime);
+
 	if (!_dead && inCamera())
 	{
-		
-		BodyComponent* _playerBody = _player->getComponent<BodyComponent>();
+		bool inVision = _playerDistance.getX() < _vision && _playerDistance.getX() > -_vision && _playerDistance.getY() < _vision && _playerDistance.getY() > -_vision;
+		bool sameFloor = _playerDistance.getY() < _attackRangeY && _playerDistance.getY() > -_attackRangeY;
 
-		b2Vec2 enemyPos = _body->getBody()->GetPosition(), playerPos = _playerBody->getBody()->GetPosition();
-
-		double x = playerPos.x * 8 - enemyPos.x * 8, y = playerPos.y * 8 - enemyPos.y * 8;
-
-		if (!_attacking && x < _vision && x > -_vision && y < _vision && y > -_vision)
+		if (!_attacking && inVision && sameFloor)
 		{
-			if (x > 0) //Derecha
+			if (_playerDistance.getX() > 0) //Derecha
 			{
 				_anim->unFlip();
+				_dir = Vector2D(1, 0);
 
-				if ((x > _attackRangeX))
-				{
-					_body->getBody()->SetLinearVelocity({ _speed,_body->getBody()->GetLinearVelocity().y });
-					_anim->playAnim(AnimatedSpriteComponent::EnemyWalk);
-				}
-				else if (y > _attackRangeY || y < -_attackRangeY)
-				{
-					_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
-					_anim->playAnim(AnimatedSpriteComponent::Idle);
-				}
+				if (_playerDistance.getX() > _attackRangeX)
+					moving(_dir);
 				else
-				{
-					_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
-					_anim->playAnim(AnimatedSpriteComponent::EnemyAttack); //Llamas a animacion de ataque
-					_time = 0;
-					_attacking = true;
-				}
+					attack();
 			}
-			else if (x < 0) //Izquierda
+			else if (_playerDistance.getX() < 0) //Izquierda
 			{
 				_anim->flip();
+				_dir = Vector2D(-1, 0);
 
-				if (x < -_attackRangeX)
-				{
-					_body->getBody()->SetLinearVelocity({ -_speed,_body->getBody()->GetLinearVelocity().y });
-					_anim->playAnim(AnimatedSpriteComponent::EnemyWalk);
-				}
-				else if (y > _attackRangeY || y < -_attackRangeY)
-				{
-					_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
-					_anim->playAnim(AnimatedSpriteComponent::Idle);
-				}
+				if (_playerDistance.getX() < -_attackRangeX)
+					moving(_dir);
 				else
-				{
-					_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
-					_anim->playAnim(AnimatedSpriteComponent::EnemyAttack); //Llamas a animacion de ataque
-					_time = 0;
-					_attacking = true;
-				}
+					attack();
 			}
 		}
-		else if (_attacking)
-		{
-			if(_attackTime<_time)
-			//if (deltaTime > _time + _attackTime)
-			{
-
-				if ((x < _explosionRange && x > -_explosionRange) && y < _explosionRange && y > -_explosionRange)
-				{
-					auto body = _player->getComponent<BodyComponent>()->getBody();
-
-					if (x < 20 && x > -20 && y < 20 && y > -20)
-						body->ApplyLinearImpulseToCenter(b2Vec2(_impulse * x * 3, _impulse * y * 2), true);
-					else
-						body->ApplyLinearImpulseToCenter(b2Vec2(_impulse * x, _impulse * y), true);
-
-					_player->subLife(_damage);
-				}
-				_dead = true;
-				die();
-			}
-			_time += deltaTime;
-		}
+		else if(_attacking)
+			attacking(deltaTime);
 		else
+			idle();
+	}
+}
+
+void MartyrEnemy::explosionDie()
+{
+	_anim->die();
+	_dead = true;
+	_body->filterCollisions(DEAD_ENEMIES, FLOOR);
+}
+
+void MartyrEnemy::idle()
+{
+	if (_attacking == false)
+	{
+		_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
+		_anim->playAnim(AnimatedSpriteComponent::Idle);
+	}
+}
+
+void MartyrEnemy::moving(Vector2D& dir)
+{
+	if (_attacking == false)
+	{
+		_body->getBody()->SetLinearVelocity({ _speed*(float32)dir.getX(), _body->getBody()->GetLinearVelocity().y });
+		_anim->playAnim(AnimatedSpriteComponent::EnemyWalk);
+	}
+}
+
+void MartyrEnemy::attack()
+{
+	if (_attacking == false)
+	{
+		_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
+		_anim->playAnim(AnimatedSpriteComponent::EnemyAttack); //Llamas a animacion de ataque
+		_time = 0;
+		_attacking = true;
+	}
+}
+
+void MartyrEnemy::attacking(const double& deltaTime)
+{
+	bool maxRange = _playerDistance.getX() < _explosionRange && _playerDistance.getX() > -_explosionRange && _playerDistance.getY() < _explosionRange && _playerDistance.getY() > -_explosionRange;
+	bool midleRange = _playerDistance.getX() < _explosionRange / 2 && _playerDistance.getX() > -_explosionRange / 2 && _playerDistance.getY() < _explosionRange / 2 && _playerDistance.getY() > -_explosionRange / 2;
+	bool sameFloor = _playerDistance.getY() < _attackRangeY && _playerDistance.getY() > -_attackRangeY;
+
+	if (_attacking)
+	{
+		if (_time > _attackTime && sameFloor && maxRange)
 		{
-			_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
-			_anim->playAnim(AnimatedSpriteComponent::Idle);
+			auto body = _player->getComponent<BodyComponent>()->getBody();
+
+			if (midleRange)
+				body->ApplyLinearImpulseToCenter(b2Vec2(_impulse * _playerDistance.getX() * 3, _impulse * _playerDistance.getY() * 2), true);
+			else
+				body->ApplyLinearImpulseToCenter(b2Vec2(_impulse * _playerDistance.getX(), _impulse * _playerDistance.getY()), true);
+
+			_player->subLife(_damage);
+			_attacking = false;
+			explosionDie();
 		}
+		else if (_anim->animationFinished())
+		{
+			_attacking = false;
+			explosionDie();
+		}
+		_time += deltaTime;
 	}
 }

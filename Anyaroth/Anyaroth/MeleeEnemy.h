@@ -5,10 +5,9 @@ class MeleeEnemy : public Enemy
 {
 private:
 	Vector2D _dir = Vector2D();
-	int _realRange = 15;
 
 public:
-	MeleeEnemy(Game* g, Player* player, Texture* texture, Vector2D posIni, string tag);
+	MeleeEnemy(Game* g, Player* player, Vector2D pos);
 	virtual ~MeleeEnemy() {}
 
 	virtual void update(const double& deltaTime);

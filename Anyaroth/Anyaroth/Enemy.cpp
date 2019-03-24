@@ -3,12 +3,12 @@
 #include "Player.h"
 #include "Bullet.h"
 
-Enemy::Enemy(Game* g, Player* player, Texture* texture, Vector2D posIni, string tag) : GameObject(g, tag), _player(player)
+Enemy::Enemy(Game* g, Player* player, Vector2D pos, Texture* texture) : GameObject(g, "Enemy"), _player(player)
 {
 	addComponent<Texture>(texture);
 
 	_transform = addComponent<TransformComponent>();
-	_transform->setPosition(posIni.getX(), posIni.getY());
+	_transform->setPosition(pos.getX(), pos.getY());
 
 	_body = addComponent<BodyComponent>();
 	_body->getBody()->SetType(b2_dynamicBody);
@@ -73,9 +73,4 @@ bool Enemy::inCamera()
 bool Enemy::inCameraOnlyX()
 {
 	return _game->getCurrentState()->getMainCamera()->inCameraOnlyX(Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL));
-}
-
-void Enemy::enemySpawn(Enemy* newEnemy)
-{
-	_game->getCurrentState()->addObject(newEnemy);
 }

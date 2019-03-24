@@ -4,9 +4,19 @@
 class MartyrEnemy : public Enemy
 {
 private:
+	Vector2D _dir = Vector2D();
 	int _explosionRange = 60, _impulse = 15;
 
 public:
-	MartyrEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag);
+	MartyrEnemy(Game* g, Player* player, Vector2D pos);
+
 	virtual void update(const double& deltaTime);
+
+	void explosionDie();
+
+	void idle();
+	void moving(Vector2D& dir);
+
+	void attack();
+	void attacking(const double& deltaTime);
 };

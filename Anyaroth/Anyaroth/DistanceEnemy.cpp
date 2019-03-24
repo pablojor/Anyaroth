@@ -2,7 +2,7 @@
 #include "Game.h"
 #include "BasicPistol.h"
 
-DistanceEnemy::DistanceEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag, BulletPool* pool) : Enemy(g, player, texture, posIni, tag)
+DistanceEnemy::DistanceEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D pos, string tag, BulletPool* pool) : Enemy(g, player, pos, texture)
 {
 	_arm = new EnemyArm(g, this, player, this, { 35, 30 });
 	_arm->setTexture(g->getTexture("ArmPistol"));

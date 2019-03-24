@@ -3,14 +3,14 @@
 #include "AnimatedSpriteComponent.h"
 #include "Player.h"
 
-MeleeEnemy::MeleeEnemy(Game* g, Player* player, Texture* texture, Vector2D posIni, string tag) : Enemy(g, player, texture, posIni, tag)
+MeleeEnemy::MeleeEnemy(Game* g, Player* player, Vector2D pos) : Enemy(g, player, pos, g->getTexture("EnemyMelee"))
 {
 	_vision = 300;
 	_life = 50;
 	_damage = 10;
 	_speed = 8;
-	_attackRangeX = 25; //No se puede poner mas pequeño que la velocidad
-	_attackRangeY = 15;
+	_attackRangeX = 40; //No se puede poner mas pequeño que la velocidad
+	_attackRangeY = 30;
 	_attackTime = 800;
 
 	if (_attackRangeX < _speed)
@@ -60,16 +60,20 @@ void MeleeEnemy::update(const double& deltaTime)
 			attacking(deltaTime);
 		}
 		else
-		{
 			idle();
-		}
 	}
 }
+
 void MeleeEnemy::idle()
 {
-	_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
-	_anim->playAnim(AnimatedSpriteComponent::Idle);
-	_attacking = false;
+	if (_attacking == true && _anim->animationFinished())
+		_attacking = false;
+
+	if (_attacking == false)
+	{
+		_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
+		_anim->playAnim(AnimatedSpriteComponent::Idle);
+	}
 }
 
 void MeleeEnemy::moving(Vector2D& dir)
@@ -94,8 +98,8 @@ void MeleeEnemy::attack()
 
 void MeleeEnemy::attacking(const double& deltaTime)
 {
-	bool attackRangeLeft = _playerDistance.getX() < 0 && _playerDistance.getX() > -_attackRangeX - _realRange;
-	bool attackRangeRight = _playerDistance.getX() > 0 && _playerDistance.getX() < _attackRangeX + _realRange;
+	bool attackRangeLeft = _playerDistance.getX() < 0 && _playerDistance.getX() > -_attackRangeX;
+	bool attackRangeRight = _playerDistance.getX() > 0 && _playerDistance.getX() < _attackRangeX;
 	bool sameFloor = _playerDistance.getY() < _attackRangeY && _playerDistance.getY() > -_attackRangeY;
 
 	if (_attacking)
@@ -106,7 +110,10 @@ void MeleeEnemy::attacking(const double& deltaTime)
 			_attacking = false;
 		}
 		else if (_anim->animationFinished())
+		{
 			_attacking = false;
+			idle();
+		}
 
 		_time += deltaTime;
 	}

@@ -4,7 +4,7 @@
 #include "Player.h"
 #include "Capsule.h"
 
-SpawnerEnemy::SpawnerEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag) : Enemy(g, player, texture, posIni, tag)
+SpawnerEnemy::SpawnerEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D pos, string tag) : Enemy(g, player, pos, texture)
 {
 	_attackTime = 2000;
 	_life = 300;

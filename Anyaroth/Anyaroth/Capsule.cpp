@@ -4,7 +4,7 @@
 #include "Player.h"
 #include "MeleeEnemy.h"
 
-Capsule::Capsule(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag) : Enemy(g, player, texture, posIni, tag)
+Capsule::Capsule(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D pos, string tag) : Enemy(g, player, pos, texture)
 {
 	_attackTime = 2000;
 	_life = 300;
@@ -41,7 +41,7 @@ void Capsule::update(const double& deltaTime)
 		//if( animacion de spawn terminada)
 		b2Vec2 enemyPos = _body->getBody()->GetPosition();
 
-		enemySpawn(new MeleeEnemy(_game, _player, _game->getTexture("EnemyMelee"), Vector2D(enemyPos.x * 8 - 30/*Numero a ajustar dependiendo del sprite*/, enemyPos.y * 8 - 30/*Numero a ajustar dependiendo del sprite*/), "Enemy"));
+		enemySpawn(new MeleeEnemy(_game, _player, Vector2D(enemyPos.x * 8 - 30/*Numero a ajustar dependiendo del sprite*/, enemyPos.y * 8 - 30/*Numero a ajustar dependiendo del sprite*/)));
 		destroy();
 	}
 }

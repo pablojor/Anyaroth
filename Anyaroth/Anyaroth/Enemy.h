@@ -26,23 +26,20 @@ protected:
 	float32 _speed;
 
 public:
-	Enemy(Game* g, Player* player, Texture* texture, Vector2D pos, string tag);
+	Enemy(Game* g, Player* player, Vector2D pos, Texture* texture);
 	virtual ~Enemy() {}
 
-	bool inCamera();
-	bool inCameraOnlyX();
-
 	virtual void beginCollision(GameObject* other, b2Contact* contact);
-
-	virtual inline void noAttacking() { _attacking = false; }
-
 	virtual void update(const double& deltaTime);
+
+	inline void stopAttacking() { _attacking = false; }
+	inline void enemySpawn(Enemy* newEnemy) { _game->getCurrentState()->addObject(newEnemy); }
+	inline int random(int low, int high) const { return low + (rand() % abs(high - low)); }
 
 	void die();
 	virtual void subLife(int damage);
 	inline Life getLife() const { return _life; }
 
-	inline int random(int low, int high) const { return low + (rand() % abs(high - low)); }
-
-	void enemySpawn(Enemy* newEnemy);
+	bool inCamera();
+	bool inCameraOnlyX();
 };
