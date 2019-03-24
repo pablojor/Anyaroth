@@ -22,7 +22,7 @@ Player::Player(Game* game, int xPos, int yPos) :  GameComponent(game, "Player")
 	_body->setW(12);
 	_body->setH(26);
 	
-	_body->filterCollisions(PLAYER, OBJECTS | FLOOR  | ENEMY_BULLETS | MELEE);
+	_body->filterCollisions(PLAYER, OBJECTS | FLOOR  | ENEMY_BULLETS | MELEE|MISILLAUNCHER);
 	_body->addCricleShape(b2Vec2(0, 1.1), 0.7, PLAYER, FLOOR);
 	_body->getBody()->SetFixedRotation(true);
 

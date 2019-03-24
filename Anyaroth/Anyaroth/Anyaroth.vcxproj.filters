@@ -244,6 +244,8 @@
     <ClCompile Include="Boss1.cpp">
       <Filter>Archivos de código fuente\Objects\Enemies\Bosses</Filter>
     </ClCompile>
+    <ClCompile Include="BotonLanzaMisiles.cpp" />
+    <ClCompile Include="MisilBoss1.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -510,6 +512,8 @@
     <ClInclude Include="Boss1.h">
       <Filter>Archivos de encabezado\Objects\Enemies\Bosses</Filter>
     </ClInclude>
+    <ClInclude Include="BotonLanzaMisiles.h" />
+    <ClInclude Include="MisilBoss1.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de código fuente">

@@ -143,6 +143,7 @@
     <ClCompile Include="BodyComponent.cpp" />
     <ClCompile Include="BomberEnemy.cpp" />
     <ClCompile Include="Boss1.cpp" />
+    <ClCompile Include="BotonLanzaMisiles.cpp" />
     <ClCompile Include="BulletPool.cpp" />
     <ClCompile Include="Capsule.cpp" />
     <ClCompile Include="Cursor.cpp" />
@@ -153,6 +154,7 @@
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="ExplosiveBullet.cpp" />
     <ClCompile Include="FlyingEnemy.cpp" />
+    <ClCompile Include="MisilBoss1.cpp" />
     <ClCompile Include="MovingComponent.cpp" />
     <ClCompile Include="Melee.cpp" />
     <ClCompile Include="PlayerArm.cpp" />
@@ -227,6 +229,7 @@
     <ClInclude Include="BodyComponent.h" />
     <ClInclude Include="BomberEnemy.h" />
     <ClInclude Include="Boss1.h" />
+    <ClInclude Include="BotonLanzaMisiles.h" />
     <ClInclude Include="Capsule.h" />
     <ClInclude Include="Cursor.h" />
     <ClInclude Include="DistanceEnemy.h" />
@@ -236,6 +239,7 @@
     <ClInclude Include="Map.h" />
     <ClInclude Include="ExplosiveBullet.h" />
     <ClInclude Include="FlyingEnemy.h" />
+    <ClInclude Include="MisilBoss1.h" />
     <ClInclude Include="MovingComponent.h" />
     <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="Melee.h" />

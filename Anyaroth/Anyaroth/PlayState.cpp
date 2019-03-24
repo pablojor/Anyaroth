@@ -5,6 +5,7 @@
 #include "checkML.h"
 #include <time.h>
 #include "Boss1.h"
+#include "BotonLanzaMisiles.h"
 
 PlayState::PlayState(Game* g) : GameState(g)
 {
@@ -34,7 +35,12 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_levelManager = LevelManager(g, this);
 	_levelManager.setLevel(_currentZone, _currentLevel);
 
-	_stages.push_back(new Boss1(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(375, 500), "Enemy", _enemyBulletPool, _explosivePool));
+	Boss1 * boss = (new Boss1(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(375, 500), "Enemy", _enemyBulletPool, _explosivePool));
+		_stages.push_back(boss);
+
+	_stages.push_back(new BotonLanzaMisiles(boss, g, this, g->getTexture("EnemyMartyr"), Vector2D(100, 550), "Boton"));
+	_stages.push_back(new BotonLanzaMisiles(boss, g, this, g->getTexture("EnemyMartyr"), Vector2D(375, 625), "Boton"));
+	_stages.push_back(new BotonLanzaMisiles(boss, g, this, g->getTexture("EnemyMartyr"), Vector2D(500, 550), "Boton"));
 	//Camera
 	_mainCamera->fixCameraToObject(_player);
 

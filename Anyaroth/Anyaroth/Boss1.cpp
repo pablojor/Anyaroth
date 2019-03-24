@@ -17,7 +17,7 @@ Boss1::Boss1(Player* player, Game* g, PlayState* play, Texture* texture, Vector2
 	_anim->addAnim(AnimatedSpriteComponent::EnemyWalk, 8, true);
 	_anim->addAnim(AnimatedSpriteComponent::EnemyAttack, 11, false);
 	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
-	_body->filterCollisions(ENEMIES, FLOOR | PLAYER_BULLETS | MELEE);
+	_body->filterCollisions(ENEMIES, FLOOR | PLAYER_BULLETS | MELEE | MISIL);
 	_body->getBody()->SetGravityScale(0);
 
 	_originalPos = Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL);
@@ -38,6 +38,7 @@ void Boss1::update(double time)
 
 		movement(time);
 		checkMelee();
+		
 
 		if (_noAction > _doSomething)
 		{
@@ -53,7 +54,11 @@ void Boss1::update(double time)
 			_noAction = 0;
 		}
 		else
+		{
+			if (_bomberAttacking)
+				bomberAttack(time);
 			_noAction += time;
+		}
 
 	}
 }
@@ -82,7 +87,7 @@ void Boss1::subLife(int damage)
 			{
 				_fase2 = false;
 				_beetwenFase = true;
-
+				_lastFase = 2;
 				_doSomething = 0;
 				_armVision = false;
 			}
@@ -93,12 +98,14 @@ void Boss1::subLife(int damage)
 			_life3.subLife(damage);
 			if (_life3.dead())
 			{
-				die();
-				_hurt->die();
-				_anim->playAnim(AnimatedSpriteComponent::EnemyDie);
-				_dead = true;
+				_lastFase = 3;
 
 				_fase3 = false;
+				_beetwenFase = true;
+				_doSomething = 0;
+				_armVision = false;
+
+				
 			}
 			else
 				_hurt->hurt();
@@ -174,6 +181,40 @@ void Boss1::armShoot()
 	_myGun->enemyShoot(_myBulletPool, _arm->getPosition(), !_anim->isFlipped() ? _arm->getAngle() + random(-_fail, _fail) : _arm->getAngle() + 180 + random(-_fail, _fail), "EnemyBullet");
 }
 
+void Boss1::beginCollision(GameComponent * other, b2Contact * contact)
+{
+	DistanceEnemy::beginCollision(other, contact);
+
+	string otherTag = other->getTag();
+	
+
+	if ( otherTag == "Misil" && _beetwenFase)
+	{
+		_beetwenFase = false;
+		if (_lastFase == 1)
+		{
+			_beetwenFase = false;
+			_fase2 = true;
+			_armVision = true;
+		}
+		else if (_lastFase == 2)
+		{
+			_beetwenFase = false;
+			_fase3 = true;
+			_armVision = true;
+		}
+		else
+		{
+
+			die();
+			_hurt->die();
+			_anim->playAnim(AnimatedSpriteComponent::EnemyDie);
+			_dead = true;
+		}
+	}
+
+}
+
 void Boss1::Fase1(double time)
 {
 	int ra = random(0, 100);
@@ -204,7 +245,10 @@ void Boss1::Fase2(double time)
 			_doSomething = random(2500, 3200);
 		}
 		else
+		{
+			move = true;
 			Fase1(time);
+		}
 	}
 	else
 		bomberAttack(time);

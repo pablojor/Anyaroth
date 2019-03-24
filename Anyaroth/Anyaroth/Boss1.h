@@ -10,6 +10,7 @@ class Boss1 : public DistanceEnemy
 		bool _fase1 = true, _fase2 = false, _fase3 = false, _beetwenFase = false, move= true;
 		Vector2D _bodyPos, _playerPos, _originalPos, _amplitude = Vector2D(250,25), _velocity = Vector2D(0.5, 0.5), _dir = Vector2D(1,0);
 		double  _damage = 50, _angularFrequency = 0.05, _k = _angularFrequency / _velocity.distance(Vector2D());
+		int _lastFase = 1;
 
 		BodyComponent* _playerBody;
 		//Vida
@@ -40,8 +41,11 @@ class Boss1 : public DistanceEnemy
 		void bomberAttack(double time);
 		void meleeAttack();
 		bool inline const isMeleeing() { return ((_anim->getCurrentAnim() == AnimatedSpriteComponent::EnemyAttack) && !_anim->animationFinished()); }
+		bool inline const isbeetweenFases() {return _beetwenFase;}
 		void checkMelee();
 		void armShoot();
+
+		virtual void beginCollision(GameComponent* other, b2Contact* contact);
 
 		void Fase1(double time);
 		void Fase2(double time);
