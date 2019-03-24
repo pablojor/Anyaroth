@@ -151,19 +151,19 @@ void Boss1::beetwenFases(double time)
 void Boss1::throwBomb()
 {
 	Bullet* b = _myExplosivePool->getUnusedObject();
-	Vector2D helpPos = Vector2D(random(0,500 /*Fututo tope por la derecha*/), _body->getBody()->GetPosition().y);
+	Vector2D helpPos = Vector2D(random(0,500 /*Fututo tope por la derecha*/), 200);
 	Vector2D bulletPos = helpPos.rotateAroundPoint(90, helpPos);
 
 	if (b != nullptr)
 	{
-		b->init(_bombTexture, helpPos, 0, 10, 90, _bombRange, "PistolBullet");
+		b->init(_bombTexture, helpPos, 0, 10, 90, _bombRange, "EnemyBullet");
 		b->changeFilter();
 	}
 	else
 	{
 		Bullet* b2 = _myExplosivePool->addNewBullet();
 
-		b2->init(_bombTexture, helpPos, 0, 10, 90, _bombRange, "PistolBullet");
+		b2->init(_bombTexture, helpPos, 0, 10, 90, _bombRange, "EnemyBullet");
 		b2->changeFilter();
 	}
 }
