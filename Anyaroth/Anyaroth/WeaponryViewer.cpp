@@ -14,7 +14,7 @@ WeaponryViewer::WeaponryViewer(Game* game, int xPos, int yPos) : PanelUI(game)
 	_currentWeapon->setPosition(marcoPosX + (_marco->getW() - _currentWeapon->getW()) / 2,
 								marcoPosY + (_marco->getH() - _currentWeapon->getH()) / 2);
 
-	_otherWeapon = new ImageUI(game, game->getTexture("DashIcon"));
+	_otherWeapon = new ImageUI(game, game->getTexture("Dash"));
 
 	addChild(_marco);
 	addChild(_currentWeapon);

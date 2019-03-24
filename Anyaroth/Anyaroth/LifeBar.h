@@ -14,6 +14,4 @@ class LifeBar : public ImageUI
 
 		void setInUse(bool b);
 		inline bool getInUse() const { return inUse; }
-
-		void emptyBar();
 };

@@ -14,30 +14,32 @@ struct AnimationState
 
 class AnimatedImageUI : public FramedImageUI
 {
-private:
-	vector<AnimationState> _animations = {};
+	protected:
+		vector<AnimationState> _animations = {};
 
-	uint _currentAnim = 0;
+		uint _currentAnim = 0;
 
-	double _timer = 0;
+		double _timer = 0;
 
-	bool _animationFinished = false;
-	bool _active = true;
-public:
-	enum DialogueBg { Default, End, Start };
-	enum DialogueIndicator { Idle };
+		bool _animationFinished = false;
+		bool _active = true;
 
-	AnimatedImageUI(Game* game, Texture* image, int xPos = 0, int yPos = 0);
-	~AnimatedImageUI();
+	public:
+		enum DialogueBg { Default, End, Start };
+		enum DialogueIndicator { Idle };
+		enum DashAnimations { Icon, Cooldown };
 
-	virtual void render() const;
-	virtual void update(double time);
+		AnimatedImageUI(Game* game, Texture* image, int xPos = 0, int yPos = 0);
+		~AnimatedImageUI();
 
-	void addAnim(uint name, uint numFrames, bool loop, uint lapse = 60);
-	void playAnim(uint name);
+		virtual void render() const;
+		virtual void update(double time);
 
-	inline bool animationFinished() { return _animations[_currentAnim].animationFinished; }
-	inline uint getCurrentAnim() const { return _currentAnim; }
+		void addAnim(uint name, uint numFrames, bool loop = false, uint lapse = 60);
+		void playAnim(uint name);
+
+		inline bool animationFinished() { return _animations[_currentAnim].animationFinished; }
+		inline uint getCurrentAnim() const { return _currentAnim; }
 };
 
 

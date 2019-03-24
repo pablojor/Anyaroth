@@ -33,9 +33,3 @@ void LifeBar::setInUse(bool b)
 	if(!inUse)
 		_image->setColor(77, 77, 77);
 }
-
-void LifeBar::emptyBar()
-{
-	setClippingAreaSize(0, 1);
-	setSize(_clipArea.w, _clipArea.h);
-}

@@ -18,7 +18,7 @@ void Canvas::update(double time)
 		e->update(time);
 }
 
-void Canvas::handleEvent(SDL_Event& event)
+void Canvas::handleEvent(const SDL_Event& event)
 {
 	for (UIElement* e : _elements)
 		e->handleEvent(event);

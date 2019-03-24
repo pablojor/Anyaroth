@@ -7,7 +7,7 @@ PlayerPanel::PlayerPanel(Game* game) : PanelUI(game)
 	_marco = new ImageUI(game, game->getTexture("LifeBar"), 3, 3);
 	_lifeBar = new LifeBar(game, "LifeBarMask", 25, 6);
 
-	_dashViewer = new DashViewer(game, 3, _lifeBar->getY() + _lifeBar->getH() + 1);
+	_dashViewer = new DashViewer(game, 3, _marco->getY() + _marco->getH() + 3);
 
 	_weaponryViewer = new WeaponryViewer(game, 3, CAMERA_RESOLUTION_Y);
 	_ammoViewer = new AmmoViewer(game, 45, CAMERA_RESOLUTION_Y - 34);

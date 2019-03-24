@@ -1,17 +1,17 @@
 #pragma once
-#include "ImageUI.h"
+#include "PanelUI.h"
+#include "AnimatedImageUI.h"
 
-class DashViewer : public ImageUI
+class DashViewer : public AnimatedImageUI
 {
-	private:
-		uint _dashNumber = 0;
-
 	public:
 		DashViewer(Game* game, int xPos, int yPos);
 		~DashViewer() {}
 
-		void render() const;
+		void createAnims(const uint& lapse);
 
-		inline void setDashes(const uint& n) { _dashNumber = n; }
-		inline uint getDashesNumber() const { return _dashNumber; }
+		void startAnimCD();
+
+		virtual void render() const { AnimatedImageUI::render(); }
+		virtual void update(double time);
 };
