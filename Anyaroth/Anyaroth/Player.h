@@ -37,21 +37,9 @@ private:
 	PlayerArm* _playerArm = nullptr;
 
 	//Variable auxiliares
-	double _dashCD = 3000;
-	int _maxDash = 2, 
-		_numDash = _maxDash,
-		dashDur = 250;
-
-	bool _isDashing = false, 
-		_isReloading = false, 
-		_isShooting = false, 
-		_isMeleeing = false, 
-		_onDash = false, 
-		dashDown = false, 
-		_dead = false;
-
+	int _dashCD = 3000, _maxDash = 2, _numDash = _maxDash, dashDur = 250;
+	bool _isDashing = false, _isReloading = false, _isShooting = false, _isMeleeing = false, _onDash = false, dashDown = false, _dead = false;
 	int _floorCount = 0;
-
 	float _timeToJump = 100.f;
 
 	Gun* _currentGun = nullptr;

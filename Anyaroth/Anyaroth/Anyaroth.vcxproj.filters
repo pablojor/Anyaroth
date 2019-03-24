@@ -241,7 +241,6 @@
     <ClCompile Include="ExplosiveBulletPool.cpp">
       <Filter>Archivos de código fuente\Pools</Filter>
     </ClCompile>
-    <ClCompile Include="AnimationUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -505,7 +504,6 @@
     <ClInclude Include="ExplosiveBulletPool.h">
       <Filter>Archivos de encabezado\Pools</Filter>
     </ClInclude>
-    <ClInclude Include="AnimationUI.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de código fuente">

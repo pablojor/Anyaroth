@@ -12,7 +12,7 @@ class Canvas
 		virtual ~Canvas();
 
 		virtual void render() const;
-		virtual void update(double time);
+		virtual void update();
 		virtual void handleEvent(SDL_Event& event);
 
 		inline virtual void addUIElement(UIElement* elem) { _elements.push_back(elem); }
