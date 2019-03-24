@@ -3,7 +3,8 @@
 #include "Game.h"
 #include <math.h>
 
-Melee::Melee(Game * g) :  GameComponent(g, "Melee") {}
+Melee::Melee(Game * g, Vector2D offset) : GameComponent(g, "Melee") , _offset(offset){}
+
 
 void Melee::meleeAttack(double x, double y, int dir)
 {

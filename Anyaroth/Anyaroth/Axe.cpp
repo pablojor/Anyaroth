@@ -2,10 +2,7 @@
 #include "Game.h"
 #include <math.h>
 
-Axe::Axe(Game* g) : Melee(g)
-{
-	_offset = Vector2D(15, -20);
-}
+Axe::Axe(Game * g, double iniAngle, Vector2D offset) : Melee(g, offset), _angle(iniAngle), _iniAngle(iniAngle) {}
 
 void Axe::update(double time)
 {
@@ -18,5 +15,5 @@ void Axe::update(double time)
 		_body->getBody()->SetTransform(b2Vec2(x / M_TO_PIXEL, y / M_TO_PIXEL), 0);
 	}
 	else
-		_angle = 90;
+		_angle = _iniAngle;
 }

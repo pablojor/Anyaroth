@@ -4,6 +4,7 @@
 #include "PlayStateHUD.h"
 #include "checkML.h"
 #include <time.h>
+#include "Boss1.h"
 
 PlayState::PlayState(Game* g) : GameState(g)
 {
@@ -13,7 +14,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	//SDL_ShowCursor(false);
 
 	//Player
-	_player = new Player(g, 0, 0);
+	_player = new Player(g, 100, 500);
 	_stages.push_back(_player);
 
 	//Pool player
@@ -29,10 +30,11 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_stages.push_back(_explosivePool);
 
 	//Levels
-	_currentZone = _currentLevel = 1;
+	_currentZone = 1, _currentLevel = 2;
 	_levelManager = LevelManager(g, this);
 	_levelManager.setLevel(_currentZone, _currentLevel);
 
+	_stages.push_back(new Boss1(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(375, 500), "Boss", _enemyBulletPool, _explosivePool));
 	//Camera
 	_mainCamera->fixCameraToObject(_player);
 

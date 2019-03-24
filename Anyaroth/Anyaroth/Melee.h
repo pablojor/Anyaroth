@@ -11,7 +11,7 @@ protected:
 	int _dir;
 
 public:
-	Melee(Game* g);
+	Melee(Game* g, Vector2D offset);
 	virtual ~Melee() {}
 
 	virtual void update(double time) {}
