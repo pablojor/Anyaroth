@@ -59,7 +59,7 @@ void Boss1::update(double time)
 }
 void Boss1::subLife(int damage)
 {
-	if (!_dead)
+	if (!_dead && !_beetwenFase)
 	{
 		if (_life1.getLife() > 0)
 		{
@@ -140,7 +140,7 @@ void Boss1::bomberAttack(double time)
 		if (_timeOnBomberAttack >= _timeBeetwenBombs)
 		{
 			throwBomb();
-			_timeBeetwenBombs += random(200, 400);
+			_timeBeetwenBombs += random(100, 200);
 		}
 
 	}
@@ -177,16 +177,16 @@ void Boss1::armShoot()
 void Boss1::Fase1(double time)
 {
 	int ra = random(0, 100);
-	if (ra >= 60 && !isMeleeing())
+	if (ra >= 70 && !isMeleeing())
 	{
 		meleeAttack();
 
-		_doSomething = random(1500, 2500);
+		_doSomething = random(1500, 2000);
 	}
-	else if (ra >= 30 && !isMeleeing())
+	else if (ra >= 15 && !isMeleeing())
 	{
 		armShoot();
-		_doSomething = random(200, 600);
+		_doSomething = random(200, 400);
 	}
 	
 }

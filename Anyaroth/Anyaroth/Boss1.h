@@ -20,7 +20,7 @@ class Boss1 : public DistanceEnemy
 		ExplosiveBulletPool* _myExplosivePool = nullptr;
 		Texture* _bombTexture = nullptr;
 		bool _bomberAttacking = false;
-		int _bomberAttackTime = 2500, _timeOnBomberAttack = 0, _timeBeetwenBombs = 0,_bombRange = 500;
+		int _bomberAttackTime = 2500, _timeOnBomberAttack = 0, _timeBeetwenBombs = 0,_bombRange = 1000;
 
 		//Cosas Melee
 		Melee* _melee;
