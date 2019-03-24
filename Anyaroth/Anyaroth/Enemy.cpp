@@ -40,10 +40,9 @@ void Enemy::setItList(list<GameObject*>::iterator itFR)
 void Enemy::beginCollision(GameComponent * other, b2Contact* contact)
 {
 	string otherTag = other->getTag();
-	if (otherTag == "Bullet")
+	if (otherTag == "Bullet" || otherTag == "Melee")
 	{
-		int damage = 0;
-		damage=dynamic_cast<Bullet*>(other)->getDamage();
+		int damage=other->getDamage();
 		subLife(damage);
 	}
 }

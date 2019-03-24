@@ -22,7 +22,7 @@ Player::Player(Game* game, int xPos, int yPos) :  GameComponent(game, "Player")
 	_body->setW(12);
 	_body->setH(26);
 	
-	_body->filterCollisions(PLAYER, OBJECTS | FLOOR  | ENEMY_BULLETS);
+	_body->filterCollisions(PLAYER, OBJECTS | FLOOR  | ENEMY_BULLETS | MELEE);
 	_body->addCricleShape(b2Vec2(0, 1.1), 0.7, PLAYER, FLOOR);
 	_body->getBody()->SetFixedRotation(true);
 
@@ -71,7 +71,7 @@ Player::Player(Game* game, int xPos, int yPos) :  GameComponent(game, "Player")
 	_money = new Money();
 
 	//Melee
-	_melee = new Melee(game, { 15, 20 });
+	_melee = new Melee(game, { 15, 20 }, ENEMIES);
 	addChild(_melee);
 }
 
@@ -93,10 +93,9 @@ void Player::beginCollision(GameComponent * other, b2Contact* contact)
 		_floorCount++;
 		setGrounded(true);
 	}
-	else if (other->getTag() == "EnemyBullet")
+	else if (other->getTag() == "EnemyBullet" || other->getTag() == "Melee")
 	{
-		double damage = 0;
-		damage = dynamic_cast<Bullet*>(other)->getDamage();
+		int damage = other->getDamage();
 		subLife(damage);
 	}
 	else if (other->getTag() == "Coin")

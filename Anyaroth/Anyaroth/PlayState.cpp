@@ -34,7 +34,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_levelManager = LevelManager(g, this);
 	_levelManager.setLevel(_currentZone, _currentLevel);
 
-	_stages.push_back(new Boss1(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(375, 500), "Boss", _enemyBulletPool, _explosivePool));
+	_stages.push_back(new Boss1(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(375, 500), "Enemy", _enemyBulletPool, _explosivePool));
 	//Camera
 	_mainCamera->fixCameraToObject(_player);
 
