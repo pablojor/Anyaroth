@@ -25,3 +25,17 @@ void LifeBar::updateLifeBar(const int& life, const int& maxLife)
 			_image->setColor(209, 43, 43);
 	}
 }
+
+void LifeBar::setInUse(bool b)
+{ 
+	inUse = b;
+
+	if(!inUse)
+		_image->setColor(77, 77, 77);
+}
+
+void LifeBar::emptyBar()
+{
+	setClippingAreaSize(0, 1);
+	setSize(_clipArea.w, _clipArea.h);
+}

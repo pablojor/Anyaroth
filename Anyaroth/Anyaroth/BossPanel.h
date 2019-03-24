@@ -16,7 +16,7 @@ class BossPanel : public PanelUI
 		BossPanel(Game* game, string bossName);
 		~BossPanel() {}
 
-		void updateLifeBar(const int& life, const int& maxLife);
+		void updateLifeBar(const int& life1, const int& life2, const int& life3, const int& maxLife);
 
 		inline void updateBossName(const string& name) { _bossName->setText(name); }
 };

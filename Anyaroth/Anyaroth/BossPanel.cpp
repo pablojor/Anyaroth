@@ -24,9 +24,10 @@ BossPanel::BossPanel(Game * game, string bossName) : PanelUI(game)
 	addChild(_lifeBar_3);
 	addChild(_bossName);
 }
-void BossPanel::updateLifeBar(const int& life, const int& maxLife)
+
+void BossPanel::updateLifeBar(const int& life1, const int& life2, const int& life3, const int& maxLife)
 {
-	if (life >= maxLife * 0.66)
+	if (life1 > 0)
 	{
 		if (!_lifeBar_1->getInUse())
 		{
@@ -35,28 +36,23 @@ void BossPanel::updateLifeBar(const int& life, const int& maxLife)
 			_lifeBar_3->setInUse(false);
 		}
 
-		_lifeBar_1->updateLifeBar(life, maxLife);
+		_lifeBar_1->updateLifeBar(life1, maxLife);
 	}
-	else if (life >= maxLife * 0.33)
+	else if (life2 > 0)
 	{
 		if (!_lifeBar_2->getInUse())
 		{
-			_lifeBar_1->setInUse(false);
 			_lifeBar_2->setInUse(true);
 			_lifeBar_3->setInUse(false);
 		}
 
-		_lifeBar_2->updateLifeBar(life, maxLife);
+		_lifeBar_2->updateLifeBar(life2, maxLife);
 	}
 	else
 	{
 		if (!_lifeBar_3->getInUse())
-		{
-			_lifeBar_1->setInUse(false);
-			_lifeBar_2->setInUse(false);
 			_lifeBar_3->setInUse(true);
-		}
 
-		_lifeBar_3->updateLifeBar(life, maxLife);
+		_lifeBar_3->updateLifeBar(life3, maxLife);
 	}
 }

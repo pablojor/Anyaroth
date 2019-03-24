@@ -12,6 +12,8 @@ class LifeBar : public ImageUI
 
 		void updateLifeBar(const int& life, const int& maxLife);
 
-		inline void setInUse(bool b) { inUse = b; }
+		void setInUse(bool b);
 		inline bool getInUse() const { return inUse; }
+
+		void emptyBar();
 };
