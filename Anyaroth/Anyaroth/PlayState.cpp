@@ -11,6 +11,9 @@
 #include "PlayStateHUD.h"
 
 
+#include "PiercingBulletPool.h"
+
+
 
 PlayState::PlayState(Game* g) : GameState(g)
 {
@@ -39,6 +42,9 @@ PlayState::PlayState(Game* g) : GameState(g)
 	//Player
 	_player = new Player(g, 50, 180);
 	_stages.push_back(_player);
+	///
+	/*PiercingBulletPool* pPool = new PiercingBulletPool(g);*/
+
 	_player->setPlayerBulletPool(_bouncingBulletPool);
 
 	//Camera

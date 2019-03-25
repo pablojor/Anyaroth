@@ -145,6 +145,8 @@
     <ClCompile Include="ImprovedShotgun.cpp" />
     <ClCompile Include="MovingComponent.cpp" />
     <ClCompile Include="Melee.cpp" />
+    <ClCompile Include="PiercingBulletPool.cpp" />
+    <ClCompile Include="PiercingBullet.cpp" />
     <ClCompile Include="PlayerArm.cpp" />
     <ClCompile Include="ArmControllerComponent.cpp" />
     <ClCompile Include="BossPanel.cpp" />
@@ -226,6 +228,8 @@
     <ClInclude Include="MovingComponent.h" />
     <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="Melee.h" />
+    <ClInclude Include="PiercingBulletPool.h" />
+    <ClInclude Include="PiercingBullet.h" />
     <ClInclude Include="PlayerArm.h" />
     <ClInclude Include="ArmControllerComponent.h" />
     <ClInclude Include="BossPanel.h" />

@@ -175,9 +175,6 @@
     <ClCompile Include="Arm.cpp">
       <Filter>Archivos de código\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="Bullet.cpp">
-      <Filter>Archivos de código\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="Coin.cpp">
       <Filter>Archivos de código\Objects</Filter>
     </ClCompile>
@@ -223,16 +220,25 @@
     <ClCompile Include="ImprovedRifle.cpp">
       <Filter>Archivos de código\Guns</Filter>
     </ClCompile>
-    <ClCompile Include="BouncingBullet.cpp">
-      <Filter>Archivos de código\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="BounceOrbCannon.cpp">
       <Filter>Archivos de código\Guns</Filter>
     </ClCompile>
     <ClCompile Include="WeaponManager.cpp">
       <Filter>Archivos de código\Guns</Filter>
     </ClCompile>
-    <ClCompile Include="BouncingBulletPool.cpp" />
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Archivos de código\Objects\Bullets</Filter>
+    </ClCompile>
+    <ClCompile Include="BouncingBullet.cpp">
+      <Filter>Archivos de código\Objects\Bullets</Filter>
+    </ClCompile>
+    <ClCompile Include="BouncingBulletPool.cpp">
+      <Filter>Archivos de código\Pools</Filter>
+    </ClCompile>
+    <ClCompile Include="PiercingBulletPool.cpp" />
+    <ClCompile Include="PiercingBullet.cpp">
+      <Filter>Archivos de código\Objects\Bullets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -248,9 +254,6 @@
       <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
     <ClInclude Include="Tile.h">
-      <Filter>Archivos de encabezado\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="Bullet.h">
       <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
     <ClInclude Include="BulletPool.h">
@@ -493,16 +496,25 @@
     <ClInclude Include="ImprovedRifle.h">
       <Filter>Archivos de encabezado\Guns</Filter>
     </ClInclude>
-    <ClInclude Include="BouncingBullet.h">
-      <Filter>Archivos de encabezado\Objects</Filter>
-    </ClInclude>
     <ClInclude Include="BounceOrbCannon.h">
       <Filter>Archivos de encabezado\Guns</Filter>
     </ClInclude>
     <ClInclude Include="WeaponManager.h">
       <Filter>Archivos de encabezado\Guns</Filter>
     </ClInclude>
-    <ClInclude Include="BouncingBulletPool.h" />
+    <ClInclude Include="BouncingBullet.h">
+      <Filter>Archivos de encabezado\Objects\Bullets</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Archivos de encabezado\Objects\Bullets</Filter>
+    </ClInclude>
+    <ClInclude Include="BouncingBulletPool.h">
+      <Filter>Archivos de encabezado\Pools</Filter>
+    </ClInclude>
+    <ClInclude Include="PiercingBulletPool.h" />
+    <ClInclude Include="PiercingBullet.h">
+      <Filter>Archivos de encabezado\Objects\Bullets</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de encabezado">
@@ -597,6 +609,12 @@
     </Filter>
     <Filter Include="Archivos de código\Melee">
       <UniqueIdentifier>{36c1cf67-8b51-4fad-a240-8b9818e16d0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código\Objects\Bullets">
+      <UniqueIdentifier>{3dc862f5-f6be-4cf3-a30c-df73f2d32151}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Objects\Bullets">
+      <UniqueIdentifier>{1d363188-42c1-4860-abb0-ffa5e1951368}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

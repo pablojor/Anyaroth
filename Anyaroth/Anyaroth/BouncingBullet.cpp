@@ -4,7 +4,8 @@
 
 BouncingBullet::BouncingBullet(Game* game) : Bullet(game)
 {
-	
+	_body->getBody()->SetLinearDamping(1.0f);
+	_body->getBody()->GetFixtureList()->SetRestitution(1.0f);
 }
 
 
@@ -14,7 +15,7 @@ BouncingBullet::~BouncingBullet()
 
 void BouncingBullet::beginCollision(GameComponent * other, b2Contact* contact)
 {
-	if (_numBounces >= _maxBounces)
+	/*if (_numBounces >= _maxBounces)
 	{
 		if (getTag() == "Bullet" && (other->getTag() == "Suelo" || other->getTag() == "Enemy"))
 			_collided = true;
@@ -24,9 +25,9 @@ void BouncingBullet::beginCollision(GameComponent * other, b2Contact* contact)
 		contact->SetEnabled(false);
 	}
 	else
-		_transform->setRotation(_transform->getRotation() + _bounceAngle);
+		_transform->setRotation(_transform->getRotation() + _bounceAngle);*/
 
-	_numBounces++;
+	//_numBounces++;
 	cout << _numBounces << endl;
 }
 
@@ -40,10 +41,12 @@ void BouncingBullet::update(double time)
 		{
 			GameComponent::update(time);
 
-
-			_body->getBody()->SetLinearVelocity(b2Vec2(_speed * cos((_transform->getRotation())* M_PI / 180.0), _speed * sin((_transform->getRotation())* M_PI / 180.0)));
-
-			_body->getBody()->SetTransform(_body->getBody()->GetPosition(), _transform->getRotation()* M_PI / 180.0);
+			if (_body->getBody()->GetLinearDamping() == 1)
+			{
+				_body->getBody()->SetLinearVelocity(b2Vec2(_speed * cos((_transform->getRotation())* M_PI / 180.0), _speed * sin((_transform->getRotation())* M_PI / 180.0)));
+				_body->getBody()->SetLinearDamping(0.0f);
+			}
+			//_body->getBody()->SetTransform(_body->getBody()->GetPosition(), _transform->getRotation()* M_PI / 180.0);
 
 			_aliveTime++;
 		}
