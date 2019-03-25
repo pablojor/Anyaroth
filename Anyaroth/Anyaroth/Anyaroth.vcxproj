@@ -136,6 +136,7 @@
     <ClCompile Include="BodyComponent.cpp" />
     <ClCompile Include="BounceOrbCannon.cpp" />
     <ClCompile Include="BouncingBullet.cpp" />
+    <ClCompile Include="BouncingBulletPool.cpp" />
     <ClCompile Include="BulletPool.cpp" />
     <ClCompile Include="Cursor.cpp" />
     <ClCompile Include="DistanceEnemy.cpp" />
@@ -199,6 +200,7 @@
     <ClCompile Include="TTFclass.cpp" />
     <ClCompile Include="UIElement.cpp" />
     <ClCompile Include="Vector2D.cpp" />
+    <ClCompile Include="WeaponManager.cpp" />
     <ClCompile Include="WeaponryViewer.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -215,6 +217,7 @@
     <ClInclude Include="BodyComponent.h" />
     <ClInclude Include="BounceOrbCannon.h" />
     <ClInclude Include="BouncingBullet.h" />
+    <ClInclude Include="BouncingBulletPool.h" />
     <ClInclude Include="Cursor.h" />
     <ClInclude Include="DistanceEnemy.h" />
     <ClInclude Include="EnemyArm.h" />
@@ -284,6 +287,7 @@
     <ClInclude Include="TTFclass.h" />
     <ClInclude Include="UIElement.h" />
     <ClInclude Include="Vector2D.h" />
+    <ClInclude Include="WeaponManager.h" />
     <ClInclude Include="WeaponryViewer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

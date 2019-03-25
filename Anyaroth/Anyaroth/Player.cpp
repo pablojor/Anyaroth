@@ -11,7 +11,7 @@
 //#include "GravitationalBombCannon.h"
 #include "Axe.h"
 #include "GunType_def.h"
-
+#include "WeaponManager.h"
 
 Player::Player(Game* game, int xPos, int yPos) :  GameComponent(game, "Player")
 {
@@ -70,19 +70,10 @@ Player::Player(Game* game, int xPos, int yPos) :  GameComponent(game, "Player")
 	//_playerArm->addComponent<HurtRenderComponent>();
 
 	//Armas del juego
-	/*IMPORTANTE*/
-	//Hay que crearlas en el mismo orden que están en GunType_def.h
-	_gameWeapons.push_back(new BasicPistol(game));
-	_gameWeapons.push_back(new BasicShotgun(game));
-	_gameWeapons.push_back(new ImprovedShotgun(game));
-	_gameWeapons.push_back(new BasicRifle(game));
-	_gameWeapons.push_back(new ImprovedRifle(game));
-	_gameWeapons.push_back(new ImprovedRifle(game)); //Plasma Sniper
-	_gameWeapons.push_back(new BounceOrbCannon(game));
-	_gameWeapons.push_back(new ImprovedRifle(game)); //Gravity Cannon
-	
-	_currentGun = _gameWeapons[BasicRifle_Weapon];
-	_otherGun = _gameWeapons[BounceOrbCannon_Weapon];
+	_weaponManager = new WeaponManager(game);
+
+	_currentGun = _weaponManager->getWeapon(BounceOrbCannon_Weapon, 0);
+	_otherGun = _weaponManager->getWeapon(BasicRifle_Weapon, 1);
 	_playerArm->setTexture(_currentGun->getArmTexture());
 
 	//Monedero
@@ -96,8 +87,9 @@ Player::Player(Game* game, int xPos, int yPos) :  GameComponent(game, "Player")
 Player::~Player()
 {
 	delete _money;
-
-	for (auto g : _gameWeapons) delete g;
+	delete _weaponManager;
+	_weaponManager = nullptr;
+	//for (auto g : _gameWeapons) delete g;
 }
 
 void Player::beginCollision(GameComponent * other, b2Contact* contact)

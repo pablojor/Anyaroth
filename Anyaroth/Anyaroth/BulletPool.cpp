@@ -1,5 +1,4 @@
 ﻿#include "BulletPool.h"
-#include "BouncingBullet.h"
 #include "Game.h"
 
 
@@ -8,20 +7,10 @@ BulletPool::BulletPool(Game* game) : ObjectPool<Bullet, 100>(game)
 
 }
 
-Bullet* BulletPool::addNewBullet(BulletType type) 
+Bullet* BulletPool::addNewBullet() 
 {
-	Bullet* b;
-	switch (type)
-	{
-	case Bouncing:
-		b = new BouncingBullet(getGame());
-		break;
-	case Gravity:
-		break;
-	default:
-		b = new Bullet(getGame());
-		break;
-	}
+	Bullet* b = new Bullet(getGame());
+
 	_objects.push_back(b);
 	return b;
 }

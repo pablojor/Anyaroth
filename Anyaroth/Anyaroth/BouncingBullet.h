@@ -4,9 +4,11 @@ class BouncingBullet :
 	public Bullet
 {
 private:
-	int _bounces = 0;
+	int _numBounces = 0;
 	int _maxBounces = 3;
-	double _bounceAngle = 30;
+	double _bounceAngle = 90;
+	bool _bounce = false;
+	bool _managingCollision = false;
 
 public:
 	BouncingBullet(Game* game);

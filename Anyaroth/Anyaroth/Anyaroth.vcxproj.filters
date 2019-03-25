@@ -226,7 +226,13 @@
     <ClCompile Include="BouncingBullet.cpp">
       <Filter>Archivos de código\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="BounceOrbCannon.cpp" />
+    <ClCompile Include="BounceOrbCannon.cpp">
+      <Filter>Archivos de código\Guns</Filter>
+    </ClCompile>
+    <ClCompile Include="WeaponManager.cpp">
+      <Filter>Archivos de código\Guns</Filter>
+    </ClCompile>
+    <ClCompile Include="BouncingBulletPool.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -490,7 +496,13 @@
     <ClInclude Include="BouncingBullet.h">
       <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="BounceOrbCannon.h" />
+    <ClInclude Include="BounceOrbCannon.h">
+      <Filter>Archivos de encabezado\Guns</Filter>
+    </ClInclude>
+    <ClInclude Include="WeaponManager.h">
+      <Filter>Archivos de encabezado\Guns</Filter>
+    </ClInclude>
+    <ClInclude Include="BouncingBulletPool.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de encabezado">

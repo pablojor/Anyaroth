@@ -28,6 +28,9 @@ PlayState::PlayState(Game* g) : GameState(g)
 	////Pool player
 	_playerBulletPool = new BulletPool(g);
 	_stages.push_back(_playerBulletPool);
+	/////////////////////////////////////////////////////////
+	_bouncingBulletPool = new BouncingBulletPool(g);
+	_stages.push_back(_bouncingBulletPool);
 
 	//_enemyPool = new BulletPool(g/*, g->getTexture("PistolBullet"), 100, 10, 1000*/);
 	//_stages.push_back(_enemyPool);
@@ -36,7 +39,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	//Player
 	_player = new Player(g, 50, 180);
 	_stages.push_back(_player);
-	_player->setPlayerBulletPool(_playerBulletPool);
+	_player->setPlayerBulletPool(_bouncingBulletPool);
 
 	//Camera
 	_mainCamera->fixCameraToObject(_player);

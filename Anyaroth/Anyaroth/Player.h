@@ -9,8 +9,12 @@
 #include "Money.h"
 #include "Life.h"
 #include "PlayerPanel.h"
-#include "BulletPool.h"
+#include "PoolWrapper.h"
+//#include "BulletPool.h"
+//#include "BouncingBulletPool.h"
 #include "Melee.h"
+
+class WeaponManager;
 
 class Player : public GameComponent
 {
@@ -27,7 +31,6 @@ private:
 	Life _life = Life(100);
 	Money* _money = nullptr;
 	PlayerPanel* _playerPanel = nullptr;
-	BulletPool* _playerBulletPool = nullptr;
 
 	//Hijos
 	PlayerArm* _playerArm = nullptr;
@@ -37,9 +40,11 @@ private:
 	bool _isDashing = false, _isReloading = false, _isShooting = false, _isMeleeing = false, _dead = false;
 	int _floorCount = 0;
 
-	vector<Gun*> _gameWeapons;
+	//Armas
 	Gun* _currentGun = nullptr;
 	Gun* _otherGun = nullptr;
+	PoolWrapper* _playerBulletPool = nullptr;
+	WeaponManager* _weaponManager = nullptr;
 
 	inline bool dashIsAble() const { return _numDash > 0 && _isDashing; }
 	void checkMovement(const Uint8* keyboard);
@@ -83,7 +88,7 @@ public:
 
 
 	void setPlayerPanel(PlayerPanel* p);
-	inline void setPlayerBulletPool(BulletPool* pool) { _playerBulletPool = pool; }
+	inline void setPlayerBulletPool(PoolWrapper* pool) { _playerBulletPool = pool; }
 	
 	void changeMelee(Melee* newMelee);
 
