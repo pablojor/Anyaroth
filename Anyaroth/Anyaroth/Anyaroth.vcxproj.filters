@@ -235,9 +235,11 @@
     <ClCompile Include="BouncingBulletPool.cpp">
       <Filter>Archivos de código\Pools</Filter>
     </ClCompile>
-    <ClCompile Include="PiercingBulletPool.cpp" />
     <ClCompile Include="PiercingBullet.cpp">
       <Filter>Archivos de código\Objects\Bullets</Filter>
+    </ClCompile>
+    <ClCompile Include="PiercingBulletPool.cpp">
+      <Filter>Archivos de código\Pools</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -424,9 +426,6 @@
     <ClInclude Include="MenuButton.h">
       <Filter>Archivos de encabezado\HUDs</Filter>
     </ClInclude>
-    <ClInclude Include="Bullet.h">
-      <Filter>Archivos de encabezado\Objects\Player</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Archivos de encabezado\Objects\Player</Filter>
     </ClInclude>
@@ -511,9 +510,14 @@
     <ClInclude Include="BouncingBulletPool.h">
       <Filter>Archivos de encabezado\Pools</Filter>
     </ClInclude>
-    <ClInclude Include="PiercingBulletPool.h" />
     <ClInclude Include="PiercingBullet.h">
       <Filter>Archivos de encabezado\Objects\Bullets</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Archivos de encabezado\Objects\Bullets</Filter>
+    </ClInclude>
+    <ClInclude Include="PiercingBulletPool.h">
+      <Filter>Archivos de encabezado\Pools</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -57,20 +57,20 @@ void Bullet::init(Texture* texture, const Vector2D& position, const double& spee
 
 void Bullet::update(double time) 
 {
-	if (!isActive())
-		return;
-
-	double dist = _iniPos.distance(_transform->getPosition());
-
-	if (dist < _range && !_collided)
+	if (isActive())
 	{
-		GameComponent::update(time);
+		double dist = _iniPos.distance(_transform->getPosition());
 
-		_body->getBody()->SetLinearVelocity(b2Vec2(_speed * cos(_transform->getRotation() * M_PI / 180.0), _speed * sin(_transform->getRotation() * M_PI / 180.0)));
-		_aliveTime++;
+		if (dist < _range && !_collided)
+		{
+			GameComponent::update(time);
+
+			_body->getBody()->SetLinearVelocity(b2Vec2(_speed * cos(_transform->getRotation() * M_PI / 180.0), _speed * sin(_transform->getRotation() * M_PI / 180.0)));
+			_aliveTime++;
+		}
+		else
+			reset();
 	}
-	else
-		reset();
 }
 
 void Bullet::reset()

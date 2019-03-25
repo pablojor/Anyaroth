@@ -17,5 +17,6 @@ public:
 	virtual void beginCollision(GameComponent* other, b2Contact* contact);
 	virtual void update(double time);
 	virtual void reset();
+	virtual void init(Texture* texture, const Vector2D& position, const double& speed, const double& damage, const double& angle, const double& range, const string& tag);
 };
 

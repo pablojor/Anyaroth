@@ -32,7 +32,7 @@ public:
 	inline void setDamage(const double& damage) { _damage = damage; }
 	inline int getDamage() const { return _damage; }
 
-	void init(Texture* texture, const Vector2D& position, const double& speed, const double& damage, const double& angle, const double& range, const string& tag);
+	virtual void init(Texture* texture, const Vector2D& position, const double& speed, const double& damage, const double& angle, const double& range, const string& tag);
 	virtual void update(double time);
 	virtual void reset();
 };
