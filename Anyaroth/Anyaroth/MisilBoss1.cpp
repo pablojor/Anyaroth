@@ -41,12 +41,20 @@ void MisilBoss1::beginCollision(GameComponent * other, b2Contact * contact)
 	contact->SetEnabled(false);
 	setActive(false);
 	_body->getBody()->SetLinearVelocity(b2Vec2(0, 0));
+	_play->deleteObject(_itList);
+}
+
+void MisilBoss1::setItList(list<GameObject*>::iterator itFR)
+{
+	_itList = itFR;
 }
 
 void MisilBoss1::update(double time)
 {
+	GameComponent::update(time);
 	if (isActive())
 	{
+		
 		_targetPos = Vector2D(_targetBody->getBody()->GetPosition().x * M_TO_PIXEL, _targetBody->getBody()->GetPosition().y * M_TO_PIXEL);
 		_myPos = Vector2D(_body->getBody()->GetPosition().x  * M_TO_PIXEL, _body->getBody()->GetPosition().y  * M_TO_PIXEL);
 		//double myX = _myPos.getX(), myY = _myPos.getY(), x=_targetPos.getX(), y = _targetPos.getY(), velX =_velocity.getX(), velY = _velocity.getY();
@@ -77,7 +85,8 @@ void MisilBoss1::update(double time)
 			_velocity = {_velocity.getX() / 2, _velocity.getY() / 2};
 		
 		_body->getBody()->SetLinearVelocity(b2Vec2(_velocity.getX() * cos(_angle), _velocity.getY() * sin(_angle)));
-			
+		//_transform->setPosition(Vector2D(_body->getBody()->GetPosition().x * 8, _body->getBody()->GetPosition().y * 8));
+		_transform->setRotation(_angle);
 	}
 	
 }

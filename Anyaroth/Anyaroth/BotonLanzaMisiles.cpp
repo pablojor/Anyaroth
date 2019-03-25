@@ -53,6 +53,7 @@ void BotonLanzaMisiles::endCollision(GameComponent * other, b2Contact * contact)
 
 void BotonLanzaMisiles::update(double time)
 {
+	GameComponent::update(time);
 	if (_ableToFire && ready)
 	{
 		const Uint8* keyboard = SDL_GetKeyboardState(NULL);
