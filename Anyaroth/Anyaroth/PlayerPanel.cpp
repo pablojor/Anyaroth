@@ -12,7 +12,7 @@ PlayerPanel::PlayerPanel(Game* game) : PanelUI(game)
 	_weaponryViewer = new WeaponryViewer(game, 3, CAMERA_RESOLUTION_Y);
 	_ammoViewer = new AmmoViewer(game, 45, CAMERA_RESOLUTION_Y - 34);
 
-	_coinsCounter = new CoinsCounter(game, CAMERA_RESOLUTION_X - 25, 3);
+	_coinsCounter = new CoinsCounter(game, CAMERA_RESOLUTION_X - 30, 3);
 
 	//Añadimos al panel
 	addChild(_marco);
