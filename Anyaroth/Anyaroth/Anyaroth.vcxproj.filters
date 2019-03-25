@@ -46,9 +46,6 @@
     <ClCompile Include="AmmoViewer.cpp">
       <Filter>Archivos de código fuente\HUD\UIElements</Filter>
     </ClCompile>
-    <ClCompile Include="DashViewer.cpp">
-      <Filter>Archivos de código fuente\HUD\UIElements</Filter>
-    </ClCompile>
     <ClCompile Include="ImageUI.cpp">
       <Filter>Archivos de código fuente\HUD\UIElements</Filter>
     </ClCompile>
@@ -99,9 +96,6 @@
     </ClCompile>
     <ClCompile Include="DebugDraw.cpp">
       <Filter>Archivos de código fuente\Others</Filter>
-    </ClCompile>
-    <ClCompile Include="WeaponryViewer.cpp">
-      <Filter>Archivos de código fuente\HUD\UIElements</Filter>
     </ClCompile>
     <ClCompile Include="CoinsCounter.cpp">
       <Filter>Archivos de código fuente\HUD\UIElements</Filter>
@@ -240,6 +234,24 @@
     </ClCompile>
     <ClCompile Include="ExplosiveBulletPool.cpp">
       <Filter>Archivos de código fuente\Pools</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimatedImageUI.cpp">
+      <Filter>Archivos de código fuente\HUD\UIElements</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogueTextUI.cpp">
+      <Filter>Archivos de código fuente\HUD\UIElements</Filter>
+    </ClCompile>
+    <ClCompile Include="FramedImageUI.cpp">
+      <Filter>Archivos de código fuente\HUD\UIElements</Filter>
+    </ClCompile>
+    <ClCompile Include="DialoguePanel.cpp">
+      <Filter>Archivos de código fuente\HUD\Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="DashViewer.cpp">
+      <Filter>Archivos de código fuente\HUD\UIElements</Filter>
+    </ClCompile>
+    <ClCompile Include="WeaponryViewer.cpp">
+      <Filter>Archivos de código fuente\HUD\UIElements</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -453,9 +465,6 @@
     <ClInclude Include="ExplosiveBullet.h">
       <Filter>Archivos de encabezado\Objects\Bullets</Filter>
     </ClInclude>
-    <ClInclude Include="WeaponryViewer.h">
-      <Filter>Archivos de encabezado\HUD\UIElements</Filter>
-    </ClInclude>
     <ClInclude Include="UIElement.h">
       <Filter>Archivos de encabezado\HUD\UIElements</Filter>
     </ClInclude>
@@ -466,12 +475,6 @@
       <Filter>Archivos de encabezado\HUD\UIElements</Filter>
     </ClInclude>
     <ClInclude Include="ImageUI.h">
-      <Filter>Archivos de encabezado\HUD\UIElements</Filter>
-    </ClInclude>
-    <ClInclude Include="DashViewer.h">
-      <Filter>Archivos de encabezado\HUD\UIElements</Filter>
-    </ClInclude>
-    <ClInclude Include="CoinsCounter.h">
       <Filter>Archivos de encabezado\HUD\UIElements</Filter>
     </ClInclude>
     <ClInclude Include="AmmoViewer.h">
@@ -503,6 +506,27 @@
     </ClInclude>
     <ClInclude Include="ExplosiveBulletPool.h">
       <Filter>Archivos de encabezado\Pools</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimatedImageUI.h">
+      <Filter>Archivos de encabezado\HUD\UIElements</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogueTextUI.h">
+      <Filter>Archivos de encabezado\HUD\UIElements</Filter>
+    </ClInclude>
+    <ClInclude Include="FramedImageUI.h">
+      <Filter>Archivos de encabezado\HUD\UIElements</Filter>
+    </ClInclude>
+    <ClInclude Include="DialoguePanel.h">
+      <Filter>Archivos de encabezado\HUD\Panels</Filter>
+    </ClInclude>
+    <ClInclude Include="CoinsCounter.h">
+      <Filter>Archivos de encabezado\HUD\UIElements</Filter>
+    </ClInclude>
+    <ClInclude Include="DashViewer.h">
+      <Filter>Archivos de encabezado\HUD\UIElements</Filter>
+    </ClInclude>
+    <ClInclude Include="WeaponryViewer.h">
+      <Filter>Archivos de encabezado\HUD\UIElements</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

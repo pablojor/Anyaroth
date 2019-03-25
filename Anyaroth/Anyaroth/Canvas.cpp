@@ -12,13 +12,13 @@ void Canvas::render() const
 		e->render();
 }
 
-void Canvas::update()
+void Canvas::update(double time)
 {
 	for (UIElement* e : _elements)
-		e->update();
+		e->update(time);
 }
 
-void Canvas::handleEvent(SDL_Event& event)
+void Canvas::handleEvent(const SDL_Event& event)
 {
 	for (UIElement* e : _elements)
 		e->handleEvent(event);

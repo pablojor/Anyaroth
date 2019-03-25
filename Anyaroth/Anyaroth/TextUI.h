@@ -6,9 +6,6 @@
 
 class TextUI : public UIElement
 {
-private:
-	SDL_Rect _destRect;
-
 protected:
 	Font* _font = nullptr;
 	uint _fontSize;
@@ -16,6 +13,7 @@ protected:
 	SDL_Color _color;
 	Texture* _texture = nullptr;
 
+	SDL_Rect _destRect;
 public:
 	TextUI() : UIElement(nullptr), _texture(NULL) {}
 	TextUI(Game* game);
@@ -23,7 +21,7 @@ public:
 	~TextUI() { if (_texture != nullptr) delete _texture; }
 
 	virtual void render() const;
-	virtual void update() {}
+	virtual void update(double time) {}
 	virtual void handleEvent(const SDL_Event& event) {}
 
 	inline string getText() const { return _text; }
