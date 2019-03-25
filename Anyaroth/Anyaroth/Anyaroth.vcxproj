@@ -149,8 +149,10 @@
     <ClCompile Include="DialogueTextUI.cpp" />
     <ClCompile Include="DistanceEnemy.cpp" />
     <ClCompile Include="EnemyArm.cpp" />
+    <ClCompile Include="Interactable.cpp" />
     <ClCompile Include="MovingComponent.cpp" />
     <ClCompile Include="Melee.cpp" />
+    <ClCompile Include="NPC.cpp" />
     <ClCompile Include="PlayerArm.cpp" />
     <ClCompile Include="ArmControllerComponent.cpp" />
     <ClCompile Include="BossPanel.cpp" />
@@ -226,7 +228,9 @@
     <ClInclude Include="DialogueTextUI.h" />
     <ClInclude Include="DistanceEnemy.h" />
     <ClInclude Include="EnemyArm.h" />
+    <ClInclude Include="Interactable.h" />
     <ClInclude Include="MovingComponent.h" />
+    <ClInclude Include="NPC.h" />
     <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="Melee.h" />
     <ClInclude Include="PlayerArm.h" />

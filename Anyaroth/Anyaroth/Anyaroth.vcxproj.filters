@@ -226,6 +226,8 @@
     <ClCompile Include="DialoguePanel.cpp">
       <Filter>Archivos de código\HUDs</Filter>
     </ClCompile>
+    <ClCompile Include="Interactable.cpp" />
+    <ClCompile Include="NPC.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -489,6 +491,8 @@
     <ClInclude Include="DialoguePanel.h">
       <Filter>Archivos de encabezado\HUDs</Filter>
     </ClInclude>
+    <ClInclude Include="Interactable.h" />
+    <ClInclude Include="NPC.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de encabezado">
