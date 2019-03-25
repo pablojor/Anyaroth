@@ -183,6 +183,8 @@ bool Player::handleInput(const SDL_Event& event)
 			_isReloading = false;
 		else if (event.key.keysym.sym == SDLK_LSHIFT)
 			_isDashing = false;
+		else if (isJumping())
+			cancelJump();
 	}
 	else if (event.type == SDL_MOUSEBUTTONDOWN && event.button.state == SDL_PRESSED)
 	{
@@ -443,6 +445,12 @@ void Player::jump()
 	setGrounded(false);
 	_timeToJump = 0.f;
 	_anim->playAnim(AnimatedSpriteComponent::BeforeJump);
+}
+
+void Player::cancelJump()
+{
+	float penalization = 0.3f;
+	_body->getBody()->SetLinearVelocity(b2Vec2(_body->getBody()->GetLinearVelocity().x, _body->getBody()->GetLinearVelocity().y * (1 - penalization)));
 }
 
 void Player::melee()

@@ -83,6 +83,7 @@ public:
 	void dash(const Vector2D& dir);
 	void dashOff();
 	void jump();
+	void cancelJump();
 
 	void melee();
 	void shoot();

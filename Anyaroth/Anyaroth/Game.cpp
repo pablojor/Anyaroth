@@ -124,21 +124,22 @@ Game::~Game()
 
 void Game::run()
 {
-	double frameTime = FRAME_RATE;
+	double deltaTime = FRAME_RATE;
+	double startTime = SDL_GetTicks();
 
 	while (!_exit)
 	{
-		double startTime = SDL_GetTicks();
+		auto startTicks = SDL_GetTicks();
+		deltaTime = startTicks - startTime;
+		startTime = startTicks;
 
-		_world->Step(_timestep, 8, 3);
 		handleEvents();
-		update(frameTime);
+		_world->Step(_timestep, 8, 3);
+		update(deltaTime);
 		render();
 
-		frameTime = SDL_GetTicks() - startTime;
-
-		if (frameTime < FRAME_RATE)
-			SDL_Delay(FRAME_RATE - frameTime);
+		if (deltaTime < FRAME_RATE)
+			SDL_Delay(FRAME_RATE - deltaTime);
 	}
 }
 
