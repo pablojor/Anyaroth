@@ -10,7 +10,7 @@ class Boss1 : public DistanceEnemy
 		bool _fase1 = true, _fase2 = false, _fase3 = false, _beetwenFase = false, move= true;
 		Vector2D _bodyPos, _playerPos, _originalPos, _amplitude = Vector2D(250,25), _velocity = Vector2D(0.5, 0.5), _dir = Vector2D(1,0);
 		double  _damage = 50, _angularFrequency = 0.05, _k = _angularFrequency / _velocity.distance(Vector2D());
-		int _lastFase = 1;
+		int _lastFase = 0;
 
 		BodyComponent* _playerBody;
 		//Vida
@@ -36,6 +36,7 @@ class Boss1 : public DistanceEnemy
 
 
 		virtual void subLife(int damage);
+		virtual void manageLife(Life& l, bool& actualFase, int damage);
 
 		void movement(const double& deltaTime);
 		void bomberAttack(const double& deltaTime,int t1, int t2);
@@ -51,7 +52,7 @@ class Boss1 : public DistanceEnemy
 		void Fase2(const double& deltaTime);
 		void Fase3(const double& deltaTime);
 		void beetwenFases(const double& deltaTime);
-
+		void changeFase(bool& nextFase);
 
 		void throwBomb();
 

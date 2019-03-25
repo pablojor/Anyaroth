@@ -51,55 +51,30 @@ void Boss1::update(const double& deltaTime)
 
 	}
 }
+void Boss1::manageLife(Life& l, bool& actualFase, int damage)
+{
+	_hurt->hurt();
+	l.subLife(damage);
+	if (l.dead())
+	{
+		actualFase = false;
+		_beetwenFase = true;
+
+		_doSomething = 0;
+		_lastFase++;
+	}
+}
+
 void Boss1::subLife(int damage)
 {
 	if (!_dead && !_beetwenFase)
 	{
 		if (_life1.getLife() > 0)
-		{
-			_hurt->hurt();
-			_life1.subLife(damage);
-			if (_life1.dead())
-			{
-				_fase1 = false;
-				_beetwenFase = true;
-
-				_doSomething = 0;
-				_armVision = false;
-			}
-		}
+			manageLife(_life1, _fase1, damage);
 		else if (_life2.getLife() > 0)
-		{
-			_hurt->hurt();
-			_life2.subLife(damage);
-			if (_life2.dead())
-			{
-				_fase2 = false;
-				_beetwenFase = true;
-				_lastFase = 2;
-				_doSomething = 0;
-				_armVision = false;
-			}
-		}
-		else
-		{
-			
-			_life3.subLife(damage);
-			if (_life3.dead())
-			{
-				_lastFase = 3;
-
-				_fase3 = false;
-				_beetwenFase = true;
-				_doSomething = 0;
-				_armVision = false;
-
-				
-			}
-			else
-				_hurt->hurt();
-		}
-		
+			manageLife(_life2, _fase2, damage);
+		else if (_life3.getLife() > 0)
+			manageLife(_life3, _fase3, damage);
 	}
 }
 void Boss1::movement(const double& deltaTime)
@@ -181,34 +156,14 @@ void Boss1::beginCollision(GameComponent * other, b2Contact * contact)
 
 	if ( otherTag == "Misil" && _beetwenFase)
 	{
-		_beetwenFase = false;
 		if (_lastFase == 1)
-		{
-			_beetwenFase = false;
-			_fase2 = true;
-			_armVision = true;
-
-			_bomberAttacking = false;
-			_timeOnBomberAttack = 0;
-			_timeBeetwenBombs = 0;
-		}
+			changeFase(_fase2);
 		else if (_lastFase == 2)
-		{
-			_beetwenFase = false;
-			_fase3 = true;
-			_armVision = true;
-
-			_bomberAttacking = false;
-			_timeOnBomberAttack = 0;
-			_timeBeetwenBombs = 0;
-		}
+			changeFase(_fase3);
 		else
 		{
-
+			_beetwenFase = false;
 			die();
-			_hurt->die();
-			_anim->playAnim(AnimatedSpriteComponent::EnemyDie);
-			_dead = true;
 		}
 	}
 
@@ -273,6 +228,17 @@ void Boss1::Fase3(const double& deltaTime)
 void Boss1::beetwenFases(const double& deltaTime)
 {
 	bomberAttack(deltaTime, 200, 600);
+}
+
+void Boss1::changeFase(bool& nextFase)
+{
+	_beetwenFase = false;
+	nextFase = true;
+	_armVision = true;
+
+	_bomberAttacking = false;
+	_timeOnBomberAttack = 0;
+	_timeBeetwenBombs = 0;
 }
 
 

@@ -55,6 +55,9 @@ void Enemy::update(const double& deltaTime)
 void Enemy::die()
 {
 	_body->filterCollisions(DEAD_ENEMIES, FLOOR);
+	_hurt->die();
+	_anim->playAnim(AnimatedSpriteComponent::EnemyDie);
+	_dead = true;
 }
 
 void Enemy::subLife(int damage)
