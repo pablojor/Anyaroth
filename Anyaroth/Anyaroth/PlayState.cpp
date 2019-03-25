@@ -10,6 +10,7 @@
 #include "ParallaxLayer.h"
 #include "PlayStateHUD.h"
 
+#include "NPC.h"
 
 
 PlayState::PlayState(Game* g) : GameState(g)
@@ -72,7 +73,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 
 	for (int i = 0; i < disPos.size(); i++)
 	{
-		if(i==0 ||i==2)
+		if (i == 0 || i == 2)
 			_enemy = new DistanceStaticEnemy(_player, g, this, g->getTexture("EnemyMartyr"), Vector2D(disPos[i].getX(), disPos[i].getY() - TILES_SIZE * 2), "Enemy", BasicEnemyGun);
 		else
 			_enemy = new DistanceStaticEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(disPos[i].getX(), disPos[i].getY() - TILES_SIZE * 2), "Enemy", BasicEnemyShotgun);
@@ -92,6 +93,22 @@ PlayState::PlayState(Game* g) : GameState(g)
 		auto itFR = --(_stages.end());
 		_coin->setItList(itFR);
 	}
+
+	//Test NPC*****
+
+	NPC* _npc = new NPC(g, 60, 380,
+		{
+		g->getTexture("DialogueFace"),
+		"exampleVoice",
+		"Jagh",
+		{ "*Bzzt..Bip, bip..* Hey, ¿qué tal?", "Ajá, con que programando... ya veo...", "¡Pues sigue con eso, chaval! ¡Adew! *Bip*" },
+		{0,1,2},
+		{" ", " ", " ", " "}
+		});
+
+	_stages.push_back(_npc);
+
+	//*******
 
 	//World
 	_debugger.getRenderer(g->getRenderer());
@@ -121,6 +138,8 @@ PlayState::PlayState(Game* g) : GameState(g)
 
 	//Asignacion de paneles a sus controladores
 	_player->setPlayerPanel(b->getPlayerPanel());
+
+	_npc->setDialoguePanel(b->getDialoguePanel());
 }
 
 void PlayState::KillObject(const list<GameObject*>::iterator &itList)

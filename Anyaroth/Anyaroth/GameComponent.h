@@ -26,7 +26,7 @@ private:
 
 	Game* _game = nullptr; //puntero a game
 
-	bool _active = false;
+	bool _active = true;
 
 	inline void add_component(Component* c, string name) { _components[name] = c; }
 

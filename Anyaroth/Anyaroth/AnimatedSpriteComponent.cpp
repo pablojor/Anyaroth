@@ -5,7 +5,7 @@
 
 void AnimatedSpriteComponent::render(Camera* c) const
 {
-	if (_active)
+	if (_obj->isActive())
 	{
 		SDL_Rect destRect;
 		destRect.w = (_texture->getW() / _texture->getNumCols()) * _transform->getScale().getX();
@@ -17,7 +17,7 @@ void AnimatedSpriteComponent::render(Camera* c) const
 							destRect.w * GAME_RESOLUTION_X / c->getCameraSize().getX() + 1, destRect.h * GAME_RESOLUTION_Y / c->getCameraSize().getY() + 1 }; //+1 para el tema del Zoom
 
 		SDL_Point anchor = { _transform->getAnchor().getX() * winRect.w, _transform->getAnchor().getY() * winRect.h };
-		
+
 		_texture->renderFrame(winRect, _currentAnim, _frame, _transform->getRotation(), anchor, (_flip ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE));
 	}
 }

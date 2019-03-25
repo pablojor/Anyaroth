@@ -8,14 +8,14 @@ DialoguePanel::DialoguePanel(Game* game) : PanelUI(game)
 	/************/
 
 	//dialogo de prueba, esto iria leido de un json o algo
-	_testDialogue = Dialogue{
+	/*_testDialogue = Dialogue{
 		game->getTexture("DialogueFace"),
 		"exampleVoice",
 		"Jagh",
 		{ "*Bzzt..Bip, bip..* Hey, ¿qué tal?", "Ajá, con que programando... ya veo...", "¡Pues sigue con eso, chaval! ¡Adew! *Bip*" },
 		{0,1,2},
 		{" ", " ", " ", " "}
-	};
+	};*/
 
 	/***********/
 

@@ -5,32 +5,31 @@
 Interactable::Interactable(Game* g, double xPos, double yPos) : GameComponent(g, "Interactable")
 {
 
-	addComponent<Texture>(g->getTexture("Mk"));
+	//addComponent<Texture>(g->getTexture("Mk"));
 
 	_transform = addComponent<TransformComponent>();
 	_transform->setPosition(xPos/*50*/, yPos /*180*/);
 
 
 	_body = addComponent<BodyComponent>();
-	_body->getBody()->SetType(b2_staticBody);
+	_body->getBody()->SetType(b2_kinematicBody);
 
-	/*_body->setW(w);
-	_body->setH(h);*/
+	/**/
 
 	_body->filterCollisions(OBJECTS, PLAYER);
-	_body->getBody()->SetFixedRotation(true);
-
 	_body->getBody()->GetFixtureList()->SetSensor(true);
-
-
-	/*_anim = addComponent<AnimatedSpriteComponent>();
-	_anim->addAnim(AnimatedSpriteComponent::IdleNoInteractable, 16, true);
-	_anim->addAnim(AnimatedSpriteComponent::IdleInteractable, 10, true);
-	_anim->addAnim(AnimatedSpriteComponent::IdleNoInteractable, 16, true);
-	_anim->addAnim(AnimatedSpriteComponent::IdleInteractable, 10, true);*/
 
 	_interactIndicator = new GameComponent(g);
 	_interactIndicator->addComponent<Texture>(g->getTexture("InteractIndicator"));
+
+	_interactIndicator->addComponent<TransformComponent>();
+
+	_interactIndicator->addComponent<AnimatedSpriteComponent>();
+	_interactIndicator->getComponent<AnimatedSpriteComponent>()->addAnim(AnimatedSpriteComponent::Idle, 2, true);
+
+	_interactIndicator->getComponent<AnimatedSpriteComponent>()->playAnim(AnimatedSpriteComponent::Idle);
+
+	_interactIndicator->setActive(false);
 	addChild(_interactIndicator);
 }
 
@@ -39,6 +38,10 @@ Interactable::~Interactable()
 {
 }
 
+void Interactable::update(double time)
+{
+	
+}
 
 bool Interactable::handleInput(const SDL_Event& event)
 {
