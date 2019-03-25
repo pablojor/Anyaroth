@@ -14,24 +14,14 @@ BotonLanzaMisiles::BotonLanzaMisiles(Boss1* Boss, Game* g, PlayState* play, Text
 
 	_body = addComponent<BodyComponent>();
 	_body->getBody()->SetType(b2_staticBody);
-	_body->getBody()->SetBullet(true);
 
 	_body->setW(20);
 	_body->setH(20);
-	_body->filterCollisions(MISILLAUNCHER, FLOOR );
-
+	_body->filterCollisions(MISILLAUNCHER, PLAYER );
+	_body->getBody()->GetFixtureList()->SetSensor(true);
 	_body->getBody()->SetFixedRotation(true);
 
 	_anim = addComponent<AnimatedSpriteComponent>();
-
-	b2PolygonShape shape;
-	shape.SetAsBox(5 / M_TO_PIXEL, 5 / M_TO_PIXEL, b2Vec2(0, 0 /*Dependera del sprite final */), 0);
-	b2FixtureDef fDef;
-	fDef.shape = &shape;
-	fDef.filter.categoryBits = MISILLAUNCHER;
-	fDef.filter.maskBits = PLAYER;
-	fDef.isSensor = true;
-	_body->addFixture(&fDef, this);
 	
 }
 
@@ -43,10 +33,8 @@ BotonLanzaMisiles::~BotonLanzaMisiles()
 void BotonLanzaMisiles::beginCollision(GameComponent * other, b2Contact * contact)
 {
 	string otherTag = other->getTag();
-	auto fA = contact->GetFixtureA();
-	auto fB = contact->GetFixtureB();
 
-	if ((fA->IsSensor() || fB->IsSensor()) && otherTag == "Player" )
+	if (otherTag == "Player" )
 	{
 		if(_boss->isbeetweenFases())
 		_ableToFire = true;
@@ -56,10 +44,8 @@ void BotonLanzaMisiles::beginCollision(GameComponent * other, b2Contact * contac
 void BotonLanzaMisiles::endCollision(GameComponent * other, b2Contact * contact)
 {
 	string otherTag = other->getTag();
-	auto fA = contact->GetFixtureA();
-	auto fB = contact->GetFixtureB();
 
-	if ((fA->IsSensor() || fB->IsSensor()) && otherTag == "Player")
+	if (otherTag == "Player")
 	{
 		_ableToFire = false;
 	}
@@ -67,7 +53,7 @@ void BotonLanzaMisiles::endCollision(GameComponent * other, b2Contact * contact)
 
 void BotonLanzaMisiles::update(double time)
 {
-	if (_ableToFire&&ready)
+	if (_ableToFire && ready)
 	{
 		const Uint8* keyboard = SDL_GetKeyboardState(NULL);
 		if (keyboard[SDL_SCANCODE_E])

@@ -17,7 +17,7 @@ public:
 
 	virtual void update(double time) {}
 
-	void meleeAttack(double x, double y, int dir);
+	virtual void meleeAttack(double x, double y, int dir);
 	int const getDamage() { return _damage; }
 	void endMelee();
 
