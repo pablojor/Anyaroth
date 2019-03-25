@@ -19,9 +19,9 @@ FlyingEnemy::FlyingEnemy(Player* player, Game* g, PlayState* play, Texture* text
 
 FlyingEnemy::~FlyingEnemy() {}
 
-void FlyingEnemy::update(double time)
+void FlyingEnemy::update(const double& deltaTime)
 {
-	Enemy::update(time);
+	Enemy::update(deltaTime);
 
 	_playerPos = Vector2D(_playerBody->getBody()->GetPosition().x * M_TO_PIXEL, _playerBody->getBody()->GetPosition().y * M_TO_PIXEL);
 	_bodyPos = Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL);
@@ -34,7 +34,7 @@ void FlyingEnemy::update(double time)
 	double prevY = _prevPos.getY() + _velocity.getY() *dir.getY();
 	_prevPos = Vector2D(x, prevY);
 
-	double y = prevY + _amplitude * sin(_k * x - _angularFrequency * time / 1000);
+	double y = prevY + _amplitude * sin(_k * x - _angularFrequency * deltaTime / 1000);
 
 	_body->getBody()->SetTransform(b2Vec2(x / M_TO_PIXEL, y / M_TO_PIXEL), 0);
 }

@@ -14,7 +14,7 @@ public:
 	HurtRenderComponent(GameComponent * obj);
 	virtual ~HurtRenderComponent() {}
 
-	virtual void update(double time);
+	virtual void update(const double& deltaTime);
 
 	void hurt();
 	void die();

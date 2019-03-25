@@ -142,17 +142,17 @@ bool Map::handleInput(const SDL_Event & event)
 	return false;
 }
 
-void Map::update(double time)
+void Map::update(const double& deltaTime)
 {
-	GameComponent::update(time);
+	GameComponent::update(deltaTime);
 
 	for (Layer* l : _layers)
 		if (l->isActive())
-			l->update(time);
+			l->update(deltaTime);
 
 	for (GameComponent* o : _objects)
 		if (o->isActive())
-			o->update(time);
+			o->update(deltaTime);
 }
 
 void Map::render(Camera * c) const

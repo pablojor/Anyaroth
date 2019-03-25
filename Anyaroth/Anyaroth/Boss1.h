@@ -32,13 +32,13 @@ class Boss1 : public DistanceEnemy
 	public:
 		Boss1(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag, BulletPool* pool, ExplosiveBulletPool* explosivePool);
 		virtual ~Boss1() {};
-		virtual void update(double time);
+		virtual void update(const double& deltaTime);
 
 
 		virtual void subLife(int damage);
 
-		void movement(double time);
-		void bomberAttack(double time);
+		void movement(const double& deltaTime);
+		void bomberAttack(const double& deltaTime);
 		void meleeAttack();
 		bool inline const isMeleeing() { return ((_anim->getCurrentAnim() == AnimatedSpriteComponent::EnemyAttack) && !_anim->animationFinished()); }
 		bool inline const isbeetweenFases() {return _beetwenFase;}
@@ -47,10 +47,10 @@ class Boss1 : public DistanceEnemy
 
 		virtual void beginCollision(GameComponent* other, b2Contact* contact);
 
-		void Fase1(double time);
-		void Fase2(double time);
-		void Fase3(double time);
-		void beetwenFases(double time);
+		void Fase1(const double& deltaTime);
+		void Fase2(const double& deltaTime);
+		void Fase3(const double& deltaTime);
+		void beetwenFases(const double& deltaTime);
 
 
 		void throwBomb();

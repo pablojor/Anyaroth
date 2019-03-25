@@ -124,27 +124,41 @@ Game::~Game()
 
 void Game::run()
 {
-	double frameTime = FRAME_RATE;
+	double delta = FRAME_RATE;
+
+	double startTime = SDL_GetTicks();
 
 	while (!_exit)
 	{
-		double startTime = SDL_GetTicks();
+		//double startTime = SDL_GetTicks();
 
-		_world->Step(_timestep, 8, 3);
+		//_world->Step(_timestep, 8, 3);
+		//handleEvents();
+		//frameTime = SDL_GetTicks() - startTime;
+		//update(frameTime);
+		//render();
+
+		//if (frameTime < FRAME_RATE)
+		//	SDL_Delay(FRAME_RATE - frameTime);
+
+
+		
 		handleEvents();
-		update(frameTime);
+		auto startTicks = SDL_GetTicks();
+		delta = startTicks - startTime;
+		startTime = startTicks;
+		_world->Step(_timestep, 8, 3);
+		update(delta);
 		render();
 
-		frameTime = SDL_GetTicks() - startTime;
-
-		if (frameTime < FRAME_RATE)
-			SDL_Delay(FRAME_RATE - frameTime);
+		if (delta < FRAME_RATE)
+			SDL_Delay(FRAME_RATE - delta);
 	}
 }
 
-void Game::update(double time)
+void Game::update(const double& deltaTime)
 {
-	_stateMachine->currentState()->update(time);
+	_stateMachine->currentState()->update(deltaTime);
 }
 
 void Game::render() const

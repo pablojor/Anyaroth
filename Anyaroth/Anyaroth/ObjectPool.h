@@ -24,7 +24,7 @@ public:
 			delete t;
 	};
 
-	virtual void update(double time);
+	virtual void update(const double& deltaTime);
 	virtual void render(Camera* c) const;
 	virtual void addBullet(Vector2D pos, Vector2D dir, double angle) {}
 
@@ -49,11 +49,11 @@ public:
 };
 
 template <typename T, int SIZE>
-void ObjectPool<T, SIZE>::update(double time) 
+void ObjectPool<T, SIZE>::update(const double& deltaTime) 
 {
 	for (int i = 0; i < _objects.size(); i++)
 		if (_objects[i]->isActive()) 
-			_objects[i]->update(time);
+			_objects[i]->update(deltaTime);
 }
 
 template <typename T, int SIZE>

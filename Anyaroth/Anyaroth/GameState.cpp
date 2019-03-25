@@ -31,12 +31,12 @@ void GameState::render() const
 		_canvas->render();
 }
 
-void GameState::update(double time)
+void GameState::update(const double& deltaTime)
 {
-	_mainCamera->update(time);
+	_mainCamera->update(deltaTime);
 
 	for (GameObject* o : _stages)
-		o->update(time);
+		o->update(deltaTime);
 
 	if (_canvas != nullptr)
 		_canvas->update();

@@ -21,9 +21,9 @@ BomberEnemy::BomberEnemy(Player* player, Game* g, PlayState* play, Texture* text
 
 BomberEnemy::~BomberEnemy() {}
 
-void BomberEnemy::update(double time)
+void BomberEnemy::update(const double& deltaTime)
 {
-	Enemy::update(time);
+	Enemy::update(deltaTime);
 
 	BodyComponent* _playerBody = _player->getComponent<BodyComponent>();
 	b2Vec2 enemyPos = _body->getBody()->GetPosition(), playerPos = _playerBody->getBody()->GetPosition();
@@ -61,7 +61,7 @@ void BomberEnemy::update(double time)
 				_time = 0;
 			}
 			else
-				_time += time;
+				_time += deltaTime;
 		}
 	}
 	else

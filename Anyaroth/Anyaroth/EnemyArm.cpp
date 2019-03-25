@@ -10,9 +10,9 @@ EnemyArm::EnemyArm(Game* g, GameComponent* owner, GameComponent* target, Distanc
 	_myEnemy = enemy;
 }
 
-void EnemyArm::update(double time)
+void EnemyArm::update(const double& deltaTime)
 {
-	GameComponent::update(time);
+	GameComponent::update(deltaTime);
 
 	if (_myEnemy->ArmVision())
 	{

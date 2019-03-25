@@ -19,7 +19,7 @@ public:
 	BomberEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag, ExplosiveBulletPool* pool);
 	virtual ~BomberEnemy();
 
-	virtual void update(double time);
+	virtual void update(const double& deltaTime);
 
 	virtual void subLife(int damage);
 

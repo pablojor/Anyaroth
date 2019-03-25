@@ -63,7 +63,7 @@ public:
 	~Player();
 
 	bool handleInput(const SDL_Event& event);
-	void update(double time);
+	void update(const double& deltaTime);
 
 	virtual void beginCollision(GameComponent* other, b2Contact* contact);
 	virtual void endCollision(GameComponent* other, b2Contact* contact);

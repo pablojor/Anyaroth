@@ -49,9 +49,9 @@ void MisilBoss1::setItList(list<GameObject*>::iterator itFR)
 	_itList = itFR;
 }
 
-void MisilBoss1::update(double time)
+void MisilBoss1::update(const double& deltaTime)
 {
-	GameComponent::update(time);
+	GameComponent::update(deltaTime);
 	if (isActive())
 	{
 		

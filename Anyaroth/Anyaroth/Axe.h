@@ -11,5 +11,5 @@ public:
 	Axe(Game * g, Vector2D offset, Uint16 collidesWith, double damage, double w, double h, double iniAngle);
 	virtual ~Axe() {}
 	virtual void meleeAttack(double x, double y, int dir);
-	void update(double time);
+	void update(const double& deltaTime);
 };

@@ -24,7 +24,7 @@ public:
 	virtual ~GameState();
 
 	virtual void render() const;
-	virtual void update(double time);
+	virtual void update(const double& deltaTime);
 	virtual bool handleEvents(SDL_Event& e);
 
 	inline virtual Camera* getMainCamera() const { return _mainCamera; }

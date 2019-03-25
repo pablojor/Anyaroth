@@ -21,9 +21,9 @@ MeleeEnemy::MeleeEnemy(Player* player, Game* g, PlayState* play, Texture* textur
 	_body->addCricleShape(b2Vec2(0, _body->getH() + _body->getH() / 20), _body->getW() - _body->getW() / 20, ENEMIES, FLOOR);
 }
 
-void MeleeEnemy::update(double time)
+void MeleeEnemy::update(const double& deltaTime)
 {
-	Enemy::update(time);
+	Enemy::update(deltaTime);
 	if (!_dead && inCamera())
 	{
 		
@@ -89,10 +89,10 @@ void MeleeEnemy::update(double time)
 				_anim->playAnim(AnimatedSpriteComponent::Idle);
 			}
 			else if (_time > _stopDmg && _attacking)
-			//else if (time > _time + _stopDmg && _attacking)
+			//else if (deltaTime > _time + _stopDmg && _attacking)
 				_attacking = false;
 			else if (_time > _attackTime && _attacking)
-			//else if (time > _time + _attackTime && _attacking)
+			//else if (deltaTime > _time + _attackTime && _attacking)
 			{
 				if (_attackingR && (x < _attackRange + _realRange && x > 0) && y < _attackRange + _realRange && y > -_attackRange)
 				{
@@ -105,7 +105,7 @@ void MeleeEnemy::update(double time)
 					_attacking = false;
 				}
 			}
-			_time += time;
+			_time += deltaTime;
 		}
 		else
 		{

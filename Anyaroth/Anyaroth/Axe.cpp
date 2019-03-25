@@ -10,7 +10,7 @@ void Axe::meleeAttack(double x, double y, int dir)
 	_angle = (_dir == 1) ? _iniAngle : 180 + _iniAngle;
 }
 
-void Axe::update(double time)
+void Axe::update(const double& deltaTime)
 {
 	if (isActive())
 	{

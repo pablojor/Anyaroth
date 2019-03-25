@@ -60,7 +60,7 @@ private:
 	map <string, Font*> _fonts;
 	
 	b2World* _world = nullptr;
-	float _timestep = 1 / 60.0;
+	float _timestep = 1 / 120.0;
 	bool _exit = false;
 
 public:
@@ -91,7 +91,7 @@ public:
 	Game();
 	~Game();
 	void run();
-	void update(double time);
+	void update(const double& deltaTime);
 	void render() const;
 	void handleEvents();
 };
