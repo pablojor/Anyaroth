@@ -120,7 +120,7 @@ void Boss1::movement(const double& deltaTime)
 	}
 }
 
-void Boss1::bomberAttack(const double& deltaTime)
+void Boss1::bomberAttack(const double& deltaTime, int t1, int t2)
 {
 	_timeOnBomberAttack += deltaTime;
 	_armVision = false;
@@ -138,7 +138,7 @@ void Boss1::bomberAttack(const double& deltaTime)
 		if (_timeOnBomberAttack >= _timeBeetwenBombs)
 		{
 			throwBomb();
-			_timeBeetwenBombs += random(1000,1001);
+			_timeBeetwenBombs += random(t1,t2);
 		}
 
 	}
@@ -223,12 +223,14 @@ void Boss1::Fase1(const double& deltaTime)
 		{
 			meleeAttack();
 
-			_doSomething = random(1500, 1800);
+			_doSomething = random(1800, 3000);
+			_noAction = 0;
 		}
 		else if (!isMeleeing())
 		{
 			armShoot();
-			_doSomething = random(200, 400);
+			_doSomething = random(400, 800);
+			_noAction = 0;
 		}
 	}
 	else
@@ -246,9 +248,10 @@ void Boss1::Fase2(const double& deltaTime)
 			{
 
 				_bomberAttacking = true;
-				bomberAttack(deltaTime);
+				bomberAttack(deltaTime, 100, 200);
 
 				_doSomething = random(2500, 3200);
+				_noAction = 0;
 			}
 			else
 			{
@@ -260,7 +263,7 @@ void Boss1::Fase2(const double& deltaTime)
 			_noAction += deltaTime;
 	}
 	else
-		bomberAttack(deltaTime);
+		bomberAttack(deltaTime, 100, 200);
 }
 void Boss1::Fase3(const double& deltaTime)
 {
@@ -269,14 +272,14 @@ void Boss1::Fase3(const double& deltaTime)
 
 void Boss1::beetwenFases(const double& deltaTime)
 {
-	bomberAttack(deltaTime);
+	bomberAttack(deltaTime, 200, 600);
 }
 
 
 void Boss1::throwBomb()
 {
 	Bullet* b = _myExplosivePool->getUnusedObject();
-	Vector2D helpPos = Vector2D(random(100,800 /*Fututo tope por la derecha*/), 150);
+	Vector2D helpPos = Vector2D(random(100,700 /*Fututo tope por la derecha*/), 200);
 	Vector2D bulletPos = helpPos.rotateAroundPoint(90, helpPos);
 
 	if (b != nullptr)

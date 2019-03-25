@@ -38,7 +38,7 @@ class Boss1 : public DistanceEnemy
 		virtual void subLife(int damage);
 
 		void movement(const double& deltaTime);
-		void bomberAttack(const double& deltaTime);
+		void bomberAttack(const double& deltaTime,int t1, int t2);
 		void meleeAttack();
 		bool inline const isMeleeing() { return ((_anim->getCurrentAnim() == AnimatedSpriteComponent::EnemyAttack) && !_anim->animationFinished()); }
 		bool inline const isbeetweenFases() {return _beetwenFase;}
