@@ -203,6 +203,8 @@
     <ClCompile Include="PlayStateHUD.cpp" />
     <ClCompile Include="PoolWrapper.cpp" />
     <ClCompile Include="RenderComponent.cpp" />
+    <ClCompile Include="ShopItem.cpp" />
+    <ClCompile Include="ShopPanel.cpp" />
     <ClCompile Include="SpawnerEnemy.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
@@ -296,6 +298,8 @@
     <ClInclude Include="PoolWrapper.h" />
     <ClInclude Include="RenderComponent.h" />
     <ClInclude Include="SDLError.h" />
+    <ClInclude Include="ShopItem.h" />
+    <ClInclude Include="ShopPanel.h" />
     <ClInclude Include="SpawnerEnemy.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="SpriteComponent.h" />

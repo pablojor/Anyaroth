@@ -253,6 +253,8 @@
     <ClCompile Include="WeaponryViewer.cpp">
       <Filter>Archivos de código fuente\HUD\UIElements</Filter>
     </ClCompile>
+    <ClCompile Include="ShopPanel.cpp" />
+    <ClCompile Include="ShopItem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -528,6 +530,8 @@
     <ClInclude Include="WeaponryViewer.h">
       <Filter>Archivos de encabezado\HUD\UIElements</Filter>
     </ClInclude>
+    <ClInclude Include="ShopPanel.h" />
+    <ClInclude Include="ShopItem.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de código fuente">
