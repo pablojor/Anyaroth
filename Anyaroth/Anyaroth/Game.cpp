@@ -48,7 +48,7 @@ void Game::createFonts()
 			id = j[i][0].get<string>();
 			name = j[i][1].get<string>();
 			size = j[i][2];
-
+			
 			_fonts.insert(pair <string, Font*>(id, new Font(FONTS_PATH + name, size)));
 		}
 	}
@@ -60,21 +60,21 @@ void Game::createFonts()
 
 void Game::createSounds()
 {
-	
+
 	_soundManager->addMusic("bgMusic", SOUNDS_PATH + "bgMusic.wav");
 	_soundManager->addSFX("example1", SOUNDS_PATH + "example1.wav");
 
 	//UI SOUNDS
 		//Next Text (CAMBIAR)
 	_soundManager->addSFX("example", SOUNDS_PATH + "example.wav");
-		//Dialogue
+	//Dialogue
 	_soundManager->addSFX("openDialogue", SOUNDS_PATH + "openDialogue.wav");
 	_soundManager->addSFX("closeDialogue", SOUNDS_PATH + "closeDialogue.wav");
 
 	//VOICES
 		//Example
 	_soundManager->addSFX("exampleVoice", SOUNDS_PATH + "exampleVoice.wav");
-		//Boss
+	//Boss
 	_soundManager->addSFX("bossVoice", SOUNDS_PATH + "bossVoice.wav");
 }
 
@@ -96,6 +96,15 @@ void Game::popState()
 Texture* Game::getTexture(string nameText)
 {
 	return _textures[nameText];
+}
+
+Texture* Game::newTexture(string id, string nameText)
+{
+	int i = _textures[nameText]->getNumFils();
+	int j = _textures[nameText]->getNumCols();
+
+	_textures.insert(pair <string, Texture*>(id,new Texture(_renderer, _textures[nameText]->getFilename(), i, j) ));
+	return _textures[id];
 }
 
 Font * Game::getFont(string nameFont)
@@ -207,7 +216,7 @@ void Game::handleEvents()
 	{
 		if (event.type == SDL_QUIT)
 			_exit = true;
-		else if (event.type == SDL_KEYDOWN) 
+		else if (event.type == SDL_KEYDOWN)
 		{
 			if (event.key.keysym.sym == SDLK_F11)
 				toggleFullscreen();

@@ -49,7 +49,8 @@ PlayState::PlayState(Game* g) : GameState(g)
 
 	for (int i = 0; i < enemiesPos.size(); i++)
 	{
-		_enemy = new MeleeEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(enemiesPos[i].getX(), enemiesPos[i].getY() - TILES_SIZE * 2), "Enemy");
+		//_enemy = new MeleeEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(enemiesPos[i].getX(), enemiesPos[i].getY() - TILES_SIZE * 2), "Enemy");
+		_enemy = new MeleeEnemy(_player, g, this, g->newTexture("EnemyMelee" + to_string(i), "EnemyMelee"), Vector2D(enemiesPos[i].getX(), enemiesPos[i].getY() - TILES_SIZE * 2), "Enemy");
 		_stages.push_back(_enemy);
 		auto itFR = --(_stages.end());
 		_enemy->setItList(itFR);
@@ -61,7 +62,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 
 	for (int i = 0; i < marirsPos.size(); i++)
 	{
-		_enemy = new MartyrEnemy(_player, g, this, g->getTexture("EnemyMartyr"), Vector2D(marirsPos[i].getX(), marirsPos[i].getY() - TILES_SIZE * 2), "Enemy");
+		_enemy = new MartyrEnemy(_player, g, this, g->newTexture("EnemyMartyr" + to_string(i), "EnemyMartyr"), Vector2D(marirsPos[i].getX(), marirsPos[i].getY() - TILES_SIZE * 2), "Enemy");
 		_stages.push_back(_enemy);
 		auto itFR = --(_stages.end());
 		_enemy->setItList(itFR);

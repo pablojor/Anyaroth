@@ -62,13 +62,14 @@ public:
 	void createTextures();
 	void createFonts();
 	void createSounds();
-	
+
 	void pushState(GameState* state);
 	void changeState(GameState* state);
 	void popState();
 
 	inline GameState* getCurrentState() const { return _stateMachine->currentState(); }
 	Texture* getTexture(string nameText);
+	Texture* newTexture(string id, string nameText);
 	Font* getFont(string nameFont);
 
 	inline SDL_Renderer* getRenderer() const { return _renderer; }
