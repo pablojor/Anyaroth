@@ -67,25 +67,25 @@ void Game::createSounds()
 	//UI SOUNDS
 		//Next Text (CAMBIAR)
 	_soundManager->addSFX("example", SOUNDS_PATH + "example.wav");
-	//Dialogue
+		//Dialogue
 	_soundManager->addSFX("openDialogue", SOUNDS_PATH + "openDialogue.wav");
 	_soundManager->addSFX("closeDialogue", SOUNDS_PATH + "closeDialogue.wav");
 
 	//VOICES
 		//Example
 	_soundManager->addSFX("exampleVoice", SOUNDS_PATH + "exampleVoice.wav");
-	  //Boss
+		//Boss
 	_soundManager->addSFX("bossVoice", SOUNDS_PATH + "bossVoice.wav");
 }
 
-Texture* Game::newTexture(string id, string nameText)
+/*Texture* Game::newTexture(string id, string nameText)
 {
 	int i = _textures[nameText]->getNumFils();
 	int j = _textures[nameText]->getNumCols();
 
 	_textures.insert(pair <string, Texture*>(id,new Texture(_renderer, _textures[nameText]->getFilename(), i, j) ));
 	return _textures[id];
-}
+}*/
 
 void Game::toggleFullscreen()
 {
