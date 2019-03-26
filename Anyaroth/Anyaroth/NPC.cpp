@@ -15,9 +15,10 @@ NPC::NPC(Game* g, Vector2D posIni, Dialogue dialogue) : Interactable(g, posIni)
 	_body = addComponent<BodyComponent>();
 	_body->getBody()->SetType(b2_kinematicBody);
 	_body->filterCollisions(OBJECTS, PLAYER);
-	_body->getBody()->GetFixtureList()->SetSensor(true);
 	_body->setW(40);
 	_body->setH(20);
+	_body->getBody()->GetFixtureList()->SetSensor(true);
+
 
 
 	_anim = addComponent<AnimatedSpriteComponent>();

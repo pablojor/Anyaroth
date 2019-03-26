@@ -9,24 +9,33 @@ BotonLanzaMisiles::BotonLanzaMisiles(Boss1* Boss, Game* g, PlayState* play, Text
 {
 	addComponent<Texture>(texture);
 
+	auto _indicatorTexture = _interactIndicator->getComponent<Texture>();
 
 	_body = addComponent<BodyComponent>();
 	_body->getBody()->SetType(b2_kinematicBody);
 	_body->filterCollisions(OBJECTS, PLAYER);
-	_body->getBody()->GetFixtureList()->SetSensor(true);
 	_body->setW(20);
 	_body->getBody()->GetFixtureList()->SetSensor(true);
 	_body->getBody()->SetFixedRotation(true);
 
 	_anim = addComponent<AnimatedSpriteComponent>();
 	
+	_interactIndicator->getComponent<TransformComponent>()->setPosition(posIni.getX() + (texture->getW() / texture->getNumCols()) / 2 - (_indicatorTexture->getW() / _indicatorTexture->getNumCols()) / 2 /*50*/, posIni.getY() - 30 /*180*/);
 }
 
 void BotonLanzaMisiles::update(const double & deltaTime)
 {
 	Interactable::update(deltaTime);
-	if(usable && ! ready)
+
+	if (usable && !ready)
 		ready = _boss->isbeetweenFases();
+	if (_canInteract)
+	{
+		if(usable && ready)
+			_interactIndicator->setActive(true);
+		else
+			_interactIndicator->setActive(false);
+	}
 }
 
 

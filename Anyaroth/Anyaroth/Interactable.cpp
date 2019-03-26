@@ -22,6 +22,8 @@ Interactable::Interactable(Game* g, Vector2D posIni) : GameComponent(g, "Interac
 
 	_interactIndicator->setActive(false);
 	addChild(_interactIndicator);
+
+	auto _indicatorTexture = _interactIndicator->getComponent<Texture>();
 }
 
 
