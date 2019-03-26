@@ -3,8 +3,15 @@
 #include "Coin.h"
 #include "BasicPistol.h"
 #include "BasicShotgun.h"
+#include "ImprovedShotgun.h"
+#include "BasicRifle.h"
+#include "ImprovedRifle.h"
+//#include "PlasmaSniper.h"
+#include "BounceOrbCannon.h"
+//#include "GravitationalBombCannon.h"
 #include "Axe.h"
-
+#include "GunType_def.h"
+#include "WeaponManager.h"
 
 Player::Player(Game* game, int xPos, int yPos) :  GameComponent(game, "Player")
 {
@@ -62,9 +69,14 @@ Player::Player(Game* game, int xPos, int yPos) :  GameComponent(game, "Player")
 	_playerArm = new PlayerArm(game, this, { 28, 18 });
 	addChild(_playerArm);
 
-	//Armas (de momento esas dos)
-	_currentGun = new BasicPistol(game);
-	_otherGun = new BasicShotgun(game);
+	//_playerArm->addComponent<HurtRenderComponent>();
+
+	//Armas del juego
+	_weaponManager = new WeaponManager(game);
+
+	_currentGun = _weaponManager->getWeapon(BounceOrbCannon_Weapon, 0);
+	_otherGun = _weaponManager->getWeapon(BasicRifle_Weapon, 1);
+
 	_playerArm->setTexture(_currentGun->getArmTexture());
 
 	//Monedero
@@ -78,8 +90,9 @@ Player::Player(Game* game, int xPos, int yPos) :  GameComponent(game, "Player")
 Player::~Player()
 {
 	delete _money;
-	delete _currentGun;
-	delete _otherGun;
+	delete _weaponManager;
+	_weaponManager = nullptr;
+	//for (auto g : _gameWeapons) delete g;
 }
 
 void Player::beginCollision(GameComponent * other, b2Contact* contact)

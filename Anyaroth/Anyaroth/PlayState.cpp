@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "PauseState.h"
 #include "PlayStateHUD.h"
+#include "PiercingBulletPool.h"
 #include "checkML.h"
 #include <time.h>
 
@@ -19,7 +20,19 @@ PlayState::PlayState(Game* g) : GameState(g)
 	//Pool player
 	_playerBulletPool = new BulletPool(g);
 	_stages.push_back(_playerBulletPool);
+	/////////////////////////////////////////////////////////
+	_bouncingBulletPool = new BouncingBulletPool(g);
+	_stages.push_back(_bouncingBulletPool);
+
+
+
+	///
+	/*PiercingBulletPool* pPool = new PiercingBulletPool(g);*/
+
+	//_player->setPlayerBulletPool(_bouncingBulletPool);
+
 	_player->setPlayerBulletPool(_playerBulletPool);
+
 
 	//Pool enemy
 	_enemyBulletPool = new BulletPool(g);
@@ -36,10 +49,12 @@ PlayState::PlayState(Game* g) : GameState(g)
 	//Camera
 	_mainCamera->fixCameraToObject(_player);
 
+
 	//HUD
 	auto b = new PlayStateHUD(g);
 	setCanvas(b);
 	_player->setPlayerPanel(b->getPlayerPanel());
+
 
 	//Collisions and debugger
 	g->getWorld()->SetContactListener(&_colManager);
