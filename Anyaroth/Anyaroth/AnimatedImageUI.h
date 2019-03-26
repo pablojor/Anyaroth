@@ -24,7 +24,7 @@ private:
 	bool _animationFinished = false;
 	bool _active = true;
 public:
-	enum DialogueBg { Default, End, Start };
+	enum DialogueBg { Default, Start, End };
 	enum DialogueIndicator { Idle };
 
 	AnimatedImageUI(Game* game, Texture* image, int xPos = 0, int yPos = 0);

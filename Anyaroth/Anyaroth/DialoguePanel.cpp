@@ -6,11 +6,11 @@
 DialoguePanel::DialoguePanel(Game* game) : PanelUI(game)
 {
 	//Inicializamos
-	_backgroundImage = new AnimatedImageUI(game, game->getTexture("DialogueBg"), 3, 192);
-	_faceImage = new FramedImageUI(game, game->getTexture("DialogueFace"), _backgroundImage->getX() + 11, _backgroundImage->getY() + 11);
-	_indicatorImage = new AnimatedImageUI(game, game->getTexture("DialogueIndicator"), _backgroundImage->getW() - 22, _backgroundImage->getY() + 58);
-	_nameBackground = new AnimatedImageUI(game, game->getTexture("DialogueBg"), 3, 180);
-	_nameText = new TextUI(game, " ", game->getFont("ARIAL12"), 12, _faceImage->getX(), _faceImage->getY() - 30, { 145, 255, 255, 255 });
+	_backgroundImage = new AnimatedImageUI(game, game->getTexture("DialogueBg"), 0, 188);
+	_faceImage = new FramedImageUI(game, game->getTexture("DialogueFace"), _backgroundImage->getX() + 14, _backgroundImage->getY() + 13);
+	_indicatorImage = new AnimatedImageUI(game, game->getTexture("DialogueIndicator"), _backgroundImage->getW() - 22, _backgroundImage->getY() + 61);
+	_nameBackground = new AnimatedImageUI(game, game->getTexture("NameBg"), 0, 168);
+	_nameText = new TextUI(game, " ", game->getFont("ARIAL12"), 12, _faceImage->getX(), _faceImage->getY() - 29, { 145, 255, 255, 255 });
 
 	for (int i = 0; i < _lines; i++)
 	{
@@ -20,12 +20,12 @@ DialoguePanel::DialoguePanel(Game* game) : PanelUI(game)
 	//Animaciones
 		//Background
 	_backgroundImage->addAnim(AnimatedImageUI::Default, 1, false);
-	_backgroundImage->addAnim(AnimatedImageUI::End, 8, false);
-	_backgroundImage->addAnim(AnimatedImageUI::Start, 8, false);
-		//Background
+	_backgroundImage->addAnim(AnimatedImageUI::End, 10, false);
+	_backgroundImage->addAnim(AnimatedImageUI::Start, 10, false);
+		//Background name
 	_nameBackground->addAnim(AnimatedImageUI::Default, 1, false);
-	_nameBackground->addAnim(AnimatedImageUI::End, 8, false);
-	_nameBackground->addAnim(AnimatedImageUI::Start, 8, false);
+	_nameBackground->addAnim(AnimatedImageUI::End, 7, false);
+	_nameBackground->addAnim(AnimatedImageUI::Start, 7, false);
 		//Indicator
 	_indicatorImage->addAnim(AnimatedImageUI::Idle, 7, true);
 
@@ -34,7 +34,7 @@ DialoguePanel::DialoguePanel(Game* game) : PanelUI(game)
 	_indicatorImage->playAnim(AnimatedImageUI::Idle);
 
 	//Ponemos invisible todo inicialmente
-	_nameBackground->setVisible(false);
+	//_nameBackground->setVisible(false);
 	_indicatorImage->setVisible(false);
 	_faceImage->setVisible(false);
 	_nameText->setVisible(false);
@@ -74,7 +74,10 @@ void DialoguePanel::startDialogue(const Dialogue& dialogue)
 
 		//inicializamos cada elemento
 		if (_dialogue.name != " ")
+		{
 			_nameText->setText(_dialogue.name);
+			_nameBackground->setVisible(true);
+		}
 		else
 		{
 			_nameBackground->setVisible(false);
@@ -99,10 +102,10 @@ void DialoguePanel::startDialogue(const Dialogue& dialogue)
 		//ponemos visible el cuadro de dialogo primero antes que las demas cosas
 		setVisible(true);
 		_backgroundImage->setVisible(true);
-
+		//_nameBackground->setVisible(true);
 		//comenzamos animación de abrir diálogo
 		_backgroundImage->playAnim(AnimatedImageUI::Start);
-
+		_nameBackground->playAnim(AnimatedImageUI::Start);
 		//REPRODUCIR SONIDO DE ABRIR DIALOGO
 		_game->getSoundManager()->playSFX("openDialogue");
 	}
@@ -135,7 +138,7 @@ void DialoguePanel::endDialogue()
 
 	//comenzamos animacion de cerrar diálogo
 	_backgroundImage->playAnim(AnimatedImageUI::End);
-
+	_nameBackground->playAnim(AnimatedImageUI::End);
 	//REPRODUCIR SONIDO DE CERRAR DIALOGO
 	_game->getSoundManager()->playSFX("closeDialogue");
 
@@ -236,8 +239,8 @@ void DialoguePanel::update(double time)
 		if (_backgroundImage->getCurrentAnim() == AnimatedImageUI::End && _backgroundImage->animationFinished())
 		{
 			_backgroundImage->playAnim(AnimatedImageUI::Default);
+			_nameBackground->playAnim(AnimatedImageUI::Default);
 			_backgroundImage->setVisible(false);
-
 			_nameBackground->setVisible(false);
 
 			setVisible(false);
@@ -246,6 +249,7 @@ void DialoguePanel::update(double time)
 		else if (_backgroundImage->getCurrentAnim() == AnimatedImageUI::Start && _backgroundImage->animationFinished())
 		{
 			_backgroundImage->playAnim(AnimatedImageUI::Default);
+			_nameBackground->playAnim(AnimatedImageUI::Default);
 
 			if (_dialogue.face != nullptr)
 				_faceImage->setVisible(true);

@@ -100,9 +100,10 @@ PlayState::PlayState(Game* g) : GameState(g)
 		{
 		g->getTexture("DialogueFace"),
 		"exampleVoice",
-		"Pepe, el de la panadería",
-		{ "*Bzzt..Bip, bip..* Hey, ¿qué tal?", //Sé que soy un mensaje demasiado largo para caber en esta cajita, así que espero trocearme bien como si fuese un filete de seitán.",
-		"Ajá, con que programando... ya veo... ¡pues que sepas que tu código es un excremento de anya si este mensaje no lo trocea como es debido! PEDAZO DE BASURA REBELDE QUE ERES", "¡Pues sigue con eso, chaval! ¡Adew! *Bip*" },
+		"Jose María",
+		{ "*Bzzt..Bip, bip..* Hey, ¿qué tal?",
+		"Ajá, con que programando... ya veo...",
+		"¡Pues sigue con eso, chaval! Deja de jugar tanto al Sekiro y ponte a estudiar de una maldita vez, escoria infrahumana (...) ¡Adew! *Bip*" },
 		{0,1,2},
 		{" ", " ", " ", " "}
 		});
@@ -112,11 +113,11 @@ PlayState::PlayState(Game* g) : GameState(g)
 	//*******
 
 	//World
-	_debugger.getRenderer(g->getRenderer());
+	/*_debugger.getRenderer(g->getRenderer());
 	_debugger.getTexture(g->getTexture("body"));
 	_debugger.SetFlags(b2Draw::e_shapeBit);
 	_debugger.getCamera(_mainCamera);
-
+	*/
 	//Gestion de colisiones
 	g->getWorld()->SetContactListener(&_colManager);
 	g->getWorld()->SetDebugDraw(&_debugger);
