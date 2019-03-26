@@ -4,14 +4,15 @@
 
 class WeaponryViewer : public PanelUI
 {
-private:
-	ImageUI* _currentWeapon = nullptr;
-	ImageUI* _otherWeapon = nullptr;
-	ImageUI* _meleeWeapon = nullptr;
+	private:
+		ImageUI* _marco = nullptr;
 
-public:
-	WeaponryViewer(Game* game, int xPos, int yPos);
-	~WeaponryViewer() {}
+		ImageUI* _currentWeapon = nullptr;
+		ImageUI* _otherWeapon = nullptr;
 
-	void updateWeaponryViewer();
+	public:
+		WeaponryViewer(Game* game, int xPos, int yPos);
+		~WeaponryViewer() { delete _otherWeapon; }
+
+		void updateWeaponryViewer();
 };

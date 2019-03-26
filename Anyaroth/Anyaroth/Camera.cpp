@@ -34,6 +34,21 @@ void Camera::moveCamera()
 		_cameraStatus.first = false;
 }
 
+void Camera::smoothCameraZoom()
+{
+	if (_zoom != _zoomGoal)
+	{
+		bool _isMinor = false;
+		if (_zoomGoal > _zoom) _isMinor = true;
+		_isMinor ? _zoom++ : (_zoom - 1 < 0 ? _zoom = 0 : _zoom--);
+
+		if ((_isMinor && _zoom >= _zoomGoal) || (!_isMinor && _zoom <= _zoomGoal))
+			_zoom = _zoomGoal;
+
+		setCameraSize(CAMERA_ASPECT_RATIO_X * _zoom, CAMERA_ASPECT_RATIO_Y * _zoom);
+	}
+}
+
 Camera::Camera(GameComponent * followObject)
 {
 	fixCameraToObject(followObject);
@@ -66,12 +81,27 @@ void Camera::looseFixedObject()
 		_followedObject = nullptr;
 }
 
-void Camera::update(double time)
+void Camera::setZoom(const float& zoomRatio, const bool& smoothZoom)
+{
+	_zoomGoal = CAMERA_SCALE_FACTOR * zoomRatio;
+	if (_zoomGoal < 0) _zoomGoal = 0;
+
+	if (!smoothZoom)
+	{
+		_zoom = _zoomGoal;
+		setCameraSize(CAMERA_ASPECT_RATIO_X * _zoom, CAMERA_ASPECT_RATIO_Y * _zoom);
+	}
+}
+
+void Camera::update(const double& time)
 {
 	moveCamera();
+
 	if (_backGround != nullptr)
 		if (_backGround->checkCameraStatus(_cameraStatus))
 			_backGround->update(time);
+
+	smoothCameraZoom();
 }
 
 void Camera::render() const

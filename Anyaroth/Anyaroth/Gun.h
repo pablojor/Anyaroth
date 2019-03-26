@@ -20,6 +20,8 @@ public:
 	virtual ~Gun() {}
 
 	virtual void shoot(PoolWrapper* bulletPool, const Vector2D& position, const double& angle, const string& tag);
+	virtual void enemyShoot(PoolWrapper* bulletPool, const Vector2D& position, const double& angle, const string& tag);
+
 	virtual void reload();
 
 	inline bool canShoot() const { return _clip > 0 && _cadence <= 0; }

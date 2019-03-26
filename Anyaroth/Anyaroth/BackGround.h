@@ -14,8 +14,8 @@ public:
 	BackGround(Texture* texture, Camera* camera);
 	virtual ~BackGround() {}
 
-	virtual void render() const = 0;
-	virtual void update(double time) = 0 {}
+	virtual void render() const;
+	virtual void update(double time) {}
 
-	virtual bool checkCameraStatus(pair<bool, int> status) = 0;
+	virtual bool checkCameraStatus(pair<bool, int> status) { return false; }
 };

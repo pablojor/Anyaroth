@@ -47,4 +47,7 @@ public:
 	void render(const SDL_Rect& destRect, const SDL_Rect& clipRect, double angle = 0, SDL_Point anchor = { 0,0 }, SDL_RendererFlip flip = SDL_FLIP_NONE) const;
 	void renderFrame(const SDL_Rect& destRect, int row, int col, double angle = 0, SDL_Point anchor = { 0,0 }, SDL_RendererFlip flip = SDL_FLIP_NONE) const;
 	void loadFromText(string text, const Font* font, SDL_Color color);
+
+
+	//void render(string text, const SDL_Rect& rect, const Font* font, SDL_Color color) const;
 };

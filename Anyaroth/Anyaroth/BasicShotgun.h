@@ -3,11 +3,7 @@
 
 class BasicShotgun : public Shotgun
 {
-
 public:
 	BasicShotgun(Game* game);
 	~BasicShotgun();
-
-	
 };
-

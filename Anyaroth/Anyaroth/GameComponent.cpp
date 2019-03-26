@@ -29,34 +29,28 @@ GameComponent::~GameComponent()
 		delete child;
 }
 
-//Añade un hijo al objeto
-void GameComponent::addChild(GameComponent* obj) 
-{
-	_children.push_back(obj);
-}
-
-
-
-bool GameComponent::handleInput(const SDL_Event& event) 
+bool GameComponent::handleInput(const SDL_Event& event)
 {
 	for (InputComponent* ic : _inputComp)
 		ic->handleInput(event);
 
 	//Llama al handleInput de los hijos
 	for (GameComponent* child : _children)
-		child->handleInput(event);
+		if (child->isActive())
+			child->handleInput(event);
 
 	return false;
 }
 
-void GameComponent::update(double time) 
+void GameComponent::update(double time)
 {
 	for (PhysicsComponent* pc : _physicsComp)
 		pc->update(time);
 
 	//Llama al update de los hijos
 	for (GameComponent* child : _children)
-		child->update(time);
+		if (child->isActive())
+			child->update(time);
 }
 
 void GameComponent::render(Camera* c) const
@@ -66,7 +60,8 @@ void GameComponent::render(Camera* c) const
 
 	//Llama al render de los hijos
 	for (GameComponent* child : _children)
-		child->render(c);
+		if (child->isActive())
+			child->render(c);
 }
 
 void GameComponent::addInputComponent(InputComponent* ic)
@@ -104,9 +99,4 @@ void GameComponent::delRenderComponent(RenderComponent* rc) {
 
 	if (position != _renderComp.end())
 		_renderComp.erase(position);
-}
-
-b2World* GameComponent::getWorld() const
-{
-	return _world;
 }

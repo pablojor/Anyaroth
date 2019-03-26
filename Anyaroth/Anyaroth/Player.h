@@ -15,10 +15,14 @@
 #include "Melee.h"
 
 class WeaponManager;
+class Game;
+
 
 class Player : public GameComponent
 {
 private:
+	Game* _game = nullptr;
+
 	//Componentes
 	TransformComponent* _transform = nullptr;
 	AnimatedSpriteComponent* _anim = nullptr;
@@ -36,11 +40,25 @@ private:
 	PlayerArm* _playerArm = nullptr;
 
 	//Variable auxiliares
-	int _dashCD = 3000, _maxDash = 2, _numDash = _maxDash, _onDash = false;
-	bool _isDashing = false, _isReloading = false, _isShooting = false, _isMeleeing = false, _dead = false;
+	uint _dashCD = 3000;
+
+	int _maxDash = 2, 
+		_numDash = _maxDash,
+		dashDur = 250;
+
+	bool _isDashing = false, 
+		_isReloading = false, 
+		_isShooting = false, 
+		_isMeleeing = false, 
+		_onDash = false, 
+		dashDown = false, 
+		_dead = false;
+
 	int _floorCount = 0;
 
-	//Armas
+
+	float _timeToJump = 100.f;
+
 	Gun* _currentGun = nullptr;
 	Gun* _otherGun = nullptr;
 	PoolWrapper* _playerBulletPool = nullptr;
@@ -50,10 +68,11 @@ private:
 	void checkMovement(const Uint8* keyboard);
 	void handleAnimations();
 
-	void refreshCooldowns(const Uint32& deltaTime);
-	void refreshDashCoolDown(const Uint32& deltaTime);
-	void refreshGunCadence(const Uint32& deltaTime);
-	inline void setGrounded(bool grounded) { _floorCount = grounded; }
+	void refreshCooldowns(const double& deltaTime);
+	void refreshDashCoolDown(const double& deltaTime);
+	void dashTimer(const double& deltaTime);
+	void refreshGunCadence(const double& deltaTime);
+	inline void setGrounded(bool grounded) { grounded ? _timeToJump = 100.f : _floorCount = grounded; }
 
 	bool canReload();
 	void checkMelee();
@@ -68,8 +87,10 @@ public:
 	virtual void beginCollision(GameComponent* other, b2Contact* contact);
 	virtual void endCollision(GameComponent* other, b2Contact* contact);
 
-	void subLife(int damage);
 	void die();
+	void revive();
+	void subLife(int damage);
+	inline bool isDead() const { return _dead; }
 
 	void swapGun();
 	inline void changeCurrentGun(Gun* gun) { _currentGun = gun; }
@@ -81,14 +102,17 @@ public:
 	void dash(const Vector2D& dir);
 	void dashOff();
 	void jump();
+	void cancelJump();
 
 	void melee();
 	void shoot();
 	void reload();
 
-
 	void setPlayerPanel(PlayerPanel* p);
+
 	inline void setPlayerBulletPool(PoolWrapper* pool) { _playerBulletPool = pool; }
+	inline void setPlayerPosition(Vector2D pos) { _body->getBody()->SetTransform(b2Vec2(pos.getX(), pos.getY()), 0); }
+
 	
 	void changeMelee(Melee* newMelee);
 
@@ -97,4 +121,5 @@ public:
 	bool isMeleeing() const;
 	bool isReloading() const;
 	bool isJumping() const;
+	bool isFalling() const;
 };

@@ -35,4 +35,6 @@ public:
 	virtual void init(Texture* texture, const Vector2D& position, const double& speed, const double& damage, const double& angle, const double& range, const string& tag);
 	virtual void update(double time);
 	virtual void reset();
+
+	void changeFilter();
 };

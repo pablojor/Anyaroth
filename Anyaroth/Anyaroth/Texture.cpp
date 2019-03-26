@@ -72,3 +72,21 @@ void Texture::loadFromText(string text, const Font* font, SDL_Color color)
 
 	SDL_FreeSurface(textSurface);
 }
+
+/*void Texture::render(string text, const SDL_Rect& destRect, const Font* font, SDL_Color color) const
+{
+	// This creates the text surface
+	SDL_Surface *stext = TTF_RenderText_Blended(font, text, color);
+
+	// If it worked, then blit it to the main screen
+	// If you wrap this function
+	if (stext) {
+		SDL_BlitSurface(stext, NULL,  , &destRect);
+		// Very important for performance to free the text surface
+		SDL_FreeSurface(stext);
+	}
+	else {
+		throw
+			string("Couldn't allocate text surface in printMessageAt");
+	}
+}*/

@@ -1,4 +1,5 @@
 #include "Game.h"
+#include <ctime>
 #include "AnyarothError.h"
 #include <json.hpp>
 
@@ -22,11 +23,10 @@ void Game::createTextures()
 			col = j[i][3];
 
 			_textures.insert(pair <string, Texture*>(id, new Texture(_renderer, SPRITE_PATH + name, fil, col)));
-			_texturesName.push_back(id);
 		}
 	}
 	else
-		throw AnyarothError("No se ha encontrado el archivo");
+		throw AnyarothError("No se ha encontrado el archivo introducido");
 
 	input.close();
 }
@@ -50,38 +50,36 @@ void Game::createFonts()
 			size = j[i][2];
 
 			_fonts.insert(pair <string, Font*>(id, new Font(FONTS_PATH + name, size)));
-			_fontsName.push_back(id);
 		}
 	}
 	else
-		throw AnyarothError("No se ha encontrado el archivo");
+		throw AnyarothError("No se ha encontrado el archivo introducido");
 
 	input.close();
 }
 
-void Game::pushState(GameState* state)
+void Game::createSounds()
 {
-	_stateMachine->pushState(state);
-}
+	
+	_soundManager->addMusic("bgMusic", SOUNDS_PATH + "bgMusic.wav");
+	_soundManager->addSFX("example1", SOUNDS_PATH + "example1.wav");
 
-void Game::changeState(GameState* state)
-{
-	_stateMachine->changeState(state);
-}
+	//UI SOUNDS
+		//Next Text (CAMBIAR)
+	_soundManager->addSFX("example", SOUNDS_PATH + "example.wav");
+		//Dialogue
+	_soundManager->addSFX("openDialogue", SOUNDS_PATH + "openDialogue.wav");
+	_soundManager->addSFX("closeDialogue", SOUNDS_PATH + "closeDialogue.wav");
 
-void Game::popState()
-{
-	_stateMachine->popState();
-}
-
-Texture* Game::getTexture(string nameText)
-{
-	return _textures[nameText];
-}
-
-Font * Game::getFont(string nameFont)
-{
-	return _fonts[nameFont];
+	//VOICES
+		//Example
+	_soundManager->addSFX("exampleVoice0", SOUNDS_PATH + "exampleVoice0.wav");
+	_soundManager->addSFX("exampleVoice1", SOUNDS_PATH + "exampleVoice1.wav");
+	_soundManager->addSFX("exampleVoice2", SOUNDS_PATH + "exampleVoice2.wav");
+		//Boss
+	_soundManager->addSFX("bossVoice0", SOUNDS_PATH + "bossVoice0.wav");
+	_soundManager->addSFX("bossVoice1", SOUNDS_PATH + "bossVoice1.wav");
+	_soundManager->addSFX("bossVoice2", SOUNDS_PATH + "bossVoice2.wav");
 }
 
 void Game::toggleFullscreen()
@@ -93,6 +91,8 @@ void Game::toggleFullscreen()
 
 Game::Game()
 {
+	srand(time(NULL));//random seed
+
 	SDL_Init(SDL_INIT_TIMER | SDL_INIT_AUDIO | SDL_INIT_VIDEO | SDL_INIT_EVENTS);
 	TTF_Init(); //Ventana del tamaño de la pantalla de cada dispositivo
 	SDL_DisplayMode monitor;
@@ -105,7 +105,7 @@ Game::Game()
 	SDL_RenderSetLogicalSize(_renderer, GAME_RESOLUTION_X, GAME_RESOLUTION_Y);
 
 	//Icon
-	SDL_Surface* icon = IMG_Load("..\\icon.png");
+	SDL_Surface* icon = IMG_Load((SPRITE_PATH + "icon.png").c_str());
 	SDL_SetWindowIcon(_window, icon);
 
 	//Show cursor
@@ -115,6 +115,9 @@ Game::Game()
 	createTextures();
 	//---Create fonts
 	createFonts();
+	//---Create sounds
+	_soundManager = new SoundManager();
+	createSounds();
 	//---Create world
 	_world = new b2World(b2Vec2(0.0, 9.8));
 	//---Create states
@@ -124,23 +127,16 @@ Game::Game()
 Game::~Game()
 {
 	//delete textures
-	int tamTextures = _texturesName.size();
-	for (int i = 0; i < tamTextures; i++)
-	{
-		delete _textures[_texturesName[i]];
-		_textures.erase(_texturesName[i]);
-	}
+	for (auto it = _textures.begin(); it != _textures.end(); it++)
+		delete (*it).second;
 
 	//delete fonts
-	int tamFonts = _fontsName.size();
-	for (int i = 0; i < tamFonts; i++)
-	{
-		delete _fonts[_fontsName[i]];
-		_fonts.erase(_fontsName[i]);
-	}
+	for (auto it = _fonts.begin(); it != _fonts.end(); it++)
+		delete (*it).second;
 
 	delete _stateMachine;
 	delete _world;
+	delete _soundManager;
 	SDL_DestroyRenderer(_renderer);
 	SDL_DestroyWindow(_window);
 	SDL_Quit();
@@ -148,21 +144,22 @@ Game::~Game()
 
 void Game::run()
 {
-	double frameTime = FRAME_RATE;
+	double deltaTime = FRAME_RATE;
+	double startTime = SDL_GetTicks();
 
 	while (!_exit)
 	{
-		double startTime = SDL_GetTicks();
+		auto startTicks = SDL_GetTicks();
+		deltaTime = startTicks - startTime;
+		startTime = startTicks;
 
 		handleEvents();
-		update(frameTime);
-		_world->Step(1 / 62.0, 8, 3);
+		_world->Step(_timestep, 8, 3);
+		update(deltaTime);
 		render();
 
-		frameTime = SDL_GetTicks() - startTime;
-
-		if (frameTime < FRAME_RATE)
-			SDL_Delay(FRAME_RATE - frameTime);
+		if (deltaTime < FRAME_RATE)
+			SDL_Delay(FRAME_RATE - deltaTime);
 	}
 }
 
@@ -186,9 +183,15 @@ void Game::handleEvents()
 	{
 		if (event.type == SDL_QUIT)
 			_exit = true;
-		else if (event.type == SDL_KEYDOWN)
+		else if (event.type == SDL_KEYDOWN) 
+		{
 			if (event.key.keysym.sym == SDLK_F11)
 				toggleFullscreen();
+			else if (event.key.keysym.sym == SDLK_1)
+				_soundManager->playSFX("example");
+			else if (event.key.keysym.sym == SDLK_2)
+				_soundManager->playSFX("example1");
+		}
 
 		_stateMachine->currentState()->handleEvents(event);
 	}

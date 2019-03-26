@@ -17,6 +17,7 @@ public:
 	~SpriteComponent() {}
 
 	virtual void render(Camera* c) const;
+
 	void flip();
 	void unFlip();
 	inline bool isFlipped() { return _flip; };

@@ -20,7 +20,10 @@ SDL_Rect MenuButton::getRect() const
 	rect.y = _pos.getY();
 	rect.h = _texture->getH()*BUTTON_SCALE;
 	rect.w = _texture->getW()*BUTTON_SCALE;
-	return rect;
+	SDL_Rect winRect = { rect.x * GAME_RESOLUTION_X / CAMERA_RESOLUTION_X ,rect.y * GAME_RESOLUTION_Y / CAMERA_RESOLUTION_Y ,
+		rect.w * GAME_RESOLUTION_X / CAMERA_RESOLUTION_X, rect.h * GAME_RESOLUTION_Y / CAMERA_RESOLUTION_Y };
+
+	return winRect;
 }
 
 bool MenuButton::handleInput(const SDL_Event & event)

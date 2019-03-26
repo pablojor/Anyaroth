@@ -15,7 +15,6 @@ Enemy::Enemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2
 	_transform = addComponent<TransformComponent>();
 	_transform->setPosition(posIni.getX(), posIni.getY());
 
-
 	_body = addComponent<BodyComponent>();
 	_body->getBody()->SetType(b2_dynamicBody);
 	_body->getBody()->SetBullet(true);
@@ -56,7 +55,6 @@ void Enemy::update(double time)
 
 void Enemy::die()
 {
-	//_play->KillObject(_itList);
 	_body->filterCollisions(DEAD_ENEMIES, FLOOR);
 }
 
@@ -70,7 +68,6 @@ void Enemy::subLife(int damage)
 			die();
 			_hurt->die();
 			_anim->playAnim(AnimatedSpriteComponent::EnemyDie);
-
 			_dead = true;
 		}
 		else
@@ -81,4 +78,14 @@ void Enemy::subLife(int damage)
 bool Enemy::inCamera()
 {
 	return _play->getMainCamera()->inCamera(Vector2D(_body->getBody()->GetPosition().x * 8, _body->getBody()->GetPosition().y * 8));
+}
+
+bool Enemy::inCameraOnlyX()
+{
+	return _play->getMainCamera()->inCameraOnlyX(Vector2D(_body->getBody()->GetPosition().x * 8, _body->getBody()->GetPosition().y * 8));
+}
+
+void Enemy::enemySpawn(Enemy* newEnemy)
+{
+	_play->addObject(newEnemy);
 }
