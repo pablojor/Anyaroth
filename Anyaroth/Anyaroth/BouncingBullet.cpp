@@ -15,15 +15,25 @@ BouncingBullet::~BouncingBullet()
 
 void BouncingBullet::beginCollision(GameComponent * other, b2Contact* contact)
 {
-	if (_numBounces >= _maxBounces)
+	if (!_isColliding)
 	{
-		Bullet::beginCollision(other, contact);
-	}
-	/*else
+		_isColliding = true;
+		if (_numBounces >= _maxBounces)
+		{
+			Bullet::beginCollision(other, contact);
+		}
+		/*else
 		_transform->setRotation(_transform->getRotation() + _bounceAngle);*/
 
-	_numBounces++;
-	cout << _numBounces << endl;
+		_numBounces++;
+		cout << _numBounces << endl;
+	}
+	
+}
+
+void BouncingBullet::endCollision(GameComponent * other, b2Contact* contact)
+{
+	_isColliding = false;
 }
 
 void BouncingBullet::update(double time)
@@ -32,7 +42,7 @@ void BouncingBullet::update(double time)
 
 		double dist = _iniPos.distance(_transform->getPosition());
 
-		if (dist < _range && !_collided && _numBounces < 3)
+		if (dist < _range && !_collided && _numBounces < _maxBounces)
 		{
 			GameComponent::update(time);
 

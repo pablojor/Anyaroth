@@ -5,16 +5,18 @@ class BouncingBullet :
 {
 private:
 	int _numBounces = 0;
-	int _maxBounces = 3;
+	int _maxBounces = 4;
 	double _bounceAngle = 90;
 	bool _bounce = false;
 	bool _managingCollision = false;
+	bool _isColliding = false;
 
 public:
 	BouncingBullet(Game* game);
 	virtual ~BouncingBullet();
 
 	virtual void beginCollision(GameComponent* other, b2Contact* contact);
+	virtual void endCollision(GameComponent * other, b2Contact* contact);
 	virtual void update(double time);
 	virtual void reset();
 	virtual void init(Texture* texture, const Vector2D& position, const double& speed, const double& damage, const double& angle, const double& range, const string& tag);
