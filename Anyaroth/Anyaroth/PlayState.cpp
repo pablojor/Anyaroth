@@ -101,7 +101,8 @@ PlayState::PlayState(Game* g) : GameState(g)
 		g->getTexture("DialogueFace"),
 		"exampleVoice",
 		"Jagh",
-		{ "*Bzzt..Bip, bip..* Hey, ¿qué tal?", "Ajá, con que programando... ya veo...", "¡Pues sigue con eso, chaval! ¡Adew! *Bip*" },
+		{ "*Bzzt..Bip, bip..* Hey, ¿qué tal? Sé que soy un mensaje demasiado largo para caber en esta cajita, así que espero trocearme bien como si fuese un filete de seitán.",
+		"Ajá, con que programando... ya veo...", "¡Pues sigue con eso, chaval! ¡Adew! *Bip*" },
 		{0,1,2},
 		{" ", " ", " ", " "}
 		});

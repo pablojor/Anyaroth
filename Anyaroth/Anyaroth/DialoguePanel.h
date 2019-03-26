@@ -27,8 +27,13 @@ private:
 	AnimatedImageUI* _indicatorImage = nullptr;
 	TextUI* _nameText = nullptr;
 
-	int _lines = 3;
-	int _gap = 10;
+	//Constantes
+	int _lines = 4;
+	int _gap = 14;
+	int _maxWidth = 400;
+
+	vector<string> _segments;
+	int _width;
 
 	vector<DialogueTextUI*> _dialogueTexts = {};
 
