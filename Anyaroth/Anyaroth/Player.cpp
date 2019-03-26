@@ -13,7 +13,7 @@
 #include "GunType_def.h"
 #include "WeaponManager.h"
 
-Player::Player(Game* game, int xPos, int yPos) :  GameComponent(game, "Player")
+Player::Player(Game* game, int xPos, int yPos) : GameComponent(game, "Player")
 {
 	_game = game;
 
@@ -28,8 +28,8 @@ Player::Player(Game* game, int xPos, int yPos) :  GameComponent(game, "Player")
 
 	_body->setW(12);
 	_body->setH(26);
-	
-	_body->filterCollisions(PLAYER, OBJECTS | FLOOR  | ENEMY_BULLETS);
+
+	_body->filterCollisions(PLAYER, OBJECTS | FLOOR | ENEMY_BULLETS);
 	_body->addCricleShape(b2Vec2(0, 1.1), 0.7, PLAYER, FLOOR);
 	_body->getBody()->SetFixedRotation(true);
 
@@ -64,7 +64,7 @@ Player::Player(Game* game, int xPos, int yPos) :  GameComponent(game, "Player")
 	_anim->addAnim(AnimatedSpriteComponent::ReloadShotgun, 5, false);
 
 	_hurt = addComponent<HurtRenderComponent>();
-	
+
 	//Brazo
 	_playerArm = new PlayerArm(game, this, { 28, 18 });
 	addChild(_playerArm);
@@ -223,6 +223,11 @@ void Player::update(double time)
 	const Uint8* keyboard = SDL_GetKeyboardState(NULL);
 	GameComponent::update(time);
 
+	if (isDashing() || isMeleeing() || isReloading())
+		_playerArm->setActive(false);
+	else if (!_playerArm->isActive())
+		_playerArm->setActive(true);
+
 	checkMovement(keyboard);
 	checkMelee();
 	refreshCooldowns(time);
@@ -245,7 +250,7 @@ void Player::checkMovement(const Uint8* keyboard)
 	double _speed = 15;
 
 	if (keyboard[SDL_SCANCODE_A] && keyboard[SDL_SCANCODE_D] && !isMeleeing() && !isDashing())
-		move(Vector2D(0, 0), _speed);	
+		move(Vector2D(0, 0), _speed);
 	else if (keyboard[SDL_SCANCODE_A] && !isMeleeing() && !isDashing())
 	{
 		if (dashIsAble())
@@ -266,7 +271,7 @@ void Player::checkMovement(const Uint8* keyboard)
 		move(Vector2D(0, 0), _speed);
 
 	if (keyboard[SDL_SCANCODE_SPACE] && !isMeleeing() && !isJumping()/*&& !isReloading()*/)
-		if((isGrounded() && !isFalling()) || (!isGrounded() && isFalling() && _timeToJump > 0))
+		if ((isGrounded() && !isFalling()) || (!isGrounded() && isFalling() && _timeToJump > 0))
 			jump();
 
 	//Recarga
@@ -281,7 +286,7 @@ void Player::checkMovement(const Uint8* keyboard)
 }
 
 void Player::handleAnimations()
-{	
+{
 	//La animacion del Dash se activa en la funcion del Dash, 
 	//ya que se trata de una habilidad y no del movimiento "normal" del personaje
 	auto vel = _body->getBody()->GetLinearVelocity();
@@ -310,7 +315,7 @@ void Player::handleAnimations()
 		else if (vel.y < -2)
 			_anim->playAnim(AnimatedSpriteComponent::Jump);
 
-		setGrounded(false);		
+		setGrounded(false);
 	}
 
 	if ((isGrounded() || _body->getBody()->GetLinearVelocity().y == 0) && isDashing() && dashDown)
@@ -318,7 +323,7 @@ void Player::handleAnimations()
 		_anim->playAnim(AnimatedSpriteComponent::Idle);
 		_onDash = false;
 		dashDown = false;
-		dashOff();		
+		dashOff();
 	}
 
 	if (!isDashing())
@@ -351,7 +356,7 @@ void Player::refreshDashCoolDown(const double& deltaTime)
 
 void Player::dashTimer(const double & deltaTime)
 {
-	if (_onDash&&!dashDown)
+	if (_onDash && !dashDown)
 	{
 		dashDur -= deltaTime;
 		if (dashDur <= 0)
@@ -370,8 +375,8 @@ void Player::refreshGunCadence(const double& deltaTime)
 
 void Player::move(const Vector2D& dir, const double& speed)
 {
-	if (abs(_body->getBody()->GetLinearVelocity().x) < speed ||dir.getX()==0)
-		_body->getBody()->ApplyLinearImpulseToCenter(b2Vec2(dir.getX() * speed, 0),true);
+	if (abs(_body->getBody()->GetLinearVelocity().x) < speed || dir.getX() == 0)
+		_body->getBody()->ApplyLinearImpulseToCenter(b2Vec2(dir.getX() * speed, 0), true);
 	else
 		_body->getBody()->SetLinearVelocity(b2Vec2(dir.getX() * speed, _body->getBody()->GetLinearVelocity().y));
 }
@@ -429,7 +434,7 @@ void Player::dash(const Vector2D& dir)
 	_body->getBody()->SetLinearDamping(0);
 	_body->getBody()->SetGravityScale(0);
 
-	if (dir.getY() == 0) 
+	if (dir.getY() == 0)
 	{
 		if ((!_anim->isFlipped() && dir.getX() > 0) || (_anim->isFlipped() && dir.getX() < 0))
 			_anim->playAnim(AnimatedSpriteComponent::Dash);
@@ -485,7 +490,7 @@ void Player::shoot()
 		_playerArm->shoot();
 		_currentGun->shoot(_playerBulletPool, _playerArm->getPosition(), !_anim->isFlipped() ? _playerArm->getAngle() : _playerArm->getAngle() + 180, "Bullet");
 		_playerPanel->updateAmmoViewer(_currentGun->getClip(), _currentGun->getMagazine());
-		
+
 		if (!_currentGun->isAutomatic())
 			_isShooting = false;
 	}
