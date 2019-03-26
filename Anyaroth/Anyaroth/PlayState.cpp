@@ -99,8 +99,8 @@ PlayState::PlayState(Game* g) : GameState(g)
 	NPC* _npc = new NPC(g, 60, 380,
 		{
 		g->getTexture("DialogueFace"),
-		"bossVoice",
-		"Jagh",
+		"exampleVoice",
+		"Pepe, el de la panadería",
 		{ "*Bzzt..Bip, bip..* Hey, ¿qué tal?", //Sé que soy un mensaje demasiado largo para caber en esta cajita, así que espero trocearme bien como si fuese un filete de seitán.",
 		"Ajá, con que programando... ya veo... ¡pues que sepas que tu código es un excremento de anya si este mensaje no lo trocea como es debido! PEDAZO DE BASURA REBELDE QUE ERES", "¡Pues sigue con eso, chaval! ¡Adew! *Bip*" },
 		{0,1,2},

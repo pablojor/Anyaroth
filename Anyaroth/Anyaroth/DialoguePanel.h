@@ -23,6 +23,7 @@ class DialoguePanel : public PanelUI
 {
 private:
 	AnimatedImageUI* _backgroundImage = nullptr;
+	AnimatedImageUI* _nameBackground = nullptr;
 	FramedImageUI* _faceImage = nullptr;
 	AnimatedImageUI* _indicatorImage = nullptr;
 	TextUI* _nameText = nullptr;

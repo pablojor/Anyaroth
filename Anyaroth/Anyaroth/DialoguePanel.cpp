@@ -9,7 +9,8 @@ DialoguePanel::DialoguePanel(Game* game) : PanelUI(game)
 	_backgroundImage = new AnimatedImageUI(game, game->getTexture("DialogueBg"), 3, 192);
 	_faceImage = new FramedImageUI(game, game->getTexture("DialogueFace"), _backgroundImage->getX() + 11, _backgroundImage->getY() + 11);
 	_indicatorImage = new AnimatedImageUI(game, game->getTexture("DialogueIndicator"), _backgroundImage->getW() - 22, _backgroundImage->getY() + 58);
-	_nameText = new TextUI(game, " ", game->getFont("ARIAL12"), 12, _faceImage->getW() - 20, _faceImage->getY() - 20, { 145, 255, 255, 255 });
+	_nameBackground = new AnimatedImageUI(game, game->getTexture("DialogueBg"), 3, 180);
+	_nameText = new TextUI(game, " ", game->getFont("ARIAL12"), 12, _faceImage->getX(), _faceImage->getY() - 30, { 145, 255, 255, 255 });
 
 	for (int i = 0; i < _lines; i++)
 	{
@@ -17,17 +18,23 @@ DialoguePanel::DialoguePanel(Game* game) : PanelUI(game)
 		_segments.push_back(" ");
 	}
 	//Animaciones
+		//Background
 	_backgroundImage->addAnim(AnimatedImageUI::Default, 1, false);
 	_backgroundImage->addAnim(AnimatedImageUI::End, 8, false);
 	_backgroundImage->addAnim(AnimatedImageUI::Start, 8, false);
-
+		//Background
+	_nameBackground->addAnim(AnimatedImageUI::Default, 1, false);
+	_nameBackground->addAnim(AnimatedImageUI::End, 8, false);
+	_nameBackground->addAnim(AnimatedImageUI::Start, 8, false);
+		//Indicator
 	_indicatorImage->addAnim(AnimatedImageUI::Idle, 7, true);
 
 	_backgroundImage->playAnim(AnimatedImageUI::Default);
+	_nameBackground->playAnim(AnimatedImageUI::Default);
 	_indicatorImage->playAnim(AnimatedImageUI::Idle);
 
 	//Ponemos invisible todo inicialmente
-	//_backgroundImage->setVisible(false);
+	_nameBackground->setVisible(false);
 	_indicatorImage->setVisible(false);
 	_faceImage->setVisible(false);
 	_nameText->setVisible(false);
@@ -43,6 +50,7 @@ DialoguePanel::DialoguePanel(Game* game) : PanelUI(game)
 	addChild(_backgroundImage);
 	addChild(_faceImage);
 	addChild(_indicatorImage);
+	addChild(_nameBackground);
 	addChild(_nameText);
 
 	for (int i = 0; i < _lines; i++)
@@ -65,8 +73,22 @@ void DialoguePanel::startDialogue(const Dialogue& dialogue)
 		_isConversating = true;
 
 		//inicializamos cada elemento
-		_nameText->setText(_dialogue.name);
-		_faceImage->setImage(_dialogue.face);
+		if (_dialogue.name != " ")
+			_nameText->setText(_dialogue.name);
+		else
+		{
+			_nameBackground->setVisible(false);
+			_nameText->setVisible(false);
+		}
+
+		if (_dialogue.face != nullptr)
+			_faceImage->setImage(_dialogue.face);
+		else
+		{
+			_faceImage->setVisible(false);
+			_maxWidth = 280;
+		}
+
 		for (int i = 0; i < _lines; i++)
 		{
 			_dialogueTexts[i]->setVoice(_dialogue.voice);
@@ -216,6 +238,8 @@ void DialoguePanel::update(double time)
 			_backgroundImage->playAnim(AnimatedImageUI::Default);
 			_backgroundImage->setVisible(false);
 
+			_nameBackground->setVisible(false);
+
 			setVisible(false);
 		}
 		//Cuando termine animacion de abrir dialogo (START DIALOGUE)
@@ -223,8 +247,13 @@ void DialoguePanel::update(double time)
 		{
 			_backgroundImage->playAnim(AnimatedImageUI::Default);
 
-			_faceImage->setVisible(true);
-			_nameText->setVisible(true);
+			if (_dialogue.face != nullptr)
+				_faceImage->setVisible(true);
+			if (_dialogue.name != " ")
+			{
+				_nameText->setVisible(true);
+				_nameBackground->setVisible(true);
+			}
 
 			for (int i = 0; i < _lines; i++)
 				_dialogueTexts[i]->setVisible(true);
@@ -261,9 +290,7 @@ void DialoguePanel::handleEvent(const SDL_Event& event)
 
 	if (event.type == SDL_KEYDOWN && !event.key.repeat) // Captura solo el primer frame que se pulsa
 	{
-		if (event.key.keysym.sym == SDLK_x) //EVENTO DE COMENZAR DIALOGO
-			startDialogue(_testDialogue);
-		else if (event.key.keysym.sym == SDLK_e) //TECLA PARA PASAR DE TEXTO EN EL DIALOGO
+		if (event.key.keysym.sym == SDLK_e) //TECLA PARA PASAR DE TEXTO EN EL DIALOGO
 			nextText();
 	}
 }
