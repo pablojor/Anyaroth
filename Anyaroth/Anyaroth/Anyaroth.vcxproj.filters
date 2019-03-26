@@ -245,7 +245,9 @@
       <Filter>Archivos de código fuente\Objects\Enemies\Bosses</Filter>
     </ClCompile>
     <ClCompile Include="BotonLanzaMisiles.cpp" />
-    <ClCompile Include="MisilBoss1.cpp" />
+    <ClCompile Include="MisilBoss1.cpp">
+      <Filter>Archivos de encabezado\Objects\Bullets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">

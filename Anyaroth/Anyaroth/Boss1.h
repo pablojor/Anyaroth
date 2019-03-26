@@ -8,7 +8,7 @@ class Boss1 : public DistanceEnemy
 	private:
 
 		bool _fase1 = true, _fase2 = false, _fase3 = false, _beetwenFase = false, move= true;
-		Vector2D _bodyPos, _playerPos, _originalPos, _amplitude = Vector2D(250,25), _velocity = Vector2D(0.5, 0.5), _dir = Vector2D(1,0);
+		Vector2D _bodyPos, _playerPos, _originalPos, _amplitude = Vector2D(200,25), _velocity = Vector2D(0.5, 0.5), _dir = Vector2D(1,0);
 		double  _damage = 50, _angularFrequency = 0.05, _k = _angularFrequency / _velocity.distance(Vector2D());
 		int _lastFase = 0;
 

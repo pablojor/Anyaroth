@@ -30,7 +30,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_stages.push_back(_explosivePool);
 
 	//Levels
-	_currentZone = 1, _currentLevel = 2;
+	_currentZone = 1, _currentLevel = 1;
 	_levelManager = LevelManager(g, this);
 	_levelManager.setLevel(_currentZone, _currentLevel);
 
