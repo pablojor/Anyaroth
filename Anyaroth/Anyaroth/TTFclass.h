@@ -17,4 +17,5 @@ public:
 	void load(string filename, int size);
 	void free();
 	SDL_Surface* generateSurface(string text, SDL_Color color) const;
+	inline TTF_Font* getTTFFont() const { return _font; }
 };

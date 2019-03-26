@@ -74,6 +74,7 @@ public:
 	inline void changeState(GameState* state) { _stateMachine->changeState(state); }
 	inline void popState() { _stateMachine->popState(); }
 
+	//Texture* newTexture(string id, string nameText);
 	inline Texture* getTexture(string nameText) { return _textures[nameText]; }
 	inline Font* getFont(string nameFont) { return _fonts[nameFont]; }
 

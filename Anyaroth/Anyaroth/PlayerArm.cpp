@@ -13,9 +13,9 @@ void PlayerArm::update(const double& deltaTime)
 	GameComponent::update(deltaTime);
 
 	if (_player->isDashing() || _player->isMeleeing() || _player->isReloading())
-		_anim->setActive(false);
+		setActive(false);
 	else
-		_anim->setActive(true);
+		setActive(true);
 
 	//Rotacion del brazo
 	Vector2D mousePos = getGame()->getCurrentState()->getMousePositionInWorld(); 

@@ -1,7 +1,9 @@
 #pragma once
 #include "GameComponent.h"
-#include "Game.h"
+#include "BodyComponent.h"
 #include <list>
+
+class Game;
 
 class Collectable : public GameComponent
 {

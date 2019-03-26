@@ -1,4 +1,5 @@
 #include "Game.h"
+#include <ctime>
 #include "AnyarothError.h"
 #include <json.hpp>
 
@@ -47,7 +48,7 @@ void Game::createFonts()
 			id = j[i][0].get<string>();
 			name = j[i][1].get<string>();
 			size = j[i][2];
-
+			
 			_fonts.insert(pair <string, Font*>(id, new Font(FONTS_PATH + name, size)));
 		}
 	}
@@ -59,10 +60,32 @@ void Game::createFonts()
 
 void Game::createSounds()
 {
-	_soundManager->addSFX("example", SOUNDS_PATH + "example.wav");
+
 	_soundManager->addMusic("bgMusic", SOUNDS_PATH + "bgMusic.wav");
 	_soundManager->addSFX("example1", SOUNDS_PATH + "example1.wav");
+
+	//UI SOUNDS
+		//Next Text (CAMBIAR)
+	_soundManager->addSFX("example", SOUNDS_PATH + "example.wav");
+		//Dialogue
+	_soundManager->addSFX("openDialogue", SOUNDS_PATH + "openDialogue.wav");
+	_soundManager->addSFX("closeDialogue", SOUNDS_PATH + "closeDialogue.wav");
+
+	//VOICES
+		//Example
+	_soundManager->addSFX("exampleVoice", SOUNDS_PATH + "exampleVoice.wav");
+		//Boss
+	_soundManager->addSFX("bossVoice", SOUNDS_PATH + "bossVoice.wav");
 }
+
+/*Texture* Game::newTexture(string id, string nameText)
+{
+	int i = _textures[nameText]->getNumFils();
+	int j = _textures[nameText]->getNumCols();
+
+	_textures.insert(pair <string, Texture*>(id,new Texture(_renderer, _textures[nameText]->getFilename(), i, j) ));
+	return _textures[id];
+}*/
 
 void Game::toggleFullscreen()
 {
@@ -73,6 +96,8 @@ void Game::toggleFullscreen()
 
 Game::Game()
 {
+	srand(time(NULL));//random seed
+
 	SDL_Init(SDL_INIT_TIMER | SDL_INIT_AUDIO | SDL_INIT_VIDEO | SDL_INIT_EVENTS);
 	TTF_Init(); //Ventana del tamaño de la pantalla de cada dispositivo
 	SDL_DisplayMode monitor;
@@ -124,35 +149,22 @@ Game::~Game()
 
 void Game::run()
 {
-	double delta = FRAME_RATE;
-
+	double deltaTime = FRAME_RATE;
 	double startTime = SDL_GetTicks();
 
 	while (!_exit)
 	{
-		//double startTime = SDL_GetTicks();
-
-		//_world->Step(_timestep, 8, 3);
-		//handleEvents();
-		//frameTime = SDL_GetTicks() - startTime;
-		//update(frameTime);
-		//render();
-
-		//if (frameTime < FRAME_RATE)
-		//	SDL_Delay(FRAME_RATE - frameTime);
-
-
-		
-		handleEvents();
 		auto startTicks = SDL_GetTicks();
-		delta = startTicks - startTime;
+		deltaTime = startTicks - startTime;
 		startTime = startTicks;
+
+		handleEvents();
 		_world->Step(_timestep, 8, 3);
-		update(delta);
+		update(deltaTime);
 		render();
 
-		if (delta < FRAME_RATE)
-			SDL_Delay(FRAME_RATE - delta);
+		if (deltaTime < FRAME_RATE)
+			SDL_Delay(FRAME_RATE - deltaTime);
 	}
 }
 
@@ -176,7 +188,7 @@ void Game::handleEvents()
 	{
 		if (event.type == SDL_QUIT)
 			_exit = true;
-		else if (event.type == SDL_KEYDOWN) 
+		else if (event.type == SDL_KEYDOWN)
 		{
 			if (event.key.keysym.sym == SDLK_F11)
 				toggleFullscreen();

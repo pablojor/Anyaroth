@@ -2,6 +2,8 @@
 #include "Game.h"
 #include "PauseState.h"
 #include "PlayStateHUD.h"
+#include "NPC.h"
+#include "PiercingBulletPool.h"
 #include "checkML.h"
 #include "Boss1.h"
 #include "BotonLanzaMisiles.h"
@@ -20,12 +22,33 @@ PlayState::PlayState(Game* g) : GameState(g)
 	//Pool player
 	_playerBulletPool = new BulletPool(g);
 	_stages.push_back(_playerBulletPool);
+	/////////////////////////////////////////////////////////
+	_bouncingBulletPool = new BouncingBulletPool(g);
+	_stages.push_back(_bouncingBulletPool);
+
+
+
+	///
+	/*PiercingBulletPool* pPool = new PiercingBulletPool(g);*/
+
+	//_player->setPlayerBulletPool(_bouncingBulletPool);
+
 	_player->setPlayerBulletPool(_playerBulletPool);
+
 
 	//Pool enemy
 	_enemyBulletPool = new BulletPool(g);
 	_stages.push_back(_enemyBulletPool);
-
+  
+	/*for (int i = 0; i < enemiesPos.size(); i++)
+	{
+		//_enemy = new MeleeEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(enemiesPos[i].getX(), enemiesPos[i].getY() - TILES_SIZE * 2), "Enemy");
+		_enemy = new MeleeEnemy(_player, g, this, g->newTexture("EnemyMelee" + to_string(i), "EnemyMelee"), Vector2D(enemiesPos[i].getX(), enemiesPos[i].getY() - TILES_SIZE * 2), "Enemy");
+		_stages.push_back(_enemy);
+		auto itFR = --(_stages.end());
+		_enemy->setItList(itFR);
+	}*/
+  
 	_explosivePool = new ExplosiveBulletPool(g);
 	_stages.push_back(_explosivePool);
 
@@ -42,20 +65,47 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_stages.push_back(new BotonLanzaMisiles(boss, g, this, g->getTexture("EnemyMartyr"), Vector2D(650, 575), "Boton"));
 	//Camera
 	_mainCamera->fixCameraToObject(_player);
+  
+  
+	//Test NPC*****
+
+	NPC* _npc = new NPC(g, 60, 380,
+		{
+		g->getTexture("DialogueFace"),
+		"exampleVoice",
+		"Jose Mar�a",
+		{ "*Bzzt..Bip, bip..* Hey, �qu� tal?",
+		"Aj�, con que programando... ya veo...",
+		"�Pues sigue con eso, chaval! Deja de jugar tanto al Sekiro y ponte a estudiar de una maldita vez, escoria infrahumana (...) �Adew! *Bip*" },
+		{0,1,2},
+		{" ", " ", " ", " "}
+		});
+
+	_stages.push_back(_npc);
+
+	//*******
+
+	//World
+	/*_debugger.getRenderer(g->getRenderer());
+	_debugger.getTexture(g->getTexture("body"));
+	_debugger.SetFlags(b2Draw::e_shapeBit);
+	_debugger.getCamera(_mainCamera);
+	*/
+	//Gestion de colisiones
+	g->getWorld()->SetContactListener(&_colManager);
+	g->getWorld()->SetDebugDraw(&_debugger);
+
+
+
+
 
 	//HUD
 	auto b = new PlayStateHUD(g);
 	setCanvas(b);
+
+	//Asignacion de paneles a sus controladores
 	_player->setPlayerPanel(b->getPlayerPanel());
-
-	//Collisions and debugger
-	g->getWorld()->SetContactListener(&_colManager);
-	g->getWorld()->SetDebugDraw(&_debugger);
-
-	_debugger.getRenderer(g->getRenderer());
-	_debugger.getTexture(g->getTexture("body"));
-	_debugger.SetFlags(b2Draw::e_shapeBit);
-	_debugger.getCamera(_mainCamera);
+	_npc->setDialoguePanel(b->getDialoguePanel());
 }
 
 void PlayState::addObject(GameComponent* n)
@@ -92,9 +142,9 @@ bool PlayState::handleEvents(SDL_Event& e)
 		_mainCamera->zoomOut();
 	else if (e.type == SDL_KEYDOWN && (e.key.keysym.sym == SDLK_KP_PLUS || e.key.keysym.sym == SDLK_PLUS))
 		_mainCamera->zoomIn();
-	else if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_z)
+	else if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_n)
 		_mainCamera->setZoom(_mainCamera->getZoomRatio() + 1, true);
-	else if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_x)
+	else if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_m)
 		_mainCamera->setZoom(_mainCamera->getZoomRatio() - 1, true);
 
 	return handled;

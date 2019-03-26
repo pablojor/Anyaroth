@@ -7,7 +7,7 @@
 #include "BomberEnemy.h"
 #include "SpawnerEnemy.h"
 #include "StaticSpawnerEnemy.h"
-#include "Coin.h"
+#include "Player.h"
 #include "GunType_def.h"
 #include <json.hpp>
 

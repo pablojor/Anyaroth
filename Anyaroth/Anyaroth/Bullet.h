@@ -21,6 +21,7 @@ protected:
 	BodyComponent* _body = nullptr;
 	AnimatedSpriteComponent* _anim = nullptr;
 
+
 public:
 	Bullet(Game* game);
 	Bullet() {}
@@ -31,8 +32,8 @@ public:
 	inline void setDamage(const int& damage) { _damage = damage; }
 	inline int const getDamage() { return _damage; }
 
-	void init(Texture* texture, const Vector2D& position, const double& speed, const double& damage, const double& angle, const double& range, const string& tag);
+	virtual void init(Texture* texture, const Vector2D& position, const double& speed, const double& damage, const double& angle, const double& range, const string& tag);
 	virtual void update(const double& deltaTime);
-	void reset();
+	virtual void reset();
 	void changeFilter();
 };

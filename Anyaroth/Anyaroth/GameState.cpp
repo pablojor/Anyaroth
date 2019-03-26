@@ -1,9 +1,9 @@
 #include "GameState.h"
 #include "Game.h"
 
-GameState::GameState(Game* g) : _gameptr(g), _world(g->getWorld()) 
+GameState::GameState(Game* g) : _gameptr(g), _world(g->getWorld())
 {
-	initializeCamera(); 
+	initializeCamera();
 }
 
 GameState::~GameState()
@@ -27,7 +27,7 @@ void GameState::render() const
 	for (GameObject* o : _stages)
 		o->render(_mainCamera);
 
-	if(_canvas != nullptr)
+	if (_canvas != nullptr)
 		_canvas->render();
 }
 
@@ -39,7 +39,7 @@ void GameState::update(const double& deltaTime)
 		o->update(deltaTime);
 
 	if (_canvas != nullptr)
-		_canvas->update();
+		_canvas->update(time);
 }
 
 bool GameState::handleEvents(SDL_Event& e)
