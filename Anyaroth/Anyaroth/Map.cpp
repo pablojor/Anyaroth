@@ -17,8 +17,11 @@ Map::Map(string filename, Game* game, PlayState* playstate, Texture* tileset, in
 {
 	_player = _playState->getPlayer();
 
-	_layers = new GameObject(_game); addChild(_layers);
-	_objects = new GameObject(_game); addChild(_objects);
+	_layers = new GameObject(_game);
+	addChild(_layers);
+
+	_objects = new GameObject(_game);
+	addChild(_objects);
 
 	json j;
 	fstream file;
@@ -41,11 +44,7 @@ Map::Map(string filename, Game* game, PlayState* playstate, Texture* tileset, in
 						layer->addComponent<BodyComponent>();
 				}
 				else
-				{
 					_objectLayers.push_back(new ObjectLayer(filename, *it));
-					//_objectLayers[*it] = new ObjectLayer(filename, *it);
-					//_objectLayersNames.push_back(*it);
-				}
 			}
 		}
 		file.close();
@@ -62,7 +61,6 @@ Map::~Map()
 		delete _objectLayers[i];
 
 	_objectLayers.clear();
-
 }
 
 void Map::createObjects()
@@ -88,11 +86,11 @@ void Map::createObjects()
 			}
 			else if (name == "DistanceStatic")
 			{
-				//_objects->addChild(new DistanceStaticEnemy(_player, _game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), "Enemy", _playState->getEnemyPool()));
+				_objects->addChild(new DistanceStaticEnemy(_game, _player, Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), _playState->getEnemyPool()));
 			}
 			else if (name == "DistanceDynamic")
 			{
-				//_objects->addChild(new DistanceDynamicEnemy(_player, _game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), "Enemy", _playState->getEnemyPool()));
+				_objects->addChild(new DistanceDynamicEnemy(_game, _player, Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), _playState->getEnemyPool()));
 			}
 			else if (name == "Bomber")
 			{
@@ -123,28 +121,15 @@ void Map::restartLevel()
 bool Map::handleEvent(const SDL_Event & event)
 {
 	GameObject::handleEvent(event);
-
-	/*for (Layer* l : _layers)
-		if (l->isActive())
-			l->handleEvent(event);*/
-
 	return false;
 }
 
 void Map::update(const double& deltaTime)
 {
 	GameObject::update(deltaTime);
-
-	/*for (Layer* l : _layers)
-		if (l->isActive())
-			l->update(deltaTime);*/
 }
 
 void Map::render(Camera * c) const
 {
 	GameObject::render(c);
-
-	/*for (Layer* l : _layers)
-		if (l->isActive())
-			l->render(c);*/
 }

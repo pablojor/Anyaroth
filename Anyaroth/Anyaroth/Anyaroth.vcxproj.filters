@@ -169,12 +169,6 @@
     <ClCompile Include="FlyingEnemy.cpp">
       <Filter>Archivos de código fuente\Objects\Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="MartyrEnemy.cpp">
-      <Filter>Archivos de código fuente\Objects\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="MeleeEnemy.cpp">
-      <Filter>Archivos de código fuente\Objects\Enemies</Filter>
-    </ClCompile>
     <ClCompile Include="DistanceDynamicEnemy.cpp">
       <Filter>Archivos de código fuente\Objects\Enemies\DistanceEnemies</Filter>
     </ClCompile>
@@ -237,6 +231,15 @@
     </ClCompile>
     <ClCompile Include="CustomAnimatedSpriteComponent.cpp">
       <Filter>Archivos de código fuente\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="MeleeEnemy.cpp">
+      <Filter>Archivos de código fuente\Objects\Enemies\GroundEnemies</Filter>
+    </ClCompile>
+    <ClCompile Include="MartyrEnemy.cpp">
+      <Filter>Archivos de código fuente\Objects\Enemies\GroundEnemies</Filter>
+    </ClCompile>
+    <ClCompile Include="GroundEnemy.cpp">
+      <Filter>Archivos de código fuente\Objects\Enemies\GroundEnemies</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -316,12 +319,6 @@
       <Filter>Archivos de encabezado\Objects\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="FlyingEnemy.h">
-      <Filter>Archivos de encabezado\Objects\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="MartyrEnemy.h">
-      <Filter>Archivos de encabezado\Objects\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="MeleeEnemy.h">
       <Filter>Archivos de encabezado\Objects\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="Arm.h">
@@ -495,6 +492,15 @@
     <ClInclude Include="CustomAnimatedSpriteComponent.h">
       <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
+    <ClInclude Include="MeleeEnemy.h">
+      <Filter>Archivos de encabezado\Objects\Enemies\GroundEnemies</Filter>
+    </ClInclude>
+    <ClInclude Include="MartyrEnemy.h">
+      <Filter>Archivos de encabezado\Objects\Enemies\GroundEnemies</Filter>
+    </ClInclude>
+    <ClInclude Include="GroundEnemy.h">
+      <Filter>Archivos de encabezado\Objects\Enemies\GroundEnemies</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de código fuente">
@@ -625,6 +631,12 @@
     </Filter>
     <Filter Include="Archivos de código fuente\Objects\Player">
       <UniqueIdentifier>{fbeacda4-f6f1-4d13-989f-c1371de5a063}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Objects\Enemies\GroundEnemies">
+      <UniqueIdentifier>{ffa708f6-53d4-4d85-b58c-d45b6477e275}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código fuente\Objects\Enemies\GroundEnemies">
+      <UniqueIdentifier>{08bebe57-32f3-4e86-9129-b529120ee567}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

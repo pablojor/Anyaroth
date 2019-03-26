@@ -4,45 +4,36 @@
 #include "Player.h"
 #include"Game.h"
 
-DistanceStaticEnemy::DistanceStaticEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag, BulletPool* pool) : DistanceEnemy(player, g, play, texture, posIni, tag, pool)
+DistanceStaticEnemy::DistanceStaticEnemy(Game* g, Player* player, Vector2D pos, BulletPool* pool) : DistanceEnemy(g, player, pos, g->getTexture("EnemyMelee"), pool)
 {
-	_vision = 700;
+	_vision = 500;
+	_life = 50;
 	_attackRangeX = _attackRangeY = _vision; //No se puede poner mas pequeño que la velocidad
 	_attackTime = 1300; //La animacion tarda unos 450
-	_life = 50;
+
+	if (_attackRangeX < _speed)
+		_attackRangeX += _speed;
 
 	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 13, true);
 	_anim->addAnim(AnimatedSpriteComponent::EnemyDie, 18, false);
 
 	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
+
 	_body->addCricleShape(b2Vec2(0, _body->getH() + _body->getH() / 20), _body->getW() - _body->getW() / 20, ENEMIES, FLOOR);
 }
 
 void DistanceStaticEnemy::update(const double& deltaTime)
 {
+	DistanceEnemy::update(deltaTime);
+
 	if (!_dead && inCamera())
 	{
-		DistanceEnemy::update(deltaTime);
-		BodyComponent* _playerBody = _player->getComponent<BodyComponent>();
+		bool inVision = _playerDistance.getX() < _vision && _playerDistance.getX() > -_vision && _playerDistance.getY() < _vision && _playerDistance.getY() > -_vision;
 
-		b2Vec2 enemyPos = _body->getBody()->GetPosition(), playerPos = _playerBody->getBody()->GetPosition();
-
-		double x = playerPos.x * M_TO_PIXEL - enemyPos.x * M_TO_PIXEL, y = playerPos.y * M_TO_PIXEL - enemyPos.y * M_TO_PIXEL;
-
-		if (x < _vision && x > -_vision && y < _vision && y > -_vision) //Jugador en el rango
+		if (inVision) //Jugador en el rango
 		{
-			RayCast();
-
-			if (_armVision) //Si vemos al jugador
-			{
-				if (x > 0) //Derecha
-					_anim->unFlip();
-				else if (x < 0) //Izquierda
-					_anim->flip();
-
-				_arm->shoot();
-				_myGun->enemyShoot(_myBulletPool, _arm->getPosition(), !_anim->isFlipped() ? _arm->getAngle() + random(-_fail, _fail) : _arm->getAngle() + 180 + random(-_fail, _fail), "EnemyBullet");
-			}
+			raycast();
+			shoot();
 		}
 	}
 }

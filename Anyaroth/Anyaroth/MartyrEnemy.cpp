@@ -4,7 +4,7 @@
 #include "Player.h"
 #include "BodyComponent.h"
 
-MartyrEnemy::MartyrEnemy(Game* g, Player* player, Vector2D pos) : Enemy(g, player, pos, g->getTexture("EnemyMartyr"))
+MartyrEnemy::MartyrEnemy(Game* g, Player* player, Vector2D pos) : GroundEnemy(g, player, pos, g->getTexture("EnemyMartyr"))
 {
 	_vision = 300;
 	_life = 50;
@@ -76,35 +76,6 @@ void MartyrEnemy::explosionDie()
 	_anim->die();
 	_dead = true;
 	_body->filterCollisions(DEAD_ENEMIES, FLOOR);
-}
-
-void MartyrEnemy::idle()
-{
-	if (_attacking == false)
-	{
-		_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
-		_anim->playAnim(AnimatedSpriteComponent::Idle);
-	}
-}
-
-void MartyrEnemy::moving(Vector2D& dir)
-{
-	if (_attacking == false)
-	{
-		_body->getBody()->SetLinearVelocity({ _speed*(float32)dir.getX(), _body->getBody()->GetLinearVelocity().y });
-		_anim->playAnim(AnimatedSpriteComponent::EnemyWalk);
-	}
-}
-
-void MartyrEnemy::attack()
-{
-	if (_attacking == false)
-	{
-		_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
-		_anim->playAnim(AnimatedSpriteComponent::EnemyAttack); //Llamas a animacion de ataque
-		_time = 0;
-		_attacking = true;
-	}
 }
 
 void MartyrEnemy::attacking(const double& deltaTime)

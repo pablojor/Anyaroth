@@ -47,7 +47,7 @@ void Enemy::update(const double& deltaTime)
 void Enemy::die()
 {
 	_anim->die();
-	_anim->playAnim(AnimatedSpriteComponent::EnemyDie);
+	//_anim->playAnim(AnimatedSpriteComponent::EnemyDie); //Los distance enemy crashean
 	_dead = true;
 	_body->filterCollisions(DEAD_ENEMIES, FLOOR);
 }

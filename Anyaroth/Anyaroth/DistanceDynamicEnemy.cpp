@@ -3,104 +3,105 @@
 #include "AnimatedSpriteComponent.h"
 #include "Player.h"
 
-DistanceDynamicEnemy::DistanceDynamicEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag, BulletPool* pool) : DistanceEnemy(player, g, play, texture, posIni, tag, pool)
+DistanceDynamicEnemy::DistanceDynamicEnemy(Game* g, Player* player, Vector2D pos, BulletPool* pool) : DistanceEnemy(g, player, pos, g->getTexture("EnemyMelee"), pool)
 {
-	_vision = 200;
-	_attackRangeX = _attackRangeY = 120; //No se puede poner mas pequeño que la velocidad
-	_attackTime = 1300; //La animacion tarda unos 450
+	_vision = 300;
 	_life = 50;
+	_speed = 8;
+	_attackRangeX = _attackRangeY = _vision / 2; //No se puede poner mas pequeño que la velocidad
+	_attackTime = 1300; //La animacion tarda unos 450
+
+	if (_attackRangeX < _speed)
+		_attackRangeX += _speed;
 
 	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 13, true);
 	_anim->addAnim(AnimatedSpriteComponent::EnemyWalk, 8, true);
 	_anim->addAnim(AnimatedSpriteComponent::EnemyAttack, 11, false);
+
 	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
+
 	_body->addCricleShape(b2Vec2(0, _body->getH() + _body->getH() / 20), _body->getW() - _body->getW() / 20, ENEMIES, FLOOR);
 }
 
 void DistanceDynamicEnemy::update(const double& deltaTime)
 {
-	Enemy::update(deltaTime);
+	DistanceEnemy::update(deltaTime);
+
 	if (!_dead && inCamera())
 	{
-		DistanceEnemy::update(deltaTime);
+		bool inVision = _playerDistance.getX() < _vision && _playerDistance.getX() > -_vision && _playerDistance.getY() < _vision && _playerDistance.getY() > -_vision;
 
-		BodyComponent* _playerBody = _player->getComponent<BodyComponent>();
-		b2Vec2 enemyPos = _body->getBody()->GetPosition(), playerPos = _playerBody->getBody()->GetPosition();
-
-		double x = playerPos.x * 8 - enemyPos.x * 8, y = playerPos.y * 8 - enemyPos.y * 8;
-
-		if (!_attacking && x < _vision && x > -_vision && y < _vision && y > -_vision) //Me acerco al jugador
+		if (!_attacking && inVision) //Me acerco al jugador
 		{
-			if (x > 0)//Derecha
+			if (_playerDistance.getX() > 0)//Derecha
 			{
 				_anim->unFlip();
-				if (x > _attackRangeX)
-				{
-					_body->getBody()->SetLinearVelocity({ 8,_body->getBody()->GetLinearVelocity().y });
-					_anim->playAnim(AnimatedSpriteComponent::EnemyWalk);
-				}
-				else if (y > _attackRangeY || y < -_attackRangeY)
-				{
-					_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
-					_anim->playAnim(AnimatedSpriteComponent::Idle);
-				}
+				_dir = Vector2D(1, 0);
+
+				if (_playerDistance.getX() > _attackRangeX)
+					moving(_dir);
 				else
-				{
-					_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
-					_anim->playAnim(AnimatedSpriteComponent::Idle);
-					_time = SDL_GetTicks();
-					_attacking = true;
-				}
+					attack();
 			}
-			else if (x < 0)//Izquierda
+			else if (_playerDistance.getX() < 0)//Izquierda
 			{
 				_anim->flip();
+				_dir = Vector2D(-1, 0);
 
-				if (x < -_attackRangeX)
-				{
-					_body->getBody()->SetLinearVelocity({ -8,_body->getBody()->GetLinearVelocity().y });
-					_anim->playAnim(AnimatedSpriteComponent::EnemyWalk);
-				}
-				else if (y > _attackRangeY || y < -_attackRangeY)
-				{
-					_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
-					_anim->playAnim(AnimatedSpriteComponent::Idle);
-				}
+				if (_playerDistance.getX() < -_attackRangeX)
+					moving(_dir);
 				else
-				{
-					_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
-					_anim->playAnim(AnimatedSpriteComponent::Idle);
-					_time = SDL_GetTicks();
-					_attacking = true;
-				}
+					attack();
 			}
 		}
 		else if (_attacking) //Ya estoy a una distancia optima, ataco al jugador
-		{
-			if (x < -_attackRangeX || x > _attackRangeX || y < -_attackRangeY || y > _attackRangeY) //Si has perdido de vista al jugador dejas de atacar
-				_attacking = false;
-			else
-			{
-				RayCast();
+			attacking(deltaTime);
+		else
+			idle();
+	}
+}
 
-				if (_armVision) //Si vemos al jugador
-				{
-					if (x > 0) //Derecha
-						_anim->unFlip();
-					else if (x < 0) //Izquierda
-						_anim->flip();
+void DistanceDynamicEnemy::idle()
+{
+	if (_attacking == false)
+	{
+		_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
+		_anim->playAnim(AnimatedSpriteComponent::Idle);
+	}
+}
 
-					_arm->shoot();
-					_myGun->enemyShoot(_myBulletPool, _arm->getPosition(), !_anim->isFlipped() ? _arm->getAngle() + random(-_fail, _fail) : _arm->getAngle() + 180 + random(-_fail, _fail), "EnemyBullet");
-				}
-				else
-					_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
-			}
-		}
-		else //Me quedo respirando y tranquilito
-		{
+void DistanceDynamicEnemy::moving(Vector2D& dir)
+{
+	if (_attacking == false)
+	{
+		_body->getBody()->SetLinearVelocity({ _speed*(float32)dir.getX(), _body->getBody()->GetLinearVelocity().y });
+		_anim->playAnim(AnimatedSpriteComponent::EnemyWalk);
+	}
+}
+
+void DistanceDynamicEnemy::attack()
+{
+	if (_attacking == false)
+	{
+		_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
+		_anim->playAnim(AnimatedSpriteComponent::EnemyAttack); //Llamas a animacion de ataque
+		_time = 0;
+		_attacking = true;
+	}
+}
+
+void DistanceDynamicEnemy::attacking(const double& deltaTime)
+{
+	bool outRange = _playerDistance.getX() < -_attackRangeX || _playerDistance.getX() > _attackRangeX || _playerDistance.getY() < -_attackRangeY || _playerDistance.getY() > _attackRangeY;
+
+	if (outRange) //Si has perdido de vista al jugador dejas de atacar
+		_attacking = false;
+	else
+	{
+		raycast();
+		shoot();
+
+		if(!_armVision)
 			_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
-			_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
-		}
 	}
 }

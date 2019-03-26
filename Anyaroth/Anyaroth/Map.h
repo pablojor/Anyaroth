@@ -13,14 +13,10 @@ private:
 	Player* _player = nullptr;
 	PlayState* _playState = nullptr;
 
-	//vector<Layer*> _layers;
 	GameObject* _layers;
+	GameObject* _objects;
 
 	vector <ObjectLayer*> _objectLayers;
-	//vector<string> _objectLayersNames;
-
-	//list<GameObject*>* _objects;
-	GameObject* _objects;
 
 	int _coinValue;
 

@@ -3,7 +3,7 @@
 #include "AnimatedSpriteComponent.h"
 #include "Player.h"
 
-MeleeEnemy::MeleeEnemy(Game* g, Player* player, Vector2D pos) : Enemy(g, player, pos, g->getTexture("EnemyMelee"))
+MeleeEnemy::MeleeEnemy(Game* g, Player* player, Vector2D pos) : GroundEnemy(g, player, pos, g->getTexture("EnemyMelee"))
 {
 	_vision = 300;
 	_life = 50;
@@ -73,26 +73,6 @@ void MeleeEnemy::idle()
 	{
 		_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
 		_anim->playAnim(AnimatedSpriteComponent::Idle);
-	}
-}
-
-void MeleeEnemy::moving(Vector2D& dir)
-{
-	if (_attacking == false)
-	{
-		_body->getBody()->SetLinearVelocity({ _speed*(float32)dir.getX(), _body->getBody()->GetLinearVelocity().y });
-		_anim->playAnim(AnimatedSpriteComponent::EnemyWalk);
-	}
-}
-
-void MeleeEnemy::attack()
-{
-	if (_attacking == false)
-	{
-		_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
-		_anim->playAnim(AnimatedSpriteComponent::EnemyAttack); //Llamas a animacion de ataque
-		_time = 0;
-		_attacking = true;
 	}
 }
 

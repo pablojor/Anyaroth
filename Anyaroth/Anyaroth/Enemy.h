@@ -5,7 +5,6 @@
 #include "MovingComponent.h"
 #include "CustomAnimatedSpriteComponent.h"
 #include "Life.h"
-#include "EnemyArm.h"
 #include "PlayState.h"
 
 class Enemy : public GameObject
