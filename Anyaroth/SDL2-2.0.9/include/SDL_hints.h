@@ -1,6 +1,6 @@
 /*
   Simple DirectMedia Layer
-  Copyright (C) 1997-2018 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2019 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -437,6 +437,16 @@ extern "C" {
 #define SDL_HINT_GAMECONTROLLERCONFIG "SDL_GAMECONTROLLERCONFIG"
 
 /**
+ *  \brief  A variable that lets you provide a file with extra gamecontroller db entries.
+ *
+ *  The file should contain lines of gamecontroller config data, see SDL_gamecontroller.h
+ *
+ *  This hint must be set before calling SDL_Init(SDL_INIT_GAMECONTROLLER)
+ *  You can update mappings after the system is initialized with SDL_GameControllerMappingForGUID() and SDL_GameControllerAddMapping()
+ */
+#define SDL_HINT_GAMECONTROLLERCONFIG_FILE "SDL_GAMECONTROLLERCONFIG_FILE"
+
+/**
  *  \brief  A variable containing a list of devices to skip when scanning for game controllers.
  *
  *  The format of the string is a comma separated list of USB VID/PID pairs
@@ -544,6 +554,17 @@ extern "C" {
  *  The default is the value of SDL_HINT_JOYSTICK_HIDAPI
  */
 #define SDL_HINT_JOYSTICK_HIDAPI_XBOX   "SDL_JOYSTICK_HIDAPI_XBOX"
+
+/**
+ *  \brief  A variable controlling whether the HIDAPI driver for Nintendo GameCube controllers should be used.
+ *
+ *  This variable can be set to the following values:
+ *    "0"       - HIDAPI driver is not used
+ *    "1"       - HIDAPI driver is used
+ *
+ *  The default is the value of SDL_HINT_JOYSTICK_HIDAPI
+ */
+#define SDL_HINT_JOYSTICK_HIDAPI_GAMECUBE "SDL_JOYSTICK_HIDAPI_GAMECUBE"
 
 /**
  *  \brief  A variable that controls whether Steam Controllers should be exposed using the SDL joystick and game controller APIs
@@ -1042,6 +1063,54 @@ extern "C" {
  *  https://developer.apple.com/library/content/documentation/Audio/Conceptual/AudioSessionProgrammingGuide/AudioSessionCategoriesandModes/AudioSessionCategoriesandModes.html
  */
 #define SDL_HINT_AUDIO_CATEGORY   "SDL_AUDIO_CATEGORY"
+
+/**
+ *  \brief  A variable controlling whether the 2D render API is compatible or efficient.
+ *
+ *  This variable can be set to the following values:
+ *
+ *    "0"     - Don't use batching to make rendering more efficient.
+ *    "1"     - Use batching, but might cause problems if app makes its own direct OpenGL calls.
+ *
+ *  Up to SDL 2.0.9, the render API would draw immediately when requested. Now
+ *  it batches up draw requests and sends them all to the GPU only when forced
+ *  to (during SDL_RenderPresent, when changing render targets, by updating a
+ *  texture that the batch needs, etc). This is significantly more efficient,
+ *  but it can cause problems for apps that expect to render on top of the
+ *  render API's output. As such, SDL will disable batching if a specific
+ *  render backend is requested (since this might indicate that the app is
+ *  planning to use the underlying graphics API directly). This hint can
+ *  be used to explicitly request batching in this instance. It is a contract
+ *  that you will either never use the underlying graphics API directly, or
+ *  if you do, you will call SDL_RenderFlush() before you do so any current
+ *  batch goes to the GPU before your work begins. Not following this contract
+ *  will result in undefined behavior.
+ */
+#define SDL_HINT_RENDER_BATCHING  "SDL_RENDER_BATCHING"
+
+
+/**
+ *  \brief  A variable controlling whether SDL logs all events pushed onto its internal queue.
+ *
+ *  This variable can be set to the following values:
+ *
+ *    "0"     - Don't log any events (default)
+ *    "1"     - Log all events except mouse and finger motion, which are pretty spammy.
+ *    "2"     - Log all events.
+ *
+ *  This is generally meant to be used to debug SDL itself, but can be useful
+ *  for application developers that need better visibility into what is going
+ *  on in the event queue. Logged events are sent through SDL_Log(), which
+ *  means by default they appear on stdout on most platforms or maybe
+ *  OutputDebugString() on Windows, and can be funneled by the app with
+ *  SDL_LogSetOutputFunction(), etc.
+ *
+ *  This hint can be toggled on and off at runtime, if you only need to log
+ *  events for a small subset of program execution.
+ */
+#define SDL_HINT_EVENT_LOGGING   "SDL_EVENT_LOGGING"
+
+
 
 /**
  *  \brief  An enumeration of hint priorities
