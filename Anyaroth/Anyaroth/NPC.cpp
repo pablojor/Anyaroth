@@ -2,7 +2,7 @@
 #include "Game.h"
 
 
-NPC::NPC(Game* g, double xPos, double yPos, Dialogue dialogue) : Interactable(g, xPos, yPos)
+NPC::NPC(Game* g, Vector2D posIni, Dialogue dialogue) : Interactable(g, posIni)
 {
 	_dialogue = dialogue;
 
@@ -11,8 +11,13 @@ NPC::NPC(Game* g, double xPos, double yPos, Dialogue dialogue) : Interactable(g,
 	auto _texture = getComponent<Texture>();
 	auto _indicatorTexture = _interactIndicator->getComponent<Texture>();
 
-	/*_body->setW(40);
-	_body->setH(20);*/
+
+	_body = addComponent<BodyComponent>();
+	_body->getBody()->SetType(b2_kinematicBody);
+	_body->filterCollisions(OBJECTS, PLAYER);
+	_body->getBody()->GetFixtureList()->SetSensor(true);
+	_body->setW(40);
+	_body->setH(20);
 
 
 	_anim = addComponent<AnimatedSpriteComponent>();
@@ -20,7 +25,7 @@ NPC::NPC(Game* g, double xPos, double yPos, Dialogue dialogue) : Interactable(g,
 
 	_anim->playAnim(AnimatedSpriteComponent::Main);
 
-	_interactIndicator->getComponent<TransformComponent>()->setPosition(xPos + (_texture->getW() / _texture->getNumCols()) / 2 - (_indicatorTexture->getW() / _indicatorTexture->getNumCols()) / 2 /*50*/, yPos - 30 /*180*/);
+	_interactIndicator->getComponent<TransformComponent>()->setPosition(posIni.getX() + (_texture->getW() / _texture->getNumCols()) / 2 - (_indicatorTexture->getW() / _indicatorTexture->getNumCols()) / 2 /*50*/, posIni.getY() - 30 /*180*/);
 }
 
 
@@ -30,7 +35,7 @@ NPC::~NPC()
 }
 
 
-void NPC::update(double time)
+void NPC::update(const double& time)
 {
 	GameComponent::update(time);
 

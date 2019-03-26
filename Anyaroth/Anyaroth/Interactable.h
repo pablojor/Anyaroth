@@ -18,10 +18,10 @@ protected:
 
 	
 public:
-	Interactable(Game* g, double xPos, double yPos);
+	Interactable(Game* g, Vector2D posIni);
 	virtual ~Interactable();
 
-	virtual void update(double time);
+	virtual void update(const double& time);
 	virtual bool handleInput(const SDL_Event& event);
 
 	virtual void interact() {};

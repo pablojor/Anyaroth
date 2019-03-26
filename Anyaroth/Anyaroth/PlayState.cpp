@@ -53,23 +53,17 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_stages.push_back(_explosivePool);
 
 	//Levels
-	_currentZone = 1, _currentLevel = 1;
+	_currentZone = 1, _currentLevel = 2;
 	_levelManager = LevelManager(g, this);
 	_levelManager.setLevel(_currentZone, _currentLevel);
 
-	Boss1 * boss = (new Boss1(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(375, 500), "Enemy", _enemyBulletPool, _explosivePool));
-		_stages.push_back(boss);
-
-	_stages.push_back(new BotonLanzaMisiles(boss, g, this, g->getTexture("EnemyMartyr"), Vector2D(100, 550), "Boton"));
-	_stages.push_back(new BotonLanzaMisiles(boss, g, this, g->getTexture("EnemyMartyr"), Vector2D(375, 625), "Boton"));
-	_stages.push_back(new BotonLanzaMisiles(boss, g, this, g->getTexture("EnemyMartyr"), Vector2D(650, 575), "Boton"));
 	//Camera
 	_mainCamera->fixCameraToObject(_player);
   
   
 	//Test NPC*****
 
-	NPC* _npc = new NPC(g, 60, 380,
+	NPC* _npc = new NPC(g, { 60, 680 },
 		{
 		g->getTexture("DialogueFace"),
 		"exampleVoice",
@@ -86,11 +80,11 @@ PlayState::PlayState(Game* g) : GameState(g)
 	//*******
 
 	//World
-	/*_debugger.getRenderer(g->getRenderer());
+	_debugger.getRenderer(g->getRenderer());
 	_debugger.getTexture(g->getTexture("body"));
 	_debugger.SetFlags(b2Draw::e_shapeBit);
 	_debugger.getCamera(_mainCamera);
-	*/
+	
 	//Gestion de colisiones
 	g->getWorld()->SetContactListener(&_colManager);
 	g->getWorld()->SetDebugDraw(&_debugger);

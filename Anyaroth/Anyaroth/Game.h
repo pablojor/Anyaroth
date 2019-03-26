@@ -60,7 +60,7 @@ private:
 	map <string, Font*> _fonts;
 	
 	b2World* _world = nullptr;
-	float _timestep = 1 / 120.0;
+	float _timestep = 1 / 60.0;
 	bool _exit = false;
 
 public:

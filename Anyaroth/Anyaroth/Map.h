@@ -2,6 +2,7 @@
 #include "GameComponent.h"
 #include "Layer.h"
 #include "ObjectLayer.h"
+#include "Boss1.h"
 #include <vector>
 
 class PlayState;
@@ -13,7 +14,7 @@ private:
 	Game* _game = nullptr;
 	PlayState* _playState = nullptr;
 	Player* _player = nullptr;
-
+	Boss1* _boss1 = nullptr;
 	vector<Layer*> _layers;
 
 	map < string, ObjectLayer* > _objectLayers;
