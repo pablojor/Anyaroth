@@ -23,11 +23,11 @@ private:
 	map<string, Component*> _components;
 
 	list<GameComponent*> _children; //lista de hijos del objeto
-
+  
 	b2World* _world = nullptr; //puntero a world
 	bool _active = true;
 	string _tag;
-
+  
 	inline void add_component(Component* c, string name) { _components[name] = c; }
 
 	template<class ComponentType>

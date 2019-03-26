@@ -155,6 +155,8 @@
     <ClCompile Include="DialogueTextUI.cpp" />
     <ClCompile Include="DistanceEnemy.cpp" />
     <ClCompile Include="EnemyArm.cpp" />
+    <ClCompile Include="Interactable.cpp" />
+    <ClCompile Include="NPC.cpp" />
     <ClCompile Include="ImprovedRifle.cpp" />
     <ClCompile Include="ImprovedShotgun.cpp" />
     <ClCompile Include="ExplosiveBulletPool.cpp" />
@@ -251,6 +253,7 @@
     <ClInclude Include="DialogueTextUI.h" />
     <ClInclude Include="DistanceEnemy.h" />
     <ClInclude Include="EnemyArm.h" />
+    <ClInclude Include="Interactable.h" />
     <ClInclude Include="ImprovedRifle.h" />
     <ClInclude Include="ImprovedShotgun.h" />
     <ClInclude Include="ExplosiveBulletPool.h" />
@@ -259,6 +262,7 @@
     <ClInclude Include="ExplosiveBullet.h" />
     <ClInclude Include="FlyingEnemy.h" />
     <ClInclude Include="MovingComponent.h" />
+    <ClInclude Include="NPC.h" />
     <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="Melee.h" />
     <ClInclude Include="PiercingBulletPool.h" />
