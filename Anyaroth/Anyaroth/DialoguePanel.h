@@ -30,7 +30,7 @@ private:
 	//Constantes
 	int _lines = 4;
 	int _gap = 14;
-	int _maxWidth = 400;
+	int _maxWidth = 350;
 
 	vector<string> _segments;
 	int _width;
@@ -57,7 +57,5 @@ public:
 	void startDialogue(const Dialogue& dialogue);
 	void endDialogue();
 	void nextText();
-
-	//bool allTextTyped() const;
-
+	void chopTextIfNecesary(string text);
 };

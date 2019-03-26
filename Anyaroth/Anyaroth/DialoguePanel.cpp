@@ -72,24 +72,8 @@ void DialoguePanel::startDialogue(const Dialogue& dialogue)
 			_dialogueTexts[i]->setVoice(_dialogue.voice);
 		}
 
-		//si es necesario, troceamos
-		//if (_dialogue.conversation[0].size >)
-		int i = 1;
-		string temp = _dialogue.conversation[0].c_str();
-		while (i < _lines && TTF_SizeText(_game->getFont("ARIAL12")->getTTFFont(), temp.c_str(), &_width, nullptr) > _maxWidth)
-		{
-			
-			istringstream iss(temp);
-			vector<string> results(istream_iterator<string>{iss},
-				istream_iterator<string>());
-			
-			/*while (temp.substr(0, temp.find(' ')))
-			{
-
-			}*/
-
-			i++;
-		}
+		//si es necesario, troceamos el texto
+		chopTextIfNecesary(_dialogue.conversation[0]);
 		//ponemos visible el cuadro de dialogo primero antes que las demas cosas
 		setVisible(true);
 		_backgroundImage->setVisible(true);
@@ -145,7 +129,10 @@ void DialoguePanel::nextText()
 		_linesTyped = 0;
 
 		for (int i = 0; i < _lines; i++)
+		{
 			_dialogueTexts[i]->setText(" ");
+			_segments[i] = " ";
+		}
 
 		//Si la lista de textos no está vacía, ya se ha escrito entero un texto y éste no es el último, se escribe el siguiente.
 		if (_currentText < _dialogue.conversation.size())
@@ -160,24 +147,62 @@ void DialoguePanel::nextText()
 			if (_dialogue.sounds[_currentText] != " ")
 				_game->getSoundManager()->playSFX(_dialogue.sounds[_currentText]);
 
+			//si es necesario, troceamos el texto
+			chopTextIfNecesary(_dialogue.conversation[_currentText]);
 
-
-			_dialogueTexts[0]->type(_dialogue.conversation[_currentText]);
+			_dialogueTexts[0]->type(_segments[0]);
+			//_dialogueTexts[0]->type(_dialogue.conversation[_currentText]);
 		}
 		else //Si _currentText ya es el último, se termina la conversación y se cierra el diálogo.
 			endDialogue();
 	}
 }
 
-/*bool DialoguePanel::allTextTyped() const
+void DialoguePanel::chopTextIfNecesary(string text)
 {
-	int i = 0;
-	while (i < _dialogueTexts.size() && _dialogueTexts[i]->textTyped())
-		i++;
-	if (i < _dialogueTexts.size())
-		return false;
-	return true;
-}*/
+	string temp = text.c_str();
+
+	TTF_SizeText(_game->getFont("ARIAL12")->getTTFFont(), temp.c_str(), &_width, nullptr);
+	if (_width > _maxWidth)
+	{
+		int i = 0;
+		bool finish = false;
+		while (i < _lines && !finish)
+		{
+
+			istringstream iss(temp);
+			vector<string> results(istream_iterator<string>{iss},
+				istream_iterator<string>());
+
+			string s = "";
+			int j = 0;
+			TTF_SizeText(_game->getFont("ARIAL12")->getTTFFont(), s.c_str(), &_width, nullptr);
+			while (j < results.size() && _width < _maxWidth)
+			{
+				s += results[j];
+				s += " ";
+				TTF_SizeText(_game->getFont("ARIAL12")->getTTFFont(), s.c_str(), &_width, nullptr);
+				j++;
+			}
+
+			_segments[i] = s;
+
+			if (j < results.size())
+			{
+				temp = temp.substr(s.size());
+				TTF_SizeText(_game->getFont("ARIAL12")->getTTFFont(), temp.c_str(), &_width, nullptr);
+			}
+			else
+			{
+				finish = true;
+			}
+
+			i++;
+		}
+	}
+	else
+		_segments[0] = text;
+}
 
 void DialoguePanel::update(double time)
 {
@@ -185,7 +210,7 @@ void DialoguePanel::update(double time)
 
 	if (_visible)
 	{
-		//Cuando termine animacion de cerrar dialogo
+		//Cuando termine animacion de cerrar dialogo (END DIALOGUE)
 		if (_backgroundImage->getCurrentAnim() == AnimatedImageUI::End && _backgroundImage->animationFinished())
 		{
 			_backgroundImage->playAnim(AnimatedImageUI::Default);
@@ -193,7 +218,7 @@ void DialoguePanel::update(double time)
 
 			setVisible(false);
 		}
-		//Cuando termine animacion de abrir dialogo
+		//Cuando termine animacion de abrir dialogo (START DIALOGUE)
 		else if (_backgroundImage->getCurrentAnim() == AnimatedImageUI::Start && _backgroundImage->animationFinished())
 		{
 			_backgroundImage->playAnim(AnimatedImageUI::Default);
@@ -210,7 +235,7 @@ void DialoguePanel::update(double time)
 
 			//comenzamos dialogo
 			_faceImage->changeFrame(_dialogue.faces[_currentText]);
-			_dialogueTexts[0]->type(_dialogue.conversation[0]);
+			_dialogueTexts[0]->type(_segments[0]);
 		}
 		else if (_linesTyped == _lines)
 		{

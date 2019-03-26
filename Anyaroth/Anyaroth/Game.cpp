@@ -73,13 +73,9 @@ void Game::createSounds()
 
 	//VOICES
 		//Example
-	_soundManager->addSFX("exampleVoice0", SOUNDS_PATH + "exampleVoice0.wav");
-	_soundManager->addSFX("exampleVoice1", SOUNDS_PATH + "exampleVoice1.wav");
-	_soundManager->addSFX("exampleVoice2", SOUNDS_PATH + "exampleVoice2.wav");
+	_soundManager->addSFX("exampleVoice", SOUNDS_PATH + "exampleVoice.wav");
 		//Boss
-	_soundManager->addSFX("bossVoice0", SOUNDS_PATH + "bossVoice0.wav");
-	_soundManager->addSFX("bossVoice1", SOUNDS_PATH + "bossVoice1.wav");
-	_soundManager->addSFX("bossVoice2", SOUNDS_PATH + "bossVoice2.wav");
+	_soundManager->addSFX("bossVoice", SOUNDS_PATH + "bossVoice.wav");
 }
 
 void Game::pushState(GameState* state)
