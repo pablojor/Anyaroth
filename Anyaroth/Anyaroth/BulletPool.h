@@ -4,9 +4,6 @@
 
 class BulletPool : public ObjectPool<Bullet, 100>
 {
-	private:
-		void initBullets();
-
 	public:
 		BulletPool(Game* game);
 		virtual ~BulletPool() {};

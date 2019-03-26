@@ -1,18 +1,16 @@
 #include "DistanceEnemy.h"
 #include "Game.h"
+#include "BasicPistol.h"
 
-DistanceEnemy::DistanceEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag, GunType type) : Enemy(player, g, play, texture, posIni, tag)
+DistanceEnemy::DistanceEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag, BulletPool* pool) : Enemy(player, g, play, texture, posIni, tag)
 {
-	_arm = new EnemyArm(g, this, player, { 35,30 });
+	_arm = new EnemyArm(g, this, player, this, { 35, 30 });
 	_arm->setTexture(g->getTexture("ArmPistol"));
 	addChild(_arm);
 
-	// ShooterInterface* sh = getGame()->gameGuns[type].shooter;
-	// int mA = getGame()->gameGuns[type].maxAmmo;
-	// int mC = getGame()->gameGuns[type].maxClip;
-	// double c = getGame()->gameGuns[type].cadence;
-	
-	//_arm->setGun(new Gun(_arm, sh, bp, type, mA, mC, c));
+	_myGun = new BasicPistol(g);
+
+	_myBulletPool = pool;
 }
 
 void DistanceEnemy::RayCast()
@@ -36,4 +34,11 @@ void DistanceEnemy::RayCast()
 		for (b2Fixture* f = b->GetFixtureList(); f && _armVision; f = f->GetNext())
 			if (b->GetType() == b2_staticBody && f->RayCast(&rayOutput, rayInput, 0))
 				_armVision = false;
+}
+
+void DistanceEnemy::update(double time)
+{
+	Enemy::update(time);
+
+	_myGun->refreshGunCadence(time);
 }

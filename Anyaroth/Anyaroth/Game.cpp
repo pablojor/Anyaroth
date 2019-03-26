@@ -26,7 +26,7 @@ void Game::createTextures()
 		}
 	}
 	else
-		throw AnyarothError("No se ha encontrado el archivo");
+		throw AnyarothError("No se ha encontrado el archivo introducido");
 
 	input.close();
 }
@@ -53,7 +53,7 @@ void Game::createFonts()
 		}
 	}
 	else
-		throw AnyarothError("No se ha encontrado el archivo");
+		throw AnyarothError("No se ha encontrado el archivo introducido");
 
 	input.close();
 }
@@ -74,28 +74,8 @@ void Game::createSounds()
 	//VOICES
 		//Example
 	_soundManager->addSFX("exampleVoice", SOUNDS_PATH + "exampleVoice.wav");
-	//Boss
+	  //Boss
 	_soundManager->addSFX("bossVoice", SOUNDS_PATH + "bossVoice.wav");
-}
-
-void Game::pushState(GameState* state)
-{
-	_stateMachine->pushState(state);
-}
-
-void Game::changeState(GameState* state)
-{
-	_stateMachine->changeState(state);
-}
-
-void Game::popState()
-{
-	_stateMachine->popState();
-}
-
-Texture* Game::getTexture(string nameText)
-{
-	return _textures[nameText];
 }
 
 Texture* Game::newTexture(string id, string nameText)
@@ -105,11 +85,6 @@ Texture* Game::newTexture(string id, string nameText)
 
 	_textures.insert(pair <string, Texture*>(id,new Texture(_renderer, _textures[nameText]->getFilename(), i, j) ));
 	return _textures[id];
-}
-
-Font * Game::getFont(string nameFont)
-{
-	return _fonts[nameFont];
 }
 
 void Game::toggleFullscreen()
@@ -158,15 +133,11 @@ Game::~Game()
 {
 	//delete textures
 	for (auto it = _textures.begin(); it != _textures.end(); it++)
-	{
 		delete (*it).second;
-	}
 
 	//delete fonts
 	for (auto it = _fonts.begin(); it != _fonts.end(); it++)
-	{
 		delete (*it).second;
-	}
 
 	delete _stateMachine;
 	delete _world;
@@ -178,21 +149,22 @@ Game::~Game()
 
 void Game::run()
 {
-	double frameTime = FRAME_RATE;
+	double deltaTime = FRAME_RATE;
+	double startTime = SDL_GetTicks();
 
 	while (!_exit)
 	{
-		double startTime = SDL_GetTicks();
+		auto startTicks = SDL_GetTicks();
+		deltaTime = startTicks - startTime;
+		startTime = startTicks;
 
 		handleEvents();
-		update(frameTime);
-		_world->Step(1 / 62.0, 8, 3);
+		_world->Step(_timestep, 8, 3);
+		update(deltaTime);
 		render();
 
-		frameTime = SDL_GetTicks() - startTime;
-
-		if (frameTime < FRAME_RATE)
-			SDL_Delay(FRAME_RATE - frameTime);
+		if (deltaTime < FRAME_RATE)
+			SDL_Delay(FRAME_RATE - deltaTime);
 	}
 }
 

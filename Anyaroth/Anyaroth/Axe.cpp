@@ -7,11 +7,6 @@ Axe::Axe(Game* g) : Melee(g)
 	_offset = Vector2D(15, -20);
 }
 
-
-Axe::~Axe()
-{
-}
-
 void Axe::update(double time)
 {
 	if (isActive())

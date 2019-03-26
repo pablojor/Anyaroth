@@ -1,15 +1,12 @@
 #include "SoundManager.h"
 #include <iostream>
 
-
-
 SoundManager::SoundManager()
 {
 	if (SDL_Init(SDL_INIT_AUDIO) == 0)
 		if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) != 0)
 			cout << "No se ha iniciado el SoundManager de manera correcta: " << Mix_GetError() << endl;
 }
-
 
 SoundManager::~SoundManager()
 {
@@ -132,4 +129,3 @@ void SoundManager::setSFXVolume(const string& name, const float& volumeRatio)
 {
 	Mix_VolumeChunk(_soundFX[name], MIX_MAX_VOLUME * volumeRatio);
 }
-

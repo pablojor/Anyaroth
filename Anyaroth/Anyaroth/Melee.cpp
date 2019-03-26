@@ -3,15 +3,12 @@
 #include "Game.h"
 #include <math.h>
 
-
-
-Melee::Melee(Game * g) :  GameComponent(g, "Melee")
-{
-}
+Melee::Melee(Game * g) :  GameComponent(g, "Melee") {}
 
 void Melee::meleeAttack(double x, double y, int dir)
 {
 	_dir = dir;
+
 	if (_body == nullptr)
 	{
 		_body = new BodyComponent(this, x + _offset.getX() * dir, y + _offset.getY(), _w, _h);
@@ -31,17 +28,10 @@ void Melee::meleeAttack(double x, double y, int dir)
 void Melee::beginCollision(GameComponent * other, b2Contact * contact)
 {
 	if (other->getTag() == "Enemy")
-	{
 		static_cast<Enemy*>(other)->subLife(_damage);
-	}
 }
 
 void Melee::endMelee()
 {
 	_body->deleteBody();
-}
-
-
-Melee::~Melee()
-{
 }

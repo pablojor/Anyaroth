@@ -32,26 +32,6 @@ void ArmControllerComponent::handleInput(const SDL_Event& event)
 		_followC->setOffset({ _followC->getInitialOffset().getX(), _followC->getInitialOffset().getY() });
 	}
 
-	/*if (event.type == SDL_MOUSEBUTTONDOWN)
-		_flipShot = true;
-	else if(event.type == SDL_MOUSEBUTTONDOWN)
-	{
-		if (event.button.button == SDL_BUTTON_LEFT)
-		{
-			_leftClickPul = true;
-		}
-	}
-
-	if (event.type == SDL_MOUSEBUTTONUP)
-	{
-		if (event.button.button == SDL_BUTTON_LEFT)
-		{
-			_leftClickPul = false;
-			_canShoot = true;
-			_shootInput = false;
-		}
-	}*/
-
 	if (_leftClickPul && _canShoot)
 	{
 		_obj->shoot();

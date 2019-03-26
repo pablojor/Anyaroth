@@ -17,7 +17,7 @@ void PlayerArm::update(double time)
 	else
 		setActive(true);
 
-	//------------Rotacion del brazo
+	//Rotacion del brazo
 	Vector2D mousePos = getGame()->getCurrentState()->getMousePositionInWorld(); 
 	lookAtTarget(mousePos);
 	handleFlipState(mousePos);

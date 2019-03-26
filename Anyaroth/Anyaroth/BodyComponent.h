@@ -20,9 +20,12 @@ public:
 	virtual ~BodyComponent();
 
 	virtual void update(double time);
+
 	inline b2Body* getBody() const { return _body; }
+
 	void setW(double w);
 	void setH(double h);
+
 	void setBody(GameComponent* obj, double x, double y, double w, double h);
 
 	inline double getW() const { return _width; }

@@ -18,7 +18,6 @@ Arm::Arm(Game* g, GameComponent* owner, Vector2D offset) : GameComponent(g), _ow
 
 	//_hurt = addComponent<HurtRenderComponent>();
 
-
 	_transform->setDefaultAnchor(0.1, 0.6); //Parametros para la pistola
 }
 
@@ -33,15 +32,16 @@ void Arm::lookAtTarget(const Vector2D& target) const
 	subVec.normalize();
 
 	double angle = atan2(subVec.getY(), subVec.getX()) * 180.0 / M_PI;
+
 	_transform->setRotation(angle);
 }
 
-/*void Arm::hurt() const
+void Arm::hurt() const
 {
-	_hurt->hurt();
+	//_hurt->hurt();
 }
 
 void Arm::die() const
 {
-	_hurt->die();
-}*/
+	//_hurt->die();
+}

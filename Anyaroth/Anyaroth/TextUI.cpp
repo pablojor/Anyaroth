@@ -23,8 +23,9 @@ TextUI::TextUI(Game* game, string text, Font* font, uint fontSize, int xPos, int
 
 void TextUI::render() const
 {
-	if (_visible) {
-		SDL_Rect winRect = { _destRect.x * GAME_RESOLUTION_X / CAMERA_RESOLUTION_X ,_destRect.y * GAME_RESOLUTION_Y / CAMERA_RESOLUTION_Y ,
+	if (_visible)
+	{
+		SDL_Rect winRect = { _destRect.x * GAME_RESOLUTION_X / CAMERA_RESOLUTION_X, _destRect.y * GAME_RESOLUTION_Y / CAMERA_RESOLUTION_Y,
 			_destRect.w * GAME_RESOLUTION_X / CAMERA_RESOLUTION_X, _destRect.h * GAME_RESOLUTION_Y / CAMERA_RESOLUTION_Y };
 
 		_texture->render(winRect);
