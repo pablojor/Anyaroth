@@ -253,38 +253,36 @@
     <ClCompile Include="WeaponryViewer.cpp">
       <Filter>Archivos de código fuente\HUD\UIElements</Filter>
     </ClCompile>
-    <ClCompile Include="ImprovedShotgun.cpp">
-      <Filter>Archivos de código\Guns</Filter>
-    </ClCompile>
-    <ClCompile Include="Shotgun.cpp">
-      <Filter>Archivos de código\Guns</Filter>
-    </ClCompile>
-    <ClCompile Include="BasicRifle.cpp">
-      <Filter>Archivos de código\Guns</Filter>
-    </ClCompile>
-    <ClCompile Include="ImprovedRifle.cpp">
-      <Filter>Archivos de código\Guns</Filter>
-    </ClCompile>
-    <ClCompile Include="BounceOrbCannon.cpp">
-      <Filter>Archivos de código\Guns</Filter>
-    </ClCompile>
-    <ClCompile Include="WeaponManager.cpp">
-      <Filter>Archivos de código\Guns</Filter>
-    </ClCompile>
     <ClCompile Include="Bullet.cpp">
       <Filter>Archivos de código\Objects\Bullets</Filter>
     </ClCompile>
-    <ClCompile Include="BouncingBullet.cpp">
-      <Filter>Archivos de código\Objects\Bullets</Filter>
+    <ClCompile Include="PiercingBullet.cpp" />
+    <ClCompile Include="BasicRifle.cpp">
+      <Filter>Archivos de código fuente\Guns</Filter>
+    </ClCompile>
+    <ClCompile Include="BounceOrbCannon.cpp">
+      <Filter>Archivos de código fuente\Guns</Filter>
+    </ClCompile>
+    <ClCompile Include="ImprovedRifle.cpp">
+      <Filter>Archivos de código fuente\Guns</Filter>
+    </ClCompile>
+    <ClCompile Include="ImprovedShotgun.cpp">
+      <Filter>Archivos de código fuente\Guns</Filter>
+    </ClCompile>
+    <ClCompile Include="Shotgun.cpp">
+      <Filter>Archivos de código fuente\Guns</Filter>
+    </ClCompile>
+    <ClCompile Include="WeaponManager.cpp">
+      <Filter>Archivos de código fuente\Guns</Filter>
     </ClCompile>
     <ClCompile Include="BouncingBulletPool.cpp">
-      <Filter>Archivos de código\Pools</Filter>
-    </ClCompile>
-    <ClCompile Include="PiercingBullet.cpp">
-      <Filter>Archivos de código\Objects\Bullets</Filter>
+      <Filter>Archivos de código fuente\Pools</Filter>
     </ClCompile>
     <ClCompile Include="PiercingBulletPool.cpp">
-      <Filter>Archivos de código\Pools</Filter>
+      <Filter>Archivos de código fuente\Pools</Filter>
+    </ClCompile>
+    <ClCompile Include="BouncingBullet.cpp">
+      <Filter>Archivos de código fuente\Objects\Bullets</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -727,9 +725,6 @@
     </Filter>
     <Filter Include="Archivos de código fuente\Objects\Player">
       <UniqueIdentifier>{fbeacda4-f6f1-4d13-989f-c1371de5a063}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de código\Objects\Bullets">
-      <UniqueIdentifier>{3dc862f5-f6be-4cf3-a30c-df73f2d32151}</UniqueIdentifier>
     </Filter>
     <Filter Include="Archivos de encabezado\Objects\Bullets">
       <UniqueIdentifier>{1d363188-42c1-4860-abb0-ffa5e1951368}</UniqueIdentifier>
