@@ -13,10 +13,8 @@
 
 using namespace nlohmann;
 
-Map::Map(string filename, Game* game, PlayState* playstate, Texture* tileset, int coinValue) : GameObject(game), _playState(playstate), _coinValue(coinValue)
+Map::Map(string filename, Game* game, Player* player, Texture* tileset, BulletPool* bulletPool, ExplosiveBulletPool* explosivePool, int coinValue) : GameObject(game), _player(player), _bulletPool(bulletPool), _explosivePool(explosivePool), _coinValue(coinValue)
 {
-	_player = _playState->getPlayer();
-
 	_layers = new GameObject(_game);
 	addChild(_layers);
 
@@ -86,11 +84,11 @@ void Map::createObjects()
 			}
 			else if (name == "DistanceStatic")
 			{
-				_objects->addChild(new DistanceStaticEnemy(_game, _player, Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), _playState->getEnemyPool()));
+				_objects->addChild(new DistanceStaticEnemy(_game, _player, Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), _bulletPool));
 			}
 			else if (name == "DistanceDynamic")
 			{
-				_objects->addChild(new DistanceDynamicEnemy(_game, _player, Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), _playState->getEnemyPool()));
+				_objects->addChild(new DistanceDynamicEnemy(_game, _player, Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), _bulletPool));
 			}
 			else if (name == "Bomber")
 			{

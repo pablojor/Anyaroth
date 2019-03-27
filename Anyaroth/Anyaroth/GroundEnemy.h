@@ -1,7 +1,7 @@
 #pragma once
 #include "Enemy.h"
 
-class GroundEnemy : public Enemy
+class GroundEnemy : virtual public Enemy
 {
 protected:
 	Vector2D _dir = Vector2D();

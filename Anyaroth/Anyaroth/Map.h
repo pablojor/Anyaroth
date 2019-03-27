@@ -2,16 +2,18 @@
 #include "GameObject.h"
 #include "Layer.h"
 #include "ObjectLayer.h"
+#include "BulletPool.h"
+#include "ExplosiveBulletPool.h"
 #include <vector>
 
-class PlayState;
 class Player;
 
 class Map : public GameObject
 {
 private:
 	Player* _player = nullptr;
-	PlayState* _playState = nullptr;
+	BulletPool* _bulletPool = nullptr;
+	ExplosiveBulletPool* _explosivePool = nullptr;
 
 	GameObject* _layers;
 	GameObject* _objects;
@@ -21,7 +23,7 @@ private:
 	int _coinValue;
 
 public:
-	Map(string filename, Game* game, PlayState* playstate, Texture* tileset, int coinValue);
+	Map(string filename, Game* game, Player* player, Texture* tileset, BulletPool* bulletPool, ExplosiveBulletPool* explosivePool, int coinValue);
 	~Map();
 
 	void createObjects();

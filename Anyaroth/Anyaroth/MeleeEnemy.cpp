@@ -3,7 +3,7 @@
 #include "AnimatedSpriteComponent.h"
 #include "Player.h"
 
-MeleeEnemy::MeleeEnemy(Game* g, Player* player, Vector2D pos) : GroundEnemy(g, player, pos, g->getTexture("EnemyMelee"))
+MeleeEnemy::MeleeEnemy(Game* g, Player* player, Vector2D pos) : GroundEnemy(g, player, pos, g->getTexture("EnemyMelee")), Enemy(g, player, pos, g->getTexture("EnemyMelee"))
 {
 	_vision = 300;
 	_life = 50;
@@ -35,7 +35,7 @@ void MeleeEnemy::update(const double& deltaTime)
 		bool inVision = _playerDistance.getX() < _vision && _playerDistance.getX() > -_vision && _playerDistance.getY() < _vision && _playerDistance.getY() > -_vision;
 		bool sameFloor = _playerDistance.getY() < _attackRangeY && _playerDistance.getY() > -_attackRangeY;
 
-		if (inVision && sameFloor)
+		if (inVision)
 		{
 			if (_playerDistance.getX() > 0) //Derecha
 			{
@@ -44,8 +44,10 @@ void MeleeEnemy::update(const double& deltaTime)
 
 				if (_playerDistance.getX() > _attackRangeX)
 					moving(_dir);
-				else
+				else if (sameFloor)
 					attack();
+				else
+					idle();
 			}
 			else if (_playerDistance.getX() < 0) //Izquierda
 			{
@@ -54,8 +56,10 @@ void MeleeEnemy::update(const double& deltaTime)
 
 				if (_playerDistance.getX() < -_attackRangeX)
 					moving(_dir);
-				else
+				else if (sameFloor)
 					attack();
+				else
+					idle();
 			}
 			attacking(deltaTime);
 		}

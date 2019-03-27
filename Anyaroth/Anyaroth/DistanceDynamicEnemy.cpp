@@ -3,7 +3,7 @@
 #include "AnimatedSpriteComponent.h"
 #include "Player.h"
 
-DistanceDynamicEnemy::DistanceDynamicEnemy(Game* g, Player* player, Vector2D pos, BulletPool* pool) : DistanceEnemy(g, player, pos, g->getTexture("EnemyMelee"), pool)
+DistanceDynamicEnemy::DistanceDynamicEnemy(Game* g, Player* player, Vector2D pos, BulletPool* pool) : DistanceEnemy(g, player, pos, g->getTexture("EnemyMelee"), pool), GroundEnemy(g, player, pos, g->getTexture("EnemyMelee")), Enemy(g, player, pos, g->getTexture("EnemyMelee"))
 {
 	_vision = 300;
 	_life = 50;
@@ -58,35 +58,6 @@ void DistanceDynamicEnemy::update(const double& deltaTime)
 			attacking(deltaTime);
 		else
 			idle();
-	}
-}
-
-void DistanceDynamicEnemy::idle()
-{
-	if (_attacking == false)
-	{
-		_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
-		_anim->playAnim(AnimatedSpriteComponent::Idle);
-	}
-}
-
-void DistanceDynamicEnemy::moving(Vector2D& dir)
-{
-	if (_attacking == false)
-	{
-		_body->getBody()->SetLinearVelocity({ _speed*(float32)dir.getX(), _body->getBody()->GetLinearVelocity().y });
-		_anim->playAnim(AnimatedSpriteComponent::EnemyWalk);
-	}
-}
-
-void DistanceDynamicEnemy::attack()
-{
-	if (_attacking == false)
-	{
-		_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
-		_anim->playAnim(AnimatedSpriteComponent::EnemyAttack); //Llamas a animacion de ataque
-		_time = 0;
-		_attacking = true;
 	}
 }
 

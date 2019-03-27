@@ -3,9 +3,8 @@
 #include "DebugDraw.h"
 #include "LevelManager.h"
 #include "CollisionManager.h"
+#include "ParallaxBackGround.h"
 #include "Player.h"
-#include "BulletPool.h"
-#include "ExplosiveBulletPool.h"
 #include "Cursor.h"
 
 class PlayState : public GameState
@@ -14,18 +13,16 @@ private:
 	Player* _player = nullptr;
 	Cursor* _cursor = nullptr;
 
-	//Bullet Pools
-	BulletPool* _playerBulletPool = nullptr; //Balas del jugador
-	BulletPool* _enemyBulletPool = nullptr; //Balas de los enemigos
-	ExplosiveBulletPool* _explosivePool = nullptr;
+	BulletPool* _playerBulletPool = nullptr;
 
 	LevelManager _levelManager;
 	CollisionManager _colManager;
 	DebugDraw _debugger;
 
+	ParallaxBackGround* _parallaxZone1 = nullptr;
+
 	int _currentZone;
 	int _currentLevel;
-
 
 public:
 	PlayState(Game* g);
@@ -34,9 +31,6 @@ public:
 	virtual void update(const double& deltaTime);
 	virtual bool handleEvent(const SDL_Event& event);
 
-	inline Player* getPlayer() const { return _player; }
-	inline BulletPool* getEnemyPool() const { return _enemyBulletPool; }
-	inline ExplosiveBulletPool* getExplosivePool() const { return _explosivePool; }
 	inline Cursor* getCursor() const { return _cursor; }
 
 	inline int getCurrentZone() const { return _currentZone; }

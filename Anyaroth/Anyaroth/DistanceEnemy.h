@@ -3,7 +3,7 @@
 #include "EnemyArm.h"
 #include "BulletPool.h"
 
-class DistanceEnemy : public Enemy
+class DistanceEnemy : virtual public Enemy
 {
 protected:
 	EnemyArm* _arm;

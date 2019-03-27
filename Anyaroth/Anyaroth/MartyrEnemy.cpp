@@ -4,7 +4,7 @@
 #include "Player.h"
 #include "BodyComponent.h"
 
-MartyrEnemy::MartyrEnemy(Game* g, Player* player, Vector2D pos) : GroundEnemy(g, player, pos, g->getTexture("EnemyMartyr"))
+MartyrEnemy::MartyrEnemy(Game* g, Player* player, Vector2D pos) : GroundEnemy(g, player, pos, g->getTexture("EnemyMartyr")), Enemy(g, player, pos, g->getTexture("EnemyMartyr"))
 {
 	_vision = 300;
 	_life = 50;
@@ -41,7 +41,7 @@ void MartyrEnemy::update(const double& deltaTime)
 		bool inVision = _playerDistance.getX() < _vision && _playerDistance.getX() > -_vision && _playerDistance.getY() < _vision && _playerDistance.getY() > -_vision;
 		bool sameFloor = _playerDistance.getY() < _attackRangeY && _playerDistance.getY() > -_attackRangeY;
 
-		if (!_attacking && inVision && sameFloor)
+		if (!_attacking && inVision)
 		{
 			if (_playerDistance.getX() > 0) //Derecha
 			{
@@ -50,8 +50,9 @@ void MartyrEnemy::update(const double& deltaTime)
 
 				if (_playerDistance.getX() > _attackRangeX)
 					moving(_dir);
-				else
+				else if(sameFloor)
 					attack();
+				else idle();
 			}
 			else if (_playerDistance.getX() < 0) //Izquierda
 			{
@@ -60,8 +61,10 @@ void MartyrEnemy::update(const double& deltaTime)
 
 				if (_playerDistance.getX() < -_attackRangeX)
 					moving(_dir);
-				else
+				else if (sameFloor)
 					attack();
+				else
+					idle();
 			}
 		}
 		else if(_attacking)

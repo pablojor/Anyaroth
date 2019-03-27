@@ -1,6 +1,7 @@
 #include "PlayState.h"
 #include "Game.h"
 #include "PauseState.h"
+#include "ParallaxLayer.h"
 #include "PlayStateHUD.h"
 #include "checkML.h"
 #include <time.h>
@@ -21,20 +22,20 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_stages.push_back(_playerBulletPool);
 	_player->setPlayerBulletPool(_playerBulletPool);
 
-	//Pool enemy
-	_enemyBulletPool = new BulletPool(g);
-	_stages.push_back(_enemyBulletPool);
-
-	_explosivePool = new ExplosiveBulletPool(g);
-	_stages.push_back(_explosivePool);
-
 	//Levels
 	_currentZone = _currentLevel = 1;
-	_levelManager = LevelManager(g, this);
+	_levelManager = LevelManager(g, _player, &_stages);
 	_levelManager.setLevel(_currentZone, _currentLevel);
+
+	//Background
+	_parallaxZone1 = new ParallaxBackGround(_mainCamera);
+	_parallaxZone1->addLayer(new ParallaxLayer(g->getTexture("BgZ1L1"), _mainCamera, 0.25));
+	_parallaxZone1->addLayer(new ParallaxLayer(g->getTexture("BgZ1L2"), _mainCamera, 0.5));
+	_parallaxZone1->addLayer(new ParallaxLayer(g->getTexture("BgZ1L3"), _mainCamera, 0.75));
 
 	//Camera
 	_mainCamera->fixCameraToObject(_player);
+	_mainCamera->setBackGround(_parallaxZone1);
 
 	//HUD
 	auto b = new PlayStateHUD(g);
