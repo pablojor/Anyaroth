@@ -256,7 +256,6 @@
     <ClCompile Include="Bullet.cpp">
       <Filter>Archivos de código\Objects\Bullets</Filter>
     </ClCompile>
-    <ClCompile Include="PiercingBullet.cpp" />
     <ClCompile Include="BasicRifle.cpp">
       <Filter>Archivos de código fuente\Guns</Filter>
     </ClCompile>
@@ -283,6 +282,17 @@
     </ClCompile>
     <ClCompile Include="BouncingBullet.cpp">
       <Filter>Archivos de código fuente\Objects\Bullets</Filter>
+    </ClCompile>
+    <ClCompile Include="PiercingBullet.cpp">
+      <Filter>Archivos de código fuente\Objects\Bullets</Filter>
+    </ClCompile>
+    <ClCompile Include="GravityBullet.cpp" />
+    <ClCompile Include="GravityBulletPool.cpp" />
+    <ClCompile Include="PlasmaSniper.cpp">
+      <Filter>Archivos de código fuente\Guns</Filter>
+    </ClCompile>
+    <ClCompile Include="GravityBombCannon.cpp">
+      <Filter>Archivos de código fuente\Guns</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -595,6 +605,13 @@
     <ClInclude Include="PiercingBulletPool.h">
       <Filter>Archivos de encabezado\Pools</Filter>
     </ClInclude>
+    <ClInclude Include="GravityBullet.h" />
+    <ClInclude Include="GravityBombCannon.h" />
+    <ClInclude Include="GravityBulletPool.h" />
+    <ClInclude Include="GunType_def.h">
+      <Filter>Archivos de encabezado\Guns</Filter>
+    </ClInclude>
+    <ClInclude Include="PlasmaSniper.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de código fuente">

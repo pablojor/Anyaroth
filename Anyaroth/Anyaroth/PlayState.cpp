@@ -2,9 +2,11 @@
 #include "Game.h"
 #include "PauseState.h"
 #include "PlayStateHUD.h"
-#include "PiercingBulletPool.h"
 #include "checkML.h"
 #include <time.h>
+
+#include "PiercingBulletPool.h"
+#include "GravityBulletPool.h"
 
 PlayState::PlayState(Game* g) : GameState(g)
 {
@@ -27,11 +29,10 @@ PlayState::PlayState(Game* g) : GameState(g)
 
 
 	///
-	/*PiercingBulletPool* pPool = new PiercingBulletPool(g);*/
+	PiercingBulletPool* pPool = new PiercingBulletPool(g);
+	_stages.push_back(pPool);
 
-	//_player->setPlayerBulletPool(_bouncingBulletPool);
-
-	_player->setPlayerBulletPool(_playerBulletPool);
+	_player->setPlayerBulletPool(pPool);
 
 
 	//Pool enemy

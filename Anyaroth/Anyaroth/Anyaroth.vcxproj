@@ -155,6 +155,9 @@
     <ClCompile Include="DialogueTextUI.cpp" />
     <ClCompile Include="DistanceEnemy.cpp" />
     <ClCompile Include="EnemyArm.cpp" />
+    <ClCompile Include="GravityBombCannon.cpp" />
+    <ClCompile Include="GravityBullet.cpp" />
+    <ClCompile Include="GravityBulletPool.cpp" />
     <ClCompile Include="ImprovedRifle.cpp" />
     <ClCompile Include="ImprovedShotgun.cpp" />
     <ClCompile Include="ExplosiveBulletPool.cpp" />
@@ -166,6 +169,7 @@
     <ClCompile Include="Melee.cpp" />
     <ClCompile Include="PiercingBulletPool.cpp" />
     <ClCompile Include="PiercingBullet.cpp" />
+    <ClCompile Include="PlasmaSniper.cpp" />
     <ClCompile Include="PlayerArm.cpp" />
     <ClCompile Include="ArmControllerComponent.cpp" />
     <ClCompile Include="BossPanel.cpp" />
@@ -251,6 +255,10 @@
     <ClInclude Include="DialogueTextUI.h" />
     <ClInclude Include="DistanceEnemy.h" />
     <ClInclude Include="EnemyArm.h" />
+    <ClInclude Include="GravityBombCannon.h" />
+    <ClInclude Include="GravityBullet.h" />
+    <ClInclude Include="GravityBulletPool.h" />
+    <ClInclude Include="GunType_def.h" />
     <ClInclude Include="ImprovedRifle.h" />
     <ClInclude Include="ImprovedShotgun.h" />
     <ClInclude Include="ExplosiveBulletPool.h" />
@@ -263,6 +271,7 @@
     <ClInclude Include="Melee.h" />
     <ClInclude Include="PiercingBulletPool.h" />
     <ClInclude Include="PiercingBullet.h" />
+    <ClInclude Include="PlasmaSniper.h" />
     <ClInclude Include="PlayerArm.h" />
     <ClInclude Include="ArmControllerComponent.h" />
     <ClInclude Include="BossPanel.h" />

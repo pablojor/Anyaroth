@@ -31,6 +31,7 @@ void Gun::shoot(PoolWrapper* bulletPool, const Vector2D& position, const double&
 			bulletPool->addNewBullet()->init(_bulletTexture, bulletPos, _speed, _damage, angle, _range, tag);
 	}
 }
+
 void Gun::enemyShoot(PoolWrapper* bulletPool, const Vector2D& position, const double& angle, const string& tag)
 {
 	if (_cadence <= 0)

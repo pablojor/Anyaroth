@@ -4,6 +4,7 @@
 
 PiercingBullet::PiercingBullet(Game* game) : Bullet(game)
 {
+	_body->getBody()->GetFixtureList()->SetSensor(true);
 }
 
 
@@ -14,7 +15,7 @@ PiercingBullet::~PiercingBullet()
 
 void PiercingBullet::beginCollision(GameComponent * other, b2Contact* contact)
 {
-	if (other->getTag() == "Suelo")
+	if (other->getTag() == "Ground")
 		_destroy = true;
 	else if (getTag() == "Bullet" && (other->getTag() == "Enemy"))
 		_collided = true;
@@ -26,21 +27,22 @@ void PiercingBullet::beginCollision(GameComponent * other, b2Contact* contact)
 
 void PiercingBullet::update(double time)
 {
-	if (!isActive())
-		return;
-
-	double dist = _iniPos.distance(_transform->getPosition());
-
-	if (dist < _range && !_collided)
+	if (isActive())
 	{
-		GameComponent::update(time);
+		double dist = _iniPos.distance(_transform->getPosition());
 
-		_body->getBody()->SetLinearVelocity(b2Vec2(_speed * cos(_transform->getRotation() * M_PI / 180.0), _speed * sin(_transform->getRotation() * M_PI / 180.0)));
-		_aliveTime++;
-	}
-	else if (_destroy)
-	{
-		_destroy = false;
-		reset();
+		if (_destroy)
+		{
+			_destroy = false;
+			reset();
+		}
+		else if (dist < _range)
+		{
+			GameComponent::update(time);
+
+			_body->getBody()->SetLinearVelocity(b2Vec2(_speed * cos(_transform->getRotation() * M_PI / 180.0), _speed * sin(_transform->getRotation() * M_PI / 180.0)));
+			_aliveTime++;
+		}
+		
 	}
 }
