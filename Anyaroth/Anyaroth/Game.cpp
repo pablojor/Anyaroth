@@ -163,9 +163,9 @@ void Game::run()
 	}
 }
 
-void Game::update(double time)
+void Game::update(const double& deltaTime)
 {
-	_stateMachine->currentState()->update(time);
+	_stateMachine->currentState()->update(deltaTime);
 }
 
 void Game::render() const

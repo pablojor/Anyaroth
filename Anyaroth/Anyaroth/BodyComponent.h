@@ -19,7 +19,7 @@ public:
 	BodyComponent(GameComponent* obj, double x, double y, double w, double h);
 	virtual ~BodyComponent();
 
-	virtual void update(double time);
+	virtual void update(const double& deltaTime);
 
 	inline b2Body* getBody() const { return _body; }
 

@@ -25,5 +25,5 @@ public:
 
 	Gun* getGun() { return _myGun; }
 
-	virtual void update(double time);
+	virtual void update(const double& deltaTime);
 };

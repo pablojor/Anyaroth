@@ -3,7 +3,6 @@
 #include "PauseState.h"
 #include "PlayStateHUD.h"
 #include "checkML.h"
-#include <time.h>
 
 PlayState::PlayState(Game* g) : GameState(g)
 {
@@ -93,9 +92,9 @@ bool PlayState::handleEvents(SDL_Event& e)
 	return handled;
 }
 
-void PlayState::update(double time)
+void PlayState::update(const double& deltaTime)
 {
-	GameState::update(time);
+	GameState::update(deltaTime);
 
 	if (_player->isDead())
 	{

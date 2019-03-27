@@ -44,7 +44,7 @@ public:
 	DialoguePanel(Game* game);
 	~DialoguePanel();
 
-	virtual void update(double time);
+	virtual void update(const double& deltaTime);
 	virtual void handleEvent(const SDL_Event& event);
 
 	inline bool isConversating() const { return _isConversating; }

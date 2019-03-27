@@ -19,7 +19,7 @@ StaticSpawnerEnemy::StaticSpawnerEnemy(Player * player, Game * g, PlayState * pl
 	_body->getBody()->SetGravityScale(0);
 }
 
-void StaticSpawnerEnemy::update(double time)
+void StaticSpawnerEnemy::update(const double& deltaTime)
 {
 	BodyComponent* _playerBody = _player->getComponent<BodyComponent>();
 
@@ -29,7 +29,7 @@ void StaticSpawnerEnemy::update(double time)
 
 	if (!_dead && _activated)
 	{
-		Enemy::update(time);
+		Enemy::update(deltaTime);
 		currentEnemies = activeEnemies();
 
 		if (inCamera())
@@ -43,7 +43,7 @@ void StaticSpawnerEnemy::update(double time)
 
 			}
 			else
-				_time += time;
+				_time += deltaTime;
 		}
 	}
 	else

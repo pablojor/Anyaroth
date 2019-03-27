@@ -14,7 +14,7 @@ public:
 	Melee(Game* g);
 	virtual ~Melee() {}
 
-	virtual void update(double time) {}
+	virtual void update(const double& deltaTime) {}
 
 	void meleeAttack(double x, double y, int dir);
 	void beginCollision(GameComponent * other, b2Contact* contact);

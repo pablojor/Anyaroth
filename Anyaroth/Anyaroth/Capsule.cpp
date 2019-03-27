@@ -33,9 +33,9 @@ Capsule::Capsule(Player* player, Game* g, PlayState* play, Texture* texture, Vec
 
 }
 
-void Capsule::update(double time)
+void Capsule::update(const double& deltaTime)
 {
-	Enemy::update(time);
+	Enemy::update(deltaTime);
 	if (_spawning)
 	{
 		//if( animacion de spawn terminada)

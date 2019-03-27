@@ -15,7 +15,7 @@ public:
 	~ImageUI() {}
 
 	virtual void render() const;
-	virtual void update(double time) {}
+	virtual void update(const double& deltaTime) {}
 	virtual void handleEvent(const SDL_Event& event) {}
 
 	inline void setImage(Texture* image) { _image = image; }

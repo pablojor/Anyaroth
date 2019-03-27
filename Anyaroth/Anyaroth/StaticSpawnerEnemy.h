@@ -14,5 +14,5 @@ public:
 
 	int activeEnemies();
 
-	virtual void update(double time);
+	virtual void update(const double& deltaTime);
 };

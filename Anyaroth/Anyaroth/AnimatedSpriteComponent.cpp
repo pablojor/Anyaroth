@@ -22,9 +22,9 @@ void AnimatedSpriteComponent::render(Camera* c) const
 	}
 }
 
-void AnimatedSpriteComponent::update(double time)
+void AnimatedSpriteComponent::update(const double& deltaTime)
 {
-	_timer += time;
+	_timer += deltaTime;
 
 	if (_timer >= _animations[_currentAnim].lapse)
 	{

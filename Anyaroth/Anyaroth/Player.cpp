@@ -205,14 +205,14 @@ bool Player::handleInput(const SDL_Event& event)
 	return false;
 }
 
-void Player::update(double time)
+void Player::update(const double& deltaTime)
 {
 	const Uint8* keyboard = SDL_GetKeyboardState(NULL);
-	GameComponent::update(time);
+	GameComponent::update(deltaTime);
 
 	checkMovement(keyboard);
 	checkMelee();
-	refreshCooldowns(time);
+	refreshCooldowns(deltaTime);
 	handleAnimations();
 }
 

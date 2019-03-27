@@ -28,9 +28,9 @@ MartyrEnemy::MartyrEnemy(Player* player, Game* g, PlayState* play,Texture* textu
 	_body->filterCollisions(ENEMIES, FLOOR | PLAYER_BULLETS | MELEE);
 }
 
-void MartyrEnemy::update(double time)
+void MartyrEnemy::update(const double& deltaTime)
 {
-	Enemy::update(time);
+	Enemy::update(deltaTime);
 	if (!_dead && inCamera())
 	{
 		
@@ -90,7 +90,7 @@ void MartyrEnemy::update(double time)
 		else if (_attacking)
 		{
 			if(_attackTime<_time)
-			//if (time > _time + _attackTime)
+			//if (deltaTime > _time + _attackTime)
 			{
 
 				if ((x < _explosionRange && x > -_explosionRange) && y < _explosionRange && y > -_explosionRange)
@@ -107,7 +107,7 @@ void MartyrEnemy::update(double time)
 				_dead = true;
 				die();
 			}
-			_time += time;
+			_time += deltaTime;
 		}
 		else
 		{

@@ -10,5 +10,5 @@ public:
 	Axe(Game* g);
 	virtual ~Axe() {}
 
-	void update(double time);
+	void update(const double& deltaTime);
 };

@@ -31,15 +31,15 @@ void GameState::render() const
 		_canvas->render();
 }
 
-void GameState::update(double time)
+void GameState::update(const double& deltaTime)
 {
-	_mainCamera->update(time);
+	_mainCamera->update(deltaTime);
 
 	for (GameObject* o : _stages)
-		o->update(time);
+		o->update(deltaTime);
 
 	if (_canvas != nullptr)
-		_canvas->update(time);
+		_canvas->update(deltaTime);
 }
 
 bool GameState::handleEvents(SDL_Event& e)
@@ -95,6 +95,40 @@ Vector2D GameState::getMousePositionInWorld() const
 	//Lo convertimos en su posicion en el mundo
 	xMousePos += getMainCamera()->getCameraPosition().getX();
 	yMousePos += getMainCamera()->getCameraPosition().getY();
+
+	return Vector2D(xMousePos, yMousePos);
+}
+
+Vector2D GameState::getMousePositionOnScreen() const
+{
+	int winWidth = 0;	int winHeight = 0;
+	SDL_GetWindowSize(_gameptr->getWindow(), &winWidth, &winHeight);
+
+	//Sacamos la resolucion real que tiene el juego en la ventana
+	int gameWidth; int gameHeight;
+	gameWidth = GAME_RESOLUTION_X * winHeight / GAME_RESOLUTION_Y;
+
+	if (gameWidth > winWidth)
+	{
+		gameHeight = GAME_RESOLUTION_Y * winWidth / GAME_RESOLUTION_X;
+		gameWidth = GAME_RESOLUTION_X * gameHeight / GAME_RESOLUTION_Y;
+	}
+	else
+		gameHeight = GAME_RESOLUTION_Y * gameWidth / GAME_RESOLUTION_X;
+
+	//Bordes negros
+	int xBorder = winWidth - gameWidth;
+	int yBorder = winHeight - gameHeight;
+
+	//Cogemos su posicion en pantalla
+	int xMousePos = 0;	int yMousePos = 0;
+	SDL_GetMouseState(&xMousePos, &yMousePos);
+
+	xMousePos -= xBorder / 2;
+	yMousePos -= yBorder / 2;
+
+	/*xMousePos = (xMousePos * _mainCamera->getCameraSize().getX()) / gameWidth;
+	yMousePos = (yMousePos * _mainCamera->getCameraSize().getY()) / gameHeight;*/
 
 	return Vector2D(xMousePos, yMousePos);
 }

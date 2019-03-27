@@ -12,7 +12,7 @@ DialogueTextUI::~DialogueTextUI()
 {
 }
 
-void DialogueTextUI::update(double time)
+void DialogueTextUI::update(const double& deltaTime)
 {
 	if (_visible)
 	{
@@ -46,7 +46,7 @@ void DialogueTextUI::update(double time)
 				_time = 0;
 				_character++;
 			}
-			_time += time;
+			_time += deltaTime;
 		}
 		else
 			_textTyped = true;

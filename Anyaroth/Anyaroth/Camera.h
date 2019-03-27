@@ -19,7 +19,7 @@ private:
 	BackGround* _backGround = nullptr;
 
 	void moveCamera();
-	void smoothCameraZoom(/*const double& time*/);
+	void smoothCameraZoom(/*const double& deltaTime*/);
 
 	pair<bool, int> _cameraStatus = pair<bool, int>(false, 0);
 	int _zoom = CAMERA_SCALE_FACTOR; int _zoomGoal = CAMERA_SCALE_FACTOR;
@@ -55,6 +55,6 @@ public:
 	inline void zoomOut() { _zoom++; _zoomGoal = _zoom; setCameraSize(CAMERA_ASPECT_RATIO_X * _zoom, CAMERA_ASPECT_RATIO_Y * _zoom); }
 	inline void zoomIn() { _zoom - 1 < 0 ? _zoom = 0 : _zoom--; _zoomGoal = _zoom; setCameraSize(CAMERA_ASPECT_RATIO_X * _zoom, CAMERA_ASPECT_RATIO_Y * _zoom); }
 
-	void update(const double& time);
+	void update(const double& deltaTime);
 	void render() const;
 };

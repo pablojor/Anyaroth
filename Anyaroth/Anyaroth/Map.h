@@ -31,6 +31,6 @@ public:
 	void restartLevel();
 
 	virtual bool handleInput(const SDL_Event& event);
-	virtual void update(double time);
+	virtual void update(const double& deltaTime);
 	virtual void render(Camera* c) const;
 };

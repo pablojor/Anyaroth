@@ -255,6 +255,7 @@
     </ClCompile>
     <ClCompile Include="ShopPanel.cpp" />
     <ClCompile Include="ShopItem.cpp" />
+    <ClCompile Include="ButtonUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -532,6 +533,7 @@
     </ClInclude>
     <ClInclude Include="ShopPanel.h" />
     <ClInclude Include="ShopItem.h" />
+    <ClInclude Include="ButtonUI.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de código fuente">

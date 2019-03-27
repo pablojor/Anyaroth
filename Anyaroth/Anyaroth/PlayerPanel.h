@@ -6,6 +6,7 @@
 #include "AmmoViewer.h"
 #include "WeaponryViewer.h"
 #include "DashViewer.h"
+#include "ButtonUI.h"
 
 class PlayerPanel : public PanelUI
 {
@@ -17,6 +18,8 @@ class PlayerPanel : public PanelUI
 		CoinsCounter* _coinsCounter = nullptr;
 		WeaponryViewer* _weaponryViewer = nullptr;
 		DashViewer* _dashViewer = nullptr;
+
+		ButtonUI* _button = nullptr;
 
 	public:
 		PlayerPanel() {};

@@ -8,5 +8,5 @@ private:
 
 public:
 	MartyrEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag);
-	virtual void update(double time);
+	virtual void update(const double& deltaTime);
 };

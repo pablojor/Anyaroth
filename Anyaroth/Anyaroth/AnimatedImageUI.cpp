@@ -21,9 +21,9 @@ void AnimatedImageUI::render() const
 	}
 }
 
-void AnimatedImageUI::update(double time)
+void AnimatedImageUI::update(const double& deltaTime)
 {
-	_timer += time;
+	_timer += deltaTime;
 
 	if (_timer >= _animations[_currentAnim].lapse)
 	{

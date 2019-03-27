@@ -12,7 +12,7 @@ public:
 	FlyingEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag);
 	virtual ~FlyingEnemy();
 
-	void update(double time);
+	void update(const double& deltaTime);
 
 	void beginCollision(GameComponent * other, b2Contact* contact);
 };

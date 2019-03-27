@@ -7,9 +7,9 @@ HurtRenderComponent::HurtRenderComponent(GameComponent * obj) : PhysicsComponent
 	_texture = obj->getComponent<Texture>();
 }
 
-void HurtRenderComponent::update(double time)
+void HurtRenderComponent::update(const double& deltaTime)
 {
-	_timer += time;
+	_timer += deltaTime;
 
 	if (_hurt && _timer >= _startTime)
 	{

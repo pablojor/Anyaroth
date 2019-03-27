@@ -175,9 +175,9 @@ void DialoguePanel::nextText()
 	return true;
 }*/
 
-void DialoguePanel::update(double time)
+void DialoguePanel::update(const double& deltaTime)
 {
-	PanelUI::update(time);
+	PanelUI::update(deltaTime);
 
 	if (_visible)
 	{

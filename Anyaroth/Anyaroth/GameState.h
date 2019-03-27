@@ -24,13 +24,13 @@ public:
 	virtual ~GameState();
 
 	virtual void render() const;
-	virtual void update(double time);
+	virtual void update(const double& deltaTime);
 	virtual bool handleEvents(SDL_Event& e);
 
 	inline virtual Camera* getMainCamera() const { return _mainCamera; }
 	inline virtual list<GameObject*>& getObjects() { return _stages; }
 	inline virtual void setCanvas(Canvas* canvas) { _canvas = canvas; }
 	Vector2D getMousePositionInWorld() const;
-
+	Vector2D getMousePositionOnScreen() const;
 
 };
