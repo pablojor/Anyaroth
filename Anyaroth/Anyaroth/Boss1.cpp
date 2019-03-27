@@ -55,16 +55,10 @@ void Boss1::update(const double& deltaTime)
 
 		movement(deltaTime);
 		checkMelee();
-		
-		if (_fase1)
-			Fase1(deltaTime);
-		else if (_fase2)
-			Fase2(deltaTime);
-		else if (_fase3)
 
-			Fase3(deltaTime);
-		else
-			beetwenFases(deltaTime);
+
+		Fase3(deltaTime);
+;
 	}
 }
 void Boss1::manageLife(Life& l, bool& actualFase, int damage)
@@ -218,7 +212,7 @@ void Boss1::orbAttack()
 			move = true;
 			_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 
-			_doSomething = random(800, 1500);
+			_doSomething = random(1000, 2500);
 		}
 		else
 		{
@@ -327,6 +321,7 @@ void Boss1::Fase3(const double& deltaTime)
 			if (!_orbAttacking)
 			{
 				if (_noAction > _doSomething)
+				{
 					int ra = random(0, 100);
 					if (ra >= 70)
 					{
@@ -336,6 +331,7 @@ void Boss1::Fase3(const double& deltaTime)
 					}
 					else
 						Fase2(deltaTime);
+				}
 				else
 					_noAction += deltaTime;		
 			}
