@@ -2,13 +2,17 @@
 #include "GameComponent.h"
 #include "AnimatedSpriteComponent.h"
 #include "Player.h"
+#include "BasicRifle.h"
+#include "ImprovedRifle.h"
+
 
 
 Boss1::Boss1(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag, BulletPool* pool, ExplosiveBulletPool* explosivePool) : DistanceEnemy(player, g, play, texture, posIni, tag, pool)
 {
 	_myExplosivePool = explosivePool;
 	_bombTexture = g->getTexture("PistolBullet");
-
+	delete(_myGun);
+	_myGun = new ImprovedRifle(g);
 
 	_attackRange = 120; //No se puede poner mas pequeño que la velocidad
 	_attackTime = 1300; //La animacion tarda unos 450
@@ -160,10 +164,43 @@ void Boss1::checkMelee()
 	}
 }
 
-void Boss1::armShoot()
+void Boss1::armShoot(const double& deltaTime)
 {
-	_arm->shoot();
-	_myGun->enemyShoot(_myBulletPool, _arm->getPosition(), !_anim->isFlipped() ? _arm->getAngle() + random(-_fail, _fail) : _arm->getAngle() + 180 + random(-_fail, _fail), "EnemyBullet");
+	//_arm->shoot();
+	_bodyPos = Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL);
+	_dirB = (_bodyPos.getX() >= _playerPos.getX()) ? -1 : 1;
+	_timeOnShooting += deltaTime;
+	_armVision = false;
+	move = false;
+	if (_actualBullet == 0 && !ida)
+	{
+		_shooting = false;
+		_timeOnShooting = 0;
+		move = true;
+		_armVision = true;
+		ida = true;
+		_timeBeetwenBullets = 50;
+		_doSomething = random(1200, 1600);
+	}
+	else {
+		if (_actualBullet == 0 && ida)
+		{
+			double x = _playerPos.getX() - _bodyPos.getX();
+			double y = _playerPos.getY() - _bodyPos.getY();
+			_inicialAngle = (atan2(y, x) * 180 / M_PI) - _dirB * _numBullets / 2 * _angleIncrease;
+
+			_angle = _inicialAngle;
+			shootBullet();
+		}
+		else if (_timeOnShooting >= _timeBeetwenBullets)
+		{
+			shootBullet();
+			_timeBeetwenBullets += 50;
+		}
+	}
+	
+
+	//_myGun->enemyShoot(_myBulletPool, _bodyPos, !_anim->isFlipped() ? angle : angle + 180, "EnemyBullet");
 }
 
 void Boss1::orbAttack()
@@ -212,40 +249,54 @@ void Boss1::beginCollision(GameComponent * other, b2Contact * contact)
 
 void Boss1::Fase1(const double& deltaTime)
 {
-	if (_noAction > _doSomething)
+	if (!_shooting)
 	{
-		int ra = random(0, 100);
-		if (ra >= 70 && !isMeleeing())
+		if (_noAction > _doSomething)
 		{
-			meleeAttack();
+			int ra = random(0, 100);
 
-			_noAction = 0;
+			if (ra >= 70 && !isMeleeing())
+			{
+
+				meleeAttack();
+
+				_noAction = 0;
+			}
+
+
+			else if (!isMeleeing())
+			{
+				armShoot(deltaTime);
+				_shooting = true;
+				//_doSomething = random(400, 800);
+				_noAction = 0;
+			}
 		}
-		else if (!isMeleeing())
-		{
-			armShoot();
-			_doSomething = random(400, 800);
-			_noAction = 0;
-		}
+		else
+			_noAction += deltaTime;
 	}
 	else
-		_noAction += deltaTime;
-	
+		armShoot(deltaTime);
 }
 void Boss1::Fase2(const double& deltaTime)
 {
 	if (!_bomberAttacking)
 	{
-		if (_noAction > _doSomething)
+		if (!_shooting)
 		{
 			int ra = random(0, 100);
 			if (ra >= 80)
 			{
 
-				_bomberAttacking = true;
-				bomberAttack(deltaTime, 100, 200);
+				if (_noAction > _doSomething)
+				{
+					_bomberAttacking = true;
+					bomberAttack(deltaTime, 100, 200);
 
-				_noAction = 0;
+					_noAction = 0;
+				}
+				else
+					_noAction += deltaTime;
 			}
 			else
 			{
@@ -254,7 +305,7 @@ void Boss1::Fase2(const double& deltaTime)
 			}
 		}
 		else
-			_noAction += deltaTime;
+			armShoot(deltaTime);
 	}
 	else
 		bomberAttack(deltaTime, 100, 200);
@@ -263,19 +314,24 @@ void Boss1::Fase3(const double& deltaTime)
 {
 	if (!_bomberAttacking)
 	{
-		if (!_orbAttacking)
+		if (!_shooting)
 		{
-			int ra = random(0, 100);
-			if (ra >= 70)
+			if (!_orbAttacking)
 			{
-				_anim->playAnim(AnimatedSpriteComponent::EnemyDie);//Sera animacion de orbAttack
-				_orbAttacking = true;
+				int ra = random(0, 100);
+				if (ra >= 70)
+				{
+					_anim->playAnim(AnimatedSpriteComponent::EnemyDie);//Sera animacion de orbAttack
+					_orbAttacking = true;
+				}
+				else
+					Fase2(deltaTime);
 			}
 			else
-				Fase2(deltaTime);
+				orbAttack();
 		}
 		else
-			orbAttack();
+			armShoot(deltaTime);
 	}
 	else
 		bomberAttack(deltaTime, 100, 200);
@@ -334,6 +390,50 @@ void Boss1::throwOrb()
 		Bullet* b2 = _myExplosivePool->addNewBullet();
 
 		b2->init(_bombTexture, helpPos, 0, 10, 90, _bombRange, "EnemyBullet");
+		b2->changeFilter();
+	}
+}
+
+void Boss1::shootBullet()
+{
+	if (ida)
+	{
+		
+		/*_myGun->enemyShoot(_myBulletPool, _bodyPos, !_anim->isFlipped() ? _angle : _angle + 180, "EnemyBullet");*/
+		shoot();
+		_angle += _angleIncrease* _dirB;
+		_actualBullet++;
+		if(_actualBullet==10)
+		{
+			ida = false;
+		}
+
+	}
+	else
+	{
+		_angle -= _angleIncrease * _dirB;
+		shoot();
+		
+		_actualBullet--;
+		
+	}
+	
+}
+
+
+void Boss1::shoot()
+{
+	Bullet* b = _myBulletPool->getUnusedObject();
+	
+	if (b != nullptr)
+	{
+		b->init(_game->getTexture("PistolBullet") , _bodyPos, 8, _damage, _angle, 1000, "EnemyBullet");
+		b->changeFilter();
+	}
+	else
+	{
+		Bullet* b2 = _myBulletPool->addNewBullet();
+		b2->init(_game->getTexture("PistolBullet"), _bodyPos, 8, _damage, _angle, 1000, "EnemyBullet");
 		b2->changeFilter();
 	}
 }

@@ -27,7 +27,7 @@ void BotonLanzaMisiles::update(const double & deltaTime)
 {
 	Interactable::update(deltaTime);
 
-	if (usable && !ready)
+	if (usable )
 		ready = _boss->isbeetweenFases();
 	if (_canInteract)
 	{
@@ -45,7 +45,7 @@ BotonLanzaMisiles::~BotonLanzaMisiles()
 
 void BotonLanzaMisiles::interact()
 {
-	if (ready)
+	if (usable &&ready)
 	{
 		MisilBoss1 * misil = new MisilBoss1(_boss, _game, _play, _game->getTexture("PistolBullet"), _transform->getPosition(), "Misil");
 		_play->addObject(misil);
