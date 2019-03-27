@@ -1,5 +1,6 @@
 #pragma once
 #include "DistanceEnemy.h"
+#include "BossPanel.h"
 #include "Axe.h"
 
 class ExplosiveBulletPool;
@@ -14,9 +15,12 @@ class Boss1 : public DistanceEnemy
 		int _lastFase = 0;
 
 		BodyComponent* _playerBody;
-		//Vida
 
-		Life _life1 = 200, _life2 = 200, _life3 = 200;
+		//Vida
+		Life _life1, _life2, _life3;
+
+		//Panel del HUD
+		BossPanel* _bossPanel = nullptr;
 
 		//Cosas para el ataque bombardero
 		ExplosiveBulletPool* _myExplosivePool = nullptr;
@@ -33,8 +37,10 @@ class Boss1 : public DistanceEnemy
 	public:
 		Boss1(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag, BulletPool* pool, ExplosiveBulletPool* explosivePool);
 		virtual ~Boss1() {};
-		virtual void update(const double& deltaTime);
 
+		void setBossPanel(BossPanel* b);
+
+		virtual void update(const double& deltaTime);
 
 		virtual void subLife(int damage);
 		virtual void manageLife(Life& l, bool& actualFase, int damage);

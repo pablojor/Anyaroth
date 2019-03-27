@@ -9,12 +9,16 @@
 #include "Coin.h"
 #include "ExplosiveBulletPool.h"
 #include "Cursor.h"
+#include "PlayStateHUD.h"
 
 class PlayState : public GameState
 {
 private:
 	Player* _player = nullptr;
 	Cursor* _cursor = nullptr;
+
+	//HUD
+	PlayStateHUD* _hud = nullptr;
 
 	//Bullet Pools
 	BulletPool* _playerBulletPool = nullptr; //Balas del jugador
@@ -44,6 +48,7 @@ public:
 	virtual void update(const double& deltaTime);
 	virtual bool handleEvents(SDL_Event& e);
 
+	inline PlayStateHUD* getHUD() const { return _hud; }
 	inline Player* getPlayer() const { return _player; }
 	inline BulletPool* getEnemyPool() const { return _enemyBulletPool; }
 	inline ExplosiveBulletPool* getExplosivePool() const { return _explosivePool; }

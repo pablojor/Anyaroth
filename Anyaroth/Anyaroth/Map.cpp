@@ -119,6 +119,7 @@ void Map::createObjects()
 			{
 				_boss1 = (new Boss1(_player, _game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY()), "Enemy", _playState->getEnemyPool(), _playState->getExplosivePool()));
 				_objects.push_back(_boss1);
+				_boss1->setBossPanel(_playState->getHUD()->getBossPanel());
 			}
 			else if (name == "Misiles")
 			{

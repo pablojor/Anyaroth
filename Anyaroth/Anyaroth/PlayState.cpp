@@ -1,7 +1,6 @@
 #include "PlayState.h"
 #include "Game.h"
 #include "PauseState.h"
-#include "PlayStateHUD.h"
 #include "NPC.h"
 #include "PiercingBulletPool.h"
 #include "checkML.h"
@@ -10,6 +9,10 @@
 
 PlayState::PlayState(Game* g) : GameState(g)
 {
+	//HUD
+	_hud = new PlayStateHUD(g);
+	setCanvas(_hud);
+
 	//Cursor
 	_cursor = new Cursor(g);
 	_stages.push_back(_cursor);
@@ -34,6 +37,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	//_player->setPlayerBulletPool(_bouncingBulletPool);
 
 	_player->setPlayerBulletPool(_playerBulletPool);
+	_player->setPlayerPanel(_hud->getPlayerPanel());
 
 
 	//Pool enemy
@@ -76,6 +80,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 		});
 
 	_stages.push_back(_npc);
+	_npc->setDialoguePanel(_hud->getDialoguePanel());
 
 	//*******
 
@@ -88,18 +93,6 @@ PlayState::PlayState(Game* g) : GameState(g)
 	//Gestion de colisiones
 	g->getWorld()->SetContactListener(&_colManager);
 	g->getWorld()->SetDebugDraw(&_debugger);
-
-
-
-
-
-	//HUD
-	auto b = new PlayStateHUD(g);
-	setCanvas(b);
-
-	//Asignacion de paneles a sus controladores
-	_player->setPlayerPanel(b->getPlayerPanel());
-	_npc->setDialoguePanel(b->getDialoguePanel());
 }
 
 void PlayState::addObject(GameComponent* n)

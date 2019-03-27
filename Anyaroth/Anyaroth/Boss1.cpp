@@ -27,6 +27,18 @@ Boss1::Boss1(Player* player, Game* g, PlayState* play, Texture* texture, Vector2
 	_armVision = true;
 
 	_playerBody = _player->getComponent<BodyComponent>();
+
+	_life = 200;
+	_life1 = _life2 = _life3 = _life;
+}
+
+void Boss1::setBossPanel(BossPanel * b)
+{
+	_bossPanel = b;
+
+	//Actualizamos de primeras el aspecto del Panel del Jugador
+	_bossPanel->updateBossName("Spenta Manyu");
+	_bossPanel->updateLifeBar(_life1.getLife(), _life2.getLife(), _life3.getLife(), _life.getLife());
 }
 
 void Boss1::update(const double& deltaTime)
@@ -75,6 +87,9 @@ void Boss1::subLife(int damage)
 			manageLife(_life2, _fase2, damage);
 		else if (_life3.getLife() > 0)
 			manageLife(_life3, _fase3, damage);
+
+		if (!_beetwenFase)
+			_bossPanel->updateLifeBar(_life1.getLife(), _life2.getLife(), _life3.getLife(), _life.getLife());
 	}
 }
 void Boss1::movement(const double& deltaTime)
@@ -165,6 +180,8 @@ void Boss1::beginCollision(GameComponent * other, b2Contact * contact)
 			_beetwenFase = false;
 			die();
 		}
+
+		_bossPanel->updateLifeBar(_life1.getLife(), _life2.getLife(), _life3.getLife(), _life.getLife());
 	}
 
 }

@@ -32,7 +32,13 @@ void BossPanel::updateLifeBar(const int& life1, const int& life2, const int& lif
 		if (!_lifeBar_1->getInUse())
 		{
 			_lifeBar_1->setInUse(true);
+
+			_lifeBar_2->setInUse(true);
+			_lifeBar_2->updateLifeBar(life2, maxLife);
 			_lifeBar_2->setInUse(false);
+
+			_lifeBar_3->setInUse(true);
+			_lifeBar_3->updateLifeBar(life3, maxLife);
 			_lifeBar_3->setInUse(false);
 		}
 
@@ -42,7 +48,14 @@ void BossPanel::updateLifeBar(const int& life1, const int& life2, const int& lif
 	{
 		if (!_lifeBar_2->getInUse())
 		{
+			_lifeBar_1->setInUse(true);
+			_lifeBar_1->updateLifeBar(life1, maxLife);
+			_lifeBar_1->setInUse(false);
+
 			_lifeBar_2->setInUse(true);
+
+			_lifeBar_3->setInUse(true);
+			_lifeBar_3->updateLifeBar(life3, maxLife);
 			_lifeBar_3->setInUse(false);
 		}
 
@@ -51,8 +64,20 @@ void BossPanel::updateLifeBar(const int& life1, const int& life2, const int& lif
 	else
 	{
 		if (!_lifeBar_3->getInUse())
+		{
+			_lifeBar_2->setInUse(true);
+			_lifeBar_2->updateLifeBar(life2, maxLife);
+			_lifeBar_2->setInUse(false);
+
 			_lifeBar_3->setInUse(true);
+		}
 
 		_lifeBar_3->updateLifeBar(life3, maxLife);
 	}
+}
+
+void BossPanel::updateBossName(const string& name) 
+{ 
+	_bossName->setText(name); 
+	_bossName->setPosition(CAMERA_RESOLUTION_X / 2 - _bossName->getW() / 2, _lifeBar_1->getY() - _bossName->getH() - 3);
 }

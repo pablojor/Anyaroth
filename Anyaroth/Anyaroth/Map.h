@@ -3,6 +3,7 @@
 #include "Layer.h"
 #include "ObjectLayer.h"
 #include "Boss1.h"
+#include "PlayStateHUD.h"
 #include <vector>
 
 class PlayState;
