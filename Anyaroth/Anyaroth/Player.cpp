@@ -222,6 +222,11 @@ void Player::update(const double& deltaTime)
 	const Uint8* keyboard = SDL_GetKeyboardState(NULL);
 	GameComponent::update(deltaTime);
 
+	if (isDashing() || isMeleeing() || isReloading())
+		_playerArm->setActive(false);
+	else
+		_playerArm->setActive(true);
+
 	checkMovement(keyboard);
 	checkMelee();
 	refreshCooldowns(deltaTime);

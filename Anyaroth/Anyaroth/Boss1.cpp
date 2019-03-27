@@ -7,7 +7,7 @@
 
 
 
-Boss1::Boss1(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag, BulletPool* pool, ExplosiveBulletPool* explosivePool, BouncingBulletPool* bouncingPool) : DistanceEnemy(player, g, play, texture, posIni, tag, pool)
+Boss1::Boss1(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag, BulletPool* pool, ExplosiveBulletPool* explosivePool, BouncingBulletPool* bouncingPool) : Boss(player, g, play, texture, posIni, tag, pool)
 {
 	_myExplosivePool = explosivePool;
 	_myBouncingBulletPool = bouncingPool;
@@ -35,68 +35,18 @@ Boss1::Boss1(Player* player, Game* g, PlayState* play, Texture* texture, Vector2
 
 	_playerBody = _player->getComponent<BodyComponent>();
 
-	_life = 200;
-	_life1 = _life2 = _life3 = _life;
-}
-
-void Boss1::setBossPanel(BossPanel * b)
-{
-	_bossPanel = b;
-
-	//Actualizamos de primeras el aspecto del Panel del Jugador
-	_bossPanel->updateBossName("Spenta Manyu");
-	_bossPanel->updateLifeBar(_life1.getLife(), _life2.getLife(), _life3.getLife(), _life.getLife());
 }
 
 void Boss1::update(const double& deltaTime)
 {
+	Boss::update(deltaTime);
 	if (!_dead)
 	{
-		DistanceEnemy::update(deltaTime);
-
-		movement(deltaTime);
 		checkMelee();
-
-
-		if (_fase1)
-			Fase1(deltaTime);
-		else if (_fase2)
-			Fase2(deltaTime);
-		else if (_fase3)
-			Fase3(deltaTime);
-		else
-			beetwenFases(deltaTime);
-	}
-}
-void Boss1::manageLife(Life& l, bool& actualFase, int damage)
-{
-	_hurt->hurt();
-	l.subLife(damage);
-	if (l.dead())
-	{
-		actualFase = false;
-		_beetwenFase = true;
-
-		_doSomething = 0;
-		_lastFase++;
 	}
 }
 
-void Boss1::subLife(int damage)
-{
-	if (!_dead && !_beetwenFase)
-	{
-		if (_life1.getLife() > 0)
-			manageLife(_life1, _fase1, damage);
-		else if (_life2.getLife() > 0)
-			manageLife(_life2, _fase2, damage);
-		else if (_life3.getLife() > 0)
-			manageLife(_life3, _fase3, damage);
 
-		if (!_beetwenFase)
-			_bossPanel->updateLifeBar(_life1.getLife(), _life2.getLife(), _life3.getLife(), _life.getLife());
-	}
-}
 void Boss1::movement(const double& deltaTime)
 {
 	if (move)
@@ -234,11 +184,10 @@ void Boss1::orbAttack()
 
 void Boss1::beginCollision(GameComponent * other, b2Contact * contact)
 {
-	DistanceEnemy::beginCollision(other, contact);
+	Boss::beginCollision(other, contact);
 
 	string otherTag = other->getTag();
 	
-
 	if ( otherTag == "Misil" && _beetwenFase)
 	{
 		if (_lastFase == 1)
@@ -266,14 +215,18 @@ void Boss1::Fase1(const double& deltaTime)
 
 			if (ra >= 65 && !isMeleeing())
 			{
+
 				meleeAttack();
+
 				_noAction = 0;
 			}
+
 
 			else if (!isMeleeing())
 			{
 				armShoot(deltaTime);
 				_shooting = true;
+				//_doSomething = random(400, 800);
 				_noAction = 0;
 			}
 		}
@@ -292,6 +245,7 @@ void Boss1::Fase2(const double& deltaTime)
 			int ra = random(0, 100);
 			if (ra >= 70)
 			{
+
 				if (_noAction > _doSomething)
 				{
 					_bomberAttacking = true;
@@ -354,9 +308,7 @@ void Boss1::beetwenFases(const double& deltaTime)
 
 void Boss1::changeFase(bool& nextFase)
 {
-	_beetwenFase = false;
-	nextFase = true;
-	_armVision = true;
+	Boss::changeFase(nextFase);
 
 	_bomberAttacking = false;
 	_timeOnBomberAttack = 0;
@@ -398,7 +350,7 @@ void Boss1::throwOrb()
 	{
 		Bullet* b2 = _myExplosivePool->addNewBullet();
 
-		b2->init(_game->getTexture("Coin"), helpPos, 20, 10, random(80, 180), _bombRange, "EnemyBullet");
+		b->init(_game->getTexture("Coin"), helpPos, 20, 10, random(80, 180), _bombRange, "EnemyBullet");
 		b2->changeFilter();
 	}
 }

@@ -1,27 +1,16 @@
 #pragma once
-#include "DistanceEnemy.h"
+#include "Boss.h"
 #include "BossPanel.h"
 #include "Axe.h"
 
 class ExplosiveBulletPool;
 class BouncingBulletPool;
 
-class Boss1 : public DistanceEnemy
+class Boss1 : public Boss
 {
 	private:
-
-		bool _fase1 = true, _fase2 = false, _fase3 = false, _beetwenFase = false, move= true;
-		Vector2D _bodyPos, _playerPos, _originalPos, _amplitude = Vector2D(200,25), _velocity = Vector2D(0.5, 0.5), _dir = Vector2D(1,0);
+		Vector2D _amplitude = Vector2D(200,25), _velocity = Vector2D(0.5, 0.5), _dir = Vector2D(1,0);
 		double  _damage = 50, _angularFrequency = 0.05, _k = _angularFrequency / _velocity.distance(Vector2D());
-		int _lastFase = 0;
-
-		BodyComponent* _playerBody;
-
-		//Vida
-		Life _life1, _life2, _life3;
-
-		//Panel del HUD
-		BossPanel* _bossPanel = nullptr;
 
 		//Cosas para el ataque bombardero
 		ExplosiveBulletPool* _myExplosivePool = nullptr;
@@ -38,9 +27,6 @@ class Boss1 : public DistanceEnemy
 		int _numBullets = 10, _actualBullet = 0, _dirB;
 		double _angleIncrease = 7.5, _inicialAngle = 0,_angle=0;
 
-		//Tiempo entre acciones
-		int _doSomething = 1000, _noAction = 0;
-
 		//Cosas del ataque orbe
 		BouncingBulletPool* _myBouncingBulletPool = nullptr;
 		bool _orbAttacking = false;
@@ -48,22 +34,17 @@ class Boss1 : public DistanceEnemy
 
 	private:
 		void shoot();
+
 	public:
 		Boss1(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag, BulletPool* pool, ExplosiveBulletPool* explosivePool, BouncingBulletPool* bouncingPool);
 		virtual ~Boss1() {};
 
-		void setBossPanel(BossPanel* b);
-
 		virtual void update(const double& deltaTime);
-
-		virtual void subLife(int damage);
-		virtual void manageLife(Life& l, bool& actualFase, int damage);
 
 		void movement(const double& deltaTime);
 		void bomberAttack(const double& deltaTime,int t1, int t2);
 		void meleeAttack();
 		bool inline const isMeleeing() { return ((_anim->getCurrentAnim() == AnimatedSpriteComponent::EnemyAttack) && !_anim->animationFinished()); }
-		bool inline const isbeetweenFases() {return _beetwenFase;}
 		void checkMelee();
 		void armShoot(const double& deltaTime);
 
