@@ -117,7 +117,7 @@ void Map::createObjects()
 			}
 			else if (name == "Boss1")
 			{
-				_boss1 = (new Boss1(_player, _game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY()), "Enemy", _playState->getEnemyPool(), _playState->getExplosivePool()));
+				_boss1 = (new Boss1(_player, _game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY()), "Enemy", _playState->getEnemyPool(), _playState->getExplosivePool(), _playState->getBouncingPool()));
 				_objects.push_back(_boss1);
 				_boss1->setBossPanel(_playState->getHUD()->getBossPanel());
 			}

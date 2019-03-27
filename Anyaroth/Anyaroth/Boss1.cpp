@@ -7,9 +7,10 @@
 
 
 
-Boss1::Boss1(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag, BulletPool* pool, ExplosiveBulletPool* explosivePool) : DistanceEnemy(player, g, play, texture, posIni, tag, pool)
+Boss1::Boss1(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag, BulletPool* pool, ExplosiveBulletPool* explosivePool, BouncingBulletPool* bouncingPool) : DistanceEnemy(player, g, play, texture, posIni, tag, pool)
 {
 	_myExplosivePool = explosivePool;
+	_myBouncingBulletPool = bouncingPool;
 	_bombTexture = g->getTexture("PistolBullet");
 	delete(_myGun);
 	_myGun = new ImprovedRifle(g);
@@ -56,9 +57,14 @@ void Boss1::update(const double& deltaTime)
 		movement(deltaTime);
 		checkMelee();
 
-
-		Fase3(deltaTime);
-;
+		if (_fase1)
+			Fase1(deltaTime);
+		else if (_fase2)
+			Fase2(deltaTime);
+		else if (_fase3)
+			Fase3(deltaTime);
+		else
+			beetwenFases(deltaTime);
 	}
 }
 void Boss1::manageLife(Life& l, bool& actualFase, int damage)
@@ -202,7 +208,7 @@ void Boss1::orbAttack()
 
 	if (_anim->animationFinished())
 	{
-		throwBomb();
+		throwOrb();
 		_actualNumOrbs++;
 
 		if (_actualNumOrbs >= _numOrbs)
@@ -257,7 +263,7 @@ void Boss1::Fase1(const double& deltaTime)
 		{
 			int ra = random(0, 100);
 
-			if (ra >= 70 && !isMeleeing())
+			if (ra >= 65 && !isMeleeing())
 			{
 
 				meleeAttack();
@@ -323,7 +329,7 @@ void Boss1::Fase3(const double& deltaTime)
 				if (_noAction > _doSomething)
 				{
 					int ra = random(0, 100);
-					if (ra >= 70)
+					if (ra >= 80)
 					{
 						_anim->playAnim(AnimatedSpriteComponent::EnemyDie);//Sera animacion de orbAttack
 						_orbAttacking = true;
@@ -384,20 +390,19 @@ void Boss1::throwBomb()
 
 void Boss1::throwOrb()
 {
-	Bullet* b = _myExplosivePool->getUnusedObject();
-	Vector2D helpPos = Vector2D(random(100, 700 /*Fututo tope por la derecha*/), 200);
-	Vector2D bulletPos = helpPos.rotateAroundPoint(90, helpPos);
+	Bullet* b = _myBouncingBulletPool->getUnusedObject();
+	Vector2D helpPos = Vector2D(_body->getBody()->GetPosition().x * 8, _body->getBody()->GetPosition().y * 8);
 
 	if (b != nullptr)
 	{
-		b->init(_bombTexture, helpPos, 0, 10, 90, _bombRange, "EnemyBullet");
+		b->init(_bombTexture, helpPos, 10, 10, random(20,180), _bombRange, "EnemyBullet");
 		b->changeFilter();
 	}
 	else
 	{
 		Bullet* b2 = _myExplosivePool->addNewBullet();
 
-		b2->init(_bombTexture, helpPos, 0, 10, 90, _bombRange, "EnemyBullet");
+		b2->init(_bombTexture, helpPos, 10, 10, random(80, 120), _bombRange, "EnemyBullet");
 		b2->changeFilter();
 	}
 }

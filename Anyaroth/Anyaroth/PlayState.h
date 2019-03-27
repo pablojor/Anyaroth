@@ -52,6 +52,7 @@ public:
 	inline Player* getPlayer() const { return _player; }
 	inline BulletPool* getEnemyPool() const { return _enemyBulletPool; }
 	inline ExplosiveBulletPool* getExplosivePool() const { return _explosivePool; }
+	inline BouncingBulletPool* getBouncingPool() const { return _bouncingBulletPool; }
 	inline Cursor* getCursor() const { return _cursor; }
 
 	inline int getCurrentZone() const { return _currentZone; }

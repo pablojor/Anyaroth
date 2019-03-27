@@ -4,6 +4,7 @@
 #include "Axe.h"
 
 class ExplosiveBulletPool;
+class BouncingBulletPool;
 
 class Boss1 : public DistanceEnemy
 {
@@ -41,12 +42,13 @@ class Boss1 : public DistanceEnemy
 		int _doSomething = 1000, _noAction = 0;
 
 		//Cosas del ataque orbe
+		BouncingBulletPool* _myBouncingBulletPool = nullptr;
 		bool _orbAttacking = false;
 		int _numOrbs = 4, _actualNumOrbs = 0;
 	private:
 		void shoot();
 	public:
-		Boss1(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag, BulletPool* pool, ExplosiveBulletPool* explosivePool);
+		Boss1(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag, BulletPool* pool, ExplosiveBulletPool* explosivePool, BouncingBulletPool* bouncingPool);
 		virtual ~Boss1() {};
 
 		void setBossPanel(BossPanel* b);
