@@ -35,7 +35,7 @@ class Boss1 : public DistanceEnemy
 		int _doSomething = 1000, _noAction = 0;
 
 		//Cosas del ataque orbe
-		bool _orbAttacking;
+		bool _orbAttacking = false;
 		int _numOrbs = 3, _actualNumOrbs = 0;
 
 	public:
@@ -68,7 +68,7 @@ class Boss1 : public DistanceEnemy
 		void changeFase(bool& nextFase);
 
 		void throwBomb();
-		void throwOrb()
+		void throwOrb();
 		
 
 };
