@@ -34,6 +34,10 @@ class Boss1 : public DistanceEnemy
 		//Tiempo entre acciones
 		int _doSomething = 1000, _noAction = 0;
 
+		//Cosas del ataque orbe
+		bool _orbAttacking;
+		int _numOrbs = 3, _actualNumOrbs = 0;
+
 	public:
 		Boss1(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag, BulletPool* pool, ExplosiveBulletPool* explosivePool);
 		virtual ~Boss1() {};
@@ -53,6 +57,8 @@ class Boss1 : public DistanceEnemy
 		void checkMelee();
 		void armShoot();
 
+		void orbAttack();
+
 		virtual void beginCollision(GameComponent* other, b2Contact* contact);
 
 		void Fase1(const double& deltaTime);
@@ -62,6 +68,8 @@ class Boss1 : public DistanceEnemy
 		void changeFase(bool& nextFase);
 
 		void throwBomb();
+		void throwOrb()
+		
 
 };
 

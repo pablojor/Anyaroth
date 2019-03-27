@@ -122,6 +122,8 @@ void Boss1::bomberAttack(const double& deltaTime, int t1, int t2)
 		_timeBeetwenBombs = 0;
 		move = true;
 		_armVision = true;
+
+		_doSomething = random(800, 1200);
 	}
 	else
 	{ 
@@ -153,6 +155,8 @@ void Boss1::checkMelee()
 		_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 		move = true;
 		_armVision = true;;
+
+		_doSomething = random(400, 1000);
 	}
 }
 
@@ -160,6 +164,26 @@ void Boss1::armShoot()
 {
 	_arm->shoot();
 	_myGun->enemyShoot(_myBulletPool, _arm->getPosition(), !_anim->isFlipped() ? _arm->getAngle() + random(-_fail, _fail) : _arm->getAngle() + 180 + random(-_fail, _fail), "EnemyBullet");
+}
+
+void Boss1::orbAttack()
+{
+
+	if (_anim->animationFinished())
+	{
+		throwBomb();
+		_actualNumOrbs++;
+
+		if (_actualNumOrbs >= _numOrbs)
+		{
+			_orbAttacking = false;
+			_actualNumOrbs = 0;
+		}
+		else
+			_anim->playAnim(AnimatedSpriteComponent::EnemyDie);//Sera animacion de orbAttack
+			
+	}
+
 }
 
 void Boss1::beginCollision(GameComponent * other, b2Contact * contact)
@@ -195,7 +219,6 @@ void Boss1::Fase1(const double& deltaTime)
 		{
 			meleeAttack();
 
-			_doSomething = random(1800, 3000);
 			_noAction = 0;
 		}
 		else if (!isMeleeing())
@@ -222,7 +245,6 @@ void Boss1::Fase2(const double& deltaTime)
 				_bomberAttacking = true;
 				bomberAttack(deltaTime, 100, 200);
 
-				_doSomething = random(2500, 3200);
 				_noAction = 0;
 			}
 			else
@@ -239,7 +261,24 @@ void Boss1::Fase2(const double& deltaTime)
 }
 void Boss1::Fase3(const double& deltaTime)
 {
-
+	if (!_bomberAttacking)
+	{
+		if (!_orbAttacking)
+		{
+			int ra = random(0, 100);
+			if (ra >= 70)
+			{
+				_anim->playAnim(AnimatedSpriteComponent::EnemyDie);//Sera animacion de orbAttack
+				_orbAttacking = true;
+			}
+			else
+				Fase2(deltaTime);
+		}
+		else
+			orbAttack();
+	}
+	else
+		bomberAttack(deltaTime, 100, 200);
 }
 
 void Boss1::beetwenFases(const double& deltaTime)
@@ -278,4 +317,25 @@ void Boss1::throwBomb()
 		b2->changeFilter();
 	}
 }
+
+void Boss1::throwOrb()
+{
+	Bullet* b = _myExplosivePool->getUnusedObject();
+	Vector2D helpPos = Vector2D(random(100, 700 /*Fututo tope por la derecha*/), 200);
+	Vector2D bulletPos = helpPos.rotateAroundPoint(90, helpPos);
+
+	if (b != nullptr)
+	{
+		b->init(_bombTexture, helpPos, 0, 10, 90, _bombRange, "EnemyBullet");
+		b->changeFilter();
+	}
+	else
+	{
+		Bullet* b2 = _myExplosivePool->addNewBullet();
+
+		b2->init(_bombTexture, helpPos, 0, 10, 90, _bombRange, "EnemyBullet");
+		b2->changeFilter();
+	}
+}
+
 
