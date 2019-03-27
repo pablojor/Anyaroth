@@ -35,7 +35,7 @@ class Boss1 : public DistanceEnemy
 		bool _shooting = false, ida = true;
 		int _shootingTime = 2500,_timeOnShooting=0, _timeBeetwenBullets = 50;
 		int _numBullets = 10, _actualBullet = 0, _dirB;
-		double _angleIncrease = 5, _inicialAngle = 0,_angle=0;
+		double _angleIncrease = 7.5, _inicialAngle = 0,_angle=0;
 
 		//Tiempo entre acciones
 		int _doSomething = 1000, _noAction = 0;

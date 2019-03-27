@@ -406,6 +406,7 @@ void Boss1::shootBullet()
 		if(_actualBullet==10)
 		{
 			ida = false;
+			_timeBeetwenBullets += 300;
 		}
 
 	}
