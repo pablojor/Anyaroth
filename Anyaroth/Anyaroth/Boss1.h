@@ -3,6 +3,7 @@
 #include "Axe.h"
 
 class ExplosiveBulletPool;
+
 class Boss1 : public DistanceEnemy
 {
 	private:

@@ -1,7 +1,7 @@
 #include "BossPanel.h"
 #include "Game.h"
 
-BossPanel::BossPanel(Game * game, string bossName) : PanelUI(game)
+BossPanel::BossPanel(Game * game) : PanelUI(game)
 {
 	_marco = new ImageUI(game, game->getTexture("BossLifeBar"));
 	_marco->setPosition(CAMERA_RESOLUTION_X / 2 - _marco->getW() / 2, CAMERA_RESOLUTION_Y - _marco->getH() - 10);
@@ -15,7 +15,7 @@ BossPanel::BossPanel(Game * game, string bossName) : PanelUI(game)
 	_lifeBar_2->setPosition(CAMERA_RESOLUTION_X / 2 - _lifeBar_2->getW() / 2, maskPosY);
 	_lifeBar_3->setPosition(CAMERA_RESOLUTION_X / 2 - _lifeBar_3->getW() / 2 - 79, maskPosY);
 
-	_bossName = new TextUI(game, bossName, game->getFont("ARIAL12"), 12, 0, 0, { 255, 255, 255, 255 });
+	_bossName = new TextUI(game, " ", game->getFont("ARIAL12"), 12, 0, 0, { 255, 255, 255, 255 });
 	_bossName->setPosition(CAMERA_RESOLUTION_X / 2 - _bossName->getW() / 2, _lifeBar_1->getY() - _bossName->getH() - 3);
 
 	addChild(_marco);
