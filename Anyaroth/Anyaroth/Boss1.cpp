@@ -14,13 +14,15 @@ Boss1::Boss1(Player* player, Game* g, PlayState* play, Texture* texture, Vector2
 	delete(_myGun);
 	_myGun = new ImprovedRifle(g);
 
-	_attackRange = 120; //No se puede poner mas pequeño que la velocidad
+	_attackRange = 120; //No se puede poner mas pequeï¿½o que la velocidad
 	_attackTime = 1300; //La animacion tarda unos 450
 
 	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 13, true);
 	_anim->addAnim(AnimatedSpriteComponent::EnemyWalk, 8, true);
 	_anim->addAnim(AnimatedSpriteComponent::EnemyAttack, 11, false);
+	_anim->addAnim(AnimatedSpriteComponent::EnemyDie, 18, false);
 	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
+
 	_body->filterCollisions(ENEMIES, FLOOR | PLAYER_BULLETS | MELEE | MISIL);
 	_body->getBody()->SetGravityScale(0);
 
@@ -53,18 +55,10 @@ void Boss1::update(const double& deltaTime)
 
 		movement(deltaTime);
 		checkMelee();
-		
-
-		if (_fase1)
-			Fase1(deltaTime);
-		else if (_fase2)
-			Fase2(deltaTime);
-		else if (_fase3)
-			Fase3(deltaTime);
-		else
-			beetwenFases(deltaTime);
 
 
+		Fase3(deltaTime);
+;
 	}
 }
 void Boss1::manageLife(Life& l, bool& actualFase, int damage)
@@ -215,9 +209,17 @@ void Boss1::orbAttack()
 		{
 			_orbAttacking = false;
 			_actualNumOrbs = 0;
+			move = true;
+			_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
+
+			_doSomething = random(1000, 2500);
 		}
 		else
+		{
+			//Provisional
+			_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 			_anim->playAnim(AnimatedSpriteComponent::EnemyDie);//Sera animacion de orbAttack
+		}
 			
 	}
 
@@ -318,14 +320,20 @@ void Boss1::Fase3(const double& deltaTime)
 		{
 			if (!_orbAttacking)
 			{
-				int ra = random(0, 100);
-				if (ra >= 70)
+				if (_noAction > _doSomething)
 				{
-					_anim->playAnim(AnimatedSpriteComponent::EnemyDie);//Sera animacion de orbAttack
-					_orbAttacking = true;
+					int ra = random(0, 100);
+					if (ra >= 70)
+					{
+						_anim->playAnim(AnimatedSpriteComponent::EnemyDie);//Sera animacion de orbAttack
+						_orbAttacking = true;
+						move = false;
+					}
+					else
+						Fase2(deltaTime);
 				}
 				else
-					Fase2(deltaTime);
+					_noAction += deltaTime;		
 			}
 			else
 				orbAttack();
