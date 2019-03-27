@@ -44,7 +44,8 @@ class Boss1 : public DistanceEnemy
 		//Cosas del ataque orbe
 		BouncingBulletPool* _myBouncingBulletPool = nullptr;
 		bool _orbAttacking = false;
-		int _numOrbs = 4, _actualNumOrbs = 0;
+		int _numOrbs = 3, _actualNumOrbs = 0;
+
 	private:
 		void shoot();
 	public:

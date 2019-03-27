@@ -203,10 +203,10 @@
       <Filter>Archivos de código fuente\Objects\Level</Filter>
     </ClCompile>
     <ClCompile Include="Axe.cpp">
-      <Filter>Archivos de código fuente\Objects\Melee</Filter>
+      <Filter>Archivos de código fuente\Objects\Player\Melee</Filter>
     </ClCompile>
     <ClCompile Include="Melee.cpp">
-      <Filter>Archivos de código fuente\Objects\Melee</Filter>
+      <Filter>Archivos de código fuente\Objects\Player\Melee</Filter>
     </ClCompile>
     <ClCompile Include="ExplosiveBullet.cpp">
       <Filter>Archivos de código fuente\Objects\Bullets</Filter>
@@ -749,9 +749,6 @@
     <Filter Include="Archivos de código fuente\Objects\Level">
       <UniqueIdentifier>{bd12add3-c105-4407-8656-5b02a96302a0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de código fuente\Objects\Melee">
-      <UniqueIdentifier>{91c2fb3e-33b4-42c8-b741-0a0b383c9988}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Archivos de código fuente\Objects\Bullets">
       <UniqueIdentifier>{1f94b1b8-2d58-4d02-8fb0-426ce2d1eb32}</UniqueIdentifier>
     </Filter>
@@ -772,6 +769,9 @@
     </Filter>
     <Filter Include="Archivos de código fuente\Objects\Interactables">
       <UniqueIdentifier>{a2aab5e8-1f03-438e-ad1c-94a98250433c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código fuente\Objects\Player\Melee">
+      <UniqueIdentifier>{91c2fb3e-33b4-42c8-b741-0a0b383c9988}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

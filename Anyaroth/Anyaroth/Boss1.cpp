@@ -57,6 +57,7 @@ void Boss1::update(const double& deltaTime)
 		movement(deltaTime);
 		checkMelee();
 
+
 		if (_fase1)
 			Fase1(deltaTime);
 		else if (_fase2)
@@ -265,18 +266,14 @@ void Boss1::Fase1(const double& deltaTime)
 
 			if (ra >= 65 && !isMeleeing())
 			{
-
 				meleeAttack();
-
 				_noAction = 0;
 			}
-
 
 			else if (!isMeleeing())
 			{
 				armShoot(deltaTime);
 				_shooting = true;
-				//_doSomething = random(400, 800);
 				_noAction = 0;
 			}
 		}
@@ -293,9 +290,8 @@ void Boss1::Fase2(const double& deltaTime)
 		if (!_shooting)
 		{
 			int ra = random(0, 100);
-			if (ra >= 80)
+			if (ra >= 70)
 			{
-
 				if (_noAction > _doSomething)
 				{
 					_bomberAttacking = true;
@@ -329,7 +325,7 @@ void Boss1::Fase3(const double& deltaTime)
 				if (_noAction > _doSomething)
 				{
 					int ra = random(0, 100);
-					if (ra >= 80)
+					if (ra >= 70)
 					{
 						_anim->playAnim(AnimatedSpriteComponent::EnemyDie);//Sera animacion de orbAttack
 						_orbAttacking = true;
@@ -395,14 +391,14 @@ void Boss1::throwOrb()
 
 	if (b != nullptr)
 	{
-		b->init(_bombTexture, helpPos, 10, 10, random(20,180), _bombRange, "EnemyBullet");
+		b->init(_game->getTexture("Coin"), helpPos, 20, 10, random(80,180), _bombRange, "EnemyBullet");
 		b->changeFilter();
 	}
 	else
 	{
 		Bullet* b2 = _myExplosivePool->addNewBullet();
 
-		b2->init(_bombTexture, helpPos, 10, 10, random(80, 120), _bombRange, "EnemyBullet");
+		b2->init(_game->getTexture("Coin"), helpPos, 20, 10, random(80, 180), _bombRange, "EnemyBullet");
 		b2->changeFilter();
 	}
 }
