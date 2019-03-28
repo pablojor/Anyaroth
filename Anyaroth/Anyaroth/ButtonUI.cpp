@@ -43,8 +43,8 @@ void ButtonUI::handleEvent(const SDL_Event& event)
 	if (mouseIsOver()) 
 	{
 		SDL_Cursor* cursor;
-		//cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_HAND);
-		SDL_SetCursor(SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_HAND));
+		cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_HAND);
+		SDL_SetCursor(cursor);
 
 
 		if (event.type == SDL_MOUSEBUTTONDOWN && event.button.state == SDL_PRESSED)
@@ -71,15 +71,13 @@ void ButtonUI::handleEvent(const SDL_Event& event)
 	}
 	else
 	{
-		SDL_Cursor* cursor;
-		cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
-		SDL_SetCursor(cursor);
-
 		if (_positionState != Out)
 		{
-			if (_onOutCallback != nullptr) _onOutCallback(_game);
+			if (_onOutCallback != nullptr) _onOutCallback(_game);		
+			SDL_Cursor* cursor;
+			cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
+			SDL_SetCursor(cursor);
 		}
-
 		_positionState = Out;
 		_pressState = None;
 	}

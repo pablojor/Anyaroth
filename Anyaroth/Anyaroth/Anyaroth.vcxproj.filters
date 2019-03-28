@@ -40,9 +40,6 @@
     <ClCompile Include="PlayerPanel.cpp">
       <Filter>Archivos de código fuente\HUD\Panels</Filter>
     </ClCompile>
-    <ClCompile Include="PanelUI.cpp">
-      <Filter>Archivos de código fuente\HUD\Panels</Filter>
-    </ClCompile>
     <ClCompile Include="AmmoViewer.cpp">
       <Filter>Archivos de código fuente\HUD\UIElements</Filter>
     </ClCompile>
@@ -255,7 +252,13 @@
     </ClCompile>
     <ClCompile Include="ShopPanel.cpp" />
     <ClCompile Include="ShopItem.cpp" />
-    <ClCompile Include="ButtonUI.cpp" />
+    <ClCompile Include="ButtonUI.cpp">
+      <Filter>Archivos de código fuente\HUD\UIElements</Filter>
+    </ClCompile>
+    <ClCompile Include="PanelUI.cpp">
+      <Filter>Archivos de código fuente\HUD\UIElements</Filter>
+    </ClCompile>
+    <ClCompile Include="ShopCanvas.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -486,9 +489,6 @@
     <ClInclude Include="BossPanel.h">
       <Filter>Archivos de encabezado\HUD\Panels</Filter>
     </ClInclude>
-    <ClInclude Include="PanelUI.h">
-      <Filter>Archivos de encabezado\HUD\Panels</Filter>
-    </ClInclude>
     <ClInclude Include="PlayerPanel.h">
       <Filter>Archivos de encabezado\HUD\Panels</Filter>
     </ClInclude>
@@ -533,7 +533,13 @@
     </ClInclude>
     <ClInclude Include="ShopPanel.h" />
     <ClInclude Include="ShopItem.h" />
-    <ClInclude Include="ButtonUI.h" />
+    <ClInclude Include="PanelUI.h">
+      <Filter>Archivos de encabezado\HUD\UIElements</Filter>
+    </ClInclude>
+    <ClInclude Include="ButtonUI.h">
+      <Filter>Archivos de encabezado\HUD\UIElements</Filter>
+    </ClInclude>
+    <ClInclude Include="ShopCanvas.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de código fuente">
