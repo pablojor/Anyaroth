@@ -49,7 +49,7 @@ void Boss1::update(const double& deltaTime)
 
 void Boss1::movement(const double& deltaTime)
 {
-	if (move)
+	if (_actualState == Moving)
 	{
 		if (((_bodyPos.getX() > _originalPos.getX() + _amplitude.getX()) && _dir.getX() == 1) || ((_bodyPos.getX() < _originalPos.getX() - _amplitude.getX()) && _dir.getX() == -1))
 			_dir = Vector2D(-_dir.getX(), _dir.getY());
@@ -69,13 +69,11 @@ void Boss1::bomberAttack(const double& deltaTime, int t1, int t2)
 {
 	_timeOnBomberAttack += deltaTime;
 	_armVision = false;
-	move = false;
 	if (_timeOnBomberAttack >= _bomberAttackTime)
 	{
-		_bomberAttacking = false;
 		_timeOnBomberAttack = 0;
 		_timeBeetwenBombs = 0;
-		move = true;
+		_actualState = Moving;
 		_armVision = true;
 
 		_doSomething = random(800, 1200);
@@ -97,7 +95,6 @@ void Boss1::meleeAttack()
 	int dir = (_bodyPos.getX() >= _playerPos.getX()) ? -1 : 1;
 	_melee->meleeAttack(_bodyPos.getX(), _bodyPos.getY(), dir);
 	_anim->playAnim(AnimatedSpriteComponent::EnemyAttack);
-	move = false;
 	_armVision = false;
 }
 
@@ -108,7 +105,7 @@ void Boss1::checkMelee()
 		_melee->endMelee();
 		//Provisional
 		_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
-		move = true;
+		_actualState = Moving;
 		_armVision = true;;
 
 		_doSomething = random(900, 1300);
@@ -122,12 +119,10 @@ void Boss1::armShoot(const double& deltaTime)
 	_dirB = (_bodyPos.getX() >= _playerPos.getX()) ? -1 : 1;
 	_timeOnShooting += deltaTime;
 	_armVision = false;
-	move = false;
 	if (_actualBullet == 0 && !ida)
 	{
-		_shooting = false;
 		_timeOnShooting = 0;
-		move = true;
+		_actualState = Moving;
 		_armVision = true;
 		ida = true;
 		_timeBeetwenBullets = 50;
@@ -164,9 +159,8 @@ void Boss1::orbAttack()
 
 		if (_actualNumOrbs >= _numOrbs)
 		{
-			_orbAttacking = false;
 			_actualNumOrbs = 0;
-			move = true;
+			_actualState = Moving;
 			_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 
 			_doSomething = random(1000, 2500);
@@ -188,15 +182,14 @@ void Boss1::beginCollision(GameComponent * other, b2Contact * contact)
 
 	string otherTag = other->getTag();
 	
-	if ( otherTag == "Misil" && _beetwenFase)
+	if ( otherTag == "Misil" && isbeetweenFases())
 	{
-		if (_lastFase == 1)
-			changeFase(_fase2);
-		else if (_lastFase == 2)
-			changeFase(_fase3);
+ 		if (_lastFase == Fase1)
+			changeFase(Fase2);
+		else if (_lastFase == Fase2)
+			changeFase(Fase3);
 		else
 		{
-			_beetwenFase = false;
 			die();
 		}
 
@@ -205,44 +198,45 @@ void Boss1::beginCollision(GameComponent * other, b2Contact * contact)
 
 }
 
-void Boss1::Fase1(const double& deltaTime)
+void Boss1::fase1(const double& deltaTime)
 {
-	if (!_shooting)
+	if (_actualState != Shooting)
 	{
-		if (_noAction > _doSomething)
+		if (_actualState != Meleeing)
 		{
-			int ra = random(0, 100);
-
-			if (ra >= 65 && !isMeleeing())
+			if (_noAction > _doSomething)
 			{
+				int ra = random(0, 100);
 
-				meleeAttack();
+				if (ra >= 65)
+				{
+					_actualState = Meleeing;
+					_noAction = 0;
+					meleeAttack();
+				}
 
-				_noAction = 0;
+				else
+				{
+					armShoot(deltaTime);
+					_actualState = Shooting;
+					//_doSomething = random(400, 800);
+					_noAction = 0;
+				}
 			}
-
-
-			else if (!isMeleeing())
-			{
-				armShoot(deltaTime);
-				_shooting = true;
-				//_doSomething = random(400, 800);
-				_noAction = 0;
-			}
+			else
+				_noAction += deltaTime;
 		}
-		else
-			_noAction += deltaTime;
 	}
 	else
 		armShoot(deltaTime);
 }
-void Boss1::Fase2(const double& deltaTime)
+void Boss1::fase2(const double& deltaTime)
 {
-	if (!_bomberAttacking)
+	if (_actualState != Bombing)
 	{
-		if (!_shooting)
+		if (_actualState != Shooting)
 		{
-			if (!isMeleeing())
+			if (_actualState != Meleeing)
 			{
 				int ra = random(0, 100);
 				if (ra >= 70)
@@ -250,7 +244,7 @@ void Boss1::Fase2(const double& deltaTime)
 
 					if (_noAction > _doSomething)
 					{
-						_bomberAttacking = true;
+						_actualState = Bombing;
 						bomberAttack(deltaTime, 100, 200);
 
 						_noAction = 0;
@@ -260,8 +254,8 @@ void Boss1::Fase2(const double& deltaTime)
 				}
 				else
 				{
-					move = true;
-					Fase1(deltaTime);
+					_actualState = Moving;
+					fase1(deltaTime);
 				}
 			}
 		}
@@ -271,28 +265,26 @@ void Boss1::Fase2(const double& deltaTime)
 	else
 		bomberAttack(deltaTime, 100, 200);
 }
-void Boss1::Fase3(const double& deltaTime)
+void Boss1::fase3(const double& deltaTime)
 {
-	if (!_bomberAttacking)
+	if (_actualState != Bombing)
 	{
-		if (!_shooting)
+		if (_actualState != Shooting)
 		{
-			if (!_orbAttacking)
+			if (_actualState != OrbAttacking)
 			{
-				if (!isMeleeing())
+				if (_actualState != Meleeing)
 				{
-
 					if (_noAction > _doSomething)
 					{
 						int ra = random(0, 100);
 						if (ra >= 70)
 						{
-							_anim->playAnim(AnimatedSpriteComponent::EnemyDie);//Sera animacion de orbAttack
-							_orbAttacking = true;
-							move = false;
+							_anim->playAnim(AnimatedSpriteComponent::EnemyDie);//Sera animacion de orbAttackd
+							_actualState = OrbAttacking;
 						}
 						else
-							Fase2(deltaTime);
+							fase2(deltaTime);
 					}
 					else
 						_noAction += deltaTime;
@@ -311,13 +303,13 @@ void Boss1::Fase3(const double& deltaTime)
 void Boss1::beetwenFases(const double& deltaTime)
 {
 	bomberAttack(deltaTime, 200, 600);
+	_actualState = Bombing;
 }
 
-void Boss1::changeFase(bool& nextFase)
+void Boss1::changeFase(int nextFase)
 {
 	Boss::changeFase(nextFase);
 
-	_bomberAttacking = false;
 	_timeOnBomberAttack = 0;
 	_timeBeetwenBombs = 0;
 }
@@ -366,7 +358,6 @@ void Boss1::shootBullet()
 {
 	if (ida)
 	{
-		
 		/*_myGun->enemyShoot(_myBulletPool, _bodyPos, !_anim->isFlipped() ? _angle : _angle + 180, "EnemyBullet");*/
 		shoot();
 		_angle += _angleIncrease* _dirB;
@@ -376,17 +367,14 @@ void Boss1::shootBullet()
 			ida = false;
 			_timeBeetwenBullets += 300;
 		}
-
 	}
 	else
 	{
 		_angle -= _angleIncrease * _dirB;
 		shoot();
 		
-		_actualBullet--;
-		
+		_actualBullet--;	
 	}
-	
 }
 
 
