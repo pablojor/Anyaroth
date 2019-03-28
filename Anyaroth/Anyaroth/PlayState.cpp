@@ -2,6 +2,8 @@
 #include "Game.h"
 #include "PauseState.h"
 #include "PlayStateHUD.h"
+#include "NPC.h"
+#include "PiercingBulletPool.h"
 #include "checkML.h"
 
 PlayState::PlayState(Game* g) : GameState(g)
@@ -18,12 +20,33 @@ PlayState::PlayState(Game* g) : GameState(g)
 	//Pool player
 	_playerBulletPool = new BulletPool(g);
 	_stages.push_back(_playerBulletPool);
+	/////////////////////////////////////////////////////////
+	_bouncingBulletPool = new BouncingBulletPool(g);
+	_stages.push_back(_bouncingBulletPool);
+
+
+
+	///
+	/*PiercingBulletPool* pPool = new PiercingBulletPool(g);*/
+
+	//_player->setPlayerBulletPool(_bouncingBulletPool);
+
 	_player->setPlayerBulletPool(_playerBulletPool);
+
 
 	//Pool enemy
 	_enemyBulletPool = new BulletPool(g);
 	_stages.push_back(_enemyBulletPool);
-
+  
+	/*for (int i = 0; i < enemiesPos.size(); i++)
+	{
+		//_enemy = new MeleeEnemy(_player, g, this, g->getTexture("EnemyMelee"), Vector2D(enemiesPos[i].getX(), enemiesPos[i].getY() - TILES_SIZE * 2), "Enemy");
+		_enemy = new MeleeEnemy(_player, g, this, g->newTexture("EnemyMelee" + to_string(i), "EnemyMelee"), Vector2D(enemiesPos[i].getX(), enemiesPos[i].getY() - TILES_SIZE * 2), "Enemy");
+		_stages.push_back(_enemy);
+		auto itFR = --(_stages.end());
+		_enemy->setItList(itFR);
+	}*/
+  
 	_explosivePool = new ExplosiveBulletPool(g);
 	_stages.push_back(_explosivePool);
 
@@ -31,23 +54,58 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_currentZone = _currentLevel = 1;
 	_levelManager = LevelManager(g, this);
 	_levelManager.setLevel(_currentZone, _currentLevel);
-
+  
+	/*for (int i = 0; i < marirsPos.size(); i++)
+	{
+		_enemy = new MartyrEnemy(_player, g, this, g->newTexture("EnemyMartyr" + to_string(i), "EnemyMartyr"), Vector2D(marirsPos[i].getX(), marirsPos[i].getY() - TILES_SIZE * 2), "Enemy");
+		_stages.push_back(_enemy);
+		auto itFR = --(_stages.end());
+		_enemy->setItList(itFR);
+	}*/
+  
 	//Camera
 	_mainCamera->fixCameraToObject(_player);
+  
+  
+	//Test NPC*****
+
+	NPC* _npc = new NPC(g, 60, 380,
+		{
+		g->getTexture("DialogueFace"),
+		"exampleVoice",
+		"Jose Mar�a",
+		{ "*Bzzt..Bip, bip..* Hey, �qu� tal?",
+		"Aj�, con que programando... ya veo...",
+		"�Pues sigue con eso, chaval! Deja de jugar tanto al Sekiro y ponte a estudiar de una maldita vez, escoria infrahumana (...) �Adew! *Bip*" },
+		{0,1,2},
+		{" ", " ", " ", " "}
+		});
+
+	_stages.push_back(_npc);
+
+	//*******
+
+	//World
+	/*_debugger.getRenderer(g->getRenderer());
+	_debugger.getTexture(g->getTexture("body"));
+	_debugger.SetFlags(b2Draw::e_shapeBit);
+	_debugger.getCamera(_mainCamera);
+	*/
+	//Gestion de colisiones
+	g->getWorld()->SetContactListener(&_colManager);
+	g->getWorld()->SetDebugDraw(&_debugger);
+
+
+
+
 
 	//HUD
 	auto b = new PlayStateHUD(g);
 	setCanvas(b);
+
+	//Asignacion de paneles a sus controladores
 	_player->setPlayerPanel(b->getPlayerPanel());
-
-	//Collisions and debugger
-	g->getWorld()->SetContactListener(&_colManager);
-	g->getWorld()->SetDebugDraw(&_debugger);
-
-	_debugger.getRenderer(g->getRenderer());
-	_debugger.getTexture(g->getTexture("body"));
-	_debugger.SetFlags(b2Draw::e_shapeBit);
-	_debugger.getCamera(_mainCamera);
+	_npc->setDialoguePanel(b->getDialoguePanel());
 }
 
 void PlayState::addObject(GameComponent* n)

@@ -1,5 +1,5 @@
 #pragma once
-#include "BulletPool.h"
+#include "PoolWrapper.h"
 #include "Game.h"
 
 class Gun
@@ -16,11 +16,11 @@ protected:
 	Texture* _armTexture = nullptr, *_bulletTexture = nullptr;
 
 public:
-	Gun(Texture* armTexture, Texture* bulletTexture, double speed, double damage, double range, int maxClip, int maxMagazine, double maxCadence);
+	Gun(Texture* armTexture, Texture* bulletTexture, double speed, double damage, double range, int maxClip, int maxMagazine, double maxCadence, bool automatic = false);
 	virtual ~Gun() {}
 
-	virtual void shoot(BulletPool* bulletPool, const Vector2D& position, const double& angle, const string& tag);
-	virtual void enemyShoot(BulletPool* bulletPool, const Vector2D& position, const double& angle, const string& tag);
+	virtual void shoot(PoolWrapper* bulletPool, const Vector2D& position, const double& angle, const string& tag);
+	virtual void enemyShoot(PoolWrapper* bulletPool, const Vector2D& position, const double& angle, const string& tag);
 
 	virtual void reload();
 

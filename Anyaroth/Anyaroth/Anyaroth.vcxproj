@@ -142,8 +142,12 @@
     <ClCompile Include="Axe.cpp" />
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="BasicPistol.cpp" />
+    <ClCompile Include="BasicRifle.cpp" />
     <ClCompile Include="BasicShotgun.cpp" />
     <ClCompile Include="BodyComponent.cpp" />
+    <ClCompile Include="BounceOrbCannon.cpp" />
+    <ClCompile Include="BouncingBullet.cpp" />
+    <ClCompile Include="BouncingBulletPool.cpp" />
     <ClCompile Include="BomberEnemy.cpp" />
     <ClCompile Include="BulletPool.cpp" />
     <ClCompile Include="Capsule.cpp" />
@@ -152,6 +156,10 @@
     <ClCompile Include="DialogueTextUI.cpp" />
     <ClCompile Include="DistanceEnemy.cpp" />
     <ClCompile Include="EnemyArm.cpp" />
+    <ClCompile Include="Interactable.cpp" />
+    <ClCompile Include="NPC.cpp" />
+    <ClCompile Include="ImprovedRifle.cpp" />
+    <ClCompile Include="ImprovedShotgun.cpp" />
     <ClCompile Include="ExplosiveBulletPool.cpp" />
     <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="Map.cpp" />
@@ -159,6 +167,8 @@
     <ClCompile Include="FlyingEnemy.cpp" />
     <ClCompile Include="MovingComponent.cpp" />
     <ClCompile Include="Melee.cpp" />
+    <ClCompile Include="PiercingBulletPool.cpp" />
+    <ClCompile Include="PiercingBullet.cpp" />
     <ClCompile Include="PlayerArm.cpp" />
     <ClCompile Include="ArmControllerComponent.cpp" />
     <ClCompile Include="BossPanel.cpp" />
@@ -207,6 +217,7 @@
     <ClCompile Include="ShopCanvas.cpp" />
     <ClCompile Include="ShopItem.cpp" />
     <ClCompile Include="ShopPanel.cpp" />
+    <ClCompile Include="Shotgun.cpp" />
     <ClCompile Include="SpawnerEnemy.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
@@ -219,6 +230,7 @@
     <ClCompile Include="TTFclass.cpp" />
     <ClCompile Include="UIElement.cpp" />
     <ClCompile Include="Vector2D.cpp" />
+    <ClCompile Include="WeaponManager.cpp" />
     <ClCompile Include="WeaponryViewer.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -233,8 +245,12 @@
     <ClInclude Include="Axe.h" />
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="BasicPistol.h" />
+    <ClInclude Include="BasicRifle.h" />
     <ClInclude Include="BasicShotgun.h" />
     <ClInclude Include="BodyComponent.h" />
+    <ClInclude Include="BounceOrbCannon.h" />
+    <ClInclude Include="BouncingBullet.h" />
+    <ClInclude Include="BouncingBulletPool.h" />
     <ClInclude Include="BomberEnemy.h" />
     <ClInclude Include="Capsule.h" />
     <ClInclude Include="Cursor.h" />
@@ -242,14 +258,20 @@
     <ClInclude Include="DialogueTextUI.h" />
     <ClInclude Include="DistanceEnemy.h" />
     <ClInclude Include="EnemyArm.h" />
+    <ClInclude Include="Interactable.h" />
+    <ClInclude Include="ImprovedRifle.h" />
+    <ClInclude Include="ImprovedShotgun.h" />
     <ClInclude Include="ExplosiveBulletPool.h" />
     <ClInclude Include="LevelManager.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="ExplosiveBullet.h" />
     <ClInclude Include="FlyingEnemy.h" />
     <ClInclude Include="MovingComponent.h" />
+    <ClInclude Include="NPC.h" />
     <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="Melee.h" />
+    <ClInclude Include="PiercingBulletPool.h" />
+    <ClInclude Include="PiercingBullet.h" />
     <ClInclude Include="PlayerArm.h" />
     <ClInclude Include="ArmControllerComponent.h" />
     <ClInclude Include="BossPanel.h" />
@@ -304,6 +326,7 @@
     <ClInclude Include="ShopCanvas.h" />
     <ClInclude Include="ShopItem.h" />
     <ClInclude Include="ShopPanel.h" />
+    <ClInclude Include="Shotgun.h" />
     <ClInclude Include="SpawnerEnemy.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="SpriteComponent.h" />
@@ -316,6 +339,7 @@
     <ClInclude Include="TTFclass.h" />
     <ClInclude Include="UIElement.h" />
     <ClInclude Include="Vector2D.h" />
+    <ClInclude Include="WeaponManager.h" />
     <ClInclude Include="WeaponryViewer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

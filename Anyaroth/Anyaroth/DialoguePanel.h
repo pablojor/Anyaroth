@@ -23,12 +23,18 @@ class DialoguePanel : public PanelUI
 {
 private:
 	AnimatedImageUI* _backgroundImage = nullptr;
+	AnimatedImageUI* _nameBackground = nullptr;
 	FramedImageUI* _faceImage = nullptr;
 	AnimatedImageUI* _indicatorImage = nullptr;
 	TextUI* _nameText = nullptr;
 
-	int _lines = 3;
-	int _gap = 10;
+	//Constantes
+	int _lines = 4;
+	int _gap = 14;
+	int _maxWidth = 350;
+
+	vector<string> _segments;
+	int _width;
 
 	vector<DialogueTextUI*> _dialogueTexts = {};
 
@@ -52,7 +58,5 @@ public:
 	void startDialogue(const Dialogue& dialogue);
 	void endDialogue();
 	void nextText();
-
-	//bool allTextTyped() const;
-
+	void chopTextIfNecesary(string text);
 };

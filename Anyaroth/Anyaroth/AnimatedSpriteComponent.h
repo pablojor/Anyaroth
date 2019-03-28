@@ -18,6 +18,8 @@ struct AnimationStateImage
 
 class AnimatedSpriteComponent : public SpriteComponent, public PhysicsComponent
 {
+private:
+	GameComponent* _obj = nullptr;
 protected:
 	vector<AnimationStateImage> _animations = {};
 
@@ -27,7 +29,7 @@ protected:
 	double _timer;
 
 	bool _animationFinished = false;
-	bool _active = true;
+	//bool _active = true;
 
 public:
 	enum Player { Idle, Walk, WalkBack, MeleeKnife, ReloadPistol, BeforeJump, Jump, StartFalling, Falling, Hurt, Dash, DashDown, DashBack, ReloadShotgun };
@@ -36,7 +38,7 @@ public:
 	enum Coin { Main };
 	enum Bullet { Default };
 
-	AnimatedSpriteComponent(GameComponent* obj) : SpriteComponent(obj), PhysicsComponent(obj), RenderComponent(obj), Component() {}
+	AnimatedSpriteComponent(GameComponent* obj) : SpriteComponent(obj), PhysicsComponent(obj), RenderComponent(obj), Component(), _obj(obj) {}
 	virtual ~AnimatedSpriteComponent() {}
 
 	virtual void render(Camera* c) const;
@@ -48,5 +50,5 @@ public:
 	inline bool animationFinished() { return _animations[_currentAnim].animationFinished; }
 	inline uint getCurrentAnim() const { return _currentAnim; }
 
-	inline void setActive(bool b) { _active = b; }
+	//inline void setActive(bool b) { _active = b; }
 };

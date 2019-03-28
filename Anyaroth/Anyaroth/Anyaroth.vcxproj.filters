@@ -259,6 +259,43 @@
       <Filter>Archivos de código fuente\HUD\UIElements</Filter>
     </ClCompile>
     <ClCompile Include="ShopCanvas.cpp" />
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Archivos de código\Objects\Bullets</Filter>
+    </ClCompile>
+    <ClCompile Include="PiercingBullet.cpp" />
+    <ClCompile Include="BasicRifle.cpp">
+      <Filter>Archivos de código fuente\Guns</Filter>
+    </ClCompile>
+    <ClCompile Include="BounceOrbCannon.cpp">
+      <Filter>Archivos de código fuente\Guns</Filter>
+    </ClCompile>
+    <ClCompile Include="ImprovedRifle.cpp">
+      <Filter>Archivos de código fuente\Guns</Filter>
+    </ClCompile>
+    <ClCompile Include="ImprovedShotgun.cpp">
+      <Filter>Archivos de código fuente\Guns</Filter>
+    </ClCompile>
+    <ClCompile Include="Shotgun.cpp">
+      <Filter>Archivos de código fuente\Guns</Filter>
+    </ClCompile>
+    <ClCompile Include="WeaponManager.cpp">
+      <Filter>Archivos de código fuente\Guns</Filter>
+    </ClCompile>
+    <ClCompile Include="BouncingBulletPool.cpp">
+      <Filter>Archivos de código fuente\Pools</Filter>
+    </ClCompile>
+    <ClCompile Include="PiercingBulletPool.cpp">
+      <Filter>Archivos de código fuente\Pools</Filter>
+    </ClCompile>
+    <ClCompile Include="BouncingBullet.cpp">
+      <Filter>Archivos de código fuente\Objects\Bullets</Filter>
+    </ClCompile>
+    <ClCompile Include="Interactable.cpp">
+      <Filter>Archivos de código\Objects\Interactables</Filter>
+    </ClCompile>
+    <ClCompile Include="NPC.cpp">
+      <Filter>Archivos de código\Objects\Interactables</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -540,6 +577,48 @@
       <Filter>Archivos de encabezado\HUD\UIElements</Filter>
     </ClInclude>
     <ClInclude Include="ShopCanvas.h" />
+    <ClInclude Include="ImprovedShotgun.h">
+      <Filter>Archivos de encabezado\Guns</Filter>
+    </ClInclude>
+    <ClInclude Include="Shotgun.h">
+      <Filter>Archivos de encabezado\Guns</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicRifle.h">
+      <Filter>Archivos de encabezado\Guns</Filter>
+    </ClInclude>
+    <ClInclude Include="ImprovedRifle.h">
+      <Filter>Archivos de encabezado\Guns</Filter>
+    </ClInclude>
+    <ClInclude Include="BounceOrbCannon.h">
+      <Filter>Archivos de encabezado\Guns</Filter>
+    </ClInclude>
+    <ClInclude Include="WeaponManager.h">
+      <Filter>Archivos de encabezado\Guns</Filter>
+    </ClInclude>
+    <ClInclude Include="BouncingBullet.h">
+      <Filter>Archivos de encabezado\Objects\Bullets</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Archivos de encabezado\Objects\Bullets</Filter>
+    </ClInclude>
+    <ClInclude Include="BouncingBulletPool.h">
+      <Filter>Archivos de encabezado\Pools</Filter>
+    </ClInclude>
+    <ClInclude Include="PiercingBullet.h">
+      <Filter>Archivos de encabezado\Objects\Bullets</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Archivos de encabezado\Objects\Bullets</Filter>
+    </ClInclude>
+    <ClInclude Include="PiercingBulletPool.h">
+      <Filter>Archivos de encabezado\Pools</Filter>
+    </ClInclude>
+    <ClInclude Include="Interactable.h">
+      <Filter>Archivos de encabezado\Objects\Interactables</Filter>
+    </ClInclude>
+    <ClInclude Include="NPC.h">
+      <Filter>Archivos de encabezado\Objects\Interactables</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de código fuente">
@@ -670,6 +749,15 @@
     </Filter>
     <Filter Include="Archivos de código fuente\Objects\Player">
       <UniqueIdentifier>{fbeacda4-f6f1-4d13-989f-c1371de5a063}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Objects\Bullets">
+      <UniqueIdentifier>{1d363188-42c1-4860-abb0-ffa5e1951368}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Objects\Interactables">
+      <UniqueIdentifier>{7c8a5f1c-0a77-493f-9fb9-1658c45d27cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código\Objects\Interactables">
+      <UniqueIdentifier>{e3c955f9-e850-4297-8ea0-2269ef7d7f36}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

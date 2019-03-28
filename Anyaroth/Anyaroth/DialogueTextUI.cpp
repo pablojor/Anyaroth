@@ -39,9 +39,8 @@ void DialogueTextUI::update(const double& deltaTime)
 				//reproducir sonido cuando la letra no es un espacio
 				if (_textToType[_character] != ' ')
 				{
-					_game->getSoundManager()->playSFX(_voice + to_string(rand() % 3));
+					_game->getSoundManager()->playSFX(_voice);
 				}
-
 
 				_time = 0;
 				_character++;

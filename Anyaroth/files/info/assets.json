@@ -36,8 +36,10 @@
         ["GunCursor", "gunCursor.png", 1, 1],
 		["BgMenu", "bg_menu.png", 1, 1],
 		["DialogueIndicator", "dialogueIndicator.png", 1, 7],
-		["DialogueBg", "dialogueBg.png", 3, 8],
-        ["DialogueFace", "faces.png", 1, 3],
+		["DialogueBg", "dialogueBg.png", 3, 10],
+		["NameBg", "nameBg.png", 3, 7],
+		["DialogueFace", "faces.png", 1, 3],
+		["InteractIndicator", "interactIndicator.png", 1, 2]
         ["Button", "button.png", 1, 4]
     ],
     "fonts" : [

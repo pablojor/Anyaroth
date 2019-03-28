@@ -2,7 +2,6 @@
 #include "Enemy.h"
 #include "EnemyArm.h"
 
-enum GunType;
 
 class BulletPool;
 

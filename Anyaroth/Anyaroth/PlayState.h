@@ -5,6 +5,8 @@
 #include "CollisionManager.h"
 #include "Player.h"
 #include "BulletPool.h"
+#include "BouncingBulletPool.h"
+#include "Coin.h"
 #include "ExplosiveBulletPool.h"
 #include "Cursor.h"
 
@@ -16,6 +18,9 @@ private:
 
 	//Bullet Pools
 	BulletPool* _playerBulletPool = nullptr; //Balas del jugador
+	//////////////////////////////////////////////////////////////
+	BouncingBulletPool* _bouncingBulletPool = nullptr; 
+
 	BulletPool* _enemyBulletPool = nullptr; //Balas de los enemigos
 	ExplosiveBulletPool* _explosivePool = nullptr;
 
@@ -25,6 +30,7 @@ private:
 
 	int _currentZone;
 	int _currentLevel;
+
 
 	vector <list<GameObject*>::iterator> items_ToDelete;
 
