@@ -40,9 +40,9 @@ private:
 	PlayerArm* _playerArm = nullptr;
 
 	//Variable auxiliares
-	uint _dashCD = 3000;
+	double _dashCD = 3000;
 
-	int _maxDash = 2, 
+	int _maxDash = 1, 
 		_numDash = _maxDash,
 		dashDur = 250;
 
