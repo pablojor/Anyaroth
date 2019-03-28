@@ -30,9 +30,9 @@ NPC::~NPC()
 }
 
 
-void NPC::update(double time)
+void NPC::update(double deltaTime)
 {
-	GameComponent::update(time);
+	GameComponent::update(deltaTime);
 
 	if (_canInteract)
 	{

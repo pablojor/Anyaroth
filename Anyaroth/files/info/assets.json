@@ -39,7 +39,7 @@
 		["DialogueBg", "dialogueBg.png", 3, 10],
 		["NameBg", "nameBg.png", 3, 7],
 		["DialogueFace", "faces.png", 1, 3],
-		["InteractIndicator", "interactIndicator.png", 1, 2]
+		["InteractIndicator", "interactIndicator.png", 1, 2],
         ["Button", "button.png", 1, 4]
     ],
     "fonts" : [

@@ -38,7 +38,7 @@ Interactable::~Interactable()
 {
 }
 
-void Interactable::update(double time)
+void Interactable::update(double deltaTime)
 {
 	
 }

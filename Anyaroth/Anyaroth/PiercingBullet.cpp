@@ -24,7 +24,7 @@ void PiercingBullet::beginCollision(GameComponent * other, b2Contact* contact)
 	contact->SetEnabled(false);
 }
 
-void PiercingBullet::update(double time)
+void PiercingBullet::update(const double& deltaTime)
 {
 	if (!isActive())
 		return;
@@ -33,7 +33,7 @@ void PiercingBullet::update(double time)
 
 	if (dist < _range && !_collided)
 	{
-		GameComponent::update(time);
+		GameComponent::update(deltaTime);
 
 		_body->getBody()->SetLinearVelocity(b2Vec2(_speed * cos(_transform->getRotation() * M_PI / 180.0), _speed * sin(_transform->getRotation() * M_PI / 180.0)));
 		_aliveTime++;

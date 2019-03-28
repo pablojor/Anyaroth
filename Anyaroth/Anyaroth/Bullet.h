@@ -33,7 +33,7 @@ public:
 	inline int getDamage() const { return _damage; }
 
 	virtual void init(Texture* texture, const Vector2D& position, const double& speed, const double& damage, const double& angle, const double& range, const string& tag);
-	virtual void update(double time);
+	virtual void update(const double& deltaTime);
 	virtual void reset();
 
 	void changeFilter();

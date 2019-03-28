@@ -21,7 +21,7 @@ public:
 	Interactable(Game* g, double xPos, double yPos);
 	virtual ~Interactable();
 
-	virtual void update(double time);
+	virtual void update(double deltaTime);
 	virtual bool handleInput(const SDL_Event& event);
 
 	virtual void interact() {};
