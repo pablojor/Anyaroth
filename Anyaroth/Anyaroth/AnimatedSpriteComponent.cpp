@@ -22,26 +22,28 @@ void AnimatedSpriteComponent::render(Camera* c) const
 	}
 }
 
-void AnimatedSpriteComponent::update(double time)
+void AnimatedSpriteComponent::update(const double& deltaTime)
 {
-	_timer += time;
-
-	if (_timer >= _animations[_currentAnim].lapse)
+	_timer += deltaTime;
+	if (_animations.size() > 0)
 	{
-		if (_animations[_currentAnim].loop)
-			_frame = (_frame + 1) % _animations[_currentAnim].numFrames;
-
-		else if (!_animations[_currentAnim].animationFinished)
+		if (_timer >= _animations[_currentAnim].lapse)
 		{
-			_frame++;
+			if (_animations[_currentAnim].loop)
+				_frame = (_frame + 1) % _animations[_currentAnim].numFrames;
 
-			if (_frame == _animations[_currentAnim].numFrames)
+			else if (!_animations[_currentAnim].animationFinished)
 			{
-				_animations[_currentAnim].animationFinished = true;
-				_frame = _animations[_currentAnim].numFrames - 1;
+				_frame++;
+
+				if (_frame == _animations[_currentAnim].numFrames)
+				{
+					_animations[_currentAnim].animationFinished = true;
+					_frame = _animations[_currentAnim].numFrames - 1;
+				}
 			}
+			_timer = 0;
 		}
-		_timer = 0;
 	}
 }
 

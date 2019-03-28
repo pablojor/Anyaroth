@@ -8,9 +8,11 @@ PlayerArm::PlayerArm(Game* game, Player* player, Vector2D offset) : Arm(game, pl
 	setTexture(game->getTexture("Arm"));
 }
 
-void PlayerArm::update(double time)
+void PlayerArm::update(const double& deltaTime)
 {
-	GameComponent::update(time);
+
+	GameComponent::update(deltaTime);
+
 
 	//Rotacion del brazo
 	Vector2D mousePos = getGame()->getCurrentState()->getMousePositionInWorld();

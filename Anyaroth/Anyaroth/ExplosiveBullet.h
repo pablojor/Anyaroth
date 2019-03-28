@@ -12,6 +12,6 @@ public:
 	~ExplosiveBullet();
 
 	virtual void beginCollision(GameComponent* other, b2Contact* contact);
-	virtual void update(double time);
+	virtual void update(const double& deltaTime);
 	void explosion();
 };

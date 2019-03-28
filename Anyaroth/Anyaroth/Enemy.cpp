@@ -40,22 +40,24 @@ void Enemy::setItList(list<GameObject*>::iterator itFR)
 void Enemy::beginCollision(GameComponent * other, b2Contact* contact)
 {
 	string otherTag = other->getTag();
-	if (otherTag == "Bullet")
+	if (otherTag == "Bullet" || otherTag == "Melee")
 	{
-		int damage = 0;
-		damage=dynamic_cast<Bullet*>(other)->getDamage();
+		int damage=other->getDamage();
 		subLife(damage);
 	}
 }
 
-void Enemy::update(double time)
+void Enemy::update(const double& deltaTime)
 {
-	GameComponent::update(time);
+	GameComponent::update(deltaTime);
 }
 
 void Enemy::die()
 {
 	_body->filterCollisions(DEAD_ENEMIES, FLOOR);
+	_hurt->die();
+	_anim->playAnim(AnimatedSpriteComponent::EnemyDie);
+	_dead = true;
 }
 
 void Enemy::subLife(int damage)

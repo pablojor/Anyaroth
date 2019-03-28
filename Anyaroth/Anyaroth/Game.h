@@ -43,6 +43,8 @@ enum _Category
 	DEAD_ENEMIES = 128,
 	COLLECTED_OBJECTS = 256,
 	MELEE = 512,
+	MISIL=1024,
+	MISILLAUNCHER = 2048,
 };
 
 class Game
@@ -90,7 +92,7 @@ public:
 	Game();
 	~Game();
 	void run();
-	void update(double time);
+	void update(const double& deltaTime);
 	void render() const;
 	void handleEvents();
 };

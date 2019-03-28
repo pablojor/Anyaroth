@@ -2,22 +2,13 @@
 #include "BodyComponent.h"
 #include "Game.h"
 
-Interactable::Interactable(Game* g, double xPos, double yPos) : GameComponent(g, "Interactable")
+Interactable::Interactable(Game* g, Vector2D posIni) : GameComponent(g, "Interactable")
 {
 
 	//addComponent<Texture>(g->getTexture("Mk"));
 
 	_transform = addComponent<TransformComponent>();
-	_transform->setPosition(xPos/*50*/, yPos /*180*/);
-
-
-	_body = addComponent<BodyComponent>();
-	_body->getBody()->SetType(b2_kinematicBody);
-
-	/**/
-
-	_body->filterCollisions(OBJECTS, PLAYER);
-	_body->getBody()->GetFixtureList()->SetSensor(true);
+	_transform->setPosition(posIni.getX(), posIni.getY());
 
 	_interactIndicator = new GameComponent(g);
 	_interactIndicator->addComponent<Texture>(g->getTexture("InteractIndicator"));
@@ -31,6 +22,8 @@ Interactable::Interactable(Game* g, double xPos, double yPos) : GameComponent(g,
 
 	_interactIndicator->setActive(false);
 	addChild(_interactIndicator);
+
+	auto _indicatorTexture = _interactIndicator->getComponent<Texture>();
 }
 
 
@@ -38,9 +31,9 @@ Interactable::~Interactable()
 {
 }
 
-void Interactable::update(double time)
+void Interactable::update(const double& time)
 {
-	
+	GameComponent::update(time);
 }
 
 bool Interactable::handleInput(const SDL_Event& event)

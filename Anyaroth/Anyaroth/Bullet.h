@@ -29,12 +29,11 @@ public:
 
 	virtual void beginCollision(GameComponent* other, b2Contact* contact);
 	inline void setSpeed(const double& speed) { _speed = speed; }
-	inline void setDamage(const double& damage) { _damage = damage; }
-	inline int getDamage() const { return _damage; }
+	inline void setDamage(const int& damage) { _damage = damage; }
+	inline int const getDamage() { return _damage; }
 
 	virtual void init(Texture* texture, const Vector2D& position, const double& speed, const double& damage, const double& angle, const double& range, const string& tag);
-	virtual void update(double time);
+	virtual void update(const double& deltaTime);
 	virtual void reset();
-
 	void changeFilter();
 };

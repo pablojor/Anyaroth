@@ -8,5 +8,5 @@ class PhysicsComponent : public virtual Component
 public:
 	PhysicsComponent(GameComponent* obj);
 	virtual ~PhysicsComponent() {}
-	virtual void update(double time) = 0;
+	virtual void update(const double& deltaTime) = 0;
 };

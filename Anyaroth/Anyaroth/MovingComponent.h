@@ -17,7 +17,7 @@ public:
 	MovingComponent(GameComponent* obj);
 	~MovingComponent() {}
 
-	virtual void update(double time);
+	virtual void update(const double& deltaTime);
 
 	inline double getDirX() const { return _dir.x; }
 	inline double getDirY() const { return _dir.y; }

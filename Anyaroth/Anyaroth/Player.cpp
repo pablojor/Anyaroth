@@ -29,7 +29,7 @@ Player::Player(Game* game, int xPos, int yPos) : GameComponent(game, "Player")
 	_body->setW(12);
 	_body->setH(26);
 
-	_body->filterCollisions(PLAYER, OBJECTS | FLOOR | ENEMY_BULLETS);
+	_body->filterCollisions(PLAYER, OBJECTS | FLOOR  | ENEMY_BULLETS | MELEE|MISILLAUNCHER);
 	_body->addCricleShape(b2Vec2(0, 1.1), 0.7, PLAYER, FLOOR);
 	_body->getBody()->SetFixedRotation(true);
 
@@ -83,7 +83,7 @@ Player::Player(Game* game, int xPos, int yPos) : GameComponent(game, "Player")
 	_money = new Money();
 
 	//Melee
-	_melee = new Melee(game);
+	_melee = new Melee(game, { 15, 0 }, ENEMIES);
 	addChild(_melee);
 }
 
@@ -106,10 +106,9 @@ void Player::beginCollision(GameComponent * other, b2Contact* contact)
 		_floorCount++;
 		setGrounded(true);
 	}
-	else if (other->getTag() == "EnemyBullet")
+	else if (other->getTag() == "EnemyBullet" || other->getTag() == "Melee")
 	{
-		double damage = 0;
-		damage = dynamic_cast<Bullet*>(other)->getDamage();
+		int damage = other->getDamage();
 		subLife(damage);
 	}
 	else if (other->getTag() == "Coin")
@@ -218,10 +217,15 @@ bool Player::handleInput(const SDL_Event& event)
 	return false;
 }
 
-void Player::update(double time)
+void Player::update(const double& deltaTime)
 {
 	const Uint8* keyboard = SDL_GetKeyboardState(NULL);
-	GameComponent::update(time);
+	GameComponent::update(deltaTime);
+
+	if (isDashing() || isMeleeing() || isReloading())
+		_playerArm->setActive(false);
+	else
+		_playerArm->setActive(true);
 
 	if (isDashing() || isMeleeing() || isReloading())
 		_playerArm->setActive(false);
@@ -230,7 +234,7 @@ void Player::update(double time)
 
 	checkMovement(keyboard);
 	checkMelee();
-	refreshCooldowns(time);
+	refreshCooldowns(deltaTime);
 	handleAnimations();
 }
 

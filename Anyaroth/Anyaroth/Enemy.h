@@ -45,7 +45,7 @@ public:
 
 	virtual inline void noLongerAttacking() { _attacking = false; }
 
-	virtual void update(double time);
+	virtual void update(const double& deltaTime);
 
 	void die();
 	virtual void subLife(int damage);

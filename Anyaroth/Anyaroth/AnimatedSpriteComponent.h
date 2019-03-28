@@ -42,7 +42,7 @@ public:
 	virtual ~AnimatedSpriteComponent() {}
 
 	virtual void render(Camera* c) const;
-	virtual void update(double time);
+	virtual void update(const double& deltaTime);
 
 	void addAnim(uint name, uint numFrames, bool loop, uint lapse = 60);
 	void playAnim(uint name);

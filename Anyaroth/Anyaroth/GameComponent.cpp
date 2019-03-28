@@ -42,15 +42,15 @@ bool GameComponent::handleInput(const SDL_Event& event)
 	return false;
 }
 
-void GameComponent::update(double time)
+void GameComponent::update(const double& deltaTime)
 {
 	for (PhysicsComponent* pc : _physicsComp)
-		pc->update(time);
+		pc->update(deltaTime);
 
 	//Llama al update de los hijos
 	for (GameComponent* child : _children)
 		if (child->isActive())
-			child->update(time);
+			child->update(deltaTime);
 }
 
 void GameComponent::render(Camera* c) const

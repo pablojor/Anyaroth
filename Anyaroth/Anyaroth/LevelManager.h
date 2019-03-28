@@ -1,6 +1,8 @@
 #pragma once
 #include "Map.h"
 #include "ParallaxBackGround.h"
+#include "PlayStateHUD.h"
+
 #include <list>
 
 class LevelManager

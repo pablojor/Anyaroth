@@ -1,21 +1,25 @@
 #include "PlayState.h"
 #include "Game.h"
 #include "PauseState.h"
-#include "PlayStateHUD.h"
 #include "NPC.h"
 #include "PiercingBulletPool.h"
 #include "checkML.h"
-#include <time.h>
+#include "Boss1.h"
+#include "BotonLanzaMisiles.h"
 
 PlayState::PlayState(Game* g) : GameState(g)
 {
+	//HUD
+	_hud = new PlayStateHUD(g);
+	setCanvas(_hud);
+
 	//Cursor
 	_cursor = new Cursor(g);
 	_stages.push_back(_cursor);
 	//SDL_ShowCursor(false);
 
 	//Player
-	_player = new Player(g, 0, 0);
+	_player = new Player(g, 100, 500);
 	_stages.push_back(_player);
 
 	//Pool player
@@ -33,6 +37,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	//_player->setPlayerBulletPool(_bouncingBulletPool);
 
 	_player->setPlayerBulletPool(_playerBulletPool);
+	_player->setPlayerPanel(_hud->getPlayerPanel());
 
 
 	//Pool enemy
@@ -52,25 +57,17 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_stages.push_back(_explosivePool);
 
 	//Levels
-	_currentZone = _currentLevel = 1;
+	_currentZone = 1, _currentLevel = 2;
 	_levelManager = LevelManager(g, this);
 	_levelManager.setLevel(_currentZone, _currentLevel);
-  
-	/*for (int i = 0; i < marirsPos.size(); i++)
-	{
-		_enemy = new MartyrEnemy(_player, g, this, g->newTexture("EnemyMartyr" + to_string(i), "EnemyMartyr"), Vector2D(marirsPos[i].getX(), marirsPos[i].getY() - TILES_SIZE * 2), "Enemy");
-		_stages.push_back(_enemy);
-		auto itFR = --(_stages.end());
-		_enemy->setItList(itFR);
-	}*/
-  
+
 	//Camera
 	_mainCamera->fixCameraToObject(_player);
   
   
 	//Test NPC*****
 
-	NPC* _npc = new NPC(g, 60, 380,
+	NPC* _npc = new NPC(g, { 60, 680 },
 		{
 		g->getTexture("DialogueFace"),
 		"exampleVoice",
@@ -83,30 +80,19 @@ PlayState::PlayState(Game* g) : GameState(g)
 		});
 
 	_stages.push_back(_npc);
+	_npc->setDialoguePanel(_hud->getDialoguePanel());
 
 	//*******
 
 	//World
-	/*_debugger.getRenderer(g->getRenderer());
+	_debugger.getRenderer(g->getRenderer());
 	_debugger.getTexture(g->getTexture("body"));
 	_debugger.SetFlags(b2Draw::e_shapeBit);
 	_debugger.getCamera(_mainCamera);
-	*/
+	
 	//Gestion de colisiones
 	g->getWorld()->SetContactListener(&_colManager);
 	g->getWorld()->SetDebugDraw(&_debugger);
-
-
-
-
-
-	//HUD
-	auto b = new PlayStateHUD(g);
-	setCanvas(b);
-
-	//Asignacion de paneles a sus controladores
-	_player->setPlayerPanel(b->getPlayerPanel());
-	_npc->setDialoguePanel(b->getDialoguePanel());
 }
 
 void PlayState::addObject(GameComponent* n)
@@ -151,9 +137,9 @@ bool PlayState::handleEvents(SDL_Event& e)
 	return handled;
 }
 
-void PlayState::update(double time)
+void PlayState::update(const double& deltaTime)
 {
-	GameState::update(time);
+	GameState::update(deltaTime);
 
 	if (_player->isDead())
 	{

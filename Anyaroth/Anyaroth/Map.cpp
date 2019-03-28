@@ -9,6 +9,7 @@
 #include "StaticSpawnerEnemy.h"
 #include "Player.h"
 #include "GunType_def.h"
+#include "BotonLanzaMisiles.h"
 #include <json.hpp>
 
 using namespace nlohmann;
@@ -114,6 +115,16 @@ void Map::createObjects()
 			{
 				_objects.push_back(new Coin(_game, _game->getTexture("Coin"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE), _coinValue));
 			}
+			else if (name == "Boss1")
+			{
+				_boss1 = (new Boss1(_player, _game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY()), "Enemy", _playState->getEnemyPool(), _playState->getExplosivePool(), _playState->getBouncingPool()));
+				_objects.push_back(_boss1);
+				_boss1->setBossPanel(_playState->getHUD()->getBossPanel());
+			}
+			else if (name == "Misiles")
+			{
+				_objects.push_back(new BotonLanzaMisiles(_boss1, _game, _playState, _game->getTexture("EnemyMartyr"), Vector2D(pos[j].getX(), pos[j].getY())));
+			}
 		}
 	}
 }
@@ -142,17 +153,17 @@ bool Map::handleInput(const SDL_Event & event)
 	return false;
 }
 
-void Map::update(double time)
+void Map::update(const double& deltaTime)
 {
-	GameComponent::update(time);
+	GameComponent::update(deltaTime);
 
 	for (Layer* l : _layers)
 		if (l->isActive())
-			l->update(time);
+			l->update(deltaTime);
 
 	for (GameComponent* o : _objects)
 		if (o->isActive())
-			o->update(time);
+			o->update(deltaTime);
 }
 
 void Map::render(Camera * c) const

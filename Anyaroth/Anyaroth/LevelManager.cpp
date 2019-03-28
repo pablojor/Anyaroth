@@ -30,6 +30,9 @@ void LevelManager::setLevel(int zone, int level)
 			_itMap = --_stages->end();
 			break;
 		case 2:
+			_currentMap = new Map(TILEMAP_PATH + "ArenaBoss1.json", _game, _playState, _tilesetZone1, 10);
+			_stages->push_back(_currentMap);
+			_itMap = --_stages->end();
 			break;
 		case 3:
 			break;

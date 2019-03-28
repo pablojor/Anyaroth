@@ -14,7 +14,7 @@ public:
 	SpawnerEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag);
 	virtual ~SpawnerEnemy() {}
 
-	virtual void update(double time);
+	virtual void update(const double& deltaTime);
 
 	virtual void subLife(int damage);
 

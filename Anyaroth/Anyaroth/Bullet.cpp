@@ -55,7 +55,7 @@ void Bullet::init(Texture* texture, const Vector2D& position, const double& spee
 	setActive(true);
 }
 
-void Bullet::update(double time) 
+void Bullet::update(const double& deltaTime) 
 {
 	if (isActive())
 	{
@@ -63,7 +63,7 @@ void Bullet::update(double time)
 
 		if (dist < _range && !_collided)
 		{
-			GameComponent::update(time);
+			GameComponent::update(deltaTime);
 
 			_body->getBody()->SetLinearVelocity(b2Vec2(_speed * cos(_transform->getRotation() * M_PI / 180.0), _speed * sin(_transform->getRotation() * M_PI / 180.0)));
 			_aliveTime++;

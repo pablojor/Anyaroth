@@ -69,7 +69,7 @@ BodyComponent::~BodyComponent()
 		_world->DestroyBody(_body);
 }
 
-void BodyComponent::update(double time)
+void BodyComponent::update(const double& deltaTime)
 {
 	if (_body!=nullptr && (_body->GetType() != b2_staticBody && _transform != nullptr))
 		_transform->setPosition(((double)_body->GetPosition().x*M_TO_PIXEL) - _textW * (0.5 - _aX), ((double)_body->GetPosition().y*M_TO_PIXEL) - _textH * (0.5 - _aY));

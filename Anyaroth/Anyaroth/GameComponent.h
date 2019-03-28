@@ -79,7 +79,7 @@ public:
 	virtual ~GameComponent();
 
 	virtual bool handleInput(const SDL_Event& event);
-	virtual void update(double time);
+	virtual void update(const double& deltaTime);
 	virtual void render(Camera* c) const;
 
 	virtual void addInputComponent(InputComponent* ic);
@@ -104,6 +104,9 @@ public:
 
 	inline string getTag() const { return _tag; }
 	inline void setTag(string  const &tag) { _tag = tag; }
+
+	virtual int const getDamage() { return 0; }
+	virtual void subLife(int damage) {}
 
 	inline bool isActive() const { return _active; }
 	inline void setActive(bool active) { _active = active; }
