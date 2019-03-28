@@ -111,7 +111,7 @@ void Boss1::checkMelee()
 		move = true;
 		_armVision = true;;
 
-		_doSomething = random(400, 1000);
+		_doSomething = random(900, 1300);
 	}
 }
 
@@ -242,24 +242,27 @@ void Boss1::Fase2(const double& deltaTime)
 	{
 		if (!_shooting)
 		{
-			int ra = random(0, 100);
-			if (ra >= 70)
+			if (!isMeleeing())
 			{
-
-				if (_noAction > _doSomething)
+				int ra = random(0, 100);
+				if (ra >= 70)
 				{
-					_bomberAttacking = true;
-					bomberAttack(deltaTime, 100, 200);
 
-					_noAction = 0;
+					if (_noAction > _doSomething)
+					{
+						_bomberAttacking = true;
+						bomberAttack(deltaTime, 100, 200);
+
+						_noAction = 0;
+					}
+					else
+						_noAction += deltaTime;
 				}
 				else
-					_noAction += deltaTime;
-			}
-			else
-			{
-				move = true;
-				Fase1(deltaTime);
+				{
+					move = true;
+					Fase1(deltaTime);
+				}
 			}
 		}
 		else
@@ -276,20 +279,24 @@ void Boss1::Fase3(const double& deltaTime)
 		{
 			if (!_orbAttacking)
 			{
-				if (_noAction > _doSomething)
+				if (!isMeleeing())
 				{
-					int ra = random(0, 100);
-					if (ra >= 70)
+
+					if (_noAction > _doSomething)
 					{
-						_anim->playAnim(AnimatedSpriteComponent::EnemyDie);//Sera animacion de orbAttack
-						_orbAttacking = true;
-						move = false;
+						int ra = random(0, 100);
+						if (ra >= 70)
+						{
+							_anim->playAnim(AnimatedSpriteComponent::EnemyDie);//Sera animacion de orbAttack
+							_orbAttacking = true;
+							move = false;
+						}
+						else
+							Fase2(deltaTime);
 					}
 					else
-						Fase2(deltaTime);
+						_noAction += deltaTime;
 				}
-				else
-					_noAction += deltaTime;		
 			}
 			else
 				orbAttack();
