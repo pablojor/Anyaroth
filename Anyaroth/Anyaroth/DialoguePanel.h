@@ -45,9 +45,11 @@ private:
 	int _linesTyped = 0;
 	bool _isConversating = false;
 
+	bool inShop = false;
+
 public:
 	DialoguePanel() {};
-	DialoguePanel(Game* game);
+	DialoguePanel(Game* game, bool inShop = false);
 	~DialoguePanel();
 
 	virtual void update(const double& deltaTime);

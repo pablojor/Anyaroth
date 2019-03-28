@@ -9,7 +9,7 @@ ShopCanvas::ShopCanvas(Game* game)
 	_depotButton = new ButtonUI(game, game->getTexture("Button"), 5, 50, nullptr, { 0,1,2,3 });
 	_exitButton = new ButtonUI(game, game->getTexture("Button"), 5, 70, nullptr, { 0,1,2,3 });
 
-	_dialoguePanel = new DialoguePanel(game);
+	_dialoguePanel = new DialoguePanel(game, true);
 
 	addUIElement(_shopButton);
 	addUIElement(_talkButton);

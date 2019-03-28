@@ -3,30 +3,32 @@
 #include "ShopPanel.h"
 #include "ButtonUI.h"
 #include "DialoguePanel.h"
+#include "ImageUI.h"
 //#include "DepotPanel.h"
 
 class ShopCanvas :	public Canvas
 {
-private:
-	ButtonUI * _shopButton = nullptr;
-	ButtonUI* _talkButton = nullptr;
-	ButtonUI* _depotButton = nullptr;
-	ButtonUI* _exitButton = nullptr;
+	private:
+		ImageUI* _imageBG = nullptr;
+		ButtonUI * _shopButton = nullptr;
+		ButtonUI* _talkButton = nullptr;
+		ButtonUI* _depotButton = nullptr;
+		ButtonUI* _exitButton = nullptr;
 
-	DialoguePanel* _dialoguePanel = nullptr;
+		DialoguePanel* _dialoguePanel = nullptr;
 
-	ShopPanel* _shopPanel = nullptr;
-	//DepotPanel* _depotPanel = nullptr;
+		ShopPanel* _shopPanel = nullptr;
+		//DepotPanel* _depotPanel = nullptr;
 
-public:
-	ShopCanvas(Game* game);
-	~ShopCanvas() {};
+	public:
+		ShopCanvas(Game* game);
+		~ShopCanvas() {};
 
-	virtual void handleEvent(const SDL_Event& event) {};
+		//virtual void handleEvent(const SDL_Event& event) {};
 
-	static void openShopPanel();
-	static void talk();
-	static void openDepotPanel();
-	static void exit();
+		static void openShopPanel();
+		static void talk();
+		static void openDepotPanel();
+		static void exit();
 };
 
