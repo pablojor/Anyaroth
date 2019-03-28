@@ -14,9 +14,6 @@ PlayerPanel::PlayerPanel(Game* game) : PanelUI(game)
 
 	_coinsCounter = new CoinsCounter(game, CAMERA_RESOLUTION_X - 30, 3);
 
-	_button = new ButtonUI(game, game->getTexture("Button"), CAMERA_RESOLUTION_X / 2, CAMERA_RESOLUTION_Y / 2);
-	_button->setFrames(0, 1, 2, 3);
-
 	//Añadimos al panel
 	addChild(_marco);
 	addChild(_lifeBar);
@@ -24,6 +21,4 @@ PlayerPanel::PlayerPanel(Game* game) : PanelUI(game)
 	addChild(_coinsCounter);
 	addChild(_weaponryViewer);
 	addChild(_dashViewer);
-	
-	addChild(_button);
 }

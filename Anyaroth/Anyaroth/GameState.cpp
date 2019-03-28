@@ -127,8 +127,8 @@ Vector2D GameState::getMousePositionOnScreen() const
 	xMousePos -= xBorder / 2;
 	yMousePos -= yBorder / 2;
 
-	/*xMousePos = (xMousePos * _mainCamera->getCameraSize().getX()) / gameWidth;
-	yMousePos = (yMousePos * _mainCamera->getCameraSize().getY()) / gameHeight;*/
+	xMousePos = (xMousePos * GAME_RESOLUTION_X) / gameWidth;
+	yMousePos = (yMousePos * GAME_RESOLUTION_Y) / gameHeight;
 
 	return Vector2D(xMousePos, yMousePos);
 }

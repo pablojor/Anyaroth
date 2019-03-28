@@ -2,12 +2,9 @@
 #include "Game.h"
 
 
-ButtonUI::ButtonUI(Game* game, Texture* image, int xPos, int yPos, Callback* callback, uint frames[4]) : FramedImageUI(game, image, xPos, yPos)
+ButtonUI::ButtonUI(Game* game, Texture* image, int xPos, int yPos, Callback* callback, Frames frames) : FramedImageUI(game, image, xPos, yPos)
 {
-	//_onOutFrame = frames[0];
-	//_onOverFrame = frames[1];
-	//_onDownFrame = frames[2];
-	//_onUpFrame = frames[4];
+	setFrames(frames);
 	_frame = _onOutFrame;
 	_onDownCallback = callback;
 }
@@ -45,7 +42,10 @@ void ButtonUI::handleEvent(const SDL_Event& event)
 {
 	if (mouseIsOver()) 
 	{
-		_positionState = Over;
+		SDL_Cursor* cursor;
+		//cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_HAND);
+		SDL_SetCursor(SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_HAND));
+
 
 		if (event.type == SDL_MOUSEBUTTONDOWN && event.button.state == SDL_PRESSED)
 		{
@@ -63,18 +63,32 @@ void ButtonUI::handleEvent(const SDL_Event& event)
 				if (_onUpCallback != nullptr) _onUpCallback(_game);
 			}
 		}
+		else if (_positionState != Over)
+		{
+			if (_onOverCallback != nullptr) _onOverCallback(_game);
+		}
+		_positionState = Over;
 	}
 	else
 	{
+		SDL_Cursor* cursor;
+		cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
+		SDL_SetCursor(cursor);
+
+		if (_positionState != Out)
+		{
+			if (_onOutCallback != nullptr) _onOutCallback(_game);
+		}
+
 		_positionState = Out;
 		_pressState = None;
 	}
 }
 
-void ButtonUI::setFrames(uint onOut, uint onOver, uint onDown, uint onUp)
+void ButtonUI::setFrames(Frames frames)
 {
-	_onOutFrame = onOut;
-	_onOverFrame = onOver;
-	_onDownFrame = onDown;
-	_onUpFrame = onUp;
+	_onOutFrame = frames.onOut;;
+	_onOverFrame = frames.onOver;
+	_onDownFrame = frames.onDown;
+	_onUpFrame = frames.onUp;
 }
