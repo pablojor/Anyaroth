@@ -3,17 +3,19 @@
 #include "Game.h"
 
 
-PlayerArm::PlayerArm(Game* game, Player* player, Vector2D offset) : Arm(game, player, offset) ,_player(player)
+PlayerArm::PlayerArm(Game* game, Player* player, Vector2D offset) : Arm(game, player, offset), _player(player)
 {
 	setTexture(game->getTexture("Arm"));
 }
 
 void PlayerArm::update(const double& deltaTime)
 {
+
 	GameComponent::update(deltaTime);
 
+
 	//Rotacion del brazo
-	Vector2D mousePos = getGame()->getCurrentState()->getMousePositionInWorld(); 
+	Vector2D mousePos = getGame()->getCurrentState()->getMousePositionInWorld();
 	lookAtTarget(mousePos);
 	handleFlipState(mousePos);
 
@@ -24,8 +26,8 @@ void PlayerArm::update(const double& deltaTime)
 //Activa animacion de disparo
 void PlayerArm::shoot()
 {
-	if(_player->getCurrentGun()->canShoot())
-		_anim->playAnim(AnimatedSpriteComponent::Shoot); 
+	if (_player->getCurrentGun()->canShoot())
+		_anim->playAnim(AnimatedSpriteComponent::Shoot);
 	else
 		_anim->playAnim(AnimatedSpriteComponent::NoAmmo);
 }

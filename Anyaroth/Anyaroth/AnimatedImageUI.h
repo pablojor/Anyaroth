@@ -22,11 +22,11 @@ class AnimatedImageUI : public FramedImageUI
 		double _timer = 0;
     
 		bool _animationFinished = false;
-		bool _active = true;
+		//bool _active = true;
 
 	public:
 		enum DialogueBg { Default, Start, End };
-    enum DialogueIndicator { Idle };
+		enum DialogueIndicator { Idle };
 		enum DashAnimations { Icon, Cooldown };
 
 		AnimatedImageUI(Game* game, Texture* image, int xPos = 0, int yPos = 0);
