@@ -20,6 +20,13 @@ private:
 
 public:
 	ShopCanvas(Game* game);
-	~ShopCanvas();
+	~ShopCanvas() {};
+
+	virtual void handleEvent(const SDL_Event& event) {};
+
+	static void openShopPanel();
+	static void talk();
+	static void openDepotPanel();
+	static void exit();
 };
 

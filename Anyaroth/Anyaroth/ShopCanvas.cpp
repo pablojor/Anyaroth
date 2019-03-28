@@ -1,4 +1,4 @@
-#include "ShopCanvas.h"
+﻿#include "ShopCanvas.h"
 #include "Game.h"
 
 
@@ -23,9 +23,30 @@ ShopCanvas::ShopCanvas(Game* game)
 	addUIElement(_shopPanel);
 
 	//Inicializaciones
-	//_dialoguePanel->startDialogue({});
+	_dialoguePanel->startDialogue({
+		game->getTexture("DialogueFace"),
+		"exampleVoice",
+		"Jose Mar�a",
+		{ "*Bzzt..Bip, bip..* Hey, �qu� tal?",
+		"Aj�, con que programando... ya veo...",
+		"�Pues sigue con eso, chaval! Deja de jugar tanto al Sekiro y ponte a estudiar de una maldita vez, escoria infrahumana (...) �Adew! *Bip*" },
+		{ 0,1,2 },
+		{ " ", " ", " ", " " }
+		});
 }
 
-ShopCanvas::~ShopCanvas()
+void ShopCanvas::openShopPanel()
+{
+}
+
+void ShopCanvas::talk()
+{
+}
+
+void ShopCanvas::openDepotPanel()
+{
+}
+
+void ShopCanvas::exit()
 {
 }
