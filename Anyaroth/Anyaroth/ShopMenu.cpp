@@ -7,7 +7,7 @@ ButtonUI* ShopMenu::_talkButton = nullptr;
 ButtonUI* ShopMenu::_depotButton = nullptr;
 ButtonUI* ShopMenu::_exitButton = nullptr;
 
-ShopPanel* ShopMenu::_shopPanel = nullptr;
+CatalogPanel* ShopMenu::_catalogPanel = nullptr;
 DialoguePanel* ShopMenu::_dialoguePanel = nullptr;
 DepotPanel* ShopMenu::_depotPanel = nullptr;
 
@@ -18,8 +18,6 @@ ShopMenu::ShopMenu(Game* game) : PanelUI(game)
 	_imageBG = new ImageUI(game, game->getTexture("ShopBackground"), 0, 0);
 
 	addChild(_imageBG);
-
-	//-------------//
 
 
 	//----BOTONES---//
@@ -32,7 +30,7 @@ ShopMenu::ShopMenu(Game* game) : PanelUI(game)
 	_talkButton->setPosition(middleOfTheButtonPanelX / 2 - _talkButton->getW() / 2,
 							middleOfTheButtonPanelY - (distanceBetweenButtons/2) - _talkButton->getH());
 
-	_shopButton = new ButtonUI(game, game->getTexture("Button"), openShopPanel, { 0,1,2,3 });
+	_shopButton = new ButtonUI(game, game->getTexture("Button"), openCatalogPanel, { 0,1,2,3 });
 	_shopButton->setPosition(middleOfTheButtonPanelX / 2 - _shopButton->getW() / 2,
 							_talkButton->getY() - _shopButton->getH() - distanceBetweenButtons);
 
@@ -49,7 +47,6 @@ ShopMenu::ShopMenu(Game* game) : PanelUI(game)
 	addChild(_depotButton);
 	addChild(_exitButton);
 
-	//-----------//
 
 	//----MOSTRADOR DE DINERO----//
 
@@ -57,24 +54,27 @@ ShopMenu::ShopMenu(Game* game) : PanelUI(game)
 
 	addChild(_playerMoney);
 
-	//---------------------------//
 
 	//----DISTINTAS FUNCIONALIDADES DE LA TIENDA----//
 
-	_shopPanel = new ShopPanel(game);
-	_shopPanel->setVisible(false);
+	_catalogPanel = new CatalogPanel(game, this);
+	_catalogPanel->setVisible(false);
 
 	_dialoguePanel = new DialoguePanel(game, true);
 
-	_depotPanel = new DepotPanel(game, _player);
+	_depotPanel = new DepotPanel(game, this, _player);
 	_depotPanel->setVisible(false);
 
-	addChild(_shopPanel);
+	addChild(_catalogPanel);
 	addChild(_dialoguePanel);
 	addChild(_depotPanel);
 
-	//--------------------------------------------//
+}
 
+void ShopMenu::setPlayer(Player* ply) 
+{ 
+	_player = ply;
+	_playerMoney->updateCoinsCounter(_player->getBank());
 }
 
 void ShopMenu::openShop()
@@ -89,11 +89,9 @@ void ShopMenu::open()
 	_dialoguePanel->startDialogue({
 	_game->getTexture("DialogueFace"),
 	"exampleVoice",
-	"Jose Mar�a",
-	{ "*Bzzt..Bip, bip..* Hey, �qu� tal?",
-	"Aj�, con que programando... ya veo...",
-	"�Pues sigue con eso, chaval! Deja de jugar tanto al Sekiro y ponte a estudiar de una maldita vez, escoria infrahumana (...) �Adew! *Bip*" },
-	{ 0,1,2 },
+	"Ollivander",
+	{"Espero que encuentres algo de tu agrado"},
+	{ 2 },
 	{ " ", " ", " ", " " }
 		});
 }
@@ -111,6 +109,15 @@ void ShopMenu::ableMainMenu(Game * game)
 	_talkButton->setVisible(true);
 	_depotButton->setVisible(true);
 	_exitButton->setVisible(true);
+
+	_dialoguePanel->startDialogue({
+	game->getTexture("DialogueFace"),
+	"exampleVoice",
+	"Ollivander",
+	{ "Quieres algo mas?"},
+	{ 1 },
+	{ " ", " ", " ", " " }
+		});
 }
 
 void ShopMenu::disableMainMenu(Game * game)
@@ -119,41 +126,43 @@ void ShopMenu::disableMainMenu(Game * game)
 	_talkButton->setVisible(false);
 	_depotButton->setVisible(false);
 	_exitButton->setVisible(false);
+
+	_dialoguePanel->endDialogue();
 }
 
-void ShopMenu::openShopPanel(Game* game)
+void ShopMenu::openCatalogPanel(Game* game)
 {
 	disableMainMenu(game);
-	_shopPanel->setVisible(true);
+	_catalogPanel->openCatalog();
 }
 
-void ShopMenu::closeShopPanel(Game * game)
+void ShopMenu::closeCatalogPanel(Game * game)
 {
+	_catalogPanel->closeCatalog();
 	ableMainMenu(game);
-	_shopPanel->setVisible(false);
 }
 
 void ShopMenu::startTalking(Game* game)
 {
-	disableMainMenu(game);
+	//disableMainMenu(game);
 	cout << "hablando" << endl;
 }
 
 void ShopMenu::stopTalking(Game * game)
 {
-	ableMainMenu(game);
+	//ableMainMenu(game);
 }
 
 void ShopMenu::openDepotPanel(Game* game)
 {
 	disableMainMenu(game);
-	_shopPanel->setVisible(true);
+	_depotPanel->openDepot();
 }
 
 void ShopMenu::closeDepotPanel(Game * game)
 {
+	_depotPanel->closeDepot();
 	ableMainMenu(game);
-	_shopPanel->setVisible(false);
 }
 
 void ShopMenu::exit(Game* game)

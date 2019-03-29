@@ -280,9 +280,6 @@
     <ClCompile Include="ShopItem.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
-    <ClCompile Include="ShopPanel.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
     <ClCompile Include="ShopMenu.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
@@ -317,6 +314,9 @@
       <Filter>Archivos de código fuente\Objects\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="DepotPanel.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="CatalogPanel.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
   </ItemGroup>
@@ -657,7 +657,7 @@
     <ClInclude Include="ShopMenu.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="ShopPanel.h">
+    <ClInclude Include="CatalogPanel.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

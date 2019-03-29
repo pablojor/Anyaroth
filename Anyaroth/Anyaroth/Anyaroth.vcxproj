@@ -221,7 +221,7 @@
     <ClCompile Include="RenderComponent.cpp" />
     <ClCompile Include="ShopMenu.cpp" />
     <ClCompile Include="ShopItem.cpp" />
-    <ClCompile Include="ShopPanel.cpp" />
+    <ClCompile Include="CatalogPanel.cpp" />
     <ClCompile Include="Shotgun.cpp" />
     <ClCompile Include="SpawnerEnemy.cpp" />
     <ClCompile Include="SoundManager.cpp" />
@@ -334,7 +334,7 @@
     <ClInclude Include="SDLError.h" />
     <ClInclude Include="ShopMenu.h" />
     <ClInclude Include="ShopItem.h" />
-    <ClInclude Include="ShopPanel.h" />
+    <ClInclude Include="CatalogPanel.h" />
     <ClInclude Include="Shotgun.h" />
     <ClInclude Include="SpawnerEnemy.h" />
     <ClInclude Include="SoundManager.h" />

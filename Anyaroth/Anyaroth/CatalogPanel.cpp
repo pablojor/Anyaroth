@@ -1,8 +1,8 @@
-#include "DepotPanel.h"
-#include "Player.h"
+#include "CatalogPanel.h"
+#include "Game.h"
 #include "ShopMenu.h"
 
-DepotPanel::DepotPanel(Game* game, ShopMenu* shop, Player* ply) : _shop(shop), _player(ply), PanelUI(game)
+CatalogPanel::CatalogPanel(Game* game, ShopMenu* shop) : _shop(shop), PanelUI(game)
 {
 	_exitButton = new ButtonUI(game, game->getTexture("Button"), ShopMenu::closeCatalogPanel, { 0,1,2,3 });
 	_exitButton->setPosition(5, 5);
@@ -10,7 +10,7 @@ DepotPanel::DepotPanel(Game* game, ShopMenu* shop, Player* ply) : _shop(shop), _
 	addChild(_exitButton);
 }
 
-void DepotPanel::openDepot()
+void CatalogPanel::openCatalog()
 {
 	_visible = true;
 
@@ -18,13 +18,13 @@ void DepotPanel::openDepot()
 	_game->getTexture("DialogueFace"),
 	"exampleVoice",
 	"Ollivander",
-	{ "¡Cuido tus cosas como si fueran mías! ¡Por eso ni te preocupes!"},
+	{ "Te gusta algo de lo que tengo?"},
 	{ 0 },
 	{ " ", " ", " ", " " }
 		});
 }
 
-void DepotPanel::closeDepot()
+void CatalogPanel::closeCatalog()
 {
 	_visible = false;
 

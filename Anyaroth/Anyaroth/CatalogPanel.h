@@ -6,17 +6,22 @@
 
 #include <list>
 
-class ShopPanel : public PanelUI
+class ShopMenu;
+
+class CatalogPanel : public PanelUI
 {
 	private:
 		ImageUI* frame = nullptr;
 		ButtonUI* _exitButton = nullptr;
+		ShopMenu* _shop = nullptr;
 
 		//Estos items serán los que se muestren en la tienda
 		//list<ShopItem*> _items;
 
 	public:
-		ShopPanel(Game* game);
-		~ShopPanel();
+		CatalogPanel(Game* game, ShopMenu* shop);
+
+		void openCatalog();
+		void closeCatalog();
 };
 

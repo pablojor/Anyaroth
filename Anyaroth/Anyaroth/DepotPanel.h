@@ -4,6 +4,7 @@
 #include "ButtonUI.h"
 
 class Player;
+class ShopMenu;
 
 class DepotPanel : public PanelUI
 {
@@ -11,9 +12,12 @@ class DepotPanel : public PanelUI
 		Player* _player = nullptr;
 		ImageUI* frame = nullptr;
 		ButtonUI* _exitButton = nullptr;
+		ShopMenu* _shop = nullptr;
 
 	public:
-		DepotPanel(Game* game, Player* ply);
-		virtual ~DepotPanel();
+		DepotPanel(Game* game, ShopMenu* shop, Player* ply);
+
+		void openDepot();
+		void closeDepot();
 };
 
