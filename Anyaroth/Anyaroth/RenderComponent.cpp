@@ -1,7 +1,7 @@
 #include "RenderComponent.h"
-#include "GameComponent.h"
+#include "GameObject.h"
 
-RenderComponent::RenderComponent(GameComponent* obj) 
+RenderComponent::RenderComponent(GameObject* obj) 
 { 
 	obj->addRenderComponent(this); 
 }

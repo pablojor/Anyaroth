@@ -1,7 +1,8 @@
 #pragma once
-#include "GameComponent.h"
+#include "GameObject.h"
 #include "BackGround.h"
 #include <utility>
+#include "Vector2D.h"
 
 //Valores predeterminados
 const int CAMERA_ASPECT_RATIO_X = 16;
@@ -14,7 +15,7 @@ const int CAMERA_RESOLUTION_Y = CAMERA_ASPECT_RATIO_Y * CAMERA_SCALE_FACTOR;
 class Camera
 {
 private:
-	GameComponent * _followedObject = nullptr;
+	GameObject * _followedObject = nullptr;
 	SDL_Rect _cameraRect;
 	BackGround* _backGround = nullptr;
 
@@ -26,7 +27,7 @@ private:
 
 public:
 	Camera() {}
-	Camera(GameComponent* followObject);
+	Camera(GameObject* followObject);
 	Camera(SDL_Rect rect) : _cameraRect(rect) {}
 	~Camera();
 
@@ -41,12 +42,11 @@ public:
 	inline Vector2D getCameraSize() const { return Vector2D(_cameraRect.w, _cameraRect.h); }
 
 	inline bool inCamera(const Vector2D& pos) const { return (pos.getX() > _cameraRect.x && pos.getX() < _cameraRect.x + _cameraRect.w && pos.getY() > _cameraRect.y && pos.getY() < _cameraRect.y + _cameraRect.h); }
-	inline bool inCameraOnlyX(const Vector2D& pos) const { return (pos.getX() > _cameraRect.x && pos.getX() < _cameraRect.x + _cameraRect.w); }
 
-	void fixCameraToObject(GameComponent* object) { _followedObject = object; };
+	void fixCameraToObject(GameObject* object) { _followedObject = object; };
 	void looseFixedObject();
 
-	inline GameComponent* getFollowedObject() const { return _followedObject; };
+	inline GameObject* getFollowedObject() const { return _followedObject; };
 
 	void setZoom(const float& zoomRatio, const bool& smoothZoom = false);
 	inline int getZoom() const { return _zoom; }

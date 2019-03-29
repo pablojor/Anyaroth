@@ -1,10 +1,15 @@
 #pragma once
 #include "DistanceEnemy.h"
+#include "GroundEnemy.h"
 
-class DistanceDynamicEnemy : public DistanceEnemy
+class DistanceDynamicEnemy : public DistanceEnemy, public GroundEnemy
 {
+private:
+	Vector2D _dir = Vector2D();
+
 public:
-	DistanceDynamicEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag, BulletPool* pool);
+	DistanceDynamicEnemy(Game* g, Player* player, Vector2D pos, BulletPool* pool);
 
 	virtual void update(const double& deltaTime);
+	virtual void attacking(const double& deltaTime);
 };

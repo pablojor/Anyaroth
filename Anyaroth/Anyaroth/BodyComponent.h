@@ -15,8 +15,8 @@ private:
 	double _textW, _textH, _aX, _aY, _width, _height;
 
 public:
-	BodyComponent(GameComponent* obj);
-	BodyComponent(GameComponent* obj, double x, double y, double w, double h);
+	BodyComponent(GameObject* obj);
+	BodyComponent(GameObject* obj, double x, double y, double w, double h);
 	virtual ~BodyComponent();
 
 	virtual void update(const double& deltaTime);
@@ -26,7 +26,7 @@ public:
 	void setW(double w);
 	void setH(double h);
 
-	void setBody(GameComponent* obj, double x, double y, double w, double h);
+	void setBody(GameObject* obj, double x, double y, double w, double h);
 
 	inline double getW() const { return _width; }
 	inline double getH() const { return _height; }

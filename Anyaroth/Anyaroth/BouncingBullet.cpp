@@ -1,19 +1,16 @@
 #include "BouncingBullet.h"
 
-
-
 BouncingBullet::BouncingBullet(Game* game) : Bullet(game)
 {
 	_body->getBody()->SetLinearDamping(1.0f);
 	_body->getBody()->GetFixtureList()->SetRestitution(1.0f);
 }
 
-
 BouncingBullet::~BouncingBullet()
 {
 }
 
-void BouncingBullet::beginCollision(GameComponent * other, b2Contact* contact)
+void BouncingBullet::beginCollision(GameObject * other, b2Contact* contact)
 {
 	if (!_isColliding)
 	{
@@ -28,10 +25,9 @@ void BouncingBullet::beginCollision(GameComponent * other, b2Contact* contact)
 		_numBounces++;
 		cout << _numBounces << endl;
 	}
-	
 }
 
-void BouncingBullet::endCollision(GameComponent * other, b2Contact* contact)
+void BouncingBullet::endCollision(GameObject * other, b2Contact* contact)
 {
 	_isColliding = false;
 }
@@ -44,8 +40,7 @@ void BouncingBullet::update(double deltaTime)
 
 		if (dist < _range && !_collided && _numBounces < _maxBounces)
 		{
-			GameComponent::update(deltaTime);
-
+			GameObject::update(time);
 			_aliveTime++;
 		}
 		else

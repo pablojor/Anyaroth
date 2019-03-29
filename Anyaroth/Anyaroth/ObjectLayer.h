@@ -1,13 +1,17 @@
 #pragma once
-#include "GameComponent.h"
+#include <string>
+#include <vector>
+#include "Vector2D.h"
 
-class ObjectLayer : public GameComponent
+class ObjectLayer
 {
 private:
-	vector<Vector2D> _objectsPos;
+	std::vector<Vector2D> _objectsPos;
+	std::string _name;
 
 public:
-	ObjectLayer(string filename, string name);
+	ObjectLayer(std::string filename, std::string name);
 
-	inline vector<Vector2D> getObjectsPositions() const { return _objectsPos; }
+	inline std::vector<Vector2D> getObjectsPositions() const { return _objectsPos; }
+	inline std::string getName() { return _name; }
 };

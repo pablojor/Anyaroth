@@ -2,23 +2,20 @@
 #include "Game.h"
 #include "BasicPistol.h"
 
-DistanceEnemy::DistanceEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag, BulletPool* pool) : Enemy(player, g, play, texture, posIni, tag)
+DistanceEnemy::DistanceEnemy(Game* g, Player* player, Vector2D pos, Texture* texture, BulletPool* pool) : Enemy(g, player, pos, texture)
 {
 	_arm = new EnemyArm(g, this, player, this, { 35, 30 });
 	_arm->setTexture(g->getTexture("ArmPistol"));
 	addChild(_arm);
 
 	_myGun = new BasicPistol(g);
-
 	_myBulletPool = pool;
 }
 
-void DistanceEnemy::RayCast()
+void DistanceEnemy::raycast()
 {
-	BodyComponent* target = _player->getComponent<BodyComponent>();
-
 	b2Vec2 enemyPos = _body->getBody()->GetPosition();
-	b2Vec2 targetPos = target->getBody()->GetPosition();
+	b2Vec2 targetPos = _player->getComponent<BodyComponent>()->getBody()->GetPosition();
 
 	b2RayCastInput rayInput;
 
@@ -36,9 +33,22 @@ void DistanceEnemy::RayCast()
 				_armVision = false;
 }
 
+void DistanceEnemy::shoot()
+{
+	if (_armVision) //Si vemos al jugador
+	{
+		if (_playerDistance.getX() > 0) //Derecha
+			_anim->unFlip();
+		else if (_playerDistance.getX() < 0) //Izquierda
+			_anim->flip();
+
+		_arm->shoot();
+		_myGun->enemyShoot(_myBulletPool, _arm->getPosition(), !_anim->isFlipped() ? _arm->getAngle() + random(-_fail, _fail) : _arm->getAngle() + 180 + random(-_fail, _fail), "EnemyBullet");
+	}
+}
+
 void DistanceEnemy::update(const double& deltaTime)
 {
 	Enemy::update(deltaTime);
-
 	_myGun->refreshGunCadence(deltaTime);
 }

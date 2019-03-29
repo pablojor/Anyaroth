@@ -6,6 +6,7 @@ PlayerPanel::PlayerPanel(Game* game) : PanelUI(game)
 	//Inicializamos
 	_marco = new ImageUI(game, game->getTexture("LifeBar"), 3, 3);
 	_lifeBar = new LifeBar(game, "LifeBarMask", 25, 6);
+	_lifeBar->setInUse(true);
 
 	_dashViewer = new DashViewer(game, 3, _marco->getY() + _marco->getH() + 3);
 

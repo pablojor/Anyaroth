@@ -13,10 +13,10 @@ class BossPanel : public PanelUI
 		TextUI* _bossName = nullptr;
 
 	public:
-		BossPanel(Game* game, string bossName);
+		BossPanel(Game* game);
 		~BossPanel() {}
 
 		void updateLifeBar(const int& life1, const int& life2, const int& life3, const int& maxLife);
 
-		inline void updateBossName(const string& name) { _bossName->setText(name); }
+		void updateBossName(const string& name);
 };

@@ -1,12 +1,16 @@
 #pragma once
-#include "Enemy.h"
+#include "GroundEnemy.h"
 
-class MartyrEnemy : public Enemy
+class MartyrEnemy : public GroundEnemy
 {
 private:
 	int _explosionRange = 60, _impulse = 15;
 
 public:
-	MartyrEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag);
+	MartyrEnemy(Game* g, Player* player, Vector2D pos);
+
 	virtual void update(const double& deltaTime);
+	virtual void attacking(const double& deltaTime);
+
+	void explosionDie();
 };

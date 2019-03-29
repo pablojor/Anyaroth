@@ -136,6 +136,7 @@
     <ClCompile Include="AmmoViewer.cpp" />
     <ClCompile Include="AnimatedImageUI.cpp" />
     <ClCompile Include="ButtonUI.cpp" />
+    <ClCompile Include="Boss.cpp" />
     <ClCompile Include="FramedImageUI.cpp" />
     <ClCompile Include="AnimatedSpriteComponent.cpp" />
     <ClCompile Include="Arm.cpp" />
@@ -149,9 +150,12 @@
     <ClCompile Include="BouncingBullet.cpp" />
     <ClCompile Include="BouncingBulletPool.cpp" />
     <ClCompile Include="BomberEnemy.cpp" />
+    <ClCompile Include="Boss1.cpp" />
+    <ClCompile Include="BotonLanzaMisiles.cpp" />
     <ClCompile Include="BulletPool.cpp" />
     <ClCompile Include="Capsule.cpp" />
     <ClCompile Include="Cursor.cpp" />
+    <ClCompile Include="CustomAnimatedSpriteComponent.cpp" />
     <ClCompile Include="DialoguePanel.cpp" />
     <ClCompile Include="DialogueTextUI.cpp" />
     <ClCompile Include="DistanceEnemy.cpp" />
@@ -161,16 +165,17 @@
     <ClCompile Include="ImprovedRifle.cpp" />
     <ClCompile Include="ImprovedShotgun.cpp" />
     <ClCompile Include="ExplosiveBulletPool.cpp" />
+    <ClCompile Include="GroundEnemy.cpp" />
     <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="ExplosiveBullet.cpp" />
     <ClCompile Include="FlyingEnemy.cpp" />
+    <ClCompile Include="MisilBoss1.cpp" />
     <ClCompile Include="MovingComponent.cpp" />
     <ClCompile Include="Melee.cpp" />
     <ClCompile Include="PiercingBulletPool.cpp" />
     <ClCompile Include="PiercingBullet.cpp" />
     <ClCompile Include="PlayerArm.cpp" />
-    <ClCompile Include="ArmControllerComponent.cpp" />
     <ClCompile Include="BossPanel.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -189,7 +194,6 @@
     <ClCompile Include="ObjectLayer.cpp" />
     <ClCompile Include="ImageUI.cpp" />
     <ClCompile Include="LifeBar.cpp" />
-    <ClCompile Include="HurtRenderComponent.cpp" />
     <ClCompile Include="Life.cpp" />
     <ClCompile Include="MartyrEnemy.cpp" />
     <ClCompile Include="MeleeEnemy.cpp" />
@@ -199,7 +203,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="FrameComponent.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="GameComponent.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="GameStateMachine.cpp" />
     <ClCompile Include="Gun.cpp" />
@@ -238,6 +242,7 @@
     <ClInclude Include="AmmoViewer.h" />
     <ClInclude Include="AnimatedImageUI.h" />
     <ClInclude Include="ButtonUI.h" />
+    <ClInclude Include="Boss.h" />
     <ClInclude Include="FramedImageUI.h" />
     <ClInclude Include="AnimatedSpriteComponent.h" />
     <ClInclude Include="AnyarothError.h" />
@@ -252,8 +257,11 @@
     <ClInclude Include="BouncingBullet.h" />
     <ClInclude Include="BouncingBulletPool.h" />
     <ClInclude Include="BomberEnemy.h" />
+    <ClInclude Include="Boss1.h" />
+    <ClInclude Include="BotonLanzaMisiles.h" />
     <ClInclude Include="Capsule.h" />
     <ClInclude Include="Cursor.h" />
+    <ClInclude Include="CustomAnimatedSpriteComponent.h" />
     <ClInclude Include="DialoguePanel.h" />
     <ClInclude Include="DialogueTextUI.h" />
     <ClInclude Include="DistanceEnemy.h" />
@@ -262,10 +270,12 @@
     <ClInclude Include="ImprovedRifle.h" />
     <ClInclude Include="ImprovedShotgun.h" />
     <ClInclude Include="ExplosiveBulletPool.h" />
+    <ClInclude Include="GroundEnemy.h" />
     <ClInclude Include="LevelManager.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="ExplosiveBullet.h" />
     <ClInclude Include="FlyingEnemy.h" />
+    <ClInclude Include="MisilBoss1.h" />
     <ClInclude Include="MovingComponent.h" />
     <ClInclude Include="NPC.h" />
     <ClInclude Include="ObjectPool.h" />
@@ -273,7 +283,6 @@
     <ClInclude Include="PiercingBulletPool.h" />
     <ClInclude Include="PiercingBullet.h" />
     <ClInclude Include="PlayerArm.h" />
-    <ClInclude Include="ArmControllerComponent.h" />
     <ClInclude Include="BossPanel.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Camera.h" />
@@ -295,7 +304,6 @@
     <ClInclude Include="ObjectLayer.h" />
     <ClInclude Include="ImageUI.h" />
     <ClInclude Include="LifeBar.h" />
-    <ClInclude Include="HurtRenderComponent.h" />
     <ClInclude Include="Life.h" />
     <ClInclude Include="MartyrEnemy.h" />
     <ClInclude Include="MeleeEnemy.h" />
@@ -307,7 +315,6 @@
     <ClInclude Include="FileNotFoundError.h" />
     <ClInclude Include="FrameComponent.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="GameComponent.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GameStateMachine.h" />

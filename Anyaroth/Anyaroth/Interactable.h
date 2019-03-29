@@ -1,11 +1,10 @@
 #pragma once
-
-#include "GameComponent.h"
+#include "GameObject.h"
 #include "TransformComponent.h"
 #include "AnimatedSpriteComponent.h"
 #include "BodyComponent.h"
 
-class Interactable : public GameComponent
+class Interactable : public GameObject
 {
 protected:
 	//Componentes
@@ -14,19 +13,18 @@ protected:
 	BodyComponent* _body = nullptr;
 
 	bool _canInteract = false;
-	GameComponent* _interactIndicator = nullptr;
+	GameObject* _interactIndicator = nullptr;
 
 	
 public:
-	Interactable(Game* g, double xPos, double yPos);
+	Interactable(Game* g, Vector2D posIni);
 	virtual ~Interactable();
 
-	virtual void update(double deltaTime);
-	virtual bool handleInput(const SDL_Event& event);
+	virtual void update(const double& time);
+	virtual bool handleEvent(const SDL_Event& event);
 
 	virtual void interact() {};
 
-	void beginCollision(GameComponent * other, b2Contact* contact);
-	void endCollision(GameComponent * other, b2Contact* contact);
+	void beginCollision(GameObject * other, b2Contact* contact);
+	void endCollision(GameObject * other, b2Contact* contact);
 };
-

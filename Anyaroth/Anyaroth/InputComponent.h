@@ -1,12 +1,13 @@
+#pragma once
 #include "Component.h"
-#include "SDL.h"
 
-class GameComponent;
+class GameObject;
+typedef union SDL_Event;
 
 class InputComponent : public Component
 {
 public:
-	InputComponent(GameComponent* obj);
+	InputComponent(GameObject* obj);
 	virtual ~InputComponent() {}
-	virtual void handleInput(const SDL_Event& event) = 0;
+	virtual void handleEvent(const SDL_Event& event) = 0;
 };

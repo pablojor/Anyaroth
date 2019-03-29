@@ -1,36 +1,43 @@
 #pragma once
-#include "GameComponent.h"
+#include "GameObject.h"
 #include "Layer.h"
 #include "ObjectLayer.h"
+#include "BulletPool.h"
+#include "ExplosiveBulletPool.h"
+#include "BouncingBulletPool.h"
+#include "PlayStateHUD.h"
+#include "NPC.h"
 #include <vector>
 
-class PlayState;
 class Player;
+class Boss1;
 
-class Map : public GameComponent
+class Map : public GameObject
 {
 private:
-	Game* _game = nullptr;
-	PlayState* _playState = nullptr;
 	Player* _player = nullptr;
+	PlayStateHUD* _hud = nullptr;
+	BulletPool* _bulletPool = nullptr;
+	ExplosiveBulletPool* _explosivePool = nullptr;
+	BouncingBulletPool* _bouncingPool = nullptr;
 
-	vector<Layer*> _layers;
+	GameObject* _layers;
+	GameObject* _objects;
+	Boss1* _boss1 = nullptr;
+	NPC * _n = nullptr;
 
-	map < string, ObjectLayer* > _objectLayers;
-	vector<string> _objectLayersNames;
-
-	vector<GameComponent*> _objects;
+	vector <ObjectLayer*> _objectLayers;
 
 	int _coinValue;
 
 public:
-	Map(string filename, Game* game, PlayState* playstate, Texture* tileset, int coinValue);
+	Map(string filename, Game* game, Player* player, Texture* tileset, BulletPool* bulletPool, ExplosiveBulletPool* explosivePool, BouncingBulletPool* bouncingPool, PlayStateHUD* hud, int coinValue);
 	~Map();
 
 	void createObjects();
 	void restartLevel();
 
-	virtual bool handleInput(const SDL_Event& event);
+	virtual bool handleEvent(const SDL_Event& event);
 	virtual void update(const double& deltaTime);
 	virtual void render(Camera* c) const;
 };

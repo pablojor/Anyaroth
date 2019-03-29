@@ -4,9 +4,6 @@
     <ClCompile Include="AnimatedSpriteComponent.cpp">
       <Filter>Archivos de código fuente\Components</Filter>
     </ClCompile>
-    <ClCompile Include="ArmControllerComponent.cpp">
-      <Filter>Archivos de código fuente\Components</Filter>
-    </ClCompile>
     <ClCompile Include="BodyComponent.cpp">
       <Filter>Archivos de código fuente\Components</Filter>
     </ClCompile>
@@ -14,9 +11,6 @@
       <Filter>Archivos de código fuente\Components</Filter>
     </ClCompile>
     <ClCompile Include="FrameComponent.cpp">
-      <Filter>Archivos de código fuente\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="HurtRenderComponent.cpp">
       <Filter>Archivos de código fuente\Components</Filter>
     </ClCompile>
     <ClCompile Include="InputComponent.cpp">
@@ -200,10 +194,10 @@
       <Filter>Archivos de código fuente\Objects\Level</Filter>
     </ClCompile>
     <ClCompile Include="Axe.cpp">
-      <Filter>Archivos de código fuente\Objects\Melee</Filter>
+      <Filter>Archivos de código fuente\Objects\Player\Melee</Filter>
     </ClCompile>
     <ClCompile Include="Melee.cpp">
-      <Filter>Archivos de código fuente\Objects\Melee</Filter>
+      <Filter>Archivos de código fuente\Objects\Player\Melee</Filter>
     </ClCompile>
     <ClCompile Include="ExplosiveBullet.cpp">
       <Filter>Archivos de código fuente\Objects\Bullets</Filter>
@@ -221,9 +215,6 @@
       <Filter>Archivos de código fuente\Objects\Player</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="GameComponent.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
@@ -292,33 +283,48 @@
     <ClCompile Include="ShopPanel.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
-    <ClCompile Include="PiercingBullet.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="Interactable.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="NPC.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
     <ClCompile Include="ShopMenu.cpp">
       <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss1.cpp">
+      <Filter>Archivos de código fuente\Objects\Enemies\Bosses</Filter>
+    </ClCompile>
+    <ClCompile Include="BotonLanzaMisiles.cpp">
+      <Filter>Archivos de código fuente\Objects\Interactables</Filter>
+    </ClCompile>
+    <ClCompile Include="Interactable.cpp">
+      <Filter>Archivos de código fuente\Objects\Interactables</Filter>
+    </ClCompile>
+    <ClCompile Include="NPC.cpp">
+      <Filter>Archivos de código fuente\Objects\Interactables</Filter>
+    </ClCompile>
+    <ClCompile Include="PiercingBullet.cpp">
+      <Filter>Archivos de código fuente\Objects\Bullets</Filter>
+    </ClCompile>
+    <ClCompile Include="MisilBoss1.cpp">
+      <Filter>Archivos de código fuente\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomAnimatedSpriteComponent.cpp">
+      <Filter>Archivos de código fuente\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss.cpp">
+      <Filter>Archivos de código fuente\Objects\Enemies\Bosses</Filter>
+    </ClCompile>
+    <ClCompile Include="GroundEnemy.cpp">
+      <Filter>Archivos de código fuente\Objects\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="GameComponent.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="AnimatedSpriteComponent.h">
-      <Filter>Archivos de encabezado\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="ArmControllerComponent.h">
       <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
     <ClInclude Include="BodyComponent.h">
@@ -331,9 +337,6 @@
       <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
     <ClInclude Include="FrameComponent.h">
-      <Filter>Archivos de encabezado\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="HurtRenderComponent.h">
       <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
     <ClInclude Include="InputComponent.h">
@@ -627,6 +630,25 @@
       <Filter>Archivos de encabezado\Objects\Interactables</Filter>
     </ClInclude>
     <ClInclude Include="ShopMenu.h" />
+    
+    <ClInclude Include="Boss1.h">
+      <Filter>Archivos de encabezado\Objects\Enemies\Bosses</Filter>
+    </ClInclude>
+    <ClInclude Include="BotonLanzaMisiles.h">
+      <Filter>Archivos de encabezado\Objects\Interactables</Filter>
+    </ClInclude>
+    <ClInclude Include="MisilBoss1.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss.h">
+      <Filter>Archivos de encabezado\Objects\Enemies\Bosses</Filter>
+    </ClInclude>
+    <ClInclude Include="GroundEnemy.h">
+      <Filter>Archivos de encabezado\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomAnimatedSpriteComponent.h">
+      <Filter>Archivos de encabezado\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de código fuente">
@@ -749,9 +771,6 @@
     <Filter Include="Archivos de código fuente\Objects\Level">
       <UniqueIdentifier>{bd12add3-c105-4407-8656-5b02a96302a0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de código fuente\Objects\Melee">
-      <UniqueIdentifier>{91c2fb3e-33b4-42c8-b741-0a0b383c9988}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Archivos de código fuente\Objects\Bullets">
       <UniqueIdentifier>{1f94b1b8-2d58-4d02-8fb0-426ce2d1eb32}</UniqueIdentifier>
     </Filter>
@@ -763,6 +782,18 @@
     </Filter>
     <Filter Include="Archivos de encabezado\Objects\Interactables">
       <UniqueIdentifier>{7c8a5f1c-0a77-493f-9fb9-1658c45d27cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Objects\Enemies\Bosses">
+      <UniqueIdentifier>{189ebb02-4804-4d5b-b000-e8b2b7c50a5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código fuente\Objects\Enemies\Bosses">
+      <UniqueIdentifier>{81f10e5b-a769-401b-9f4d-924c7c7ec0cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código fuente\Objects\Interactables">
+      <UniqueIdentifier>{a2aab5e8-1f03-438e-ad1c-94a98250433c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código fuente\Objects\Player\Melee">
+      <UniqueIdentifier>{91c2fb3e-33b4-42c8-b741-0a0b383c9988}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

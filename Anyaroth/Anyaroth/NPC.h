@@ -11,10 +11,10 @@ private:
 	DialoguePanel* _dialoguePanel = nullptr;
 
 public:
-	NPC(Game* g, double xPos, double yPos, Dialogue dialogue);
+	NPC(Game* g, Vector2D posIni, Dialogue dialogue);
 	virtual ~NPC();
 
-	virtual void update(double deltaTime);
+	virtual void update(const double& time);
 
 	virtual void interact();
 

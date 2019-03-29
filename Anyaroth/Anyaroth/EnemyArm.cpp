@@ -4,7 +4,7 @@
 #include "AnimatedSpriteComponent.h"
 #include "Gun.h"
 
-EnemyArm::EnemyArm(Game* g, GameComponent* owner, GameComponent* target, DistanceEnemy* enemy, Vector2D offset) : Arm(g, owner, offset), _target(target)
+EnemyArm::EnemyArm(Game* g, GameObject* owner, GameObject* target, DistanceEnemy* enemy, Vector2D offset) : Arm(g, owner, offset), _target(target)
 {
 	_targetBody = _target->getComponent<BodyComponent>()->getBody();
 	_myEnemy = enemy;
@@ -12,11 +12,11 @@ EnemyArm::EnemyArm(Game* g, GameComponent* owner, GameComponent* target, Distanc
 
 void EnemyArm::update(const double& deltaTime)
 {
-	GameComponent::update(deltaTime);
+	GameObject::update(deltaTime);
 
 	if (_myEnemy->ArmVision())
 	{
-		if (!_myEnemy->getComponent<AnimatedSpriteComponent>()->isFlipped())
+		if (!_myEnemy->getComponent<CustomAnimatedSpriteComponent>()->isFlipped())
 		{
 			_transform->setAnchor(_transform->getDefaultAnchor().getX(), _transform->getDefaultAnchor().getY());
 
@@ -36,7 +36,7 @@ void EnemyArm::update(const double& deltaTime)
 			_anim->flip();
 		}
 	}
-	else if(_myEnemy->getComponent<AnimatedSpriteComponent>()->isFlipped())
+	else if(_myEnemy->getComponent<CustomAnimatedSpriteComponent>()->isFlipped())
 	{
 		_anim->flip();
 		_transform->setAnchor(1 - _transform->getDefaultAnchor().getX(), _transform->getDefaultAnchor().getY());

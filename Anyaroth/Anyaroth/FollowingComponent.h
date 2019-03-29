@@ -3,19 +3,19 @@
 #include "TransformComponent.h"
 #include "Texture.h"
 
-class GameComponent;
+class GameObject;
 
 class FollowingComponent : public PhysicsComponent
 {
 protected:
 	TransformComponent* _transform = nullptr;
 	TransformComponent* _transformOther = nullptr;
-	GameComponent* _other = nullptr;
+	GameObject* _other = nullptr;
 	Vector2D _offset;
 	Vector2D _initialOffset;
 
 public:
-	FollowingComponent(GameComponent* obj, GameComponent* other);
+	FollowingComponent(GameObject* obj, GameObject* other);
 	virtual ~FollowingComponent() {}
 
 	virtual void update(const double& deltaTime);
@@ -26,5 +26,5 @@ public:
 	inline void setInitialOffset(Vector2D offset) { _initialOffset = offset; _offset = offset; }
 	inline Vector2D getInitialOffset() const { return _initialOffset; }
 
-	inline GameComponent* getOther() const { return _other; }
+	inline GameObject* getOther() const { return _other; }
 };

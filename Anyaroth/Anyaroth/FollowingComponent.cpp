@@ -1,8 +1,8 @@
 #include "FollowingComponent.h"
-#include "GameComponent.h"
+#include "GameObject.h"
 #include <iostream>
 
-FollowingComponent::FollowingComponent(GameComponent* obj, GameComponent* other) : PhysicsComponent(obj)
+FollowingComponent::FollowingComponent(GameObject* obj, GameObject* other) : PhysicsComponent(obj)
 {
 	_transformOther = other->getComponent<TransformComponent>();
 	_transform = obj->getComponent<TransformComponent>();

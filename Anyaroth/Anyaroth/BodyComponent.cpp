@@ -1,8 +1,8 @@
 #include "BodyComponent.h"
-#include "GameComponent.h"
+#include "GameObject.h"
 #include "Game.h"
 
-BodyComponent::BodyComponent(GameComponent * obj) : PhysicsComponent(obj)
+BodyComponent::BodyComponent(GameObject * obj) : PhysicsComponent(obj)
 {
 	_transform = obj->getComponent<TransformComponent>();
 	auto t = obj->getComponent<Texture>();
@@ -42,7 +42,7 @@ BodyComponent::BodyComponent(GameComponent * obj) : PhysicsComponent(obj)
 	_body->SetUserData(obj);
 }
 
-BodyComponent::BodyComponent(GameComponent * obj, double x, double y, double w, double h) : PhysicsComponent(obj)
+BodyComponent::BodyComponent(GameObject * obj, double x, double y, double w, double h) : PhysicsComponent(obj)
 {
 	_world = obj->getWorld();
 
@@ -95,7 +95,7 @@ void BodyComponent::setH(double h)
 	_body->CreateFixture(&_fixture);
 }
 
-void BodyComponent::setBody(GameComponent * obj, double x, double y, double w, double h)
+void BodyComponent::setBody(GameObject * obj, double x, double y, double w, double h)
 {
 	b2BodyDef _bodydef;
 	_bodydef.type = b2_dynamicBody;

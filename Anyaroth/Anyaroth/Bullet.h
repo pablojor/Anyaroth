@@ -1,10 +1,10 @@
 #pragma once
-#include "GameComponent.h"
+#include "GameObject.h"
 #include "Vector2D.h"
 #include "BodyComponent.h"
 #include "AnimatedSpriteComponent.h"
 
-class Bullet : public GameComponent
+class Bullet : public GameObject
 {
 protected:
 	int _range = 200; //rango del arma (en pixeles)
@@ -24,17 +24,15 @@ protected:
 
 public:
 	Bullet(Game* game);
-	Bullet() {}
 	virtual ~Bullet() {}
 
-	virtual void beginCollision(GameComponent* other, b2Contact* contact);
+	virtual void beginCollision(GameObject* other, b2Contact* contact);
 	inline void setSpeed(const double& speed) { _speed = speed; }
-	inline void setDamage(const double& damage) { _damage = damage; }
-	inline int getDamage() const { return _damage; }
+	inline void setDamage(const int& damage) { _damage = damage; }
+	inline int const getDamage() { return _damage; }
 
 	virtual void init(Texture* texture, const Vector2D& position, const double& speed, const double& damage, const double& angle, const double& range, const string& tag);
 	virtual void update(const double& deltaTime);
 	virtual void reset();
-
 	void changeFilter();
 };

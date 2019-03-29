@@ -1,5 +1,4 @@
 #include "AnimatedSpriteComponent.h"
-#include "GameComponent.h"
 #include "Camera.h"
 #include "Game.h"
 
@@ -25,34 +24,39 @@ void AnimatedSpriteComponent::render(Camera* c) const
 void AnimatedSpriteComponent::update(const double& deltaTime)
 {
 	_timer += deltaTime;
-
-	if (_timer >= _animations[_currentAnim].lapse)
+	if (_animations.size() > 0)
 	{
-		if (_animations[_currentAnim].loop)
-			_frame = (_frame + 1) % _animations[_currentAnim].numFrames;
-
-		else if (!_animations[_currentAnim].animationFinished)
+		if (_timer >= _animations[_currentAnim].lapse)
 		{
-			_frame++;
+			if (_animations[_currentAnim].loop)
+				_frame = (_frame + 1) % _animations[_currentAnim].numFrames;
 
-			if (_frame == _animations[_currentAnim].numFrames)
+			else if (!_animations[_currentAnim].animationFinished)
 			{
-				_animations[_currentAnim].animationFinished = true;
-				_frame = _animations[_currentAnim].numFrames - 1;
+				_frame++;
+
+				if (_frame == _animations[_currentAnim].numFrames)
+				{
+					_animations[_currentAnim].animationFinished = true;
+					_frame = _animations[_currentAnim].numFrames - 1;
+				}
 			}
+			_timer = 0;
 		}
-		_timer = 0;
 	}
 }
 
 void AnimatedSpriteComponent::playAnim(uint name)
 {
-	_animations[_currentAnim].animationFinished = false;
-
-	if (_currentAnim != name)
+	if (name < _animations.size())
 	{
-		_currentAnim = name;
-		_frame = 0;
+		_animations[_currentAnim].animationFinished = false;
+
+		if (_currentAnim != name)
+		{
+			_currentAnim = name;
+			_frame = 0;
+		}
 	}
 }
 

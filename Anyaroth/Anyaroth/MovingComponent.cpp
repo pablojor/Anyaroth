@@ -1,8 +1,8 @@
 #include "MovingComponent.h"
-#include "GameComponent.h"
+#include "GameObject.h"
 #include <iostream>
 
-MovingComponent::MovingComponent(GameComponent* obj) : PhysicsComponent(obj)
+MovingComponent::MovingComponent(GameObject* obj) : PhysicsComponent(obj)
 {
 	_body = obj->getComponent<BodyComponent>();
 	_body->getBody()->SetLinearDamping(_damping);

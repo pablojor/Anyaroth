@@ -2,24 +2,15 @@
 #include "BodyComponent.h"
 #include "Game.h"
 
-Interactable::Interactable(Game* g, double xPos, double yPos) : GameComponent(g, "Interactable")
+Interactable::Interactable(Game* g, Vector2D posIni) : GameObject(g, "Interactable")
 {
 
 	//addComponent<Texture>(g->getTexture("Mk"));
 
 	_transform = addComponent<TransformComponent>();
-	_transform->setPosition(xPos/*50*/, yPos /*180*/);
+	_transform->setPosition(posIni.getX(), posIni.getY());
 
-
-	_body = addComponent<BodyComponent>();
-	_body->getBody()->SetType(b2_kinematicBody);
-
-	/**/
-
-	_body->filterCollisions(OBJECTS, PLAYER);
-	_body->getBody()->GetFixtureList()->SetSensor(true);
-
-	_interactIndicator = new GameComponent(g);
+	_interactIndicator = new GameObject(g);
 	_interactIndicator->addComponent<Texture>(g->getTexture("InteractIndicator"));
 
 	_interactIndicator->addComponent<TransformComponent>();
@@ -31,6 +22,8 @@ Interactable::Interactable(Game* g, double xPos, double yPos) : GameComponent(g,
 
 	_interactIndicator->setActive(false);
 	addChild(_interactIndicator);
+
+	auto _indicatorTexture = _interactIndicator->getComponent<Texture>();
 }
 
 
@@ -38,12 +31,12 @@ Interactable::~Interactable()
 {
 }
 
-void Interactable::update(double deltaTime)
+void Interactable::update(const double& time)
 {
-	
+	GameObject::update(time);
 }
 
-bool Interactable::handleInput(const SDL_Event& event)
+bool Interactable::handleEvent(const SDL_Event& event)
 {
 	if (event.type == SDL_KEYDOWN && !event.key.repeat) // Captura solo el primer frame que se pulsa
 	{
@@ -55,7 +48,7 @@ bool Interactable::handleInput(const SDL_Event& event)
 	return false;
 }
 
-void Interactable::beginCollision(GameComponent * other, b2Contact* contact)
+void Interactable::beginCollision(GameObject * other, b2Contact* contact)
 {
 	//Deteccion de player
 	if (other->getTag() == "Player")
@@ -65,7 +58,7 @@ void Interactable::beginCollision(GameComponent * other, b2Contact* contact)
 	}
 }
 
-void Interactable::endCollision(GameComponent * other, b2Contact* contact)
+void Interactable::endCollision(GameObject * other, b2Contact* contact)
 {
 	//Deteccion de player
 	if (other->getTag() == "Player")

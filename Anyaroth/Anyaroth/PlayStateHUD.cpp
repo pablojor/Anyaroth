@@ -7,7 +7,7 @@ PlayStateHUD::PlayStateHUD(Game * g)
 	_playerPanel = new PlayerPanel(g);
 
 	//Panel del Boss
-	_bossPanel = new BossPanel(g, "Spenta Manyu");
+	_bossPanel = new BossPanel(g);
 
 	//Panel de Tienda
 	_shopMenu = new ShopMenu(g);
