@@ -3,7 +3,6 @@
 
 StaticSpawnerEnemy::StaticSpawnerEnemy(Game * g, Player * player, Vector2D pos) : Enemy(g, player, pos, g->getTexture("EnemyMartyr"))
 {
-	_vision = 800;
 	_life = 300;
 	_time = 0;
 

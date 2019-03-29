@@ -46,7 +46,7 @@ void BotonLanzaMisiles::interact()
 	if (usable &&ready)
 	{
 		MisilBoss1 * misil = new MisilBoss1(_boss, _game, _play, _game->getTexture("PistolBullet"), _transform->getPosition(), "Misil");
-		_play->addObject(misil);
+		getGame()->getCurrentState()->addObject(misil);
 		ready = false;
 		usable = false;
 	}

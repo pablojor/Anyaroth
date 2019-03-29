@@ -44,7 +44,6 @@ enum _Category
 	COLLECTED_OBJECTS = 256,
 	MELEE = 512,
 	MISIL=1024,
-	MISILLAUNCHER = 2048,
 };
 
 class Game

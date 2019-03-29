@@ -47,7 +47,7 @@ void Enemy::update(const double& deltaTime)
 void Enemy::die()
 {
 	_anim->die();
-	//_anim->playAnim(AnimatedSpriteComponent::EnemyDie);
+	_anim->playAnim(AnimatedSpriteComponent::EnemyDie);
 	setDead(true);
 	_body->filterCollisions(DEAD_ENEMIES, FLOOR | PLATFORMS);
 }

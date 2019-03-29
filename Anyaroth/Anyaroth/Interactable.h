@@ -21,7 +21,7 @@ public:
 	virtual ~Interactable();
 
 	virtual void update(const double& time);
-	virtual bool handleInput(const SDL_Event& event);
+	virtual bool handleEvent(const SDL_Event& event);
 
 	virtual void interact() {};
 

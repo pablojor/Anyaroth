@@ -31,7 +31,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	//Levels
 	_currentZone = _currentLevel = 1;
 	_levelManager = LevelManager(g, _player, &_stages, _hud);
-	_levelManager.setLevel(_currentZone, 2);
+	_levelManager.setLevel(_currentZone, 1);
 
 	//Background
 	_parallaxZone1 = new ParallaxBackGround(_mainCamera);
@@ -46,22 +46,6 @@ PlayState::PlayState(Game* g) : GameState(g)
 	//Collisions and debugger
 	g->getWorld()->SetContactListener(&_colManager);
 	g->getWorld()->SetDebugDraw(&_debugger);
-
-	//Test NPC
-	NPC* _npc = new NPC(g, { 60, 680 },
-		{
-		g->getTexture("DialogueFace"),
-		"exampleVoice",
-		"Jose Mar�a",
-		{ "*Bzzt..Bip, bip..* Hey, �qu� tal?",
-		"Aj�, con que programando... ya veo...",
-		"�Pues sigue con eso, chaval! Deja de jugar tanto al Sekiro y ponte a estudiar de una maldita vez, escoria infrahumana (...) �Adew! *Bip*" },
-		{0,1,2},
-		{" ", " ", " ", " "}
-		});
-
-	_stages.push_back(_npc);
-	_npc->setDialoguePanel(_hud->getDialoguePanel());
 
 	//World
 	_debugger.getRenderer(g->getRenderer());

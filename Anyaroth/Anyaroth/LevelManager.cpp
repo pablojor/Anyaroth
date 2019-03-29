@@ -11,7 +11,7 @@ LevelManager::LevelManager(Game* game, Player* player, list<GameObject*>* object
 
 
 	_enemyBouncingPool = new BouncingBulletPool(game);
-	_objectList->push_back(_enemyExplosivePool);
+	_objectList->push_back(_enemyBouncingPool);
 
 	_tilesetZone1 = game->getTexture("tileset");
 }

@@ -14,7 +14,8 @@ FlyingEnemy::FlyingEnemy(Game* g, Player* player, Vector2D pos) : Enemy(g,  play
 	_body->getBody()->SetGravityScale(0);
 	_body->getBody()->GetFixtureList()->SetSensor(true);
 
-	_previousPos= Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL);
+	_originalPos= Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL);
+	_previousPos = _originalPos;
 }
 
 void FlyingEnemy::sinusoidalMove(const double& deltaTime)
@@ -27,7 +28,8 @@ void FlyingEnemy::sinusoidalMove(const double& deltaTime)
 
 	double y = prevY + _amplitude * sin(_k * prevX - _angularFrequency * deltaTime / 1000);
 
-	_body->getBody()->SetTransform(b2Vec2(prevX / M_TO_PIXEL, y / M_TO_PIXEL), 0);
+	if (_originalPos.distance(_previousPos) < maxDistance)
+		_body->getBody()->SetTransform(b2Vec2(prevX / M_TO_PIXEL, y / M_TO_PIXEL), 0);
 }
 
 void FlyingEnemy::update(const double& deltaTime)
@@ -51,4 +53,6 @@ void FlyingEnemy::beginCollision(GameObject * other, b2Contact * contact)
 		_player->subLife(_damage);
 		destroy();
 	}
+	else if (other->getTag() == "Ground")
+		destroy();
 }

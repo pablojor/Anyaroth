@@ -36,7 +36,7 @@ void Interactable::update(const double& time)
 	GameObject::update(time);
 }
 
-bool Interactable::handleInput(const SDL_Event& event)
+bool Interactable::handleEvent(const SDL_Event& event)
 {
 	if (event.type == SDL_KEYDOWN && !event.key.repeat) // Captura solo el primer frame que se pulsa
 	{

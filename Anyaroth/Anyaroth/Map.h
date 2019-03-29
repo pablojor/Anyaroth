@@ -6,6 +6,7 @@
 #include "ExplosiveBulletPool.h"
 #include "BouncingBulletPool.h"
 #include "PlayStateHUD.h"
+#include "NPC.h"
 #include <vector>
 
 class Player;
@@ -23,6 +24,7 @@ private:
 	GameObject* _layers;
 	GameObject* _objects;
 	Boss1* _boss1 = nullptr;
+	NPC * _n = nullptr;
 
 	vector <ObjectLayer*> _objectLayers;
 

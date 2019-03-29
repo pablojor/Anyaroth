@@ -1,4 +1,4 @@
-#include "Map.h"
+﻿#include "Map.h"
 #include "BodyComponent.h"
 #include "Coin.h"
 #include "MeleeEnemy.h"
@@ -116,6 +116,20 @@ void Map::createObjects()
 			else if (name == "Misiles")
 			{
 				_objects->addChild(new BotonLanzaMisiles(_game, _boss1, _game->getTexture("EnemyMartyr"), Vector2D(pos[j].getX(), pos[j].getY())));
+			}
+			else if (name == "NPCs")
+			{
+				_n=new NPC(_game, { 60, 730 },{_game->getTexture("DialogueFace"),
+																"exampleVoice",
+																"Jose Mar�a",
+																{ "*Bzzt..Bip, bip..* Hey, �qu� tal?",
+																"Aj�, con que programando... ya veo...",
+																"�Pues sigue con eso, chaval! Deja de jugar tanto al Sekiro y ponte a estudiar de una maldita vez, escoria infrahumana (...) �Adew! *Bip*" },
+																{0,1,2},
+																{" ", " ", " ", " "}
+					});
+				_n->setDialoguePanel(_hud->getDialoguePanel());
+				_objects->addChild(_n);
 			}
 		}
 	}
