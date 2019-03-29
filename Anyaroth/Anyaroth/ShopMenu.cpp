@@ -11,11 +11,25 @@ ShopPanel* ShopMenu::_shopPanel = nullptr;
 
 ShopMenu::ShopMenu(Game* game) : PanelUI(game)
 {
-	_shopButton = new ButtonUI(game, game->getTexture("Button"), 5, 10, openShopPanel, { 0,1,2,3 });
-	_talkButton = new ButtonUI(game, game->getTexture("Button"), 5, 30, startTalking, { 0,1,2,3 });
-	_depotButton = new ButtonUI(game, game->getTexture("Button"), 5, 50, openDepotPanel, { 0,1,2,3 });
-	_exitButton = new ButtonUI(game, game->getTexture("Button"), 5, 70, exit, { 0,1,2,3 });
+	int distanceBetweenButtons = 5,
+		middleOfTheButtonPanel = 100;
 
+	_talkButton = new ButtonUI(game, game->getTexture("Button"), startTalking, { 0,1,2,3 });
+	_talkButton->setPosition(CAMERA_RESOLUTION_X / 2 - _talkButton->getW() / 2, 
+							middleOfTheButtonPanel - (distanceBetweenButtons/2) - _talkButton->getH());
+
+	_shopButton = new ButtonUI(game, game->getTexture("Button"), openShopPanel, { 0,1,2,3 });
+	_shopButton->setPosition(CAMERA_RESOLUTION_X / 2 - _shopButton->getW() / 2, 
+							_talkButton->getY() - _shopButton->getH() - distanceBetweenButtons);
+
+	_depotButton = new ButtonUI(game, game->getTexture("Button"), openDepotPanel, { 0,1,2,3 });
+	_depotButton->setPosition(CAMERA_RESOLUTION_X / 2 - _depotButton->getW() / 2, 
+							middleOfTheButtonPanel + (distanceBetweenButtons/2));
+
+	_exitButton = new ButtonUI(game, game->getTexture("Button"), exit, { 0,1,2,3 });
+	_exitButton->setPosition(CAMERA_RESOLUTION_X / 2 - _exitButton->getW() / 2,
+							_depotButton->getY() + _depotButton->getH() + distanceBetweenButtons);
+		
 	_dialoguePanel = new DialoguePanel(game, true);
 
 	addChild(_shopButton);
@@ -95,7 +109,7 @@ void ShopMenu::closeShopPanel(Game * game)
 
 void ShopMenu::startTalking(Game* game)
 {
-
+	cout << "hablando" << endl;
 }
 
 void ShopMenu::stopTalking(Game * game)
@@ -105,7 +119,7 @@ void ShopMenu::stopTalking(Game * game)
 
 void ShopMenu::openDepotPanel(Game* game)
 {
-
+	cout << "en almacen" << endl;
 }
 
 void ShopMenu::closeDepotPanel(Game * game)
@@ -115,5 +129,5 @@ void ShopMenu::closeDepotPanel(Game * game)
 
 void ShopMenu::exit(Game* game)
 {
-
+	cout << "cerrando" << endl;
 }

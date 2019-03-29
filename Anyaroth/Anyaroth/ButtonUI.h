@@ -25,7 +25,7 @@ class ButtonUI : public FramedImageUI
 		bool mouseIsOver();
 
 	public:
-		ButtonUI(Game* game, Texture* image, int xPos, int yPos, Callback* callback = nullptr, Frames frames = { 0, 0, 0, 0 });
+		ButtonUI(Game* game, Texture* image, Callback* callback = nullptr, Frames frames = { 0, 0, 0, 0 });
 		virtual ~ButtonUI() {};
 
 		virtual void update(const double& deltaTime);
