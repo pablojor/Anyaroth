@@ -1,14 +1,15 @@
-﻿#include "ShopCanvas.h"
+﻿#include "ShopMenu.h"
 #include "Game.h"
+#include "Player.h"
 
-ButtonUI* ShopCanvas::_shopButton = nullptr;
-ButtonUI* ShopCanvas::_talkButton = nullptr;
-ButtonUI* ShopCanvas::_depotButton = nullptr;
-ButtonUI* ShopCanvas::_exitButton = nullptr;
-DialoguePanel* ShopCanvas::_dialoguePanel = nullptr;
-ShopPanel* ShopCanvas::_shopPanel = nullptr;
+ButtonUI* ShopMenu::_shopButton = nullptr;
+ButtonUI* ShopMenu::_talkButton = nullptr;
+ButtonUI* ShopMenu::_depotButton = nullptr;
+ButtonUI* ShopMenu::_exitButton = nullptr;
+DialoguePanel* ShopMenu::_dialoguePanel = nullptr;
+ShopPanel* ShopMenu::_shopPanel = nullptr;
 
-ShopCanvas::ShopCanvas(Game* game)
+ShopMenu::ShopMenu(Game* game) : PanelUI(game)
 {
 	_shopButton = new ButtonUI(game, game->getTexture("Button"), 5, 10, openShopPanel, { 0,1,2,3 });
 	_talkButton = new ButtonUI(game, game->getTexture("Button"), 5, 30, startTalking, { 0,1,2,3 });
@@ -17,17 +18,17 @@ ShopCanvas::ShopCanvas(Game* game)
 
 	_dialoguePanel = new DialoguePanel(game, true);
 
-	addUIElement(_shopButton);
-	addUIElement(_talkButton);
-	addUIElement(_depotButton);
-	addUIElement(_exitButton);
+	addChild(_shopButton);
+	addChild(_talkButton);
+	addChild(_depotButton);
+	addChild(_exitButton);
 
-	addUIElement(_dialoguePanel);
+	addChild(_dialoguePanel);
 
 	_shopPanel = new ShopPanel(game);
 	_shopPanel->setVisible(false);
 
-	addUIElement(_shopPanel);
+	addChild(_shopPanel);
 
 	//Inicializaciones
 	_dialoguePanel->startDialogue({
@@ -42,7 +43,16 @@ ShopCanvas::ShopCanvas(Game* game)
 		});
 }
 
-void ShopCanvas::ableMainMenu(Game * game)
+inline void ShopMenu::setVisible(bool b)
+{
+	_visible = b;
+	if (_visible)
+		_player->setActive(false);
+	else
+		_player->setActive(true);
+}
+
+void ShopMenu::ableMainMenu(Game * game)
 {
 	_shopButton->setVisible(true);
 	_talkButton->setVisible(true);
@@ -50,7 +60,7 @@ void ShopCanvas::ableMainMenu(Game * game)
 	_exitButton->setVisible(true);
 }
 
-void ShopCanvas::disableMainMenu(Game * game)
+void ShopMenu::disableMainMenu(Game * game)
 {
 	_shopButton->setVisible(false);
 	_talkButton->setVisible(false);
@@ -58,39 +68,39 @@ void ShopCanvas::disableMainMenu(Game * game)
 	_exitButton->setVisible(false);
 }
 
-void ShopCanvas::openShopPanel(Game* game)
+void ShopMenu::openShopPanel(Game* game)
 {
 	disableMainMenu(game);
 	_shopPanel->setVisible(true);
 }
 
-void ShopCanvas::closeShopPanel(Game * game)
+void ShopMenu::closeShopPanel(Game * game)
 {
 	ableMainMenu(game);
 	_shopPanel->setVisible(false);
 }
 
-void ShopCanvas::startTalking(Game* game)
+void ShopMenu::startTalking(Game* game)
 {
 
 }
 
-void ShopCanvas::stopTalking(Game * game)
+void ShopMenu::stopTalking(Game * game)
 {
 
 }
 
-void ShopCanvas::openDepotPanel(Game* game)
+void ShopMenu::openDepotPanel(Game* game)
 {
 
 }
 
-void ShopCanvas::closeDepotPanel(Game * game)
+void ShopMenu::closeDepotPanel(Game * game)
 {
 
 }
 
-void ShopCanvas::exit(Game* game)
+void ShopMenu::exit(Game* game)
 {
 
 }

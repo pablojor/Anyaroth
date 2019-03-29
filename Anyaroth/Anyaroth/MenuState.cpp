@@ -2,7 +2,6 @@
 #include "PlayState.h"
 #include "MenuButton.h"
 #include "BackGround.h"
-#include "ShopCanvas.h"
 
 MenuState::MenuState(Game* g) : GameState(g)
 {
@@ -19,7 +18,6 @@ MenuState::MenuState(Game* g) : GameState(g)
 	_mainCamera->setBackGround(new BackGround(g->getTexture("BgMenu"), _mainCamera));
 
 	//g->getSoundManager()->playMusic("bgMusic", true);
-	setCanvas(new ShopCanvas(g));
 }
 
 void MenuState::startGame(Game * g)

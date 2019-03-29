@@ -1,7 +1,6 @@
 #include "PlayState.h"
 #include "Game.h"
 #include "PauseState.h"
-#include "PlayStateHUD.h"
 #include "NPC.h"
 #include "PiercingBulletPool.h"
 #include "checkML.h"
@@ -100,12 +99,15 @@ PlayState::PlayState(Game* g) : GameState(g)
 
 
 	//HUD
-	auto b = new PlayStateHUD(g);
-	setCanvas(b);
+	_hud = new PlayStateHUD(g);
+	setCanvas(_hud);
+
+	_hud->getShop()->setPlayer(_player);
+	_hud->getShop()->setVisible(false);
 
 	//Asignacion de paneles a sus controladores
-	_player->setPlayerPanel(b->getPlayerPanel());
-	_npc->setDialoguePanel(b->getDialoguePanel());
+	_player->setPlayerPanel(_hud->getPlayerPanel());
+	_npc->setDialoguePanel(_hud->getDialoguePanel());
 }
 
 void PlayState::addObject(GameComponent* n)
@@ -146,6 +148,8 @@ bool PlayState::handleEvents(SDL_Event& e)
 		_mainCamera->setZoom(_mainCamera->getZoomRatio() + 1, true);
 	else if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_m)
 		_mainCamera->setZoom(_mainCamera->getZoomRatio() - 1, true);
+	else if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_p)
+		_hud->getShop()->setVisible(true);
 
 	return handled;
 }

@@ -250,19 +250,15 @@
     <ClCompile Include="WeaponryViewer.cpp">
       <Filter>Archivos de código fuente\HUD\UIElements</Filter>
     </ClCompile>
-    <ClCompile Include="ShopPanel.cpp" />
-    <ClCompile Include="ShopItem.cpp" />
     <ClCompile Include="ButtonUI.cpp">
       <Filter>Archivos de código fuente\HUD\UIElements</Filter>
     </ClCompile>
     <ClCompile Include="PanelUI.cpp">
       <Filter>Archivos de código fuente\HUD\UIElements</Filter>
     </ClCompile>
-    <ClCompile Include="ShopCanvas.cpp" />
     <ClCompile Include="Bullet.cpp">
       <Filter>Archivos de código\Objects\Bullets</Filter>
     </ClCompile>
-    <ClCompile Include="PiercingBullet.cpp" />
     <ClCompile Include="BasicRifle.cpp">
       <Filter>Archivos de código fuente\Guns</Filter>
     </ClCompile>
@@ -290,11 +286,23 @@
     <ClCompile Include="BouncingBullet.cpp">
       <Filter>Archivos de código fuente\Objects\Bullets</Filter>
     </ClCompile>
+    <ClCompile Include="ShopItem.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="ShopPanel.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="PiercingBullet.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
     <ClCompile Include="Interactable.cpp">
-      <Filter>Archivos de código\Objects\Interactables</Filter>
+      <Filter>Archivos de código fuente</Filter>
     </ClCompile>
     <ClCompile Include="NPC.cpp">
-      <Filter>Archivos de código\Objects\Interactables</Filter>
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="ShopMenu.cpp">
+      <Filter>Archivos de código fuente</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -576,7 +584,6 @@
     <ClInclude Include="ButtonUI.h">
       <Filter>Archivos de encabezado\HUD\UIElements</Filter>
     </ClInclude>
-    <ClInclude Include="ShopCanvas.h" />
     <ClInclude Include="ImprovedShotgun.h">
       <Filter>Archivos de encabezado\Guns</Filter>
     </ClInclude>
@@ -619,6 +626,7 @@
     <ClInclude Include="NPC.h">
       <Filter>Archivos de encabezado\Objects\Interactables</Filter>
     </ClInclude>
+    <ClInclude Include="ShopMenu.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de código fuente">
@@ -755,9 +763,6 @@
     </Filter>
     <Filter Include="Archivos de encabezado\Objects\Interactables">
       <UniqueIdentifier>{7c8a5f1c-0a77-493f-9fb9-1658c45d27cf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de código\Objects\Interactables">
-      <UniqueIdentifier>{e3c955f9-e850-4297-8ea0-2269ef7d7f36}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

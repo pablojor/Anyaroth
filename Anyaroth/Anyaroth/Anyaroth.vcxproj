@@ -214,7 +214,7 @@
     <ClCompile Include="PlayStateHUD.cpp" />
     <ClCompile Include="PoolWrapper.cpp" />
     <ClCompile Include="RenderComponent.cpp" />
-    <ClCompile Include="ShopCanvas.cpp" />
+    <ClCompile Include="ShopMenu.cpp" />
     <ClCompile Include="ShopItem.cpp" />
     <ClCompile Include="ShopPanel.cpp" />
     <ClCompile Include="Shotgun.cpp" />
@@ -323,7 +323,7 @@
     <ClInclude Include="PoolWrapper.h" />
     <ClInclude Include="RenderComponent.h" />
     <ClInclude Include="SDLError.h" />
-    <ClInclude Include="ShopCanvas.h" />
+    <ClInclude Include="ShopMenu.h" />
     <ClInclude Include="ShopItem.h" />
     <ClInclude Include="ShopPanel.h" />
     <ClInclude Include="Shotgun.h" />

@@ -2,8 +2,9 @@
 #include "PanelUI.h"
 #include "ImageUI.h"
 #include "ShopItem.h"
-#include <list>
 #include "ButtonUI.h"
+
+#include <list>
 
 class ShopPanel : public PanelUI
 {

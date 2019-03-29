@@ -1,30 +1,35 @@
 #pragma once
-#include "Canvas.h"
+#include "PanelUI.h"
 #include "ShopPanel.h"
 #include "ButtonUI.h"
 #include "DialoguePanel.h"
 #include "ImageUI.h"
 //#include "DepotPanel.h"
 
-class ShopCanvas :	public Canvas
+class Player;
+
+class ShopMenu : public PanelUI
 {
 	private:
+		Player* _player = nullptr;
 		ImageUI* _imageBG = nullptr;
+
 		static ButtonUI * _shopButton;
 		static ButtonUI* _talkButton;
 		static ButtonUI* _depotButton;
 		static ButtonUI* _exitButton;
-											;
-		static DialoguePanel* _dialoguePanel;
 
+		static DialoguePanel* _dialoguePanel;
 		static ShopPanel* _shopPanel;
 		//DepotPanel* _depotPanel = nullptr;
 
 	public:
-		ShopCanvas(Game* game);
-		~ShopCanvas() {};
+		ShopMenu(Game* game);
+		~ShopMenu() {};
 
 		//virtual void handleEvent(const SDL_Event& event) {};
+		inline void setPlayer(Player* ply) { _player = ply; }
+		inline virtual void setVisible(bool b);
 
 		static void ableMainMenu(Game* game);
 		static void disableMainMenu(Game* game);
