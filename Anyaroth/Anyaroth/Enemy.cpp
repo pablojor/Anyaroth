@@ -16,7 +16,7 @@ Enemy::Enemy(Game* g, Player* player, Vector2D pos, Texture* texture) : GameObje
 	
 	_body->setW(20);
 	_body->setH(20);
-	_body->filterCollisions(ENEMIES, FLOOR | PLAYER_BULLETS | MELEE);
+	_body->filterCollisions(ENEMIES, FLOOR | PLATFORMS | PLAYER_BULLETS | MELEE);
 	
 	_body->getBody()->SetFixedRotation(true);
 
@@ -48,13 +48,13 @@ void Enemy::die()
 {
 	_anim->die();
 	//_anim->playAnim(AnimatedSpriteComponent::EnemyDie); //Los distance enemy crashean
-	_dead = true;
-	_body->filterCollisions(DEAD_ENEMIES, FLOOR);
+	setDead(true);
+	_body->filterCollisions(DEAD_ENEMIES, FLOOR | PLATFORMS);
 }
 
 void Enemy::subLife(int damage)
 {
-	if (!_dead)
+	if (!isDead())
 	{
 		_life.subLife(damage);
 
@@ -68,9 +68,4 @@ void Enemy::subLife(int damage)
 bool Enemy::inCamera()
 {
 	return _game->getCurrentState()->getMainCamera()->inCamera(Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL));
-}
-
-bool Enemy::inCameraOnlyX()
-{
-	return _game->getCurrentState()->getMainCamera()->inCameraOnlyX(Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL));
 }

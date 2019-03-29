@@ -23,14 +23,14 @@ MeleeEnemy::MeleeEnemy(Game* g, Player* player, Vector2D pos) : GroundEnemy(g, p
 
 	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 
-	_body->addCricleShape(b2Vec2(0, _body->getH() + _body->getH() / 20), _body->getW() - _body->getW() / 20, ENEMIES, FLOOR);
+	_body->addCricleShape(b2Vec2(0, _body->getH() + _body->getH() / 20), _body->getW() - _body->getW() / 20, ENEMIES, FLOOR | PLATFORMS);
 }
 
 void MeleeEnemy::update(const double& deltaTime)
 {
 	Enemy::update(deltaTime);
 
-	if (!_dead && inCamera())
+	if (!isDead() && inCamera())
 	{
 		bool inVision = _playerDistance.getX() < _vision && _playerDistance.getX() > -_vision && _playerDistance.getY() < _vision && _playerDistance.getY() > -_vision;
 		bool sameFloor = _playerDistance.getY() < _attackRangeY && _playerDistance.getY() > -_attackRangeY;
@@ -73,11 +73,7 @@ void MeleeEnemy::idle()
 	if (_attacking == true && _anim->animationFinished())
 		_attacking = false;
 
-	if (_attacking == false)
-	{
-		_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
-		_anim->playAnim(AnimatedSpriteComponent::Idle);
-	}
+	GroundEnemy::idle();
 }
 
 void MeleeEnemy::attacking(const double& deltaTime)

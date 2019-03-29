@@ -4,7 +4,7 @@
 
 ExplosiveBullet::ExplosiveBullet(Game* game):Bullet(game)
 {
-	_body->filterCollisions(PLAYER_BULLETS, FLOOR | ENEMIES);
+	_body->filterCollisions(PLAYER_BULLETS, FLOOR | PLATFORMS | ENEMIES);
 	_body->getBody()->SetType(b2_dynamicBody);
 	_body->getBody()->SetBullet(true);
 	_body->getBody()->SetFixedRotation(true);
@@ -18,9 +18,9 @@ ExplosiveBullet::~ExplosiveBullet() {}
 
 void ExplosiveBullet::beginCollision(GameObject * other, b2Contact * contact)
 {
-	if (getTag() == "Bullet" && (other->getTag() == "Ground" || other->getTag() == "Enemy"))
+	if (getTag() == "Bullet" && (other->getTag() == "Ground" || other->getTag() == "Platform" || other->getTag() == "Enemy"))
 		_collided = true;
-	else if (getTag() == "EnemyBullet" && (other->getTag() == "Ground" || other->getTag() == "Player"))
+	else if (getTag() == "EnemyBullet" && (other->getTag() == "Ground" || other->getTag() == "Platform" || other->getTag() == "Player"))
 		_collided = true;
 
 	contact->SetEnabled(false);

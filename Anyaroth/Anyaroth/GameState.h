@@ -29,11 +29,11 @@ public:
 
 	virtual void render() const;
 	virtual void update(const double& deltaTime);
-	void post_update();
+	virtual void post_update();
 	virtual bool handleEvent(const SDL_Event& event);
 
-	void addObject(GameObject* obj);
-	void destroyObject(GameObject* obj);
+	virtual void addObject(GameObject* obj);
+	virtual void destroyObject(GameObject* obj);
 
 	inline virtual Camera* getMainCamera() const { return _mainCamera; }
 	inline virtual list<GameObject*>& getObjects() { return _stages; }

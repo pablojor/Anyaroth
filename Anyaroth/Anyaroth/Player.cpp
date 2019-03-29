@@ -22,8 +22,8 @@ Player::Player(Game* game, int xPos, int yPos) :  GameObject(game, "Player")
 	_body->setW(12);
 	_body->setH(26);
 	
-	_body->filterCollisions(PLAYER, OBJECTS | FLOOR  | ENEMY_BULLETS);
-	_body->addCricleShape(b2Vec2(0, 1.1), 0.7, PLAYER, FLOOR);
+	_body->filterCollisions(PLAYER, OBJECTS | FLOOR | PLATFORMS | ENEMY_BULLETS);
+	_body->addCricleShape(b2Vec2(0, 1.1), 0.7, PLAYER, FLOOR | PLATFORMS);
 	_body->getBody()->SetFixedRotation(true);
 
 	double _gravScale = 3.5, _damping = 3.0;
@@ -36,7 +36,7 @@ Player::Player(Game* game, int xPos, int yPos) :  GameObject(game, "Player")
 	b2FixtureDef fDef;
 	fDef.shape = &shape;
 	fDef.filter.categoryBits = PLAYER;
-	fDef.filter.maskBits = FLOOR;
+	fDef.filter.maskBits = FLOOR | PLATFORMS;
 	fDef.isSensor = true;
 	_body->addFixture(&fDef, this);
 
@@ -86,7 +86,7 @@ void Player::beginCollision(GameObject * other, b2Contact* contact)
 	auto fB = contact->GetFixtureB();
 
 	//Deteccion del suelo
-	if ((fA->IsSensor() || fB->IsSensor()) && other->getTag() == "Ground")
+	if ((fA->IsSensor() || fB->IsSensor()) && (other->getTag() == "Ground" || other->getTag() == "Platform"))
 	{
 		_floorCount++;
 		setGrounded(true);
@@ -118,20 +118,20 @@ void Player::endCollision(GameObject * other, b2Contact* contact)
 	auto fB = contact->GetFixtureB();
 
 	//Deteccion del suelo
-	if ((fA->IsSensor() || fB->IsSensor()) && other->getTag() == "Ground")
+	if ((fA->IsSensor() || fB->IsSensor()) && (other->getTag() == "Ground" || other->getTag() == "Platform"))
 		_floorCount > 0 ? _floorCount-- : _floorCount = 0;
 }
 
 void Player::die()
 {
-	_dead = true;
+	setDead(true);
 	_body->getBody()->SetLinearVelocity(b2Vec2(0.0, 0.0));
 	_body->getBody()->SetAngularVelocity(0);
 }
 
 void Player::revive()
 {
-	_dead = false;
+	setDead(false);
 
 	_life.resetLife();
 	_playerPanel->updateLifeBar(_life.getLife(), _life.getMaxLife());
@@ -150,7 +150,7 @@ void Player::subLife(int damage)
 	{
 		_life.subLife(damage);
 
-		if (!_dead)
+		if (!isDead())
 		{
 			if (_life.getLife() == 0)
 			{

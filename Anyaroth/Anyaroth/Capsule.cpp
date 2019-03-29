@@ -1,49 +1,49 @@
 #include "Capsule.h"
 #include "GameObject.h"
-#include "AnimatedSpriteComponent.h"
-#include "Player.h"
 #include "MeleeEnemy.h"
 
-Capsule::Capsule(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D pos, string tag) : Enemy(g, player, pos, texture)
+Capsule::Capsule(Game* g, Player* player, Vector2D pos, Enemy* father) : GameObject(g), _player(player), _father(father)
 {
-	_attackTime = 2000;
-	_life = 300;
-	_speed = -8;
+	addComponent<Texture>(g->getTexture("EnemyMartyr"));
 
-	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 13, true);
-	_anim->addAnim(AnimatedSpriteComponent::EnemyWalk, 8, true);
-	_anim->addAnim(AnimatedSpriteComponent::EnemyAttack, 11, false);
-	_anim->addAnim(AnimatedSpriteComponent::EnemyDie, 18, false);
+	_transform = addComponent<TransformComponent>();
+	_transform->setPosition(pos.getX(), pos.getY());
 
-	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
-	_body->addCricleShape(b2Vec2(0, _body->getH() + _body->getH() / 20), _body->getW() - _body->getW() / 20, ENEMIES, FLOOR | PLAYER_BULLETS | MELEE);
-	_body->getBody()->SetGravityScale(1);
+	_body = addComponent<BodyComponent>();
+	_body->getBody()->SetType(b2_dynamicBody);
+	_body->getBody()->SetBullet(true);
 
-	_body->filterCollisions(DEAD_ENEMIES, FLOOR);
+	_body->setW(20);
+	_body->setH(20);
+
+	_body->getBody()->SetFixedRotation(true);
+	_body->filterCollisions(DEAD_ENEMIES, FLOOR | PLATFORMS);
 
 	//Sensor del suelo
 	b2PolygonShape shape;
-	shape.SetAsBox(5 / M_TO_PIXEL, 2 / M_TO_PIXEL, b2Vec2(0, 2.25 /*Dependera del sprite final */), 0);
+	shape.SetAsBox(5 / M_TO_PIXEL, 2 / M_TO_PIXEL, b2Vec2(0, 2.25), 0);
 	b2FixtureDef fDef;
 	fDef.shape = &shape;
 	fDef.filter.categoryBits = PLAYER;
-	fDef.filter.maskBits = FLOOR;
+	fDef.filter.maskBits = FLOOR | PLATFORMS;
 	fDef.isSensor = true;
 	_body->addFixture(&fDef, this);
+}
 
+void Capsule::spawn()
+{
+	if (_spawning)
+	{
+		Vector2D pos = Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL - TILES_SIZE * 2, _body->getBody()->GetPosition().y * M_TO_PIXEL - TILES_SIZE * 2);
+		_father->addChild(new MeleeEnemy(_game, _player, pos));
+		destroy();
+	}
 }
 
 void Capsule::update(const double& deltaTime)
 {
-	Enemy::update(deltaTime);
-	if (_spawning)
-	{
-		//if( animacion de spawn terminada)
-		b2Vec2 enemyPos = _body->getBody()->GetPosition();
-
-		enemySpawn(new MeleeEnemy(_game, _player, Vector2D(enemyPos.x * 8 - 30/*Numero a ajustar dependiendo del sprite*/, enemyPos.y * 8 - 30/*Numero a ajustar dependiendo del sprite*/)));
-		destroy();
-	}
+	GameObject::update(deltaTime);
+	spawn();
 }
 
 void Capsule::beginCollision(GameObject * other, b2Contact* contact)
@@ -53,6 +53,6 @@ void Capsule::beginCollision(GameObject * other, b2Contact* contact)
 	auto fB = contact->GetFixtureB();
 
 	//Deteccion del suelo
-	if ((fA->IsSensor() || fB->IsSensor()) && other->getTag() == "Ground")
+	if ((fA->IsSensor() || fB->IsSensor()) && (other->getTag() == "Ground" || other->getTag() == "Platform"))
 		_spawning = true;
 }

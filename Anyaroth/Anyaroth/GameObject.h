@@ -29,6 +29,7 @@ private:
 
 	b2World* _world = nullptr; //puntero a world
 	bool _active = true;
+	bool _dead = false;
 	string _tag;
 
 	inline void add_component(Component* c, string name) { _components[name] = c; }
@@ -112,8 +113,10 @@ public:
 	inline bool isActive() const { return _active; }
 	inline void setActive(bool active) { _active = active; }
 
+	inline bool isDead() const { return _dead; }
+	inline void setDead(bool dead) { _dead = dead; }
+
 	void destroy();
-	inline void kill() { setActive(false); };
 	
 	template<class ComponentType>
 	ComponentType* addComponent()

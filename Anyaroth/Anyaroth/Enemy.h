@@ -19,7 +19,7 @@ protected:
 	Vector2D _playerDistance;
 
 	Life _life;
-	bool _attacking = false, _dead = false;
+	bool _attacking = false;
 	int _vision, _attackRangeX, _attackRangeY, _attackTime, _damage;
 	double _time;
 	float32 _speed;
@@ -32,7 +32,6 @@ public:
 	virtual void update(const double& deltaTime);
 
 	inline void stopAttacking() { _attacking = false; }
-	inline void enemySpawn(Enemy* newEnemy) { _game->getCurrentState()->addObject(newEnemy); }
 	inline int random(int low, int high) const { return low + (rand() % abs(high - low)); }
 
 	void die();
@@ -40,5 +39,4 @@ public:
 	inline Life getLife() const { return _life; }
 
 	bool inCamera();
-	bool inCameraOnlyX();
 };

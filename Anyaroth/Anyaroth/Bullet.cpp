@@ -13,7 +13,7 @@ Bullet::Bullet(Game* game) : GameObject(game)
 	_anim = addComponent<AnimatedSpriteComponent>();
 
 	_body = addComponent<BodyComponent>();
-	_body->filterCollisions(PLAYER_BULLETS, FLOOR | ENEMIES);
+	_body->filterCollisions(PLAYER_BULLETS, FLOOR | PLATFORMS | ENEMIES);
 	_body->getBody()->SetType(b2_dynamicBody);
 	_body->getBody()->SetBullet(true);
 	_body->getBody()->SetFixedRotation(true);
@@ -25,9 +25,9 @@ Bullet::Bullet(Game* game) : GameObject(game)
 
 void Bullet::beginCollision(GameObject * other, b2Contact* contact)
 {
-	if(getTag() == "Bullet" && (other->getTag() == "Ground" || other->getTag() == "Enemy"))
+	if(getTag() == "Bullet" && (other->getTag() == "Ground" || other->getTag() == "Platform" || other->getTag() == "Enemy"))
 		_collided = true;
-	else if (getTag() == "EnemyBullet" && (other->getTag() == "Ground" || other->getTag() == "Player"))
+	else if (getTag() == "EnemyBullet" && (other->getTag() == "Ground" || other->getTag() == "Platform" || other->getTag() == "Player"))
 		_collided = true;
 
 	contact->SetEnabled(false);
@@ -83,5 +83,5 @@ void Bullet::reset()
 
 void Bullet::changeFilter() 
 {
-	_body->filterCollisions(ENEMY_BULLETS, FLOOR | PLAYER);
+	_body->filterCollisions(ENEMY_BULLETS, FLOOR | PLATFORMS | PLAYER);
 }

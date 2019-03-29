@@ -33,12 +33,12 @@ Map::Map(string filename, Game* game, Player* player, Texture* tileset, BulletPo
 			auto it = j[i].find("name");
 			if (it != j[i].end())
 			{
-				if (*it == "Map" || *it == "Ground")
+				if (*it == "Map" || *it == "Ground" || *it == "Platform")
 				{
 					auto layer = new Layer(filename, *it, tileset, game, *it);
 					_layers->addChild(layer);
 
-					if(*it=="Ground")
+					if(*it!="Map")
 						layer->addComponent<BodyComponent>();
 				}
 				else
@@ -92,19 +92,19 @@ void Map::createObjects()
 			}
 			else if (name == "Bomber")
 			{
-				//_objects->addChild(new BomberEnemy(_player, _game, _playState, _game->getTexture("EnemyMartyr"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), "Enemy", _playState->getExplosivePool()));
+				_objects->addChild(new BomberEnemy(_game, _player, Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), _explosivePool));
 			}
 			else if (name == "Spawner")
 			{
-				//_objects->addChild(new SpawnerEnemy(_player, _game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), "Enemy"));
+				_objects->addChild(new SpawnerEnemy(_game, _player, Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2)));
 			}
 			else if (name == "SpawnerStatic")
 			{
-				//_objects->addChild(new StaticSpawnerEnemy(_player, _game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), "Enemy"));
+				_objects->addChild(new StaticSpawnerEnemy(_game, _player, Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2)));
 			}
 			else if (name == "Coin")
 			{
-				//_objects->addChild(new Coin(_game, _game->getTexture("Coin"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE), _coinValue));
+				_objects->addChild(new Coin(_game, _game->getTexture("Coin"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE), _coinValue));
 			}
 		}
 	}

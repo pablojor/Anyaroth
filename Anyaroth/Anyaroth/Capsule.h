@@ -1,16 +1,24 @@
 #pragma once
+#include "GameObject.h"
+#include "Player.h"
 #include "Enemy.h"
 
-class Capsule : public Enemy
+class Capsule : public GameObject
 {
 private:
+	TransformComponent* _transform = nullptr;
+	BodyComponent* _body = nullptr;
+
+	Player* _player = nullptr;
+	Enemy* _father = nullptr;
+
 	bool _spawning = false;
 
 public:
-	Capsule(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag);
+	Capsule(Game* g, Player* player, Vector2D pos, Enemy* father);
 	virtual ~Capsule() {}
 
+	void spawn();
 	virtual void update(const double& deltaTime);
-
 	virtual void beginCollision(GameObject* other, b2Contact* contact);
 };
