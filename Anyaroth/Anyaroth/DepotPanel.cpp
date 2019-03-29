@@ -4,7 +4,7 @@
 
 DepotPanel::DepotPanel(Game* game, ShopMenu* shop, Player* ply) : _shop(shop), _player(ply), PanelUI(game)
 {
-	_exitButton = new ButtonUI(game, game->getTexture("Button"), ShopMenu::closeCatalogPanel, { 0,1,2,3 });
+	_exitButton = new ButtonUI(game, game->getTexture("Button"), ShopMenu::closeDepotPanel, { 0,1,2,3 });
 	_exitButton->setPosition(5, 5);
 
 	addChild(_exitButton);
