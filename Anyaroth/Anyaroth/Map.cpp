@@ -7,8 +7,9 @@
 #include "BomberEnemy.h"
 #include "SpawnerEnemy.h"
 #include "StaticSpawnerEnemy.h"
-#include "Coin.h"
+#include "Player.h"
 #include "GunType_def.h"
+#include "BotonLanzaMisiles.h"
 #include <json.hpp>
 
 using namespace nlohmann;
@@ -105,6 +106,16 @@ void Map::createObjects()
 			else if (name == "Coin")
 			{
 				_objects->addChild(new Coin(_game, _game->getTexture("Coin"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE), _coinValue));
+			}
+			else if (name == "Boss1")
+			{
+				_boss1 = (new Boss1(_player, _game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY()), "Enemy", _playState->getEnemyPool(), _playState->getExplosivePool(), _playState->getBouncingPool()));
+				_objects.push_back(_boss1);
+				_boss1->setBossPanel(_playState->getHUD()->getBossPanel());
+			}
+			else if (name == "Misiles")
+			{
+				_objects.push_back(new BotonLanzaMisiles(_boss1, _game, _playState, _game->getTexture("EnemyMartyr"), Vector2D(pos[j].getX(), pos[j].getY())));
 			}
 		}
 	}

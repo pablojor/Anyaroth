@@ -5,7 +5,12 @@
 #include "CollisionManager.h"
 #include "ParallaxBackGround.h"
 #include "Player.h"
+#include "BulletPool.h"
+#include "BouncingBulletPool.h"
+#include "Coin.h"
+#include "ExplosiveBulletPool.h"
 #include "Cursor.h"
+#include "PlayStateHUD.h"
 
 class PlayState : public GameState
 {
@@ -13,7 +18,13 @@ private:
 	Player* _player = nullptr;
 	Cursor* _cursor = nullptr;
 
-	BulletPool* _playerBulletPool = nullptr;
+	//HUD
+	PlayStateHUD* _hud = nullptr;
+
+	//Bullet Pools
+	BulletPool* _playerBulletPool = nullptr; //Balas del jugador
+	//////////////////////////////////////////////////////////////
+	BouncingBulletPool* _bouncingBulletPool = nullptr; 
 
 	LevelManager _levelManager;
 	CollisionManager _colManager;
@@ -31,6 +42,7 @@ public:
 	virtual void update(const double& deltaTime);
 	virtual bool handleEvent(const SDL_Event& event);
 
+	inline PlayStateHUD* getHUD() const { return _hud; }
 	inline Cursor* getCursor() const { return _cursor; }
 
 	inline int getCurrentZone() const { return _currentZone; }

@@ -8,9 +8,12 @@
 #include "Money.h"
 #include "Life.h"
 #include "PlayerPanel.h"
-#include "BulletPool.h"
+#include "PoolWrapper.h"
+//#include "BulletPool.h"
+//#include "BouncingBulletPool.h"
 #include "Melee.h"
 
+class WeaponManager;
 class Game;
 
 class Player : public GameObject
@@ -28,19 +31,32 @@ private:
 	Life _life = Life(100);
 	Money* _money = nullptr;
 	PlayerPanel* _playerPanel = nullptr;
-	BulletPool* _playerBulletPool = nullptr;
 
 	//Hijos
 	PlayerArm* _playerArm = nullptr;
 
 	//Variable auxiliares
-	int _dashCD = 3000, _maxDash = 2, _numDash = _maxDash, dashDur = 250;
-	bool _isDashing = false, _isReloading = false, _isShooting = false, _isMeleeing = false, _onDash = false, dashDown = false;
+	double _dashCD = 3000;
+
+	int _maxDash = 1, 
+		_numDash = _maxDash,
+		_dashDur = 250;
+
+	bool _isDashing = false, 
+		 _isReloading = false, 
+		 _isShooting = false, 
+		 _isMeleeing = false, 
+		 _onDash = false, 
+		 _dashDown = false, 
+
 	int _floorCount = 0;
+
 	float _timeToJump = 100.f;
 
 	Gun* _currentGun = nullptr;
 	Gun* _otherGun = nullptr;
+	PoolWrapper* _playerBulletPool = nullptr;
+	WeaponManager* _weaponManager = nullptr;
 
 	inline bool dashIsAble() const { return _numDash > 0 && _isDashing; }
 	void checkMovement(const Uint8* keyboard);
@@ -79,14 +95,17 @@ public:
 	void dash(const Vector2D& dir);
 	void dashOff();
 	void jump();
+	void cancelJump();
 
 	void melee();
 	void shoot();
 	void reload();
 
 	void setPlayerPanel(PlayerPanel* p);
-	inline void setPlayerBulletPool(BulletPool* pool) { _playerBulletPool = pool; }
+
+	inline void setPlayerBulletPool(PoolWrapper* pool) { _playerBulletPool = pool; }
 	inline void setPlayerPosition(Vector2D pos) { _body->getBody()->SetTransform(b2Vec2(pos.getX(), pos.getY()), 0); }
+
 	
 	void changeMelee(Melee* newMelee);
 

@@ -29,9 +29,9 @@ Enemy::Enemy(Game* g, Player* player, Vector2D pos, Texture* texture) : GameObje
 void Enemy::beginCollision(GameObject * other, b2Contact* contact)
 {
 	string otherTag = other->getTag();
-	if (otherTag == "Bullet")
+	if (otherTag == "Bullet" || otherTag == "Melee")
 	{
-		int damage = dynamic_cast<Bullet*>(other)->getDamage();
+		int damage = other->getDamage();
 		subLife(damage);
 	}
 }
@@ -47,7 +47,7 @@ void Enemy::update(const double& deltaTime)
 void Enemy::die()
 {
 	_anim->die();
-	//_anim->playAnim(AnimatedSpriteComponent::EnemyDie); //Los distance enemy crashean
+	_anim->playAnim(AnimatedSpriteComponent::EnemyDie);
 	setDead(true);
 	_body->filterCollisions(DEAD_ENEMIES, FLOOR | PLATFORMS);
 }

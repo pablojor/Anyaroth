@@ -1,6 +1,7 @@
 #include "Collectable.h"
 #include "BodyComponent.h"
 #include "SpriteComponent.h"
+#include "Game.h"
 
 Collectable::Collectable(Game* g, Texture* texture, Vector2D iniPos, int value, string tag) : GameObject(g, tag), _value(value)
 {

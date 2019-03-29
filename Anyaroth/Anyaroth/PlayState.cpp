@@ -3,24 +3,37 @@
 #include "PauseState.h"
 #include "ParallaxLayer.h"
 #include "PlayStateHUD.h"
+#include "NPC.h"
+#include "PiercingBulletPool.h"
 #include "checkML.h"
-#include <time.h>
+#include "Boss1.h"
+#include "BotonLanzaMisiles.h"
 
 PlayState::PlayState(Game* g) : GameState(g)
 {
+	//HUD
+	_hud = new PlayStateHUD(g);
+	setCanvas(_hud);
+
 	//Cursor
 	_cursor = new Cursor(g);
 	_stages.push_back(_cursor);
 	//SDL_ShowCursor(false);
 
 	//Player
-	_player = new Player(g, 0, 0);
+	_player = new Player(g, 100, 500);
 	_stages.push_back(_player);
 
 	//Pool player
 	_playerBulletPool = new BulletPool(g);
 	_stages.push_back(_playerBulletPool);
+	/////////////////////////////////////////////////////////
+	_bouncingBulletPool = new BouncingBulletPool(g);
+	_stages.push_back(_bouncingBulletPool);
+
 	_player->setPlayerBulletPool(_playerBulletPool);
+	_player->setPlayerPanel(_hud->getPlayerPanel());
+
 
 	//Levels
 	_currentZone = _currentLevel = 1;
@@ -46,10 +59,34 @@ PlayState::PlayState(Game* g) : GameState(g)
 	g->getWorld()->SetContactListener(&_colManager);
 	g->getWorld()->SetDebugDraw(&_debugger);
 
+	//Test NPC*****
+
+	NPC* _npc = new NPC(g, { 60, 680 },
+		{
+		g->getTexture("DialogueFace"),
+		"exampleVoice",
+		"Jose Mar�a",
+		{ "*Bzzt..Bip, bip..* Hey, �qu� tal?",
+		"Aj�, con que programando... ya veo...",
+		"�Pues sigue con eso, chaval! Deja de jugar tanto al Sekiro y ponte a estudiar de una maldita vez, escoria infrahumana (...) �Adew! *Bip*" },
+		{0,1,2},
+		{" ", " ", " ", " "}
+		});
+
+	_stages.push_back(_npc);
+	_npc->setDialoguePanel(_hud->getDialoguePanel());
+
+	//*******
+
+	//World
 	_debugger.getRenderer(g->getRenderer());
 	_debugger.getTexture(g->getTexture("body"));
 	_debugger.SetFlags(b2Draw::e_shapeBit);
 	_debugger.getCamera(_mainCamera);
+	
+	//Gestion de colisiones
+	g->getWorld()->SetContactListener(&_colManager);
+	g->getWorld()->SetDebugDraw(&_debugger);
 }
 
 
@@ -75,9 +112,9 @@ bool PlayState::handleEvent(const SDL_Event& event)
 		_mainCamera->zoomOut();
 	else if (event.type == SDL_KEYDOWN && (event.key.keysym.sym == SDLK_KP_PLUS || event.key.keysym.sym == SDLK_PLUS))
 		_mainCamera->zoomIn();
-	else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_z)
+	else if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_n)
 		_mainCamera->setZoom(_mainCamera->getZoomRatio() + 1, true);
-	else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_x)
+	else if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_m)
 		_mainCamera->setZoom(_mainCamera->getZoomRatio() - 1, true);
 
 	return handled;

@@ -4,6 +4,8 @@
 #include "ObjectLayer.h"
 #include "BulletPool.h"
 #include "ExplosiveBulletPool.h"
+#include "Boss1.h"
+#include "PlayStateHUD.h"
 #include <vector>
 
 class Player;
@@ -17,6 +19,7 @@ private:
 
 	GameObject* _layers;
 	GameObject* _objects;
+	Boss1* _boss1 = nullptr;
 
 	vector <ObjectLayer*> _objectLayers;
 

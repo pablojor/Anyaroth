@@ -4,13 +4,19 @@
 PlayerPanel::PlayerPanel(Game* game) : PanelUI(game)
 {
 	//Inicializamos
-	_lifeBar = new LifeBar(game, 5, 5);
-	_dashViewer = new DashViewer(game, 5, _lifeBar->getY() + _lifeBar->getH() + 1);
-	_weaponryViewer = new WeaponryViewer(game, 5, _dashViewer->getY() + _dashViewer->getH() + 2);
-	_ammoViewer = new AmmoViewer(game, 32, _dashViewer->getY() + _dashViewer->getH() + 8);
-	_coinsCounter = new CoinsCounter(game, CAMERA_RESOLUTION_X - 50, 5);
+	_marco = new ImageUI(game, game->getTexture("LifeBar"), 3, 3);
+	_lifeBar = new LifeBar(game, "LifeBarMask", 25, 6);
+	_lifeBar->setInUse(true);
+
+	_dashViewer = new DashViewer(game, 3, _marco->getY() + _marco->getH() + 3);
+
+	_weaponryViewer = new WeaponryViewer(game, 3, CAMERA_RESOLUTION_Y);
+	_ammoViewer = new AmmoViewer(game, 45, CAMERA_RESOLUTION_Y - 34);
+
+	_coinsCounter = new CoinsCounter(game, CAMERA_RESOLUTION_X - 30, 3);
 
 	//Añadimos al panel
+	addChild(_marco);
 	addChild(_lifeBar);
 	addChild(_ammoViewer);
 	addChild(_coinsCounter);

@@ -39,4 +39,6 @@ public:
 	inline virtual list<GameObject*>& getObjects() { return _stages; }
 	inline virtual void setCanvas(Canvas* canvas) { _canvas = canvas; }
 	Vector2D getMousePositionInWorld() const;
+
+
 };
