@@ -10,14 +10,14 @@ class ShopCanvas :	public Canvas
 {
 	private:
 		ImageUI* _imageBG = nullptr;
-		ButtonUI * _shopButton = nullptr;
-		ButtonUI* _talkButton = nullptr;
-		ButtonUI* _depotButton = nullptr;
-		ButtonUI* _exitButton = nullptr;
+		static ButtonUI * _shopButton;
+		static ButtonUI* _talkButton;
+		static ButtonUI* _depotButton;
+		static ButtonUI* _exitButton;
+											;
+		static DialoguePanel* _dialoguePanel;
 
-		DialoguePanel* _dialoguePanel = nullptr;
-
-		ShopPanel* _shopPanel = nullptr;
+		static ShopPanel* _shopPanel;
 		//DepotPanel* _depotPanel = nullptr;
 
 	public:
@@ -26,9 +26,14 @@ class ShopCanvas :	public Canvas
 
 		//virtual void handleEvent(const SDL_Event& event) {};
 
-		static void openShopPanel();
-		static void talk();
-		static void openDepotPanel();
-		static void exit();
+		static void ableMainMenu(Game* game);
+		static void disableMainMenu(Game* game);
+		static void openShopPanel(Game* game);
+		static void closeShopPanel(Game* game);
+		static void startTalking(Game* game);
+		static void stopTalking(Game* game);
+		static void openDepotPanel(Game* game);
+		static void closeDepotPanel(Game* game);
+		static void exit(Game* game);
 };
 

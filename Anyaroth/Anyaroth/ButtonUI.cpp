@@ -23,63 +23,69 @@ bool ButtonUI::mouseIsOver()
 
 void ButtonUI::update(const double& deltaTime)
 {
-	if (_positionState == Out) 
+	if (_visible)
 	{
-		_frame = _onOutFrame;
-	}
-	else if (_positionState == Over)
-	{
-		if (_pressState == Down)
-			_frame = _onDownFrame;
-		else if (_pressState == Up)
-			_frame = _onUpFrame;
-		else if (_pressState == None)
-			_frame = _onOverFrame;
+		if (_positionState == Out)
+		{
+			_frame = _onOutFrame;
+		}
+		else if (_positionState == Over)
+		{
+			if (_pressState == Down)
+				_frame = _onDownFrame;
+			else if (_pressState == Up)
+				_frame = _onUpFrame;
+			else if (_pressState == None)
+				_frame = _onOverFrame;
+		}
 	}
 }
 
 void ButtonUI::handleEvent(const SDL_Event& event)
 {
-	if (mouseIsOver()) 
+	if (_visible)
 	{
-		SDL_Cursor* cursor;
-		cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_HAND);
-		SDL_SetCursor(cursor);
-
-
-		if (event.type == SDL_MOUSEBUTTONDOWN && event.button.state == SDL_PRESSED)
+		if (mouseIsOver())
 		{
-			if (event.button.button == SDL_BUTTON_LEFT)
-			{
-				_pressState = Down;
-				if (_onDownCallback != nullptr) _onDownCallback(_game);
-			}
-		}
-		else if (event.type == SDL_MOUSEBUTTONUP)
-		{
-			if (event.button.button == SDL_BUTTON_LEFT)
-			{
-				_pressState = Up;
-				if (_onUpCallback != nullptr) _onUpCallback(_game);
-			}
-		}
-		else if (_positionState != Over)
-		{
-			if (_onOverCallback != nullptr) _onOverCallback(_game);
-		}
-		_positionState = Over;
-	}
-	else
-	{
-		if (_positionState != Out)
-		{
-			if (_onOutCallback != nullptr) _onOutCallback(_game);		
 			SDL_Cursor* cursor;
-			cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
+			cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_HAND);
 			SDL_SetCursor(cursor);
+
+
+			if (event.type == SDL_MOUSEBUTTONDOWN && event.button.state == SDL_PRESSED)
+			{
+				if (event.button.button == SDL_BUTTON_LEFT)
+				{
+					_pressState = Down;
+					if (_onDownCallback != nullptr) _onDownCallback(_game);
+				}
+			}
+			else if (event.type == SDL_MOUSEBUTTONUP && _pressState == Down)
+			{
+				if (event.button.button == SDL_BUTTON_LEFT)
+				{
+					_pressState = Up;
+					if (_onUpCallback != nullptr) _onUpCallback(_game);
+				}
+			}
+			else if (_positionState != Over)
+			{
+				if (_onOverCallback != nullptr) _onOverCallback(_game);
+			}
+			_positionState = Over;
 		}
-		_positionState = Out;
-		_pressState = None;
+		else
+		{
+			if (_positionState != Out)
+			{
+				if (_onOutCallback != nullptr) _onOutCallback(_game);
+				SDL_Cursor* cursor;
+				cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
+				SDL_SetCursor(cursor);
+			}
+			_positionState = Out;
+			_pressState = None;
+		}
 	}
 }
 
@@ -89,4 +95,16 @@ void ButtonUI::setFrames(Frames frames)
 	_onOverFrame = frames.onOver;
 	_onDownFrame = frames.onDown;
 	_onUpFrame = frames.onUp;
+}
+
+void ButtonUI::setVisible(bool a)
+{
+	SDL_Cursor* cursor;
+	cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
+	SDL_SetCursor(cursor);
+
+	_positionState = Out;
+	_pressState = None;
+
+	FramedImageUI::setVisible(a);
 }

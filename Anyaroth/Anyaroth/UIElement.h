@@ -10,7 +10,6 @@ protected:
 	Game* _game = nullptr;
 
 public:
-	UIElement() {}
 	UIElement(Game* game);
 	virtual ~UIElement() {}
 
@@ -20,5 +19,5 @@ public:
 
 	inline bool isVisible() const { return _visible; }
 
-	inline void setVisible(bool b) { _visible = b; }
+	inline virtual void setVisible(bool b) { _visible = b; }
 };

@@ -37,5 +37,6 @@ class ButtonUI : public FramedImageUI
 		inline void onOut(Callback* callback) { _onOutCallback = callback; }
 
 		void setFrames(Frames frames);
+		virtual void setVisible(bool a);
 };
 
