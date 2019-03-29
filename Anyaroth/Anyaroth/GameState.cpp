@@ -25,7 +25,8 @@ void GameState::render() const
 	_mainCamera->render();
 
 	for (GameObject* o : _stages)
-		o->render(_mainCamera);
+		if (o->isActive())
+			o->render(_mainCamera);
 
 	if (_canvas != nullptr)
 		_canvas->render();
@@ -36,7 +37,8 @@ void GameState::update(const double& deltaTime)
 	_mainCamera->update(deltaTime);
 
 	for (GameObject* o : _stages)
-		o->update(deltaTime);
+		if (o->isActive())
+			o->update(deltaTime);
 
 	if (_canvas != nullptr)
 		_canvas->update(deltaTime);

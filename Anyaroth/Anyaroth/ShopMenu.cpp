@@ -30,26 +30,39 @@ ShopMenu::ShopMenu(Game* game) : PanelUI(game)
 
 	addChild(_shopPanel);
 
-	//Inicializaciones
+}
+
+void ShopMenu::openShop()
+{
+	_visible = true;
+	_player->setActive(false);
+	open();
+}
+
+void ShopMenu::open()
+{
 	_dialoguePanel->startDialogue({
-		game->getTexture("DialogueFace"),
-		"exampleVoice",
-		"Jose Mar�a",
-		{ "*Bzzt..Bip, bip..* Hey, �qu� tal?",
-		"Aj�, con que programando... ya veo...",
-		"�Pues sigue con eso, chaval! Deja de jugar tanto al Sekiro y ponte a estudiar de una maldita vez, escoria infrahumana (...) �Adew! *Bip*" },
-		{ 0,1,2 },
-		{ " ", " ", " ", " " }
+	_game->getTexture("DialogueFace"),
+	"exampleVoice",
+	"Jose Mar�a",
+	{ "*Bzzt..Bip, bip..* Hey, �qu� tal?",
+	"Aj�, con que programando... ya veo...",
+	"�Pues sigue con eso, chaval! Deja de jugar tanto al Sekiro y ponte a estudiar de una maldita vez, escoria infrahumana (...) �Adew! *Bip*" },
+	{ 0,1,2 },
+	{ " ", " ", " ", " " }
 		});
 }
 
-inline void ShopMenu::setVisible(bool b)
+void ShopMenu::closeShop()
 {
-	_visible = b;
-	if (_visible)
-		_player->setActive(false);
-	else
-		_player->setActive(true);
+	_visible = false;
+	_player->setActive(true);
+	reset();
+}
+
+void ShopMenu::reset()
+{
+	_dialoguePanel->endDialogue();
 }
 
 void ShopMenu::ableMainMenu(Game * game)

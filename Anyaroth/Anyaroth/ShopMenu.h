@@ -29,7 +29,11 @@ class ShopMenu : public PanelUI
 
 		//virtual void handleEvent(const SDL_Event& event) {};
 		inline void setPlayer(Player* ply) { _player = ply; }
-		inline virtual void setVisible(bool b);
+
+		void openShop();
+		void open();
+		void closeShop();
+		void reset();
 
 		static void ableMainMenu(Game* game);
 		static void disableMainMenu(Game* game);

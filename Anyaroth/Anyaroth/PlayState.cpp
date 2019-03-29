@@ -90,7 +90,10 @@ bool PlayState::handleEvent(const SDL_Event& event)
 	else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_m)
 		_mainCamera->setZoom(_mainCamera->getZoomRatio() - 1, true);
 	else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_p)
-		_hud->getShop()->setVisible(true);
+		if (!_hud->getShop()->isVisible())
+			_hud->getShop()->openShop();
+		else
+			_hud->getShop()->closeShop();
 
 	return handled;
 }
