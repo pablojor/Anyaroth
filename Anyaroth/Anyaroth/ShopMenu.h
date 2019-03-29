@@ -4,7 +4,8 @@
 #include "ButtonUI.h"
 #include "DialoguePanel.h"
 #include "ImageUI.h"
-//#include "DepotPanel.h"
+#include "DepotPanel.h"
+#include "CoinsCounter.h"
 
 class Player;
 
@@ -13,6 +14,7 @@ class ShopMenu : public PanelUI
 	private:
 		Player* _player = nullptr;
 		ImageUI* _imageBG = nullptr;
+		CoinsCounter* _playerMoney = nullptr;
 
 		static ButtonUI * _shopButton;
 		static ButtonUI* _talkButton;
@@ -21,7 +23,7 @@ class ShopMenu : public PanelUI
 
 		static DialoguePanel* _dialoguePanel;
 		static ShopPanel* _shopPanel;
-		//DepotPanel* _depotPanel = nullptr;
+		static DepotPanel* _depotPanel;
 
 	public:
 		ShopMenu(Game* game);
@@ -33,7 +35,6 @@ class ShopMenu : public PanelUI
 		void openShop();
 		void open();
 		void closeShop();
-		void reset();
 
 		static void ableMainMenu(Game* game);
 		static void disableMainMenu(Game* game);

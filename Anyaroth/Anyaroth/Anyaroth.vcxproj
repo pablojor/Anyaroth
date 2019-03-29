@@ -137,6 +137,7 @@
     <ClCompile Include="AnimatedImageUI.cpp" />
     <ClCompile Include="ButtonUI.cpp" />
     <ClCompile Include="Boss.cpp" />
+    <ClCompile Include="DepotPanel.cpp" />
     <ClCompile Include="FramedImageUI.cpp" />
     <ClCompile Include="AnimatedSpriteComponent.cpp" />
     <ClCompile Include="Arm.cpp" />
@@ -243,6 +244,7 @@
     <ClInclude Include="AnimatedImageUI.h" />
     <ClInclude Include="ButtonUI.h" />
     <ClInclude Include="Boss.h" />
+    <ClInclude Include="DepotPanel.h" />
     <ClInclude Include="FramedImageUI.h" />
     <ClInclude Include="AnimatedSpriteComponent.h" />
     <ClInclude Include="AnyarothError.h" />

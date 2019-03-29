@@ -8,12 +8,12 @@
 
 class ShopPanel : public PanelUI
 {
-private:	
-	ImageUI * _backGround = nullptr;
-	ButtonUI* _exitButton = nullptr;
+	private:
+		ImageUI* frame = nullptr;
+		ButtonUI* _exitButton = nullptr;
 
-	//Estos items serán los que se muestren en la tienda
-	//list<ShopItem*> _items;
+		//Estos items serán los que se muestren en la tienda
+		//list<ShopItem*> _items;
 
 	public:
 		ShopPanel(Game* game);

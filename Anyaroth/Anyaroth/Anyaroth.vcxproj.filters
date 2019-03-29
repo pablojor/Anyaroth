@@ -316,6 +316,9 @@
     <ClCompile Include="GroundEnemy.cpp">
       <Filter>Archivos de código fuente\Objects\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="DepotPanel.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -579,8 +582,6 @@
     <ClInclude Include="WeaponryViewer.h">
       <Filter>Archivos de encabezado\HUD\UIElements</Filter>
     </ClInclude>
-    <ClInclude Include="ShopPanel.h" />
-    <ClInclude Include="ShopItem.h" />
     <ClInclude Include="PanelUI.h">
       <Filter>Archivos de encabezado\HUD\UIElements</Filter>
     </ClInclude>
@@ -629,8 +630,6 @@
     <ClInclude Include="NPC.h">
       <Filter>Archivos de encabezado\Objects\Interactables</Filter>
     </ClInclude>
-    <ClInclude Include="ShopMenu.h" />
-    
     <ClInclude Include="Boss1.h">
       <Filter>Archivos de encabezado\Objects\Enemies\Bosses</Filter>
     </ClInclude>
@@ -648,6 +647,18 @@
     </ClInclude>
     <ClInclude Include="CustomAnimatedSpriteComponent.h">
       <Filter>Archivos de encabezado\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="DepotPanel.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="ShopItem.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="ShopMenu.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="ShopPanel.h">
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
