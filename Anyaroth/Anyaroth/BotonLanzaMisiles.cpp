@@ -4,8 +4,7 @@
 #include "AnimatedSpriteComponent.h"
 #include "Game.h"
 
-
-BotonLanzaMisiles::BotonLanzaMisiles(Boss1* Boss, Game* g, PlayState* play, Texture* texture, Vector2D posIni) : _boss(Boss), _play(play), Interactable(g, posIni)
+BotonLanzaMisiles::BotonLanzaMisiles(Game* g, Boss1* boss, Texture* texture, Vector2D pos) : _boss(boss), Interactable(g, pos)
 {
 	addComponent<Texture>(texture);
 
@@ -20,7 +19,11 @@ BotonLanzaMisiles::BotonLanzaMisiles(Boss1* Boss, Game* g, PlayState* play, Text
 
 	_anim = addComponent<AnimatedSpriteComponent>();
 	
-	_interactIndicator->getComponent<TransformComponent>()->setPosition(posIni.getX() + (texture->getW() / texture->getNumCols()) / 2 - (_indicatorTexture->getW() / _indicatorTexture->getNumCols()) / 2 /*50*/, posIni.getY() - 30 /*180*/);
+	_interactIndicator->getComponent<TransformComponent>()->setPosition(pos.getX() + (texture->getW() / texture->getNumCols()) / 2 - (_indicatorTexture->getW() / _indicatorTexture->getNumCols()) / 2 /*50*/, pos.getY() - 30 /*180*/);
+}
+
+BotonLanzaMisiles::~BotonLanzaMisiles()
+{
 }
 
 void BotonLanzaMisiles::update(const double & deltaTime)
@@ -36,11 +39,6 @@ void BotonLanzaMisiles::update(const double & deltaTime)
 		else
 			_interactIndicator->setActive(false);
 	}
-}
-
-
-BotonLanzaMisiles::~BotonLanzaMisiles()
-{
 }
 
 void BotonLanzaMisiles::interact()

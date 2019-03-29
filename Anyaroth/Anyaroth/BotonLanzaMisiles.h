@@ -2,11 +2,11 @@
 #include "Interactable.h"
 #include "Boss1.h"
 #include "MisilBoss1.h"
+
 class PlayState;
 class AnimatedSpriteComponent;
 class TransformComponent;
 class BodyComponent;
-
 
 class BotonLanzaMisiles : public Interactable
 {
@@ -17,10 +17,9 @@ private:
 
 	bool ready = false, usable = true;
 public:
-	BotonLanzaMisiles(Boss1* Boss, Game* g, PlayState* play, Texture* texture, Vector2D posIni);
+	BotonLanzaMisiles(Game* g, Boss1* Boss, Texture* texture, Vector2D pos);
 	virtual void update(const double& deltaTime);
 	virtual ~BotonLanzaMisiles();
 
 	void interact();
 };
-

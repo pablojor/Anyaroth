@@ -38,7 +38,7 @@ NPC::~NPC()
 
 void NPC::update(const double& time)
 {
-	GameComponent::update(time);
+	GameObject::update(time);
 
 	if (_canInteract)
 	{

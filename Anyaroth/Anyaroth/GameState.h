@@ -4,6 +4,7 @@
 #include "GameObject.h"
 #include "Camera.h"
 #include "Canvas.h"
+#include "PlayStateHUD.h"
 
 class Game;
 
@@ -22,6 +23,7 @@ protected:
 
 	Camera* _mainCamera = nullptr;
 	Canvas* _canvas = nullptr;
+	PlayStateHUD* _hud = nullptr;
 
 public:
 	GameState(Game* g);
@@ -36,9 +38,9 @@ public:
 	virtual void destroyObject(GameObject* obj);
 
 	inline virtual Camera* getMainCamera() const { return _mainCamera; }
+	inline virtual PlayStateHUD* getHUD() const { return _hud; }
+
 	inline virtual list<GameObject*>& getObjects() { return _stages; }
 	inline virtual void setCanvas(Canvas* canvas) { _canvas = canvas; }
 	Vector2D getMousePositionInWorld() const;
-
-
 };

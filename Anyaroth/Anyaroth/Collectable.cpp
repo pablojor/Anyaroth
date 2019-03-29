@@ -18,5 +18,5 @@ Collectable::Collectable(Game* g, Texture* texture, Vector2D iniPos, int value, 
 void Collectable::collect()
 {
 	_body->filterCollisions(COLLECTED_OBJECTS, COLLECTED_OBJECTS);
-	setActive(false);
+	destroy();
 }

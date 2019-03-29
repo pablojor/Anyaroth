@@ -34,7 +34,7 @@ class Boss1 : public Boss
 		void shoot();
 
 	public:
-		Boss1(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag, BulletPool* pool, ExplosiveBulletPool* explosivePool, BouncingBulletPool* bouncingPool);
+		Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool, ExplosiveBulletPool* explosivePool, BouncingBulletPool* bouncingPool);
 		virtual ~Boss1() {};
 
 		virtual void update(const double& deltaTime);
@@ -48,7 +48,7 @@ class Boss1 : public Boss
 
 		void orbAttack();
 
-		virtual void beginCollision(GameComponent* other, b2Contact* contact);
+		virtual void beginCollision(GameObject* other, b2Contact* contact);
 
 		void fase1(const double& deltaTime);
 		void fase2(const double& deltaTime);

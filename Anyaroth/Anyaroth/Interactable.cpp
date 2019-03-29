@@ -2,7 +2,7 @@
 #include "BodyComponent.h"
 #include "Game.h"
 
-Interactable::Interactable(Game* g, Vector2D posIni) : GameComponent(g, "Interactable")
+Interactable::Interactable(Game* g, Vector2D posIni) : GameObject(g, "Interactable")
 {
 
 	//addComponent<Texture>(g->getTexture("Mk"));
@@ -10,7 +10,7 @@ Interactable::Interactable(Game* g, Vector2D posIni) : GameComponent(g, "Interac
 	_transform = addComponent<TransformComponent>();
 	_transform->setPosition(posIni.getX(), posIni.getY());
 
-	_interactIndicator = new GameComponent(g);
+	_interactIndicator = new GameObject(g);
 	_interactIndicator->addComponent<Texture>(g->getTexture("InteractIndicator"));
 
 	_interactIndicator->addComponent<TransformComponent>();
@@ -33,7 +33,7 @@ Interactable::~Interactable()
 
 void Interactable::update(const double& time)
 {
-	GameComponent::update(time);
+	GameObject::update(time);
 }
 
 bool Interactable::handleInput(const SDL_Event& event)
@@ -48,7 +48,7 @@ bool Interactable::handleInput(const SDL_Event& event)
 	return false;
 }
 
-void Interactable::beginCollision(GameComponent * other, b2Contact* contact)
+void Interactable::beginCollision(GameObject * other, b2Contact* contact)
 {
 	//Deteccion de player
 	if (other->getTag() == "Player")
@@ -58,7 +58,7 @@ void Interactable::beginCollision(GameComponent * other, b2Contact* contact)
 	}
 }
 
-void Interactable::endCollision(GameComponent * other, b2Contact* contact)
+void Interactable::endCollision(GameObject * other, b2Contact* contact)
 {
 	//Deteccion de player
 	if (other->getTag() == "Player")

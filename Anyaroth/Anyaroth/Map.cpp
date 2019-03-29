@@ -1,5 +1,6 @@
 #include "Map.h"
 #include "BodyComponent.h"
+#include "Coin.h"
 #include "MeleeEnemy.h"
 #include "MartyrEnemy.h"
 #include "DistanceStaticEnemy.h"
@@ -7,14 +8,13 @@
 #include "BomberEnemy.h"
 #include "SpawnerEnemy.h"
 #include "StaticSpawnerEnemy.h"
-#include "Player.h"
 #include "GunType_def.h"
 #include "BotonLanzaMisiles.h"
 #include <json.hpp>
 
 using namespace nlohmann;
 
-Map::Map(string filename, Game* game, Player* player, Texture* tileset, BulletPool* bulletPool, ExplosiveBulletPool* explosivePool, int coinValue) : GameObject(game), _player(player), _bulletPool(bulletPool), _explosivePool(explosivePool), _coinValue(coinValue)
+Map::Map(string filename, Game* game, Player* player, Texture* tileset, BulletPool* bulletPool, ExplosiveBulletPool* explosivePool, BouncingBulletPool* bouncingPool, PlayStateHUD* hud, int coinValue) : GameObject(game), _player(player), _bulletPool(bulletPool), _explosivePool(explosivePool), _bouncingPool(bouncingPool), _hud(hud), _coinValue(coinValue)
 {
 	_layers = new GameObject(_game);
 	addChild(_layers);
@@ -109,13 +109,13 @@ void Map::createObjects()
 			}
 			else if (name == "Boss1")
 			{
-				_boss1 = (new Boss1(_player, _game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY()), "Enemy", _playState->getEnemyPool(), _playState->getExplosivePool(), _playState->getBouncingPool()));
-				_objects.push_back(_boss1);
-				_boss1->setBossPanel(_playState->getHUD()->getBossPanel());
+				_boss1 = (new Boss1(_game, _player, Vector2D(pos[j].getX(), pos[j].getY()), _bulletPool, _explosivePool, _bouncingPool));
+				_objects->addChild(_boss1);
+				_boss1->setBossPanel(_hud->getBossPanel());
 			}
 			else if (name == "Misiles")
 			{
-				_objects.push_back(new BotonLanzaMisiles(_boss1, _game, _playState, _game->getTexture("EnemyMartyr"), Vector2D(pos[j].getX(), pos[j].getY())));
+				_objects->addChild(new BotonLanzaMisiles(_game, _boss1, _game->getTexture("EnemyMartyr"), Vector2D(pos[j].getX(), pos[j].getY())));
 			}
 		}
 	}

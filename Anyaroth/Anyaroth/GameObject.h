@@ -116,6 +116,9 @@ public:
 	inline bool isDead() const { return _dead; }
 	inline void setDead(bool dead) { _dead = dead; }
 
+	virtual int const getDamage() { return 0; }
+	virtual void subLife(int damage) {}
+
 	void destroy();
 	
 	template<class ComponentType>

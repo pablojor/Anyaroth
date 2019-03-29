@@ -42,12 +42,12 @@ private:
 		_numDash = _maxDash,
 		_dashDur = 250;
 
-	bool _isDashing = false, 
-		 _isReloading = false, 
-		 _isShooting = false, 
-		 _isMeleeing = false, 
-		 _onDash = false, 
-		 _dashDown = false, 
+	bool _isDashing = false,
+		_isReloading = false,
+		_isShooting = false,
+		_isMeleeing = false,
+		_onDash = false,
+		_dashDown = false;
 
 	int _floorCount = 0;
 

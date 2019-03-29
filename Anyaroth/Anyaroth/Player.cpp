@@ -223,7 +223,7 @@ bool Player::handleEvent(const SDL_Event& event)
 void Player::update(const double& deltaTime)
 {
 	const Uint8* keyboard = SDL_GetKeyboardState(NULL);
-	GameComponent::update(deltaTime);
+	GameObject::update(deltaTime);
 
 	if (isDashing() || isMeleeing() || isReloading())
 		_playerArm->setActive(false);
@@ -325,11 +325,11 @@ void Player::handleAnimations()
 		setGrounded(false);
 	}
 
-	if ((isGrounded() || _body->getBody()->GetLinearVelocity().y == 0) && isDashing() && dashDown)
+	if ((isGrounded() || _body->getBody()->GetLinearVelocity().y == 0) && isDashing() && _dashDown)
 	{
 		_anim->playAnim(AnimatedSpriteComponent::Idle);
 		_onDash = false;
-		dashDown = false;
+		_dashDown = false;
 		dashOff();
 	}
 
@@ -363,12 +363,12 @@ void Player::refreshDashCoolDown(const double& deltaTime)
 
 void Player::dashTimer(const double & deltaTime)
 {
-	if (_onDash && !dashDown)
+	if (_onDash && !_dashDown)
 	{
-		dashDur -= deltaTime;
-		if (dashDur <= 0)
+		_dashDur -= deltaTime;
+		if (_dashDur <= 0)
 		{
-			dashDur = 250;
+			_dashDur = 250;
 			_onDash = false;
 		}
 	}
@@ -451,7 +451,7 @@ void Player::dash(const Vector2D& dir)
 	else
 	{
 		_anim->playAnim(AnimatedSpriteComponent::DashDown);
-		dashDown = true;
+		_dashDown = true;
 	}
 
 	_playerPanel->startAnimDashCD();

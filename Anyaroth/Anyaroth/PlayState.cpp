@@ -2,12 +2,9 @@
 #include "Game.h"
 #include "PauseState.h"
 #include "ParallaxLayer.h"
-#include "PlayStateHUD.h"
 #include "NPC.h"
 #include "PiercingBulletPool.h"
 #include "checkML.h"
-#include "Boss1.h"
-#include "BotonLanzaMisiles.h"
 
 PlayState::PlayState(Game* g) : GameState(g)
 {
@@ -27,18 +24,14 @@ PlayState::PlayState(Game* g) : GameState(g)
 	//Pool player
 	_playerBulletPool = new BulletPool(g);
 	_stages.push_back(_playerBulletPool);
-	/////////////////////////////////////////////////////////
-	_bouncingBulletPool = new BouncingBulletPool(g);
-	_stages.push_back(_bouncingBulletPool);
 
 	_player->setPlayerBulletPool(_playerBulletPool);
 	_player->setPlayerPanel(_hud->getPlayerPanel());
 
-
 	//Levels
 	_currentZone = _currentLevel = 1;
-	_levelManager = LevelManager(g, _player, &_stages);
-	_levelManager.setLevel(_currentZone, _currentLevel);
+	_levelManager = LevelManager(g, _player, &_stages, _hud);
+	_levelManager.setLevel(_currentZone, 2);
 
 	//Background
 	_parallaxZone1 = new ParallaxBackGround(_mainCamera);
@@ -50,17 +43,11 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_mainCamera->fixCameraToObject(_player);
 	_mainCamera->setBackGround(_parallaxZone1);
 
-	//HUD
-	auto b = new PlayStateHUD(g);
-	setCanvas(b);
-	_player->setPlayerPanel(b->getPlayerPanel());
-
 	//Collisions and debugger
 	g->getWorld()->SetContactListener(&_colManager);
 	g->getWorld()->SetDebugDraw(&_debugger);
 
-	//Test NPC*****
-
+	//Test NPC
 	NPC* _npc = new NPC(g, { 60, 680 },
 		{
 		g->getTexture("DialogueFace"),
@@ -75,8 +62,6 @@ PlayState::PlayState(Game* g) : GameState(g)
 
 	_stages.push_back(_npc);
 	_npc->setDialoguePanel(_hud->getDialoguePanel());
-
-	//*******
 
 	//World
 	_debugger.getRenderer(g->getRenderer());
@@ -112,9 +97,9 @@ bool PlayState::handleEvent(const SDL_Event& event)
 		_mainCamera->zoomOut();
 	else if (event.type == SDL_KEYDOWN && (event.key.keysym.sym == SDLK_KP_PLUS || event.key.keysym.sym == SDLK_PLUS))
 		_mainCamera->zoomIn();
-	else if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_n)
+	else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_n)
 		_mainCamera->setZoom(_mainCamera->getZoomRatio() + 1, true);
-	else if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_m)
+	else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_m)
 		_mainCamera->setZoom(_mainCamera->getZoomRatio() - 1, true);
 
 	return handled;

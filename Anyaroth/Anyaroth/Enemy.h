@@ -1,11 +1,11 @@
 #pragma once
 #include "GameObject.h"
+#include "Player.h"
 #include "TransformComponent.h"
 #include "BodyComponent.h"
 #include "MovingComponent.h"
 #include "CustomAnimatedSpriteComponent.h"
 #include "Life.h"
-#include "PlayState.h"
 
 class Enemy : public GameObject
 {

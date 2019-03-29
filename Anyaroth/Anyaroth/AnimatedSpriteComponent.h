@@ -5,7 +5,7 @@
 
 typedef unsigned int uint;
 
-class GameComponent;
+class GameObject;
 
 struct AnimationStateImage
 {
@@ -19,7 +19,7 @@ struct AnimationStateImage
 class AnimatedSpriteComponent : public SpriteComponent, public PhysicsComponent
 {
 private:
-	GameComponent* _obj = nullptr;
+	GameObject* _obj = nullptr;
 protected:
 	vector<AnimationStateImage> _animations = {};
 
@@ -35,7 +35,7 @@ public:
 	enum Coin { Main };
 	enum Bullet { Default };
 
-	AnimatedSpriteComponent(GameComponent* obj) : SpriteComponent(obj), PhysicsComponent(obj), RenderComponent(obj), Component(), _obj(obj) {}
+	AnimatedSpriteComponent(GameObject* obj) : SpriteComponent(obj), PhysicsComponent(obj), RenderComponent(obj), Component(), _obj(obj) {}
 	virtual ~AnimatedSpriteComponent() {}
 
 	virtual void render(Camera* c) const;
