@@ -1,18 +1,14 @@
 #include "PiercingBullet.h"
 
-
-
 PiercingBullet::PiercingBullet(Game* game) : Bullet(game)
 {
 }
-
 
 PiercingBullet::~PiercingBullet()
 {
 }
 
-
-void PiercingBullet::beginCollision(GameComponent * other, b2Contact* contact)
+void PiercingBullet::beginCollision(GameObject * other, b2Contact* contact)
 {
 	if (other->getTag() == "Suelo")
 		_destroy = true;
@@ -33,7 +29,7 @@ void PiercingBullet::update(double time)
 
 	if (dist < _range && !_collided)
 	{
-		GameComponent::update(time);
+		GameObject::update(time);
 
 		_body->getBody()->SetLinearVelocity(b2Vec2(_speed * cos(_transform->getRotation() * M_PI / 180.0), _speed * sin(_transform->getRotation() * M_PI / 180.0)));
 		_aliveTime++;

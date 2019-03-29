@@ -1,13 +1,15 @@
 #include "FrameComponent.h"
-#include "GameComponent.h"
-#include "Camera.h"
 #include "Game.h"
+#include "GameObject.h"
+#include "Camera.h"
 
 void FrameComponent::setFilAndCol(int fil, int col)
 {
 	_fil = fil;
 	_col = col;
 }
+
+FrameComponent::FrameComponent(GameObject * obj) : SpriteComponent(obj), RenderComponent(obj) {}
 
 void FrameComponent::render(Camera* c) const
 {

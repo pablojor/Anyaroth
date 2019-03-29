@@ -13,7 +13,8 @@
 #include "GunType_def.h"
 #include "WeaponManager.h"
 
-Player::Player(Game* game, int xPos, int yPos) : GameComponent(game, "Player")
+
+Player::Player(Game* game, int xPos, int yPos) :  GameObject(game, "Player")
 {
 	_game = game;
 
@@ -28,9 +29,9 @@ Player::Player(Game* game, int xPos, int yPos) : GameComponent(game, "Player")
 
 	_body->setW(12);
 	_body->setH(26);
-
-	_body->filterCollisions(PLAYER, OBJECTS | FLOOR  | ENEMY_BULLETS | MELEE|MISILLAUNCHER);
-	_body->addCricleShape(b2Vec2(0, 1.1), 0.7, PLAYER, FLOOR);
+	
+	_body->filterCollisions(PLAYER, OBJECTS | FLOOR | PLATFORMS | ENEMY_BULLETS | MELEE);
+	_body->addCricleShape(b2Vec2(0, 1.1), 0.7, PLAYER, FLOOR | PLATFORMS);
 	_body->getBody()->SetFixedRotation(true);
 
 	double _gravScale = 3.5, _damping = 3.0;
@@ -43,11 +44,11 @@ Player::Player(Game* game, int xPos, int yPos) : GameComponent(game, "Player")
 	b2FixtureDef fDef;
 	fDef.shape = &shape;
 	fDef.filter.categoryBits = PLAYER;
-	fDef.filter.maskBits = FLOOR;
+	fDef.filter.maskBits = FLOOR | PLATFORMS;
 	fDef.isSensor = true;
 	_body->addFixture(&fDef, this);
 
-	_anim = addComponent<AnimatedSpriteComponent>();
+	_anim = addComponent<CustomAnimatedSpriteComponent>();
 	_anim->addAnim(AnimatedSpriteComponent::Idle, 16, true);
 	_anim->addAnim(AnimatedSpriteComponent::Walk, 10, true);
 	_anim->addAnim(AnimatedSpriteComponent::WalkBack, 10, true);
@@ -62,14 +63,10 @@ Player::Player(Game* game, int xPos, int yPos) : GameComponent(game, "Player")
 	_anim->addAnim(AnimatedSpriteComponent::DashDown, 3, true);
 	_anim->addAnim(AnimatedSpriteComponent::DashBack, 6, false);
 	_anim->addAnim(AnimatedSpriteComponent::ReloadShotgun, 5, false);
-
-	_hurt = addComponent<HurtRenderComponent>();
-
+	
 	//Brazo
 	_playerArm = new PlayerArm(game, this, { 28, 18 });
 	addChild(_playerArm);
-
-	//_playerArm->addComponent<HurtRenderComponent>();
 
 	//Armas del juego
 	_weaponManager = new WeaponManager(game);
@@ -95,13 +92,13 @@ Player::~Player()
 	//for (auto g : _gameWeapons) delete g;
 }
 
-void Player::beginCollision(GameComponent * other, b2Contact* contact)
+void Player::beginCollision(GameObject * other, b2Contact* contact)
 {
 	auto fA = contact->GetFixtureA();
 	auto fB = contact->GetFixtureB();
 
 	//Deteccion del suelo
-	if ((fA->IsSensor() || fB->IsSensor()) && other->getTag() == "Ground")
+	if ((fA->IsSensor() || fB->IsSensor()) && (other->getTag() == "Ground" || other->getTag() == "Platform"))
 	{
 		_floorCount++;
 		setGrounded(true);
@@ -125,26 +122,26 @@ void Player::beginCollision(GameComponent * other, b2Contact* contact)
 	}
 }
 
-void Player::endCollision(GameComponent * other, b2Contact* contact)
+void Player::endCollision(GameObject * other, b2Contact* contact)
 {
 	auto fA = contact->GetFixtureA();
 	auto fB = contact->GetFixtureB();
 
 	//Deteccion del suelo
-	if ((fA->IsSensor() || fB->IsSensor()) && other->getTag() == "Ground")
+	if ((fA->IsSensor() || fB->IsSensor()) && (other->getTag() == "Ground" || other->getTag() == "Platform"))
 		_floorCount > 0 ? _floorCount-- : _floorCount = 0;
 }
 
 void Player::die()
 {
-	_dead = true;
+	setDead(true);
 	_body->getBody()->SetLinearVelocity(b2Vec2(0.0, 0.0));
 	_body->getBody()->SetAngularVelocity(0);
 }
 
 void Player::revive()
 {
-	_dead = false;
+	setDead(false);
 
 	_life.resetLife();
 	_playerPanel->updateLifeBar(_life.getLife(), _life.getMaxLife());
@@ -164,23 +161,28 @@ void Player::subLife(int damage)
 	if (!isDashing())
 	{
 		_life.subLife(damage);
-		if (!_dead)
+
+		if (!isDead())
 		{
-			if (_life.dead())
+			if (_life.getLife() == 0)
 			{
 				die();
 				//_hurt->die();
+				//_playerArm->die();
 			}
 			else
-				_hurt->hurt();
+			{
+				_anim->hurt();
+				_playerArm->hurt();
+			}
 		}
 		_playerPanel->updateLifeBar(_life.getLife(), _life.getMaxLife());
 	}
 }
 
-bool Player::handleInput(const SDL_Event& event)
+bool Player::handleEvent(const SDL_Event& event)
 {
-	GameComponent::handleInput(event);
+	GameObject::handleEvent(event);
 
 	if (event.type == SDL_KEYDOWN && !event.key.repeat) // Captura solo el primer frame que se pulsa
 	{
@@ -220,7 +222,7 @@ bool Player::handleInput(const SDL_Event& event)
 void Player::update(const double& deltaTime)
 {
 	const Uint8* keyboard = SDL_GetKeyboardState(NULL);
-	GameComponent::update(deltaTime);
+	GameObject::update(deltaTime);
 
 	if (isDashing() || isMeleeing() || isReloading())
 		_playerArm->setActive(false);
@@ -322,11 +324,11 @@ void Player::handleAnimations()
 		setGrounded(false);
 	}
 
-	if ((isGrounded() || _body->getBody()->GetLinearVelocity().y == 0) && isDashing() && dashDown)
+	if ((isGrounded() || _body->getBody()->GetLinearVelocity().y == 0) && isDashing() && _dashDown)
 	{
 		_anim->playAnim(AnimatedSpriteComponent::Idle);
 		_onDash = false;
-		dashDown = false;
+		_dashDown = false;
 		dashOff();
 	}
 
@@ -360,12 +362,12 @@ void Player::refreshDashCoolDown(const double& deltaTime)
 
 void Player::dashTimer(const double & deltaTime)
 {
-	if (_onDash && !dashDown)
+	if (_onDash && !_dashDown)
 	{
-		dashDur -= deltaTime;
-		if (dashDur <= 0)
+		_dashDur -= deltaTime;
+		if (_dashDur <= 0)
 		{
-			dashDur = 250;
+			_dashDur = 250;
 			_onDash = false;
 		}
 	}
@@ -448,7 +450,7 @@ void Player::dash(const Vector2D& dir)
 	else
 	{
 		_anim->playAnim(AnimatedSpriteComponent::DashDown);
-		dashDown = true;
+		_dashDown = true;
 	}
 
 	_playerPanel->startAnimDashCD();

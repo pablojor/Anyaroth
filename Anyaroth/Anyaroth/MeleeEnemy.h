@@ -1,14 +1,14 @@
 #pragma once
-#include "Enemy.h"
+#include "GroundEnemy.h"
 
-class MeleeEnemy : public Enemy
+class MeleeEnemy : public GroundEnemy
 {
-private:
-	bool _attackingR = false, _attackingL = false;
-	int _realRange = 15, _stopDmg = 1000;
-
 public:
-	MeleeEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag);
+	MeleeEnemy(Game* g, Player* player, Vector2D pos);
 	virtual ~MeleeEnemy() {}
+
 	virtual void update(const double& deltaTime);
+	virtual void attacking(const double& deltaTime);
+
+	virtual void idle();
 };

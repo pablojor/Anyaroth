@@ -4,7 +4,7 @@
 
 using namespace nlohmann;
 
-Layer::Layer(string filename, string name, Texture* t, Game* g, string tag) : GameComponent(g)
+Layer::Layer(string filename, string name, Texture* t, Game* g, string tag) : GameObject(g)
 {
 	json j;
 	_tilemap.clear();

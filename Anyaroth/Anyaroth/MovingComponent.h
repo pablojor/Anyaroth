@@ -2,7 +2,7 @@
 #include "PhysicsComponent.h"
 #include "Bodycomponent.h"
 #include "Game.h"
-class GameComponent;
+class GameObject;
 
 class MovingComponent : public PhysicsComponent
 {
@@ -14,7 +14,7 @@ private:
 	bool _dashing = false;
 
 public:
-	MovingComponent(GameComponent* obj);
+	MovingComponent(GameObject* obj);
 	~MovingComponent() {}
 
 	virtual void update(const double& deltaTime);

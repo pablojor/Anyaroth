@@ -11,6 +11,7 @@ enum State
 {
 	Moving, Shooting, Bombing, Meleeing, OrbAttacking
 };
+
 class Boss : public DistanceEnemy
 {
 protected:
@@ -27,8 +28,9 @@ protected:
 
 	//Tiempo entre acciones
 	int _doSomething = 1000, _noAction = 0;
+
 public:
-	Boss(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag, BulletPool* pool);
+	Boss(Game* g, Player* player, Vector2D pos, BulletPool* pool);
 	virtual ~Boss();
 
 	bool inline const isbeetweenFases() { return _actualFase==BetweenFase; }
@@ -41,7 +43,7 @@ public:
 
 	virtual void movement(const double& deltaTime) {};
 
-	virtual void beginCollision(GameComponent* other, b2Contact* contact);
+	virtual void beginCollision(GameObject* other, b2Contact* contact);
 
 	virtual void fase1(const double& deltaTime) {};
 	virtual void fase2(const double& deltaTime) {};
@@ -49,4 +51,3 @@ public:
 	virtual void beetwenFases(const double& deltaTime) {};
 	virtual void changeFase(int fase);
 };
-

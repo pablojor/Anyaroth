@@ -1,6 +1,6 @@
 #include "Boss.h"
 
-Boss::Boss(Player * player, Game * g, PlayState * play, Texture * texture, Vector2D posIni, string tag, BulletPool* pool) : DistanceEnemy(player, g, play, texture, posIni, tag, pool)
+Boss::Boss(Game * g, Player * player, Vector2D pos, BulletPool* pool) : DistanceEnemy(g, player, pos, g->getTexture("EnemyMelee"), pool), Enemy(g, player, pos, g->getTexture("EnemyMelee"))
 {
 	_life = 200;
 	_life1 = _life2 = _life3 = _life;
@@ -22,7 +22,7 @@ void Boss::setBossPanel(BossPanel * b)
 void Boss::update(const double & deltaTime)
 {
 	DistanceEnemy::update(deltaTime);
-	if (!_dead)
+	if (!isDead())
 	{
 		movement(deltaTime);
 
@@ -39,7 +39,7 @@ void Boss::update(const double & deltaTime)
 
 void Boss::subLife(int damage)
 {
-	if (!_dead && !isbeetweenFases())
+	if (!isDead() && !isbeetweenFases())
 	{
 		if (_life1.getLife() > 0)
 			manageLife(_life1, damage);
@@ -54,9 +54,8 @@ void Boss::subLife(int damage)
 
 void Boss::manageLife(Life& l, int damage)
 {
-	_hurt->hurt();
 	l.subLife(damage);
-	if (l.dead())
+	if (l.getLife()==0)
 	{
 		_doSomething = 0;
 		_lastFase = _actualFase;
@@ -64,7 +63,7 @@ void Boss::manageLife(Life& l, int damage)
 	}
 }
 
-void Boss::beginCollision(GameComponent * other, b2Contact * contact)
+void Boss::beginCollision(GameObject * other, b2Contact * contact)
 {
 	DistanceEnemy::beginCollision(other, contact);
 }

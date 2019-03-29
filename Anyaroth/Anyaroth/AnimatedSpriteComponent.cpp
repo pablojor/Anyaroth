@@ -1,5 +1,4 @@
 #include "AnimatedSpriteComponent.h"
-#include "GameComponent.h"
 #include "Camera.h"
 #include "Game.h"
 
@@ -49,12 +48,15 @@ void AnimatedSpriteComponent::update(const double& deltaTime)
 
 void AnimatedSpriteComponent::playAnim(uint name)
 {
-	_animations[_currentAnim].animationFinished = false;
-
-	if (_currentAnim != name)
+	if (name < _animations.size())
 	{
-		_currentAnim = name;
-		_frame = 0;
+		_animations[_currentAnim].animationFinished = false;
+
+		if (_currentAnim != name)
+		{
+			_currentAnim = name;
+			_frame = 0;
+		}
 	}
 }
 

@@ -1,13 +1,13 @@
 #pragma once
 #include "Component.h"
 
-class GameComponent;
+class GameObject;
 class Camera;
 
 class RenderComponent : public virtual Component
 {
 public:
-	RenderComponent(GameComponent* obj);
+	RenderComponent(GameObject* obj);
 	virtual ~RenderComponent() {}
 
 	virtual void render(Camera* c) const = 0;

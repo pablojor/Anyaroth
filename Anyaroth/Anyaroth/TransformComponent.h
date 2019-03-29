@@ -2,7 +2,7 @@
 #include "Component.h"
 #include "Vector2D.h"
 
-class GameComponent;
+class GameObject;
 
 class TransformComponent : public Component
 {
@@ -14,7 +14,7 @@ private:
 	Vector2D _defaultAnchor; //el anchor inicial (necesario en caso de que el anchor cambie en ejecución)
 
 public:
-	TransformComponent(GameComponent* obj);
+	TransformComponent(GameObject* obj);
 	~TransformComponent() {}
 
 	inline void setPosition(double x, double y) { _position = Vector2D(x, y); }

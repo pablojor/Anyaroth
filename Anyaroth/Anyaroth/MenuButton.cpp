@@ -2,7 +2,7 @@
 #include "TransformComponent.h"
 #include "SpriteComponent.h"
 
-MenuButton::MenuButton(Vector2D pos, Texture* texture, Game* g, callback* cb) : _pos(pos), _texture(texture), g(g), cb(cb)
+MenuButton::MenuButton(Vector2D pos, Texture* texture, Game* game, callback* cb) : GameObject(game), _pos(pos), _texture(texture), cb(cb)
 {
 	addComponent<Texture>(_texture);
 
@@ -26,9 +26,9 @@ SDL_Rect MenuButton::getRect() const
 	return winRect;
 }
 
-bool MenuButton::handleInput(const SDL_Event & event)
+bool MenuButton::handleEvent(const SDL_Event & event)
 {
-	GameComponent::handleInput(event);
+	GameObject::handleEvent(event);
 	bool handled = false;
 
 	int x, y;
@@ -40,7 +40,7 @@ bool MenuButton::handleInput(const SDL_Event & event)
 
 		if (SDL_PointInRect(&point, &rect))
 		{
-			cb(g);
+			cb(_game);
 			handled = true;
 		}
 	}

@@ -1,12 +1,12 @@
 #pragma once
-#include "GameComponent.h"
+#include "GameObject.h"
 
 class TransformComponent;
 class AnimatedSpriteComponent;
 class PlayState;
 class Camera;
 
-class Cursor : public GameComponent
+class Cursor : public GameObject
 {
 private:
 	TransformComponent* _transform = nullptr;

@@ -1,50 +1,58 @@
 #include "FlyingEnemy.h"
-#include "BodyComponent.h"
 #include "Game.h"
 
-FlyingEnemy::FlyingEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag) : Enemy( player,  g,  play,  texture, posIni, tag)
+FlyingEnemy::FlyingEnemy(Game* g, Player* player, Vector2D pos) : Enemy(g,  player, pos, g->getTexture("EnemyMelee"))
 {
+	_damage = 10;
+
 	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 13, true);
 	_anim->addAnim(AnimatedSpriteComponent::EnemyDie, 18, false);
 
 	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 
-	_body->filterCollisions(ENEMY_BULLETS, PLATFORMS | PLAYER);
+	_body->filterCollisions(ENEMY_BULLETS, PLAYER);
 	_body->getBody()->SetGravityScale(0);
 	_body->getBody()->GetFixtureList()->SetSensor(true);
 
-	_prevPos= Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL);
-	_playerBody = _player->getComponent<BodyComponent>();
+	_originalPos= Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL);
+	_previousPos = _originalPos;
 }
 
-FlyingEnemy::~FlyingEnemy() {}
+void FlyingEnemy::sinusoidalMove(const double& deltaTime)
+{
+	//Onda Sinusoidal vertical 
+	double prevX = _body->getBody()->GetPosition().x * M_TO_PIXEL + _velocity.getX() * _dir.getX();
+	double prevY = _previousPos.getY() + _velocity.getY() * _dir.getY();
+
+	_previousPos = Vector2D(prevX, prevY);
+
+	double y = prevY + _amplitude * sin(_k * prevX - _angularFrequency * deltaTime / 1000);
+
+	if (_originalPos.distance(_previousPos) < maxDistance)
+		_body->getBody()->SetTransform(b2Vec2(prevX / M_TO_PIXEL, y / M_TO_PIXEL), 0);
+}
 
 void FlyingEnemy::update(const double& deltaTime)
 {
 	Enemy::update(deltaTime);
 
-	_playerPos = Vector2D(_playerBody->getBody()->GetPosition().x * M_TO_PIXEL, _playerBody->getBody()->GetPosition().y * M_TO_PIXEL);
-	_bodyPos = Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL);
+	_dir = Vector2D((_playerDistance.getX() < 0) ? -1 : 1, (_playerDistance.getY() < 0) ? -1 : 1);
 
-	Vector2D dir = Vector2D((_playerPos.getX() < _bodyPos.getX()) ? -1 : 1, (_playerPos.getY() < _bodyPos.getY()) ? -1 : 1);
+	if (_dir.getX() < 0)
+		_anim->flip();
+	else
+		_anim->unFlip();
 
-	//Onda Sinusoidal vertical 
-	double x = _bodyPos.getX() + _velocity.getX() *dir.getX();
-
-	double prevY = _prevPos.getY() + _velocity.getY() *dir.getY();
-	_prevPos = Vector2D(x, prevY);
-
-	double y = prevY + _amplitude * sin(_k * x - _angularFrequency * deltaTime / 1000);
-
-	_body->getBody()->SetTransform(b2Vec2(x / M_TO_PIXEL, y / M_TO_PIXEL), 0);
+	sinusoidalMove(deltaTime);
 }
 
-void FlyingEnemy::beginCollision(GameComponent * other, b2Contact * contact)
+void FlyingEnemy::beginCollision(GameObject * other, b2Contact * contact)
 {
 	if (other->getTag() == "Player")
+	{
 		_player->subLife(_damage);
-
-	setActive(false);
-
-	_play->deleteObject(_itList);
+		destroy();
+	}
+	else if (other->getTag() == "Ground")
+		destroy();
 }

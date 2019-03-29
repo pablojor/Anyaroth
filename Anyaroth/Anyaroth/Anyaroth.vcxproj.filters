@@ -4,9 +4,6 @@
     <ClCompile Include="AnimatedSpriteComponent.cpp">
       <Filter>Archivos de código fuente\Components</Filter>
     </ClCompile>
-    <ClCompile Include="ArmControllerComponent.cpp">
-      <Filter>Archivos de código fuente\Components</Filter>
-    </ClCompile>
     <ClCompile Include="BodyComponent.cpp">
       <Filter>Archivos de código fuente\Components</Filter>
     </ClCompile>
@@ -14,9 +11,6 @@
       <Filter>Archivos de código fuente\Components</Filter>
     </ClCompile>
     <ClCompile Include="FrameComponent.cpp">
-      <Filter>Archivos de código fuente\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="HurtRenderComponent.cpp">
       <Filter>Archivos de código fuente\Components</Filter>
     </ClCompile>
     <ClCompile Include="InputComponent.cpp">
@@ -226,9 +220,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
-    <ClCompile Include="GameComponent.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
@@ -301,21 +292,27 @@
     <ClCompile Include="MisilBoss1.cpp">
       <Filter>Archivos de código fuente\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomAnimatedSpriteComponent.cpp">
+      <Filter>Archivos de código fuente\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss.cpp">
+      <Filter>Archivos de código fuente\Objects\Enemies\Bosses</Filter>
+    </ClCompile>
+    <ClCompile Include="GroundEnemy.cpp">
+      <Filter>Archivos de código fuente\Objects\Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="GameComponent.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="AnimatedSpriteComponent.h">
-      <Filter>Archivos de encabezado\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="ArmControllerComponent.h">
       <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
     <ClInclude Include="BodyComponent.h">
@@ -328,9 +325,6 @@
       <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
     <ClInclude Include="FrameComponent.h">
-      <Filter>Archivos de encabezado\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="HurtRenderComponent.h">
       <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
     <ClInclude Include="InputComponent.h">
@@ -626,6 +620,15 @@
     </ClInclude>
     <ClInclude Include="MisilBoss1.h">
       <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss.h">
+      <Filter>Archivos de encabezado\Objects\Enemies\Bosses</Filter>
+    </ClInclude>
+    <ClInclude Include="GroundEnemy.h">
+      <Filter>Archivos de encabezado\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomAnimatedSpriteComponent.h">
+      <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

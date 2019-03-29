@@ -1,7 +1,7 @@
 #include "PhysicsComponent.h"
-#include "GameComponent.h"
+#include "GameObject.h"
 
-PhysicsComponent::PhysicsComponent(GameComponent* obj) 
+PhysicsComponent::PhysicsComponent(GameObject* obj) 
 {
 	obj->addPhysicsComponent(this);
 }

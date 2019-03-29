@@ -5,7 +5,7 @@
 #include "PlayState.h"
 #include "Camera.h"
 
-Cursor::Cursor(Game* game) : GameComponent(game)
+Cursor::Cursor(Game* game) : GameObject(game)
 {
 	addComponent<Texture>(game->getTexture("GunCursor"));
 
@@ -20,7 +20,7 @@ Cursor::Cursor(Game* game) : GameComponent(game)
 
 void Cursor::update(const double& deltaTime)
 {
-	GameComponent::update(deltaTime);
+	GameObject::update(deltaTime);
 
 	Vector2D mousePos = getGame()->getCurrentState()->getMousePositionInWorld();
 	_transform->setPosition(mousePos);

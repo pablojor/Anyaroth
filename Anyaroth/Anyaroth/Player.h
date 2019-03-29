@@ -1,9 +1,8 @@
 #pragma once
-#include "GameComponent.h"
+#include "GameObject.h"
 #include "TransformComponent.h"
-#include "AnimatedSpriteComponent.h"
+#include "CustomAnimatedSpriteComponent.h"
 #include "BodyComponent.h"
-#include "HurtRenderComponent.h"
 #include "PlayerArm.h"
 #include "Gun.h"
 #include "Money.h"
@@ -17,18 +16,15 @@
 class WeaponManager;
 class Game;
 
-
-class Player : public GameComponent
+class Player : public GameObject
 {
 private:
 	Game* _game = nullptr;
 
 	//Componentes
 	TransformComponent* _transform = nullptr;
-	AnimatedSpriteComponent* _anim = nullptr;
+	CustomAnimatedSpriteComponent* _anim = nullptr;
 	BodyComponent* _body = nullptr;
-	HurtRenderComponent* _hurt = nullptr;
-	//HurtRenderComponent* _hurtArm; poner en el brazo
 	Melee* _melee = nullptr;
 
 	//Propiedades
@@ -44,18 +40,16 @@ private:
 
 	int _maxDash = 1, 
 		_numDash = _maxDash,
-		dashDur = 250;
+		_dashDur = 250;
 
-	bool _isDashing = false, 
-		_isReloading = false, 
-		_isShooting = false, 
-		_isMeleeing = false, 
-		_onDash = false, 
-		dashDown = false, 
-		_dead = false;
+	bool _isDashing = false,
+		_isReloading = false,
+		_isShooting = false,
+		_isMeleeing = false,
+		_onDash = false,
+		_dashDown = false;
 
 	int _floorCount = 0;
-
 
 	float _timeToJump = 100.f;
 
@@ -81,16 +75,15 @@ public:
 	Player(Game* g, int xPos, int yPos);
 	~Player();
 
-	bool handleInput(const SDL_Event& event);
+	bool handleEvent(const SDL_Event& event);
 	void update(const double& deltaTime);
 
-	virtual void beginCollision(GameComponent* other, b2Contact* contact);
-	virtual void endCollision(GameComponent* other, b2Contact* contact);
+	virtual void beginCollision(GameObject* other, b2Contact* contact);
+	virtual void endCollision(GameObject* other, b2Contact* contact);
 
 	void die();
 	void revive();
 	void subLife(int damage);
-	inline bool isDead() const { return _dead; }
 
 	void swapGun();
 	inline void changeCurrentGun(Gun* gun) { _currentGun = gun; }

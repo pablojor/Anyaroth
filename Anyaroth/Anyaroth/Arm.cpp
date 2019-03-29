@@ -2,11 +2,11 @@
 #include "Game.h"
 #include <math.h>
 
-Arm::Arm(Game* g, GameComponent* owner, Vector2D offset) : GameComponent(g), _owner(owner)
+Arm::Arm(Game* g, GameObject* owner, Vector2D offset) : GameObject(g), _owner(owner)
 {
 	addComponent<Texture>(g->getTexture("Arm"));
 	_transform = addComponent<TransformComponent>();
-	_anim = addComponent<AnimatedSpriteComponent>();
+	_anim = addComponent<CustomAnimatedSpriteComponent>();
 
 	_followC = addComponent<FollowingComponent>(_owner);
 	_followC->setInitialOffset(offset);
@@ -15,8 +15,6 @@ Arm::Arm(Game* g, GameComponent* owner, Vector2D offset) : GameComponent(g), _ow
 	_anim->addAnim(AnimatedSpriteComponent::Shoot, 2, false);
 	_anim->addAnim(AnimatedSpriteComponent::NoAmmo, 2, false);
 	_anim->playAnim(AnimatedSpriteComponent::None);
-
-	//_hurt = addComponent<HurtRenderComponent>();
 
 	_transform->setDefaultAnchor(0.1, 0.6); //Parametros para la pistola
 }
@@ -38,10 +36,10 @@ void Arm::lookAtTarget(const Vector2D& target) const
 
 void Arm::hurt() const
 {
-	//_hurt->hurt();
+	_anim->hurt();
 }
 
 void Arm::die() const
 {
-	//_hurt->die();
+	_anim->die();
 }

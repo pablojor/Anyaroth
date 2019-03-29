@@ -49,7 +49,7 @@ void Camera::smoothCameraZoom()
 	}
 }
 
-Camera::Camera(GameComponent * followObject)
+Camera::Camera(GameObject * followObject)
 {
 	fixCameraToObject(followObject);
 }

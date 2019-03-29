@@ -1,29 +1,26 @@
 #pragma once
 #include "Map.h"
-#include "ParallaxBackGround.h"
-#include "PlayStateHUD.h"
-
 #include <list>
 
 class LevelManager
 {
 private:
 	Game* _game = nullptr;
-	PlayState* _playState = nullptr;
 	Player* _player = nullptr;
-
-	Camera* _mainCamera = nullptr;
-	Texture* _tilesetZone1 = nullptr;
-	ParallaxBackGround* _parallaxZone1 = nullptr;
-
+	PlayStateHUD* _hud = nullptr;
 	Map* _currentMap = nullptr;
 
-	list<GameObject*>* _stages = nullptr;
-	list<GameObject*>::iterator _itMap;
+	BulletPool* _enemyBulletPool = nullptr;
+	ExplosiveBulletPool* _enemyExplosivePool = nullptr;
+	BouncingBulletPool* _enemyBouncingPool = nullptr;
+
+	Texture* _tilesetZone1 = nullptr;
+
+	list<GameObject*>* _objectList;
 
 public:
 	LevelManager() {}
-	LevelManager(Game* game, PlayState* playstate);
+	LevelManager(Game* game, Player* player, list<GameObject*>* objects, PlayStateHUD* hud);
 	~LevelManager() {}
 
 	void setLevel(int zone, int level);

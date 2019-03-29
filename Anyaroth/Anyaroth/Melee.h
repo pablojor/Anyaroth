@@ -1,8 +1,8 @@
 #pragma once
-#include "GameComponent.h"
+#include "GameObject.h"
 #include "BodyComponent.h"
 
-class Melee : public GameComponent
+class Melee : public GameObject
 {
 protected:
 	BodyComponent* _body = nullptr;

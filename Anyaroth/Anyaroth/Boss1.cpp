@@ -1,5 +1,4 @@
 #include "Boss1.h"
-#include "GameComponent.h"
 #include "AnimatedSpriteComponent.h"
 #include "Player.h"
 #include "BasicRifle.h"
@@ -7,7 +6,7 @@
 
 
 
-Boss1::Boss1(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag, BulletPool* pool, ExplosiveBulletPool* explosivePool, BouncingBulletPool* bouncingPool) : Boss(player, g, play, texture, posIni, tag, pool)
+Boss1::Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool, ExplosiveBulletPool* explosivePool, BouncingBulletPool* bouncingPool) : Boss(g, player, pos, pool), Enemy(g, player, pos, g->getTexture("EnemyMelee"))
 {
 	_myExplosivePool = explosivePool;
 	_myBouncingBulletPool = bouncingPool;
@@ -15,7 +14,7 @@ Boss1::Boss1(Player* player, Game* g, PlayState* play, Texture* texture, Vector2
 	delete(_myGun);
 	_myGun = new ImprovedRifle(g);
 
-	_attackRange = 120; //No se puede poner mas peque�o que la velocidad
+	_attackRangeX = 120; //No se puede poner mas pequeño que la velocidad
 	_attackTime = 1300; //La animacion tarda unos 450
 
 	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 13, true);
@@ -40,7 +39,7 @@ Boss1::Boss1(Player* player, Game* g, PlayState* play, Texture* texture, Vector2
 void Boss1::update(const double& deltaTime)
 {
 	Boss::update(deltaTime);
-	if (!_dead)
+	if (!isDead())
 	{
 		checkMelee();
 	}
@@ -176,7 +175,7 @@ void Boss1::orbAttack()
 
 }
 
-void Boss1::beginCollision(GameComponent * other, b2Contact * contact)
+void Boss1::beginCollision(GameObject * other, b2Contact * contact)
 {
 	Boss::beginCollision(other, contact);
 

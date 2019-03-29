@@ -1,18 +1,12 @@
-#include "GameComponent.h"
-#include "PhysicsComponent.h"
-#include "RenderComponent.h"
-#include "InputComponent.h"
+#include "GameObject.h"
 #include "Game.h"
 
-GameComponent::GameComponent(Game* g, string tag) : _game(g), GameObject(), _inputComp(), _physicsComp(), _renderComp(), _tag(tag)
+GameObject::GameObject(Game* game, string tag) : _game(game), _inputComp(), _physicsComp(), _renderComp(), _tag(tag)
 {
-	_world = g->getWorld();
+	_world = game->getWorld();
 }
 
-//Constructor vacio (sin puntero a game, _game = nullptr)
-GameComponent::GameComponent() : GameObject(), _inputComp(), _physicsComp(), _renderComp(), _tag() {}
-
-GameComponent::~GameComponent() 
+GameObject::~GameObject() 
 {
 	for (auto it = _components.begin(); it != _components.end(); it++)
 	{
@@ -25,61 +19,61 @@ GameComponent::~GameComponent()
 	}
 
 	//Llama a la destructora de los hijos
-	for (GameComponent* child : _children)
+	for (GameObject* child : _children)
 		delete child;
 }
 
-bool GameComponent::handleInput(const SDL_Event& event)
+bool GameObject::handleEvent(const SDL_Event& event)
 {
 	for (InputComponent* ic : _inputComp)
-		ic->handleInput(event);
+		ic->handleEvent(event);
 
-	//Llama al handleInput de los hijos
-	for (GameComponent* child : _children)
+	//Llama al handleEvent de los hijos
+	for (GameObject* child : _children)
 		if (child->isActive())
-			child->handleInput(event);
+			child->handleEvent(event);
 
 	return false;
 }
 
-void GameComponent::update(const double& deltaTime)
+void GameObject::update(const double& deltaTime)
 {
 	for (PhysicsComponent* pc : _physicsComp)
 		pc->update(deltaTime);
 
 	//Llama al update de los hijos
-	for (GameComponent* child : _children)
+	for (GameObject* child : _children)
 		if (child->isActive())
 			child->update(deltaTime);
 }
 
-void GameComponent::render(Camera* c) const
+void GameObject::render(Camera* c) const
 {
 	for (RenderComponent* rc : _renderComp)
 		rc->render(c);
 
 	//Llama al render de los hijos
-	for (GameComponent* child : _children)
+	for (GameObject* child : _children)
 		if (child->isActive())
 			child->render(c);
 }
 
-void GameComponent::addInputComponent(InputComponent* ic)
+void GameObject::addInputComponent(InputComponent* ic)
 {
 	_inputComp.push_back(ic);
 }
 
-void GameComponent::addPhysicsComponent(PhysicsComponent* pc)
+void GameObject::addPhysicsComponent(PhysicsComponent* pc)
 {
 	_physicsComp.push_back(pc);
 }
 
-void GameComponent::addRenderComponent(RenderComponent* rc)
+void GameObject::addRenderComponent(RenderComponent* rc)
 {
 	_renderComp.push_back(rc);
 }
 
-void GameComponent::delInputComponent(InputComponent* ic)
+void GameObject::delInputComponent(InputComponent* ic)
 {
 	std::vector<InputComponent*>::iterator position = std::find(_inputComp.begin(), _inputComp.end(), ic);
 
@@ -87,16 +81,32 @@ void GameComponent::delInputComponent(InputComponent* ic)
 		_inputComp.erase(position);
 }
 
-void GameComponent::delPhysicsComponent(PhysicsComponent* pc) {
+void GameObject::delPhysicsComponent(PhysicsComponent* pc) {
 	std::vector<PhysicsComponent*>::iterator position = std::find(_physicsComp.begin(), _physicsComp.end(), pc);
 
 	if (position != _physicsComp.end())
 		_physicsComp.erase(position);
 }
 
-void GameComponent::delRenderComponent(RenderComponent* rc) {
+void GameObject::delRenderComponent(RenderComponent* rc) {
 	std::vector<RenderComponent*>::iterator position = std::find(_renderComp.begin(), _renderComp.end(), rc);
 
 	if (position != _renderComp.end())
 		_renderComp.erase(position);
+}
+
+void GameObject::destroyAllChildren()
+{
+	for(GameObject* child : _children)
+		_game->getCurrentState()->destroyObject(child);
+	_children.clear();
+}
+
+void GameObject::destroy()
+{
+	if (_game->getCurrentState() != nullptr) {
+		if (_parent != nullptr)
+			_parent->_children.remove(this);
+		_game->getCurrentState()->destroyObject(this);
+	}
 }

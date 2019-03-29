@@ -4,7 +4,7 @@
 #include "AnimatedSpriteComponent.h"
 #include "Game.h"
 
-MisilBoss1::MisilBoss1(GameComponent* target, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag) : _target(target), _play(play), GameComponent(g, tag)
+MisilBoss1::MisilBoss1(GameObject* target, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag) : _target(target), _play(play), GameObject(g, tag)
 {
 	addComponent<Texture>(texture);
 
@@ -36,22 +36,17 @@ MisilBoss1::~MisilBoss1()
 {
 }
 
-void MisilBoss1::beginCollision(GameComponent * other, b2Contact * contact)
+void MisilBoss1::beginCollision(GameObject * other, b2Contact * contact)
 {
 	contact->SetEnabled(false);
 	setActive(false);
 	_body->getBody()->SetLinearVelocity(b2Vec2(0, 0));
-	_play->deleteObject(_itList);
-}
-
-void MisilBoss1::setItList(list<GameObject*>::iterator itFR)
-{
-	_itList = itFR;
+	destroy();
 }
 
 void MisilBoss1::update(const double& deltaTime)
 {
-	GameComponent::update(deltaTime);
+	GameObject::update(deltaTime);
 	if (isActive())
 	{
 		
@@ -88,5 +83,4 @@ void MisilBoss1::update(const double& deltaTime)
 		//_transform->setPosition(Vector2D(_body->getBody()->GetPosition().x * 8, _body->getBody()->GetPosition().y * 8));
 		_transform->setRotation(_angle);
 	}
-	
 }
