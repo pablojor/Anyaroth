@@ -40,7 +40,7 @@ void BouncingBullet::update(double deltaTime)
 
 		if (dist < _range && !_collided && _numBounces < _maxBounces)
 		{
-			GameObject::update(time);
+			GameObject::update(deltaTime);
 			_aliveTime++;
 		}
 		else

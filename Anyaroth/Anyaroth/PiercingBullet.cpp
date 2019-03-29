@@ -29,7 +29,7 @@ void PiercingBullet::update(const double& deltaTime)
 
 	if (dist < _range && !_collided)
 	{
-		GameObject::update(time);
+		GameObject::update(deltaTime);
 
 		_body->getBody()->SetLinearVelocity(b2Vec2(_speed * cos(_transform->getRotation() * M_PI / 180.0), _speed * sin(_transform->getRotation() * M_PI / 180.0)));
 		_aliveTime++;
