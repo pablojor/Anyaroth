@@ -3,24 +3,24 @@
 #include "ImageUI.h"
 #include "ShopItem.h"
 #include "ButtonUI.h"
+#include "ShopInfoPanel.h"
 
 #include <list>
-
-class ShopMenu;
 
 class CatalogPanel : public PanelUI
 {
 	private:
-		ImageUI* frame = nullptr;
+		ImageUI* _frame = nullptr;
+		ShopInfoPanel* _infoPanel = nullptr;
 		ButtonUI* _exitButton = nullptr;
 
 		//Estos items serán los que se muestren en la tienda
-		//list<ShopItem*> _items;
+		list<ShopItem*> _items;
+
+		ShopItem* _selectedItem = nullptr;
+		ImageUI* _itemIndicator = nullptr;
 
 	public:
 		CatalogPanel(Game* game);
-
-	/*	void openCatalog();
-		void closeCatalog();*/
 };
 

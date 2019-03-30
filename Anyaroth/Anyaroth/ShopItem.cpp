@@ -2,23 +2,12 @@
 
 
 
-ShopItem::ShopItem(Game * game) : PanelUI (game)
+ShopItem::ShopItem(Game* game, Texture* image, int xPos, int yPos) : ButtonUI(game, image)
 {
-	_gunImage = new ImageUI();
-	_gunInfo = new TextUI();
-
-	addChild(_gunImage);
-	addChild(_gunInfo);
+	setPosition(xPos, yPos);
 }
 
 ShopItem::~ShopItem()
 {
 }
 
-void ShopItem::changeItemImage()
-{
-}
-
-void ShopItem::changeItemInfo()
-{
-}

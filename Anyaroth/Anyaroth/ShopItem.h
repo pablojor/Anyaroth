@@ -1,19 +1,27 @@
 #pragma once
-#include "PanelUI.h"
-#include "ImageUI.h"
+#include "ButtonUI.h"
 #include "TextUI.h"
 
-class ShopItem : public PanelUI
+class ShopItem : public ButtonUI
 {
 private:
-	ImageUI* _gunImage = nullptr;
-	TextUI* _gunInfo = nullptr;
+	struct ItemInfo {
+		string _name;
+		string _damage;
+		string _cadence;
+		string _distance;
+	};
+
+	ItemInfo _info;
 
 public:
-	ShopItem(Game* game);
+	ShopItem(Game* game, Texture* image = nullptr, int xPos = 0, int yPos = 0);
 	~ShopItem();
 
-	void changeItemImage();
-	void changeItemInfo();
+	inline Texture* getItemImage() const { getImage(); }
+	inline ItemInfo getItemInfo() const { return _info; }
+
+	void setItemImage(Texture* image) { setImage(image); }
+	void setItemInfo(const ItemInfo& info) { _info = info; }
 };
 
