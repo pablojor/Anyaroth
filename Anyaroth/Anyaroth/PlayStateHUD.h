@@ -12,7 +12,7 @@ class PlayStateHUD : public Canvas
 private:
 	PlayerPanel* _playerPanel = nullptr;
 	BossPanel* _bossPanel = nullptr;
-	ShopMenu* _shopMenu = nullptr;
+	static ShopMenu* _shopMenu;
 	DialoguePanel* _dialoguePanel = nullptr;
 
 public:
@@ -24,4 +24,6 @@ public:
 	inline BossPanel* getBossPanel() const { return _bossPanel; }
 	inline ShopMenu* getShop() const { return _shopMenu; }
 	inline DialoguePanel* getDialoguePanel() const { return _dialoguePanel; }
+
+	static void closeShopMenu(Game* game);
 };

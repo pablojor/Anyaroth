@@ -12,7 +12,7 @@ class Player;
 class ShopMenu : public PanelUI
 {
 	private:
-		Player* _player = nullptr;
+		static Player* _player;
 		ImageUI* _imageBG = nullptr;
 		CoinsCounter* _playerMoney = nullptr;
 
@@ -33,7 +33,7 @@ class ShopMenu : public PanelUI
 
 		void openShop();
 		void open();
-		void closeShop();
+		static void closeShop();
 
 		inline DialoguePanel* getDialoguePanel() const { return _dialoguePanel; }
 

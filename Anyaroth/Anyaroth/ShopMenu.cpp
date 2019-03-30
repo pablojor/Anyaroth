@@ -1,6 +1,7 @@
 ﻿#include "ShopMenu.h"
 #include "Game.h"
 #include "Player.h"
+#include "PlayStateHUD.h"
 
 ButtonUI* ShopMenu::_shopButton = nullptr;
 ButtonUI* ShopMenu::_talkButton = nullptr;
@@ -11,12 +12,13 @@ CatalogPanel* ShopMenu::_catalogPanel = nullptr;
 DialoguePanel* ShopMenu::_dialoguePanel = nullptr;
 DepotPanel* ShopMenu::_depotPanel = nullptr;
 
+Player* ShopMenu::_player = nullptr;
+
 ShopMenu::ShopMenu(Game* game) : PanelUI(game)
 {
 	//----FONDO----//
 
 	_imageBG = new ImageUI(game, game->getTexture("ShopBackground"), 0, 0);
-
 	addChild(_imageBG);
 
 
@@ -57,12 +59,12 @@ ShopMenu::ShopMenu(Game* game) : PanelUI(game)
 
 	//----DISTINTAS FUNCIONALIDADES DE LA TIENDA----//
 
-	_catalogPanel = new CatalogPanel(game, this);
+	_catalogPanel = new CatalogPanel(game);
 	_catalogPanel->setVisible(false);
 
 	_dialoguePanel = new DialoguePanel(game, true);
 
-	_depotPanel = new DepotPanel(game, this, _player);
+	_depotPanel = new DepotPanel(game, _player);
 	_depotPanel->setVisible(false);
 
 	addChild(_catalogPanel);
@@ -87,18 +89,18 @@ void ShopMenu::openShop()
 void ShopMenu::open()
 {
 	_dialoguePanel->startDialogue({
-	_game->getTexture("DialogueFace"),
-	"exampleVoice",
-	"Ollivander",
-	{"Espero que encuentres algo de tu agrado"},
-	{ 2 },
-	{ " ", " ", " ", " " }
-		});
+		_game->getTexture("DialogueFace"),
+		"exampleVoice",
+		"Ollivander",
+		{"Espero que encuentres algo de tu agrado"},
+		{ 2 },
+		{ " ", " ", " ", " " }
+	});
 }
 
 void ShopMenu::closeShop()
 {
-	_visible = false;
+	//_visible = false;
 	_player->setActive(true);
 	_dialoguePanel->endDialogue();
 }
@@ -111,13 +113,13 @@ void ShopMenu::ableMainMenu(Game * game)
 	_exitButton->setVisible(true);
 
 	_dialoguePanel->startDialogue({
-	game->getTexture("DialogueFace"),
-	"exampleVoice",
-	"Ollivander",
-	{ "Quieres algo mas?"},
-	{ 1 },
-	{ " ", " ", " ", " " }
-		});
+			game->getTexture("DialogueFace"),
+			"exampleVoice",
+			"Ollivander",
+			{ "Quieres algo mas?"},
+			{ 1 },
+			{ " ", " ", " ", " " }
+	});
 }
 
 void ShopMenu::disableMainMenu(Game * game)
@@ -133,12 +135,23 @@ void ShopMenu::disableMainMenu(Game * game)
 void ShopMenu::openCatalogPanel(Game* game)
 {
 	disableMainMenu(game);
-	_catalogPanel->openCatalog();
+
+	_catalogPanel->setVisible(true);
+	_dialoguePanel->startDialogue({
+			game->getTexture("DialogueFace"),
+			"exampleVoice",
+			"Ollivander",
+			{ "Te gusta algo de lo que tengo?"},
+			{ 0 },
+			{ " ", " ", " ", " " }
+	});
 }
 
 void ShopMenu::closeCatalogPanel(Game * game)
 {
-	_catalogPanel->closeCatalog();
+	_catalogPanel->setVisible(false);
+	_dialoguePanel->endDialogue();
+
 	ableMainMenu(game);
 }
 
@@ -156,16 +169,29 @@ void ShopMenu::stopTalking(Game * game)
 void ShopMenu::openDepotPanel(Game* game)
 {
 	disableMainMenu(game);
-	_depotPanel->openDepot();
+
+	_depotPanel->setVisible(true);
+	_dialoguePanel->startDialogue({
+			game->getTexture("DialogueFace"),
+			"exampleVoice",
+			"Ollivander",
+			{ "¡Cuido tus cosas como si fueran mías! ¡Por eso ni te preocupes!"},
+			{ 0 },
+			{ " ", " ", " ", " " }
+	});
 }
 
 void ShopMenu::closeDepotPanel(Game * game)
 {
-	_depotPanel->closeDepot();
+	_depotPanel->setVisible(false);
+	_dialoguePanel->endDialogue();
+
 	ableMainMenu(game);
 }
 
 void ShopMenu::exit(Game* game)
 {
 	cout << "cerrando" << endl;
+	PlayStateHUD::closeShopMenu(game);
+	closeShop();
 }

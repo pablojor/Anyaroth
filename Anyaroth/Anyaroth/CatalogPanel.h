@@ -13,15 +13,14 @@ class CatalogPanel : public PanelUI
 	private:
 		ImageUI* frame = nullptr;
 		ButtonUI* _exitButton = nullptr;
-		ShopMenu* _shop = nullptr;
 
 		//Estos items serán los que se muestren en la tienda
 		//list<ShopItem*> _items;
 
 	public:
-		CatalogPanel(Game* game, ShopMenu* shop);
+		CatalogPanel(Game* game);
 
-		void openCatalog();
-		void closeCatalog();
+	/*	void openCatalog();
+		void closeCatalog();*/
 };
 
