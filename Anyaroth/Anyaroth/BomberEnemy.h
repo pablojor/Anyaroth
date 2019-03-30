@@ -4,6 +4,8 @@
 #include "AnimatedSpriteComponent.h"
 #include "HurtRenderComponent.h"
 #include "Player.h"
+#include "BomberGun.h"
+
 
 class BomberEnemy : public Enemy
 {
@@ -12,11 +14,13 @@ private:
 	double _spawnTime = 1000;
 	int _range = 600, _dir = 8;
 
-	ExplosiveBulletPool* _myBulletPool = nullptr;
+	BulletPool* _myBulletPool = nullptr;
+	BomberGun* _gun = nullptr;
+	//ExplosiveBulletEffect _effect = ExplosiveBulletEffect(100);
 	Texture* _bulletTexture = nullptr;
 
 public:
-	BomberEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag, ExplosiveBulletPool* pool);
+	BomberEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag, BulletPool* pool);
 	virtual ~BomberEnemy();
 
 	virtual void update(double time);

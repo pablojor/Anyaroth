@@ -1,12 +1,14 @@
 #include "BomberEnemy.h"
+#include "BulletEffect.h"
 
-BomberEnemy::BomberEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag, ExplosiveBulletPool* pool) : Enemy(player, g, play, texture, posIni, tag)
+BomberEnemy::BomberEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag, BulletPool* pool) : Enemy(player, g, play, texture, posIni, tag)
 {
 	_myBulletPool = pool;
 	_bulletTexture = g->getTexture("PistolBullet");
 	_attackTime = 2000;
 	_life = 300;
 	_speed = -8;
+	_gun = new BomberGun(g);
 
 	_vision = 300;
 	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 13, true);
@@ -19,7 +21,11 @@ BomberEnemy::BomberEnemy(Player* player, Game* g, PlayState* play, Texture* text
 	_body->getBody()->SetGravityScale(0);
 }
 
-BomberEnemy::~BomberEnemy() {}
+BomberEnemy::~BomberEnemy() 
+{
+	delete _gun;
+	_gun = nullptr;
+}
 
 void BomberEnemy::update(double time)
 {
@@ -116,20 +122,22 @@ void BomberEnemy::beginCollision(GameComponent * other, b2Contact * contact)
 
 void BomberEnemy::throwBomb(const Vector2D& position, const double& angle, const string& tag)
 {
-	Bullet* b = _myBulletPool->getUnusedObject();
+	/*Bullet* b = _myBulletPool->getUnusedObject();
 	Vector2D helpPos = position;
-	Vector2D bulletPos = helpPos.rotateAroundPoint(angle, position);
+	Vector2D bulletPos = helpPos.rotateAroundPoint(angle, position);*/
+	//b->init();
+	_gun->enemyShoot(_myBulletPool, position, angle, tag);
 
-	if (b != nullptr)
+	/*if (b != nullptr)
 	{
-		b->init(_bulletTexture, position, 0, 10, angle, _range, tag);
+		b->init(_bulletTexture, position, 0, 10, angle, _range, tag, &_effect);
 		b->changeFilter();
 	}
 	else
 	{
 		Bullet* b2 = _myBulletPool->addNewBullet();
-		
-		b2->init(_bulletTexture, position, 0, 10, angle, _range, tag);
+
+		b2->init(_bulletTexture, position, 0, 10, angle, _range, tag, &_effect);
 		b2->changeFilter();
-	}
+	}*/
 }

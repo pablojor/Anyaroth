@@ -5,42 +5,28 @@
 #include "checkML.h"
 #include <time.h>
 
-#include "PiercingBulletPool.h"
-#include "GravityBulletPool.h"
-
 PlayState::PlayState(Game* g) : GameState(g)
 {
-	//Cursor
-	_cursor = new Cursor(g);
-	_stages.push_back(_cursor);
-	//SDL_ShowCursor(false);
-
-	//Player
-	_player = new Player(g, 0, 0);
-	_stages.push_back(_player);
 
 	//Pool player
 	_playerBulletPool = new BulletPool(g);
 	_stages.push_back(_playerBulletPool);
-	/////////////////////////////////////////////////////////
-	_bouncingBulletPool = new BouncingBulletPool(g);
-	_stages.push_back(_bouncingBulletPool);
-
-
-
-	///
-	PiercingBulletPool* pPool = new PiercingBulletPool(g);
-	_stages.push_back(pPool);
-
-	_player->setPlayerBulletPool(pPool);
-
 
 	//Pool enemy
 	_enemyBulletPool = new BulletPool(g);
 	_stages.push_back(_enemyBulletPool);
 
-	_explosivePool = new ExplosiveBulletPool(g);
-	_stages.push_back(_explosivePool);
+	//Player
+	_player = new Player(g, 0, 0);
+	_stages.push_back(_player);
+
+	_player->setPlayerBulletPool(_playerBulletPool);
+
+	//Cursor
+	_cursor = new Cursor(g);
+	_stages.push_back(_cursor);
+	//SDL_ShowCursor(false);
+
 
 	//Levels
 	_currentZone = _currentLevel = 1;
@@ -115,6 +101,8 @@ void PlayState::update(double time)
 
 	if (_player->isDead())
 	{
+		_playerBulletPool->stopBullets();
+		_enemyBulletPool->stopBullets();
 		_player->revive();
 		_levelManager.resetLevel();
 	}

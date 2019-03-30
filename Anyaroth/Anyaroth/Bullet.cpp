@@ -23,17 +23,29 @@ Bullet::Bullet(Game* game) : GameComponent(game)
 	setActive(false);
 }
 
+Bullet::~Bullet()
+{
+}
+
 void Bullet::beginCollision(GameComponent * other, b2Contact* contact)
 {
-	if(getTag() == "Bullet" && (other->getTag() == "Ground" || other->getTag() == "Enemy"))
+	if(_effect != nullptr)
+		_effect->beginCollision(this, other, contact);
+	/*if(getTag() == "Bullet" && (other->getTag() == "Ground" || other->getTag() == "Enemy"))
 		_collided = true;
 	else if (getTag() == "EnemyBullet" && (other->getTag() == "Ground" || other->getTag() == "Player"))
 		_collided = true;
 
-	contact->SetEnabled(false);
+	contact->SetEnabled(false);*/
 }
 
-void Bullet::init(Texture* texture, const Vector2D& position, const double& speed, const double& damage, const double& angle, const double& range, const string& tag)
+void Bullet::endCollision(GameComponent * other, b2Contact* contact)
+{
+	if(_effect != nullptr)
+		_effect->endCollision(this, other, contact);
+}
+
+void Bullet::init(Texture* texture, const Vector2D& position, const double& speed, const double& damage, const double& angle, const double& range, const string& tag, EffectInterface* effect)
 {
 	setTag(tag);
 	_iniPos = position;
@@ -42,12 +54,19 @@ void Bullet::init(Texture* texture, const Vector2D& position, const double& spee
 	_damage = damage;
 	_range = range;
 
+
 	_texture = texture;
 	_transform->setRotation(angle);
 
 	_body->getBody()->SetActive(true);
 	_body->getBody()->SetTransform({ (float32)(position.getX() / M_TO_PIXEL), (float32)(position.getY() / M_TO_PIXEL) }, _body->getBody()->GetAngle());
 	_body->getBody()->SetLinearVelocity(b2Vec2(0, 0));
+
+
+
+
+	_effect = effect;
+	_effect->init(this);
 
 	_anim->setTexture(texture);
 	_anim->addAnim(AnimatedSpriteComponent::Default, 4, false);
@@ -57,7 +76,9 @@ void Bullet::init(Texture* texture, const Vector2D& position, const double& spee
 
 void Bullet::update(double time) 
 {
-	if (isActive())
+	if(_effect != nullptr)
+		_effect->update(this, time);
+	/*if (isActive())
 	{
 		double dist = _iniPos.distance(_transform->getPosition());
 
@@ -70,15 +91,7 @@ void Bullet::update(double time)
 		}
 		else
 			reset();
-	}
-}
-
-void Bullet::reset()
-{
-	_body->getBody()->SetActive(false);
-	setActive(false);
-	_aliveTime = 0;
-	_collided = false;
+	}*/
 }
 
 void Bullet::changeFilter() 

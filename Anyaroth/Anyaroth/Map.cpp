@@ -100,7 +100,7 @@ void Map::createObjects()
 			}
 			else if (name == "Bomber")
 			{
-				_objects.push_back(new BomberEnemy(_player, _game, _playState, _game->getTexture("EnemyMartyr"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), "Enemy", _playState->getExplosivePool()));
+				_objects.push_back(new BomberEnemy(_player, _game, _playState, _game->getTexture("EnemyMartyr"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), "Enemy", _playState->getEnemyPool()));
 			}
 			else if (name == "Spawner")
 			{

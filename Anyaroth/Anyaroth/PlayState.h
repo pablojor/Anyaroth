@@ -5,9 +5,8 @@
 #include "CollisionManager.h"
 #include "Player.h"
 #include "BulletPool.h"
-#include "BouncingBulletPool.h"
 #include "Coin.h"
-#include "ExplosiveBulletPool.h"
+//#include "ExplosiveBulletPool.h"
 #include "Cursor.h"
 
 class PlayState : public GameState
@@ -18,11 +17,9 @@ private:
 
 	//Bullet Pools
 	BulletPool* _playerBulletPool = nullptr; //Balas del jugador
-	//////////////////////////////////////////////////////////////
-	BouncingBulletPool* _bouncingBulletPool = nullptr; 
 
 	BulletPool* _enemyBulletPool = nullptr; //Balas de los enemigos
-	ExplosiveBulletPool* _explosivePool = nullptr;
+	//ExplosiveBulletPool* _explosivePool = nullptr;
 
 	LevelManager _levelManager;
 	CollisionManager _colManager;
@@ -46,7 +43,7 @@ public:
 
 	inline Player* getPlayer() const { return _player; }
 	inline BulletPool* getEnemyPool() const { return _enemyBulletPool; }
-	inline ExplosiveBulletPool* getExplosivePool() const { return _explosivePool; }
+	//inline ExplosiveBulletPool* getExplosivePool() const { return _explosivePool; }
 	inline Cursor* getCursor() const { return _cursor; }
 
 	inline int getCurrentZone() const { return _currentZone; }
