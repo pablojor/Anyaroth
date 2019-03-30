@@ -7,7 +7,7 @@ CatalogPanel::CatalogPanel(Game* game) : PanelUI(game)
 	_frame = new ImageUI(game, game->getTexture("ShopPanel"), 5, 5);
 
 	_exitButton = new ButtonUI(game, game->getTexture("Button"), ShopMenu::closeCatalogPanel, { 0,1,2,3 });
-	_exitButton->setPosition(_frame->getX(),_frame->getY() + _frame->getH() + 2);
+	_exitButton->setPosition(_frame->getX(), _frame->getY() + _frame->getH() + 2);
 	_exitButton->setSize(_frame->getW(), _exitButton->getH() + 4);
 
 	_infoPanel = new ShopInfoPanel(game, _frame->getX() + _frame->getW() + 4, _frame->getY());

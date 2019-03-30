@@ -92,8 +92,6 @@ bool PlayState::handleEvent(const SDL_Event& event)
 	else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_p)
 		if (!_hud->getShop()->isVisible())
 			_hud->getShop()->openShop();
-		else
-			_hud->getShop()->closeShop();
 
 	return handled;
 }

@@ -9,13 +9,15 @@ class DepotPanel : public PanelUI
 {
 	private:
 		Player* _player = nullptr;
-		ImageUI* frame = nullptr;
+		ImageUI* _depotFrame = nullptr;
+		ImageUI* _equipmentFrame = nullptr;
 		ButtonUI* _exitButton = nullptr;
+
+		ImageUI* _firstWeapon = nullptr;
+		ImageUI* _secondWeapon = nullptr;
+		ImageUI* _meleeWeapon = nullptr;
 
 	public:
 		DepotPanel(Game* game, Player* player);
-
-		/*void openDepot();
-		void closeDepot();*/
 };
 

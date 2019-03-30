@@ -175,7 +175,7 @@ void ShopMenu::openDepotPanel(Game* game)
 			game->getTexture("DialogueFace"),
 			"exampleVoice",
 			"Ollivander",
-			{ "¡Cuido tus cosas como si fueran mías! ¡Por eso ni te preocupes!"},
+			{ "¡Equipate bien antes de salir ahi fuera!"},
 			{ 0 },
 			{ " ", " ", " ", " " }
 	});
