@@ -274,9 +274,6 @@
     <ClCompile Include="BouncingBullet.cpp">
       <Filter>Archivos de código fuente\Objects\Bullets</Filter>
     </ClCompile>
-    <ClCompile Include="Boss1.cpp">
-      <Filter>Archivos de código fuente\Objects\Enemies\Bosses</Filter>
-    </ClCompile>
     <ClCompile Include="BotonLanzaMisiles.cpp">
       <Filter>Archivos de código fuente\Objects\Interactables</Filter>
     </ClCompile>
@@ -289,9 +286,6 @@
     <ClCompile Include="PiercingBullet.cpp">
       <Filter>Archivos de código fuente\Objects\Bullets</Filter>
     </ClCompile>
-    <ClCompile Include="MisilBoss1.cpp">
-      <Filter>Archivos de código fuente\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
@@ -303,6 +297,18 @@
     </ClCompile>
     <ClCompile Include="GroundEnemy.cpp">
       <Filter>Archivos de código fuente\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss1.cpp">
+      <Filter>Archivos de código fuente\Objects\Enemies\Bosses\Boss1</Filter>
+    </ClCompile>
+    <ClCompile Include="MisilBoss1.cpp">
+      <Filter>Archivos de código fuente\Objects\Enemies\Bosses\Boss1</Filter>
+    </ClCompile>
+    <ClCompile Include="LaserContainer.cpp">
+      <Filter>Archivos de código fuente\Objects\Enemies\Bosses\Boss2</Filter>
+    </ClCompile>
+    <ClCompile Include="Laser.cpp">
+      <Filter>Archivos de código fuente\Objects\Enemies\Bosses\Boss2</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -612,14 +618,8 @@
     <ClInclude Include="NPC.h">
       <Filter>Archivos de encabezado\Objects\Interactables</Filter>
     </ClInclude>
-    <ClInclude Include="Boss1.h">
-      <Filter>Archivos de encabezado\Objects\Enemies\Bosses</Filter>
-    </ClInclude>
     <ClInclude Include="BotonLanzaMisiles.h">
       <Filter>Archivos de encabezado\Objects\Interactables</Filter>
-    </ClInclude>
-    <ClInclude Include="MisilBoss1.h">
-      <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
     <ClInclude Include="Boss.h">
       <Filter>Archivos de encabezado\Objects\Enemies\Bosses</Filter>
@@ -629,6 +629,18 @@
     </ClInclude>
     <ClInclude Include="CustomAnimatedSpriteComponent.h">
       <Filter>Archivos de encabezado\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss1.h">
+      <Filter>Archivos de encabezado\Objects\Enemies\Bosses\Boss1</Filter>
+    </ClInclude>
+    <ClInclude Include="MisilBoss1.h">
+      <Filter>Archivos de encabezado\Objects\Enemies\Bosses\Boss1</Filter>
+    </ClInclude>
+    <ClInclude Include="LaserContainer.h">
+      <Filter>Archivos de encabezado\Objects\Enemies\Bosses\Boss2</Filter>
+    </ClInclude>
+    <ClInclude Include="Laser.h">
+      <Filter>Archivos de encabezado\Objects\Enemies\Bosses\Boss2</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -775,6 +787,18 @@
     </Filter>
     <Filter Include="Archivos de código fuente\Objects\Player\Melee">
       <UniqueIdentifier>{91c2fb3e-33b4-42c8-b741-0a0b383c9988}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código fuente\Objects\Enemies\Bosses\Boss1">
+      <UniqueIdentifier>{ff49b8bb-736b-4580-8ac4-4d658d64bb97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Objects\Enemies\Bosses\Boss1">
+      <UniqueIdentifier>{da53e888-f508-4813-8116-6ff680e0e5ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Objects\Enemies\Bosses\Boss2">
+      <UniqueIdentifier>{bef2258b-fe74-4d41-bc73-99b96fae34d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código fuente\Objects\Enemies\Bosses\Boss2">
+      <UniqueIdentifier>{88c9dbcf-ff7a-4b5f-8c88-18f2c16f7ed5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

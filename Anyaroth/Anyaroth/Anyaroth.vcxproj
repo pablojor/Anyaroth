@@ -160,6 +160,8 @@
     <ClCompile Include="DistanceEnemy.cpp" />
     <ClCompile Include="EnemyArm.cpp" />
     <ClCompile Include="Interactable.cpp" />
+    <ClCompile Include="Laser.cpp" />
+    <ClCompile Include="LaserContainer.cpp" />
     <ClCompile Include="NPC.cpp" />
     <ClCompile Include="ImprovedRifle.cpp" />
     <ClCompile Include="ImprovedShotgun.cpp" />
@@ -266,6 +268,8 @@
     <ClInclude Include="ImprovedShotgun.h" />
     <ClInclude Include="ExplosiveBulletPool.h" />
     <ClInclude Include="GroundEnemy.h" />
+    <ClInclude Include="Laser.h" />
+    <ClInclude Include="LaserContainer.h" />
     <ClInclude Include="LevelManager.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="ExplosiveBullet.h" />
