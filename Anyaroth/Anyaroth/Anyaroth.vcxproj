@@ -163,6 +163,7 @@
     <ClCompile Include="Interactable.cpp" />
     <ClCompile Include="Laser.cpp" />
     <ClCompile Include="LaserContainer.cpp" />
+    <ClCompile Include="LaserHandler.cpp" />
     <ClCompile Include="NPC.cpp" />
     <ClCompile Include="ImprovedRifle.cpp" />
     <ClCompile Include="ImprovedShotgun.cpp" />
@@ -272,6 +273,7 @@
     <ClInclude Include="GroundEnemy.h" />
     <ClInclude Include="Laser.h" />
     <ClInclude Include="LaserContainer.h" />
+    <ClInclude Include="LaserHandler.h" />
     <ClInclude Include="LevelManager.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="ExplosiveBullet.h" />

@@ -13,14 +13,13 @@ protected:
 	BodyComponent* _body = nullptr;
 	Vector2D _pos;
 	Player* _player;
-	double _w, _h;
 	int _damage, _angle;
 	//Sistema de daño
 	double startedDamaging = 301, timeToDmg = 300;
 	bool colliding = false;
 
 public:
-	Laser(Game* g, Vector2D pos, Texture* texture, Player* player, double w, double h,double damage = 5);
+	Laser(Game* g, Vector2D pos, Texture* texture, Player* player, double damage = 5);
 	virtual ~Laser() {}
 
 	virtual void update(const double& deltaTime);
