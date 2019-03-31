@@ -79,9 +79,14 @@ void DepotPanel::changeEquipedGuns(Game* game)
 {
 	_player->swapGun();
 
-	auto* firstWeapon = _firstWeapon;
-	_firstWeapon = _secondWeapon;
-	_secondWeapon = firstWeapon;
+	auto firstWeaponInfo = _firstWeapon->getItemInfo();
+	auto firstWeaponImage = _firstWeapon->getItemImage();
+
+	_firstWeapon->setItemInfo(_secondWeapon->getItemInfo());
+	_firstWeapon->setItemImage(_secondWeapon->getItemImage());
+
+	_secondWeapon->setItemInfo(firstWeaponInfo);
+	_secondWeapon->setItemImage(firstWeaponImage);
 }
 
 void DepotPanel::selectDistanceWeapon(Game* game, ShopItem* item)

@@ -25,7 +25,7 @@ class ShopItem : public ButtonUI
 		ShopItem(Game* game, Texture* image = nullptr, int xPos = 0, int yPos = 0);
 		~ShopItem();
 
-		inline Texture* getItemImage() const { getImage(); }
+		inline Texture* getItemImage() const { return getImage(); }
 		inline ItemInfo getItemInfo() const { return _info; }
 		static inline void getItem(Game* game) {  }
 
