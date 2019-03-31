@@ -33,7 +33,7 @@ public:
 	enum Gun { None, Shoot, NoAmmo };
 	enum Enemy { EnemyIdle, EnemyWalk, EnemyAttack, EnemyDie };
 	enum Coin { Main };
-	enum Bullet { Default };
+	enum Bullet { Default, Destroy };
 
 	AnimatedSpriteComponent(GameObject* obj) : SpriteComponent(obj), PhysicsComponent(obj), RenderComponent(obj), Component(), _obj(obj) {}
 	virtual ~AnimatedSpriteComponent() {}

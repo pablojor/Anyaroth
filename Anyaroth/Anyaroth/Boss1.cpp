@@ -10,7 +10,7 @@ Boss1::Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool, ExplosiveB
 {
 	_myExplosivePool = explosivePool;
 	_myBouncingBulletPool = bouncingPool;
-	_bombTexture = g->getTexture("PistolBullet");
+	_bombTexture = g->getTexture("Bomb");
 	delete(_myGun);
 	_myGun = new ImprovedRifle(g);
 
@@ -27,7 +27,7 @@ Boss1::Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool, ExplosiveB
 	_body->getBody()->SetGravityScale(0);
 
 	_originalPos = Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL);
-	_melee = new Axe(g, { 200,0 }, PLAYER, 20, 25,25, 0);
+	_melee = new Axe(g, { 200,0 }, PLAYER, 20, 25, 25, 0);
 	addChild(_melee);
 
 	_armVision = true;
@@ -78,11 +78,11 @@ void Boss1::bomberAttack(const double& deltaTime, int t1, int t2)
 		_doSomething = random(800, 1200);
 	}
 	else
-	{ 
+	{
 		if (_timeOnBomberAttack >= _timeBeetwenBombs)
 		{
 			throwBomb();
-			_timeBeetwenBombs += random(t1,t2);
+			_timeBeetwenBombs += random(t1, t2);
 		}
 
 	}
@@ -143,7 +143,7 @@ void Boss1::armShoot(const double& deltaTime)
 			_timeBeetwenBullets += 50;
 		}
 	}
-	
+
 
 	//_myGun->enemyShoot(_myBulletPool, _bodyPos, !_anim->isFlipped() ? angle : angle + 180, "EnemyBullet");
 }
@@ -170,7 +170,7 @@ void Boss1::orbAttack()
 			_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 			_anim->playAnim(AnimatedSpriteComponent::EnemyDie);//Sera animacion de orbAttack
 		}
-			
+
 	}
 
 }
@@ -180,10 +180,10 @@ void Boss1::beginCollision(GameObject * other, b2Contact * contact)
 	Boss::beginCollision(other, contact);
 
 	string otherTag = other->getTag();
-	
-	if ( otherTag == "Misil" && isbeetweenFases())
+
+	if (otherTag == "Misil" && isbeetweenFases())
 	{
- 		if (_lastFase == Fase1)
+		if (_lastFase == Fase1)
 			changeFase(Fase2);
 		else if (_lastFase == Fase2)
 			changeFase(Fase3);
@@ -317,19 +317,19 @@ void Boss1::changeFase(int nextFase)
 void Boss1::throwBomb()
 {
 	Bullet* b = _myExplosivePool->getUnusedObject();
-	Vector2D helpPos = Vector2D(random(100,700 /*Fututo tope por la derecha*/), 200);
+	Vector2D helpPos = Vector2D(random(100, 700 /*Fututo tope por la derecha*/), 200);
 	Vector2D bulletPos = helpPos.rotateAroundPoint(90, helpPos);
 
 	if (b != nullptr)
 	{
-		b->init(_bombTexture, helpPos, 0, 10, 90, _bombRange, "EnemyBullet");
+		b->init(_bombTexture, helpPos, 0, 10, 90, _bombRange, "EnemyBullet", "Bomb");
 		b->changeFilter();
 	}
 	else
 	{
 		Bullet* b2 = _myExplosivePool->addNewBullet();
 
-		b2->init(_bombTexture, helpPos, 0, 10, 90, _bombRange, "EnemyBullet");
+		b2->init(_bombTexture, helpPos, 0, 10, 90, _bombRange, "EnemyBullet", "Bomb");
 		b2->changeFilter();
 	}
 }
@@ -341,7 +341,7 @@ void Boss1::throwOrb()
 
 	if (b != nullptr)
 	{
-		b->init(_game->getTexture("Coin"), helpPos, 20, 10, random(80,180), _bombRange, "EnemyBullet");
+		b->init(_game->getTexture("Coin"), helpPos, 20, 10, random(80, 180), _bombRange, "EnemyBullet");
 		b->changeFilter();
 	}
 	else
@@ -359,9 +359,9 @@ void Boss1::shootBullet()
 	{
 		/*_myGun->enemyShoot(_myBulletPool, _bodyPos, !_anim->isFlipped() ? _angle : _angle + 180, "EnemyBullet");*/
 		shoot();
-		_angle += _angleIncrease* _dirB;
+		_angle += _angleIncrease * _dirB;
 		_actualBullet++;
-		if(_actualBullet==10)
+		if (_actualBullet == 10)
 		{
 			ida = false;
 			_timeBeetwenBullets += 300;
@@ -371,8 +371,8 @@ void Boss1::shootBullet()
 	{
 		_angle -= _angleIncrease * _dirB;
 		shoot();
-		
-		_actualBullet--;	
+
+		_actualBullet--;
 	}
 }
 
@@ -380,10 +380,10 @@ void Boss1::shootBullet()
 void Boss1::shoot()
 {
 	Bullet* b = _myBulletPool->getUnusedObject();
-	
+
 	if (b != nullptr)
 	{
-		b->init(_game->getTexture("PistolBullet") , _bodyPos, 8, _damage, _angle, 1000, "EnemyBullet");
+		b->init(_game->getTexture("PistolBullet"), _bodyPos, 8, _damage, _angle, 1000, "EnemyBullet");
 		b->changeFilter();
 	}
 	else

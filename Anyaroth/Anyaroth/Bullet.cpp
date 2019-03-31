@@ -25,7 +25,7 @@ Bullet::Bullet(Game* game) : GameObject(game)
 
 void Bullet::beginCollision(GameObject * other, b2Contact* contact)
 {
-	if(getTag() == "Bullet" && (other->getTag() == "Ground" || other->getTag() == "Platform" || other->getTag() == "Enemy"))
+	if (getTag() == "Bullet" && (other->getTag() == "Ground" || other->getTag() == "Platform" || other->getTag() == "Enemy"))
 		_collided = true;
 	else if (getTag() == "EnemyBullet" && (other->getTag() == "Ground" || other->getTag() == "Platform" || other->getTag() == "Player"))
 		_collided = true;
@@ -33,7 +33,7 @@ void Bullet::beginCollision(GameObject * other, b2Contact* contact)
 	contact->SetEnabled(false);
 }
 
-void Bullet::init(Texture* texture, const Vector2D& position, const double& speed, const double& damage, const double& angle, const double& range, const string& tag)
+void Bullet::init(Texture* texture, const Vector2D& position, const double& speed, const double& damage, const double& angle, const double& range, const string& tag, string type)
 {
 	setTag(tag);
 	_iniPos = position;
@@ -50,12 +50,12 @@ void Bullet::init(Texture* texture, const Vector2D& position, const double& spee
 	_body->getBody()->SetLinearVelocity(b2Vec2(0, 0));
 
 	_anim->setTexture(texture);
-	_anim->addAnim(AnimatedSpriteComponent::Default, 4, false);
+	setAnimations(type);
 
 	setActive(true);
 }
 
-void Bullet::update(const double& deltaTime) 
+void Bullet::update(const double& deltaTime)
 {
 	if (isActive())
 	{
@@ -75,13 +75,29 @@ void Bullet::update(const double& deltaTime)
 
 void Bullet::reset()
 {
+	//_anim->
+
 	_body->getBody()->SetActive(false);
 	setActive(false);
 	_aliveTime = 0;
 	_collided = false;
 }
 
-void Bullet::changeFilter() 
+void Bullet::changeFilter()
 {
 	_body->filterCollisions(ENEMY_BULLETS, FLOOR | PLATFORMS | PLAYER);
+}
+
+void Bullet::setAnimations(string type)
+{
+
+	if (type == "Bomb")
+	{
+		_anim->addAnim(AnimatedSpriteComponent::Default, 6, true);
+		_anim->addAnim(AnimatedSpriteComponent::Destroy, 8, false);
+	}
+	else
+	{
+		_anim->addAnim(AnimatedSpriteComponent::Default, 4, true);
+	}
 }
