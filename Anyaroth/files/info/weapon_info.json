@@ -8,7 +8,7 @@
         "range" : 1000,
         "clip" : 12,
         "magazine" : 60,
-        "cadencia" : 270
+        "cadence" : 270
     },
 
     "BasicRifle" :
@@ -20,7 +20,7 @@
         "range" : 1000,
         "clip" : 30,
         "magazine" : 120,
-        "cadencia" : 170
+        "cadence" : 170
     },
 
     "BasicShotgun" :
@@ -32,7 +32,7 @@
         "range" : 60,
         "clip" : 3,
         "magazine" : 48,
-        "cadencia" : 800
+        "cadence" : 800
     },
 
     "ImproveRifle" :
@@ -44,7 +44,7 @@
         "range" : 1000,
         "clip" : 36,
         "magazine" : 160,
-        "cadencia" : 100
+        "cadence" : 100
     },
 
     "ImproveShotgun" :
@@ -56,7 +56,7 @@
         "range" : 60,
         "clip" : 2,
         "magazine" : 50,
-        "cadencia" : 800
+        "cadence" : 800
     },
 
     "BounceOrbCanon" :
@@ -68,6 +68,6 @@
         "range" : 1000,
         "clip" : 30,
         "magazine" : 120,
-        "cadencia" : 200
+        "cadence" : 200
     }
 }

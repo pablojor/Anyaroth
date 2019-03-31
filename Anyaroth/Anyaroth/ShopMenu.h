@@ -27,6 +27,8 @@ class ShopMenu : public PanelUI
 
 		void loadWeaponInfo();
 
+		list<ShopItem*> _items;
+
 	public:
 		ShopMenu(Game* game);
 

@@ -8,9 +8,9 @@ class ShopItem : public ButtonUI
 		struct ItemInfo 
 		{
 			string _name;
-			string _damage;
-			string _cadence;
-			string _distance;
+			int _damage;
+			int _cadence;
+			int _distance;
 
 			bool _available;
 			bool _sell;

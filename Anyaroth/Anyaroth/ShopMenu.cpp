@@ -75,6 +75,7 @@ ShopMenu::ShopMenu(Game* game) : PanelUI(game)
 	addChild(_dialoguePanel);
 	addChild(_depotPanel);
 
+	loadWeaponInfo();
 }
 
 void ShopMenu::loadWeaponInfo()
@@ -87,9 +88,12 @@ void ShopMenu::loadWeaponInfo()
 	{
 		file >> j;
 
-		for (auto item : j)
-		{
-			
+		for (json::iterator it = j.begin(); it != j.end(); ++it) {
+			std::cout << it.key() << " : " << it.value() << "\n";
+			auto item = new ShopItem(_game, _game->getTexture(it.value()["icon"].get<string>()));
+
+			item->setItemInfo({ it.key() ,it.value()["damage"],it.value()["cadence"],it.value()["range"], false, false });
+			_items.push_back(item);
 		}
 	}
 	else
