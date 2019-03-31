@@ -7,14 +7,17 @@
 
 #include <list>
 
+class Player;
+
 class CatalogPanel : public PanelUI
 {
 	private:
-		ImageUI* _frame = nullptr;
-		ButtonUI* _exitButton = nullptr;
-
+		static Player* _player;
 		static ButtonUI* _buyButton;
 		static ShopInfoPanel* _infoPanel;
+
+		ImageUI* _frame = nullptr;
+		ButtonUI* _exitButton = nullptr;
 
 		//Estos items serán los que se muestren en la tienda
 		list<ShopItem*> _items;
@@ -31,6 +34,8 @@ class CatalogPanel : public PanelUI
 	public:
 		CatalogPanel(Game* game);
 		~CatalogPanel();
+
+		void setPlayer(Player* ply) { _player = ply; }
 
 		void setItems(list<ShopItem*>& list);
 		void openCatalog();

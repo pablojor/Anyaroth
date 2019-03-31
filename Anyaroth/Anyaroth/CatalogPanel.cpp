@@ -1,9 +1,11 @@
 #include "CatalogPanel.h"
 #include "Game.h"
 #include "ShopMenu.h"
+#include "Player.h"
 
 ShopInfoPanel* CatalogPanel::_infoPanel = nullptr;
 ButtonUI* CatalogPanel::_buyButton = nullptr;
+Player* CatalogPanel::_player = nullptr;
 
 CatalogPanel::CatalogPanel(Game* game) : PanelUI(game)
 {
@@ -51,8 +53,9 @@ void CatalogPanel::setItems(list<ShopItem*>& list) // Crear items
 {
 	_items = list;
 
-	itemWidth = (_frame->getW() - 10) / itemsPerRow;
-	itemHeight = (_frame->getH() - 10) / itemsPerCol;
+	int margin = 20; // PROBABLEMENTE PROVISIONAL TAMBIEN
+	itemWidth = (_frame->getW() - margin) / itemsPerRow;
+	itemHeight = (_frame->getH() - margin) / itemsPerCol;
 
 	itemHeight < itemWidth ? itemSize = itemHeight : itemSize = itemWidth;
 

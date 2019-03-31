@@ -68,7 +68,7 @@ ShopMenu::ShopMenu(Game* game) : PanelUI(game)
 
 	_dialoguePanel = new DialoguePanel(game, true);
 
-	_depotPanel = new DepotPanel(game, _player);
+	_depotPanel = new DepotPanel(game);
 	_depotPanel->setVisible(false);
 
 	addChild(_catalogPanel);
@@ -119,6 +119,9 @@ void ShopMenu::setPlayer(Player* ply)
 { 
 	_player = ply;
 	_playerMoney->updateCoinsCounter(_player->getBank());
+
+	_catalogPanel->setPlayer(_player);
+	_depotPanel->setPlayer(_player);
 }
 
 void ShopMenu::openShop(int zona)

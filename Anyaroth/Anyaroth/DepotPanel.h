@@ -11,24 +11,28 @@ class Player;
 class DepotPanel : public PanelUI
 {
 	private:
-		Player* _player = nullptr;
+		static Player* _player;
 
 		ImageUI* _depotFrame = nullptr;
 		ImageUI* _equipmentFrame = nullptr;
 
 		ButtonUI* _exitButton = nullptr;
+		ButtonUI* _changeButton = nullptr;
 
-		ShopItem* _firstWeapon = nullptr;
-		ShopItem* _secondWeapon = nullptr;
-		ShopItem* _meleeWeapon = nullptr;
+		static ShopItem* _firstWeapon;
+		static ShopItem* _secondWeapon;
+		static ShopItem* _meleeWeapon;
 
 		list<ShopItem*> _items;
 
 		static ShopItem* _selectedItem;
 
 	public:
-		DepotPanel(Game* game, Player* player);
+		DepotPanel(Game* game);
 
+		void setPlayer(Player* ply) { _player = ply; }
+
+		static void changeEquipedGuns(Game* game);
 		static void selectDistanceWeapon(Game* game, ShopItem* item);
 		static void setDistanceWeapon(Game* game);
 		static void selectMeleeWeapon(Game* game);
