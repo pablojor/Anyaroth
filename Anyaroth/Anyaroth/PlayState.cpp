@@ -8,6 +8,12 @@
 
 PlayState::PlayState(Game* g) : GameState(g)
 {
+	//Levels
+	_currentZone = 1;
+	_currentLevel = 3;
+	_levelManager = LevelManager(g, _player, &_stages, _hud);
+	_levelManager.setLevel(_currentZone, _currentLevel);
+
 	//HUD
 	_hud = new PlayStateHUD(g);
 	setCanvas(_hud);
@@ -18,7 +24,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	//SDL_ShowCursor(false);
 
 	//Player
-	_player = new Player(g, 100, 500);
+	_player = new Player(g, 10, 50);
 	_stages.push_back(_player);
 
 	_player->setPlayerPanel(_hud->getPlayerPanel());
@@ -31,11 +37,6 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_stages.push_back(_playerBulletPool);
 
 	_player->setPlayerBulletPool(_playerBulletPool);
-
-	//Levels
-	_currentZone = _currentLevel = 1;
-	_levelManager = LevelManager(g, _player, &_stages, _hud);
-	_levelManager.setLevel(_currentZone, 1);
 
 	//Background
 	_parallaxZone1 = new ParallaxBackGround(_mainCamera);
