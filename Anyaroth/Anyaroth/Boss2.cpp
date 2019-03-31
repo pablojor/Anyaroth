@@ -1,4 +1,5 @@
 #include "Boss2.h"
+#include "Poleaxe.h"
 
 Boss2::Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, player, pos, pool), Enemy(g, player, pos, g->getTexture("EnemyMelee"))
 {
@@ -33,6 +34,9 @@ Boss2::Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, 
 	_lasers = new LaserHandler(g, g->getTexture("Arm"), g->getTexture("ArmUp"), player, 4);
 	addChild(_lasers);
 	_lasers->Activate();
+
+	_melee = new Poleaxe(getGame(), { 50,0 }, PLAYER, 25, 15, 5, this);
+	addChild(_melee);
 }
 
 
@@ -42,15 +46,20 @@ Boss2::~Boss2()
 
 void Boss2::Jump()
 {
-	_playerPos = Vector2D(_playerBody->getBody()->GetPosition().x * M_TO_PIXEL, _playerBody->getBody()->GetPosition().y * M_TO_PIXEL);
 	_jump = true;
-	int dir = (_body->getBody()->GetPosition().x* M_TO_PIXEL >= _playerPos.getX()) ? -1 : 1;
-	
-	_body->getBody()->ApplyLinearImpulseToCenter(b2Vec2(dir * 300, -300), true);
+		
+	_body->getBody()->ApplyLinearImpulseToCenter(b2Vec2(_dir * 300, -300), true);
 	
 	_doSomething = _game->random(2000, 3000);
 }
 
+
+void Boss2::movement(const double& deltaTime)
+{
+	_playerPos = Vector2D(_playerBody->getBody()->GetPosition().x * M_TO_PIXEL, _playerBody->getBody()->GetPosition().y * M_TO_PIXEL);
+	_dir = (_body->getBody()->GetPosition().x* M_TO_PIXEL >= _playerPos.getX()) ? -1 : 1;
+	_body->getBody()->SetLinearVelocity(b2Vec2(_velocity.getX()*_dir / M_TO_PIXEL, _body->getBody()->GetLinearVelocity().y));
+}
 
 void Boss2::beginCollision(GameObject * other, b2Contact* contact)
 {
@@ -62,41 +71,55 @@ void Boss2::beginCollision(GameObject * other, b2Contact* contact)
 	if ((fA->IsSensor() || fB->IsSensor()) && (other->getTag() == "Ground" || other->getTag() == "Platform"))
 	{
 		_jump = false;
+		_actualState = Moving;
 	}
 	
 	
 }
 
+void Boss2::meleeAttack()
+{
+	Boss::meleeAttack();
+	_velocity = { _velocity.getX() + 20, _velocity.getY() };
+}
+
+void Boss2::checkMelee()
+{
+	if (!isMeleeing() && _melee != nullptr && _melee->isActive())
+ 		_velocity = { _velocity.getX() - 20, _velocity.getY() };
+	//Se llama despues por que si no no entra en la condicion anterior
+	Boss::checkMelee();
+}
 
 void Boss2::fase1(const double& deltaTime)
 {
-	//_body->getBody()->SetLinearVelocity(b2Vec2(15, 0));
+	if (_actualState != Jumping)
+	{
+		if (_actualState != Meleeing)
+		{
 			if (_noAction > _doSomething)
 			{
-				//if (!_jump)
-				
-					//Jump();
-					_noAction = 0;
-				/*int ra = random(0, 100);
+				int ra = _game->random(0, 100);
 
 				if (ra >= 65)
 				{
-					_actualState = Moving;
-					
-					
+					_actualState = Jumping;
+					Jump();
+					_noAction = 0;
 				}
 
 				else
 				{
-					//armShoot(deltaTime);
-					_actualState = Moving;
-					_doSomething = random(400, 800);
+					meleeAttack();
+					_actualState = Meleeing;
+					_doSomething = _game->random(400, 800);
 					_noAction = 0;
-				}*/
+				}
 			}
 			else
 				_noAction += deltaTime;
-	
+		}
+	}
 }
 
 

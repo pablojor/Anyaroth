@@ -24,6 +24,7 @@ void Boss::update(const double & deltaTime)
 	DistanceEnemy::update(deltaTime);
 	if (!isDead())
 	{
+		checkMelee();
 		movement(deltaTime);
 
 		if (_actualFase == Fase1)
@@ -41,6 +42,7 @@ void Boss::subLife(int damage)
 {
 	if (!isDead() && !isbeetweenFases())
 	{
+
 		if (_life1.getLife() > 0)
 			manageLife(_life1, damage);
 		else if (_life2.getLife() > 0)
@@ -72,4 +74,28 @@ void Boss::changeFase(int fase)
 {
 	_actualFase= fase;
 	_armVision = true;
+}
+
+void Boss::meleeAttack()
+{
+	_melee->endMelee();
+	_bodyPos = Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL);
+	int dir = (_bodyPos.getX() >= _playerPos.getX()) ? -1 : 1;
+	_melee->meleeAttack(_bodyPos.getX(), _bodyPos.getY(), dir);
+	_anim->playAnim(AnimatedSpriteComponent::EnemyAttack);
+	_armVision = false;
+}
+
+void Boss::checkMelee()
+{
+	if (!isMeleeing() && _melee != nullptr && _melee->isActive())
+	{
+		_melee->endMelee();
+		//Provisional
+		_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
+		_actualState = Moving;
+		_armVision = true;;
+
+		_doSomething = _game->random(900, 1300);
+	}
 }

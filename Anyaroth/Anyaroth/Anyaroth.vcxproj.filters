@@ -197,10 +197,10 @@
       <Filter>Archivos de código fuente\Objects\Level</Filter>
     </ClCompile>
     <ClCompile Include="Axe.cpp">
-      <Filter>Archivos de código fuente\Objects\Player\Melee</Filter>
+      <Filter>Archivos de código fuente\Objects\Melee</Filter>
     </ClCompile>
     <ClCompile Include="Melee.cpp">
-      <Filter>Archivos de código fuente\Objects\Player\Melee</Filter>
+      <Filter>Archivos de código fuente\Objects\Melee</Filter>
     </ClCompile>
     <ClCompile Include="ExplosiveBullet.cpp">
       <Filter>Archivos de código fuente\Objects\Bullets</Filter>
@@ -315,6 +315,9 @@
     </ClCompile>
     <ClCompile Include="Boss2.cpp">
       <Filter>Archivos de código fuente\Objects\Enemies\Bosses\Boss2</Filter>
+    </ClCompile>
+    <ClCompile Include="Poleaxe.cpp">
+      <Filter>Archivos de código fuente\Objects\Melee</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -654,6 +657,9 @@
     <ClInclude Include="Boss2.h">
       <Filter>Archivos de encabezado\Objects\Enemies\Bosses\Boss2</Filter>
     </ClInclude>
+    <ClInclude Include="Poleaxe.h">
+      <Filter>Archivos de encabezado\Objects\Melee</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de código fuente">
@@ -797,9 +803,6 @@
     <Filter Include="Archivos de código fuente\Objects\Interactables">
       <UniqueIdentifier>{a2aab5e8-1f03-438e-ad1c-94a98250433c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de código fuente\Objects\Player\Melee">
-      <UniqueIdentifier>{91c2fb3e-33b4-42c8-b741-0a0b383c9988}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Archivos de código fuente\Objects\Enemies\Bosses\Boss1">
       <UniqueIdentifier>{ff49b8bb-736b-4580-8ac4-4d658d64bb97}</UniqueIdentifier>
     </Filter>
@@ -811,6 +814,9 @@
     </Filter>
     <Filter Include="Archivos de código fuente\Objects\Enemies\Bosses\Boss2">
       <UniqueIdentifier>{88c9dbcf-ff7a-4b5f-8c88-18f2c16f7ed5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código fuente\Objects\Melee">
+      <UniqueIdentifier>{91c2fb3e-33b4-42c8-b741-0a0b383c9988}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

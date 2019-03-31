@@ -1,6 +1,5 @@
 #pragma once
 #include "Boss.h"
-#include "BossPanel.h"
 #include "Axe.h"
 
 class ExplosiveBulletPool;
@@ -16,9 +15,6 @@ class Boss1 : public Boss
 		ExplosiveBulletPool* _myExplosivePool = nullptr;
 		Texture* _bombTexture = nullptr;
 		int _bomberAttackTime = 2500, _timeOnBomberAttack = 0, _timeBeetwenBombs = 0,_bombRange = 1000;
-
-		//Cosas Melee
-		Melee* _melee;
 
 		//Cosas de la ronda disparos
 		bool ida = true;
@@ -37,13 +33,8 @@ class Boss1 : public Boss
 		Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool, ExplosiveBulletPool* explosivePool, BouncingBulletPool* bouncingPool);
 		virtual ~Boss1() {};
 
-		virtual void update(const double& deltaTime);
-
 		void movement(const double& deltaTime);
 		void bomberAttack(const double& deltaTime,int t1, int t2);
-		void meleeAttack();
-		bool inline const isMeleeing() { return ((_anim->getCurrentAnim() == AnimatedSpriteComponent::EnemyAttack) && !_anim->animationFinished()); }
-		void checkMelee();
 		void armShoot(const double& deltaTime);
 
 		void orbAttack();

@@ -36,15 +36,6 @@ Boss1::Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool, ExplosiveB
 
 }
 
-void Boss1::update(const double& deltaTime)
-{
-	Boss::update(deltaTime);
-	if (!isDead())
-	{
-		checkMelee();
-	}
-}
-
 
 void Boss1::movement(const double& deltaTime)
 {
@@ -85,29 +76,6 @@ void Boss1::bomberAttack(const double& deltaTime, int t1, int t2)
 			_timeBeetwenBombs += _game->random(t1,t2);
 		}
 
-	}
-}
-
-void Boss1::meleeAttack()
-{
-	_bodyPos = Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL);
-	int dir = (_bodyPos.getX() >= _playerPos.getX()) ? -1 : 1;
-	_melee->meleeAttack(_bodyPos.getX(), _bodyPos.getY(), dir);
-	_anim->playAnim(AnimatedSpriteComponent::EnemyAttack);
-	_armVision = false;
-}
-
-void Boss1::checkMelee()
-{
-	if (!isMeleeing() && _melee != nullptr && _melee->isActive())
-	{
-		_melee->endMelee();
-		//Provisional
-		_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
-		_actualState = Moving;
-		_armVision = true;;
-
-		_doSomething = _game->random(900, 1300);
 	}
 }
 

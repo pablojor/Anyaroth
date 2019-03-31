@@ -28,5 +28,8 @@ void Melee::meleeAttack(double x, double y, int dir)
 
 void Melee::endMelee()
 {
-	_body->deleteBody();
+	if (_body!= nullptr && _body->getBody() != nullptr)
+	{
+		_body->deleteBody();
+	}
 }
