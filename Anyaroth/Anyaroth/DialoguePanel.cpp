@@ -3,7 +3,7 @@
 #include <iterator>
 #include <sstream>
 
-DialoguePanel::DialoguePanel(Game* game, bool inShop) : inShop(inShop), PanelUI(game)
+DialoguePanel::DialoguePanel(Game* game, bool inShop) : _inShop(inShop), PanelUI(game)
 {
 	//Inicializamos
 	_backgroundImage = new AnimatedImageUI(game, game->getTexture("DialogueBg"), 0, 188);
@@ -275,7 +275,7 @@ void DialoguePanel::update(const double& deltaTime)
 			//Hacer visible indicador cuando termina de escribir el texto
 			if (_isConversating && !_indicatorImage->isVisible())
 			{
-				if (!inShop || (inShop && _currentText != _dialogue.conversation.size() - 1))
+				if (!_inShop || (_inShop && _currentText != _dialogue.conversation.size() - 1))
 					_indicatorImage->setVisible(true);
 			}
 
@@ -296,7 +296,7 @@ void DialoguePanel::handleEvent(const SDL_Event& event)
 	if (event.type == SDL_KEYDOWN && !event.key.repeat) // Captura solo el primer frame que se pulsa
 	{
 		if (event.key.keysym.sym == SDLK_e) //TECLA PARA PASAR DE TEXTO EN EL DIALOGO
-			if (!inShop) 
+			if (!_inShop)
 				nextText();
 			else if (_currentText != _dialogue.conversation.size() - 1)
 				nextText();

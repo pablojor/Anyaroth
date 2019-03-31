@@ -13,8 +13,6 @@ class ShopMenu : public PanelUI
 {
 	private:
 		static Player* _player;
-		ImageUI* _imageBG = nullptr;
-		CoinsCounter* _playerMoney = nullptr;
 
 		static ButtonUI * _shopButton;
 		static ButtonUI* _talkButton;
@@ -25,21 +23,26 @@ class ShopMenu : public PanelUI
 		static CatalogPanel* _catalogPanel;
 		static DepotPanel* _depotPanel;
 
-		void loadWeaponInfo();
+		static bool _exit;
+
+		ImageUI* _imageBG = nullptr;
+		CoinsCounter* _playerMoney = nullptr;
 
 		list<ShopItem*> _items;
 
 		int _zona = NULL;
+
+		void loadWeaponInfo();
 
 	public:
 		ShopMenu(Game* game);
 		~ShopMenu();
 
 		//virtual void handleEvent(const SDL_Event& event) {};
+
 		void setPlayer(Player* ply);
 
 		void openShop(int zona);
-		void open();
 		static void closeShop();
 
 		inline DialoguePanel* getDialoguePanel() const { return _dialoguePanel; }
@@ -51,11 +54,12 @@ class ShopMenu : public PanelUI
 		static void closeCatalogPanel(Game* game);
 
 		static void startTalking(Game* game);
-		static void stopTalking(Game* game);
+		void stopTalking();
 
 		static void openDepotPanel(Game* game);
 		static void closeDepotPanel(Game* game);
 
+		static void exitBool(Game* game);
 		static void exit(Game* game);
 };
 

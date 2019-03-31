@@ -45,7 +45,7 @@ private:
 	int _linesTyped = 0;
 	bool _isConversating = false;
 
-	bool inShop = false;
+	bool _inShop = false;
 
 public:
 	DialoguePanel() {};
@@ -56,6 +56,8 @@ public:
 	virtual void handleEvent(const SDL_Event& event);
 
 	inline bool isConversating() const { return _isConversating; }
+
+	inline void setInShop(bool b) { _inShop = b; }
 
 	void startDialogue(const Dialogue& dialogue);
 	void endDialogue();

@@ -18,6 +18,8 @@ DepotPanel* ShopMenu::_depotPanel = nullptr;
 
 Player* ShopMenu::_player = nullptr;
 
+bool ShopMenu::_exit = false;
+
 ShopMenu::ShopMenu(Game* game) : PanelUI(game)
 {
 	//----FONDO----//
@@ -44,9 +46,10 @@ ShopMenu::ShopMenu(Game* game) : PanelUI(game)
 	_depotButton->setPosition(middleOfTheButtonPanelX / 2 - _depotButton->getW() / 2,
 							middleOfTheButtonPanelY + (distanceBetweenButtons/2));
 
-	_exitButton = new ButtonUI(game, game->getTexture("Button"), exit, { 0,1,2,3 });
+	_exitButton = new ButtonUI(game, game->getTexture("Button"), exitBool, { 0,1,2,3 });
 	_exitButton->setPosition(middleOfTheButtonPanelX / 2 - _exitButton->getW() / 2,
 							_depotButton->getY() + _depotButton->getH() + distanceBetweenButtons);
+	_exitButton->onUp(exit);
 
 	addChild(_shopButton);
 	addChild(_talkButton);
@@ -133,11 +136,8 @@ void ShopMenu::openShop(int zona)
 	}
 	_visible = true;
 	_player->setActive(false);
-	open();
-}
+	_exit = false;
 
-void ShopMenu::open()
-{
 	_dialoguePanel->startDialogue({
 		_game->getTexture("DialogueFace"),
 		"exampleVoice",
@@ -145,14 +145,13 @@ void ShopMenu::open()
 		{"Espero que encuentres algo de tu agrado"},
 		{ 2 },
 		{ " ", " ", " ", " " }
-	});
+		});
 }
 
 void ShopMenu::closeShop()
 {
-	//_visible = false;
-	_player->setActive(true);
 	_dialoguePanel->endDialogue();
+	_player->setActive(true);
 }
 
 void ShopMenu::ableMainMenu(Game * game)
@@ -185,6 +184,7 @@ void ShopMenu::disableMainMenu(Game * game)
 void ShopMenu::openCatalogPanel(Game* game)
 {
 	disableMainMenu(game);
+	_dialoguePanel->setInShop(false);
 
 	_catalogPanel->openCatalog();
 	_dialoguePanel->startDialogue({
@@ -208,12 +208,24 @@ void ShopMenu::closeCatalogPanel(Game * game)
 void ShopMenu::startTalking(Game* game)
 {
 	//disableMainMenu(game);
-	cout << "hablando" << endl;
+	_dialoguePanel->endDialogue();
+	_dialoguePanel->startDialogue({
+			game->getTexture("DialogueFace"),
+			"exampleVoice",
+			"Ollivander",
+			{ "He oido que la colmena esta experimentando con sustancias mutagenicas para crear super-anyas.",
+			"Si esto es verdad... estamos jodidos.",
+			"Pero bueno...",
+			"Esperemos que solo sea un rumor."},
+			{ 2, 1, 2, 0 },
+			{ " ", " ", " ", " " }
+	});
 }
 
-void ShopMenu::stopTalking(Game * game)
+void ShopMenu::stopTalking()
 {
-	//ableMainMenu(game);
+	_dialoguePanel->endDialogue();
+	ableMainMenu(_game);
 }
 
 void ShopMenu::openDepotPanel(Game* game)
@@ -239,9 +251,16 @@ void ShopMenu::closeDepotPanel(Game * game)
 	ableMainMenu(game);
 }
 
+void ShopMenu::exitBool(Game* game)
+{
+	_exit = true;
+}
 void ShopMenu::exit(Game* game)
 {
-	cout << "cerrando" << endl;
-	PlayStateHUD::closeShopMenu(game);
-	closeShop();
+	if (_exit)
+	{
+		cout << "cerrando" << endl;
+		closeShop();
+		PlayStateHUD::closeShopMenu(game);
+	}
 }
