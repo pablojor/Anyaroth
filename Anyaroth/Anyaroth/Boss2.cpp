@@ -46,7 +46,7 @@ void Boss2::Jump()
 	
 	_body->getBody()->ApplyLinearImpulseToCenter(b2Vec2(dir * 300, -300), true);
 	
-	_doSomething = random(2000, 3000);
+	_doSomething = _game->random(2000, 3000);
 }
 
 
