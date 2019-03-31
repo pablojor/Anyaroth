@@ -1,7 +1,7 @@
 #include "Laser.h"
 #include "Game.h"
 
-Laser::Laser(Game* g, Vector2D pos, Texture* texture, Player* player, double w, double h, double damage) : GameObject(g, "Laser"), _damage(damage), _w(w), _h(h), _pos(pos), _player(player)
+Laser::Laser(Game* g, Vector2D pos, Texture* texture, Player* player, double damage) : GameObject(g, "Laser"), _damage(damage), _pos(pos), _player(player)
 {
 	addComponent<Texture>(texture);
 
@@ -29,9 +29,11 @@ void Laser::update(const double& deltaTime)
 
 void Laser::Shoot(int angle)
 {
-	_angle = angle;
+	setActive(true);
 
+	_angle = angle;
 	_transform->setRotation(angle);
+
 	if (_body == nullptr)
 	{
 		_body = addComponent<BodyComponent>();
@@ -44,6 +46,7 @@ void Laser::Shoot(int angle)
 
 void Laser::Stop()
 {
+	setActive(false);
 	if (_body != nullptr)
 	{
 		_body->deleteBody();
