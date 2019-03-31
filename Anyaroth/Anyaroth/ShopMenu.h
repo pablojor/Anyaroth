@@ -31,6 +31,7 @@ class ShopMenu : public PanelUI
 
 	public:
 		ShopMenu(Game* game);
+		~ShopMenu();
 
 		//virtual void handleEvent(const SDL_Event& event) {};
 		void setPlayer(Player* ply);

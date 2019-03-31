@@ -22,5 +22,8 @@ class CatalogPanel : public PanelUI
 
 	public:
 		CatalogPanel(Game* game);
+		~CatalogPanel();
+
+		void setItems(list<ShopItem*>& list);
 };
 

@@ -14,7 +14,18 @@ CatalogPanel::CatalogPanel(Game* game) : PanelUI(game)
 
 	addChild(_frame);
 	addChild(_exitButton);
-	addChild(_infoPanel);
+	addChild(_infoPanel);	
+}
+
+CatalogPanel::~CatalogPanel()
+{
+	for (auto item : _items)
+		removeChild(item);
+}
+
+void CatalogPanel::setItems(list<ShopItem*>& list)
+{
+	_items = list;
 
 	//Creacion de items
 	int itemsPerRow = 2;
@@ -26,11 +37,13 @@ CatalogPanel::CatalogPanel(Game* game) : PanelUI(game)
 	int xOffset = (_frame->getW() - itemSize * itemsPerRow) / (itemsPerRow + 1);
 	int yOffset = (_frame->getH() - itemSize * itemsPerCol) / (itemsPerCol + 1);
 	ShopItem* primItem = nullptr;
-	for (int j = 0; j < itemsPerCol; j++)
+
+	auto it = _items.begin();
+	for (int j = 0; j < itemsPerCol && it != _items.end(); j++)
 	{
-		for (int i = 0; i < itemsPerRow; i++)
+		for (int i = 0; i < itemsPerRow && it != _items.end(); i++)
 		{
-			auto item = new ShopItem(game, game->getTexture("InfoIcon"));
+			auto item = *it;
 			item->setSize(itemSize, itemSize);
 			if (primItem == nullptr)
 				item->setPosition(_frame->getX() + xOffset, _frame->getY() + yOffset);
@@ -39,6 +52,7 @@ CatalogPanel::CatalogPanel(Game* game) : PanelUI(game)
 			_items.push_back(item);
 			addChild(item);
 			if (primItem == nullptr) primItem = item;
+			it++;
 		}
 	}
 }

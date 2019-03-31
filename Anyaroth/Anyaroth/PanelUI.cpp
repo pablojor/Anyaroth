@@ -17,6 +17,11 @@ void PanelUI::addChild(UIElement* child)
 	_children.push_back(child);
 }
 
+void PanelUI::removeChild(UIElement * child)
+{
+	_children.remove(child);
+}
+
 void PanelUI::render() const
 {
 	if (_visible)

@@ -76,6 +76,16 @@ ShopMenu::ShopMenu(Game* game) : PanelUI(game)
 	addChild(_depotPanel);
 
 	loadWeaponInfo();
+
+	_catalogPanel->setItems(_items);
+}
+
+ShopMenu::~ShopMenu()
+{
+	for (auto it = _items.begin(); it != _items.end(); it++)
+	{
+		delete *it;
+	}
 }
 
 void ShopMenu::loadWeaponInfo()

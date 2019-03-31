@@ -1,12 +1,13 @@
 #pragma once
 #include "UIElement.h"
-#include <vector>
+#include <list>
 
 class PanelUI : public UIElement
 {
 protected:
-	std::vector<UIElement*> _children;
+	std::list<UIElement*> _children;
 	void addChild(UIElement* child);
+	void removeChild(UIElement* child);
 
 public:
 	PanelUI() : UIElement(nullptr) {}
