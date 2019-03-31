@@ -24,7 +24,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	//SDL_ShowCursor(false);
 
 	//Player
-	_player = new Player(g, 10, 50);
+	_player = new Player(g, 10, 200);
 	_stages.push_back(_player);
 
 	_player->setPlayerPanel(_hud->getPlayerPanel());
@@ -92,7 +92,7 @@ bool PlayState::handleEvent(const SDL_Event& event)
 		_mainCamera->setZoom(_mainCamera->getZoomRatio() - 1, true);
 	else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_p)
 		if (!_hud->getShop()->isVisible())
-			_hud->getShop()->openShop();
+			_hud->getShop()->openShop(_currentZone);
 
 	return handled;
 }

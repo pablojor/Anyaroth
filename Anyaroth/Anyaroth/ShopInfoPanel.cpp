@@ -4,40 +4,87 @@
 
 ShopInfoPanel::ShopInfoPanel(Game* game, int xPos, int yPos) : PanelUI(game)
 {
-	_backImage = new ImageUI(game, game->getTexture("InfoPanel"), xPos, yPos);
+	//----MARCO----//
 
+	_frame = new ImageUI(game, game->getTexture("InfoPanel"), xPos, yPos);
+	_frame->setSize(_frame->getW() * 1.5, _frame->getH() * 1.25);
+
+	addChild(_frame);
+
+	//----INFORMACION----//
+
+		// Nombre
 	_nameText = new TextUI(game, "ExampleName", game->getFont("ARIAL12"), 12);
-	_nameText->setPosition((xPos + _backImage->getW() / 2) - _nameText->getW() / 2, yPos + 4);
-
-	_buyButton = new ButtonUI(game, game->getTexture("BuyButton"), nullptr, { 0,1,2,1 });
-	_buyButton->setPosition(xPos + 1, yPos + _backImage->getH() - _buyButton->getH() - 1);
-
-	int hRest = _backImage->getH() - _nameText->getH() - _buyButton->getH();
-	int hOffset = 3;
-
-	_damageImage = new ImageUI(game, game->getTexture("InfoIcon"), _buyButton->getX(), _nameText->getY() + _nameText->getH() + hOffset);
-	_damageText = new TextUI(game, "damage", game->getFont("ARIAL12"), 12, _damageImage->getX() + _damageImage->getW() + 2, _damageImage->getY() + 1);
-
-	_cadenceImage = new ImageUI(game, game->getTexture("InfoIcon"), _buyButton->getX(), _damageImage->getY() + _damageImage->getH() + hOffset);
-	_cadenceText = new TextUI(game, "cadence", game->getFont("ARIAL12"), 12, _cadenceImage->getX() + _cadenceImage->getW() + 2, _cadenceImage->getY() + 1);
-
-	_distanceImage = new ImageUI(game, game->getTexture("InfoIcon"), _buyButton->getX(), _cadenceImage->getY() + _cadenceImage->getH() + hOffset);
-	_distanceText = new TextUI(game, "distance", game->getFont("ARIAL12"), 12, _distanceImage->getX() + _distanceImage->getW() + 2, _distanceImage->getY() + 1);
-
-	/*_priceImage = nullptr;
-	_priceText = nullptr;*/
-
-	addChild(_backImage);
+	_nameText->setPosition((xPos + _frame->getW() / 2) - _nameText->getW() / 2, yPos + margin);
 	addChild(_nameText);
-	addChild(_buyButton);
-	addChild(_damageImage);
-	addChild(_damageText);
-	addChild(_cadenceImage);
-	addChild(_cadenceText);
-	addChild(_distanceImage);
-	addChild(_distanceText);
+
+		// Propiedades
+	//--Damage
+	_damageIcon = new ImageUI(game, game->getTexture("InfoIcon"));
+	_damageIcon->setPosition(xPos + margin, 
+							_nameText->getY() + _nameText->getH() + margin);
+
+	_damageBar = new ImageUI(game, game->getTexture("LifeBarMask"));
+	_damageBar->setSize(_damageBar->getW() * 0.5, _damageBar->getH() * 0.5); //PROVISIONAL
+	_damageBar->setPosition(_damageIcon->getX() + _damageIcon->getW() + margin, 
+							_damageIcon->getY() + _damageIcon->getH() / 2 - _damageBar->getH() / 2);
+
+	//--Cadence
+	_cadenceIcon = new ImageUI(game, game->getTexture("InfoIcon"));
+	_cadenceIcon->setPosition(_damageIcon->getX(),
+								_damageIcon->getY() + _damageIcon->getH() + margin);
+
+	_cadenceBar = new ImageUI(game, game->getTexture("LifeBarMask"));
+	_cadenceBar->setSize(_cadenceBar->getW() * 0.5, _cadenceBar->getH() * 0.5); //PROVISIONAL
+	_cadenceBar->setPosition(_damageBar->getX(),
+								_cadenceIcon->getY() + _cadenceIcon->getH() / 2 - _cadenceBar->getH() / 2);
+
+	//--Distance
+	_distanceIcon = new ImageUI(game, game->getTexture("InfoIcon"));
+	_distanceIcon->setPosition(_cadenceIcon->getX(),
+								_cadenceIcon->getY() + _cadenceIcon->getH() + margin);
+
+	_distanceBar = new ImageUI(game, game->getTexture("LifeBarMask"));
+	_distanceBar->setSize(_distanceBar->getW() * 0.5, _distanceBar->getH() * 0.5); //PROVISIONAL
+	_distanceBar->setPosition(_cadenceBar->getX(),
+								_distanceIcon->getY() + _distanceIcon->getH() / 2 - _distanceBar->getH() / 2);
+
+	//--Precio
+	_priceText = new TextUI(game, "0000", game->getFont("ARIAL12"), 12);
+	_priceIcon = new ImageUI(game, game->getTexture("InfoIcon"));
+
+	_priceText->setPosition(_frame->getX() + _frame->getW() / 2 - (_priceText->getW() + _priceIcon->getW() + 2) / 2,
+							_distanceIcon->getY() + _distanceIcon->getH() + margin);
+	_priceIcon->setPosition(_priceText->getX() + _priceText->getW() + 2,
+							_priceText->getY());
+
+	addChild(_damageIcon);
+	addChild(_damageBar);
+	addChild(_cadenceIcon);
+	addChild(_cadenceBar);
+	addChild(_distanceIcon);
+	addChild(_distanceBar);
+	addChild(_priceText);
+	addChild(_priceIcon);
 }
 
-ShopInfoPanel::~ShopInfoPanel()
+void ShopInfoPanel::setName(string name)
 {
+	_nameText->setText(name);
+	_nameText->setPosition((_frame->getX() + _frame->getW() / 2) - _nameText->getW() / 2, _frame->getY() + margin);
+}
+
+void ShopInfoPanel::setDamage(int damage)
+{
+
+}
+
+void ShopInfoPanel::setDistance(int distance)
+{
+
+}
+
+void ShopInfoPanel::setCadence(int price)
+{
+
 }

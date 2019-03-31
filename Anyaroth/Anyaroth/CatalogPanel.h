@@ -11,8 +11,10 @@ class CatalogPanel : public PanelUI
 {
 	private:
 		ImageUI* _frame = nullptr;
-		ShopInfoPanel* _infoPanel = nullptr;
 		ButtonUI* _exitButton = nullptr;
+
+		static ButtonUI* _buyButton;
+		static ShopInfoPanel* _infoPanel;
 
 		//Estos items serán los que se muestren en la tienda
 		list<ShopItem*> _items;
@@ -20,10 +22,21 @@ class CatalogPanel : public PanelUI
 		ShopItem* _selectedItem = nullptr;
 		ImageUI* _itemIndicator = nullptr;
 
+		int itemsPerRow = 2;
+		int itemsPerCol = 4; 
+		int itemWidth;
+		int itemHeight;
+		int itemSize;
+
 	public:
 		CatalogPanel(Game* game);
 		~CatalogPanel();
 
 		void setItems(list<ShopItem*>& list);
+		void openCatalog();
+		void updateCatalog(int zona);
+
+		static void selectItem(Game* game);
+		static void buyItem(Game* game);
 };
 

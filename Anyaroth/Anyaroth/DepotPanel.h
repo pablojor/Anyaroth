@@ -18,14 +18,20 @@ class DepotPanel : public PanelUI
 
 		ButtonUI* _exitButton = nullptr;
 
-		ImageUI* _firstWeapon = nullptr;
-		ImageUI* _secondWeapon = nullptr;
-		ImageUI* _meleeWeapon = nullptr;
+		ShopItem* _firstWeapon = nullptr;
+		ShopItem* _secondWeapon = nullptr;
+		ShopItem* _meleeWeapon = nullptr;
 
 		list<ShopItem*> _items;
-		ShopItem* _selectedItem = nullptr;
+
+		static ShopItem* _selectedItem;
 
 	public:
 		DepotPanel(Game* game, Player* player);
+
+		static void selectDistanceWeapon(Game* game, ShopItem* item);
+		static void setDistanceWeapon(Game* game);
+		static void selectMeleeWeapon(Game* game);
+		static void setMeleeWeapon(Game* game);
 };
 

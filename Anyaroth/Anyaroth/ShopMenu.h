@@ -29,6 +29,8 @@ class ShopMenu : public PanelUI
 
 		list<ShopItem*> _items;
 
+		int _zona = NULL;
+
 	public:
 		ShopMenu(Game* game);
 		~ShopMenu();
@@ -36,7 +38,7 @@ class ShopMenu : public PanelUI
 		//virtual void handleEvent(const SDL_Event& event) {};
 		void setPlayer(Player* ply);
 
-		void openShop();
+		void openShop(int zona);
 		void open();
 		static void closeShop();
 

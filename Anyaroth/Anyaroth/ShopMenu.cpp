@@ -98,12 +98,17 @@ void ShopMenu::loadWeaponInfo()
 	{
 		file >> j;
 
-		for (json::iterator it = j.begin(); it != j.end(); ++it) {
-			std::cout << it.key() << " : " << it.value() << "\n";
-			auto item = new ShopItem(_game, _game->getTexture(it.value()["icon"].get<string>()));
+		for (json::iterator it = j.begin(); it != j.end(); ++it) 
+		{
+			json weapon = it.value();
 
-			item->setItemInfo({ it.key() ,it.value()["damage"],it.value()["cadence"],it.value()["range"], false, false });
-			_items.push_back(item);
+			for (json::iterator typeWeapon = weapon.begin(); typeWeapon != weapon.end(); ++typeWeapon)
+			{
+				auto item = new ShopItem(_game, _game->getTexture(typeWeapon.value()["icon"].get<string>()));
+
+				item->setItemInfo({ typeWeapon.value()["zona"], typeWeapon.key(), typeWeapon.value()["damage"], typeWeapon.value()["cadence"], typeWeapon.value()["range"], false, false });
+				_items.push_back(item);
+			}
 		}
 	}
 	else
@@ -116,8 +121,13 @@ void ShopMenu::setPlayer(Player* ply)
 	_playerMoney->updateCoinsCounter(_player->getBank());
 }
 
-void ShopMenu::openShop()
+void ShopMenu::openShop(int zona)
 {
+	if (zona != _zona)
+	{
+		_zona = zona;
+		_catalogPanel->updateCatalog(_zona);
+	}
 	_visible = true;
 	_player->setActive(false);
 	open();
@@ -173,7 +183,7 @@ void ShopMenu::openCatalogPanel(Game* game)
 {
 	disableMainMenu(game);
 
-	_catalogPanel->setVisible(true);
+	_catalogPanel->openCatalog();
 	_dialoguePanel->startDialogue({
 			game->getTexture("DialogueFace"),
 			"exampleVoice",
