@@ -9,8 +9,10 @@ class DepotPanel : public PanelUI
 {
 	private:
 		Player* _player = nullptr;
+
 		ImageUI* _depotFrame = nullptr;
 		ImageUI* _equipmentFrame = nullptr;
+
 		ButtonUI* _exitButton = nullptr;
 
 		ImageUI* _firstWeapon = nullptr;

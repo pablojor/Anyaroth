@@ -7,7 +7,9 @@ DepotPanel::DepotPanel(Game* game, Player* player) : _player(player), PanelUI(ga
 	//----MARCOS----//
 
 	_depotFrame = new ImageUI(game, game->getTexture("ShopPanel"), 5, 5);
+	_depotFrame->setSize(_depotFrame->getW() * 2, _depotFrame->getH());
 	_equipmentFrame = new ImageUI(game, game->getTexture("ShopPanel"), _depotFrame->getX() + _depotFrame->getW() + 10, 5);
+	_equipmentFrame->setSize(_equipmentFrame->getW() * 0.75, _equipmentFrame->getH() * 0.75);
 
 	addChild(_depotFrame);
 	addChild(_equipmentFrame);
@@ -24,24 +26,26 @@ DepotPanel::DepotPanel(Game* game, Player* player) : _player(player), PanelUI(ga
 
 	int distanceBetweenSlots = 10;
 	int itemWidth = (_equipmentFrame->getW() / 2) - (distanceBetweenSlots + distanceBetweenSlots / 2);
-	int itemHeight = _equipmentFrame->getH() / 4;
+	int itemHeight = itemWidth;
 
 	_firstWeapon = new ShopItem(game, game->getTexture("InfoIcon"));
+	_firstWeapon->setSize(itemWidth, itemHeight);
 	_firstWeapon->setPosition(_equipmentFrame->getX() + distanceBetweenSlots, 
 								_equipmentFrame->getY() + _equipmentFrame->getH() / 4 - distanceBetweenSlots / 2);
-	_firstWeapon->setSize(itemWidth, itemHeight);
 
 	_secondWeapon = new ShopItem(game, game->getTexture("InfoIcon"));
+	_secondWeapon->setSize(itemWidth, itemHeight);
 	_secondWeapon->setPosition(_firstWeapon->getX() + _firstWeapon->getW() + distanceBetweenSlots, 
 								_firstWeapon->getY());
-	_secondWeapon->setSize(itemWidth, itemHeight);
 
 	_meleeWeapon = new ShopItem(game, game->getTexture("InfoIcon"));
-	_meleeWeapon->setPosition(_equipmentFrame->getX() + _equipmentFrame->getW() / 2 - itemWidth / 2, 
-								_equipmentFrame->getY() + (_equipmentFrame->getH() / 4 * 2) + distanceBetweenSlots / 2);
 	_meleeWeapon->setSize(itemWidth, itemHeight);
+	_meleeWeapon->setPosition(_equipmentFrame->getX() + _equipmentFrame->getW() / 2 - itemWidth / 2, 
+								_equipmentFrame->getY() + (_equipmentFrame->getH() / 4) * 2 + distanceBetweenSlots / 2);
 
 	addChild(_firstWeapon);
 	addChild(_secondWeapon);
 	addChild(_meleeWeapon);
+
+	//----ALMACEN----//
 }
