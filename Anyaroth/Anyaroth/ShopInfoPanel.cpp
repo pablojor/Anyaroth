@@ -51,12 +51,12 @@ ShopInfoPanel::ShopInfoPanel(Game* game, int xPos, int yPos) : PanelUI(game)
 
 	//--Precio
 	_priceText = new TextUI(game, "0000", game->getFont("ARIAL12"), 12);
-	_priceIcon = new ImageUI(game, game->getTexture("InfoIcon"));
+	_priceIcon = new ImageUI(game, game->getTexture("CoinIcon"));
 
 	_priceText->setPosition(_frame->getX() + _frame->getW() / 2 - (_priceText->getW() + _priceIcon->getW() + 2) / 2,
 							_distanceIcon->getY() + _distanceIcon->getH() + margin);
 	_priceIcon->setPosition(_priceText->getX() + _priceText->getW() + 2,
-							_priceText->getY());
+							_priceText->getY() + _priceText->getH() / 2 - _priceIcon->getH() / 2);
 
 	addChild(_damageIcon);
 	addChild(_damageBar);

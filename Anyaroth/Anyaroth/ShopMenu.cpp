@@ -184,7 +184,6 @@ void ShopMenu::disableMainMenu(Game * game)
 void ShopMenu::openCatalogPanel(Game* game)
 {
 	disableMainMenu(game);
-	_dialoguePanel->setInShop(false);
 
 	_catalogPanel->openCatalog();
 	_dialoguePanel->startDialogue({
