@@ -18,7 +18,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	//SDL_ShowCursor(false);
 
 	//Player
-	_player = new Player(g, 100, 500);
+	_player = new Player(g, 100, 300);
 	_stages.push_back(_player);
 
 	//Pool player
@@ -31,7 +31,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	//Levels
 	_currentZone = _currentLevel = 1;
 	_levelManager = LevelManager(g, _player, &_stages, _hud);
-	_levelManager.setLevel(_currentZone, 1);
+	_levelManager.setLevel(_currentZone, 3);
 
 	//Background
 	_parallaxZone1 = new ParallaxBackGround(_mainCamera);
