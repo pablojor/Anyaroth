@@ -1,9 +1,9 @@
 #include "LaserHandler.h"
 #include "Game.h"
 
-LaserHandler::LaserHandler(Game* g, Texture* container, Texture* laser, Player* player, int numLasers) : GameObject(g)
+LaserHandler::LaserHandler(Game* g, Texture* container, Texture* laser, Player* player, int numLasers) : _numLasers(numLasers), GameObject(g)
 {
-	int pos1 = 40;
+	int pos1 = 65;
 	int spaceBetween = (400 - pos1) / numLasers;
 
 	for (int i = 0; i < numLasers; i++)
@@ -19,21 +19,50 @@ void LaserHandler::update(const double& deltaTime)
 {
 	if (_active)
 	{
-		if (timeBetweenShot > timeBetweenShot)
+		GameObject::update(deltaTime);
+		if (isShooting)
 		{
-			Shoot(_game->random(220, 340));
+			if (shootStareted)
+			{
+				if (timeToshot > timeToEnd)
+				{
+					isShooting = false;
+					shootStareted = false;
+					timeToshot = 0;
+					Stop();
+				}
+				else
+					timeToshot += deltaTime;
+			}
+			else
+			{
+				Shoot();
+				shootStareted = true;
+			}		
 		}
 		else
-			timeBetweenShot += deltaTime;
+		{
+			if (timeToshot > timeBetweenShot)
+			{
+				isShooting = true;
+				timeToshot = 0;
+			}
+			else
+				timeToshot += deltaTime;
+		}
 	}
 }
 
-void LaserHandler::Shoot(double angle)
+void LaserHandler::Shoot()
 {
-	for (LaserContainer* o : _lasers)
+	_lasers[0]->Shoot(_game->random(50, 100));
+
+	for (int i = 1; i < _numLasers - 1; i++)
 	{
-		o->Shoot(angle);
+		_lasers[i]->Shoot(_game->random(60, 130));
 	}
+
+	_lasers[_numLasers - 1]->Shoot(_game->random(80, 130));
 }
 void LaserHandler::Stop()
 {

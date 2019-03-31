@@ -6,10 +6,13 @@
 class LaserHandler : public GameObject
 {
 private:
+	int _numLasers;
 	bool _active = false;
 	vector<LaserContainer*> _lasers;
 
-	int timeToshot = 3001, timeBetweenShot = 3000;
+	int timeToshot = 0, timeBetweenShot = 3000, timeToEnd = 3000;
+
+	bool isShooting = false, shootStareted = false;
 
 public:
 	LaserHandler(Game* g, Texture* container, Texture* laser, Player* player, int numLasers);
@@ -17,7 +20,7 @@ public:
 
 	virtual void update(const double& deltaTime);
 
-	void Shoot(double angle);
+	void Shoot();
 	void Stop();
 	void Activate() { _active = true; }
 };

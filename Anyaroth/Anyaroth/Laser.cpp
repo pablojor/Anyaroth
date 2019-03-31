@@ -9,6 +9,8 @@ Laser::Laser(Game* g, Vector2D pos, Texture* texture, Player* player, double dam
 	_transform->setPosition(pos.getX(), pos.getY());
 
 	_anim = addComponent<SpriteComponent>();
+
+	setActive(false);
 }
 void Laser::update(const double& deltaTime)
 {
@@ -42,16 +44,18 @@ void Laser::Shoot(int angle)
 		_body->getBody()->SetType(b2_kinematicBody);
 		_body->getBody()->GetFixtureList()->SetSensor(true);
 	}
+	else
+	{
+		_body->getBody()->SetActive(true);
+	}
 }
 
 void Laser::Stop()
 {
 	setActive(false);
-	if (_body != nullptr)
-	{
-		_body->deleteBody();
-		_body = nullptr;
-	}
+
+	_body->getBody()->SetActive(false);
+	
 }
 
 void Laser::beginCollision(GameObject* other, b2Contact* contact)

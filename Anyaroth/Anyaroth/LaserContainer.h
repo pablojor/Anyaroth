@@ -14,7 +14,7 @@ public:
 	LaserContainer(Game* g, Vector2D pos, Texture* container, Texture* laser, Player* player);
 	virtual ~LaserContainer() {}
 
-	virtual void update(const double& deltaTime) {}
+	virtual void update(const double& deltaTime) { GameObject::update(deltaTime); }
 
 	void Shoot(double angle) { _laser->Shoot(angle); }
 	void Stop() { _laser->Stop(); }
