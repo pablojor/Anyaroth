@@ -1,7 +1,5 @@
 #include "Boss2.h"
 
-
-
 Boss2::Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, player, pos, pool), Enemy(g, player, pos, g->getTexture("EnemyMelee"))
 {
 
@@ -31,6 +29,10 @@ Boss2::Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, 
 	_armVision = true;
 
 	_playerBody = _player->getComponent<BodyComponent>();
+
+	_lasers = new LaserHandler(g, g->getTexture("Arm"), g->getTexture("ArmUp"), player, 4);
+	addChild(_lasers);
+	_lasers->Activate();
 }
 
 
@@ -73,7 +75,7 @@ void Boss2::fase1(const double& deltaTime)
 			{
 				//if (!_jump)
 				
-					Jump();
+					//Jump();
 					_noAction = 0;
 				/*int ra = random(0, 100);
 

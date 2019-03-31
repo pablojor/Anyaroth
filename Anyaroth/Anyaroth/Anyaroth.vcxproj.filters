@@ -310,8 +310,10 @@
     <ClCompile Include="Laser.cpp">
       <Filter>Archivos de código fuente\Objects\Enemies\Bosses\Boss2</Filter>
     </ClCompile>
-    <ClCompile Include="Boss2.cpp" />
     <ClCompile Include="LaserHandler.cpp">
+      <Filter>Archivos de código fuente\Objects\Enemies\Bosses\Boss2</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss2.cpp">
       <Filter>Archivos de código fuente\Objects\Enemies\Bosses\Boss2</Filter>
     </ClCompile>
   </ItemGroup>
@@ -646,8 +648,10 @@
     <ClInclude Include="Laser.h">
       <Filter>Archivos de encabezado\Objects\Enemies\Bosses\Boss2</Filter>
     </ClInclude>
-    <ClInclude Include="Boss2.h" />
     <ClInclude Include="LaserHandler.h">
+      <Filter>Archivos de encabezado\Objects\Enemies\Bosses\Boss2</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss2.h">
       <Filter>Archivos de encabezado\Objects\Enemies\Bosses\Boss2</Filter>
     </ClInclude>
   </ItemGroup>

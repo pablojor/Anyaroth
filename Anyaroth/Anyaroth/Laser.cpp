@@ -43,10 +43,14 @@ void Laser::Shoot(int angle)
 		_body->filterCollisions(LASER, PLAYER);
 		_body->getBody()->SetType(b2_kinematicBody);
 		_body->getBody()->GetFixtureList()->SetSensor(true);
+		//_body->getBody()->SetFixedRotation(false);
+
+		_body->getBody()->SetTransform(_body->getBody()->GetPosition(), angle);
 	}
 	else
 	{
 		_body->getBody()->SetActive(true);
+		_body->getBody()->SetTransform(_body->getBody()->GetPosition(), angle);
 	}
 }
 
