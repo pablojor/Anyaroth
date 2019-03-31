@@ -1,0 +1,73 @@
+{
+    "BasicPistol" :
+    {
+        "zona" : -1,
+        "icon" : "InfoIcon",
+        "speed" : 100,
+        "damage" : 10,
+        "range" : 1000,
+        "clip" : 12,
+        "magazine" : 60,
+        "cadencia" : 270
+    },
+
+    "BasicRifle" :
+    {
+        "zona" : 1,
+        "icon" : "InfoIcon",
+        "speed" : 100,
+        "damage" : 15,
+        "range" : 1000,
+        "clip" : 30,
+        "magazine" : 120,
+        "cadencia" : 170
+    },
+
+    "BasicShotgun" :
+    {
+        "zona" : 1,
+        "icon" : "InfoIcon",
+        "speed" : 100,
+        "damage" : 7,
+        "range" : 60,
+        "clip" : 3,
+        "magazine" : 48,
+        "cadencia" : 800
+    },
+
+    "ImproveRifle" :
+    {
+        "zona" : 1,
+        "icon" : "InfoIcon",
+        "speed" : 100,
+        "damage" : 20,
+        "range" : 1000,
+        "clip" : 36,
+        "magazine" : 160,
+        "cadencia" : 100
+    },
+
+    "ImproveShotgun" :
+    {
+        "zona" : 1,
+        "icon" : "InfoIcon",
+        "speed" : 100,
+        "damage" : 7,
+        "range" : 60,
+        "clip" : 2,
+        "magazine" : 50,
+        "cadencia" : 800
+    },
+
+    "BounceOrbCanon" :
+    {
+        "zona" : 2,
+        "icon" : "InfoIcon",
+        "speed" : 30,
+        "damage" : 15,
+        "range" : 1000,
+        "clip" : 30,
+        "magazine" : 120,
+        "cadencia" : 200
+    }
+}

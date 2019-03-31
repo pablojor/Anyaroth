@@ -25,6 +25,8 @@ class ShopMenu : public PanelUI
 		static CatalogPanel* _catalogPanel;
 		static DepotPanel* _depotPanel;
 
+		void loadWeaponInfo();
+
 	public:
 		ShopMenu(Game* game);
 

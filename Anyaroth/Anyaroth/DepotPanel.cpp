@@ -30,18 +30,18 @@ DepotPanel::DepotPanel(Game* game, Player* player) : _player(player), PanelUI(ga
 
 	_firstWeapon = new ShopItem(game, game->getTexture("InfoIcon"));
 	_firstWeapon->setSize(itemWidth, itemHeight);
-	_firstWeapon->setPosition(_equipmentFrame->getX() + distanceBetweenSlots, 
-								_equipmentFrame->getY() + _equipmentFrame->getH() / 4 - distanceBetweenSlots / 2);
+	_firstWeapon->setPosition(_equipmentFrame->getX() + distanceBetweenSlots,
+							_equipmentFrame->getY() + _equipmentFrame->getH() / 4 - distanceBetweenSlots / 2);
 
 	_secondWeapon = new ShopItem(game, game->getTexture("InfoIcon"));
 	_secondWeapon->setSize(itemWidth, itemHeight);
 	_secondWeapon->setPosition(_firstWeapon->getX() + _firstWeapon->getW() + distanceBetweenSlots, 
-								_firstWeapon->getY());
+							_firstWeapon->getY());
 
 	_meleeWeapon = new ShopItem(game, game->getTexture("InfoIcon"));
 	_meleeWeapon->setSize(itemWidth, itemHeight);
 	_meleeWeapon->setPosition(_equipmentFrame->getX() + _equipmentFrame->getW() / 2 - itemWidth / 2, 
-								_equipmentFrame->getY() + (_equipmentFrame->getH() / 4) * 2 + distanceBetweenSlots / 2);
+							_equipmentFrame->getY() + (_equipmentFrame->getH() / 4) * 2 + distanceBetweenSlots / 2);
 
 	addChild(_firstWeapon);
 	addChild(_secondWeapon);

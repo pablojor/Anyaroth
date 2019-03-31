@@ -3,6 +3,10 @@
 #include "Player.h"
 #include "PlayStateHUD.h"
 
+#include <json.hpp>
+
+using namespace nlohmann;
+
 ButtonUI* ShopMenu::_shopButton = nullptr;
 ButtonUI* ShopMenu::_talkButton = nullptr;
 ButtonUI* ShopMenu::_depotButton = nullptr;
@@ -71,6 +75,25 @@ ShopMenu::ShopMenu(Game* game) : PanelUI(game)
 	addChild(_dialoguePanel);
 	addChild(_depotPanel);
 
+}
+
+void ShopMenu::loadWeaponInfo()
+{
+	ifstream file;
+	json j;
+
+	file.open(INFO_PATH + "weapon_info.json");
+	if (file.is_open())
+	{
+		file >> j;
+
+		for (auto item : j)
+		{
+			
+		}
+	}
+	else
+		cout << "Error al cargar " << INFO_PATH << "weapon_info.json" << endl;
 }
 
 void ShopMenu::setPlayer(Player* ply) 
