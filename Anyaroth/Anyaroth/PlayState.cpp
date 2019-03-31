@@ -5,6 +5,7 @@
 #include "NPC.h"
 #include "PiercingBulletPool.h"
 #include "checkML.h"
+#include "Boss2.h"
 
 PlayState::PlayState(Game* g) : GameState(g)
 {
@@ -32,6 +33,9 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_currentZone = _currentLevel = 1;
 	_levelManager = LevelManager(g, _player, &_stages, _hud);
 	_levelManager.setLevel(_currentZone, 3);
+
+	Boss2* boss = new Boss2(g, _player, Vector2D(200, 300), _playerBulletPool);
+	_stages.push_back(boss);
 
 	//Background
 	_parallaxZone1 = new ParallaxBackGround(_mainCamera);

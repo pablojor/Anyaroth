@@ -9,7 +9,7 @@ enum Fase
 
 enum State
 {
-	Moving, Shooting, Bombing, Meleeing, OrbAttacking
+	Moving, Shooting, Bombing, Meleeing, OrbAttacking,Jumping
 };
 
 class Boss : public DistanceEnemy
