@@ -24,7 +24,7 @@ Capsule::Capsule(Game* g, Player* player, Vector2D pos, Enemy* father) : GameObj
 	shape.SetAsBox(5 / M_TO_PIXEL, 2 / M_TO_PIXEL, b2Vec2(0, 2.25), 0);
 	b2FixtureDef fDef;
 	fDef.shape = &shape;
-	fDef.filter.categoryBits = PLAYER;
+	fDef.filter.categoryBits = ENEMIES;
 	fDef.filter.maskBits = FLOOR | PLATFORMS;
 	fDef.isSensor = true;
 	_body->addFixture(&fDef, this);
@@ -51,7 +51,7 @@ void Capsule::beginCollision(GameObject * other, b2Contact* contact)
 	string otherTag = other->getTag();
 	auto fA = contact->GetFixtureA();
 	auto fB = contact->GetFixtureB();
-
+	
 	//Deteccion del suelo
 	if ((fA->IsSensor() || fB->IsSensor()) && (other->getTag() == "Ground" || other->getTag() == "Platform"))
 		_spawning = true;
