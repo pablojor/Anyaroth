@@ -2,7 +2,7 @@
 #include "Game.h"
 
 
-ButtonUI::ButtonUI(Game* game, Texture* image, Callback* callback, Frames frames) : FramedImageUI(game, image)
+ButtonUI::ButtonUI(Game* game, Texture* image, const Callback& callback, Frames frames) : FramedImageUI(game, image)
 {
 	setFrames(frames);
 	_frame = _onOutFrame;
@@ -21,25 +21,6 @@ bool ButtonUI::mouseIsOver()
 	return SDL_PointInRect(&point, &winRect);
 }
 
-void ButtonUI::update(const double& deltaTime)
-{
-	if (_visible)
-	{
-		if (_positionState == Out)
-		{
-			_frame = _onOutFrame;
-		}
-		else if (_positionState == Over)
-		{
-			if (_pressState == Down)
-				_frame = _onDownFrame;
-			else if (_pressState == Up)
-				_frame = _onUpFrame;
-			else if (_pressState == None)
-				_frame = _onOverFrame;
-		}
-	}
-}
 
 void ButtonUI::handleEvent(const SDL_Event& event)
 {
@@ -85,6 +66,26 @@ void ButtonUI::handleEvent(const SDL_Event& event)
 			}
 			_positionState = Out;
 			_pressState = None;
+		}
+	}
+}
+
+void ButtonUI::update(const double& deltaTime)
+{
+	if (_visible)
+	{
+		if (_positionState == Out)
+		{
+			_frame = _onOutFrame;
+		}
+		else if (_positionState == Over)
+		{
+			if (_pressState == Down)
+				_frame = _onDownFrame;
+			else if (_pressState == Up)
+				_frame = _onUpFrame;
+			else if (_pressState == None)
+				_frame = _onOverFrame;
 		}
 	}
 }

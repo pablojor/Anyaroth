@@ -19,7 +19,6 @@ class ShopItem : public ButtonUI
 		};
 
 		ItemInfo _info;
-		static ShopItem* _selected;
 
 	public:
 		ShopItem(Game* game, Texture* image = nullptr, int xPos = 0, int yPos = 0);

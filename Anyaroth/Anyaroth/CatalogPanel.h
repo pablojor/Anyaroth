@@ -31,6 +31,8 @@ class CatalogPanel : public PanelUI
 		int itemHeight;
 		int itemSize;
 
+		void reorderCatalog();
+
 	public:
 		CatalogPanel(Game* game);
 		~CatalogPanel();
@@ -41,7 +43,7 @@ class CatalogPanel : public PanelUI
 		void openCatalog();
 		void updateCatalog(int zona);
 
-		static void selectItem(Game* game);
-		static void buyItem(Game* game);
+		void selectItem(Game* game, ShopItem* item);
+		void buyItem(Game* game);
 };
 

@@ -34,6 +34,7 @@ class ShopInfoPanel : public PanelUI
 		void setName(string name);
 		void setDamage(int damage);
 		void setDistance(int distance);
-		void setCadence(int price);
+		void setCadence(int cadence);
+		void setPrice(int price);
 };
 

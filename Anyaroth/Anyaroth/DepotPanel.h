@@ -25,17 +25,29 @@ class DepotPanel : public PanelUI
 
 		list<ShopItem*> _items;
 
-		static ShopItem* _selectedItem;
+		ShopItem* _selectedItem = nullptr;
+
+		int itemsPerRow = 2;
+		int itemsPerCol = 4;
+		int itemWidth;
+		int itemHeight;
+		int itemSize;
 
 	public:
 		DepotPanel(Game* game);
+		virtual ~DepotPanel();
 
 		void setPlayer(Player* ply) { _player = ply; }
 
-		static void changeEquipedGuns(Game* game);
-		static void selectDistanceWeapon(Game* game, ShopItem* item);
-		static void setDistanceWeapon(Game* game);
-		static void selectMeleeWeapon(Game* game);
-		static void setMeleeWeapon(Game* game);
+		void changeEquipedGuns(Game* game);
+		void selectDistanceWeapon(Game* game);
+		void setDistanceWeapon(Game* game);
+		void selectMeleeWeapon(Game* game);
+		void setMeleeWeapon(Game* game);
+
+		void setItems(list<ShopItem*>& list);
+		void selectItem(Game * game, ShopItem* item);
+
+		void reorderDepot();
 };
 

@@ -23,8 +23,6 @@ class ShopMenu : public PanelUI
 		static CatalogPanel* _catalogPanel;
 		static DepotPanel* _depotPanel;
 
-		static bool _exit;
-
 		ImageUI* _imageBG = nullptr;
 		CoinsCounter* _playerMoney = nullptr;
 
@@ -59,7 +57,6 @@ class ShopMenu : public PanelUI
 		static void openDepotPanel(Game* game);
 		static void closeDepotPanel(Game* game);
 
-		static void exitBool(Game* game);
 		static void exit(Game* game);
 };
 

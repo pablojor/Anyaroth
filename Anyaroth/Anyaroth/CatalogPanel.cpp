@@ -7,6 +7,7 @@ ShopInfoPanel* CatalogPanel::_infoPanel = nullptr;
 ButtonUI* CatalogPanel::_buyButton = nullptr;
 Player* CatalogPanel::_player = nullptr;
 
+
 CatalogPanel::CatalogPanel(Game* game) : PanelUI(game)
 {
 	//----MARCO----//
@@ -37,7 +38,7 @@ CatalogPanel::CatalogPanel(Game* game) : PanelUI(game)
 
 	_buyButton = new ButtonUI(game, game->getTexture("BuyButton"), nullptr, { 0,1,2,1 });
 	_buyButton->setPosition(infoPanelPosX + _infoPanel->getInfoPanelWidth() / 2 - _buyButton->getW() / 2, infoPanelPosY + _infoPanel->getInfoPanelHeight() + 2);
-	_buyButton->onDown(buyItem);
+	_buyButton->onDown([this](Game* game) { buyItem(game); });
 	_buyButton->setVisible(false);
 
 	addChild(_buyButton);
@@ -61,7 +62,7 @@ void CatalogPanel::setItems(list<ShopItem*>& list) // Crear items
 
 	for (auto it : _items)
 	{
-		it->onDown(selectItem);
+		it->onDown([this, it](Game* game) {	selectItem(game, it); });
 		it->setSize(itemSize, itemSize);
 		it->setVisible(false);
 
@@ -114,12 +115,18 @@ void CatalogPanel::updateCatalog(int zona) // Colocar items
 	}
 }
 
-void CatalogPanel::selectItem(Game * game)
+void CatalogPanel::selectItem(Game * game, ShopItem* item)
 {
 	_infoPanel->setVisible(true);
 	_buyButton->setVisible(true);
 
-	_infoPanel->setName("Gun");
+	_selectedItem = item;
+	auto info = item->getItemInfo();
+	_infoPanel->setName(info._name);
+	_infoPanel->setCadence(info._cadence);
+	_infoPanel->setDamage(info._damage);
+	_infoPanel->setDistance(info._distance);
+	_infoPanel->setPrice(info._damage);
 }
 
 void CatalogPanel::buyItem(Game * game)
@@ -128,6 +135,44 @@ void CatalogPanel::buyItem(Game * game)
 
 	_infoPanel->setVisible(false);
 	_buyButton->setVisible(false);
-	/*_selectedItem->setVisible(false);
-	_selectedItem->setItemSell(true);*/
+	_selectedItem->setVisible(false);
+	_selectedItem->setItemSell(true);
+
+	//Maybe do something else
+	reorderCatalog();
+}
+
+
+void CatalogPanel::reorderCatalog()
+{
+	int xOffset = (_frame->getW() - itemSize * itemsPerRow) / (itemsPerRow + 1);
+	int yOffset = (_frame->getH() - itemSize * itemsPerCol) / (itemsPerCol + 1);
+
+	ShopItem* primItem = nullptr;
+
+	auto it = _items.begin();
+	int fil = 0;
+	while (fil < itemsPerCol && it != _items.end())
+	{
+		int col = 0;
+		while (it != _items.end() && col < itemsPerRow)
+		{
+			auto item = *it;
+
+			if (item->isVisible())
+			{
+				if (primItem == nullptr)
+				{
+					item->setPosition(_frame->getX() + xOffset, _frame->getY() + yOffset);
+					primItem = item;
+				}
+				else
+					item->setPosition(primItem->getX() + (primItem->getW() + xOffset) * col, primItem->getY() + (primItem->getH() + yOffset) * fil);
+
+				col++;
+			}
+			it++;
+		}
+		fil++;
+	}
 }

@@ -1,8 +1,10 @@
 #include "DepotPanel.h"
 #include "Player.h"
 #include "ShopMenu.h"
+#include <functional>
+#include <algorithm>
+#include "Game.h"
 
-ShopItem* DepotPanel::_selectedItem = nullptr;
 Player* DepotPanel::_player = nullptr; 
 ShopItem* DepotPanel::_firstWeapon = nullptr;
 ShopItem* DepotPanel::_secondWeapon = nullptr;
@@ -53,9 +55,9 @@ DepotPanel::DepotPanel(Game* game) : PanelUI(game)
 								_firstWeapon->getY() + _firstWeapon->getH() + distanceBetweenSlots);
 
 		//Callbacks
-	_firstWeapon->onDown(setDistanceWeapon);
-	_secondWeapon->onDown(setDistanceWeapon);
-	_meleeWeapon->onDown(setMeleeWeapon);
+	_firstWeapon->onDown([this](Game* game) { setDistanceWeapon(game); });
+	_secondWeapon->onDown([this](Game* game) { setDistanceWeapon(game); });
+	_meleeWeapon->onDown([this](Game* game) { setMeleeWeapon(game); });
 
 		//Añadir como hijo
 	addChild(_firstWeapon);
@@ -64,7 +66,7 @@ DepotPanel::DepotPanel(Game* game) : PanelUI(game)
 
 	//----BOTON DE CAMBIO DE EQUIPAMIENTO----//
 
-	_changeButton = new ButtonUI(game, game->getTexture("Button"), changeEquipedGuns, { 0,1,2,3 });
+	_changeButton = new ButtonUI(game, game->getTexture("Button"), [this](Game* game) {changeEquipedGuns(game); }, { 0,1,2,3 });
 	_changeButton->setSize(itemWidth * 0.75, itemHeight / 2); //POSIBLEMENTE PROVISIONAL
 	_changeButton->setPosition(_equipmentFrame->getX() + _equipmentFrame->getW() / 2 - _changeButton->getW() / 2,
 								_firstWeapon->getY() - _changeButton->getH() - distanceBetweenSlots * 0.25);
@@ -73,6 +75,12 @@ DepotPanel::DepotPanel(Game* game) : PanelUI(game)
 	addChild(_changeButton);
 
 	//----ALMACEN----//
+}
+
+DepotPanel::~DepotPanel()
+{
+	for (auto item : _items)
+		removeChild(item);
 }
 
 void DepotPanel::changeEquipedGuns(Game* game)
@@ -89,7 +97,7 @@ void DepotPanel::changeEquipedGuns(Game* game)
 	_secondWeapon->setItemImage(firstWeaponImage);
 }
 
-void DepotPanel::selectDistanceWeapon(Game* game, ShopItem* item)
+void DepotPanel::selectDistanceWeapon(Game* game)
 {
 	
 }
@@ -110,4 +118,68 @@ void DepotPanel::setMeleeWeapon(Game* game)
 {
 	if (_selectedItem != nullptr)
 		cout << "cambio melee";
+}
+
+void DepotPanel::setItems(list<ShopItem*>& list)
+{
+	//Esto se cambiara dependiendo de X factores. 
+	//De momento es una copia modificada del de CatalogPanel (para tener algo con lo que trabajar)
+	_items = list;
+	
+	int margin = 20; // PROBABLEMENTE PROVISIONAL TAMBIEN
+	itemWidth = (_depotFrame->getW() - margin) / itemsPerRow;
+	itemHeight = (_depotFrame->getH() - margin) / itemsPerCol;
+
+	itemHeight < itemWidth ? itemSize = itemHeight : itemSize = itemWidth;
+
+	for (auto it : _items)
+	{
+		it->onDown([this, it](Game* game) {	selectItem(game, it); });
+		it->setSize(itemSize, itemSize);
+		it->setVisible(false);
+
+		addChild(it);
+	}
+	reorderDepot();
+}
+
+void DepotPanel::selectItem(Game * game, ShopItem* item)
+{
+	_selectedItem = item;
+}
+
+void DepotPanel::reorderDepot()
+{
+	int xOffset = (_depotFrame->getW() - itemSize * itemsPerRow) / (itemsPerRow + 1);
+	int yOffset = (_depotFrame->getH() - itemSize * itemsPerCol) / (itemsPerCol + 1);
+
+	ShopItem* primItem = nullptr;
+
+	auto it = _items.begin();
+	int fil = 0;
+	while (fil < itemsPerCol && it != _items.end())
+	{
+		int col = 0;
+		while (it != _items.end() && col < itemsPerRow)
+		{
+			auto item = *it;
+			auto info = item->getItemInfo();
+
+			if (info._sell && !info._equiped)
+			{
+				item->setVisible(true);
+				if (primItem == nullptr)
+				{
+					item->setPosition(_depotFrame->getX() + xOffset, _depotFrame->getY() + yOffset);
+					primItem = item;
+				}
+				else
+					item->setPosition(primItem->getX() + (primItem->getW() + xOffset) * col, primItem->getY() + (primItem->getH() + yOffset) * fil);
+
+				col++;
+			}
+			it++;
+		}
+		fil++;
+	}
 }

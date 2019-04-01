@@ -18,8 +18,6 @@ DepotPanel* ShopMenu::_depotPanel = nullptr;
 
 Player* ShopMenu::_player = nullptr;
 
-bool ShopMenu::_exit = false;
-
 ShopMenu::ShopMenu(Game* game) : PanelUI(game)
 {
 	//----FONDO----//
@@ -46,7 +44,7 @@ ShopMenu::ShopMenu(Game* game) : PanelUI(game)
 	_depotButton->setPosition(middleOfTheButtonPanelX / 2 - _depotButton->getW() / 2,
 							middleOfTheButtonPanelY + (distanceBetweenButtons/2));
 
-	_exitButton = new ButtonUI(game, game->getTexture("Button"), exitBool, { 0,1,2,3 });
+	_exitButton = new ButtonUI(game, game->getTexture("Button"), nullptr, { 0,1,2,3 });
 	_exitButton->setPosition(middleOfTheButtonPanelX / 2 - _exitButton->getW() / 2,
 							_depotButton->getY() + _depotButton->getH() + distanceBetweenButtons);
 	_exitButton->onUp(exit);
@@ -136,7 +134,6 @@ void ShopMenu::openShop(int zona)
 	}
 	_visible = true;
 	_player->setActive(false);
-	_exit = false;
 
 	_dialoguePanel->startDialogue({
 		_game->getTexture("DialogueFace"),
@@ -250,16 +247,10 @@ void ShopMenu::closeDepotPanel(Game * game)
 	ableMainMenu(game);
 }
 
-void ShopMenu::exitBool(Game* game)
-{
-	_exit = true;
-}
 void ShopMenu::exit(Game* game)
 {
-	if (_exit)
-	{
-		cout << "cerrando" << endl;
-		closeShop();
-		PlayStateHUD::closeShopMenu(game);
-	}
+
+	cout << "cerrando" << endl;
+	closeShop();
+	PlayStateHUD::closeShopMenu(game);
 }

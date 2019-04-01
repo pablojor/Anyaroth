@@ -84,7 +84,12 @@ void ShopInfoPanel::setDistance(int distance)
 
 }
 
-void ShopInfoPanel::setCadence(int price)
+void ShopInfoPanel::setCadence(int cadence)
 {
 
+}
+
+void ShopInfoPanel::setPrice(int price)
+{
+	_priceText->setText(to_string(price));
 }
