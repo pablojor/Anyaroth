@@ -8,7 +8,7 @@ LaserHandler::LaserHandler(Game* g, Texture* container, Texture* laser, Player* 
 
 	for (int i = 0; i < numLasers; i++)
 	{
-		LaserContainer* temp = new LaserContainer(g, Vector2D(pos1 + i * spaceBetween, 320), container, laser, player);
+		LaserContainer* temp = new LaserContainer(g, Vector2D(pos1 + i * spaceBetween, 200), container, laser, player);
 
 		_lasers.push_back(temp);
 		addChild(temp);
@@ -55,14 +55,14 @@ void LaserHandler::update(const double& deltaTime)
 
 void LaserHandler::Shoot()
 {
-	_lasers[0]->Shoot(_game->random(50, 100));
+	_lasers[0]->Shoot(_game->random(60, 100));
 
 	for (int i = 1; i < _numLasers - 1; i++)
 	{
-		_lasers[i]->Shoot(_game->random(60, 130));
+		_lasers[i]->Shoot(_game->random(60, 120));
 	}
 
-	_lasers[_numLasers - 1]->Shoot(_game->random(80, 130));
+	_lasers[_numLasers - 1]->Shoot(_game->random(80, 120));
 }
 void LaserHandler::Stop()
 {

@@ -10,7 +10,7 @@ private:
 	bool _active = false;
 	vector<LaserContainer*> _lasers;
 
-	int timeToshot = 0, timeBetweenShot = 3000, timeToEnd = 30000;
+	int timeToshot = 0, timeBetweenShot = 3000, timeToEnd = 3000;
 
 	bool isShooting = false, shootStareted = false;
 

@@ -29,7 +29,7 @@ void Laser::update(const double& deltaTime)
 	}
 }
 
-void Laser::Shoot(int angle)
+void Laser::Shoot(double angle)
 {
 	setActive(true);
 
@@ -42,17 +42,18 @@ void Laser::Shoot(int angle)
 
 		_body->filterCollisions(LASER, PLAYER);
 		_body->getBody()->SetType(b2_kinematicBody);
-		_body->getBody()->GetFixtureList()->SetSensor(true);
-		_body->setH(200);
+		//Provisional
+		_body->setH(400);
 		_body->setW(3);
-		//_body->getBody()->SetFixedRotation(false);
 
-		_body->getBody()->SetTransform(_body->getBody()->GetPosition(), angle);
+		_body->getBody()->GetFixtureList()->SetSensor(true);
+
+		_body->getBody()->SetTransform(_body->getBody()->GetPosition(), (_angle-90) * M_PI/180);
 	}
 	else
 	{
 		_body->getBody()->SetActive(true);
-		_body->getBody()->SetTransform(_body->getBody()->GetPosition(), angle);
+		_body->getBody()->SetTransform(_body->getBody()->GetPosition(), (_angle-90) * M_PI / 180);
 	}
 }
 

@@ -23,19 +23,19 @@ void DebugDraw::DrawSolidPolygon(const b2Vec2* vertices, int32 vertexCount, cons
 	if (vertices[0].x < vertices[2].x)
 		poly.x = vertices[0].x*M_TO_PIXEL - _camera->getCameraPosition().getX();
 	else
-		poly.x = vertices[2].x*M_TO_PIXEL - _camera->getCameraPosition().getX();
+		poly.x = vertices[1].x*M_TO_PIXEL - _camera->getCameraPosition().getX();
 
 	if (vertices[0].y < vertices[2].y)
 		poly.y = vertices[0].y*M_TO_PIXEL - _camera->getCameraPosition().getY();
 	else
-		poly.y = vertices[2].y*M_TO_PIXEL - _camera->getCameraPosition().getY();
+		poly.y = vertices[1].y*M_TO_PIXEL - _camera->getCameraPosition().getY();
 
 	poly.w =v1.distance(v2) * M_TO_PIXEL;
 	poly.h = v1.distance(v4) * M_TO_PIXEL;
 
 	SDL_Rect winRect = { poly.x * GAME_RESOLUTION_X / _camera->getCameraSize().getX() ,poly.y * GAME_RESOLUTION_Y / _camera->getCameraSize().getY() ,
 		poly.w * GAME_RESOLUTION_X / _camera->getCameraSize().getX() + 1, poly.h * GAME_RESOLUTION_Y / _camera->getCameraSize().getY() + 1 }; //+1 para el tema del Zoom
-	_texture->render(winRect, angle* 180/M_PI);
+	_texture->render(winRect,angle* 180/M_PI);
 }
 
 void DebugDraw::DrawCircle(const b2Vec2& center, float32 radius, const b2Color& color)
