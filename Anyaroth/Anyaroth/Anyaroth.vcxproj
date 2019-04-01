@@ -136,6 +136,7 @@
     <ClCompile Include="AmmoViewer.cpp" />
     <ClCompile Include="AnimatedImageUI.cpp" />
     <ClCompile Include="Boss.cpp" />
+    <ClCompile Include="Capsule.cpp" />
     <ClCompile Include="FramedImageUI.cpp" />
     <ClCompile Include="AnimatedSpriteComponent.cpp" />
     <ClCompile Include="Arm.cpp" />
@@ -152,7 +153,6 @@
     <ClCompile Include="Boss1.cpp" />
     <ClCompile Include="BotonLanzaMisiles.cpp" />
     <ClCompile Include="BulletPool.cpp" />
-    <ClCompile Include="Capsule.cpp" />
     <ClCompile Include="Cursor.cpp" />
     <ClCompile Include="CustomAnimatedSpriteComponent.cpp" />
     <ClCompile Include="DialoguePanel.cpp" />
@@ -218,7 +218,6 @@
     <ClCompile Include="PoolWrapper.cpp" />
     <ClCompile Include="RenderComponent.cpp" />
     <ClCompile Include="Shotgun.cpp" />
-    <ClCompile Include="SpawnerEnemy.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
     <ClCompile Include="Money.cpp" />
@@ -238,6 +237,8 @@
     <ClInclude Include="AmmoViewer.h" />
     <ClInclude Include="AnimatedImageUI.h" />
     <ClInclude Include="Boss.h" />
+    <ClInclude Include="CapsuleDistance.h" />
+    <ClInclude Include="CapsuleNormal.h" />
     <ClInclude Include="FramedImageUI.h" />
     <ClInclude Include="AnimatedSpriteComponent.h" />
     <ClInclude Include="AnyarothError.h" />

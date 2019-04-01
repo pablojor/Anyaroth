@@ -97,7 +97,7 @@ void Map::createObjects()
 			}
 			else if (name == "Spawner")
 			{
-				_objects->addChild(new SpawnerEnemy(_game, _player, Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2)));
+				_objects->addChild(new SpawnerEnemy<MeleeEnemy>(_game, _player, Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2)));
 			}
 			else if (name == "SpawnerStatic")
 			{

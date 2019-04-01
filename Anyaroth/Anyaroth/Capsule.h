@@ -5,7 +5,7 @@
 
 class Capsule : public GameObject
 {
-private:
+protected:
 	TransformComponent* _transform = nullptr;
 	BodyComponent* _body = nullptr;
 
@@ -18,7 +18,7 @@ public:
 	Capsule(Game* g, Player* player, Vector2D pos, Enemy* father);
 	virtual ~Capsule() {}
 
-	void spawn();
+	virtual void spawn() {};
 	virtual void update(const double& deltaTime);
 	virtual void beginCollision(GameObject* other, b2Contact* contact);
 };

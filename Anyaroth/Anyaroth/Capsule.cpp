@@ -1,6 +1,4 @@
 #include "Capsule.h"
-#include "GameObject.h"
-#include "MeleeEnemy.h"
 
 Capsule::Capsule(Game* g, Player* player, Vector2D pos, Enemy* father) : GameObject(g), _player(player), _father(father)
 {
@@ -30,16 +28,6 @@ Capsule::Capsule(Game* g, Player* player, Vector2D pos, Enemy* father) : GameObj
 	_body->addFixture(&fDef, this);
 }
 
-void Capsule::spawn()
-{
-	if (_spawning)
-	{
-		Vector2D pos = Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL - TILES_SIZE * 2, _body->getBody()->GetPosition().y * M_TO_PIXEL - TILES_SIZE * 2);
-		_father->addChild(new MeleeEnemy(_game, _player, pos));
-		destroy();
-	}
-}
-
 void Capsule::update(const double& deltaTime)
 {
 	GameObject::update(deltaTime);
@@ -51,7 +39,7 @@ void Capsule::beginCollision(GameObject * other, b2Contact* contact)
 	string otherTag = other->getTag();
 	auto fA = contact->GetFixtureA();
 	auto fB = contact->GetFixtureB();
-	
+
 	//Deteccion del suelo
 	if ((fA->IsSensor() || fB->IsSensor()) && (other->getTag() == "Ground" || other->getTag() == "Platform"))
 		_spawning = true;
