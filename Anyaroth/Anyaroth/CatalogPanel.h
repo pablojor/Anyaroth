@@ -20,7 +20,6 @@ class CatalogPanel : public PanelUI
 		ImageUI* _frame = nullptr;
 		ButtonUI* _exitButton = nullptr;
 
-		//Estos items serán los que se muestren en la tienda
 		list<ShopItem*> _items;
 
 		ShopItem* _selectedItem = nullptr;
@@ -33,6 +32,8 @@ class CatalogPanel : public PanelUI
 		int itemHeight;
 		int itemSize;
 
+		bool _weaponSold = false;
+
 		void reorderCatalog();
 
 	public:
@@ -44,6 +45,8 @@ class CatalogPanel : public PanelUI
 		void setItems(list<ShopItem*>& list);
 		void openCatalog();
 		void updateCatalog(int zona);
+
+		bool getWeaponSold() { return _weaponSold; }
 
 		void selectItem(Game* game, ShopItem* item);
 		void buyItem(Game* game);

@@ -25,6 +25,13 @@ class ShopInfoPanel : public PanelUI
 		ImageUI* _priceIcon = nullptr;
 		TextUI* _priceText = nullptr;
 
+		int maxDamage = 50,
+			minDamage = 1,
+			maxDistance = 2000,
+			minDistance = 10,
+			maxCadence = 1000,
+			minCadence = 100;
+
 	public:
 		ShopInfoPanel(Game* game, int xPos, int yPos);
 

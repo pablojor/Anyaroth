@@ -35,24 +35,23 @@ DepotPanel::DepotPanel(Game* game) : PanelUI(game)
 	//----EQUIPAMIENTO----//
 
 		//Crear celdas
-	int distanceBetweenSlots = 10;
-	int itemWidth = (_equipmentFrame->getW() / 2) - (distanceBetweenSlots + distanceBetweenSlots / 2);
-	int itemHeight = itemWidth;
+	itemEquipWidth = (_equipmentFrame->getW() / 2) - (10 + 5),
+	itemEquipHeight = itemEquipWidth;
 
 	_firstWeapon = new ShopItem(game, game->getTexture("InfoIcon"));
-	_firstWeapon->setSize(itemWidth, itemHeight); //POSIBLEMENTE PROVISIONAL
-	_firstWeapon->setPosition(_equipmentFrame->getX() + distanceBetweenSlots,
-							_equipmentFrame->getY() + _equipmentFrame->getH() / 4 + distanceBetweenSlots * 0.5);
+	_firstWeapon->setSize(itemEquipWidth, itemEquipHeight); //POSIBLEMENTE PROVISIONAL
+	_firstWeapon->setPosition(_equipmentFrame->getX() + distanceBetweenEquipmentSlots,
+		_equipmentFrame->getY() + _equipmentFrame->getH() / 4 + distanceBetweenEquipmentSlots * 0.5);
 
 	_secondWeapon = new ShopItem(game, game->getTexture("Dash"));
-	_secondWeapon->setSize(itemWidth, itemHeight); //POSIBLEMENTE PROVISIONAL
-	_secondWeapon->setPosition(_firstWeapon->getX() + _firstWeapon->getW() + distanceBetweenSlots, 
-							_firstWeapon->getY());
+	_secondWeapon->setSize(itemEquipWidth, itemEquipHeight); //POSIBLEMENTE PROVISIONAL
+	_secondWeapon->setPosition(_firstWeapon->getX() + _firstWeapon->getW() + distanceBetweenEquipmentSlots,
+		_firstWeapon->getY());
 
 	_meleeWeapon = new ShopItem(game, game->getTexture("InfoIcon"));
-	_meleeWeapon->setSize(itemWidth, itemHeight); //POSIBLEMENTE PROVISIONAL
-	_meleeWeapon->setPosition(_equipmentFrame->getX() + _equipmentFrame->getW() / 2 - itemWidth / 2, 
-								_firstWeapon->getY() + _firstWeapon->getH() + distanceBetweenSlots);
+	_meleeWeapon->setSize(itemEquipWidth, itemEquipHeight); //POSIBLEMENTE PROVISIONAL
+	_meleeWeapon->setPosition(_equipmentFrame->getX() + _equipmentFrame->getW() / 2 - itemEquipWidth / 2,
+							_firstWeapon->getY() + _firstWeapon->getH() + distanceBetweenEquipmentSlots);
 
 		//Callbacks
 	_firstWeapon->onDown([this](Game* game) { setDistanceWeapon(game); });
@@ -67,9 +66,9 @@ DepotPanel::DepotPanel(Game* game) : PanelUI(game)
 	//----BOTON DE CAMBIO DE EQUIPAMIENTO----//
 
 	_changeButton = new ButtonUI(game, game->getTexture("Button"), [this](Game* game) {changeEquipedGuns(game); }, { 0,1,2,3 });
-	_changeButton->setSize(itemWidth * 0.75, itemHeight / 2); //POSIBLEMENTE PROVISIONAL
+	_changeButton->setSize(itemEquipWidth * 0.75, itemEquipHeight / 2); //POSIBLEMENTE PROVISIONAL
 	_changeButton->setPosition(_equipmentFrame->getX() + _equipmentFrame->getW() / 2 - _changeButton->getW() / 2,
-								_firstWeapon->getY() - _changeButton->getH() - distanceBetweenSlots * 0.25);
+								_equipmentFrame->getY() + _equipmentFrame->getH() / 4 + distanceBetweenEquipmentSlots / 2 - _changeButton->getH() - distanceBetweenEquipmentSlots * 0.25);
 
 		//Añadir como hijo
 	addChild(_changeButton);
@@ -83,49 +82,10 @@ DepotPanel::~DepotPanel()
 		removeChild(item);
 }
 
-void DepotPanel::changeEquipedGuns(Game* game)
-{
-	_player->swapGun();
-
-	auto firstWeaponInfo = _firstWeapon->getItemInfo();
-	auto firstWeaponImage = _firstWeapon->getItemImage();
-
-	_firstWeapon->setItemInfo(_secondWeapon->getItemInfo());
-	_firstWeapon->setItemImage(_secondWeapon->getItemImage());
-
-	_secondWeapon->setItemInfo(firstWeaponInfo);
-	_secondWeapon->setItemImage(firstWeaponImage);
-}
-
-void DepotPanel::selectDistanceWeapon(Game* game)
-{
-	
-}
-
-void DepotPanel::setDistanceWeapon(Game* game)
-{
-	if (_selectedItem != nullptr)
-		cout << "cambio arma";
-}
-
-
-void DepotPanel::selectMeleeWeapon(Game* game)
-{
-
-}
-
-void DepotPanel::setMeleeWeapon(Game* game)
-{
-	if (_selectedItem != nullptr)
-		cout << "cambio melee";
-}
-
 void DepotPanel::setItems(list<ShopItem*>& list)
 {
-	//Esto se cambiara dependiendo de X factores. 
-	//De momento es una copia modificada del de CatalogPanel (para tener algo con lo que trabajar)
 	_items = list;
-	
+
 	int margin = 20; // PROBABLEMENTE PROVISIONAL TAMBIEN
 	itemWidth = (_depotFrame->getW() - margin) / itemsPerRow;
 	itemHeight = (_depotFrame->getH() - margin) / itemsPerCol;
@@ -134,18 +94,14 @@ void DepotPanel::setItems(list<ShopItem*>& list)
 
 	for (auto it : _items)
 	{
-		it->onDown([this, it](Game* game) {	selectItem(game, it); });
-		it->setSize(itemSize, itemSize);
-		it->setVisible(false);
+			it->setSize(itemSize, itemSize);
 
-		addChild(it);
+			it->onDown([this, it](Game* game) {	selectItem(game, it); });
+
+			addChild(it);
 	}
-	reorderDepot();
-}
 
-void DepotPanel::selectItem(Game * game, ShopItem* item)
-{
-	_selectedItem = item;
+	reorderDepot();
 }
 
 void DepotPanel::reorderDepot()
@@ -165,9 +121,10 @@ void DepotPanel::reorderDepot()
 			auto item = *it;
 			auto info = item->getItemInfo();
 
-			if (info._sell && !info._equiped)
+			if (info._sold && !info._equiped)
 			{
 				item->setVisible(true);
+
 				if (primItem == nullptr)
 				{
 					item->setPosition(_depotFrame->getX() + xOffset, _depotFrame->getY() + yOffset);
@@ -178,8 +135,46 @@ void DepotPanel::reorderDepot()
 
 				col++;
 			}
+			else
+				item->setVisible(false);
+
 			it++;
 		}
 		fil++;
+	}
+}
+
+void DepotPanel::changeEquipedGuns(Game* game)
+{
+	_player->swapGun();
+
+	auto firstWeaponInfo = _firstWeapon->getItemInfo();
+	auto firstWeaponImage = _firstWeapon->getItemImage();
+
+	_firstWeapon->setItemInfo(_secondWeapon->getItemInfo());
+	_firstWeapon->setItemImage(_secondWeapon->getItemImage());
+
+	_secondWeapon->setItemInfo(firstWeaponInfo);
+	_secondWeapon->setItemImage(firstWeaponImage);
+}
+
+void DepotPanel::selectItem(Game * game, ShopItem* item)
+{
+	_selectedItem = item;
+}
+
+void DepotPanel::setDistanceWeapon(Game* game)
+{
+	if (_selectedItem != nullptr)
+	{
+		reorderDepot();
+	}
+}
+
+void DepotPanel::setMeleeWeapon(Game* game)
+{
+	if (_selectedItem != nullptr)
+	{
+		reorderDepot();
 	}
 }

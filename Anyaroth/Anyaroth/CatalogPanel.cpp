@@ -86,6 +86,7 @@ void CatalogPanel::setItems(list<ShopItem*>& list) // Crear items
 void CatalogPanel::openCatalog()
 {
 	_visible = true;
+	_weaponSold = false;
 	_infoPanel->setVisible(false);
 	_buyButton->setVisible(false);
 }
@@ -106,7 +107,7 @@ void CatalogPanel::updateCatalog(int zona) // Colocar items
 		{
 			auto item = *it;
 
-			if (!item->getItemInfo()._sell && item->getItemInfo()._zona <= zona && item->getItemInfo()._zona != -1)
+			if (!item->getItemInfo()._sold && item->getItemInfo()._zona <= zona && item->getItemInfo()._zona != -1)
 			{
 				item->setVisible(true);
 
@@ -120,6 +121,8 @@ void CatalogPanel::updateCatalog(int zona) // Colocar items
 
 				col++;
 			}
+			else
+				item->setVisible(false);
 
 			it++;
 		}
@@ -127,43 +130,6 @@ void CatalogPanel::updateCatalog(int zona) // Colocar items
 		fil++;
 	}
 }
-
-void CatalogPanel::selectItem(Game * game, ShopItem* item)
-{
-	_selectedItem = item;
-
-	_infoPanel->setVisible(true);
-
-	auto info = item->getItemInfo();
-	_infoPanel->setName(info._name);
-	_infoPanel->setCadence(info._cadence);
-	_infoPanel->setDamage(info._damage);
-	_infoPanel->setDistance(info._distance);
-	_infoPanel->setPrice(info._price);
-
-	_buyButton->setVisible(true);
-	if (info._price > _player->getBank())
-		_buyButton->setInputEnable(false);
-	else
-		_buyButton->setInputEnable(true);
-}
-
-void CatalogPanel::buyItem(Game * game)
-{
-	if (_player->spendMoney(_selectedItem->getItemInfo()._price))
-	{
-		_infoPanel->setVisible(false);
-		_buyButton->setVisible(false);
-		_selectedItem->setVisible(false);
-		_selectedItem->setItemSell(true);
-
-		_playerMoney->updateCoinsCounter(_player->getBank());
-
-		//Maybe do something else
-		reorderCatalog();
-	}
-}
-
 
 void CatalogPanel::reorderCatalog()
 {
@@ -198,3 +164,41 @@ void CatalogPanel::reorderCatalog()
 		fil++;
 	}
 }
+
+void CatalogPanel::selectItem(Game * game, ShopItem* item)
+{
+	_selectedItem = item;
+
+	_infoPanel->setVisible(true);
+
+	auto info = item->getItemInfo();
+	_infoPanel->setName(info._name);
+	_infoPanel->setCadence(info._cadence);
+	_infoPanel->setDamage(info._damage);
+	_infoPanel->setDistance(info._distance);
+	_infoPanel->setPrice(info._price);
+
+	_buyButton->setVisible(true);
+	if (info._price > _player->getBank())
+		_buyButton->setInputEnable(false);
+	else
+		_buyButton->setInputEnable(true);
+}
+
+void CatalogPanel::buyItem(Game * game)
+{
+	if (_player->spendMoney(_selectedItem->getItemInfo()._price))
+	{
+		_weaponSold = true;
+
+		_infoPanel->setVisible(false);
+		_buyButton->setVisible(false);
+		_selectedItem->setVisible(false);
+		_selectedItem->setItemSell(true);
+
+		_playerMoney->updateCoinsCounter(_player->getBank());
+
+		reorderCatalog();
+	}
+}
+

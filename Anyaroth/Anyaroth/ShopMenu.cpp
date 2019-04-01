@@ -18,6 +18,8 @@ DepotPanel* ShopMenu::_depotPanel = nullptr;
 
 Player* ShopMenu::_player = nullptr;
 
+int ShopMenu::_zona = NULL;
+
 ShopMenu::ShopMenu(Game* game) : PanelUI(game)
 {
 	//----FONDO----//
@@ -70,6 +72,7 @@ ShopMenu::ShopMenu(Game* game) : PanelUI(game)
 
 	loadWeaponInfo();
 
+	_depotPanel->setItems(_items);
 	_catalogPanel->setItems(_items);
 }
 
@@ -99,15 +102,16 @@ void ShopMenu::loadWeaponInfo()
 			{
 				auto item = new ShopItem(_game, _game->getTexture(typeWeapon.value()["icon"].get<string>()));
 
-				bool sell = false;
+				bool sold = false;
 				bool equiped = false;
 
-				if (typeWeapon.value()["zona"] = -1)
+				if (typeWeapon.value()["zona"] == -1)
 				{
-					sell = true;
+					equiped = true;
+					sold = true;
 				}
 
-				item->setItemInfo({ typeWeapon.value()["zona"], typeWeapon.key(), typeWeapon.value()["price"] ,typeWeapon.value()["damage"], typeWeapon.value()["cadence"], typeWeapon.value()["range"], sell, equiped });
+				item->setItemInfo({ typeWeapon.value()["zona"], typeWeapon.key(), typeWeapon.value()["price"] ,typeWeapon.value()["damage"], typeWeapon.value()["cadence"], typeWeapon.value()["range"], sold, equiped });
 				_items.push_back(item);
 			}
 		}
@@ -127,10 +131,7 @@ void ShopMenu::setPlayer(Player* ply)
 void ShopMenu::openShop(int zona)
 {
 	if (zona != _zona)
-	{
 		_zona = zona;
-		_catalogPanel->updateCatalog(_zona);
-	}
 	_visible = true;
 	_player->setActive(false);
 
@@ -181,7 +182,9 @@ void ShopMenu::openCatalogPanel(Game* game)
 {
 	disableMainMenu(game);
 
+	_catalogPanel->updateCatalog(_zona);
 	_catalogPanel->openCatalog();
+
 	_dialoguePanel->startDialogue({
 			game->getTexture("DialogueFace"),
 			"exampleVoice",
@@ -227,7 +230,9 @@ void ShopMenu::openDepotPanel(Game* game)
 {
 	disableMainMenu(game);
 
+	_depotPanel->reorderDepot();
 	_depotPanel->setVisible(true);
+
 	_dialoguePanel->startDialogue({
 			game->getTexture("DialogueFace"),
 			"exampleVoice",

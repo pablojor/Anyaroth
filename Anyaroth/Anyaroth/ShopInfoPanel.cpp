@@ -76,7 +76,6 @@ void ShopInfoPanel::setName(string name)
 
 void ShopInfoPanel::setDamage(int damage)
 {
-
 }
 
 void ShopInfoPanel::setDistance(int distance)

@@ -16,7 +16,7 @@ class ShopItem : public ButtonUI
 			int _cadence;
 			int _distance;
 
-			bool _sell;
+			bool _sold;
 			bool _equiped;
 		};
 
@@ -33,7 +33,7 @@ class ShopItem : public ButtonUI
 		void setItemImage(Texture* image) { setImage(image); }
 		void setItemInfo(const ItemInfo& info) { _info = info; }
 
-		void setItemSell(bool b) { _info._sell = b; }
+		void setItemSell(bool b) { _info._sold = b; }
 		void setItemEquiped(bool b) { _info._equiped = b; }
 };
 

@@ -27,11 +27,11 @@ class DepotPanel : public PanelUI
 
 		ShopItem* _selectedItem = nullptr;
 
-		int itemsPerRow = 2;
-		int itemsPerCol = 4;
-		int itemWidth;
-		int itemHeight;
-		int itemSize;
+		int itemsPerRow = 4, 
+			itemsPerCol = 4, 
+			distanceBetweenEquipmentSlots = 10;
+
+		int itemWidth, itemHeight, itemEquipWidth, itemEquipHeight, itemSize;
 
 	public:
 		DepotPanel(Game* game);
@@ -39,15 +39,12 @@ class DepotPanel : public PanelUI
 
 		void setPlayer(Player* ply) { _player = ply; }
 
-		void changeEquipedGuns(Game* game);
-		void selectDistanceWeapon(Game* game);
-		void setDistanceWeapon(Game* game);
-		void selectMeleeWeapon(Game* game);
-		void setMeleeWeapon(Game* game);
-
 		void setItems(list<ShopItem*>& list);
-		void selectItem(Game * game, ShopItem* item);
-
 		void reorderDepot();
+
+		void changeEquipedGuns(Game* game);
+		void selectItem(Game * game, ShopItem* item);
+		void setDistanceWeapon(Game* game);
+		void setMeleeWeapon(Game* game);
 };
 
