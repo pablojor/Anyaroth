@@ -4,11 +4,13 @@
 class Axe :	public Melee
 {
 private:
-	double _angle = 90;
+	double _angle, _iniAngle;
+	int _usedDir = 1;
 
 public:
-	Axe(Game* g);
+	Axe(Game * g, Vector2D offset, Uint16 collidesWith, double damage, double w, double h, double iniAngle);
 	virtual ~Axe() {}
-
-	void update(double time);
+	
+	virtual void meleeAttack(double x, double y, int dir);
+	void update(const double& deltaTime);
 };

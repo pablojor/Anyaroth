@@ -26,10 +26,12 @@ private:
 	uint _numCols = 1;
 	uint _numRows = 1;
 
+	string _filename = "";
+
 public:
 	Texture() :_renderer(nullptr) {}
 	Texture(SDL_Renderer* r) : _renderer(r) {}
-	Texture(SDL_Renderer* r, string filename, uint numRows = 1, uint numCols = 1) : _renderer(r) { load(filename, numRows, numCols); }
+	Texture(SDL_Renderer* r, string filename, uint numRows = 1, uint numCols = 1) : _filename(filename), _renderer(r) { load(filename, numRows, numCols); }
 	Texture(SDL_Renderer* r, string text, const Font* font, SDL_Color color) : _renderer(r) { loadFromText(text, font, color); }
 	~Texture() { free(); }
 	void free();
@@ -48,6 +50,7 @@ public:
 	void renderFrame(const SDL_Rect& destRect, int row, int col, double angle = 0, SDL_Point anchor = { 0,0 }, SDL_RendererFlip flip = SDL_FLIP_NONE) const;
 	void loadFromText(string text, const Font* font, SDL_Color color);
 
+	inline string getFilename() const { return _filename; };
 
 	//void render(string text, const SDL_Rect& rect, const Font* font, SDL_Color color) const;
 };

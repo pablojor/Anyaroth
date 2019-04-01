@@ -3,22 +3,17 @@
 #include "Game.h"
 
 
-PlayerArm::PlayerArm(Game* game, Player* player, Vector2D offset) : Arm(game, player, offset) ,_player(player)
+PlayerArm::PlayerArm(Game* game, Player* player, Vector2D offset) : Arm(game, player, offset), _player(player)
 {
 	setTexture(game->getTexture("Arm"));
 }
 
-void PlayerArm::update(double time)
+void PlayerArm::update(const double& deltaTime)
 {
-	GameComponent::update(time);
-
-	if (_player->isDashing() || _player->isMeleeing() || _player->isReloading())
-		_anim->setActive(false);
-	else
-		_anim->setActive(true);
-
+	GameObject::update(deltaTime);
+	
 	//Rotacion del brazo
-	Vector2D mousePos = getGame()->getCurrentState()->getMousePositionInWorld(); 
+	Vector2D mousePos = getGame()->getCurrentState()->getMousePositionInWorld();
 	lookAtTarget(mousePos);
 	handleFlipState(mousePos);
 
@@ -29,8 +24,8 @@ void PlayerArm::update(double time)
 //Activa animacion de disparo
 void PlayerArm::shoot()
 {
-	if(_player->getCurrentGun()->canShoot())
-		_anim->playAnim(AnimatedSpriteComponent::Shoot); 
+	if (_player->getCurrentGun()->canShoot())
+		_anim->playAnim(AnimatedSpriteComponent::Shoot);
 	else
 		_anim->playAnim(AnimatedSpriteComponent::NoAmmo);
 }
@@ -54,14 +49,14 @@ void PlayerArm::handleFlipState(const Vector2D& target)
 			_followC->setOffset({ _followC->getInitialOffset().getX() + 8 /*flipPosOffset*/, _followC->getInitialOffset().getY() });
 			_transform->setRotation(_transform->getRotation() + 180);
 			_anim->flip();
-			_player->getComponent<AnimatedSpriteComponent>()->flip();
+			_player->getComponent<CustomAnimatedSpriteComponent>()->flip();
 		}
 		else
 		{
 			_transform->setAnchor(_transform->getDefaultAnchor().getX(), _transform->getDefaultAnchor().getY());
 			_followC->setOffset({ _followC->getInitialOffset().getX(), _followC->getInitialOffset().getY() });
 			_anim->unFlip();
-			_player->getComponent<AnimatedSpriteComponent>()->unFlip();
+			_player->getComponent<CustomAnimatedSpriteComponent>()->unFlip();
 		}
 	}
 }

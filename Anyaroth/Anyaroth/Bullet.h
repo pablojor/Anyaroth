@@ -1,11 +1,11 @@
 #pragma once
-#include "GameComponent.h"
+#include "GameObject.h"
 #include "Vector2D.h"
 #include "BodyComponent.h"
 #include "AnimatedSpriteComponent.h"
 #include "BulletEffect.h"
 
-class Bullet : public GameComponent
+class Bullet : public GameObject
 {
 protected:
 	int _range = 200; //rango del arma (en pixeles)
@@ -74,7 +74,7 @@ public:
 	inline void setExplosionTime(int value) { _explosionTime = value; }
 
 	virtual void init(Texture* texture, const Vector2D& position, const double& speed, const double& damage, const double& angle, const double& range, const string& tag, EffectInterface* effect);
-	virtual void update(double time);
+	virtual void update(const double& deltaTime);
 	virtual void beginCollision(GameComponent* other, b2Contact* contact);
 	virtual void endCollision(GameComponent * other, b2Contact* contact);
 

@@ -2,7 +2,7 @@
 #include "Game.h"
 #include <math.h>
 
-Bullet::Bullet(Game* game) : GameComponent(game)
+Bullet::Bullet(Game* game) : GameObject(game)
 {
 	_texture = game->getTexture("PistolBullet");
 	addComponent<Texture>(_texture);
@@ -13,7 +13,7 @@ Bullet::Bullet(Game* game) : GameComponent(game)
 	_anim = addComponent<AnimatedSpriteComponent>();
 
 	_body = addComponent<BodyComponent>();
-	_body->filterCollisions(PLAYER_BULLETS, FLOOR | ENEMIES);
+	_body->filterCollisions(PLAYER_BULLETS, FLOOR | PLATFORMS | ENEMIES);
 	_body->getBody()->SetType(b2_dynamicBody);
 	_body->getBody()->SetBullet(true);
 	_body->getBody()->SetFixedRotation(true);
@@ -33,7 +33,7 @@ void Bullet::beginCollision(GameComponent * other, b2Contact* contact)
 		_effect->beginCollision(this, other, contact);
 	/*if(getTag() == "Bullet" && (other->getTag() == "Ground" || other->getTag() == "Enemy"))
 		_collided = true;
-	else if (getTag() == "EnemyBullet" && (other->getTag() == "Ground" || other->getTag() == "Player"))
+	else if (getTag() == "EnemyBullet" && (other->getTag() == "Ground" || other->getTag() == "Platform" || other->getTag() == "Player"))
 		_collided = true;
 
 	contact->SetEnabled(false);*/
@@ -74,10 +74,10 @@ void Bullet::init(Texture* texture, const Vector2D& position, const double& spee
 	setActive(true);
 }
 
-void Bullet::update(double time) 
+void Bullet::update(const double& deltaTime) 
 {
 	if(_effect != nullptr)
-		_effect->update(this, time);
+		_effect->update(this, deltaTime);
 	/*if (isActive())
 	{
 		double dist = _iniPos.distance(_transform->getPosition());
@@ -96,5 +96,5 @@ void Bullet::update(double time)
 
 void Bullet::changeFilter() 
 {
-	_body->filterCollisions(ENEMY_BULLETS, FLOOR | PLAYER);
+	_body->filterCollisions(ENEMY_BULLETS, FLOOR | PLATFORMS | PLAYER);
 }

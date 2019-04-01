@@ -6,13 +6,13 @@ class DistanceEnemy;
 class EnemyArm : public Arm
 {
 private:
-	GameComponent* _target = nullptr;
+	GameObject* _target = nullptr;
 	b2Body* _targetBody = nullptr;
 	DistanceEnemy* _myEnemy = nullptr;
 
 public:
-	EnemyArm(Game* g, GameComponent* owner, GameComponent* target, DistanceEnemy* enemy, Vector2D offset = { 0,0 });
-	void update(double time);
+	EnemyArm(Game* g, GameObject* owner, GameObject* target, DistanceEnemy* enemy, Vector2D offset = { 0,0 });
+	void update(const double& deltaTime);
 	void shoot();
 
 	inline double getAngle() const { return _transform->getRotation(); }

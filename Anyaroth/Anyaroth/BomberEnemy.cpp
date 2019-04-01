@@ -1,23 +1,26 @@
 #include "BomberEnemy.h"
 #include "BulletEffect.h"
 
-BomberEnemy::BomberEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag, BulletPool* pool) : Enemy(player, g, play, texture, posIni, tag)
+BomberEnemy::BomberEnemy(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Enemy(g, player, pos, g->getTexture("EnemyMartyr")), _bulletPool(pool)
 {
-	_myBulletPool = pool;
 	_bulletTexture = g->getTexture("PistolBullet");
-	_attackTime = 2000;
-	_life = 300;
-	_speed = -8;
-	_gun = new BomberGun(g);
+	_damage = 10;
 
-	_vision = 300;
+	_vision = 800;
+	_life = 300;
+	_gun = new BomberGun(g);
+	_attackRangeX = 2;
+	_speed = 8;
+	_time = 0;
+
 	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 13, true);
 	_anim->addAnim(AnimatedSpriteComponent::EnemyWalk, 8, true);
 	_anim->addAnim(AnimatedSpriteComponent::EnemyAttack, 11, false);
 	_anim->addAnim(AnimatedSpriteComponent::EnemyDie, 18, false);
 
 	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
-	_body->addCricleShape(b2Vec2(0, _body->getH() + _body->getH() / 20), _body->getW() - _body->getW() / 20, ENEMIES, FLOOR | PLAYER_BULLETS | MELEE);
+
+	_body->addCricleShape(b2Vec2(0, _body->getH() + _body->getH() / 20), _body->getW() - _body->getW() / 20, ENEMIES, FLOOR | PLATFORMS | PLAYER_BULLETS | MELEE);
 	_body->getBody()->SetGravityScale(0);
 }
 
@@ -29,98 +32,48 @@ BomberEnemy::~BomberEnemy()
 
 void BomberEnemy::update(double time)
 {
-	Enemy::update(time);
+	_body->getBody()->SetLinearVelocity({ _speed*(float32)_dir.getX(), _body->getBody()->GetLinearVelocity().y });
+}
 
-	BodyComponent* _playerBody = _player->getComponent<BodyComponent>();
-	b2Vec2 enemyPos = _body->getBody()->GetPosition(), playerPos = _playerBody->getBody()->GetPosition();
-
-	double x = playerPos.x * 8 - enemyPos.x * 8, y = playerPos.y * 8 - enemyPos.y * 8;
-
-	if (!_dead && _activated)
+void BomberEnemy::shoot(const double& deltaTime)
+{
+	if (_time >= _shootTime)
 	{
-		_body->getBody()->SetLinearVelocity({ _speed, _body->getBody()->GetLinearVelocity().y });
-
-		if (!inCameraOnlyX() || _move)
-		{
-			if (_bloqueDer && playerPos.x > enemyPos.x)
-			{
-				_speed = _dir;
-				_move = false;
-				_bloqueDer = false;
-			}
-			else if (_bloqueIzq && playerPos.x < enemyPos.x)
-			{
-				_speed = -_dir;
-				_move = false;
-				_bloqueIzq = false;
-			}
-			else if (x < 0)
-				_speed = -_dir;
-			else
-				_speed = _dir;
-		}
-		if(inCameraOnlyX())
-		{
-			if (_time >= _spawnTime)
-			{
-				throwBomb(Vector2D(_body->getBody()->GetPosition().x*8, _body->getBody()->GetPosition().y*8), 90, "EnemyBullet");
-				_time = 0;
-			}
-			else
-				_time += time;
-		}
+		throwBomb(Vector2D(_body->getBody()->GetPosition().x*M_TO_PIXEL, _body->getBody()->GetPosition().y*M_TO_PIXEL));
+		_time = 0;
 	}
 	else
+		_time += deltaTime;
+}
+void BomberEnemy::update(const double& deltaTime)
+{
+	Enemy::update(deltaTime);
+
+	bool inVision = _playerDistance.getX() < _vision && _playerDistance.getX() > -_vision && _playerDistance.getY() < _vision && _playerDistance.getY() > -_vision;
+
+	if (!isDead() && inCamera() && inVision)
 	{
-		if (x < _vision && x > -_vision && y < _vision && y > -_vision)
-		{
-			_activated = true;
-			_time = 0;
-		}
+		if (_playerDistance.getX() > _attackRangeX)
+			_dir = Vector2D(1, 0);
+		else if (_playerDistance.getX() < -_attackRangeX)
+			_dir = Vector2D(-1, 0);
+		else if (_playerDistance.getX() < _attackRangeX && _playerDistance.getX() > -_attackRangeX)
+			_dir = Vector2D(0, 0);
+
+		move();
+		shoot(deltaTime);
 	}
 }
 
 void BomberEnemy::subLife(int damage)
 {
-	if (!_dead)
-	{
-		_life.subLife(damage);
-		if (_life.dead())
-		{
-			die();
-			_hurt->die();
-			_anim->playAnim(AnimatedSpriteComponent::EnemyDie);
-			_body->getBody()->SetGravityScale(1);
-			_dead = true;
-		}
-		else
-			_hurt->hurt();
-	}
+	Enemy::subLife(damage);
+
+	if (isDead())
+		_body->getBody()->SetGravityScale(1);
 }
 
-void BomberEnemy::beginCollision(GameComponent * other, b2Contact * contact)
-{
-	Enemy::beginCollision(other, contact);
-
-	string otherTag = other->getTag();
-	if (otherTag == "Ground")
-	{
-		double x = other->getComponent<BodyComponent>()->getBody()->GetPosition().x;
-		double y = _body->getBody()->GetPosition().x;
-		if (x < y)
-		{
-			_bloqueDer = true;
-			_move = true;
-		}
-		else
-		{
-			_bloqueIzq = true;
-			_move = true;
-		}
-	}
-}
-
-void BomberEnemy::throwBomb(const Vector2D& position, const double& angle, const string& tag)
+void BomberEnemy::throwBomb(const Vector2D& position)
 {
 	/*Bullet* b = _myBulletPool->getUnusedObject();
 	Vector2D helpPos = position;
@@ -131,6 +84,7 @@ void BomberEnemy::throwBomb(const Vector2D& position, const double& angle, const
 	/*if (b != nullptr)
 	{
 		b->init(_bulletTexture, position, 0, 10, angle, _range, tag, &_effect);
+		b->init(_bulletTexture, position, 0, _damage, _angle, _range, "EnemyBullet");
 		b->changeFilter();
 	}
 	else
@@ -138,6 +92,9 @@ void BomberEnemy::throwBomb(const Vector2D& position, const double& angle, const
 		Bullet* b2 = _myBulletPool->addNewBullet();
 
 		b2->init(_bulletTexture, position, 0, 10, angle, _range, tag, &_effect);
+		Bullet* b2 = _bulletPool->addNewBullet();
+		
+		b2->init(_bulletTexture, position, 0, _damage, _angle, _range, "EnemyBullet");
 		b2->changeFilter();
 	}*/
 }

@@ -2,7 +2,7 @@
 #include "PhysicsComponent.h"
 #include "Bodycomponent.h"
 #include "Game.h"
-class GameComponent;
+class GameObject;
 
 class MovingComponent : public PhysicsComponent
 {
@@ -14,10 +14,10 @@ private:
 	bool _dashing = false;
 
 public:
-	MovingComponent(GameComponent* obj);
+	MovingComponent(GameObject* obj);
 	~MovingComponent() {}
 
-	virtual void update(double time);
+	virtual void update(const double& deltaTime);
 
 	inline double getDirX() const { return _dir.x; }
 	inline double getDirY() const { return _dir.y; }

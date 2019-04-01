@@ -19,7 +19,7 @@ WeaponManager::~WeaponManager()
 {
 	for (Gun* gun : _equippedWeapons)
 	{
-		if (gun != nullptr) //destruye el arma que había antes
+		if (gun != nullptr) //destruye el arma que habï¿½a antes
 			delete gun;
 		gun = nullptr;
 	}
@@ -28,7 +28,7 @@ WeaponManager::~WeaponManager()
 
 Gun* WeaponManager::getWeapon(GunType type, int slotIndex)
 {
-	if(_equippedWeapons[slotIndex] != nullptr) //destruye el arma que había antes
+	if(_equippedWeapons[slotIndex] != nullptr) //destruye el arma que habï¿½a antes
 		delete _equippedWeapons[slotIndex];
 
 	Gun* w = nullptr;

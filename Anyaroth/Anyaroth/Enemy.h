@@ -1,57 +1,42 @@
 #pragma once
-#include <list>
-#include "GameComponent.h"
+#include "GameObject.h"
+#include "Player.h"
+#include "TransformComponent.h"
+#include "BodyComponent.h"
+#include "MovingComponent.h"
+#include "CustomAnimatedSpriteComponent.h"
 #include "Life.h"
-#include "EnemyArm.h"
 
-class Player;
-class PlayState;
-
-class AnimatedSpriteComponent;
-class MovingComponent;
-class TransformComponent;
-class BodyComponent;
-class HurtRenderComponent;
-
-class Enemy : public GameComponent
+class Enemy : public GameObject
 {
 protected:
-	AnimatedSpriteComponent* _anim = nullptr;
-	MovingComponent* _movement = nullptr;
 	TransformComponent* _transform = nullptr;
-	Player* _player = nullptr;
 	BodyComponent* _body = nullptr;
-	HurtRenderComponent* _hurt = nullptr;
+	MovingComponent* _movement = nullptr;
+	CustomAnimatedSpriteComponent* _anim = nullptr;
 
-	PlayState* _play = nullptr;
-	list<GameObject*>::iterator _itList;
+	Player* _player = nullptr;
+	Vector2D _playerDistance;
 
 	Life _life;
-	bool _attacking = false, _dead = false;
+	bool _attacking = false;
+	int _vision, _attackRangeX, _attackRangeY, _attackTime, _damage;
 	double _time;
-	int _vision, _attackRange, _attackTime, _damage;
 	float32 _speed;
 
 public:
-	Enemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag);
+	Enemy(Game* g, Player* player, Vector2D pos, Texture* texture);
 	virtual ~Enemy() {}
 
-	bool inCamera();
-	bool inCameraOnlyX();
+	virtual void beginCollision(GameObject* other, b2Contact* contact);
+	virtual void update(const double& deltaTime);
 
-	virtual void beginCollision(GameComponent* other, b2Contact* contact);
-
-	void setItList(list<GameObject*>::iterator itFR);
-
-	virtual inline void noLongerAttacking() { _attacking = false; }
-
-	virtual void update(double time);
+	inline void stopAttacking() { _attacking = false; }
+	inline int random(int low, int high) const { return low + (rand() % abs(high - low)); }
 
 	void die();
 	virtual void subLife(int damage);
 	inline Life getLife() const { return _life; }
 
-	inline int random(int low, int high) const { return low + (rand() % abs(high - low)); }
-
-	void enemySpawn(Enemy* newEnemy);
+	bool inCamera();
 };

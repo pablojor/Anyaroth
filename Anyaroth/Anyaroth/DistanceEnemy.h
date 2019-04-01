@@ -1,28 +1,26 @@
 #pragma once
 #include "Enemy.h"
 #include "EnemyArm.h"
+#include "BulletPool.h"
 
-
-class BulletPool;
-
-class DistanceEnemy : public Enemy
+class DistanceEnemy : virtual public Enemy
 {
 protected:
 	EnemyArm* _arm;
-	bool _armVision = false;
 	Gun* _myGun = nullptr;
 	BulletPool* _myBulletPool = nullptr;
+
+	bool _armVision = false;
 	double _fail = 7.5;
 
 public:
-	DistanceEnemy(Player* player, Game* g, PlayState* play, Texture* texture, Vector2D posIni, string tag, BulletPool* pool);
+	DistanceEnemy(Game* g, Player* player, Vector2D pos, Texture* texture, BulletPool* pool);
 	virtual ~DistanceEnemy() { delete _myGun; }
 
 	inline bool ArmVision() const { return _armVision; }
+	inline Gun* getGun() const { return _myGun; }
 
-	void RayCast();
-
-	Gun* getGun() { return _myGun; }
-
-	virtual void update(double time);
+	virtual void update(const double& deltaTime);
+	void raycast();
+	void shoot();
 };

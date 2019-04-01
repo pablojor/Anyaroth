@@ -49,7 +49,7 @@ void Camera::smoothCameraZoom()
 	}
 }
 
-Camera::Camera(GameComponent * followObject)
+Camera::Camera(GameObject * followObject)
 {
 	fixCameraToObject(followObject);
 }
@@ -93,13 +93,13 @@ void Camera::setZoom(const float& zoomRatio, const bool& smoothZoom)
 	}
 }
 
-void Camera::update(const double& time)
+void Camera::update(const double& deltaTime)
 {
 	moveCamera();
 
 	if (_backGround != nullptr)
 		if (_backGround->checkCameraStatus(_cameraStatus))
-			_backGround->update(time);
+			_backGround->update(deltaTime);
 
 	smoothCameraZoom();
 }

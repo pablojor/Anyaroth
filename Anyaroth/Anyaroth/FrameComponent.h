@@ -1,17 +1,14 @@
 #pragma once
 #include "SpriteComponent.h"
-#include "TransformComponent.h"
-#include "Texture.h"
 
-class GameComponent;
 
-class FrameComponent : virtual public SpriteComponent
+class FrameComponent : public SpriteComponent
 {
 private:
 	int _fil = 1, _col = 1;
 
 public:
-	FrameComponent(GameComponent* obj) : SpriteComponent(obj), RenderComponent(obj) {}
+	FrameComponent(GameObject* obj);
 	virtual ~FrameComponent() {}
 
 	virtual void render(Camera* c) const;

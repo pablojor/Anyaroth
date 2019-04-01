@@ -2,7 +2,7 @@
 #include "Tile.h"
 #include <string>
 
-class Layer : public GameComponent
+class Layer : public GameObject
 {
 protected:
 	vector<Tile*> _tilemap;

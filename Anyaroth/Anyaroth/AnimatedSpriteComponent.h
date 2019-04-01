@@ -5,7 +5,7 @@
 
 typedef unsigned int uint;
 
-class GameComponent;
+class GameObject;
 
 struct AnimationStateImage
 {
@@ -18,16 +18,15 @@ struct AnimationStateImage
 
 class AnimatedSpriteComponent : public SpriteComponent, public PhysicsComponent
 {
+private:
+	GameObject* _obj = nullptr;
 protected:
 	vector<AnimationStateImage> _animations = {};
 
 	uint _currentAnim = 0;
-
-	uint _frame;
-	double _timer;
-
+	uint _frame = 0;
+	double _timer = 0.0;
 	bool _animationFinished = false;
-	bool _active = true;
 
 public:
 	enum Player { Idle, Walk, WalkBack, MeleeKnife, ReloadPistol, BeforeJump, Jump, StartFalling, Falling, Hurt, Dash, DashDown, DashBack, ReloadShotgun };
@@ -36,17 +35,15 @@ public:
 	enum Coin { Main };
 	enum Bullet { Default };
 
-	AnimatedSpriteComponent(GameComponent* obj) : SpriteComponent(obj), PhysicsComponent(obj), RenderComponent(obj), Component() {}
+	AnimatedSpriteComponent(GameObject* obj) : SpriteComponent(obj), PhysicsComponent(obj), RenderComponent(obj), Component(), _obj(obj) {}
 	virtual ~AnimatedSpriteComponent() {}
 
 	virtual void render(Camera* c) const;
-	virtual void update(double time);
+	virtual void update(const double& deltaTime);
 
 	void addAnim(uint name, uint numFrames, bool loop, uint lapse = 60);
 	void playAnim(uint name);
 
 	inline bool animationFinished() { return _animations[_currentAnim].animationFinished; }
 	inline uint getCurrentAnim() const { return _currentAnim; }
-
-	inline void setActive(bool b) { _active = b; }
 };

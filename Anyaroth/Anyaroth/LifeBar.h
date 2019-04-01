@@ -4,7 +4,7 @@
 class LifeBar : public ImageUI
 {
 	private:
-		bool inUse = true;
+		bool inUse = false;
 
 	public:
 		LifeBar(Game* game, string textName, int xPos = 0, int yPos = 0);

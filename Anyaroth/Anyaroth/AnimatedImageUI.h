@@ -20,12 +20,12 @@ class AnimatedImageUI : public FramedImageUI
 		uint _currentAnim = 0;
 
 		double _timer = 0;
-
+    
 		bool _animationFinished = false;
-		bool _active = true;
+		//bool _active = true;
 
 	public:
-		enum DialogueBg { Default, End, Start };
+		enum DialogueBg { Default, Start, End };
 		enum DialogueIndicator { Idle };
 		enum DashAnimations { Icon, Cooldown };
 

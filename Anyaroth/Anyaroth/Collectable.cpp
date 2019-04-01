@@ -3,7 +3,7 @@
 #include "SpriteComponent.h"
 #include "Game.h"
 
-Collectable::Collectable(Game* g, Texture* texture, Vector2D iniPos, int value, string tag) : GameComponent(g, tag), _value(value)
+Collectable::Collectable(Game* g, Texture* texture, Vector2D iniPos, int value, string tag) : GameObject(g, tag), _value(value)
 {
 	addComponent<Texture>(texture);
 
@@ -18,5 +18,5 @@ Collectable::Collectable(Game* g, Texture* texture, Vector2D iniPos, int value, 
 void Collectable::collect()
 {
 	_body->filterCollisions(COLLECTED_OBJECTS, COLLECTED_OBJECTS);
-	setActive(false);
+	destroy();
 }

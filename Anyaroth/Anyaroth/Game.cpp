@@ -48,7 +48,7 @@ void Game::createFonts()
 			id = j[i][0].get<string>();
 			name = j[i][1].get<string>();
 			size = j[i][2];
-
+			
 			_fonts.insert(pair <string, Font*>(id, new Font(FONTS_PATH + name, size)));
 		}
 	}
@@ -60,7 +60,7 @@ void Game::createFonts()
 
 void Game::createSounds()
 {
-	
+
 	_soundManager->addMusic("bgMusic", SOUNDS_PATH + "bgMusic.wav");
 	_soundManager->addSFX("example1", SOUNDS_PATH + "example1.wav");
 
@@ -73,14 +73,19 @@ void Game::createSounds()
 
 	//VOICES
 		//Example
-	_soundManager->addSFX("exampleVoice0", SOUNDS_PATH + "exampleVoice0.wav");
-	_soundManager->addSFX("exampleVoice1", SOUNDS_PATH + "exampleVoice1.wav");
-	_soundManager->addSFX("exampleVoice2", SOUNDS_PATH + "exampleVoice2.wav");
+	_soundManager->addSFX("exampleVoice", SOUNDS_PATH + "exampleVoice.wav");
 		//Boss
-	_soundManager->addSFX("bossVoice0", SOUNDS_PATH + "bossVoice0.wav");
-	_soundManager->addSFX("bossVoice1", SOUNDS_PATH + "bossVoice1.wav");
-	_soundManager->addSFX("bossVoice2", SOUNDS_PATH + "bossVoice2.wav");
+	_soundManager->addSFX("bossVoice", SOUNDS_PATH + "bossVoice.wav");
 }
+
+/*Texture* Game::newTexture(string id, string nameText)
+{
+	int i = _textures[nameText]->getNumFils();
+	int j = _textures[nameText]->getNumCols();
+
+	_textures.insert(pair <string, Texture*>(id,new Texture(_renderer, _textures[nameText]->getFilename(), i, j) ));
+	return _textures[id];
+}*/
 
 void Game::toggleFullscreen()
 {
@@ -163,9 +168,10 @@ void Game::run()
 	}
 }
 
-void Game::update(double time)
+void Game::update(const double& deltaTime)
 {
-	_stateMachine->currentState()->update(time);
+	_stateMachine->currentState()->update(deltaTime);
+	_stateMachine->currentState()->post_update();
 }
 
 void Game::render() const
@@ -183,7 +189,7 @@ void Game::handleEvents()
 	{
 		if (event.type == SDL_QUIT)
 			_exit = true;
-		else if (event.type == SDL_KEYDOWN) 
+		else if (event.type == SDL_KEYDOWN)
 		{
 			if (event.key.keysym.sym == SDLK_F11)
 				toggleFullscreen();
@@ -193,6 +199,6 @@ void Game::handleEvents()
 				_soundManager->playSFX("example1");
 		}
 
-		_stateMachine->currentState()->handleEvents(event);
+		_stateMachine->currentState()->handleEvent(event);
 	}
 }

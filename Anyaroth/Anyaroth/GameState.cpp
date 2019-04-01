@@ -31,34 +31,58 @@ void GameState::render() const
 		_canvas->render();
 }
 
-void GameState::update(double time)
+void GameState::update(const double& deltaTime)
 {
-	_mainCamera->update(time);
+	_mainCamera->update(deltaTime);
 
 	for (GameObject* o : _stages)
-		o->update(time);
+		o->update(deltaTime);
 
 	if (_canvas != nullptr)
-		_canvas->update(time);
+		_canvas->update(deltaTime);
 }
 
-bool GameState::handleEvents(SDL_Event& e)
+void GameState::post_update()
+{
+	int i = items_ToDelete.size() - 1;
+	while (i >= 0)
+	{
+		delete items_ToDelete[i];
+		_stages.remove(items_ToDelete[i]);
+		items_ToDelete.pop_back();
+		i--;
+	}
+}
+
+bool GameState::handleEvent(const SDL_Event& event)
 {
 	bool handled = false;
 	auto it = _stages.begin();
 
 	while (!handled && it != _stages.end())
 	{
-		if ((*it)->handleInput(e))
+		if ((*it)->handleEvent(event))
 			handled = true;
 		else
 			it++;
 	}
 
 	if (_canvas != nullptr && !handled)
-		_canvas->handleEvent(e);
+		_canvas->handleEvent(event);
 
 	return handled;
+}
+
+void GameState::addObject(GameObject* n)
+{
+	_stages.push_back(n);/*
+	auto itFR = --(_stages.end());
+	n->setItList(itFR);*/
+}
+
+void GameState::destroyObject(GameObject* obj)
+{
+	items_ToDelete.push_back(obj);
 }
 
 Vector2D GameState::getMousePositionInWorld() const

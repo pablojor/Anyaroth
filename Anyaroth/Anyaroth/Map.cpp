@@ -1,5 +1,6 @@
-#include "Map.h"
+﻿#include "Map.h"
 #include "BodyComponent.h"
+#include "Coin.h"
 #include "MeleeEnemy.h"
 #include "MartyrEnemy.h"
 #include "DistanceStaticEnemy.h"
@@ -9,13 +10,18 @@
 #include "StaticSpawnerEnemy.h"
 #include "Player.h"
 #include "GunType_def.h"
+#include "BotonLanzaMisiles.h"
 #include <json.hpp>
 
 using namespace nlohmann;
 
-Map::Map(string filename, Game* game, PlayState* playstate, Texture* tileset, int coinValue) : _game(game), _playState(playstate), _coinValue(coinValue)
+Map::Map(string filename, Game* game, Player* player, Texture* tileset, BulletPool* bulletPool, PlayStateHUD* hud, int coinValue) : GameObject(game), _player(player), _bulletPool(bulletPool), _explosivePool(explosivePool), _bouncingPool(bouncingPool), _hud(hud), _coinValue(coinValue)
 {
-	_player = _playState->getPlayer();
+	_layers = new GameObject(_game);
+	addChild(_layers);
+
+	_objects = new GameObject(_game);
+	addChild(_objects);
 
 	json j;
 	fstream file;
@@ -29,18 +35,16 @@ Map::Map(string filename, Game* game, PlayState* playstate, Texture* tileset, in
 			auto it = j[i].find("name");
 			if (it != j[i].end())
 			{
-				if (*it == "Map" || *it == "Ground")
+				if (*it == "Map" || *it == "Ground" || *it == "Platform")
 				{
-					_layers.push_back(new Layer(filename, *it, tileset, game, *it));
+					auto layer = new Layer(filename, *it, tileset, game, *it);
+					_layers->addChild(layer);
 
-					if(*it=="Ground")
-						_layers.back()->addComponent<BodyComponent>();
+					if(*it!="Map")
+						layer->addComponent<BodyComponent>();
 				}
 				else
-				{
-					_objectLayers[*it] = new ObjectLayer(filename, *it);
-					_objectLayersNames.push_back(*it);
-				}
+					_objectLayers.push_back(new ObjectLayer(filename, *it));
 			}
 		}
 		file.close();
@@ -53,28 +57,18 @@ Map::Map(string filename, Game* game, PlayState* playstate, Texture* tileset, in
 
 Map::~Map()
 {
-	for (int j = 0; j < _layers.size(); j++)
-		delete _layers[j];
-
-	_layers.clear();
-
-	for (int i = 0; i < _objectLayersNames.size(); i++)
-		delete _objectLayers[_objectLayersNames[i]];
+	for (int i = 0; i < _objectLayers.size(); i++)
+		delete _objectLayers[i];
 
 	_objectLayers.clear();
-
-	for (int k = 0; k < _objects.size(); k++)
-		delete _objects[k];
-
-	_objects.clear();
 }
 
 void Map::createObjects()
 {
-	for (int i = 0; i < _objectLayersNames.size(); i++)
+	for (int i = 0; i < _objectLayers.size(); i++)
 	{
-		string name = _objectLayersNames[i];
-		vector<Vector2D> pos = _objectLayers[name]->getObjectsPositions();
+		string name = _objectLayers[i]->getName();
+		vector<Vector2D> pos = _objectLayers[i]->getObjectsPositions();
 
 		for (int j = 0; j < pos.size(); j++)
 		{
@@ -84,35 +78,59 @@ void Map::createObjects()
 			}
 			else if (name == "Melee")
 			{
-				_objects.push_back(new MeleeEnemy(_player, _game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), "Enemy"));
+				_objects->addChild(new MeleeEnemy(_game, _player, Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2)));
 			}
 			else if (name == "Martyr")
 			{
-				_objects.push_back(new MartyrEnemy(_player, _game, _playState, _game->getTexture("EnemyMartyr"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), "Enemy"));
+				_objects->addChild(new MartyrEnemy(_game, _player, Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2)));
 			}
 			else if (name == "DistanceStatic")
 			{
-				_objects.push_back(new DistanceStaticEnemy(_player, _game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), "Enemy", _playState->getEnemyPool()));
+				_objects->addChild(new DistanceStaticEnemy(_game, _player, Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), _bulletPool));
 			}
 			else if (name == "DistanceDynamic")
 			{
-				_objects.push_back(new DistanceDynamicEnemy(_player, _game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), "Enemy", _playState->getEnemyPool()));
+				_objects->addChild(new DistanceDynamicEnemy(_game, _player, Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), _bulletPool));
 			}
 			else if (name == "Bomber")
 			{
-				_objects.push_back(new BomberEnemy(_player, _game, _playState, _game->getTexture("EnemyMartyr"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), "Enemy", _playState->getEnemyPool()));
+				_objects->addChild(new BomberEnemy(_game, _player, Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), _bulletPool));
 			}
 			else if (name == "Spawner")
 			{
-				_objects.push_back(new SpawnerEnemy(_player, _game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), "Enemy"));
+				_objects->addChild(new SpawnerEnemy(_game, _player, Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2)));
 			}
 			else if (name == "SpawnerStatic")
 			{
-				_objects.push_back(new StaticSpawnerEnemy(_player, _game, _playState, _game->getTexture("EnemyMelee"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), "Enemy"));
+				_objects->addChild(new StaticSpawnerEnemy(_game, _player, Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2)));
 			}
 			else if (name == "Coin")
 			{
-				_objects.push_back(new Coin(_game, _game->getTexture("Coin"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE), _coinValue));
+				_objects->addChild(new Coin(_game, _game->getTexture("Coin"), Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE), _coinValue));
+			}
+			else if (name == "Boss1")
+			{
+				_boss1 = (new Boss1(_game, _player, Vector2D(pos[j].getX(), pos[j].getY()), _bulletPool, _explosivePool, _bulletPool));
+				_objects->addChild(_boss1);
+				_boss1->setBossPanel(_hud->getBossPanel());
+			}
+			else if (name == "Misiles")
+			{
+				_objects->addChild(new BotonLanzaMisiles(_game, _boss1, _game->getTexture("EnemyMartyr"), Vector2D(pos[j].getX(), pos[j].getY())));
+			}
+			else if (name == "NPCs")
+			{
+				_n=new NPC(_game, { 60, 730 },{_game->getTexture("DialogueFace"),
+																"exampleVoice",
+																"Jose Mar�a",
+																{ "*Bzzt..Bip, bip..* Hey, �qu� tal?",
+																"Aj�, con que programando... ya veo...",
+																"�Pues sigue con eso, chaval! Deja de jugar tanto al Sekiro y ponte a estudiar de una maldita vez, escoria infrahumana (...) �Adew! *Bip*" },
+																{0,1,2},
+																{" ", " ", " ", " "}
+					});
+				_n->setDialoguePanel(_hud->getDialoguePanel());
+				_objects->addChild(_n);
 			}
 		}
 	}
@@ -120,50 +138,22 @@ void Map::createObjects()
 
 void Map::restartLevel()
 {
-	for (int i = 0; i < _objects.size(); i++)
-		delete _objects[i];
-
-	_objects.clear();
+	_objects->destroyAllChildren();
 	createObjects();
 }
 
-bool Map::handleInput(const SDL_Event & event)
+bool Map::handleEvent(const SDL_Event & event)
 {
-	GameComponent::handleInput(event);
-
-	for (Layer* l : _layers)
-		if (l->isActive())
-			l->handleInput(event);
-
-	for (GameComponent* o : _objects)
-		if (o->isActive())
-			o->handleInput(event);
-
+	GameObject::handleEvent(event);
 	return false;
 }
 
-void Map::update(double time)
+void Map::update(const double& deltaTime)
 {
-	GameComponent::update(time);
-
-	for (Layer* l : _layers)
-		if (l->isActive())
-			l->update(time);
-
-	for (GameComponent* o : _objects)
-		if (o->isActive())
-			o->update(time);
+	GameObject::update(deltaTime);
 }
 
 void Map::render(Camera * c) const
 {
-	GameComponent::render(c);
-
-	for (Layer* l : _layers)
-		if (l->isActive())
-			l->render(c);
-
-	for (GameComponent* o : _objects)
-		if (o->isActive())
-			o->render(c);
+	GameObject::render(c);
 }

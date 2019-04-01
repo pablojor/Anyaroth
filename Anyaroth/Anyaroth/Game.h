@@ -43,6 +43,7 @@ enum _Category
 	DEAD_ENEMIES = 128,
 	COLLECTED_OBJECTS = 256,
 	MELEE = 512,
+	MISIL=1024,
 };
 
 class Game
@@ -72,6 +73,7 @@ public:
 	inline void changeState(GameState* state) { _stateMachine->changeState(state); }
 	inline void popState() { _stateMachine->popState(); }
 
+	//Texture* newTexture(string id, string nameText);
 	inline Texture* getTexture(string nameText) { return _textures[nameText]; }
 	inline Font* getFont(string nameFont) { return _fonts[nameFont]; }
 
@@ -89,7 +91,7 @@ public:
 	Game();
 	~Game();
 	void run();
-	void update(double time);
+	void update(const double& deltaTime);
 	void render() const;
 	void handleEvents();
 };

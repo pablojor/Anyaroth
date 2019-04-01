@@ -17,8 +17,5 @@ void Life::subLife(int amount)
 	if (amount < _life)
 		_life -= amount;
 	else
-	{
 		_life = 0;
-		_dead = true;
-	}
 }

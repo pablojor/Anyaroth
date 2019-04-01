@@ -1,11 +1,13 @@
 #include "ObjectLayer.h"
 #include <json.hpp>
+#include <fstream>
+#include "AnyarothError.h"
 
 using namespace nlohmann;
 
-ObjectLayer::ObjectLayer(string filename, string name)
+ObjectLayer::ObjectLayer(std::string filename, std::string name) : _name(name)
 {
-	fstream file;
+	std::fstream file;
 	file.open(filename);
 	if (file.is_open())
 	{

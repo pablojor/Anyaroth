@@ -1,8 +1,8 @@
 #include "TransformComponent.h"
-#include "GameComponent.h"
+#include "GameObject.h"
 #include "BodyComponent.h"
 
-TransformComponent::TransformComponent(GameComponent* obj) 
+TransformComponent::TransformComponent(GameObject* obj) 
 {
 	auto body = obj->getComponent<BodyComponent>();
 
