@@ -42,12 +42,24 @@ CatalogPanel::CatalogPanel(Game* game) : PanelUI(game)
 	_buyButton->setVisible(false);
 
 	addChild(_buyButton);
+
+	//----MOSTRADOR DE DINERO----//
+
+	_playerMoney = new CoinsCounter(game, CAMERA_RESOLUTION_X - 30, 3);
+
+	addChild(_playerMoney);
 }
 
 CatalogPanel::~CatalogPanel()
 {
 	for (auto item : _items)
 		removeChild(item);
+}
+
+void CatalogPanel::setPlayer(Player* ply)
+	_player = ply;
+
+	_playerMoney->updateCoinsCounter(_player->getBank());
 }
 
 void CatalogPanel::setItems(list<ShopItem*>& list) // Crear items
@@ -117,29 +129,36 @@ void CatalogPanel::updateCatalog(int zona) // Colocar items
 
 void CatalogPanel::selectItem(Game * game, ShopItem* item)
 {
-	_infoPanel->setVisible(true);
-	_buyButton->setVisible(true);
-
 	_selectedItem = item;
+
+	_infoPanel->setVisible(true);
+
 	auto info = item->getItemInfo();
 	_infoPanel->setName(info._name);
 	_infoPanel->setCadence(info._cadence);
 	_infoPanel->setDamage(info._damage);
 	_infoPanel->setDistance(info._distance);
-	_infoPanel->setPrice(info._damage);
+	_infoPanel->setPrice(info._price);
+
+	_buyButton->setVisible(true);
+	if (info._price > _player->getBank())
+		cout << "goli" << endl;
 }
 
 void CatalogPanel::buyItem(Game * game)
 {
-	cout << "comprado" << endl;
+	if (_player->spendMoney(_selectedItem->getItemInfo()._price))
+	{
+		_infoPanel->setVisible(false);
+		_buyButton->setVisible(false);
+		_selectedItem->setVisible(false);
+		_selectedItem->setItemSell(true);
 
-	_infoPanel->setVisible(false);
-	_buyButton->setVisible(false);
-	_selectedItem->setVisible(false);
-	_selectedItem->setItemSell(true);
+		_playerMoney->updateCoinsCounter(_player->getBank());
 
-	//Maybe do something else
-	reorderCatalog();
+		//Maybe do something else
+		reorderCatalog();
+	}
 }
 
 

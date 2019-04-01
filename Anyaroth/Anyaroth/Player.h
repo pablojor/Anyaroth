@@ -92,6 +92,7 @@ public:
 	inline Gun* getOtherGun() const { return _otherGun; }
 
 	inline int getBank() const { return _money->getBank(); }
+	inline bool spendMoney(int n) { return _money->spend(n); }
 
 	void move(const Vector2D& dir, const double& speed);
 	void dash(const Vector2D& dir);

@@ -10,6 +10,8 @@ class ShopItem : public ButtonUI
 			int _zona;
 
 			string _name;
+			int _price;
+
 			int _damage;
 			int _cadence;
 			int _distance;

@@ -54,14 +54,6 @@ ShopMenu::ShopMenu(Game* game) : PanelUI(game)
 	addChild(_depotButton);
 	addChild(_exitButton);
 
-
-	//----MOSTRADOR DE DINERO----//
-
-	_playerMoney = new CoinsCounter(game, CAMERA_RESOLUTION_X - 30, 3);
-
-	addChild(_playerMoney);
-
-
 	//----DISTINTAS FUNCIONALIDADES DE LA TIENDA----//
 
 	_catalogPanel = new CatalogPanel(game);
@@ -107,7 +99,7 @@ void ShopMenu::loadWeaponInfo()
 			{
 				auto item = new ShopItem(_game, _game->getTexture(typeWeapon.value()["icon"].get<string>()));
 
-				item->setItemInfo({ typeWeapon.value()["zona"], typeWeapon.key(), typeWeapon.value()["damage"], typeWeapon.value()["cadence"], typeWeapon.value()["range"], false, false });
+				item->setItemInfo({ typeWeapon.value()["zona"], typeWeapon.key(), typeWeapon.value()["price"] ,typeWeapon.value()["damage"], typeWeapon.value()["cadence"], typeWeapon.value()["range"], false, false });
 				_items.push_back(item);
 			}
 		}
@@ -119,7 +111,6 @@ void ShopMenu::loadWeaponInfo()
 void ShopMenu::setPlayer(Player* ply) 
 { 
 	_player = ply;
-	_playerMoney->updateCoinsCounter(_player->getBank());
 
 	_catalogPanel->setPlayer(_player);
 	_depotPanel->setPlayer(_player);

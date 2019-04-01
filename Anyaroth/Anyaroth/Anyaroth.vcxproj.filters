@@ -277,12 +277,6 @@
     <ClCompile Include="BouncingBullet.cpp">
       <Filter>Archivos de código fuente\Objects\Bullets</Filter>
     </ClCompile>
-    <ClCompile Include="ShopItem.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="ShopMenu.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
     <ClCompile Include="Boss1.cpp">
       <Filter>Archivos de código fuente\Objects\Enemies\Bosses</Filter>
     </ClCompile>
@@ -313,13 +307,21 @@
     <ClCompile Include="GroundEnemy.cpp">
       <Filter>Archivos de código fuente\Objects\Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="DepotPanel.cpp">
-      <Filter>Archivos de código fuente</Filter>
+    <ClCompile Include="ShopMenu.cpp">
+      <Filter>Archivos de código fuente\HUD\Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="ShopItem.cpp">
+      <Filter>Archivos de código fuente\HUD\Shop</Filter>
     </ClCompile>
     <ClCompile Include="CatalogPanel.cpp">
-      <Filter>Archivos de código fuente</Filter>
+      <Filter>Archivos de código fuente\HUD\Shop</Filter>
     </ClCompile>
-    <ClCompile Include="ShopInfoPanel.cpp" />
+    <ClCompile Include="DepotPanel.cpp">
+      <Filter>Archivos de código fuente\HUD\Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="ShopInfoPanel.cpp">
+      <Filter>Archivos de código fuente\HUD\Shop</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -649,19 +651,21 @@
     <ClInclude Include="CustomAnimatedSpriteComponent.h">
       <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
+    <ClInclude Include="CatalogPanel.h">
+      <Filter>Archivos de encabezado\HUD\Shop</Filter>
+    </ClInclude>
     <ClInclude Include="DepotPanel.h">
-      <Filter>Archivos de encabezado</Filter>
+      <Filter>Archivos de encabezado\HUD\Shop</Filter>
     </ClInclude>
     <ClInclude Include="ShopItem.h">
-      <Filter>Archivos de encabezado</Filter>
+      <Filter>Archivos de encabezado\HUD\Shop</Filter>
     </ClInclude>
     <ClInclude Include="ShopMenu.h">
-      <Filter>Archivos de encabezado</Filter>
+      <Filter>Archivos de encabezado\HUD\Shop</Filter>
     </ClInclude>
-    <ClInclude Include="CatalogPanel.h">
-      <Filter>Archivos de encabezado</Filter>
+    <ClInclude Include="ShopInfoPanel.h">
+      <Filter>Archivos de encabezado\HUD\Shop</Filter>
     </ClInclude>
-    <ClInclude Include="ShopInfoPanel.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de código fuente">
@@ -807,6 +811,12 @@
     </Filter>
     <Filter Include="Archivos de código fuente\Objects\Player\Melee">
       <UniqueIdentifier>{91c2fb3e-33b4-42c8-b741-0a0b383c9988}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código fuente\HUD\Shop">
+      <UniqueIdentifier>{ebae936f-368d-444e-b7d4-3dd036956a60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\HUD\Shop">
+      <UniqueIdentifier>{f2b24fe9-2178-41a2-8a67-e3358ed43e3e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

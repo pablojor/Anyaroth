@@ -24,7 +24,7 @@ bool ButtonUI::mouseIsOver()
 
 void ButtonUI::handleEvent(const SDL_Event& event)
 {
-	if (_visible)
+	if (_visible && _inputEnable)
 	{
 		if (mouseIsOver())
 		{
@@ -72,7 +72,7 @@ void ButtonUI::handleEvent(const SDL_Event& event)
 
 void ButtonUI::update(const double& deltaTime)
 {
-	if (_visible)
+	if (_visible && _inputEnable)
 	{
 		if (_positionState == Out)
 		{

@@ -1,82 +1,88 @@
 {
     "Basic":
     {
-        "BasicPistol" :
-        {
-            "zona" : -1,
-            "icon" : "InfoIcon",
-            "speed" : 100,
-            "damage" : 10,
-            "range" : 1000,
-            "clip" : 12,
-            "magazine" : 60,
-            "cadence" : 270
-        },
+      "BasicPistol": 
+      {
+        "zona": -1,
+        "icon": "InfoIcon",
+        "price": 0,
+        "speed": 100,
+        "damage": 10,
+        "range": 1000,
+        "clip": 12,
+        "magazine": 60,
+        "cadence": 270
+      },
 
-        "BasicRifle" :
-        {
-            "zona" : 1,
-            "icon" : "InfoIcon",
-            "speed" : 100,
-            "damage" : 15,
-            "range" : 1000,
-            "clip" : 30,
-            "magazine" : 120,
-            "cadence" : 170
-        },
+      "BasicRifle": 
+      {
+        "zona": 1,
+        "icon": "InfoIcon",
+        "price": 150,
+        "speed": 100,
+        "damage": 15,
+        "range": 1000,
+        "clip": 30,
+        "magazine": 120,
+        "cadence": 170
+      },
 
-        "BasicShotgun" :
-        {
-            "zona" : 1,
-            "icon" : "InfoIcon",
-            "speed" : 100,
-            "damage" : 7,
-            "range" : 60,
-            "clip" : 3,
-            "magazine" : 48,
-            "cadence" : 800
-        }
+      "BasicShotgun": 
+      {
+        "zona": 1,
+        "icon": "InfoIcon",
+        "price": 150,
+        "speed": 100,
+        "damage": 7,
+        "range": 60,
+        "clip": 3,
+        "magazine": 48,
+        "cadence": 800
+      }
     },
 
     "Common":
     {
-        "ImproveRifle" :
-        {
-            "zona" : 1,
-            "icon" : "InfoIcon",
-            "speed" : 100,
-            "damage" : 20,
-            "range" : 1000,
-            "clip" : 36,
-            "magazine" : 160,
-            "cadence" : 100
-        },
+      "ImproveRifle": 
+      {
+        "zona": 1,
+        "icon": "InfoIcon",
+        "price": 300,
+        "speed": 100,
+        "damage": 20,
+        "range": 1000,
+        "clip": 36,
+        "magazine": 160,
+        "cadence": 100
+      },
 
-        "ImproveShotgun" :
-        {
-            "zona" : 1,
-            "icon" : "InfoIcon",
-            "speed" : 100,
-            "damage" : 7,
-            "range" : 60,
-            "clip" : 2,
-            "magazine" : 50,
-            "cadence" : 800
-        }
+      "ImproveShotgun": 
+      {
+        "zona": 1,
+        "icon": "InfoIcon",
+        "price": 300,
+        "speed": 100,
+        "damage": 7,
+        "range": 60,
+        "clip": 2,
+        "magazine": 50,
+        "cadence": 800
+      }
     },
 
     "Rare" :
     {
-        "BounceOrbCanon" :
-        {
-            "zona" : 2,
-            "icon" : "Dash",
-            "speed" : 30,
-            "damage" : 15,
-            "range" : 1000,
-            "clip" : 30,
-            "magazine" : 120,
-            "cadence" : 200
-        }
+      "BounceOrbCanon": 
+      {
+        "zona": 2,
+        "icon": "Dash",
+        "price": 1000,
+        "speed": 30,
+        "damage": 15,
+        "range": 1000,
+        "clip": 30,
+        "magazine": 120,
+        "cadence": 200
+      }
     }
 }

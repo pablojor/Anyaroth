@@ -23,6 +23,8 @@ class ButtonUI : public FramedImageUI
 		uint _onDownFrame = 0;
 		uint _onUpFrame = 0;
 
+		bool _inputEnable = true;
+
 		bool mouseIsOver();
 
 	public:

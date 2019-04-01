@@ -4,6 +4,7 @@
 #include "ShopItem.h"
 #include "ButtonUI.h"
 #include "ShopInfoPanel.h"
+#include "CoinsCounter.h"
 
 #include <list>
 
@@ -24,6 +25,7 @@ class CatalogPanel : public PanelUI
 
 		ShopItem* _selectedItem = nullptr;
 		ImageUI* _itemIndicator = nullptr;
+		CoinsCounter* _playerMoney = nullptr;
 
 		int itemsPerRow = 2;
 		int itemsPerCol = 4; 
@@ -37,7 +39,7 @@ class CatalogPanel : public PanelUI
 		CatalogPanel(Game* game);
 		~CatalogPanel();
 
-		void setPlayer(Player* ply) { _player = ply; }
+		void setPlayer(Player* ply);
 
 		void setItems(list<ShopItem*>& list);
 		void openCatalog();

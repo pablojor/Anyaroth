@@ -5,7 +5,6 @@
 #include "DialoguePanel.h"
 #include "ImageUI.h"
 #include "DepotPanel.h"
-#include "CoinsCounter.h"
 
 class Player;
 
@@ -24,7 +23,6 @@ class ShopMenu : public PanelUI
 		static DepotPanel* _depotPanel;
 
 		ImageUI* _imageBG = nullptr;
-		CoinsCounter* _playerMoney = nullptr;
 
 		list<ShopItem*> _items;
 
