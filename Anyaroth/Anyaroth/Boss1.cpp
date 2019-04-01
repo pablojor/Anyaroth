@@ -6,7 +6,7 @@
 
 
 
-Boss1::Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool, ExplosiveBulletPool* explosivePool, BouncingBulletPool* bouncingPool) : Boss(g, player, pos, pool), Enemy(g, player, pos, g->getTexture("EnemyMelee"))
+Boss1::Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool, ExplosiveBulletPool* explosivePool, BouncingBulletPool* bouncingPool) : Boss(g, player, pos, pool, g->getTexture("Spenta")), Enemy(g, player, pos, g->getTexture("Spenta"))
 {
 	_myExplosivePool = explosivePool;
 	_myBouncingBulletPool = bouncingPool;
@@ -17,11 +17,19 @@ Boss1::Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool, ExplosiveB
 	_attackRangeX = 120; //No se puede poner mas pequeño que la velocidad
 	_attackTime = 1300; //La animacion tarda unos 450
 
-	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 13, true);
-	_anim->addAnim(AnimatedSpriteComponent::EnemyWalk, 8, true);
-	_anim->addAnim(AnimatedSpriteComponent::EnemyAttack, 11, false);
-	_anim->addAnim(AnimatedSpriteComponent::EnemyDie, 18, false);
-	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
+	_anim->addAnim(AnimatedSpriteComponent::SpentaIdle, 20, true);
+	_anim->addAnim(AnimatedSpriteComponent::SpentaSwordLeft, 21, false);
+	_anim->addAnim(AnimatedSpriteComponent::SpentaSwordRight, 21, false);
+	_anim->addAnim(AnimatedSpriteComponent::SpentaStartShield, 17, false);
+	_anim->addAnim(AnimatedSpriteComponent::SpentaLoopShield, 10, true);
+	_anim->addAnim(AnimatedSpriteComponent::SpentaEndShield, 10, false);
+	_anim->addAnim(AnimatedSpriteComponent::SpentaDie, 4, true);
+	_anim->addAnim(AnimatedSpriteComponent::SpentaStartBomb, 10, false);
+	_anim->addAnim(AnimatedSpriteComponent::SpentaLoopBomb, 10, true);
+	_anim->addAnim(AnimatedSpriteComponent::SpentaEndBomb, 10, false);
+	_anim->addAnim(AnimatedSpriteComponent::SpentaWing, 22, false);
+
+	_anim->playAnim(AnimatedSpriteComponent::SpentaIdle);
 
 	_body->filterCollisions(ENEMIES, FLOOR | PLAYER_BULLETS | MELEE | MISIL);
 	_body->getBody()->SetGravityScale(0);
@@ -50,7 +58,7 @@ void Boss1::movement(const double& deltaTime)
 {
 	if (_actualState == Moving)
 	{
-		if (((_bodyPos.getX() > _originalPos.getX() + _amplitude.getX()) && _dir.getX() == 1) || ((_bodyPos.getX() < _originalPos.getX() - _amplitude.getX()) && _dir.getX() == -1))
+		if (((_bodyPos.getX() + _body->getW() / 2 > _originalPos.getX() + _amplitude.getX()) && _dir.getX() == 1) || ((_bodyPos.getX() + _body->getW() / 2 < _originalPos.getX() - _amplitude.getX()) && _dir.getX() == -1))
 			_dir = Vector2D(-_dir.getX(), _dir.getY());
 
 		_playerPos = Vector2D(_playerBody->getBody()->GetPosition().x * M_TO_PIXEL, _playerBody->getBody()->GetPosition().y * M_TO_PIXEL);
@@ -93,7 +101,11 @@ void Boss1::meleeAttack()
 	_bodyPos = Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL);
 	int dir = (_bodyPos.getX() >= _playerPos.getX()) ? -1 : 1;
 	_melee->meleeAttack(_bodyPos.getX(), _bodyPos.getY(), dir);
-	_anim->playAnim(AnimatedSpriteComponent::EnemyAttack);
+	if (dir == -1)
+		_anim->playAnim(AnimatedSpriteComponent::SpentaSwordLeft);
+	else
+		_anim->playAnim(AnimatedSpriteComponent::SpentaSwordRight);
+
 	_armVision = false;
 }
 
@@ -103,7 +115,7 @@ void Boss1::checkMelee()
 	{
 		_melee->endMelee();
 		//Provisional
-		_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
+		_anim->playAnim(AnimatedSpriteComponent::SpentaIdle);
 		_actualState = Moving;
 		_armVision = true;;
 
@@ -160,15 +172,15 @@ void Boss1::orbAttack()
 		{
 			_actualNumOrbs = 0;
 			_actualState = Moving;
-			_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
+			_anim->playAnim(AnimatedSpriteComponent::SpentaIdle);
 
 			_doSomething = random(1000, 2500);
 		}
 		else
 		{
 			//Provisional
-			_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
-			_anim->playAnim(AnimatedSpriteComponent::EnemyDie);//Sera animacion de orbAttack
+			_anim->playAnim(AnimatedSpriteComponent::SpentaIdle);
+			_anim->playAnim(AnimatedSpriteComponent::SpentaStartShield);//Sera animacion de orbAttack
 		}
 
 	}
@@ -197,6 +209,18 @@ void Boss1::beginCollision(GameObject * other, b2Contact * contact)
 
 }
 
+void Boss1::manageLife(Life& l, int damage)
+{
+	l.subLife(damage);
+	if (l.getLife() == 0)
+	{
+		_doSomething = 0;
+		_lastFase = _actualFase;
+		_actualFase = BetweenFase;
+		_anim->playAnim(AnimatedSpriteComponent::SpentaStartShield);
+	}
+}
+
 void Boss1::fase1(const double& deltaTime)
 {
 	if (_actualState != Shooting)
@@ -207,7 +231,7 @@ void Boss1::fase1(const double& deltaTime)
 			{
 				int ra = random(0, 100);
 
-				if (ra >= 65)
+				if (ra >= 0)
 				{
 					_actualState = Meleeing;
 					_noAction = 0;
@@ -279,7 +303,7 @@ void Boss1::fase3(const double& deltaTime)
 						int ra = random(0, 100);
 						if (ra >= 70)
 						{
-							_anim->playAnim(AnimatedSpriteComponent::EnemyDie);//Sera animacion de orbAttackd
+							_anim->playAnim(AnimatedSpriteComponent::SpentaStartShield);//Sera animacion de orbAttackd
 							_actualState = OrbAttacking;
 						}
 						else
@@ -303,6 +327,11 @@ void Boss1::beetwenFases(const double& deltaTime)
 {
 	bomberAttack(deltaTime, 200, 600);
 	_actualState = Bombing;
+
+	if (_anim->animationFinished())
+	{
+	} 
+	
 }
 
 void Boss1::changeFase(int nextFase)

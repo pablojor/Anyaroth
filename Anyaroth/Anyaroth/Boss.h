@@ -30,7 +30,7 @@ protected:
 	int _doSomething = 1000, _noAction = 0;
 
 public:
-	Boss(Game* g, Player* player, Vector2D pos, BulletPool* pool);
+	Boss(Game* g, Player* player, Vector2D pos, BulletPool* pool, Texture* text);
 	virtual ~Boss();
 
 	bool inline const isbeetweenFases() { return _actualFase==BetweenFase; }

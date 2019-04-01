@@ -30,7 +30,6 @@ class Boss1 : public Boss
 		BouncingBulletPool* _myBouncingBulletPool = nullptr;
 		int _numOrbs = 3, _actualNumOrbs = 0;
 
-	private:
 		void shoot();
 
 	public:
@@ -42,13 +41,15 @@ class Boss1 : public Boss
 		void movement(const double& deltaTime);
 		void bomberAttack(const double& deltaTime,int t1, int t2);
 		void meleeAttack();
-		bool inline const isMeleeing() { return ((_anim->getCurrentAnim() == AnimatedSpriteComponent::EnemyAttack) && !_anim->animationFinished()); }
+		bool inline const isMeleeing() { return ((_anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaSwordLeft) || _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaSwordRight)  
+			&& !_anim->animationFinished(); }
 		void checkMelee();
 		void armShoot(const double& deltaTime);
 
 		void orbAttack();
 
 		virtual void beginCollision(GameObject* other, b2Contact* contact);
+		virtual void manageLife(Life& l, int damage);
 
 		void fase1(const double& deltaTime);
 		void fase2(const double& deltaTime);

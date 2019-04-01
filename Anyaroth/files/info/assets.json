@@ -40,7 +40,8 @@
 		["NameBg", "nameBg.png", 3, 7],
 		["DialogueFace", "faces.png", 1, 3],
 		["InteractIndicator", "interactIndicator.png", 1, 5],
-		["Bomb", "bomb_spritesheet.png", 2, 8]
+		["Bomb", "bomb_spritesheet.png", 2, 8],
+		["Spenta", "spenta_spritesheet.png", 11, 26]
     ],
     "fonts" : [
         ["ARIAL12", "arial.ttf", 12]

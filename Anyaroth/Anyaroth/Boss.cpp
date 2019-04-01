@@ -1,6 +1,6 @@
 #include "Boss.h"
 
-Boss::Boss(Game * g, Player * player, Vector2D pos, BulletPool* pool) : DistanceEnemy(g, player, pos, g->getTexture("EnemyMelee"), pool), Enemy(g, player, pos, g->getTexture("EnemyMelee"))
+Boss::Boss(Game * g, Player * player, Vector2D pos, BulletPool* pool, Texture* text) : DistanceEnemy(g, player, pos, text, pool), Enemy(g, player, pos, text)
 {
 	_life = 200;
 	_life1 = _life2 = _life3 = _life;
