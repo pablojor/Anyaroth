@@ -271,7 +271,6 @@
     <ClCompile Include="ExplosiveBulletEffect.cpp">
       <Filter>Archivos de código fuente\Objects\Bullets\Effects</Filter>
     </ClCompile>
-    <ClCompile Include="BomberGun.cpp" />
     <ClCompile Include="Boss1.cpp">
       <Filter>Archivos de código fuente\Objects\Enemies\Bosses</Filter>
     </ClCompile>
@@ -308,7 +307,13 @@
     <ClCompile Include="PiercingBulletEffect.cpp">
       <Filter>Archivos de código fuente\Objects\Bullets\Effects</Filter>
     </ClCompile>
-    <ClCompile Include="BossOrbCannon.cpp" />
+    <ClCompile Include="BossOrbCannon.cpp">
+      <Filter>Archivos de código fuente\Guns</Filter>
+    </ClCompile>
+    <ClCompile Include="BomberGun.cpp">
+      <Filter>Archivos de código fuente\Guns</Filter>
+    </ClCompile>
+    <ClCompile Include="GravityBombDebuff.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -611,7 +616,6 @@
     <ClInclude Include="ExplosiveBulletEffect.h">
       <Filter>Archivos de encabezado\Objects\Bullets\Effects</Filter>
     </ClInclude>
-    <ClInclude Include="BomberGun.h" />
     <ClInclude Include="Interactable.h">
       <Filter>Archivos de encabezado\Objects\Interactables</Filter>
     </ClInclude>
@@ -639,7 +643,13 @@
     <ClInclude Include="PiercingBulletEffect.h">
       <Filter>Archivos de encabezado\Objects\Bullets\Effects</Filter>
     </ClInclude>
-    <ClInclude Include="BossOrbCannon.h" />
+    <ClInclude Include="BossOrbCannon.h">
+      <Filter>Archivos de encabezado\Guns</Filter>
+    </ClInclude>
+    <ClInclude Include="BomberGun.h">
+      <Filter>Archivos de encabezado\Guns</Filter>
+    </ClInclude>
+    <ClInclude Include="GravityBombDebuff.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de código fuente">

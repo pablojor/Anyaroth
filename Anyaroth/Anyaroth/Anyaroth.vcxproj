@@ -163,6 +163,7 @@
     <ClCompile Include="DistanceEnemy.cpp" />
     <ClCompile Include="EnemyArm.cpp" />
     <ClCompile Include="GravityBombCannon.cpp" />
+    <ClCompile Include="GravityBombDebuff.cpp" />
     <ClCompile Include="GravityBulletEffect.cpp" />
     <ClCompile Include="Interactable.cpp" />
     <ClCompile Include="NPC.cpp" />
@@ -269,6 +270,7 @@
     <ClInclude Include="DistanceEnemy.h" />
     <ClInclude Include="EnemyArm.h" />
     <ClInclude Include="GravityBombCannon.h" />
+    <ClInclude Include="GravityBombDebuff.h" />
     <ClInclude Include="GravityBulletEffect.h" />
     <ClInclude Include="GunType_def.h" />
     <ClInclude Include="Interactable.h" />
