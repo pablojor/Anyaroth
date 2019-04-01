@@ -341,6 +341,7 @@ void Player::refreshCooldowns(const double& deltaTime)
 	dashTimer(deltaTime);
 	refreshDashCoolDown(deltaTime);
 	refreshGunCadence(deltaTime);
+	refreshStunTime(deltaTime);
 
 	if (!isGrounded() && _timeToJump > 0)
 		_timeToJump -= deltaTime;
