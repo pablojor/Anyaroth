@@ -99,7 +99,15 @@ void ShopMenu::loadWeaponInfo()
 			{
 				auto item = new ShopItem(_game, _game->getTexture(typeWeapon.value()["icon"].get<string>()));
 
-				item->setItemInfo({ typeWeapon.value()["zona"], typeWeapon.key(), typeWeapon.value()["price"] ,typeWeapon.value()["damage"], typeWeapon.value()["cadence"], typeWeapon.value()["range"], false, false });
+				bool sell = false;
+				bool equiped = false;
+
+				if (typeWeapon.value()["zona"] = -1)
+				{
+					sell = true;
+				}
+
+				item->setItemInfo({ typeWeapon.value()["zona"], typeWeapon.key(), typeWeapon.value()["price"] ,typeWeapon.value()["damage"], typeWeapon.value()["cadence"], typeWeapon.value()["range"], sell, equiped });
 				_items.push_back(item);
 			}
 		}
