@@ -235,9 +235,6 @@
     <ClCompile Include="WeaponryViewer.cpp">
       <Filter>Archivos de código fuente\HUD\UIElements</Filter>
     </ClCompile>
-    <ClCompile Include="Bullet.cpp">
-      <Filter>Archivos de código\Objects\Bullets</Filter>
-    </ClCompile>
     <ClCompile Include="BasicRifle.cpp">
       <Filter>Archivos de código fuente\Guns</Filter>
     </ClCompile>
@@ -261,12 +258,6 @@
     </ClCompile>
     <ClCompile Include="GravityBombCannon.cpp">
       <Filter>Archivos de código fuente\Guns</Filter>
-    </ClCompile>
-    <ClCompile Include="BouncingBulletEffect.cpp">
-      <Filter>Archivos de código fuente\Objects\Bullets</Filter>
-    </ClCompile>
-    <ClCompile Include="PiercingBulletEffect.cpp">
-      <Filter>Archivos de código fuente\Objects\Bullets</Filter>
     </ClCompile>
     <ClCompile Include="BulletEffect.cpp">
       <Filter>Archivos de código fuente\Objects\Bullets\Effects</Filter>
@@ -308,6 +299,16 @@
     <ClCompile Include="GroundEnemy.cpp">
       <Filter>Archivos de código fuente\Objects\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Archivos de código fuente\Objects\Bullets</Filter>
+    </ClCompile>
+    <ClCompile Include="BouncingBulletEffect.cpp">
+      <Filter>Archivos de código fuente\Objects\Bullets\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="PiercingBulletEffect.cpp">
+      <Filter>Archivos de código fuente\Objects\Bullets\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="BossOrbCannon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -589,9 +590,6 @@
     <ClInclude Include="GunType_def.h">
       <Filter>Archivos de encabezado\Guns</Filter>
     </ClInclude>
-    <ClInclude Include="PiercingBulletEffect.h">
-      <Filter>Archivos de encabezado\Objects\Bullets</Filter>
-    </ClInclude>
     <ClInclude Include="BulletEffect.h">
       <Filter>Archivos de encabezado\Objects\Bullets\Effects</Filter>
     </ClInclude>
@@ -638,6 +636,10 @@
     <ClInclude Include="CustomAnimatedSpriteComponent.h">
       <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
+    <ClInclude Include="PiercingBulletEffect.h">
+      <Filter>Archivos de encabezado\Objects\Bullets\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="BossOrbCannon.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de código fuente">
@@ -771,6 +773,7 @@
     </Filter>
     <Filter Include="Archivos de código fuente\Objects\Bullets\Effects">
       <UniqueIdentifier>{b37572f8-ba64-42de-8268-252b98c74512}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Archivos de encabezado\Objects\Interactables">
       <UniqueIdentifier>{7c8a5f1c-0a77-493f-9fb9-1658c45d27cf}</UniqueIdentifier>
     </Filter>

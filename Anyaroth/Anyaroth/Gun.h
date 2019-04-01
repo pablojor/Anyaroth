@@ -48,5 +48,7 @@ public:
 	inline Texture* getBulletTexture() const { return _bulletTexture; }
 	inline Texture* getArmTexture() const { return _armTexture; }
 
+	//setters
 	void setEffect(EffectInterface* effect) { _effect = effect; }
+	inline void setMaxCadence(double value) { _maxCadence = value; _cadence = 0; }
 };

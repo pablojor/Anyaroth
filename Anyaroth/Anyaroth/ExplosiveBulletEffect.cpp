@@ -22,7 +22,7 @@ void ExplosiveBulletEffect::init(Bullet* bullet)
 	bullet->setActive(false);
 }
 
-void ExplosiveBulletEffect::beginCollision(Bullet* bullet, GameComponent * other, b2Contact * contact)
+void ExplosiveBulletEffect::beginCollision(Bullet* bullet, GameObject * other, b2Contact * contact)
 {
 	if (bullet->getTag() == "Bullet" && (other->getTag() == "Ground" || other->getTag() == "Enemy"))
 		bullet->setCollided(true);
@@ -43,7 +43,7 @@ void ExplosiveBulletEffect::update(Bullet* bullet, double time)
 		{
 			if (dist < bullet->getRange() && !bullet->hasCollided())
 			{
-				bullet->GameComponent::update(time);
+				bullet->GameObject::update(time);
 				bullet->setAliveTime(bullet->getAliveTime() + 1);
 			}
 			else

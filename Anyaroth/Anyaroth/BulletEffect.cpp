@@ -13,7 +13,7 @@ BulletEffect::~BulletEffect()
 
 
 
-void BulletEffect::beginCollision(Bullet* bullet, GameComponent * other, b2Contact* contact)
+void BulletEffect::beginCollision(Bullet* bullet, GameObject * other, b2Contact* contact)
 {
 	if (bullet->getTag() == "Bullet" && (other->getTag() == "Ground" || other->getTag() == "Enemy"))
 		bullet->setCollided(true);
@@ -32,7 +32,7 @@ void BulletEffect::update(Bullet* bullet, double time)
 
 		if (dist < bullet->getRange() && !bullet->hasCollided())
 		{
-			bullet->GameComponent::update(time);
+			bullet->GameObject::update(time);
 
 			bullet->getBulletBody()->getBody()->SetLinearVelocity(b2Vec2(bullet->getSpeed() * cos(bullet->getTransform()->getRotation() * M_PI / 180.0), bullet->getSpeed() * sin(bullet->getTransform()->getRotation() * M_PI / 180.0)));
 			bullet->setAliveTime(bullet->getAliveTime() + 1);

@@ -18,7 +18,7 @@ void BouncingBulletEffect::init(Bullet* bullet)
 	bullet->getBulletBody()->getBody()->SetLinearDamping(0.0f);
 }
 
-void BouncingBulletEffect::beginCollision(Bullet* bullet, GameComponent * other, b2Contact* contact)
+void BouncingBulletEffect::beginCollision(Bullet* bullet, GameObject * other, b2Contact* contact)
 {
 	if (!bullet->isColliding())
 	{
@@ -33,7 +33,7 @@ void BouncingBulletEffect::beginCollision(Bullet* bullet, GameComponent * other,
 	
 }
 
-void BouncingBulletEffect::endCollision(Bullet* bullet, GameComponent * other, b2Contact* contact)
+void BouncingBulletEffect::endCollision(Bullet* bullet, GameObject * other, b2Contact* contact)
 {
 	bullet->setIsColliding(false);
 }
@@ -46,7 +46,7 @@ void BouncingBulletEffect::update(Bullet* bullet, double time)
 
 		if (dist < bullet->getRange() && !bullet->hasCollided() && bullet->getNumBounces() < _maxBounces)
 		{
-			bullet->GameComponent::update(time);
+			bullet->GameObject::update(time);
 
 			bullet->setAliveTime(bullet->getAliveTime() + 1);
 		}

@@ -1,5 +1,5 @@
 #pragma once
-#include "GameComponent.h"
+#include "GameObject.h"
 
 class Bullet;
 
@@ -14,10 +14,10 @@ public:
 	EffectInterface();
 	virtual ~EffectInterface();
 
-	virtual void beginCollision(Bullet* bullet, GameComponent* other, b2Contact* contact) = 0;
+	virtual void beginCollision(Bullet* bullet, GameObject* other, b2Contact* contact) = 0;
 	virtual void update(Bullet* bullet, double time) = 0;
 	virtual void reset(Bullet* bullet) = 0;
-	virtual void endCollision(Bullet* bullet, GameComponent* other, b2Contact* contact) {}
+	virtual void endCollision(Bullet* bullet, GameObject* other, b2Contact* contact) {}
 	virtual void init(Bullet* bullet) {}
 };
 

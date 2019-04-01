@@ -20,7 +20,7 @@ void GravityBulletEffect::init(Bullet* bullet)
 	bullet->getBulletBody()->getBody()->SetLinearDamping(0.0f);
 }
 
-void GravityBulletEffect::beginCollision(Bullet* bullet, GameComponent * other, b2Contact* contact)
+void GravityBulletEffect::beginCollision(Bullet* bullet, GameObject * other, b2Contact* contact)
 {
 	if (bullet->getTag() == "Bullet" && (other->getTag() == "Ground" || other->getTag() == "Enemy"))
 		bullet->setCollided(true);
@@ -40,7 +40,7 @@ void GravityBulletEffect::update(Bullet* bullet, double time)
 
 			if (dist < bullet->getRange() && !bullet->hasCollided())
 			{
-				bullet->GameComponent::update(time);
+				bullet->GameObject::update(time);
 
 				bullet->setAliveTime(bullet->getAliveTime() + 1);
 			}

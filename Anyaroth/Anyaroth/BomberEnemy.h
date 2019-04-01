@@ -1,8 +1,8 @@
 #pragma once
 #include "Enemy.h"
-#include "GameComponent.h"
+#include "GameObject.h"
 #include "AnimatedSpriteComponent.h"
-#include "HurtRenderComponent.h"
+//#include "HurtRenderComponent.h"
 #include "Player.h"
 #include "BomberGun.h"
 
@@ -17,11 +17,11 @@ private:
 	BomberGun* _gun = nullptr;
 	//ExplosiveBulletEffect _effect = ExplosiveBulletEffect(100);
 	Texture* _bulletTexture = nullptr;
-	ExplosiveBulletPool* _bulletPool = nullptr;
+	//ExplosiveBulletPool* _bulletPool = nullptr;
 
 public:
 	BomberEnemy(Game* g, Player* player, Vector2D pos, BulletPool* pool);
-	virtual ~BomberEnemy() {}
+	virtual ~BomberEnemy();
 
 	void move();
 	void shoot(const double& deltaTime);

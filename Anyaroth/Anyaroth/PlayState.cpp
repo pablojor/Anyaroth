@@ -31,7 +31,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	//Levels
 	_currentZone = _currentLevel = 1;
 	_levelManager = LevelManager(g, _player, &_stages, _hud);
-	_levelManager.setLevel(_currentZone, 1);
+	_levelManager.setLevel(_currentZone, 2);
 
 	//Background
 	_parallaxZone1 = new ParallaxBackGround(_mainCamera);
@@ -97,7 +97,7 @@ void PlayState::update(const double& deltaTime)
 	if (_player->isDead())
 	{
 		_playerBulletPool->stopBullets();
-		_enemyBulletPool->stopBullets();
+		//_enemyBulletPool->stopBullets();
 		_player->revive();
 		_levelManager.resetLevel();
 	}

@@ -136,6 +136,7 @@
     <ClCompile Include="AmmoViewer.cpp" />
     <ClCompile Include="AnimatedImageUI.cpp" />
     <ClCompile Include="BomberGun.cpp" />
+    <ClCompile Include="BossOrbCannon.cpp" />
     <ClCompile Include="BulletEffect.cpp" />
     <ClCompile Include="EffectInterface.cpp" />
     <ClCompile Include="Boss.cpp" />
@@ -241,6 +242,7 @@
     <ClInclude Include="AmmoViewer.h" />
     <ClInclude Include="AnimatedImageUI.h" />
     <ClInclude Include="BomberGun.h" />
+    <ClInclude Include="BossOrbCannon.h" />
     <ClInclude Include="BulletEffect.h" />
     <ClInclude Include="EffectInterface.h" />
     <ClInclude Include="Boss.h" />

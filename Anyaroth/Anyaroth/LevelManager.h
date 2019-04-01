@@ -11,8 +11,8 @@ private:
 	Map* _currentMap = nullptr;
 
 	BulletPool* _enemyBulletPool = nullptr;
-	ExplosiveBulletPool* _enemyExplosivePool = nullptr;
-	BouncingBulletPool* _enemyBouncingPool = nullptr;
+	/*ExplosiveBulletPool* _enemyExplosivePool = nullptr;
+	BouncingBulletPool* _enemyBouncingPool = nullptr;*/
 
 	Texture* _tilesetZone1 = nullptr;
 
@@ -25,7 +25,7 @@ public:
 
 	void setLevel(int zone, int level);
 	void changeLevel(int zone, int level);
-	inline void resetLevel() { _currentMap->restartLevel(); }
+	inline void resetLevel() { _currentMap->restartLevel(); _enemyBulletPool->stopBullets(); }
 
 	inline Map* getCurrentMap() const { return _currentMap; }
 };

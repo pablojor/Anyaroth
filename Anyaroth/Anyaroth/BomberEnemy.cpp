@@ -1,7 +1,7 @@
 #include "BomberEnemy.h"
 #include "BulletEffect.h"
 
-BomberEnemy::BomberEnemy(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Enemy(g, player, pos, g->getTexture("EnemyMartyr")), _bulletPool(pool)
+BomberEnemy::BomberEnemy(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Enemy(g, player, pos, g->getTexture("EnemyMartyr")), _myBulletPool(pool)
 {
 	_bulletTexture = g->getTexture("PistolBullet");
 	_damage = 10;
@@ -30,11 +30,6 @@ BomberEnemy::~BomberEnemy()
 	_gun = nullptr;
 }
 
-void BomberEnemy::update(double time)
-{
-	_body->getBody()->SetLinearVelocity({ _speed*(float32)_dir.getX(), _body->getBody()->GetLinearVelocity().y });
-}
-
 void BomberEnemy::shoot(const double& deltaTime)
 {
 	if (_time >= _shootTime)
@@ -45,6 +40,12 @@ void BomberEnemy::shoot(const double& deltaTime)
 	else
 		_time += deltaTime;
 }
+
+void BomberEnemy::move()
+{
+	_body->getBody()->SetLinearVelocity({ _speed*(float32)_dir.getX(), _body->getBody()->GetLinearVelocity().y });
+}
+
 void BomberEnemy::update(const double& deltaTime)
 {
 	Enemy::update(deltaTime);
@@ -79,7 +80,7 @@ void BomberEnemy::throwBomb(const Vector2D& position)
 	Vector2D helpPos = position;
 	Vector2D bulletPos = helpPos.rotateAroundPoint(angle, position);*/
 	//b->init();
-	_gun->enemyShoot(_myBulletPool, position, angle, tag);
+	_gun->enemyShoot(_myBulletPool, position, _angle, "EnemyBullet");
 
 	/*if (b != nullptr)
 	{

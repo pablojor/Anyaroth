@@ -15,7 +15,7 @@
 
 using namespace nlohmann;
 
-Map::Map(string filename, Game* game, Player* player, Texture* tileset, BulletPool* bulletPool, PlayStateHUD* hud, int coinValue) : GameObject(game), _player(player), _bulletPool(bulletPool), _explosivePool(explosivePool), _bouncingPool(bouncingPool), _hud(hud), _coinValue(coinValue)
+Map::Map(string filename, Game* game, Player* player, Texture* tileset, BulletPool* bulletPool, PlayStateHUD* hud, int coinValue) : GameObject(game), _player(player), _bulletPool(bulletPool),  _hud(hud), _coinValue(coinValue)
 {
 	_layers = new GameObject(_game);
 	addChild(_layers);
@@ -110,7 +110,7 @@ void Map::createObjects()
 			}
 			else if (name == "Boss1")
 			{
-				_boss1 = (new Boss1(_game, _player, Vector2D(pos[j].getX(), pos[j].getY()), _bulletPool, _explosivePool, _bulletPool));
+				_boss1 = (new Boss1(_game, _player, Vector2D(pos[j].getX(), pos[j].getY()), _bulletPool));
 				_objects->addChild(_boss1);
 				_boss1->setBossPanel(_hud->getBossPanel());
 			}
