@@ -8,7 +8,7 @@ LaserHandler::LaserHandler(Game* g, Texture* container, Texture* laser, Player* 
 
 	for (int i = 0; i < numLasers; i++)
 	{
-		LaserContainer* temp = new LaserContainer(g, Vector2D(pos1 + i * spaceBetween, 200), container, laser, player);
+		LaserContainer* temp = new LaserContainer(g, Vector2D(pos1 + i * spaceBetween, 320), container, laser, player);
 
 		_lasers.push_back(temp);
 		addChild(temp);
