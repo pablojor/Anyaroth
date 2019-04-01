@@ -36,9 +36,10 @@ private:
 	PlayerArm* _playerArm = nullptr;
 
 	//Variable auxiliares
-	double _dashCD = 3000;
+	double _dashCD = 3000,
+		_stunTime = 1000;
 
-	int _maxDash = 1, 
+	double _maxDash = 1, 
 		_numDash = _maxDash,
 		_dashDur = 250;
 
@@ -47,7 +48,8 @@ private:
 		_isShooting = false,
 		_isMeleeing = false,
 		_onDash = false,
-		_dashDown = false;
+		_dashDown = false,
+		_stunned = false;
 
 	int _floorCount = 0;
 
@@ -66,6 +68,7 @@ private:
 	void refreshDashCoolDown(const double& deltaTime);
 	void dashTimer(const double& deltaTime);
 	void refreshGunCadence(const double& deltaTime);
+	void refreshStunTime(const double& deltaTime);
 	inline void setGrounded(bool grounded) { grounded ? _timeToJump = 100.f : _floorCount = grounded; }
 
 	bool canReload();
@@ -96,6 +99,7 @@ public:
 	void dashOff();
 	void jump();
 	void cancelJump();
+	void stunPlayer();
 
 	void melee();
 	void shoot();

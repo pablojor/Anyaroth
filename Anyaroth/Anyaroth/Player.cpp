@@ -224,12 +224,12 @@ void Player::update(const double& deltaTime)
 	const Uint8* keyboard = SDL_GetKeyboardState(NULL);
 	GameObject::update(deltaTime);
 
-	if (isDashing() || isMeleeing() || isReloading())
-		_playerArm->setActive(false);
-	else
-		_playerArm->setActive(true);
+	//if (isDashing() || isMeleeing() || isReloading()||_stunned)
+	//	_playerArm->setActive(false);
+	//else
+	//	_playerArm->setActive(true);
 
-	if (isDashing() || isMeleeing() || isReloading())
+	if (isDashing() || isMeleeing() || isReloading() || _stunned)
 		_playerArm->setActive(false);
 	else if (!_playerArm->isActive())
 		_playerArm->setActive(true);
@@ -255,39 +255,39 @@ void Player::checkMovement(const Uint8* keyboard)
 {
 	double _speed = 15;
 
-	if (keyboard[SDL_SCANCODE_A] && keyboard[SDL_SCANCODE_D] && !isMeleeing() && !isDashing())
+	if (keyboard[SDL_SCANCODE_A] && keyboard[SDL_SCANCODE_D] && !isMeleeing() && !isDashing() && !_stunned)
 		move(Vector2D(0, 0), _speed);
-	else if (keyboard[SDL_SCANCODE_A] && !isMeleeing() && !isDashing())
+	else if (keyboard[SDL_SCANCODE_A] && !isMeleeing() && !isDashing() && !_stunned)
 	{
 		if (dashIsAble())
 			dash(Vector2D(-1, 0));
 		else
 			move(Vector2D(-1, 0), _speed);
 	}
-	else if (keyboard[SDL_SCANCODE_D] && !isMeleeing() && !isDashing())
+	else if (keyboard[SDL_SCANCODE_D] && !isMeleeing() && !isDashing() && !_stunned)
 	{
 		if (dashIsAble())
 			dash(Vector2D(1, 0));
 		else
 			move(Vector2D(1, 0), _speed);
 	}
-	else if (keyboard[SDL_SCANCODE_S] && dashIsAble() && !isGrounded() && !isMeleeing()/*&& !isReloading()*/)
+	else if (keyboard[SDL_SCANCODE_S] && dashIsAble() && !isGrounded() && !isMeleeing() && !_stunned/*&& !isReloading()*/)
 		dash(Vector2D(0, 1));
 	else
 		move(Vector2D(0, 0), _speed);
 
-	if (keyboard[SDL_SCANCODE_SPACE] && !isMeleeing() && !isJumping()/*&& !isReloading()*/)
+	if (keyboard[SDL_SCANCODE_SPACE] && !isMeleeing() && !isJumping() && !_stunned/*&& !isReloading()*/)
 		if ((isGrounded() && !isFalling()) || (!isGrounded() && isFalling() && _timeToJump > 0))
 			jump();
 
 	//Recarga
-	if (canReload() && !isMeleeing())
+	if (canReload() && !isMeleeing() && !_stunned)
 		reload();
 	//Disparo
-	if (_isShooting && !isMeleeing())
+	if (_isShooting && !isMeleeing() && !_stunned)
 		shoot();
 	//Melee
-	if (_isMeleeing && !isMeleeing() && isGrounded())
+	if (_isMeleeing && !isMeleeing() && isGrounded() && !_stunned)
 		melee();
 }
 
@@ -298,7 +298,7 @@ void Player::handleAnimations()
 	auto vel = _body->getBody()->GetLinearVelocity();
 
 	//Idle&Walking
-	if (isGrounded() && !isDashing() && !isMeleeing())
+	if (isGrounded() && !isDashing() && !isMeleeing() && !_stunned)
 	{
 		//Idle
 		if (vel.x == 0 && vel.y == 0 && isGrounded())
@@ -312,7 +312,7 @@ void Player::handleAnimations()
 				_anim->playAnim(AnimatedSpriteComponent::WalkBack);
 		}
 	}
-	else if (!isGrounded() && !isDashing() && !isMeleeing()) //Jumping&Falling (Si no esta en el suelo esta Saltando/Cayendo)
+	else if (!isGrounded() && !isDashing() && !isMeleeing() && !_stunned) //Jumping&Falling (Si no esta en el suelo esta Saltando/Cayendo)
 	{
 		if (vel.y > 2)
 			_anim->playAnim(AnimatedSpriteComponent::Falling);
@@ -324,7 +324,7 @@ void Player::handleAnimations()
 		setGrounded(false);
 	}
 
-	if ((isGrounded() || _body->getBody()->GetLinearVelocity().y == 0) && isDashing() && _dashDown)
+	if ((isGrounded() || _body->getBody()->GetLinearVelocity().y == 0) && isDashing() && _dashDown )
 	{
 		_anim->playAnim(AnimatedSpriteComponent::Idle);
 		_onDash = false;
@@ -377,6 +377,19 @@ void Player::refreshGunCadence(const double& deltaTime)
 {
 	_currentGun->refreshGunCadence(deltaTime);
 	_otherGun->refreshGunCadence(deltaTime);
+}
+
+void Player::refreshStunTime(const double & deltaTime)
+{
+	if (_stunned)
+	{
+		_stunTime -= deltaTime;
+		if (_stunTime <= 0)
+		{
+			_stunTime = 1000;
+			_stunned = false;
+		}
+	}
 }
 
 void Player::move(const Vector2D& dir, const double& speed)
@@ -477,6 +490,15 @@ void Player::cancelJump()
 {
 	float penalization = 0.3f;
 	_body->getBody()->SetLinearVelocity(b2Vec2(_body->getBody()->GetLinearVelocity().x, _body->getBody()->GetLinearVelocity().y * (1 - penalization)));
+}
+
+void Player::stunPlayer()
+{
+	if (isGrounded())
+	{
+		_stunned = true;
+		_anim->playAnim(AnimatedSpriteComponent::Hurt);
+	}
 }
 
 void Player::melee()

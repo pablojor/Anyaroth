@@ -5,10 +5,11 @@
 class Boss2 : public Boss
 {
 private:
-	bool _jump = false;
 	LaserHandler* _lasers = nullptr;
 	Vector2D _velocity = { 20,0 };
-	int _dir;
+	int _dir, _onFloor = 0;
+	bool _endJump = false;
+
 public:
 	Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool);
 	~Boss2();
@@ -16,8 +17,10 @@ public:
 
 	virtual void movement(const double& deltaTime);
 	virtual void beginCollision(GameObject* other, b2Contact* contact);
+	virtual void endCollision(GameObject * other, b2Contact* contact);
 
 	virtual void meleeAttack();
+	void endJump();
 	virtual void checkMelee();
 
 	virtual void fase1(const double& deltaTime);
