@@ -134,7 +134,7 @@ void Boss2::checkMelee()
 
 void Boss2::fase1(const double& deltaTime)
 {
-	if (_actualState != Jumping)
+	/*if (_actualState != Jumping)
 	{
 		if (_actualState != Meleeing)
 		{
@@ -160,7 +160,7 @@ void Boss2::fase1(const double& deltaTime)
 			else
 				_noAction += deltaTime;
 		}
-	}
+	}*/
 }
 
 

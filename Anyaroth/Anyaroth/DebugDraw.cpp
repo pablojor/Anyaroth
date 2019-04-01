@@ -14,8 +14,7 @@ void DebugDraw::DrawPolygon(const b2Vec2* vertices, int32 vertexCount, const b2C
 void DebugDraw::DrawSolidPolygon(const b2Vec2* vertices, int32 vertexCount, const b2Color& color)
 {
 	SDL_Rect poly;
-	double angle;
-	angle = atan2(vertices[1].y - vertices[0].y, vertices[1].x - vertices[0].x);
+	double angle = atan2(vertices[1].y - vertices[0].y, vertices[1].x - vertices[0].x);
 
 	Vector2D v1 = {vertices[0].x, vertices[0].y};
 	Vector2D v2 = {vertices[1].x, vertices[1].y};
@@ -36,7 +35,7 @@ void DebugDraw::DrawSolidPolygon(const b2Vec2* vertices, int32 vertexCount, cons
 
 	SDL_Rect winRect = { poly.x * GAME_RESOLUTION_X / _camera->getCameraSize().getX() ,poly.y * GAME_RESOLUTION_Y / _camera->getCameraSize().getY() ,
 		poly.w * GAME_RESOLUTION_X / _camera->getCameraSize().getX() + 1, poly.h * GAME_RESOLUTION_Y / _camera->getCameraSize().getY() + 1 }; //+1 para el tema del Zoom
-	_texture->render(winRect, angle);
+	_texture->render(winRect, angle* 180/M_PI);
 }
 
 void DebugDraw::DrawCircle(const b2Vec2& center, float32 radius, const b2Color& color)
