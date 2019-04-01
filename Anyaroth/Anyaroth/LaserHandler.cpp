@@ -48,7 +48,13 @@ void LaserHandler::update(const double& deltaTime)
 				timeToshot = 0;
 			}
 			else
+			{
+				if ((timeBetweenShot - timeToshot) <= 1000)
+				{
+					//pones el frame de pre-laser
+				}
 				timeToshot += deltaTime;
+			}
 		}
 	}
 }
