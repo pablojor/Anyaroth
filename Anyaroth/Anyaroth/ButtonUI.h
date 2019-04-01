@@ -7,7 +7,7 @@ class ButtonUI : public FramedImageUI
 {
 	private:
 		typedef std::function<void(Game*)> Callback;
-		struct Frames { uint onOut = 0; uint onOver = 0; uint onDown = 0; uint onUp = 0; };
+		struct Frames { uint onOut = 0; uint onOver = 0; uint onDown = 0; uint onUp = 0; uint onInactive = 0; };
 
 		enum ButtonState { None, Over, Out, Down, Up };
 		ButtonState _positionState = Out;	//Over o Out
@@ -22,6 +22,7 @@ class ButtonUI : public FramedImageUI
 		uint _onOverFrame = 0;
 		uint _onDownFrame = 0;
 		uint _onUpFrame = 0;
+		uint _onInactiveFrame = 0;
 
 		bool _inputEnable = true;
 
@@ -41,6 +42,8 @@ class ButtonUI : public FramedImageUI
 
 		void setFrames(Frames frames);
 		virtual void setVisible(bool a);
+
+		void setInputEnable(bool b);
 };
 
 

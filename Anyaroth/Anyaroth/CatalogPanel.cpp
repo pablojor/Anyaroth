@@ -57,6 +57,7 @@ CatalogPanel::~CatalogPanel()
 }
 
 void CatalogPanel::setPlayer(Player* ply)
+{
 	_player = ply;
 
 	_playerMoney->updateCoinsCounter(_player->getBank());
@@ -142,7 +143,9 @@ void CatalogPanel::selectItem(Game * game, ShopItem* item)
 
 	_buyButton->setVisible(true);
 	if (info._price > _player->getBank())
-		cout << "goli" << endl;
+		_buyButton->setInputEnable(false);
+	else
+		_buyButton->setInputEnable(true);
 }
 
 void CatalogPanel::buyItem(Game * game)

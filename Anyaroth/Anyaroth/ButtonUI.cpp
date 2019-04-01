@@ -96,6 +96,7 @@ void ButtonUI::setFrames(Frames frames)
 	_onOverFrame = frames.onOver;
 	_onDownFrame = frames.onDown;
 	_onUpFrame = frames.onUp;
+	_onInactiveFrame = frames.onInactive;
 }
 
 void ButtonUI::setVisible(bool a)
@@ -108,4 +109,15 @@ void ButtonUI::setVisible(bool a)
 	_pressState = None;
 
 	FramedImageUI::setVisible(a);
+}
+
+void ButtonUI::setInputEnable(bool b)
+{
+	_inputEnable = b;
+	if (!_inputEnable)
+	{
+		_frame = _onInactiveFrame;
+		_positionState = Out;
+		_pressState = None;
+	}
 }
