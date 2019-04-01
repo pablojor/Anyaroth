@@ -5,6 +5,8 @@ class GravityBulletEffect :
 {
 private:
 	int _maxAbsorbingTime = 150;
+	int _absorbingRange = 20;
+	string _auxTag = "Bullet";
 public:
 	GravityBulletEffect(int maxAbsorbTime);
 	virtual ~GravityBulletEffect();
@@ -13,6 +15,6 @@ public:
 	virtual void update(Bullet* bullet, double time);
 	virtual void reset(Bullet* bullet);
 	virtual void init(Bullet* bullet);
-	void stop(Bullet* bullet);
+	void startAbsorbing(Bullet* bullet);
 };
 

@@ -7,7 +7,7 @@ class GravityBombCannon :
 	public Gun
 {
 private:
-	GravityBulletEffect _effect = GravityBulletEffect(150);
+	GravityBulletEffect _effect = GravityBulletEffect(1500);
 	//ExplosiveBulletEffect _effect = ExplosiveBulletEffect(100);
 public:
 	GravityBombCannon(Game* game);

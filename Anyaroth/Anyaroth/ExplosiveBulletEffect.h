@@ -4,7 +4,7 @@
 class ExplosiveBulletEffect : public BulletEffect
 {
 private:
-	int _explodeTime = 100;
+	int _explodeTime = 200;
 
 public:
 	ExplosiveBulletEffect(int explodeTime);

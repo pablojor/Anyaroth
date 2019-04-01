@@ -51,4 +51,5 @@ public:
 	//setters
 	void setEffect(EffectInterface* effect) { _effect = effect; }
 	inline void setMaxCadence(double value) { _maxCadence = value; _cadence = 0; }
+	inline void setBulletSpeed(double value) { _speed = value; }
 };

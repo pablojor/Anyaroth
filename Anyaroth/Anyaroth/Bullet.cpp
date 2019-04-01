@@ -29,7 +29,7 @@ Bullet::~Bullet()
 
 void Bullet::beginCollision(GameObject * other, b2Contact* contact)
 {
-	if(_effect != nullptr)
+	if(isActive() && _effect != nullptr)
 		_effect->beginCollision(this, other, contact);
 	/*if(getTag() == "Bullet" && (other->getTag() == "Ground" || other->getTag() == "Enemy"))
 		_collided = true;
@@ -41,7 +41,7 @@ void Bullet::beginCollision(GameObject * other, b2Contact* contact)
 
 void Bullet::endCollision(GameObject * other, b2Contact* contact)
 {
-	if(_effect != nullptr)
+	if(isActive() && _effect != nullptr)
 		_effect->endCollision(this, other, contact);
 }
 

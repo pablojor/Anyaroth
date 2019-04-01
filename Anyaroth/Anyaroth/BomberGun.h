@@ -6,7 +6,7 @@ class BomberGun :
 	public Gun
 {
 private:
-	ExplosiveBulletEffect _effect = ExplosiveBulletEffect(100);
+	ExplosiveBulletEffect _effect = ExplosiveBulletEffect(200);
 public:
 	BomberGun(Game* game);
 	~BomberGun();

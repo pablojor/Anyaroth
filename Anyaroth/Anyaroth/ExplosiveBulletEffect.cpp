@@ -17,9 +17,9 @@ void ExplosiveBulletEffect::init(Bullet* bullet)
 	bullet->getBulletBody()->getBody()->SetBullet(true);
 	bullet->getBulletBody()->getBody()->SetFixedRotation(true);
 	bullet->getBulletBody()->getBody()->SetGravityScale(6);
-	bullet->getBulletBody()->getBody()->SetActive(false);
+	bullet->getBulletBody()->getBody()->SetActive(true);
 
-	bullet->setActive(false);
+	bullet->setActive(true);
 }
 
 void ExplosiveBulletEffect::beginCollision(Bullet* bullet, GameObject * other, b2Contact * contact)
@@ -64,7 +64,7 @@ void ExplosiveBulletEffect::update(Bullet* bullet, double time)
 				bullet->getBulletBody()->getBody()->SetGravityScale(4);
 			}
 			else
-				bullet->setExplosionTime(bullet->getExplosionTime() + bullet->getExplosionTime());
+				bullet->setExplosionTime(bullet->getExplosionTime() + time);
 		}
 	}
 }

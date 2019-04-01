@@ -13,8 +13,12 @@ Boss1::Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, 
 	_bombTexture = g->getTexture("PistolBullet");
 	delete(_myGun);
 	_myGun = new ImprovedRifle(g);
+	_myGun->setMaxCadence(0);
+	_myGun->setBulletSpeed(8);
+
 	_bombGun = new BomberGun(g);
 	_bombGun->setMaxCadence(0);
+
 	_orbGun = new BossOrbCannon(g);
 	_orbGun->setMaxCadence(0);
 
