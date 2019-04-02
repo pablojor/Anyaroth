@@ -54,7 +54,7 @@ void BouncingBullet::reset()
 	_numBounces = 0;
 }
 
-void BouncingBullet::init(Texture* texture, const Vector2D& position, const double& speed, const double& damage, const double& angle, const double& range, const string& tag)
+void BouncingBullet::init(Texture* texture, const Vector2D& position, const double& speed, const double& damage, const double& angle, const double& range, const string& tag, string type)
 {
 	Bullet::init(texture, position, speed, damage, angle, range, tag);
 	_body->getBody()->SetLinearVelocity(b2Vec2(_speed * cos((_transform->getRotation())* M_PI / 180.0), _speed * sin((_transform->getRotation())* M_PI / 180.0)));
