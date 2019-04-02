@@ -27,6 +27,7 @@ Boss1::Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool, ExplosiveB
 	_anim->addAnim(AnimatedSpriteComponent::SpentaStartBomb, 10, false);
 	_anim->addAnim(AnimatedSpriteComponent::SpentaLoopBomb, 10, true);
 	_anim->addAnim(AnimatedSpriteComponent::SpentaEndBomb, 10, false);
+	_anim->addAnim(AnimatedSpriteComponent::SpentaOrb, 10, false);
 	_anim->addAnim(AnimatedSpriteComponent::SpentaWing, 22, false);
 
 	_anim->playAnim(AnimatedSpriteComponent::SpentaIdle);
@@ -51,6 +52,10 @@ void Boss1::update(const double& deltaTime)
 	{
 		checkMelee();
 	}
+	if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaEndShield)
+	{
+		_actualState = Moving;
+	}
 }
 
 
@@ -58,6 +63,7 @@ void Boss1::movement(const double& deltaTime)
 {
 	if (_actualState == Moving)
 	{
+		_anim->playAnim(AnimatedSpriteComponent::SpentaIdle);
 		if (((_bodyPos.getX() + _body->getW() / 2 > _originalPos.getX() + _amplitude.getX()) && _dir.getX() == 1) || ((_bodyPos.getX() + _body->getW() / 2 < _originalPos.getX() - _amplitude.getX()) && _dir.getX() == -1))
 			_dir = Vector2D(-_dir.getX(), _dir.getY());
 
@@ -132,6 +138,7 @@ void Boss1::armShoot(const double& deltaTime)
 	_armVision = false;
 	if (_actualBullet == 0 && !ida)
 	{
+
 		_timeOnShooting = 0;
 		_actualState = Moving;
 		_armVision = true;
@@ -142,6 +149,7 @@ void Boss1::armShoot(const double& deltaTime)
 	else {
 		if (_actualBullet == 0 && ida)
 		{
+			_anim->playAnim(AnimatedSpriteComponent::SpentaWing);
 			double x = _playerPos.getX() - _bodyPos.getX();
 			double y = _playerPos.getY() - _bodyPos.getY();
 			_inicialAngle = (atan2(y, x) * 180 / M_PI) - _dirB * _numBullets / 2 * _angleIncrease;
@@ -180,7 +188,7 @@ void Boss1::orbAttack()
 		{
 			//Provisional
 			_anim->playAnim(AnimatedSpriteComponent::SpentaIdle);
-			_anim->playAnim(AnimatedSpriteComponent::SpentaStartShield);//Sera animacion de orbAttack
+			_anim->playAnim(AnimatedSpriteComponent::SpentaOrb);//Sera animacion de orbAttack
 		}
 
 	}
@@ -203,7 +211,7 @@ void Boss1::beginCollision(GameObject * other, b2Contact * contact)
 		{
 			die();
 		}
-
+		_anim->playAnim(AnimatedSpriteComponent::SpentaEndShield);
 		_bossPanel->updateLifeBar(_life1.getLife(), _life2.getLife(), _life3.getLife(), _life.getLife());
 	}
 
@@ -217,7 +225,10 @@ void Boss1::manageLife(Life& l, int damage)
 		_doSomething = 0;
 		_lastFase = _actualFase;
 		_actualFase = BetweenFase;
+		if (_melee != nullptr && _melee->isActive())
+			_melee->endMelee();
 		_anim->playAnim(AnimatedSpriteComponent::SpentaStartShield);
+
 	}
 }
 
@@ -231,7 +242,7 @@ void Boss1::fase1(const double& deltaTime)
 			{
 				int ra = random(0, 100);
 
-				if (ra >= 0)
+				if (ra >= 65)
 				{
 					_actualState = Meleeing;
 					_noAction = 0;
@@ -242,7 +253,7 @@ void Boss1::fase1(const double& deltaTime)
 				{
 					armShoot(deltaTime);
 					_actualState = Shooting;
-					//_doSomething = random(400, 800);
+
 					_noAction = 0;
 				}
 			}
@@ -303,7 +314,7 @@ void Boss1::fase3(const double& deltaTime)
 						int ra = random(0, 100);
 						if (ra >= 70)
 						{
-							_anim->playAnim(AnimatedSpriteComponent::SpentaStartShield);//Sera animacion de orbAttackd
+							_anim->playAnim(AnimatedSpriteComponent::SpentaOrb);//Sera animacion de orbAttackd
 							_actualState = OrbAttacking;
 						}
 						else
@@ -328,10 +339,11 @@ void Boss1::beetwenFases(const double& deltaTime)
 	bomberAttack(deltaTime, 200, 600);
 	_actualState = Bombing;
 
-	if (_anim->animationFinished())
+	if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaStartShield)
 	{
-	} 
-	
+		_anim->playAnim(AnimatedSpriteComponent::SpentaLoopShield);
+	}
+
 }
 
 void Boss1::changeFase(int nextFase)

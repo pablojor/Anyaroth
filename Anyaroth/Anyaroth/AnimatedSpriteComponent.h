@@ -35,7 +35,7 @@ public:
 	enum Coin { Main };
 	enum Bullet { Default, Destroy };
 	enum Spenta { SpentaIdle, SpentaSwordLeft, SpentaSwordRight, SpentaStartShield, SpentaLoopShield, SpentaEndShield,
-		SpentaDie, SpentaStartBomb, SpentaLoopBomb, SpentaEndBomb, SpentaWing};
+		SpentaDie, SpentaStartBomb, SpentaLoopBomb, SpentaEndBomb, SpentaOrb, SpentaWing};
 
 	AnimatedSpriteComponent(GameObject* obj) : SpriteComponent(obj), PhysicsComponent(obj), RenderComponent(obj), Component(), _obj(obj) {}
 	virtual ~AnimatedSpriteComponent() {}
