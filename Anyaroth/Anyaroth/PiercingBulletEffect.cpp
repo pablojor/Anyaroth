@@ -19,7 +19,8 @@ void PiercingBulletEffect::init(Bullet* bullet)
 
 void PiercingBulletEffect::beginCollision(Bullet* bullet, GameObject * other, b2Contact* contact)
 {
-	if (other->getTag() == "Ground")
+	if (other->getTag() == "Ground" || other->getTag()
+		== "Platform")
 		bullet->setCollided(true);	//_destroy = true;
 	/*else if (getTag() == "Bullet" && (other->getTag() == "Enemy"))
 		_collided = true;

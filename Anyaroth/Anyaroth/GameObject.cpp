@@ -17,6 +17,7 @@ GameObject::~GameObject()
 			it->second = nullptr;
 		}
 	}
+	
 
 	//Llama a la destructora de los hijos
 	for (GameObject* child : _children)

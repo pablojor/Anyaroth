@@ -15,9 +15,11 @@ BulletEffect::~BulletEffect()
 
 void BulletEffect::beginCollision(Bullet* bullet, GameObject * other, b2Contact* contact)
 {
-	if (bullet->getTag() == "Bullet" && (other->getTag() == "Ground" || other->getTag() == "Enemy"))
+	if (bullet->getTag() == "Bullet" && (other->getTag() == "Ground" || other->getTag() == "Enemy" || other->getTag()
+		== "Platform"))
 		bullet->setCollided(true);
-	else if (bullet->getTag() == "EnemyBullet" && (other->getTag() == "Ground" || other->getTag() == "Player"))
+	else if (bullet->getTag() == "EnemyBullet" && (other->getTag() == "Ground" || other->getTag() == "Player" || other->getTag()
+		== "Platform"))
 		bullet->setCollided(true);
 
 	contact->SetEnabled(false);

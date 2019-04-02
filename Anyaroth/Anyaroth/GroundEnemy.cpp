@@ -4,7 +4,7 @@ GroundEnemy::GroundEnemy(Game* g, Player* player, Vector2D pos, Texture* texture
 
 void GroundEnemy::idle()
 {
-	if (_attacking == false)
+	if (!_stunned && _attacking == false)
 	{
 		_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
 		_anim->playAnim(AnimatedSpriteComponent::Idle);
@@ -13,7 +13,7 @@ void GroundEnemy::idle()
 
 void GroundEnemy::moving(Vector2D& dir)
 {
-	if (_attacking == false)
+	if (!_stunned && _attacking == false)
 	{
 		_body->getBody()->SetLinearVelocity({ _speed*(float32)dir.getX(), _body->getBody()->GetLinearVelocity().y });
 		_anim->playAnim(AnimatedSpriteComponent::EnemyWalk);
@@ -22,7 +22,7 @@ void GroundEnemy::moving(Vector2D& dir)
 
 void GroundEnemy::attack()
 {
-	if (_attacking == false)
+	if (!_stunned && _attacking == false)
 	{
 		_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
 		_anim->playAnim(AnimatedSpriteComponent::EnemyAttack); //Llamas a animacion de ataque

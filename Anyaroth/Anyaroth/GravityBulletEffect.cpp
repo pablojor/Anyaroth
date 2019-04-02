@@ -1,6 +1,7 @@
 #include "GravityBulletEffect.h"
 #include "Bullet.h"
 #include "Game.h"
+#include "MovingComponent.h"
 
 
 GravityBulletEffect::GravityBulletEffect(int maxAbsorbTime) : _maxAbsorbingTime(maxAbsorbTime)
@@ -10,6 +11,11 @@ GravityBulletEffect::GravityBulletEffect(int maxAbsorbTime) : _maxAbsorbingTime(
 
 GravityBulletEffect::~GravityBulletEffect()
 {
+	/*for (GravityBombDebuff* gd : _debuffs)
+	{
+		if (gd != nullptr) { delete gd; gd = nullptr; }
+	}*/
+
 }
 
 
@@ -27,10 +33,36 @@ void GravityBulletEffect::init(Bullet* bullet)
 
 void GravityBulletEffect::beginCollision(Bullet* bullet, GameObject * other, b2Contact* contact)
 {
-	if (/*bullet->getTag() == "GravityBullet" && */(other->getTag() == "Ground" || other->getTag() == "Enemy"))
+	if (/*bullet->getTag() == "GravityBullet" && */other->getTag() == "Ground" || other->getTag()
+		== "Platform")
+	{
 		bullet->setCollided(true);
-	else if (/*bullet->getTag() == "GravityBullet" && */(other->getTag() == "Ground" || other->getTag() == "Player"))
+	}
+	else if(other->getTag() == "Enemy" || other->getTag() == "Player")
+	{
 		bullet->setCollided(true);
+		other->setStunned(true);
+		GravityBombDebuff* gd = other->getComponent<GravityBombDebuff>();
+		if (gd == nullptr)
+			gd = new GravityBombDebuff(other, bullet);
+		else
+			gd->setZone(bullet);
+
+		_debuffs.push_back(gd);
+		gd->absorb();
+
+
+		/*auto body = other->getComponent<BodyComponent>()->getBody();
+		Vector2D vectorToGravZone = { (bullet->getComponent<TransformComponent>()->getPosition().getX() - other->getComponent<TransformComponent>()->getPosition().getX())*M_TO_PIXEL, (bullet->getComponent<TransformComponent>()->getPosition().getY() - other->getComponent<TransformComponent>()->getPosition().getY())*M_TO_PIXEL };
+		//vectorToGravZone.normalize();
+
+		//body->ApplyLinearImpulseToCenter(b2Vec2(vectorToGravZone.getX() * 2000, vectorToGravZone.getY() * 2000), true);
+		body->SetLinearVelocity(b2Vec2(vectorToGravZone.getX() * 2000, vectorToGravZone.getY() * 2000));*/
+	}
+
+
+	//else if (/*bullet->getTag() == "GravityBullet" && */(other->getTag() == "Ground" || other->getTag() == "Player"))
+		//bullet->setCollided(true);
 
 	contact->SetEnabled(false);
 }
@@ -54,7 +86,7 @@ void GravityBulletEffect::update(Bullet* bullet, double time)
 		}
 		else if (bullet->getAbsorbingTime() < _maxAbsorbingTime)
 		{
-			bullet->setAbsorbingTime(bullet->getAbsorbingTime() + time);;
+			bullet->setAbsorbingTime(bullet->getAbsorbingTime() + time);
 		}
 		else
 			reset(bullet);
@@ -67,6 +99,15 @@ void GravityBulletEffect::reset(Bullet* bullet)
 	bullet->setAbsorbingTime(0);
 	bullet->getBulletBody()->getBody()->SetType(b2_dynamicBody);
 	bullet->getBulletBody()->getBody()->DestroyFixture(bullet->getBulletBody()->getBody()->GetFixtureList());
+
+	//Termina el debuffo de los enemigos afectados
+	for (GravityBombDebuff* gd : _debuffs)
+	{
+		gd->stop();
+	}
+	_debuffs.clear();
+
+	
 	BulletEffect::reset(bullet);
 }
 
@@ -81,7 +122,7 @@ void GravityBulletEffect::startAbsorbing(Bullet* bullet)
 	bullet->setTag(_auxTag);
 
 	b2PolygonShape *explosion = new b2PolygonShape();
-	explosion->SetAsBox(bullet->getBulletBody()->getW() * _absorbingRange, bullet->getBulletBody()->getH() * _absorbingRange);
+	explosion->SetAsBox(_absorbingRange, _absorbingRange);
 
 	b2FixtureDef* fixt = new b2FixtureDef();
 	fixt->restitution = 0;

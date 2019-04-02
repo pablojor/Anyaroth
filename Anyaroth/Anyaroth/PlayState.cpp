@@ -92,13 +92,16 @@ bool PlayState::handleEvent(const SDL_Event& event)
 
 void PlayState::update(const double& deltaTime)
 {
-	GameState::update(deltaTime);
 
 	if (_player->isDead())
 	{
+		cout << "player is dead\n";
 		_playerBulletPool->stopBullets();
 		//_enemyBulletPool->stopBullets();
 		_player->revive();
 		_levelManager.resetLevel();
 	}
+
+
+	GameState::update(deltaTime);
 }
