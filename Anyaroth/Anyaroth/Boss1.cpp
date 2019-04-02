@@ -121,8 +121,11 @@ void Boss1::checkMelee()
 	{
 		_melee->endMelee();
 		//Provisional
-		_anim->playAnim(AnimatedSpriteComponent::SpentaIdle);
-		_actualState = Moving;
+		if (_actualFase != BetweenFase)
+		{
+			_anim->playAnim(AnimatedSpriteComponent::SpentaIdle);
+			_actualState = Moving;
+		}
 		_armVision = true;;
 
 		_doSomething = random(900, 1300);
@@ -224,11 +227,9 @@ void Boss1::manageLife(Life& l, int damage)
 	{
 		_doSomething = 0;
 		_lastFase = _actualFase;
+		_actualState = BetweenFase;
 		_actualFase = BetweenFase;
-		if (_melee != nullptr && _melee->isActive())
-			_melee->endMelee();
 		_anim->playAnim(AnimatedSpriteComponent::SpentaStartShield);
-
 	}
 }
 
