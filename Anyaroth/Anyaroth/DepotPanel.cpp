@@ -42,11 +42,13 @@ DepotPanel::DepotPanel(Game* game) : PanelUI(game)
 	_firstWeapon->setSize(itemEquipWidth, itemEquipHeight); //POSIBLEMENTE PROVISIONAL
 	_firstWeapon->setPosition(_equipmentFrame->getX() + distanceBetweenEquipmentSlots,
 		_equipmentFrame->getY() + _equipmentFrame->getH() / 4 + distanceBetweenEquipmentSlots * 0.5);
+	_firstWeapon->setItemInfo({ -1, "arma1", 0, 14, 25, 10, true, true });
 
 	_secondWeapon = new ShopItem(game, game->getTexture("Dash"));
 	_secondWeapon->setSize(itemEquipWidth, itemEquipHeight); //POSIBLEMENTE PROVISIONAL
 	_secondWeapon->setPosition(_firstWeapon->getX() + _firstWeapon->getW() + distanceBetweenEquipmentSlots,
 		_firstWeapon->getY());
+	_secondWeapon->setItemInfo({ -1, "arma2", 0, 14, 25, 10, true, true });
 
 	_meleeWeapon = new ShopItem(game, game->getTexture("InfoIcon"));
 	_meleeWeapon->setSize(itemEquipWidth, itemEquipHeight); //POSIBLEMENTE PROVISIONAL
@@ -54,9 +56,9 @@ DepotPanel::DepotPanel(Game* game) : PanelUI(game)
 							_firstWeapon->getY() + _firstWeapon->getH() + distanceBetweenEquipmentSlots);
 
 		//Callbacks
-	_firstWeapon->onDown([this](Game* game) { setDistanceWeapon(game); });
-	_secondWeapon->onDown([this](Game* game) { setDistanceWeapon(game); });
-	_meleeWeapon->onDown([this](Game* game) { setMeleeWeapon(game); });
+	_firstWeapon->onDown([this](Game* game) { setDistanceWeapon(game, _firstWeapon); });
+	_secondWeapon->onDown([this](Game* game) { setDistanceWeapon(game, _secondWeapon); });
+	_meleeWeapon->onDown([this](Game* game) { setMeleeWeapon(game, _meleeWeapon); });
 
 		//Añadir como hijo
 	addChild(_firstWeapon);
@@ -76,13 +78,7 @@ DepotPanel::DepotPanel(Game* game) : PanelUI(game)
 	//----ALMACEN----//
 }
 
-DepotPanel::~DepotPanel()
-{
-	for (auto item : _items)
-		removeChild(item);
-}
-
-void DepotPanel::setItems(list<ShopItem*>& list)
+void DepotPanel::setItems(list<ShopItem*>* list)
 {
 	_items = list;
 
@@ -92,16 +88,37 @@ void DepotPanel::setItems(list<ShopItem*>& list)
 
 	itemHeight < itemWidth ? itemSize = itemHeight : itemSize = itemWidth;
 
-	for (auto it : _items)
+	for (auto it : *_items)
 	{
 			it->setSize(itemSize, itemSize);
 
-			it->onDown([this, it](Game* game) {	selectItem(game, it); });
+			it->onDown([this, it](Game* game) {
+				selectItem(game, it); 
+			});
 
 			addChild(it);
 	}
+	reorderDepot();
+}
+
+void DepotPanel::removeItems()
+{
+	for (auto it : *_items)
+		removeChild(it);
+}
+
+void DepotPanel::openDepotPanel()
+{
+	for (auto it : *_items)
+		it->onDown([this, it](Game* game) {	selectItem(game, it); });
 
 	reorderDepot();
+	setVisible(true);
+}
+
+void DepotPanel::closeDepotPanel()
+{
+	setVisible(false);
 }
 
 void DepotPanel::reorderDepot()
@@ -111,12 +128,12 @@ void DepotPanel::reorderDepot()
 
 	ShopItem* primItem = nullptr;
 
-	auto it = _items.begin();
+	auto it = (*_items).begin();
 	int fil = 0;
-	while (fil < itemsPerCol && it != _items.end())
+	while (fil < itemsPerCol && it != (*_items).end())
 	{
 		int col = 0;
-		while (it != _items.end() && col < itemsPerRow)
+		while (it != (*_items).end() && col < itemsPerRow)
 		{
 			auto item = *it;
 			auto info = item->getItemInfo();
@@ -124,7 +141,7 @@ void DepotPanel::reorderDepot()
 			if (info._sold && !info._equiped)
 			{
 				item->setVisible(true);
-
+				item->setSize(itemSize, itemSize);
 				if (primItem == nullptr)
 				{
 					item->setPosition(_depotFrame->getX() + xOffset, _depotFrame->getY() + yOffset);
@@ -163,18 +180,42 @@ void DepotPanel::selectItem(Game * game, ShopItem* item)
 	_selectedItem = item;
 }
 
-void DepotPanel::setDistanceWeapon(Game* game)
+void DepotPanel::setDistanceWeapon(Game* game, ShopItem* item)
 {
 	if (_selectedItem != nullptr)
 	{
+		swapItems(item);
 		reorderDepot();
+		_selectedItem = nullptr;
 	}
 }
 
-void DepotPanel::setMeleeWeapon(Game* game)
+void DepotPanel::setMeleeWeapon(Game* game, ShopItem* item)
 {
 	if (_selectedItem != nullptr)
 	{
+		swapItems(item);
 		reorderDepot();
+		_selectedItem = nullptr;
 	}
 }
+
+void DepotPanel::swapItems(ShopItem* _equiped)
+{
+	//Cambiamos la info
+	auto infoSelected = _selectedItem->getItemInfo();
+	auto otherInfo = _equiped->getItemInfo();
+	infoSelected._equiped = true;
+	otherInfo._equiped = false;
+
+	_selectedItem->setItemInfo(otherInfo);
+	_equiped->setItemInfo(infoSelected);
+
+	//Cambio de texturas
+	auto imageSelect = _selectedItem->getImage();
+	auto imageOther = _equiped->getImage();
+	_selectedItem->setImage(imageOther);
+	_equiped->setImage(imageSelect);
+}
+
+

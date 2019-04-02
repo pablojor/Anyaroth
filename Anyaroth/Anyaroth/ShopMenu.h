@@ -34,8 +34,6 @@ class ShopMenu : public PanelUI
 		ShopMenu(Game* game);
 		~ShopMenu();
 
-		//virtual void handleEvent(const SDL_Event& event) {};
-
 		void setPlayer(Player* ply);
 
 		void openShop(int zona);
@@ -46,15 +44,15 @@ class ShopMenu : public PanelUI
 		static void ableMainMenu(Game* game);
 		static void disableMainMenu(Game* game);
 
-		static void openCatalogPanel(Game* game);
+		void openCatalogPanel(Game* game);
 		static void closeCatalogPanel(Game* game);
 
-		static void startTalking(Game* game);
+		void startTalking(Game* game);
 		void stopTalking();
 
-		static void openDepotPanel(Game* game);
+		void openDepotPanel(Game* game);
 		static void closeDepotPanel(Game* game);
 
-		static void exit(Game* game);
+		void exit(Game* game);
 };
 

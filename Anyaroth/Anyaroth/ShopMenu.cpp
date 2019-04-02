@@ -34,22 +34,22 @@ ShopMenu::ShopMenu(Game* game) : PanelUI(game)
 		middleOfTheButtonPanelX = CAMERA_RESOLUTION_X,
 		middleOfTheButtonPanelY = 100;
 
-	_talkButton = new ButtonUI(game, game->getTexture("Button"), startTalking, { 0,1,2,3 });
+	_talkButton = new ButtonUI(game, game->getTexture("Button"), [this](Game* game) { startTalking(game); }, { 0,1,2,3 });
 	_talkButton->setPosition(middleOfTheButtonPanelX / 2 - _talkButton->getW() / 2,
 							middleOfTheButtonPanelY - (distanceBetweenButtons/2) - _talkButton->getH());
 
-	_shopButton = new ButtonUI(game, game->getTexture("Button"), openCatalogPanel, { 0,1,2,3 });
+	_shopButton = new ButtonUI(game, game->getTexture("Button"), [this](Game* game) { openCatalogPanel(game); }, { 0,1,2,3 });
 	_shopButton->setPosition(middleOfTheButtonPanelX / 2 - _shopButton->getW() / 2,
 							_talkButton->getY() - _shopButton->getH() - distanceBetweenButtons);
 
-	_depotButton = new ButtonUI(game, game->getTexture("Button"), openDepotPanel, { 0,1,2,3 });
+	_depotButton = new ButtonUI(game, game->getTexture("Button"), [this](Game* game) { openDepotPanel(game); }, { 0,1,2,3 });
 	_depotButton->setPosition(middleOfTheButtonPanelX / 2 - _depotButton->getW() / 2,
 							middleOfTheButtonPanelY + (distanceBetweenButtons/2));
 
 	_exitButton = new ButtonUI(game, game->getTexture("Button"), nullptr, { 0,1,2,3 });
 	_exitButton->setPosition(middleOfTheButtonPanelX / 2 - _exitButton->getW() / 2,
 							_depotButton->getY() + _depotButton->getH() + distanceBetweenButtons);
-	_exitButton->onUp(exit);
+	_exitButton->onUp([this](Game* game) { exit(game); });
 
 	addChild(_shopButton);
 	addChild(_talkButton);
@@ -72,12 +72,12 @@ ShopMenu::ShopMenu(Game* game) : PanelUI(game)
 
 	loadWeaponInfo();
 
-	_depotPanel->setItems(_items);
-	_catalogPanel->setItems(_items);
+	_depotPanel->setItems(&_items);
 }
 
 ShopMenu::~ShopMenu()
 {
+	_depotPanel->removeItems();
 	for (auto it = _items.begin(); it != _items.end(); it++)
 	{
 		delete *it;
@@ -182,6 +182,7 @@ void ShopMenu::openCatalogPanel(Game* game)
 {
 	disableMainMenu(game);
 
+	_catalogPanel->setItems(_items);
 	_catalogPanel->updateCatalog(_zona);
 	_catalogPanel->openCatalog();
 
@@ -230,8 +231,7 @@ void ShopMenu::openDepotPanel(Game* game)
 {
 	disableMainMenu(game);
 
-	_depotPanel->reorderDepot();
-	_depotPanel->setVisible(true);
+	_depotPanel->openDepotPanel();
 
 	_dialoguePanel->startDialogue({
 			game->getTexture("DialogueFace"),
@@ -245,7 +245,7 @@ void ShopMenu::openDepotPanel(Game* game)
 
 void ShopMenu::closeDepotPanel(Game * game)
 {
-	_depotPanel->setVisible(false);
+	_depotPanel->closeDepotPanel();
 	_dialoguePanel->endDialogue();
 
 	ableMainMenu(game);

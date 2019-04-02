@@ -22,6 +22,12 @@ void PanelUI::removeChild(UIElement * child)
 	_children.remove(child);
 }
 
+void PanelUI::removeAllChildren()
+{
+	for (auto child : _children)
+		removeChild(child);
+}
+
 void PanelUI::render() const
 {
 	if (_visible)

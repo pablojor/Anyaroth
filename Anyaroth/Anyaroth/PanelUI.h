@@ -8,6 +8,7 @@ protected:
 	std::list<UIElement*> _children;
 	void addChild(UIElement* child);
 	void removeChild(UIElement* child);
+	void removeAllChildren();
 
 public:
 	PanelUI() : UIElement(nullptr) {}
