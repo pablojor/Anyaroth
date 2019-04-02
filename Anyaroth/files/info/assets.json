@@ -7,7 +7,7 @@
         ["ArmUp", "mk_arm_up.png", 1, 1],
         ["ArmPistol", "mk_pistol_spritesheet.png", 3, 3],
         ["ArmShotgun", "mk_shotgun_spritesheet.png", 3, 2],
-        ["PistolBullet", "pistolbullet.png", 1, 4],
+        ["PistolBullet", "pistolbullet.png", 2, 4],
         ["ShotgunBullet", "shotgunbullet.png", 1, 2],
         ["Armback", "mk_armback.png", 1, 1],
         ["tileset", "Tileset.png",  9, 8],
