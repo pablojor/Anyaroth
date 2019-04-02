@@ -8,27 +8,8 @@
 #include "BounceOrbCannon.h"
 
 
-WeaponManager::WeaponManager(Game* g) : _game(g)
+Gun* WeaponManager::getWeapon(Game* _game, GunType type)
 {
-}
-
-
-WeaponManager::~WeaponManager()
-{
-	for (Gun* gun : _equippedWeapons)
-	{
-		if (gun != nullptr) //destruye el arma que había antes
-			delete gun;
-		gun = nullptr;
-	}
-}
-
-
-Gun* WeaponManager::getWeapon(GunType type, int slotIndex)
-{
-	if(_equippedWeapons[slotIndex] != nullptr) //destruye el arma que había antes
-		delete _equippedWeapons[slotIndex];
-
 	Gun* w = nullptr;
 	switch (type)
 	{
@@ -61,7 +42,5 @@ Gun* WeaponManager::getWeapon(GunType type, int slotIndex)
 	default:
 		break;
 	}
-
-	_equippedWeapons[slotIndex] = w;
 	return w;
 }

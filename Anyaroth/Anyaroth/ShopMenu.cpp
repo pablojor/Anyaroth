@@ -111,7 +111,7 @@ void ShopMenu::loadWeaponInfo()
 					sold = true;
 				}
 
-				item->setItemInfo({ typeWeapon.value()["zona"], typeWeapon.key(), typeWeapon.value()["price"] ,typeWeapon.value()["damage"], typeWeapon.value()["cadence"], typeWeapon.value()["range"], sold, equiped });
+				item->setItemInfo({ typeWeapon.value()["zona"], typeWeapon.key(), typeWeapon.value()["price"] ,typeWeapon.value()["damage"], typeWeapon.value()["cadence"], typeWeapon.value()["range"], typeWeapon.value()["id"], sold, equiped });
 				_items.push_back(item);
 			}
 		}

@@ -4,13 +4,14 @@
 #include <functional>
 #include <algorithm>
 #include "Game.h"
+#include "WeaponManager.h"
 
 Player* DepotPanel::_player = nullptr; 
 ShopItem* DepotPanel::_firstWeapon = nullptr;
 ShopItem* DepotPanel::_secondWeapon = nullptr;
 ShopItem* DepotPanel::_meleeWeapon = nullptr;
 
-DepotPanel::DepotPanel(Game* game) : PanelUI(game)
+DepotPanel::DepotPanel(Game* game) : PanelUI(game)//, _weaponManager(game)
 {
 	//----MARCOS----//
 
@@ -42,13 +43,13 @@ DepotPanel::DepotPanel(Game* game) : PanelUI(game)
 	_firstWeapon->setSize(itemEquipWidth, itemEquipHeight); //POSIBLEMENTE PROVISIONAL
 	_firstWeapon->setPosition(_equipmentFrame->getX() + distanceBetweenEquipmentSlots,
 		_equipmentFrame->getY() + _equipmentFrame->getH() / 4 + distanceBetweenEquipmentSlots * 0.5);
-	_firstWeapon->setItemInfo({ -1, "arma1", 0, 14, 25, 10, true, true });
+	_firstWeapon->setItemInfo({ -1, "arma1", 0, 14, 25, 10, GunType::Pistol_Weapon, true, true });
 
 	_secondWeapon = new ShopItem(game, game->getTexture("Dash"));
 	_secondWeapon->setSize(itemEquipWidth, itemEquipHeight); //POSIBLEMENTE PROVISIONAL
 	_secondWeapon->setPosition(_firstWeapon->getX() + _firstWeapon->getW() + distanceBetweenEquipmentSlots,
 		_firstWeapon->getY());
-	_secondWeapon->setItemInfo({ -1, "arma2", 0, 14, 25, 10, true, true });
+	_secondWeapon->setItemInfo({ -1, "arma2", 0, 14, 25, 10, GunType::Pistol_Weapon, true, true });
 
 	_meleeWeapon = new ShopItem(game, game->getTexture("InfoIcon"));
 	_meleeWeapon->setSize(itemEquipWidth, itemEquipHeight); //POSIBLEMENTE PROVISIONAL
@@ -211,6 +212,13 @@ void DepotPanel::swapItems(ShopItem* _equiped)
 	auto imageOther = _equiped->getImage();
 	_selectedItem->setImage(imageOther);
 	_equiped->setImage(imageSelect);
+
+	//Equipo arma
+	Gun* newGun = WeaponManager::getWeapon(_game, _equiped->getItemInfo()._type);
+	if (_equiped == _firstWeapon) 
+		_player->changeCurrentGun(newGun);
+	else if (_equiped == _secondWeapon)
+		_player->changeOtherGun(newGun);
 }
 
 

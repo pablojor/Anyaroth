@@ -14,17 +14,7 @@ using namespace std;
 
 class WeaponManager
 {
-private:
-	//vector con las armas equipadas
-	// 0-Slot Arma 1
-	// 1-Slot Arma 2
-	vector<Gun*> _equippedWeapons = {nullptr, nullptr};
-	Game* _game = nullptr;
-
 public:
-	WeaponManager(Game* g);
-	virtual ~WeaponManager();
-
-	Gun* getWeapon(GunType type, int slotIndex);
+	static Gun* getWeapon(Game* game, GunType type);
 };
 

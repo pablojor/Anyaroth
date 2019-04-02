@@ -11,7 +11,8 @@
         "range": 1000,
         "clip": 12,
         "magazine": 60,
-        "cadence": 270
+        "cadence": 270,
+        "id": 0
       },
 
       "BasicRifle": 
@@ -24,7 +25,8 @@
         "range": 1000,
         "clip": 30,
         "magazine": 120,
-        "cadence": 170
+        "cadence": 170,
+        "id": 3
       },
 
       "BasicShotgun": 
@@ -37,7 +39,8 @@
         "range": 60,
         "clip": 3,
         "magazine": 48,
-        "cadence": 800
+        "cadence": 800,
+        "id": 1
       }
     },
 
@@ -53,7 +56,8 @@
         "range": 1000,
         "clip": 36,
         "magazine": 160,
-        "cadence": 100
+        "cadence": 100,
+        "id": 4
       },
 
       "ImproveShotgun": 
@@ -66,7 +70,8 @@
         "range": 60,
         "clip": 2,
         "magazine": 50,
-        "cadence": 800
+        "cadence": 800,
+        "id": 2
       }
     },
 
@@ -82,7 +87,8 @@
         "range": 1000,
         "clip": 30,
         "magazine": 120,
-        "cadence": 200
+        "cadence": 200,
+        "id": 6
       }
     }
 }

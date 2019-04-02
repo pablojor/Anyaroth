@@ -1,6 +1,7 @@
 #pragma once
 #include "ButtonUI.h"
 #include "TextUI.h"
+#include "GunType_def.h"
 
 class ShopItem : public ButtonUI
 {
@@ -15,6 +16,9 @@ class ShopItem : public ButtonUI
 			int _damage;
 			int _cadence;
 			int _distance;
+
+			//ID del arma
+			GunType _type;
 
 			bool _sold;
 			bool _equiped;
