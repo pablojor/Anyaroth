@@ -48,7 +48,8 @@ void Boss::subLife(int damage)
 		else if (_life3.getLife() > 0)
 			manageLife(_life3, damage);
 
-		_bossPanel->updateLifeBar(_life1.getLife(), _life2.getLife(), _life3.getLife(), _life.getLife());
+		if (!isbeetweenFases())
+			_bossPanel->updateLifeBar(_life1.getLife(), _life2.getLife(), _life3.getLife(), _life.getLife());
 	}
 }
 
