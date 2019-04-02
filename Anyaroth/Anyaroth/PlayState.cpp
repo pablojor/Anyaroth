@@ -38,6 +38,10 @@ PlayState::PlayState(Game* g) : GameState(g)
 
 	_player->setPlayerBulletPool(_playerBulletPool);
 
+	//Tienda PROVISIONAL
+	_shop = new Shop(_gameptr, Vector2D(50, 330), _hud->getShop(), _currentZone);
+	_stages.push_back(_shop);
+
 	//Background
 	_parallaxZone1 = new ParallaxBackGround(_mainCamera);
 	_parallaxZone1->addLayer(new ParallaxLayer(g->getTexture("BgZ1L1"), _mainCamera, 0.25));
@@ -90,9 +94,6 @@ bool PlayState::handleEvent(const SDL_Event& event)
 		_mainCamera->setZoom(_mainCamera->getZoomRatio() + 1, true);
 	else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_m)
 		_mainCamera->setZoom(_mainCamera->getZoomRatio() - 1, true);
-	else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_p)
-		if (!_hud->getShop()->isVisible())
-			_hud->getShop()->openShop(_currentZone);
 
 	return handled;
 }

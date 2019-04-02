@@ -219,6 +219,7 @@
     <ClCompile Include="PlayStateHUD.cpp" />
     <ClCompile Include="PoolWrapper.cpp" />
     <ClCompile Include="RenderComponent.cpp" />
+    <ClCompile Include="Shop.cpp" />
     <ClCompile Include="ShopInfoPanel.cpp" />
     <ClCompile Include="ShopMenu.cpp" />
     <ClCompile Include="ShopItem.cpp" />
@@ -333,6 +334,7 @@
     <ClInclude Include="PoolWrapper.h" />
     <ClInclude Include="RenderComponent.h" />
     <ClInclude Include="SDLError.h" />
+    <ClInclude Include="Shop.h" />
     <ClInclude Include="ShopInfoPanel.h" />
     <ClInclude Include="ShopMenu.h" />
     <ClInclude Include="ShopItem.h" />

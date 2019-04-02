@@ -7,6 +7,7 @@
 #include "Player.h"
 #include "Cursor.h"
 #include "PlayStateHUD.h"
+#include "Shop.h"
 
 class PlayState : public GameState
 {
@@ -24,6 +25,8 @@ private:
 	DebugDraw _debugger;
 
 	ParallaxBackGround* _parallaxZone1 = nullptr;
+
+	Shop* _shop = nullptr;
 
 	int _currentZone;
 	int _currentLevel;

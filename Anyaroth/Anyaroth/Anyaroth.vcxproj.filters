@@ -322,6 +322,7 @@
     <ClCompile Include="ShopInfoPanel.cpp">
       <Filter>Archivos de código fuente\HUD\Shop</Filter>
     </ClCompile>
+    <ClCompile Include="Shop.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -666,6 +667,7 @@
     <ClInclude Include="ShopInfoPanel.h">
       <Filter>Archivos de encabezado\HUD\Shop</Filter>
     </ClInclude>
+    <ClInclude Include="Shop.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de código fuente">
