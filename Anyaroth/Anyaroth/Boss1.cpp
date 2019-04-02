@@ -56,6 +56,10 @@ void Boss1::update(const double& deltaTime)
 	{
 		_actualState = Moving;
 	}
+	if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaEndBomb)
+	{
+		_actualState = Moving;
+	}
 }
 
 
@@ -80,16 +84,24 @@ void Boss1::movement(const double& deltaTime)
 
 void Boss1::bomberAttack(const double& deltaTime, int t1, int t2)
 {
+	if (_actualFase != BetweenFase)
+	{
+		if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaStartBomb)
+			_anim->playAnim(AnimatedSpriteComponent::SpentaLoopBomb);
+	}
+
 	_timeOnBomberAttack += deltaTime;
 	_armVision = false;
 	if (_timeOnBomberAttack >= _bomberAttackTime)
 	{
 		_timeOnBomberAttack = 0;
 		_timeBeetwenBombs = 0;
-		_actualState = Moving;
 		_armVision = true;
-
 		_doSomething = random(800, 1200);
+		if (_actualFase != BetweenFase)
+		{
+			_anim->playAnim(AnimatedSpriteComponent::SpentaEndBomb);
+		}
 	}
 	else
 	{
@@ -276,11 +288,11 @@ void Boss1::fase2(const double& deltaTime)
 				int ra = random(0, 100);
 				if (ra >= 70)
 				{
-
 					if (_noAction > _doSomething)
 					{
 						_actualState = Bombing;
 						bomberAttack(deltaTime, 100, 200);
+						_anim->playAnim(AnimatedSpriteComponent::SpentaStartBomb);
 
 						_noAction = 0;
 					}
