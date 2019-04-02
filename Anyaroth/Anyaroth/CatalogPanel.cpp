@@ -156,9 +156,12 @@ void CatalogPanel::showItemInfo(ShopItem* item)
 	_infoPanel->setDamage(info._damage);
 	_infoPanel->setDistance(info._distance);
 	_infoPanel->setPrice(info._price);
-	_infoPanel->setVisible(true);
+	_infoPanel->setVisible(true);	
 
-	_buyButton->setVisible(false);
+	if (item == _selectedItem) 
+		_buyButton->setVisible(true);
+	else
+		_buyButton->setVisible(false);
 }
 
 void CatalogPanel::showSelectedItemInfo() 

@@ -136,7 +136,7 @@ void ShopMenu::openShop(int zona)
 	_player->setActive(false);
 
 	_dialoguePanel->startDialogue({
-		_game->getTexture("DialogueFace"),
+		nullptr,
 		"exampleVoice",
 		"Ollivander",
 		{"Espero que encuentres algo de tu agrado"},
@@ -159,12 +159,12 @@ void ShopMenu::ableMainMenu(Game * game)
 	_exitButton->setVisible(true);
 
 	_dialoguePanel->startDialogue({
-			game->getTexture("DialogueFace"),
-			"exampleVoice",
-			"Ollivander",
-			{ "Quieres algo mas?"},
-			{ 1 },
-			{ " ", " ", " ", " " }
+		nullptr,
+		"exampleVoice",
+		"Ollivander",
+		{ "Quieres algo mas?"},
+		{ 1 },
+		{ " ", " ", " ", " " }
 	});
 }
 
@@ -185,12 +185,12 @@ void ShopMenu::openCatalogPanel(Game* game)
 	_catalogPanel->openCatalog();
 
 	_dialoguePanel->startDialogue({
-			game->getTexture("DialogueFace"),
-			"exampleVoice",
-			"Ollivander",
-			{ "Te gusta algo de lo que tengo?"},
-			{ 0 },
-			{ " ", " ", " ", " " }
+		nullptr,
+		"exampleVoice",
+		"Ollivander",
+		{ "Te gusta algo de lo que tengo?"},
+		{ 0 },
+		{ " ", " ", " ", " " }
 	});
 }
 
@@ -207,15 +207,15 @@ void ShopMenu::startTalking(Game* game)
 	//disableMainMenu(game);
 	_dialoguePanel->endDialogue();
 	_dialoguePanel->startDialogue({
-			game->getTexture("DialogueFace"),
-			"exampleVoice",
-			"Ollivander",
-			{ "He oido que la colmena esta experimentando con sustancias mutagenicas para crear super-anyas.",
-			"Si esto es verdad... estamos jodidos.",
-			"Pero bueno...",
-			"Esperemos que solo sea un rumor."},
-			{ 2, 1, 2, 0 },
-			{ " ", " ", " ", " " }
+		nullptr,
+		"exampleVoice",
+		"Ollivander",
+		{ "He oido que la colmena esta experimentando con sustancias mutagenicas para crear super-anyas.",
+		"Si esto es verdad... estamos jodidos.",
+		"Pero bueno...",
+		"Esperemos que solo sea un rumor."},
+		{ 2, 1, 2, 0 },
+		{ " ", " ", " ", " " }
 	});
 }
 
@@ -232,12 +232,12 @@ void ShopMenu::openDepotPanel(Game* game)
 	_depotPanel->openDepotPanel();
 
 	_dialoguePanel->startDialogue({
-			game->getTexture("DialogueFace"),
-			"exampleVoice",
-			"Ollivander",
-			{ "¡Equipate bien antes de salir ahi fuera!"},
-			{ 0 },
-			{ " ", " ", " ", " " }
+		nullptr,
+		"exampleVoice",
+		"Ollivander",
+		{ "¡Equipate bien antes de salir ahi fuera!"},
+		{ 0 },
+		{ " ", " ", " ", " " }
 	});
 }
 
