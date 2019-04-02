@@ -41,7 +41,8 @@
 		["DialogueFace", "faces.png", 1, 3],
 		["InteractIndicator", "interactIndicator.png", 1, 5],
 		["Bomb", "bomb_spritesheet.png", 2, 8],
-		["Spenta", "spenta_spritesheet.png", 12, 26]
+      [ "Spenta", "spenta_spritesheet.png", 12, 26 ],
+      ["SpentaOrb", "spenta_orb_spritesheet.png", 2, 10]
     ],
     "fonts" : [
         ["ARIAL12", "arial.ttf", 12]

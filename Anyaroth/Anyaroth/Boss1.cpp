@@ -23,7 +23,7 @@ Boss1::Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool, ExplosiveB
 	_anim->addAnim(AnimatedSpriteComponent::SpentaStartShield, 17, false);
 	_anim->addAnim(AnimatedSpriteComponent::SpentaLoopShield, 10, true);
 	_anim->addAnim(AnimatedSpriteComponent::SpentaEndShield, 10, false);
-	_anim->addAnim(AnimatedSpriteComponent::SpentaDie, 4, true);
+	_anim->addAnim(AnimatedSpriteComponent::SpentaDie, 4, false);
 	_anim->addAnim(AnimatedSpriteComponent::SpentaStartBomb, 10, false);
 	_anim->addAnim(AnimatedSpriteComponent::SpentaLoopBomb, 10, true);
 	_anim->addAnim(AnimatedSpriteComponent::SpentaEndBomb, 10, false);
@@ -51,6 +51,13 @@ void Boss1::update(const double& deltaTime)
 	if (!isDead())
 	{
 		checkMelee();
+	}
+	else
+	{
+		if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaEndShield)
+		{
+			_anim->playAnim(AnimatedSpriteComponent::SpentaDie);
+		}
 	}
 	if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaEndShield)
 	{
@@ -395,14 +402,14 @@ void Boss1::throwOrb()
 
 	if (b != nullptr)
 	{
-		b->init(_game->getTexture("Coin"), helpPos, 20, 10, random(80, 180), _bombRange, "EnemyBullet");
+		b->init(_game->getTexture("SpentaOrb"), helpPos, 20, 10, random(80, 180), _bombRange, "EnemyBullet");
 		b->changeFilter();
 	}
 	else
 	{
 		Bullet* b2 = _myExplosivePool->addNewBullet();
 
-		b->init(_game->getTexture("Coin"), helpPos, 20, 10, random(80, 180), _bombRange, "EnemyBullet");
+		b->init(_game->getTexture("SpentaOrb"), helpPos, 20, 10, random(80, 180), _bombRange, "EnemyBullet");
 		b2->changeFilter();
 	}
 }
