@@ -6,7 +6,8 @@
 #include "DistanceStaticEnemy.h"
 #include "DistanceDynamicEnemy.h"
 #include "BomberEnemy.h"
-#include "SpawnerEnemy.h"
+#include "NormalSpawner.h"
+#include "DistanceSpawner.h"
 #include "StaticSpawnerEnemy.h"
 #include "GunType_def.h"
 #include "BotonLanzaMisiles.h"
@@ -97,7 +98,11 @@ void Map::createObjects()
 			}
 			else if (name == "Spawner")
 			{
-				_objects->addChild(new SpawnerEnemy<MeleeEnemy>(_game, _player, Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2)));
+				_objects->addChild(new NormalSpawner<MeleeEnemy>(_game, _player, Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2)));
+			}
+			else if (name == "DistanceSpawner")
+			{
+				_objects->addChild(new DistanceSpawner<DistanceStaticEnemy>(_game, _player, Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), _bulletPool));
 			}
 			else if (name == "SpawnerStatic")
 			{

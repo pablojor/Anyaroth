@@ -7,6 +7,8 @@ Capsule::Capsule(Game* g, Player* player, Vector2D pos, Enemy* father) : GameObj
 	_transform = addComponent<TransformComponent>();
 	_transform->setPosition(pos.getX(), pos.getY());
 
+	_anim = addComponent<AnimatedSpriteComponent>();
+
 	_body = addComponent<BodyComponent>();
 	_body->getBody()->SetType(b2_dynamicBody);
 	_body->getBody()->SetBullet(true);

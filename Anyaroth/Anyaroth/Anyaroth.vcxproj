@@ -219,6 +219,7 @@
     <ClCompile Include="RenderComponent.cpp" />
     <ClCompile Include="Shotgun.cpp" />
     <ClCompile Include="SoundManager.cpp" />
+    <ClCompile Include="SpawnerEnemy.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
     <ClCompile Include="Money.cpp" />
     <ClCompile Include="StaticSpawnerEnemy.cpp" />
@@ -239,6 +240,7 @@
     <ClInclude Include="Boss.h" />
     <ClInclude Include="CapsuleDistance.h" />
     <ClInclude Include="CapsuleNormal.h" />
+    <ClInclude Include="DistanceSpawner.h" />
     <ClInclude Include="FramedImageUI.h" />
     <ClInclude Include="AnimatedSpriteComponent.h" />
     <ClInclude Include="AnyarothError.h" />
@@ -273,6 +275,7 @@
     <ClInclude Include="FlyingEnemy.h" />
     <ClInclude Include="MisilBoss1.h" />
     <ClInclude Include="MovingComponent.h" />
+    <ClInclude Include="NormalSpawner.h" />
     <ClInclude Include="NPC.h" />
     <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="Melee.h" />

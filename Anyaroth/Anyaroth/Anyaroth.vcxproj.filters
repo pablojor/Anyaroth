@@ -301,6 +301,9 @@
     <ClCompile Include="Capsule.cpp">
       <Filter>Archivos de código fuente\Objects\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="SpawnerEnemy.cpp">
+      <Filter>Archivos de código fuente\Objects\Enemies\SpawnerEnemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -632,6 +635,12 @@
     </ClInclude>
     <ClInclude Include="CapsuleNormal.h">
       <Filter>Archivos de encabezado\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="NormalSpawner.h">
+      <Filter>Archivos de encabezado\Objects\Enemies\SpawnerEnemies</Filter>
+    </ClInclude>
+    <ClInclude Include="DistanceSpawner.h">
+      <Filter>Archivos de encabezado\Objects\Enemies\SpawnerEnemies</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
