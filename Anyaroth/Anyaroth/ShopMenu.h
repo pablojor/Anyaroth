@@ -26,7 +26,7 @@ class ShopMenu : public PanelUI
 
 		list<ShopItem*> _items;
 
-		static int _zona;
+		int _zone = 1;
 
 		void loadWeaponInfo();
 

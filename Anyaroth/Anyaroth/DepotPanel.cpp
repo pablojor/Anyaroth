@@ -89,16 +89,7 @@ void DepotPanel::setItems(list<ShopItem*>* list)
 	itemHeight < itemWidth ? itemSize = itemHeight : itemSize = itemWidth;
 
 	for (auto it : *_items)
-	{
-			it->setSize(itemSize, itemSize);
-
-			it->onDown([this, it](Game* game) {
-				selectItem(game, it); 
-			});
-
-			addChild(it);
-	}
-	reorderDepot();
+		addChild(it);
 }
 
 void DepotPanel::removeItems()
@@ -110,7 +101,10 @@ void DepotPanel::removeItems()
 void DepotPanel::openDepotPanel()
 {
 	for (auto it : *_items)
+	{
+		it->setSize(itemSize, itemSize);
 		it->onDown([this, it](Game* game) {	selectItem(game, it); });
+	}
 
 	reorderDepot();
 	setVisible(true);
@@ -119,6 +113,7 @@ void DepotPanel::openDepotPanel()
 void DepotPanel::closeDepotPanel()
 {
 	setVisible(false);
+	_selectedItem = nullptr;
 }
 
 void DepotPanel::reorderDepot()

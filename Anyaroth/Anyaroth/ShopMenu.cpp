@@ -18,8 +18,6 @@ DepotPanel* ShopMenu::_depotPanel = nullptr;
 
 Player* ShopMenu::_player = nullptr;
 
-int ShopMenu::_zona = NULL;
-
 ShopMenu::ShopMenu(Game* game) : PanelUI(game)
 {
 	//----FONDO----//
@@ -72,12 +70,14 @@ ShopMenu::ShopMenu(Game* game) : PanelUI(game)
 
 	loadWeaponInfo();
 
+	_catalogPanel->setItems(&_items, _zone);
 	_depotPanel->setItems(&_items);
 }
 
 ShopMenu::~ShopMenu()
 {
 	_depotPanel->removeItems();
+	_catalogPanel->removeItems();
 	for (auto it = _items.begin(); it != _items.end(); it++)
 	{
 		delete *it;
@@ -130,8 +130,8 @@ void ShopMenu::setPlayer(Player* ply)
 
 void ShopMenu::openShop(int zona)
 {
-	if (zona != _zona)
-		_zona = zona;
+	if (zona != _zone)
+		_zone = zona;
 	_visible = true;
 	_player->setActive(false);
 
@@ -182,8 +182,6 @@ void ShopMenu::openCatalogPanel(Game* game)
 {
 	disableMainMenu(game);
 
-	_catalogPanel->setItems(_items);
-	_catalogPanel->updateCatalog(_zona);
 	_catalogPanel->openCatalog();
 
 	_dialoguePanel->startDialogue({

@@ -20,7 +20,7 @@ class CatalogPanel : public PanelUI
 		ImageUI* _frame = nullptr;
 		ButtonUI* _exitButton = nullptr;
 
-		list<ShopItem*> _items;
+		list<ShopItem*>* _items;
 
 		ShopItem* _selectedItem = nullptr;
 		ImageUI* _itemIndicator = nullptr;
@@ -32,21 +32,25 @@ class CatalogPanel : public PanelUI
 		int itemHeight;
 		int itemSize;
 
-		bool _weaponSold = false;
+		int _zone = -1;
 
 		void reorderCatalog();
+		void showItemInfo(ShopItem* item);
+		void showSelectedItemInfo();
 
 	public:
 		CatalogPanel(Game* game);
-		~CatalogPanel();
+		~CatalogPanel() {};
 
 		void setPlayer(Player* ply);
 
-		void setItems(list<ShopItem*>& list);
-		void openCatalog();
-		void updateCatalog(int zona);
+		void setItems(list<ShopItem*>* list, const int& zone);
+		void removeItems();
 
-		bool getWeaponSold() { return _weaponSold; }
+		void openCatalog();
+		void closeCatalog();
+
+		inline void setZone(const int& zone) { _zone = zone; }
 
 		void selectItem(Game* game, ShopItem* item);
 		void buyItem(Game* game);
