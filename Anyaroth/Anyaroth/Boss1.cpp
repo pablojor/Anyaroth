@@ -402,14 +402,14 @@ void Boss1::throwOrb()
 
 	if (b != nullptr)
 	{
-		b->init(_game->getTexture("SpentaOrb"), helpPos, 20, 10, random(80, 180), _bombRange, "EnemyBullet");
+		b->init(_game->getTexture("SpentaOrb"), helpPos, 20, 10, random(80, 180), _bombRange, "EnemyBullet", "Orb");
 		b->changeFilter();
 	}
 	else
 	{
 		Bullet* b2 = _myExplosivePool->addNewBullet();
 
-		b->init(_game->getTexture("SpentaOrb"), helpPos, 20, 10, random(80, 180), _bombRange, "EnemyBullet");
+		b->init(_game->getTexture("SpentaOrb"), helpPos, 20, 10, random(80, 180), _bombRange, "EnemyBullet", "Orb");
 		b2->changeFilter();
 	}
 }

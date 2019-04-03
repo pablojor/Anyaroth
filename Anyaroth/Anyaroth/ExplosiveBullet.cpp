@@ -35,15 +35,16 @@ void ExplosiveBullet::update(const double& deltaTime)
 
 	if (!_explode)
 	{
+		GameObject::update(deltaTime);
 		if (dist < _range && !_collided)
 		{
-			GameObject::update(deltaTime);
 			//_body->getBody()->SetLinearVelocity(b2Vec2(_speed * cos(_transform->getRotation() * M_PI / 180.0), _speed * sin(_transform->getRotation() * M_PI / 180.0)));
 			_aliveTime++;
 		}
 		else
 		{
 			explosion();
+			_anim->playAnim(AnimatedSpriteComponent::Destroy);
 			_body->getBody()->SetGravityScale(0);
 			_body->getBody()->SetLinearVelocity(b2Vec2_zero);
 		}
@@ -52,11 +53,19 @@ void ExplosiveBullet::update(const double& deltaTime)
 	{
 		if (_time >= _explodeTime)
 		{
-			reset();
-			_time = 0;
-			_explode = false;
-			_body->getBody()->DestroyFixture(_body->getBody()->GetFixtureList());
-			_body->getBody()->SetGravityScale(4);
+			if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::Destroy)
+			{
+				reset();
+				_time = 0;
+				_explode = false;
+			}
+			else
+			{
+				_body->getBody()->SetActive(false);
+				_body->getBody()->DestroyFixture(_body->getBody()->GetFixtureList());
+				_body->getBody()->SetGravityScale(4);
+				_anim->playAnim(AnimatedSpriteComponent::Destroy);
+			}
 		}
 		else
 			_time += deltaTime;

@@ -60,24 +60,32 @@ void Bullet::update(const double& deltaTime)
 	if (isActive())
 	{
 		double dist = _iniPos.distance(_transform->getPosition());
+		GameObject::update(deltaTime);
 
 		if (dist < _range && !_collided)
 		{
-			GameObject::update(deltaTime);
-
 			_body->getBody()->SetLinearVelocity(b2Vec2(_speed * cos(_transform->getRotation() * M_PI / 180.0), _speed * sin(_transform->getRotation() * M_PI / 180.0)));
 			_aliveTime++;
 		}
 		else
-			reset();
+		{
+
+			if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::Destroy)
+			{
+				reset();
+			}
+			else
+			{
+				_body->getBody()->SetActive(false);
+				_anim->playAnim(AnimatedSpriteComponent::Destroy);
+			}
+		}
 	}
 }
 
 void Bullet::reset()
 {
-	//_anim->
-
-	_body->getBody()->SetActive(false);
+	_anim->playAnim(AnimatedSpriteComponent::Default);
 	setActive(false);
 	_aliveTime = 0;
 	_collided = false;
@@ -96,8 +104,14 @@ void Bullet::setAnimations(string type)
 		_anim->addAnim(AnimatedSpriteComponent::Default, 6, true);
 		_anim->addAnim(AnimatedSpriteComponent::Destroy, 8, false);
 	}
+	else if (type == "Orb")
+	{
+		_anim->addAnim(AnimatedSpriteComponent::Default, 3, true);
+		_anim->addAnim(AnimatedSpriteComponent::Destroy, 10, false);
+	}
 	else
 	{
 		_anim->addAnim(AnimatedSpriteComponent::Default, 4, true);
+		_anim->addAnim(AnimatedSpriteComponent::Destroy, 4, false);
 	}
 }
