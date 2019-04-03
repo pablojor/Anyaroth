@@ -20,5 +20,8 @@ PlayStateHUD::PlayStateHUD(Game * g)
 	addUIElement(_bossPanel);
 	addUIElement(_shopMenu);
 	addUIElement(_dialoguePanel);
+
+	//Asignaciones
+	_shopMenu->setDialoguePanel(_dialoguePanel);
 }
 

@@ -47,14 +47,11 @@ ShopMenu::ShopMenu(Game* game) : PanelUI(game)
 	_catalogPanel->setVisible(false);
 	_catalogPanel->inicializeCallbacks(this);
 
-	_dialoguePanel = new DialoguePanel(game, true);
-
 	_depotPanel = new DepotPanel(game);
 	_depotPanel->setVisible(false);
 	_depotPanel->inicializeCallback(this);
 
 	addChild(_catalogPanel);
-	addChild(_dialoguePanel);
 	addChild(_depotPanel);
 
 	loadWeaponInfo();
@@ -67,6 +64,7 @@ ShopMenu::~ShopMenu()
 {
 	_depotPanel->removeItems();
 	_catalogPanel->removeItems();
+	if(_dialoguePanel != nullptr) removeChild(_dialoguePanel);
 	for (auto it = _items.begin(); it != _items.end(); it++)
 	{
 		delete *it;
@@ -124,6 +122,7 @@ void ShopMenu::openShop(int zona)
 	_visible = true;
 	_player->setActive(false);
 
+	_dialoguePanel->stopAtLastLineShown(true);
 	_dialoguePanel->startDialogue({
 		nullptr,
 		"exampleVoice",
@@ -137,7 +136,15 @@ void ShopMenu::openShop(int zona)
 void ShopMenu::closeShop()
 {
 	_dialoguePanel->endDialogue();
+	_dialoguePanel->stopAtLastLineShown(false);
+	_dialoguePanel->setVisible(false);
 	_player->setActive(true);
+}
+
+void ShopMenu::setDialoguePanel(DialoguePanel* dialoguePanel)
+{
+	_dialoguePanel = dialoguePanel; 
+	addChild(_dialoguePanel);
 }
 
 void ShopMenu::ableMainMenu(Game * game)

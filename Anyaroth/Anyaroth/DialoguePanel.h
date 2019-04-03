@@ -43,13 +43,13 @@ private:
 	Dialogue _dialogue;
 	int _currentText = 0;
 	int _linesTyped = 0;
-	bool _isConversating = false;
 
-	bool _inShop = false;
+	bool _isConversating = false;
+	bool _keepLastLine = false;
 
 public:
 	DialoguePanel() {};
-	DialoguePanel(Game* game, bool inShop = false);
+	DialoguePanel(Game* game);
 	~DialoguePanel();
 
 	virtual void update(const double& deltaTime);
@@ -57,7 +57,7 @@ public:
 
 	inline bool isConversating() const { return _isConversating; }
 
-	inline void setInShop(bool b) { _inShop = b; }
+	inline void stopAtLastLineShown(bool b) { _keepLastLine = b; }
 
 	void startDialogue(const Dialogue& dialogue);
 	void endDialogue();

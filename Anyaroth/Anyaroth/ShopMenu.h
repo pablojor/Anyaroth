@@ -39,6 +39,7 @@ class ShopMenu : public PanelUI
 		void openShop(int zona);
 		void closeShop();
 
+		void setDialoguePanel(DialoguePanel* dialoguePanel);
 		inline DialoguePanel* getDialoguePanel() const { return _dialoguePanel; }
 
 		void ableMainMenu(Game* game);
