@@ -6,12 +6,7 @@
 #include "Game.h"
 #include "WeaponManager.h"
 
-Player* DepotPanel::_player = nullptr; 
-ShopItem* DepotPanel::_firstWeapon = nullptr;
-ShopItem* DepotPanel::_secondWeapon = nullptr;
-ShopItem* DepotPanel::_meleeWeapon = nullptr;
-
-DepotPanel::DepotPanel(Game* game) : PanelUI(game)//, _weaponManager(game)
+DepotPanel::DepotPanel(Game* game) : PanelUI(game)
 {
 	//----MARCOS----//
 
@@ -26,7 +21,7 @@ DepotPanel::DepotPanel(Game* game) : PanelUI(game)//, _weaponManager(game)
 
 	//----BOTON DE SALIR----//
 
-	_exitButton = new ButtonUI(game, game->getTexture("Button"), ShopMenu::closeDepotPanel, { 0,1,2,3 });
+	_exitButton = new ButtonUI(game, game->getTexture("Button"), nullptr, { 0,1,2,3 });
 	_exitButton->setPosition(_depotFrame->getX(), _depotFrame->getY() + _depotFrame->getH() + 2);
 	_exitButton->setSize(_depotFrame->getW(), _exitButton->getH() + 4); //POSIBLEMENTE PROVISIONAL
 
@@ -77,6 +72,11 @@ DepotPanel::DepotPanel(Game* game) : PanelUI(game)//, _weaponManager(game)
 	addChild(_changeButton);
 
 	//----ALMACEN----//
+}
+
+void DepotPanel::inicializeCallback(ShopMenu * menu)
+{
+	_exitButton->onDown([menu](Game* game) { menu->closeDepotPanel(game); });
 }
 
 void DepotPanel::setItems(list<ShopItem*>* list)

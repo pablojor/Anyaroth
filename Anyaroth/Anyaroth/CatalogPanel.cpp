@@ -3,11 +3,6 @@
 #include "ShopMenu.h"
 #include "Player.h"
 
-ShopInfoPanel* CatalogPanel::_infoPanel = nullptr;
-ButtonUI* CatalogPanel::_buyButton = nullptr;
-Player* CatalogPanel::_player = nullptr;
-
-
 CatalogPanel::CatalogPanel(Game* game) : PanelUI(game)
 {
 	//----MARCO----//
@@ -18,7 +13,7 @@ CatalogPanel::CatalogPanel(Game* game) : PanelUI(game)
 
 	//----BOTON DE SALIR----//
 
-	_exitButton = new ButtonUI(game, game->getTexture("Button"), ShopMenu::closeCatalogPanel, { 0,1,2,3 });
+	_exitButton = new ButtonUI(game, game->getTexture("Button"), nullptr, { 0,1,2,3 });
 	_exitButton->setPosition(_frame->getX(), _frame->getY() + _frame->getH() + 2);
 	_exitButton->setSize(_frame->getW(), _exitButton->getH() + 4);
 
@@ -50,6 +45,11 @@ CatalogPanel::CatalogPanel(Game* game) : PanelUI(game)
 	addChild(_playerMoney);
 }
 
+
+void CatalogPanel::inicializeCallbacks(ShopMenu* menu)
+{
+	_exitButton->onDown([menu](Game* game) {menu->closeCatalogPanel(game); });
+}
 
 void CatalogPanel::setPlayer(Player* ply)
 {
@@ -84,8 +84,8 @@ void CatalogPanel::openCatalog()
 	for (auto it : *_items)
 	{
 		it->onDown([this, it](Game* game) {	selectItem(game, it); });
-		it->onOver([this, it](Game* game) {	showItemInfo(it); });
-		it->onOut([this, it](Game* game) {	showSelectedItemInfo(); });
+		//it->onOver([this, it](Game* game) { showItemInfo(it); });
+		//it->onOut([this, it](Game* game) { showSelectedItemInfo(); });
 		it->setSize(itemSize, itemSize);
 	}
 	reorderCatalog();

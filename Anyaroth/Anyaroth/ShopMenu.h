@@ -11,16 +11,16 @@ class Player;
 class ShopMenu : public PanelUI
 {
 	private:
-		static Player* _player;
+		Player* _player;
 
-		static ButtonUI * _shopButton;
-		static ButtonUI* _talkButton;
-		static ButtonUI* _depotButton;
-		static ButtonUI* _exitButton;
+		ButtonUI * _shopButton;
+		ButtonUI* _talkButton;
+		ButtonUI* _depotButton;
+		ButtonUI* _exitButton;
 
-		static DialoguePanel* _dialoguePanel;
-		static CatalogPanel* _catalogPanel;
-		static DepotPanel* _depotPanel;
+		DialoguePanel* _dialoguePanel;
+		CatalogPanel* _catalogPanel;
+		DepotPanel* _depotPanel;
 
 		ImageUI* _imageBG = nullptr;
 
@@ -37,21 +37,21 @@ class ShopMenu : public PanelUI
 		void setPlayer(Player* ply);
 
 		void openShop(int zona);
-		static void closeShop();
+		void closeShop();
 
 		inline DialoguePanel* getDialoguePanel() const { return _dialoguePanel; }
 
-		static void ableMainMenu(Game* game);
-		static void disableMainMenu(Game* game);
+		void ableMainMenu(Game* game);
+		void disableMainMenu(Game* game);
 
 		void openCatalogPanel(Game* game);
-		static void closeCatalogPanel(Game* game);
+		void closeCatalogPanel(Game* game);
 
 		void startTalking(Game* game);
 		void stopTalking();
 
 		void openDepotPanel(Game* game);
-		static void closeDepotPanel(Game* game);
+		void closeDepotPanel(Game* game);
 
 		void exit(Game* game);
 };

@@ -32,7 +32,7 @@ class ShopItem : public ButtonUI
 
 		inline Texture* getItemImage() const { return getImage(); }
 		inline ItemInfo getItemInfo() const { return _info; }
-		static inline void getItem(Game* game) {  }
+		inline void getItem(Game* game) {  }
 
 		void setItemImage(Texture* image) { setImage(image); }
 		void setItemInfo(const ItemInfo& info) { _info = info; }

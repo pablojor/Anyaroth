@@ -1,8 +1,6 @@
 #include "PlayStateHUD.h"
 #include "Game.h"
 
-ShopMenu* PlayStateHUD::_shopMenu = nullptr;
-
 PlayStateHUD::PlayStateHUD(Game * g)
 {
 	//Panel del jugador
@@ -24,7 +22,3 @@ PlayStateHUD::PlayStateHUD(Game * g)
 	addUIElement(_dialoguePanel);
 }
 
-void PlayStateHUD::closeShopMenu(Game * game)
-{
-	_shopMenu->setVisible(false);
-}

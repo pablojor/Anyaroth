@@ -2,21 +2,8 @@
 #include "Game.h"
 #include "Player.h"
 #include "PlayStateHUD.h"
-
 #include <json.hpp>
 
-using namespace nlohmann;
-
-ButtonUI* ShopMenu::_shopButton = nullptr;
-ButtonUI* ShopMenu::_talkButton = nullptr;
-ButtonUI* ShopMenu::_depotButton = nullptr;
-ButtonUI* ShopMenu::_exitButton = nullptr;
-
-CatalogPanel* ShopMenu::_catalogPanel = nullptr;
-DialoguePanel* ShopMenu::_dialoguePanel = nullptr;
-DepotPanel* ShopMenu::_depotPanel = nullptr;
-
-Player* ShopMenu::_player = nullptr;
 
 ShopMenu::ShopMenu(Game* game) : PanelUI(game)
 {
@@ -58,11 +45,13 @@ ShopMenu::ShopMenu(Game* game) : PanelUI(game)
 
 	_catalogPanel = new CatalogPanel(game);
 	_catalogPanel->setVisible(false);
+	_catalogPanel->inicializeCallbacks(this);
 
 	_dialoguePanel = new DialoguePanel(game, true);
 
 	_depotPanel = new DepotPanel(game);
 	_depotPanel->setVisible(false);
+	_depotPanel->inicializeCallback(this);
 
 	addChild(_catalogPanel);
 	addChild(_dialoguePanel);
@@ -87,18 +76,18 @@ ShopMenu::~ShopMenu()
 void ShopMenu::loadWeaponInfo()
 {
 	ifstream file;
-	json j;
+	nlohmann::json j;
 
 	file.open(INFO_PATH + "weapon_info.json");
 	if (file.is_open())
 	{
 		file >> j;
 
-		for (json::iterator it = j.begin(); it != j.end(); ++it) 
+		for (nlohmann::json::iterator it = j.begin(); it != j.end(); ++it)
 		{
-			json weapon = it.value();
+			nlohmann::json weapon = it.value();
 
-			for (json::iterator typeWeapon = weapon.begin(); typeWeapon != weapon.end(); ++typeWeapon)
+			for (nlohmann::json::iterator typeWeapon = weapon.begin(); typeWeapon != weapon.end(); ++typeWeapon)
 			{
 				auto item = new ShopItem(_game, _game->getTexture(typeWeapon.value()["icon"].get<string>()));
 
@@ -251,8 +240,6 @@ void ShopMenu::closeDepotPanel(Game * game)
 
 void ShopMenu::exit(Game* game)
 {
-
-	cout << "cerrando" << endl;
 	closeShop();
-	PlayStateHUD::closeShopMenu(game);
+	setVisible(false);
 }

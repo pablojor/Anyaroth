@@ -7,11 +7,12 @@
 #include <list>
 
 class Player;
+class ShopMenu;
 
 class DepotPanel : public PanelUI
 {
 	private:
-		static Player* _player;
+		Player* _player;
 
 		ImageUI* _depotFrame = nullptr;
 		ImageUI* _equipmentFrame = nullptr;
@@ -19,9 +20,9 @@ class DepotPanel : public PanelUI
 		ButtonUI* _exitButton = nullptr;
 		ButtonUI* _changeButton = nullptr;
 
-		static ShopItem* _firstWeapon;
-		static ShopItem* _secondWeapon;
-		static ShopItem* _meleeWeapon;
+		ShopItem* _firstWeapon;
+		ShopItem* _secondWeapon;
+		ShopItem* _meleeWeapon;
 
 		list<ShopItem*>* _items;
 
@@ -36,6 +37,8 @@ class DepotPanel : public PanelUI
 	public:
 		DepotPanel(Game* game);
 		virtual ~DepotPanel() {};
+
+		void inicializeCallback(ShopMenu* menu);
 
 		void setPlayer(Player* ply) { _player = ply; }
 

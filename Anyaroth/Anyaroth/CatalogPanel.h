@@ -9,13 +9,14 @@
 #include <list>
 
 class Player;
+class ShopMenu;
 
 class CatalogPanel : public PanelUI
 {
 	private:
-		static Player* _player;
-		static ButtonUI* _buyButton;
-		static ShopInfoPanel* _infoPanel;
+		Player* _player;
+		ButtonUI* _buyButton;
+		ShopInfoPanel* _infoPanel;
 
 		ImageUI* _frame = nullptr;
 		ButtonUI* _exitButton = nullptr;
@@ -41,6 +42,8 @@ class CatalogPanel : public PanelUI
 	public:
 		CatalogPanel(Game* game);
 		~CatalogPanel() {};
+
+		void inicializeCallbacks(ShopMenu* menu);
 
 		void setPlayer(Player* ply);
 
