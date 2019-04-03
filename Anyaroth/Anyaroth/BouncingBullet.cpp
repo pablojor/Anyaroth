@@ -37,14 +37,24 @@ void BouncingBullet::update(double time)
 	if (isActive()) {
 
 		double dist = _iniPos.distance(_transform->getPosition());
+		GameObject::update(time);
 
 		if (dist < _range && !_collided && _numBounces < _maxBounces)
 		{
-			GameObject::update(time);
 			_aliveTime++;
 		}
 		else
-			reset();
+		{
+			if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::Destroy)
+			{
+				reset();
+			}
+			else
+			{
+				_body->getBody()->SetActive(false);
+				_anim->playAnim(AnimatedSpriteComponent::Destroy);
+			}
+		}
 	}
 }
 

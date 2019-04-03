@@ -75,7 +75,8 @@ void Boss1::movement(const double& deltaTime)
 	if (_actualState == Moving)
 	{
 		_anim->playAnim(AnimatedSpriteComponent::SpentaIdle);
-		if (((_bodyPos.getX() + _body->getW() / 2 > _originalPos.getX() + _amplitude.getX()) && _dir.getX() == 1) || ((_bodyPos.getX() + _body->getW() / 2 < _originalPos.getX() - _amplitude.getX()) && _dir.getX() == -1))
+
+		if (((_bodyPos.getX() + _anim->getTexture()->getW() / 2 / _anim->getTexture()->getNumCols() > _originalPos.getX() + _amplitude.getX()) && _dir.getX() == 1) || ((_bodyPos.getX() + _anim->getTexture()->getW() / 2 / _anim->getTexture()->getNumCols() < _originalPos.getX() - _amplitude.getX()) && _dir.getX() == -1))
 			_dir = Vector2D(-_dir.getX(), _dir.getY());
 
 		_playerPos = Vector2D(_playerBody->getBody()->GetPosition().x * M_TO_PIXEL, _playerBody->getBody()->GetPosition().y * M_TO_PIXEL);
