@@ -119,15 +119,7 @@ void Map::createObjects()
 			}
 			else if (name == "NPCs")
 			{
-				_n=new NPC(_game, { 60, 730 },{_game->getTexture("DialogueFace"),
-																"exampleVoice",
-																"Jose Mar�a",
-																{ "*Bzzt..Bip, bip..* Hey, �qu� tal?",
-																"Aj�, con que programando... ya veo...",
-																"�Pues sigue con eso, chaval! Deja de jugar tanto al Sekiro y ponte a estudiar de una maldita vez, escoria infrahumana (...) �Adew! *Bip*" },
-																{0,1,2},
-																{" ", " ", " ", " "}
-					});
+				_n = new NPC(_game, { 60, 730 }, _game->getDialogue("Jose Maria 1"));
 				_n->setDialoguePanel(_hud->getDialoguePanel());
 				_objects->addChild(_n);
 			}
