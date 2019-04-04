@@ -23,7 +23,7 @@ Boss1::Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool, ExplosiveB
 	_anim->addAnim(AnimatedSpriteComponent::SpentaStartShield, 17, false);
 	_anim->addAnim(AnimatedSpriteComponent::SpentaLoopShield, 10, true);
 	_anim->addAnim(AnimatedSpriteComponent::SpentaEndShield, 10, false);
-	_anim->addAnim(AnimatedSpriteComponent::SpentaDie, 4, false);
+	_anim->addAnim(AnimatedSpriteComponent::SpentaDie, 4, true);
 	_anim->addAnim(AnimatedSpriteComponent::SpentaStartBomb, 10, false);
 	_anim->addAnim(AnimatedSpriteComponent::SpentaLoopBomb, 10, true);
 	_anim->addAnim(AnimatedSpriteComponent::SpentaEndBomb, 10, false);
@@ -40,6 +40,8 @@ Boss1::Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool, ExplosiveB
 	addChild(_melee);
 
 	_armVision = true;
+
+	_arm->setActive(false); //poner invisible el brazo del boss
 
 	_playerBody = _player->getComponent<BodyComponent>();
 

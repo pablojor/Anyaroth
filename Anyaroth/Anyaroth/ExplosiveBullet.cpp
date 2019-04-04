@@ -4,12 +4,12 @@
 
 ExplosiveBullet::ExplosiveBullet(Game* game):Bullet(game)
 {
-	_body->filterCollisions(PLAYER_BULLETS, FLOOR | PLATFORMS | ENEMIES);
+	/*_body->filterCollisions(PLAYER_BULLETS, FLOOR | PLATFORMS | ENEMIES);
 	_body->getBody()->SetType(b2_dynamicBody);
 	_body->getBody()->SetBullet(true);
-	_body->getBody()->SetFixedRotation(true);
+	_body->getBody()->SetFixedRotation(true);*/
 	_body->getBody()->SetGravityScale(6);
-	_body->getBody()->SetActive(false);
+	//_body->getBody()->SetActive(false);
 
 	setActive(false);
 }
@@ -32,13 +32,13 @@ void ExplosiveBullet::update(const double& deltaTime)
 		return;
 
 	double dist = _iniPos.distance(_transform->getPosition());
+	GameObject::update(deltaTime);
 
 	if (!_explode)
 	{
-		GameObject::update(deltaTime);
+		
 		if (dist < _range && !_collided)
 		{
-			//_body->getBody()->SetLinearVelocity(b2Vec2(_speed * cos(_transform->getRotation() * M_PI / 180.0), _speed * sin(_transform->getRotation() * M_PI / 180.0)));
 			_aliveTime++;
 		}
 		else
@@ -58,13 +58,17 @@ void ExplosiveBullet::update(const double& deltaTime)
 				reset();
 				_time = 0;
 				_explode = false;
+				_body->getBody()->DestroyFixture(_body->getBody()->GetFixtureList());
+				_body->getBody()->SetGravityScale(6);
+				//_body->
 			}
 			else
 			{
-				_body->getBody()->SetActive(false);
-				_body->getBody()->DestroyFixture(_body->getBody()->GetFixtureList());
-				_body->getBody()->SetGravityScale(4);
+				
 				_anim->playAnim(AnimatedSpriteComponent::Destroy);
+				_body->getBody()->SetActive(false);
+				
+				
 			}
 		}
 		else
