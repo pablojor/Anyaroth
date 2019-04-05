@@ -1,18 +1,9 @@
 ﻿#include "Player.h"
 #include "Game.h"
 #include "Coin.h"
-#include "BasicPistol.h"
-#include "BasicShotgun.h"
-#include "ImprovedShotgun.h"
-#include "BasicRifle.h"
-#include "ImprovedRifle.h"
-//#include "PlasmaSniper.h"
-#include "BounceOrbCannon.h"
-//#include "GravitationalBombCannon.h"
 #include "Axe.h"
 #include "GunType_def.h"
 #include "WeaponManager.h"
-
 
 Player::Player(Game* game, int xPos, int yPos) :  GameObject(game, "Player")
 {
@@ -71,7 +62,7 @@ Player::Player(Game* game, int xPos, int yPos) :  GameObject(game, "Player")
 	//Armas del juego
 	_weaponManager = new WeaponManager(game);
 
-	_currentGun = _weaponManager->getWeapon(BounceOrbCannon_Weapon, 0);
+	_currentGun = _weaponManager->getWeapon(GravityBombCannon_Weapon, 0);
 	_otherGun = _weaponManager->getWeapon(BasicRifle_Weapon, 1);
 
 	_playerArm->setTexture(_currentGun->getArmTexture());

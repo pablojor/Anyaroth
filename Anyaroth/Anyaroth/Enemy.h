@@ -24,6 +24,8 @@ protected:
 	double _time;
 	float32 _speed;
 
+	bool _stunned = false;
+
 public:
 	Enemy(Game* g, Player* player, Vector2D pos, Texture* texture);
 	virtual ~Enemy() {}
@@ -37,6 +39,9 @@ public:
 	void die();
 	virtual void subLife(int damage);
 	inline Life getLife() const { return _life; }
+
+	inline bool isStunned() { return _stunned; }
+	inline void setStunned(bool value) { _stunned = value; }
 
 	bool inCamera();
 };

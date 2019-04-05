@@ -26,7 +26,7 @@ void DistanceStaticEnemy::update(const double& deltaTime)
 {
 	DistanceEnemy::update(deltaTime);
 
-	if (!isDead() && inCamera())
+	if (!isStunned() && !isDead() && inCamera())
 	{
 		bool inVision = _playerDistance.getX() < _vision && _playerDistance.getX() > -_vision && _playerDistance.getY() < _vision && _playerDistance.getY() > -_vision;
 

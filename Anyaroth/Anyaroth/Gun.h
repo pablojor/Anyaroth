@@ -1,6 +1,7 @@
 #pragma once
 #include "PoolWrapper.h"
 #include "Game.h"
+#include "EffectInterface.h"
 
 class Gun
 {
@@ -8,6 +9,7 @@ protected:
 	int _maxMagazine = 0, _magazine = 0, _maxClip = 0, _clip = 0;
 	double _maxCadence = 0, _cadence = 0;	//Tiempo entre bala y bala (se actualizara con el deltaTime)
 	bool _isAutomatic = false;
+	EffectInterface* _effect;
 
 	double _damage = 0, _range = 0, _speed = 0;
 
@@ -16,7 +18,7 @@ protected:
 	Texture* _armTexture = nullptr, *_bulletTexture = nullptr;
 
 public:
-	Gun(Texture* armTexture, Texture* bulletTexture, double speed, double damage, double range, int maxClip, int maxMagazine, double maxCadence, bool automatic = false);
+	Gun(Texture* armTexture, Texture* bulletTexture, double speed, double damage, double range, int maxClip, int maxMagazine, double maxCadence, EffectInterface* effect, bool automatic = false);
 	virtual ~Gun() {}
 
 	virtual void shoot(PoolWrapper* bulletPool, const Vector2D& position, const double& angle, const string& tag);
@@ -45,4 +47,9 @@ public:
 	
 	inline Texture* getBulletTexture() const { return _bulletTexture; }
 	inline Texture* getArmTexture() const { return _armTexture; }
+
+	//setters
+	void setEffect(EffectInterface* effect) { _effect = effect; }
+	inline void setMaxCadence(double value) { _maxCadence = value; _cadence = 0; }
+	inline void setBulletSpeed(double value) { _speed = value; }
 };

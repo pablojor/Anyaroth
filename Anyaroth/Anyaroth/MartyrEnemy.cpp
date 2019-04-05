@@ -38,7 +38,7 @@ void MartyrEnemy::update(const double& deltaTime)
 {
 	Enemy::update(deltaTime);
 
-	if (!isDead() && inCamera())
+	if (!isStunned() && !isDead() && inCamera())
 	{
 		bool inVision = _playerDistance.getX() < _vision && _playerDistance.getX() > -_vision && _playerDistance.getY() < _vision && _playerDistance.getY() > -_vision;
 		bool sameFloor = _playerDistance.getY() < _attackRangeY && _playerDistance.getY() > -_attackRangeY;

@@ -2,7 +2,7 @@
 
 
 
-ImprovedShotgun::ImprovedShotgun(Game * game) : Shotgun(game->getTexture("ArmShotgun"), game->getTexture("PistolBullet"), 100, 7/*daño por bala*/, 60, 2, 50, 800)
+ImprovedShotgun::ImprovedShotgun(Game * game) : Shotgun(game->getTexture("ArmShotgun"), game->getTexture("PistolBullet"), 100, 7/*daï¿½o por bala*/, 60, 2, 50, 800, &_effect)
 {
 	_angleBetweenBullet = 20;
 	_numBulletsPerShot = 5;

@@ -9,13 +9,14 @@
 #include "NormalSpawner.h"
 #include "DistanceSpawner.h"
 #include "StaticSpawnerEnemy.h"
+#include "Player.h"
 #include "GunType_def.h"
 #include "BotonLanzaMisiles.h"
 #include <json.hpp>
 
 using namespace nlohmann;
 
-Map::Map(string filename, Game* game, Player* player, Texture* tileset, BulletPool* bulletPool, ExplosiveBulletPool* explosivePool, BouncingBulletPool* bouncingPool, PlayStateHUD* hud, int coinValue) : GameObject(game), _player(player), _bulletPool(bulletPool), _explosivePool(explosivePool), _bouncingPool(bouncingPool), _hud(hud), _coinValue(coinValue)
+Map::Map(string filename, Game* game, Player* player, Texture* tileset, BulletPool* bulletPool, PlayStateHUD* hud, int coinValue) : GameObject(game), _player(player), _bulletPool(bulletPool),  _hud(hud), _coinValue(coinValue)
 {
 	_layers = new GameObject(_game);
 	addChild(_layers);
@@ -94,7 +95,7 @@ void Map::createObjects()
 			}
 			else if (name == "Bomber")
 			{
-				_objects->addChild(new BomberEnemy(_game, _player, Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), _explosivePool));
+				_objects->addChild(new BomberEnemy(_game, _player, Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), _bulletPool));
 			}
 			else if (name == "Spawner")
 			{
@@ -114,7 +115,7 @@ void Map::createObjects()
 			}
 			else if (name == "Boss1")
 			{
-				_boss1 = (new Boss1(_game, _player, Vector2D(pos[j].getX(), pos[j].getY()), _bulletPool, _explosivePool, _bouncingPool));
+				_boss1 = (new Boss1(_game, _player, Vector2D(pos[j].getX(), pos[j].getY()), _bulletPool));
 				_objects->addChild(_boss1);
 				_boss1->setBossPanel(_hud->getBossPanel());
 			}

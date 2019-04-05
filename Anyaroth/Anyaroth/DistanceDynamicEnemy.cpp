@@ -29,7 +29,7 @@ void DistanceDynamicEnemy::update(const double& deltaTime)
 {
 	DistanceEnemy::update(deltaTime);
 
-	if (!isDead() && inCamera())
+	if (!isStunned() && !isDead() && inCamera())
 	{
 		bool inVision = _playerDistance.getX() < _vision && _playerDistance.getX() > -_vision && _playerDistance.getY() < _vision && _playerDistance.getY() > -_vision;
 
@@ -74,7 +74,7 @@ void DistanceDynamicEnemy::attacking(const double& deltaTime)
 		raycast();
 		shoot();
 
-		if(!_armVision)
+		if(!_armVision && !isStunned())
 			_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
 	}
 }

@@ -6,6 +6,8 @@
 #include "ImprovedRifle.h"
 #include "ImprovedShotgun.h"
 #include "BounceOrbCannon.h"
+#include "GravityBombCannon.h"
+#include "PlasmaSniper.h"
 
 
 WeaponManager::WeaponManager(Game* g) : _game(g)
@@ -17,7 +19,7 @@ WeaponManager::~WeaponManager()
 {
 	for (Gun* gun : _equippedWeapons)
 	{
-		if (gun != nullptr) //destruye el arma que había antes
+		if (gun != nullptr) //destruye el arma que habï¿½a antes
 			delete gun;
 		gun = nullptr;
 	}
@@ -26,7 +28,7 @@ WeaponManager::~WeaponManager()
 
 Gun* WeaponManager::getWeapon(GunType type, int slotIndex)
 {
-	if(_equippedWeapons[slotIndex] != nullptr) //destruye el arma que había antes
+	if(_equippedWeapons[slotIndex] != nullptr) //destruye el arma que habï¿½a antes
 		delete _equippedWeapons[slotIndex];
 
 	Gun* w = nullptr;
@@ -48,15 +50,13 @@ Gun* WeaponManager::getWeapon(GunType type, int slotIndex)
 		w = new ImprovedRifle(_game);
 		break;
 	case PlasmaSniper_Weapon:
+		w = new PlasmaSniper(_game);
 		break;
 	case BounceOrbCannon_Weapon:
 		w = new BounceOrbCannon(_game);
 		break;
-	case GravitationalBombCannon_Weapon:
-		break;
-	case BasicEnemyGun_Weapon:
-		break;
-	case BasicEnemyShotgun_Weapon:
+	case GravityBombCannon_Weapon:
+		w = new GravityBombCannon(_game);
 		break;
 	default:
 		break;

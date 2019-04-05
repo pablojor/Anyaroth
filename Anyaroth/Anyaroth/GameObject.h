@@ -112,11 +112,13 @@ public:
 
 	inline bool isActive() const { return _active; }
 	inline void setActive(bool active) { _active = active; }
+	virtual inline void setStopped(bool value) {}
+	virtual inline void setStunned(bool value) {}
 
 	inline bool isDead() const { return _dead; }
 	inline void setDead(bool dead) { _dead = dead; }
 
-	virtual int const getDamage() { return 0; }
+	virtual int getDamage() const { return 0; }
 	virtual void subLife(int damage) {}
 
 	void destroy();
