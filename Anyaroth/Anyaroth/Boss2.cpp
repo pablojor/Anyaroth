@@ -1,5 +1,6 @@
 #include "Boss2.h"
 #include "Poleaxe.h"
+#include "BasicShotgun.h"
 
 Boss2::Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, player, pos, pool), Enemy(g, player, pos, g->getTexture("EnemyMelee"))
 {
@@ -33,7 +34,6 @@ Boss2::Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, 
 
 	_lasers = new LaserHandler(g, g->getTexture("Arm"), g->getTexture("ArmUp"), player, 4);
 	addChild(_lasers);
-	_lasers->Activate();
 
 	_melee = new Poleaxe(getGame(), { 50,0 }, PLAYER, 25, 15, 5, this);
 	addChild(_melee);
@@ -68,10 +68,11 @@ void Boss2::movement(const double& deltaTime)
 {
 		if(_endJump)
 			endJump();
+		_bodyPos= Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL);
 		_playerPos = Vector2D(_playerBody->getBody()->GetPosition().x * M_TO_PIXEL, _playerBody->getBody()->GetPosition().y * M_TO_PIXEL);
 		_dir = (_body->getBody()->GetPosition().x* M_TO_PIXEL >= _playerPos.getX()) ? -1 : 1;
-		if(_actualState!=Jumping)
-		_body->getBody()->SetLinearVelocity(b2Vec2(_velocity.getX()*_dir / M_TO_PIXEL, _body->getBody()->GetLinearVelocity().y));
+		if (_actualState != Jumping)
+			_body->getBody()->SetLinearVelocity(b2Vec2(_velocity.getX() * _dir / M_TO_PIXEL, _body->getBody()->GetLinearVelocity().y));
 		
 
 }
@@ -127,29 +128,26 @@ void Boss2::endJump()
 void Boss2::checkMelee()
 {
 	if (!isMeleeing() && _melee != nullptr && _melee->isActive())
- 		_velocity = { _velocity.getX() - 20, _velocity.getY() };
+ 		_velocity = { _originalVelocity.getX(), _originalVelocity.getY() };
 	//Se llama despues por que si no no entra en la condicion anterior
 	Boss::checkMelee();
 }
 
 void Boss2::fase1(const double& deltaTime)
 {
-	/*if (_actualState != Jumping)
+	if (_actualState != Shooting)
 	{
 		if (_actualState != Meleeing)
 		{
 			if (_noAction > _doSomething)
 			{
-				int ra = _game->random(0, 100);
-
-				if (ra >= 65)
+				if(_playerPos.distance(_bodyPos)<=_shootRange)
 				{
-					_actualState = Jumping;
-					Jump();
+					_actualState = Shooting;
 					_noAction = 0;
 				}
 
-				else
+				else 
 				{
 					meleeAttack();
 					_actualState = Meleeing;
@@ -160,7 +158,37 @@ void Boss2::fase1(const double& deltaTime)
 			else
 				_noAction += deltaTime;
 		}
-	}*/
+	}
+	else
+	{
+		shoot();
+		_actualState = Moving;
+	}
+}
+
+void Boss2::fase2(const double& deltaTime)
+{
+	_lasers->Activate();
+	fase1(deltaTime);
+}
+
+void Boss2::fase3(const double& deltaTime)
+{
+	if (_actualState != Jumping)
+	{
+		if (_noAction > _doSomething)
+		{
+			int ra = _game->random(0, 100);
+			if (ra >= 70)
+			{
+				_actualState = Jumping;
+				Jump();
+				_noAction = 0;
+			}
+		}
+		else
+			fase2(deltaTime);
+	}
 }
 
 

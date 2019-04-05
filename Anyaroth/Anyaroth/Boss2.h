@@ -6,8 +6,9 @@ class Boss2 : public Boss
 {
 private:
 	LaserHandler* _lasers = nullptr;
-	Vector2D _velocity = { 20,0 };
+	Vector2D _velocity = { 20,0 }, _originalVelocity = { 20,0 };
 	int _dir, _onFloor = 0;
+	double _shootRange = 75;
 	bool _endJump = false;
 
 public:
@@ -24,6 +25,8 @@ public:
 	virtual void checkMelee();
 
 	virtual void fase1(const double& deltaTime);
+	virtual void fase2(const double& deltaTime);
+	virtual void fase3(const double& deltaTime);
 	virtual void beetwenFases(const double& deltaTime);
 
 };
