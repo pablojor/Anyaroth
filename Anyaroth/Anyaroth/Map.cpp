@@ -9,6 +9,7 @@
 #include "NormalSpawner.h"
 #include "DistanceSpawner.h"
 #include "StaticSpawnerEnemy.h"
+#include "FlyingEnemy.h"
 #include "Player.h"
 #include "GunType_def.h"
 #include "BotonLanzaMisiles.h"
@@ -36,7 +37,7 @@ Map::Map(string filename, Game* game, Player* player, Texture* tileset, BulletPo
 			auto it = j[i].find("name");
 			if (it != j[i].end())
 			{
-				if (*it == "Map" || *it == "Ground" || *it == "Platform")
+				if (*it == "Map" || *it == "Ground" || *it == "Platform" || *it == "Doors")
 				{
 					auto layer = new Layer(filename, *it, tileset, game, *it);
 					_layers->addChild(layer);
@@ -108,6 +109,10 @@ void Map::createObjects()
 			else if (name == "SpawnerStatic")
 			{
 				_objects->addChild(new StaticSpawnerEnemy(_game, _player, Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2)));
+			}
+			else if (name == "FlyingDistance")
+			{
+				_objects->addChild(new FlyingEnemy(_game, _player, Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2)));
 			}
 			else if (name == "Coin")
 			{

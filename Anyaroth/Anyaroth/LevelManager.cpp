@@ -6,7 +6,7 @@ LevelManager::LevelManager(Game* game, Player* player, list<GameObject*>* object
 	_enemyBulletPool = new BulletPool(game);
 	_objectList->push_back(_enemyBulletPool);
 
-	_tilesetZone1 = game->getTexture("tileset");
+	_tilesetZone1 = game->getTexture("tilesetZona1");
 }
 
 void LevelManager::setLevel(int zone, int level)

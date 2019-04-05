@@ -10,7 +10,7 @@
         ["PistolBullet", "pistolbullet.png", 1, 4],
         ["ShotgunBullet", "shotgunbullet.png", 1, 2],
         ["Armback", "mk_armback.png", 1, 1],
-        ["tileset", "Tileset.png",  9, 8],
+      [ "tilesetZona1", "zona1_tileset.png", 9, 8 ],
         ["Play", "Play.png", 1, 1],
         ["Exit", "Exit.png", 1, 1],
         ["Continue", "Continue.png", 1, 1],
