@@ -22,11 +22,11 @@ DialoguePanel::DialoguePanel(Game* game) : PanelUI(game)
 	_backgroundImage->addAnim(AnimatedImageUI::Default, 1, false);
 	_backgroundImage->addAnim(AnimatedImageUI::End, 10, false);
 	_backgroundImage->addAnim(AnimatedImageUI::Start, 10, false);
-		//Background name
+	//Background name
 	_nameBackground->addAnim(AnimatedImageUI::Default, 1, false);
 	_nameBackground->addAnim(AnimatedImageUI::End, 7, false);
 	_nameBackground->addAnim(AnimatedImageUI::Start, 7, false);
-		//Indicator
+	//Indicator
 	_indicatorImage->addAnim(AnimatedImageUI::Idle, 7, true);
 
 	_backgroundImage->playAnim(AnimatedImageUI::Default);
@@ -102,7 +102,6 @@ void DialoguePanel::startDialogue(const Dialogue& dialogue)
 		//ponemos visible el cuadro de dialogo primero antes que las demas cosas
 		setVisible(true);
 		_backgroundImage->setVisible(true);
-		//_nameBackground->setVisible(true);
 		//comenzamos animación de abrir diálogo
 		_backgroundImage->playAnim(AnimatedImageUI::Start);
 		_nameBackground->playAnim(AnimatedImageUI::Start);
@@ -131,6 +130,9 @@ void DialoguePanel::endDialogue()
 		_dialogueTexts[i]->setText(" ");
 		_dialogueTexts[i]->setTextTyped(false);
 	}
+
+	for (int i = 0; i < _lines; i++)
+		_segments[i] = " ";
 
 	//REPRODUCIR SONIDO ESPECIAL DE FINAL DE DIALOGO
 	if (_dialogue.sounds[_currentText] != " ")
