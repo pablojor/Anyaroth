@@ -3,6 +3,8 @@
 
 class GroundEnemy : virtual public Enemy
 {
+private:
+	bool collidingR = false, collidingL = false;
 protected:
 	Vector2D _dir = Vector2D();
 	
@@ -20,4 +22,8 @@ public:
 
 	inline bool isStopped() const { return _stopped; }
 	inline void setStopped(bool value) { _stopped = value; }
+  
+	virtual void addSensors();
+	virtual void beginCollision(GameObject* other, b2Contact* contact);
+	virtual void endCollision(GameObject* other, b2Contact* contact);
 };

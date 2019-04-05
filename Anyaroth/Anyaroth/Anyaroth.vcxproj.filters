@@ -154,9 +154,6 @@
     <ClCompile Include="BomberEnemy.cpp">
       <Filter>Archivos de código fuente\Objects\Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="Capsule.cpp">
-      <Filter>Archivos de código fuente\Objects\Enemies</Filter>
-    </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>Archivos de código fuente\Objects\Enemies</Filter>
     </ClCompile>
@@ -177,9 +174,6 @@
     </ClCompile>
     <ClCompile Include="DistanceStaticEnemy.cpp">
       <Filter>Archivos de código fuente\Objects\Enemies\DistanceEnemies</Filter>
-    </ClCompile>
-    <ClCompile Include="SpawnerEnemy.cpp">
-      <Filter>Archivos de código fuente\Objects\Enemies\SpawnerEnemies</Filter>
     </ClCompile>
     <ClCompile Include="StaticSpawnerEnemy.cpp">
       <Filter>Archivos de código fuente\Objects\Enemies\SpawnerEnemies</Filter>
@@ -314,6 +308,12 @@
       <Filter>Archivos de código fuente\Guns</Filter>
     </ClCompile>
     <ClCompile Include="GravityBombDebuff.cpp" />
+    <ClCompile Include="Capsule.cpp">
+      <Filter>Archivos de código fuente\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="SpawnerEnemy.cpp">
+      <Filter>Archivos de código fuente\Objects\Enemies\SpawnerEnemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -650,6 +650,18 @@
       <Filter>Archivos de encabezado\Guns</Filter>
     </ClInclude>
     <ClInclude Include="GravityBombDebuff.h" />
+    <ClInclude Include="CapsuleDistance.h">
+      <Filter>Archivos de encabezado\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="CapsuleNormal.h">
+      <Filter>Archivos de encabezado\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="NormalSpawner.h">
+      <Filter>Archivos de encabezado\Objects\Enemies\SpawnerEnemies</Filter>
+    </ClInclude>
+    <ClInclude Include="DistanceSpawner.h">
+      <Filter>Archivos de encabezado\Objects\Enemies\SpawnerEnemies</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de código fuente">

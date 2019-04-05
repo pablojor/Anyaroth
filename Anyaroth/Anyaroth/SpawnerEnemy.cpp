@@ -1,5 +1,4 @@
 #include "SpawnerEnemy.h"
-#include "Capsule.h"
 
 SpawnerEnemy::SpawnerEnemy(Game* g, Player* player, Vector2D pos) : Enemy(g, player, pos, g->getTexture("EnemyMartyr"))
 {
@@ -23,17 +22,6 @@ SpawnerEnemy::SpawnerEnemy(Game* g, Player* player, Vector2D pos) : Enemy(g, pla
 void SpawnerEnemy::move()
 {
 	_body->getBody()->SetLinearVelocity({ _speed*(float32)_dir.getX(), _body->getBody()->GetLinearVelocity().y });
-}
-
-void SpawnerEnemy::dropCapsule(const double& deltaTime)
-{
-	if (_time >= _spawnTime && _currentEnemies < _maxEnemies)
-	{
-		_game->getCurrentState()->addObject(new Capsule(_game, _player, Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL), this));
-		_time = 0;
-	}
-	else
-		_time += deltaTime;
 }
 
 void SpawnerEnemy::update(const double& deltaTime)
