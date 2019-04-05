@@ -97,7 +97,6 @@ void PlayState::update(const double& deltaTime)
 	{
 		cout << "player is dead\n";
 		_playerBulletPool->stopBullets();
-		//_enemyBulletPool->stopBullets();
 		_player->revive();
 		_levelManager.resetLevel();
 	}

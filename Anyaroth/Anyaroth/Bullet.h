@@ -77,5 +77,7 @@ public:
 	virtual void beginCollision(GameObject* other, b2Contact* contact);
 	virtual void endCollision(GameObject * other, b2Contact* contact);
 
+	void reset();
+
 	void changeFilter();
 };

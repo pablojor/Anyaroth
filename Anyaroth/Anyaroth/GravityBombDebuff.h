@@ -17,7 +17,7 @@ private:
 	double _damageTime = 0;
 	double _damageTickTime = 25;
 	int _ticks = 0;
-	double _minDistance = 10;
+	double _minDistance = 20;
 
 
 

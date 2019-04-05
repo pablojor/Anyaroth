@@ -22,5 +22,8 @@ void BulletPool::changePoolTag(string tag)
 void BulletPool::stopBullets()
 {
 	for (auto b : _objects)
+	{
+		b->reset();
 		b->setActive(false);
+	}
 }

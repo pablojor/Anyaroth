@@ -18,7 +18,8 @@ GravityBombDebuff::~GravityBombDebuff()
 
 void GravityBombDebuff::changeDir()
 {
-	_dir = { ((_gravityZone->getComponent<TransformComponent>()->getPosition().getX() - _gravityZone->getComponent<BodyComponent>()->getW() / 2) - (_obj->getComponent<TransformComponent>()->getPosition().getX() - _obj->getComponent<BodyComponent>()->getW() / 2))*M_TO_PIXEL,
+	_dir = { ((_gravityZone->getComponent<TransformComponent>()->getPosition().getX() /*- _gravityZone->getComponent<BodyComponent>()->getW() / 2*/) - (_obj->getComponent<TransformComponent>()->getPosition().getX() - _obj->getComponent<BodyComponent>()->getW() / 2) - 25)*M_TO_PIXEL,
+
 		((_gravityZone->getComponent<TransformComponent>()->getPosition().getY() - _gravityZone->getComponent<BodyComponent>()->getH() / 2) - (_obj->getComponent<TransformComponent>()->getPosition().getY() - _obj->getComponent<BodyComponent>()->getH() / 2))*M_TO_PIXEL };
 	_dir.normalize();
 }
@@ -43,8 +44,9 @@ void GravityBombDebuff::stop()
 
 void GravityBombDebuff::update(const double& deltaTime)
 {
-	if (_active)
+	if (_active && _obj->isActive())
 	{
+
 
 		double dist = _obj->getComponent<TransformComponent>()->getPosition().distance(_gravityZone->getComponent<TransformComponent>()->getPosition());
 

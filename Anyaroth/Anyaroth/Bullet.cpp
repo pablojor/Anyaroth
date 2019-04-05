@@ -31,12 +31,6 @@ void Bullet::beginCollision(GameObject * other, b2Contact* contact)
 {
 	if(isActive() && _effect != nullptr)
 		_effect->beginCollision(this, other, contact);
-	/*if(getTag() == "Bullet" && (other->getTag() == "Ground" || other->getTag() == "Enemy"))
-		_collided = true;
-	else if (getTag() == "EnemyBullet" && (other->getTag() == "Ground" || other->getTag() == "Platform" || other->getTag() == "Player"))
-		_collided = true;
-
-	contact->SetEnabled(false);*/
 }
 
 void Bullet::endCollision(GameObject * other, b2Contact* contact)
@@ -76,25 +70,17 @@ void Bullet::init(Texture* texture, const Vector2D& position, const double& spee
 
 void Bullet::update(const double& deltaTime) 
 {
-	if(_effect != nullptr)
+	if(isActive() && _effect != nullptr)
 		_effect->update(this, deltaTime);
-	/*if (isActive())
-	{
-		double dist = _iniPos.distance(_transform->getPosition());
-
-		if (dist < _range && !_collided)
-		{
-			GameComponent::update(time);
-
-			_body->getBody()->SetLinearVelocity(b2Vec2(_speed * cos(_transform->getRotation() * M_PI / 180.0), _speed * sin(_transform->getRotation() * M_PI / 180.0)));
-			_aliveTime++;
-		}
-		else
-			reset();
-	}*/
 }
 
 void Bullet::changeFilter() 
 {
 	_body->filterCollisions(ENEMY_BULLETS, FLOOR | PLATFORMS | PLAYER);
+}
+
+void Bullet::reset()
+{
+	if(isActive() && _effect != nullptr)
+		_effect->reset(this);
 }
