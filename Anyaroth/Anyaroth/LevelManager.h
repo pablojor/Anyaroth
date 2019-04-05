@@ -8,13 +8,12 @@ private:
 	Game* _game = nullptr;
 	Player* _player = nullptr;
 	PlayStateHUD* _hud = nullptr;
-	Map* _currentMap = nullptr;
 
+	Map* _currentMap = nullptr;
 	BulletPool* _enemyBulletPool = nullptr;
-	/*ExplosiveBulletPool* _enemyExplosivePool = nullptr;
-	BouncingBulletPool* _enemyBouncingPool = nullptr;*/
 
 	Texture* _tilesetZone1 = nullptr;
+	Texture* _tilesetZone2 = nullptr;
 
 	list<GameObject*>* _objectList;
 
@@ -25,7 +24,7 @@ public:
 
 	void setLevel(int zone, int level);
 	void changeLevel(int zone, int level);
-	inline void resetLevel() { _currentMap->restartLevel(); _enemyBulletPool->stopBullets(); }
 
+	inline void resetLevel() { _currentMap->restartLevel(); _enemyBulletPool->stopBullets(); }
 	inline Map* getCurrentMap() const { return _currentMap; }
 };

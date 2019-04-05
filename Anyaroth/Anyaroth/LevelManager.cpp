@@ -6,7 +6,8 @@ LevelManager::LevelManager(Game* game, Player* player, list<GameObject*>* object
 	_enemyBulletPool = new BulletPool(game);
 	_objectList->push_back(_enemyBulletPool);
 
-	_tilesetZone1 = game->getTexture("tilesetZona1");
+	_tilesetZone1 = game->getTexture("Tileset1");
+	_tilesetZone2 = game->getTexture("Tileset2");
 }
 
 void LevelManager::setLevel(int zone, int level)
@@ -17,11 +18,28 @@ void LevelManager::setLevel(int zone, int level)
 		switch (level)
 		{
 		case 1:
-			_currentMap = new Map(TILEMAP_PATH + "Nivel1.json", _game, _player, _tilesetZone1, _enemyBulletPool, _hud, 10);
+			_currentMap = new Map(TILEMAP_PATH + "Nivel1-1.json", _game, _player, _tilesetZone1, _enemyBulletPool, _hud, 10);
 			_objectList->push_back(_currentMap);
 			break;
 		case 2:
-			_currentMap = new Map(TILEMAP_PATH + "ArenaBoss1.json", _game, _player, _tilesetZone1, _enemyBulletPool, _hud, 10);
+			break;
+		case 3:
+			_currentMap = new Map(TILEMAP_PATH + "Nivel1-3.json", _game, _player, _tilesetZone1, _enemyBulletPool, _hud, 10);
+			_objectList->push_back(_currentMap);
+			break;
+		default:
+			break;
+		}
+		break;
+	case 2:
+		switch (level)
+		{
+		case 1:
+			_currentMap = new Map(TILEMAP_PATH + "Nivel2-1.json", _game, _player, _tilesetZone2, _enemyBulletPool, _hud, 10);
+			_objectList->push_back(_currentMap);
+			break;
+		case 2:
+			_currentMap = new Map(TILEMAP_PATH + "Nivel2-2.json", _game, _player, _tilesetZone2, _enemyBulletPool, _hud, 10);
 			_objectList->push_back(_currentMap);
 			break;
 		case 3:
@@ -29,8 +47,6 @@ void LevelManager::setLevel(int zone, int level)
 		default:
 			break;
 		}
-		break;
-	case 2:
 		break;
 	case 3:
 		break;

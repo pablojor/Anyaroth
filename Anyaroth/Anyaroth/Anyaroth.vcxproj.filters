@@ -307,12 +307,14 @@
     <ClCompile Include="BomberGun.cpp">
       <Filter>Archivos de código fuente\Guns</Filter>
     </ClCompile>
-    <ClCompile Include="GravityBombDebuff.cpp" />
     <ClCompile Include="Capsule.cpp">
       <Filter>Archivos de código fuente\Objects\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="SpawnerEnemy.cpp">
       <Filter>Archivos de código fuente\Objects\Enemies\SpawnerEnemies</Filter>
+    </ClCompile>
+    <ClCompile Include="GravityBombDebuff.cpp">
+      <Filter>Archivos de código fuente\Objects\Bullets\Effects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -649,7 +651,6 @@
     <ClInclude Include="BomberGun.h">
       <Filter>Archivos de encabezado\Guns</Filter>
     </ClInclude>
-    <ClInclude Include="GravityBombDebuff.h" />
     <ClInclude Include="CapsuleDistance.h">
       <Filter>Archivos de encabezado\Objects\Enemies</Filter>
     </ClInclude>
@@ -661,6 +662,9 @@
     </ClInclude>
     <ClInclude Include="DistanceSpawner.h">
       <Filter>Archivos de encabezado\Objects\Enemies\SpawnerEnemies</Filter>
+    </ClInclude>
+    <ClInclude Include="GravityBombDebuff.h">
+      <Filter>Archivos de encabezado\Objects\Bullets\Effects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
