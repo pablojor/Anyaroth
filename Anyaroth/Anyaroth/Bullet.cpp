@@ -2,6 +2,7 @@
 #include "Game.h"
 #include <math.h>
 
+
 Bullet::Bullet(Game* game) : GameObject(game)
 {
 	_texture = game->getTexture("PistolBullet");
@@ -29,17 +30,17 @@ Bullet::~Bullet()
 
 void Bullet::beginCollision(GameObject * other, b2Contact* contact)
 {
-	if(isActive() && _effect != nullptr)
+	if (isActive() && _effect != nullptr)
 		_effect->beginCollision(this, other, contact);
 }
 
 void Bullet::endCollision(GameObject * other, b2Contact* contact)
 {
-	if(isActive() && _effect != nullptr)
+	if (isActive() && _effect != nullptr)
 		_effect->endCollision(this, other, contact);
 }
 
-void Bullet::init(Texture* texture, const Vector2D& position, const double& speed, const double& damage, const double& angle, const double& range, const string& tag, EffectInterface* effect, string type)
+void Bullet::init(Texture* texture, const Vector2D& position, const double& speed, const double& damage, const double& angle, const double& range, const string& tag, EffectInterface* effect, BulletAnimType type)
 {
 	setTag(tag);
 	_iniPos = position;
@@ -94,42 +95,46 @@ void Bullet::update(const double& deltaTime)
 			}
 		}
 	}*/
-	if(isActive() && _effect != nullptr)
+	if (isActive() && _effect != nullptr)
 		_effect->update(this, deltaTime);
 }
-	
-	/* reset()
-	_anim->playAnim(AnimatedSpriteComponent::Default);
-	setActive(false);
-	_aliveTime = 0;
-	_collided = false;*/
+
+/* reset()
+_anim->playAnim(AnimatedSpriteComponent::Default);
+setActive(false);
+_aliveTime = 0;
+_collided = false;*/
 
 void Bullet::changeFilter()
 {
 	_body->filterCollisions(ENEMY_BULLETS, FLOOR | PLATFORMS | PLAYER);
 }
 
-/*void Bullet::setAnimations(string type)
+void Bullet::setAnimations(BulletAnimType type)
 {
-
-	if (type == "Bomb")
+	switch (type)
 	{
+	case SpentaBomb:
 		_anim->addAnim(AnimatedSpriteComponent::Default, 6, true);
 		_anim->addAnim(AnimatedSpriteComponent::Destroy, 8, false);
-	}
-	else if (type == "Orb")
-	{
+		break;
+	case SpentaOrb:
 		_anim->addAnim(AnimatedSpriteComponent::Default, 3, true);
 		_anim->addAnim(AnimatedSpriteComponent::Destroy, 10, false);
-	}
-	else
-	{
+		break;
+	case Default:
+	default:
 		_anim->addAnim(AnimatedSpriteComponent::Default, 4, true);
 		_anim->addAnim(AnimatedSpriteComponent::Destroy, 4, false);
+		break;
 	}
-}*/
+}
 void Bullet::reset()
 {
-	if(isActive() && _effect != nullptr)
+	if (isActive() && _effect != nullptr)
+	{
 		_effect->reset(this);
+		_anim->reset();
+	}
+
 }

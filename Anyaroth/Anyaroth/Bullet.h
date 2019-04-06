@@ -4,6 +4,7 @@
 #include "BodyComponent.h"
 #include "AnimatedSpriteComponent.h"
 #include "BulletEffect.h"
+#include "GunType_def.h"
 
 class Bullet : public GameObject
 {
@@ -72,7 +73,7 @@ public:
 	inline int getExplosionTime() const { return _explosionTime; }
 	inline void setExplosionTime(int value) { _explosionTime = value; }
 
-	virtual void init(Texture* texture, const Vector2D& position, const double& speed, const double& damage, const double& angle, const double& range, const string& tag, EffectInterface* effect, string type = "");
+	virtual void init(Texture* texture, const Vector2D& position, const double& speed, const double& damage, const double& angle, const double& range, const string& tag, EffectInterface* effect, BulletAnimType type);
 	virtual void update(const double& deltaTime);
 	virtual void beginCollision(GameObject* other, b2Contact* contact);
 	virtual void endCollision(GameObject * other, b2Contact* contact);
@@ -80,5 +81,5 @@ public:
 	void reset();
 
 	void changeFilter();
-	void setAnimations(string type = "");
+	void setAnimations(BulletAnimType type);
 };

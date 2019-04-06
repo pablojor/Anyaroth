@@ -18,7 +18,6 @@ class Boss1 : public Boss
 		//ExplosiveBulletPool* _myExplosivePool = nullptr;
 		BomberGun* _bombGun = nullptr;
 
-		Texture* _bombTexture = nullptr;
 		int _bomberAttackTime = 2500, _timeOnBomberAttack = 0, _timeBeetwenBombs = 0,_bombRange = 1000;
 
 		//Cosas Melee

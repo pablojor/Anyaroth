@@ -21,3 +21,10 @@ enum MeleeType
 	Lightsaber_Weapon,
 	Chainsaw_Weapon
 };
+
+enum BulletAnimType
+{
+	Default,
+	SpentaBomb,
+	SpentaOrb
+};

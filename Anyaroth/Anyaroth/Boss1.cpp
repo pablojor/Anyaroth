@@ -6,7 +6,6 @@
 
 Boss1::Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, player, pos, pool, g->getTexture("Spenta")), Enemy(g, player, pos, g->getTexture("Spenta"))
 {
-	_bombTexture = g->getTexture("Bomb");
 	delete(_myGun);
 	_myGun = new ImprovedRifle(g);
 	_myGun->setMaxCadence(0);
@@ -14,9 +13,14 @@ Boss1::Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, 
 
 	_bombGun = new BomberGun(g);
 	_bombGun->setMaxCadence(0);
+	_bombGun->setBulletAnimType(SpentaBomb);
+	_bombGun->setBulletTexture(g->getTexture("Bomb"));
 
 	_orbGun = new BossOrbCannon(g);
 	_orbGun->setMaxCadence(0);
+	_orbGun->setBulletAnimType(BulletAnimType::SpentaOrb);
+	_orbGun->setBulletTexture(g->getTexture("SpentaOrb"));
+	
 
 	_attackRangeX = 120; //No se puede poner mas pequeño que la velocidad
 	_attackTime = 1300; //La animacion tarda unos 450

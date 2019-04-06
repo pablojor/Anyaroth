@@ -34,8 +34,10 @@ public:
 	enum Enemy { EnemyIdle, EnemyWalk, EnemyAttack, EnemyDie };
 	enum Coin { Main };
 	enum Bullet { Default, Destroy };
-	enum Spenta { SpentaIdle, SpentaSwordLeft, SpentaSwordRight, SpentaStartShield, SpentaLoopShield, SpentaEndShield,
-		SpentaDie, SpentaStartBomb, SpentaLoopBomb, SpentaEndBomb, SpentaOrb, SpentaWing};
+	enum Spenta {
+		SpentaIdle, SpentaSwordLeft, SpentaSwordRight, SpentaStartShield, SpentaLoopShield, SpentaEndShield,
+		SpentaDie, SpentaStartBomb, SpentaLoopBomb, SpentaEndBomb, SpentaOrb, SpentaWing
+	};
 
 	AnimatedSpriteComponent(GameObject* obj) : SpriteComponent(obj), PhysicsComponent(obj), RenderComponent(obj), Component(), _obj(obj) {}
 	virtual ~AnimatedSpriteComponent() {}
@@ -48,4 +50,6 @@ public:
 
 	inline bool animationFinished() { return _animations[_currentAnim].animationFinished; }
 	inline uint getCurrentAnim() const { return _currentAnim; }
+
+	void reset();
 };
