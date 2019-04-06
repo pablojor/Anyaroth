@@ -48,6 +48,8 @@ void Boss::subLife(int damage)
 		else if (_life3.getLife() > 0)
 			manageLife(_life3, damage);
 
+		_anim->hurt();
+
 		if (!isbeetweenFases())
 			_bossPanel->updateLifeBar(_life1.getLife(), _life2.getLife(), _life3.getLife(), _life.getLife());
 	}
@@ -56,7 +58,7 @@ void Boss::subLife(int damage)
 void Boss::manageLife(Life& l, int damage)
 {
 	l.subLife(damage);
-	if (l.getLife()==0)
+	if (l.getLife() == 0)
 	{
 		_doSomething = 0;
 		_lastFase = _actualFase;
@@ -71,6 +73,6 @@ void Boss::beginCollision(GameObject * other, b2Contact * contact)
 
 void Boss::changeFase(int fase)
 {
-	_actualFase= fase;
+	_actualFase = fase;
 	_armVision = true;
 }

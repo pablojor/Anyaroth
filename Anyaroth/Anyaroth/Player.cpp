@@ -158,8 +158,6 @@ void Player::subLife(int damage)
 			if (_life.getLife() == 0)
 			{
 				die();
-				//_hurt->die();
-				//_playerArm->die();
 			}
 			else
 			{
