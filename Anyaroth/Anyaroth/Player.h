@@ -16,6 +16,7 @@
 class WeaponManager;
 class Game;
 
+
 class Player : public GameObject
 {
 private:
@@ -50,6 +51,7 @@ private:
 		_dashDown = false;
 
 	int _floorCount = 0;
+
 
 	float _timeToJump = 100.f;
 

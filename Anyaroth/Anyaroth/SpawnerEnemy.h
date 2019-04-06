@@ -3,7 +3,7 @@
 
 class SpawnerEnemy : public Enemy
 {
-private:
+protected:
 	double _spawnTime = 5000, _maxEnemies = 4, _currentEnemies = 0;
 	Vector2D _dir = Vector2D();
 
@@ -12,7 +12,7 @@ public:
 	virtual ~SpawnerEnemy() {}
 
 	void move();
-	void dropCapsule(const double& deltaTime);
+	virtual void dropCapsule(const double& deltaTime) {};
 
 	int deadEnemies();
 	virtual void update(const double& deltaTime);

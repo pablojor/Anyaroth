@@ -2,9 +2,11 @@
 #include "Boss.h"
 #include "BossPanel.h"
 #include "Axe.h"
+#include "BossOrbCannon.h"
+#include "BomberGun.h"
 
-class ExplosiveBulletPool;
-class BouncingBulletPool;
+//class ExplosiveBulletPool;
+//class BouncingBulletPool;
 
 class Boss1 : public Boss
 {
@@ -13,7 +15,9 @@ class Boss1 : public Boss
 		double  _damage = 50, _angularFrequency = 0.05, _k = _angularFrequency / _velocity.distance(Vector2D());
 
 		//Cosas para el ataque bombardero
-		ExplosiveBulletPool* _myExplosivePool = nullptr;
+		//ExplosiveBulletPool* _myExplosivePool = nullptr;
+		BomberGun* _bombGun = nullptr;
+
 		Texture* _bombTexture = nullptr;
 		int _bomberAttackTime = 2500, _timeOnBomberAttack = 0, _timeBeetwenBombs = 0,_bombRange = 1000;
 
@@ -27,14 +31,15 @@ class Boss1 : public Boss
 		double _angleIncrease = 7.5, _inicialAngle = 0,_angle=0;
 
 		//Cosas del ataque orbe
-		BouncingBulletPool* _myBouncingBulletPool = nullptr;
+		//BouncingBulletPool* _myBouncingBulletPool = nullptr;
+		BossOrbCannon* _orbGun = nullptr;
 		int _numOrbs = 3, _actualNumOrbs = 0;
 
 		void shoot();
 
 	public:
-		Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool, ExplosiveBulletPool* explosivePool, BouncingBulletPool* bouncingPool);
-		virtual ~Boss1() {};
+		Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool);
+		virtual ~Boss1();
 
 		virtual void update(const double& deltaTime);
 

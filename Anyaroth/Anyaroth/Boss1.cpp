@@ -4,15 +4,19 @@
 #include "BasicRifle.h"
 #include "ImprovedRifle.h"
 
-
-
-Boss1::Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool, ExplosiveBulletPool* explosivePool, BouncingBulletPool* bouncingPool) : Boss(g, player, pos, pool, g->getTexture("Spenta")), Enemy(g, player, pos, g->getTexture("Spenta"))
+Boss1::Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, player, pos, pool, g->getTexture("Spenta")), Enemy(g, player, pos, g->getTexture("Spenta"))
 {
-	_myExplosivePool = explosivePool;
-	_myBouncingBulletPool = bouncingPool;
 	_bombTexture = g->getTexture("Bomb");
 	delete(_myGun);
 	_myGun = new ImprovedRifle(g);
+	_myGun->setMaxCadence(0);
+	_myGun->setBulletSpeed(8);
+
+	_bombGun = new BomberGun(g);
+	_bombGun->setMaxCadence(0);
+
+	_orbGun = new BossOrbCannon(g);
+	_orbGun->setMaxCadence(0);
 
 	_attackRangeX = 120; //No se puede poner mas pequeño que la velocidad
 	_attackTime = 1300; //La animacion tarda unos 450
@@ -45,6 +49,12 @@ Boss1::Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool, ExplosiveB
 
 	_playerBody = _player->getComponent<BodyComponent>();
 
+}
+
+Boss1::~Boss1()
+{
+	delete _bombGun;
+	delete _orbGun;
 }
 
 void Boss1::update(const double& deltaTime)
@@ -380,9 +390,11 @@ void Boss1::changeFase(int nextFase)
 
 void Boss1::throwBomb()
 {
-	Bullet* b = _myExplosivePool->getUnusedObject();
-	Vector2D helpPos = Vector2D(random(100, 700 /*Fututo tope por la derecha*/), 200);
-	Vector2D bulletPos = helpPos.rotateAroundPoint(90, helpPos);
+	Vector2D helpPos = Vector2D(random(100, 700 /*Futuro tope por la derecha*/), 200);
+	_bombGun->enemyShoot(_myBulletPool, helpPos, 90, "EnemyBullet");
+	//Bullet* b = _myExplosivePool->getUnusedObject();
+	//Vector2D helpPos = Vector2D(random(100,700 /*Fututo tope por la derecha*/), 200);
+	/*Vector2D bulletPos = helpPos.rotateAroundPoint(90, helpPos);
 
 	if (b != nullptr)
 	{
@@ -395,12 +407,14 @@ void Boss1::throwBomb()
 
 		b2->init(_bombTexture, helpPos, 0, 10, 90, _bombRange, "EnemyBullet", "Bomb");
 		b2->changeFilter();
-	}
+	}*/
 }
 
 void Boss1::throwOrb()
 {
-	Bullet* b = _myBouncingBulletPool->getUnusedObject();
+	Vector2D helpPos = Vector2D(_body->getBody()->GetPosition().x * 8, _body->getBody()->GetPosition().y * 8);
+	_orbGun->enemyShoot(_myBulletPool, helpPos, random(80, 180), "EnemyBullet");
+	/*Bullet* b = _myBouncingBulletPool->getUnusedObject();
 	Vector2D helpPos = Vector2D(_body->getBody()->GetPosition().x * 8, _body->getBody()->GetPosition().y * 8);
 
 	if (b != nullptr)
@@ -414,7 +428,7 @@ void Boss1::throwOrb()
 
 		b->init(_game->getTexture("SpentaOrb"), helpPos, 20, 10, random(80, 180), _bombRange, "EnemyBullet", "Orb");
 		b2->changeFilter();
-	}
+	}*/
 }
 
 void Boss1::shootBullet()
@@ -443,8 +457,9 @@ void Boss1::shootBullet()
 
 void Boss1::shoot()
 {
-	Bullet* b = _myBulletPool->getUnusedObject();
-
+	_myGun->enemyShoot(_myBulletPool, _bodyPos, _angle, "EnemyBullet");
+	/*Bullet* b = _myBulletPool->getUnusedObject();
+	
 	if (b != nullptr)
 	{
 		b->init(_game->getTexture("PistolBullet"), _bodyPos, 8, _damage, _angle, 1000, "EnemyBullet");
@@ -455,7 +470,7 @@ void Boss1::shoot()
 		Bullet* b2 = _myBulletPool->addNewBullet();
 		b2->init(_game->getTexture("PistolBullet"), _bodyPos, 8, _damage, _angle, 1000, "EnemyBullet");
 		b2->changeFilter();
-	}
+	}*/
 }
 
 

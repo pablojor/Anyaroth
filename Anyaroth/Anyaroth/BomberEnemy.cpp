@@ -1,12 +1,14 @@
 #include "BomberEnemy.h"
+#include "BulletEffect.h"
 
-BomberEnemy::BomberEnemy(Game* g, Player* player, Vector2D pos, ExplosiveBulletPool* pool) : Enemy(g, player, pos, g->getTexture("EnemyMartyr")), _bulletPool(pool)
+BomberEnemy::BomberEnemy(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Enemy(g, player, pos, g->getTexture("EnemyMartyr")), _myBulletPool(pool)
 {
 	_bulletTexture = g->getTexture("PistolBullet");
 	_damage = 10;
 
 	_vision = 800;
 	_life = 300;
+	_gun = new BomberGun(g);
 	_attackRangeX = 2;
 	_speed = 8;
 	_time = 0;
@@ -22,9 +24,10 @@ BomberEnemy::BomberEnemy(Game* g, Player* player, Vector2D pos, ExplosiveBulletP
 	_body->getBody()->SetGravityScale(0);
 }
 
-void BomberEnemy::move()
+BomberEnemy::~BomberEnemy() 
 {
-	_body->getBody()->SetLinearVelocity({ _speed*(float32)_dir.getX(), _body->getBody()->GetLinearVelocity().y });
+	delete _gun;
+	_gun = nullptr;
 }
 
 void BomberEnemy::shoot(const double& deltaTime)
@@ -37,6 +40,12 @@ void BomberEnemy::shoot(const double& deltaTime)
 	else
 		_time += deltaTime;
 }
+
+void BomberEnemy::move()
+{
+	_body->getBody()->SetLinearVelocity({ _speed*(float32)_dir.getX(), _body->getBody()->GetLinearVelocity().y });
+}
+
 void BomberEnemy::update(const double& deltaTime)
 {
 	Enemy::update(deltaTime);
@@ -67,20 +76,26 @@ void BomberEnemy::subLife(int damage)
 
 void BomberEnemy::throwBomb(const Vector2D& position)
 {
-	Bullet* b = _bulletPool->getUnusedObject();
-	Vector2D pos = position;
-	Vector2D bulletPos = pos.rotateAroundPoint(_angle, position);
+	/*Bullet* b = _myBulletPool->getUnusedObject();
+	Vector2D helpPos = position;
+	Vector2D bulletPos = helpPos.rotateAroundPoint(angle, position);*/
+	//b->init();
+	_gun->enemyShoot(_myBulletPool, position, _angle, "EnemyBullet");
 
-	if (b != nullptr)
+	/*if (b != nullptr)
 	{
+		b->init(_bulletTexture, position, 0, 10, angle, _range, tag, &_effect);
 		b->init(_bulletTexture, position, 0, _damage, _angle, _range, "EnemyBullet");
 		b->changeFilter();
 	}
 	else
 	{
+		Bullet* b2 = _myBulletPool->addNewBullet();
+
+		b2->init(_bulletTexture, position, 0, 10, angle, _range, tag, &_effect);
 		Bullet* b2 = _bulletPool->addNewBullet();
 		
 		b2->init(_bulletTexture, position, 0, _damage, _angle, _range, "EnemyBullet");
 		b2->changeFilter();
-	}
+	}*/
 }

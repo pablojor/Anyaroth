@@ -154,9 +154,6 @@
     <ClCompile Include="BomberEnemy.cpp">
       <Filter>Archivos de código fuente\Objects\Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="Capsule.cpp">
-      <Filter>Archivos de código fuente\Objects\Enemies</Filter>
-    </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>Archivos de código fuente\Objects\Enemies</Filter>
     </ClCompile>
@@ -177,9 +174,6 @@
     </ClCompile>
     <ClCompile Include="DistanceStaticEnemy.cpp">
       <Filter>Archivos de código fuente\Objects\Enemies\DistanceEnemies</Filter>
-    </ClCompile>
-    <ClCompile Include="SpawnerEnemy.cpp">
-      <Filter>Archivos de código fuente\Objects\Enemies\SpawnerEnemies</Filter>
     </ClCompile>
     <ClCompile Include="StaticSpawnerEnemy.cpp">
       <Filter>Archivos de código fuente\Objects\Enemies\SpawnerEnemies</Filter>
@@ -202,12 +196,6 @@
     <ClCompile Include="Melee.cpp">
       <Filter>Archivos de código fuente\Objects\Player\Melee</Filter>
     </ClCompile>
-    <ClCompile Include="ExplosiveBullet.cpp">
-      <Filter>Archivos de código fuente\Objects\Bullets</Filter>
-    </ClCompile>
-    <ClCompile Include="Bullet.cpp">
-      <Filter>Archivos de código fuente\Objects\Bullets</Filter>
-    </ClCompile>
     <ClCompile Include="Life.cpp">
       <Filter>Archivos de código fuente\Objects\Player</Filter>
     </ClCompile>
@@ -222,9 +210,6 @@
     </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="ExplosiveBulletPool.cpp">
-      <Filter>Archivos de código fuente\Pools</Filter>
     </ClCompile>
     <ClCompile Include="AnimatedImageUI.cpp">
       <Filter>Archivos de código fuente\HUD\UIElements</Filter>
@@ -244,9 +229,6 @@
     <ClCompile Include="WeaponryViewer.cpp">
       <Filter>Archivos de código fuente\HUD\UIElements</Filter>
     </ClCompile>
-    <ClCompile Include="Bullet.cpp">
-      <Filter>Archivos de código\Objects\Bullets</Filter>
-    </ClCompile>
     <ClCompile Include="BasicRifle.cpp">
       <Filter>Archivos de código fuente\Guns</Filter>
     </ClCompile>
@@ -265,14 +247,23 @@
     <ClCompile Include="WeaponManager.cpp">
       <Filter>Archivos de código fuente\Guns</Filter>
     </ClCompile>
-    <ClCompile Include="BouncingBulletPool.cpp">
-      <Filter>Archivos de código fuente\Pools</Filter>
+    <ClCompile Include="PlasmaSniper.cpp">
+      <Filter>Archivos de código fuente\Guns</Filter>
     </ClCompile>
-    <ClCompile Include="PiercingBulletPool.cpp">
-      <Filter>Archivos de código fuente\Pools</Filter>
+    <ClCompile Include="GravityBombCannon.cpp">
+      <Filter>Archivos de código fuente\Guns</Filter>
     </ClCompile>
-    <ClCompile Include="BouncingBullet.cpp">
-      <Filter>Archivos de código fuente\Objects\Bullets</Filter>
+    <ClCompile Include="BulletEffect.cpp">
+      <Filter>Archivos de código fuente\Objects\Bullets\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectInterface.cpp">
+      <Filter>Archivos de código fuente\Objects\Bullets\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="GravityBulletEffect.cpp">
+      <Filter>Archivos de código fuente\Objects\Bullets\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="ExplosiveBulletEffect.cpp">
+      <Filter>Archivos de código fuente\Objects\Bullets\Effects</Filter>
     </ClCompile>
     <ClCompile Include="Boss1.cpp">
       <Filter>Archivos de código fuente\Objects\Enemies\Bosses</Filter>
@@ -285,9 +276,6 @@
     </ClCompile>
     <ClCompile Include="NPC.cpp">
       <Filter>Archivos de código fuente\Objects\Interactables</Filter>
-    </ClCompile>
-    <ClCompile Include="PiercingBullet.cpp">
-      <Filter>Archivos de código fuente\Objects\Bullets</Filter>
     </ClCompile>
     <ClCompile Include="MisilBoss1.cpp">
       <Filter>Archivos de código fuente\Objects</Filter>
@@ -303,6 +291,28 @@
     </ClCompile>
     <ClCompile Include="GroundEnemy.cpp">
       <Filter>Archivos de código fuente\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Archivos de código fuente\Objects\Bullets</Filter>
+    </ClCompile>
+    <ClCompile Include="BouncingBulletEffect.cpp">
+      <Filter>Archivos de código fuente\Objects\Bullets\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="PiercingBulletEffect.cpp">
+      <Filter>Archivos de código fuente\Objects\Bullets\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="BossOrbCannon.cpp">
+      <Filter>Archivos de código fuente\Guns</Filter>
+    </ClCompile>
+    <ClCompile Include="BomberGun.cpp">
+      <Filter>Archivos de código fuente\Guns</Filter>
+    </ClCompile>
+    <ClCompile Include="GravityBombDebuff.cpp" />
+    <ClCompile Include="Capsule.cpp">
+      <Filter>Archivos de código fuente\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="SpawnerEnemy.cpp">
+      <Filter>Archivos de código fuente\Objects\Enemies\SpawnerEnemies</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -501,12 +511,6 @@
     <ClInclude Include="Texture.h">
       <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Bullet.h">
-      <Filter>Archivos de encabezado\Objects\Bullets</Filter>
-    </ClInclude>
-    <ClInclude Include="ExplosiveBullet.h">
-      <Filter>Archivos de encabezado\Objects\Bullets</Filter>
-    </ClInclude>
     <ClInclude Include="UIElement.h">
       <Filter>Archivos de encabezado\HUD\UIElements</Filter>
     </ClInclude>
@@ -545,9 +549,6 @@
     </ClInclude>
     <ClInclude Include="SpawnerEnemy.h">
       <Filter>Archivos de encabezado\Objects\Enemies\SpawnerEnemies</Filter>
-    </ClInclude>
-    <ClInclude Include="ExplosiveBulletPool.h">
-      <Filter>Archivos de encabezado\Pools</Filter>
     </ClInclude>
     <ClInclude Include="AnimatedImageUI.h">
       <Filter>Archivos de encabezado\HUD\UIElements</Filter>
@@ -588,23 +589,32 @@
     <ClInclude Include="WeaponManager.h">
       <Filter>Archivos de encabezado\Guns</Filter>
     </ClInclude>
-    <ClInclude Include="BouncingBullet.h">
-      <Filter>Archivos de encabezado\Objects\Bullets</Filter>
-    </ClInclude>
     <ClInclude Include="Bullet.h">
       <Filter>Archivos de encabezado\Objects\Bullets</Filter>
     </ClInclude>
-    <ClInclude Include="BouncingBulletPool.h">
-      <Filter>Archivos de encabezado\Pools</Filter>
+    <ClInclude Include="GunType_def.h">
+      <Filter>Archivos de encabezado\Guns</Filter>
     </ClInclude>
-    <ClInclude Include="PiercingBullet.h">
-      <Filter>Archivos de encabezado\Objects\Bullets</Filter>
+    <ClInclude Include="BulletEffect.h">
+      <Filter>Archivos de encabezado\Objects\Bullets\Effects</Filter>
     </ClInclude>
-    <ClInclude Include="Bullet.h">
-      <Filter>Archivos de encabezado\Objects\Bullets</Filter>
+    <ClInclude Include="EffectInterface.h">
+      <Filter>Archivos de encabezado\Objects\Bullets\Effects</Filter>
     </ClInclude>
-    <ClInclude Include="PiercingBulletPool.h">
-      <Filter>Archivos de encabezado\Pools</Filter>
+    <ClInclude Include="PlasmaSniper.h">
+      <Filter>Archivos de encabezado\Guns</Filter>
+    </ClInclude>
+    <ClInclude Include="GravityBombCannon.h">
+      <Filter>Archivos de encabezado\Guns</Filter>
+    </ClInclude>
+    <ClInclude Include="BouncingBulletEffect.h">
+      <Filter>Archivos de encabezado\Objects\Bullets\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="GravityBulletEffect.h">
+      <Filter>Archivos de encabezado\Objects\Bullets\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="ExplosiveBulletEffect.h">
+      <Filter>Archivos de encabezado\Objects\Bullets\Effects</Filter>
     </ClInclude>
     <ClInclude Include="Interactable.h">
       <Filter>Archivos de encabezado\Objects\Interactables</Filter>
@@ -629,6 +639,28 @@
     </ClInclude>
     <ClInclude Include="CustomAnimatedSpriteComponent.h">
       <Filter>Archivos de encabezado\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="PiercingBulletEffect.h">
+      <Filter>Archivos de encabezado\Objects\Bullets\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="BossOrbCannon.h">
+      <Filter>Archivos de encabezado\Guns</Filter>
+    </ClInclude>
+    <ClInclude Include="BomberGun.h">
+      <Filter>Archivos de encabezado\Guns</Filter>
+    </ClInclude>
+    <ClInclude Include="GravityBombDebuff.h" />
+    <ClInclude Include="CapsuleDistance.h">
+      <Filter>Archivos de encabezado\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="CapsuleNormal.h">
+      <Filter>Archivos de encabezado\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="NormalSpawner.h">
+      <Filter>Archivos de encabezado\Objects\Enemies\SpawnerEnemies</Filter>
+    </ClInclude>
+    <ClInclude Include="DistanceSpawner.h">
+      <Filter>Archivos de encabezado\Objects\Enemies\SpawnerEnemies</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -673,9 +705,6 @@
     </Filter>
     <Filter Include="Archivos de encabezado\Objects\Melee">
       <UniqueIdentifier>{7e3f14bb-e2c8-4305-a224-119de582c920}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Objects\Bullets">
-      <UniqueIdentifier>{3a50d17b-55d6-4764-93a4-2c7ff689efaa}</UniqueIdentifier>
     </Filter>
     <Filter Include="Archivos de encabezado\Others\Managers">
       <UniqueIdentifier>{cb4413d1-4e6c-4ed5-acdd-b1fc22ec1626}</UniqueIdentifier>
@@ -760,6 +789,12 @@
     </Filter>
     <Filter Include="Archivos de encabezado\Objects\Bullets">
       <UniqueIdentifier>{1d363188-42c1-4860-abb0-ffa5e1951368}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Objects\Bullets\Effects">
+      <UniqueIdentifier>{a430f602-f715-4f8b-82fc-21d64a898b84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código fuente\Objects\Bullets\Effects">
+      <UniqueIdentifier>{b37572f8-ba64-42de-8268-252b98c74512}</UniqueIdentifier>
     </Filter>
     <Filter Include="Archivos de encabezado\Objects\Interactables">
       <UniqueIdentifier>{7c8a5f1c-0a77-493f-9fb9-1658c45d27cf}</UniqueIdentifier>

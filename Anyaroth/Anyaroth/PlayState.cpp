@@ -43,6 +43,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_mainCamera->fixCameraToObject(_player);
 	_mainCamera->setBackGround(_parallaxZone1);
 
+
 	//Collisions and debugger
 	g->getWorld()->SetContactListener(&_colManager);
 	g->getWorld()->SetDebugDraw(&_debugger);
@@ -91,11 +92,15 @@ bool PlayState::handleEvent(const SDL_Event& event)
 
 void PlayState::update(const double& deltaTime)
 {
-	GameState::update(deltaTime);
 
 	if (_player->isDead())
 	{
+		cout << "player is dead\n";
+		_playerBulletPool->stopBullets();
 		_player->revive();
 		_levelManager.resetLevel();
 	}
+
+
+	GameState::update(deltaTime);
 }

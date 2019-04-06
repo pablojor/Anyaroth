@@ -1,6 +1,4 @@
 #include "Capsule.h"
-#include "GameObject.h"
-#include "MeleeEnemy.h"
 
 Capsule::Capsule(Game* g, Player* player, Vector2D pos, Enemy* father) : GameObject(g), _player(player), _father(father)
 {
@@ -8,6 +6,8 @@ Capsule::Capsule(Game* g, Player* player, Vector2D pos, Enemy* father) : GameObj
 
 	_transform = addComponent<TransformComponent>();
 	_transform->setPosition(pos.getX(), pos.getY());
+
+	_anim = addComponent<AnimatedSpriteComponent>();
 
 	_body = addComponent<BodyComponent>();
 	_body->getBody()->SetType(b2_dynamicBody);
@@ -24,20 +24,10 @@ Capsule::Capsule(Game* g, Player* player, Vector2D pos, Enemy* father) : GameObj
 	shape.SetAsBox(5 / M_TO_PIXEL, 2 / M_TO_PIXEL, b2Vec2(0, 2.25), 0);
 	b2FixtureDef fDef;
 	fDef.shape = &shape;
-	fDef.filter.categoryBits = PLAYER;
+	fDef.filter.categoryBits = ENEMIES;
 	fDef.filter.maskBits = FLOOR | PLATFORMS;
 	fDef.isSensor = true;
 	_body->addFixture(&fDef, this);
-}
-
-void Capsule::spawn()
-{
-	if (_spawning)
-	{
-		Vector2D pos = Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL - TILES_SIZE * 2, _body->getBody()->GetPosition().y * M_TO_PIXEL - TILES_SIZE * 2);
-		_father->addChild(new MeleeEnemy(_game, _player, pos));
-		destroy();
-	}
 }
 
 void Capsule::update(const double& deltaTime)

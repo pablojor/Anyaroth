@@ -4,7 +4,7 @@
 class DistanceStaticEnemy : public DistanceEnemy
 {
 public:
-	DistanceStaticEnemy(Game* g, Player* player, Vector2D pos, BulletPool* pool);
+	DistanceStaticEnemy(Game* g, Player* player, Vector2D pos, BulletPool* pool = nullptr);
 
 	virtual void update(const double& deltaTime);
 };

@@ -18,7 +18,7 @@ public:
 	virtual void update(const double& deltaTime) {}
 
 	virtual void meleeAttack(double x, double y, int dir);
-	int const getDamage() { return _damage; }
+	int getDamage() const { return _damage; }
 	void endMelee();
 
 	inline bool isActive() const { return (_body !=nullptr && _body->getBody() != nullptr &&  _body->getBody()->IsActive()); }
