@@ -6,7 +6,36 @@
 #include "ImprovedRifle.h"
 #include "ImprovedShotgun.h"
 #include "BounceOrbCannon.h"
+#include <json.hpp>
+#include <map>
 
+map<GunType, GunInfo> WeaponManager::_weaponInfo;
+
+void WeaponManager::init()
+{
+	ifstream file;
+	nlohmann::json j;
+
+	file.open(INFO_PATH + "weapon_info.json");
+	if (file.is_open())
+	{
+		file >> j;
+
+		for (nlohmann::json::iterator it = j.begin(); it != j.end(); ++it)
+		{
+			nlohmann::json weapon = it.value();
+
+			for (nlohmann::json::iterator typeWeapon = weapon.begin(); typeWeapon != weapon.end(); ++typeWeapon)
+			{
+				_weaponInfo[typeWeapon.value()["id"]] = { typeWeapon.value()["zona"], typeWeapon.key(), typeWeapon.value()["price"] ,
+														typeWeapon.value()["damage"], typeWeapon.value()["cadence"], typeWeapon.value()["range"], typeWeapon.value()["icon"].get<string>() };
+			}
+		}
+		file.close();
+	}
+	else
+		cout << "Error al cargar " << INFO_PATH << "weapon_info.json" << endl;
+}
 
 Gun* WeaponManager::getWeapon(Game* _game, GunType type)
 {

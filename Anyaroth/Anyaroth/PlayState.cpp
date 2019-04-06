@@ -5,9 +5,13 @@
 #include "NPC.h"
 #include "PiercingBulletPool.h"
 #include "checkML.h"
+#include "WeaponManager.h"
 
 PlayState::PlayState(Game* g) : GameState(g)
 {
+	//Inicializa el manager de armas
+	WeaponManager::init();
+
 	//Levels
 	_currentZone = 1;
 	_currentLevel = 3;

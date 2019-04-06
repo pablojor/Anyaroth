@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "PlayStateHUD.h"
 #include <json.hpp>
+#include "WeaponManager.h"
 
 
 ShopMenu::ShopMenu(Game* game) : PanelUI(game)
@@ -73,38 +74,57 @@ ShopMenu::~ShopMenu()
 
 void ShopMenu::loadWeaponInfo()
 {
-	ifstream file;
-	nlohmann::json j;
+	//ifstream file;
+	//nlohmann::json j;
 
-	file.open(INFO_PATH + "weapon_info.json");
-	if (file.is_open())
+	//file.open(INFO_PATH + "weapon_info.json");
+	//if (file.is_open())
+	//{
+	//	file >> j;
+
+	//	for (nlohmann::json::iterator it = j.begin(); it != j.end(); ++it)
+	//	{
+	//		nlohmann::json weapon = it.value();
+
+	//		for (nlohmann::json::iterator typeWeapon = weapon.begin(); typeWeapon != weapon.end(); ++typeWeapon)
+	//		{
+	//			auto item = new ShopItem(_game, _game->getTexture(typeWeapon.value()["icon"].get<string>()));
+
+	//			bool sold = false;
+	//			bool equiped = false;
+
+	//			if (typeWeapon.value()["zona"] == -1)
+	//			{
+	//				equiped = true;
+	//				sold = true;
+	//			}
+
+	//			item->setItemInfo({ typeWeapon.value()["zona"], typeWeapon.key(), typeWeapon.value()["price"] ,typeWeapon.value()["damage"], typeWeapon.value()["cadence"], typeWeapon.value()["range"], typeWeapon.value()["id"], sold, equiped });
+	//			_items.push_back(item);
+	//		}
+	//	}
+	//	file.close();
+	//}
+	//else
+	//	cout << "Error al cargar " << INFO_PATH << "weapon_info.json" << endl;
+
+	auto weaponInfo = WeaponManager::getAllWeaponInfo();
+	for (auto it = weaponInfo.begin(); it != weaponInfo.end(); it++)
 	{
-		file >> j;
+		auto item = new ShopItem(_game, _game->getTexture((*it).second._iconName));
 
-		for (nlohmann::json::iterator it = j.begin(); it != j.end(); ++it)
+		bool sold = false;
+		bool equiped = false;
+
+		if ((*it).second._zone == -1)
 		{
-			nlohmann::json weapon = it.value();
-
-			for (nlohmann::json::iterator typeWeapon = weapon.begin(); typeWeapon != weapon.end(); ++typeWeapon)
-			{
-				auto item = new ShopItem(_game, _game->getTexture(typeWeapon.value()["icon"].get<string>()));
-
-				bool sold = false;
-				bool equiped = false;
-
-				if (typeWeapon.value()["zona"] == -1)
-				{
-					equiped = true;
-					sold = true;
-				}
-
-				item->setItemInfo({ typeWeapon.value()["zona"], typeWeapon.key(), typeWeapon.value()["price"] ,typeWeapon.value()["damage"], typeWeapon.value()["cadence"], typeWeapon.value()["range"], typeWeapon.value()["id"], sold, equiped });
-				_items.push_back(item);
-			}
+			equiped = true;
+			sold = true;
 		}
+
+		item->setItemInfo({ (*it).second._zone, (*it).second._name, (*it).second._price ,(*it).second._damage, (*it).second._cadence, (*it).second._distance, (*it).first, sold, equiped });
+		_items.push_back(item);
 	}
-	else
-		cout << "Error al cargar " << INFO_PATH << "weapon_info.json" << endl;
 }
 
 void ShopMenu::setPlayer(Player* ply) 
