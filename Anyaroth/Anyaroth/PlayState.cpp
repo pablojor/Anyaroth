@@ -29,9 +29,9 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_player->setPlayerPanel(_hud->getPlayerPanel());
 
 	//Levels
-	_currentZone = _currentLevel = 1;
+	_currentLevel = LevelManager::Level1_1;
 	_levelManager = LevelManager(g, _player, &_stages, _hud);
-	_levelManager.setLevel(2, 2);
+	_levelManager.setLevel(_currentLevel);
 
 	//Background
 	_parallaxZone1 = new ParallaxBackGround(_mainCamera);
@@ -92,6 +92,11 @@ bool PlayState::handleEvent(const SDL_Event& event)
 
 void PlayState::update(const double& deltaTime)
 {
+	/*if (_player->changeLevel())
+	{
+		_player->setChangeLevel(false);
+		_levelManager.nextLevel(_currentLevel++);
+	}*/
 
 	if (_player->isDead())
 	{
@@ -99,8 +104,8 @@ void PlayState::update(const double& deltaTime)
 		_playerBulletPool->stopBullets();
 		_player->revive();
 		_levelManager.resetLevel();
+		//_levelManager.previousLevel(_currentLevel--);
 	}
-
 
 	GameState::update(deltaTime);
 }

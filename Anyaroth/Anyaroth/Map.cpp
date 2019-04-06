@@ -76,7 +76,7 @@ void Map::createObjects()
 		{
 			if (name == "Player")
 			{
-				_player->setPlayerPosition(Vector2D((pos[j].getX() - TILES_SIZE * 2) / M_TO_PIXEL, (pos[j].getY() - TILES_SIZE * 2) / M_TO_PIXEL));
+				_player->setPlayerPosition(Vector2D(pos[j].getX() / M_TO_PIXEL, (pos[j].getY() - TILES_SIZE * 2) / M_TO_PIXEL));
 			}
 			else if (name == "Melee")
 			{

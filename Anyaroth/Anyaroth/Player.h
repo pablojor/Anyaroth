@@ -50,8 +50,9 @@ private:
 		_onDash = false,
 		_dashDown = false;
 
-	int _floorCount = 0;
+	bool _changeLevel = false;
 
+	int _floorCount = 0;
 
 	float _timeToJump = 100.f;
 
@@ -108,8 +109,10 @@ public:
 	inline void setPlayerBulletPool(PoolWrapper* pool) { _playerBulletPool = pool; }
 	inline void setPlayerPosition(Vector2D pos) { _body->getBody()->SetTransform(b2Vec2(pos.getX(), pos.getY()), 0); }
 
-	
 	void changeMelee(Melee* newMelee);
+
+	inline bool changeLevel() const { return _changeLevel; }
+	inline bool setChangeLevel(bool change) { _changeLevel = change; }
 
 	inline bool isGrounded() const { return _floorCount; }
 	bool isDashing() const;

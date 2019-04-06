@@ -111,6 +111,10 @@ void Player::beginCollision(GameObject * other, b2Contact* contact)
 		}
 		contact->SetEnabled(false);
 	}
+	else if (other->getTag() == "Door")
+	{
+		_changeLevel = true;
+	}
 }
 
 void Player::endCollision(GameObject * other, b2Contact* contact)
