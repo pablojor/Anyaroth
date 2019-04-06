@@ -29,7 +29,7 @@ private:
 	Melee* _melee = nullptr;
 
 	//Propiedades
-	Life _life = Life(100);
+	Life _life = Life(300);
 	Money* _money = nullptr;
 	PlayerPanel* _playerPanel = nullptr;
 
@@ -37,7 +37,7 @@ private:
 	PlayerArm* _playerArm = nullptr;
 
 	//Variable auxiliares
-	double _dashCD = 3000;
+	double _dashCD = 1000;
 
 	int _maxDash = 1, 
 		_numDash = _maxDash,

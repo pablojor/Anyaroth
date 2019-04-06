@@ -9,7 +9,7 @@
 #include "NormalSpawner.h"
 #include "DistanceSpawner.h"
 #include "StaticSpawnerEnemy.h"
-#include "FlyingEnemy.h"
+#include "StaticFlyingEnemy.h"
 #include "Player.h"
 #include "GunType_def.h"
 #include "BotonLanzaMisiles.h"
@@ -96,7 +96,7 @@ void Map::createObjects()
 			}
 			else if (name == "FlyingDistance")
 			{
-				_objects->addChild(new FlyingEnemy(_game, _player, Vector2D(pos[j].getX() - TILES_SIZE * 2, pos[j].getY() - TILES_SIZE * 2)));
+				_objects->addChild(new StaticFlyingEnemy(_game, _player, Vector2D(pos[j].getX() - TILES_SIZE * 2, pos[j].getY() - TILES_SIZE * 2), _bulletPool));
 			}
 			else if (name == "Spawner")
 			{

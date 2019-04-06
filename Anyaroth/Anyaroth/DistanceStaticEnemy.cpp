@@ -20,6 +20,10 @@ DistanceStaticEnemy::DistanceStaticEnemy(Game* g, Player* player, Vector2D pos, 
 	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 
 	_body->addCricleShape(b2Vec2(0, _body->getH() + _body->getH() / 20), _body->getW() - _body->getW() / 20, ENEMIES, FLOOR | PLATFORMS);
+
+	//Ajustes del arma
+	_myGun->setMaxCadence(700);
+	_myGun->setBulletSpeed(30);
 }
 
 void DistanceStaticEnemy::update(const double& deltaTime)

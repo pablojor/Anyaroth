@@ -62,8 +62,8 @@ Player::Player(Game* game, int xPos, int yPos) :  GameObject(game, "Player")
 	//Armas del juego
 	_weaponManager = new WeaponManager(game);
 
-	_currentGun = _weaponManager->getWeapon(GravityBombCannon_Weapon, 0);
-	_otherGun = _weaponManager->getWeapon(BasicRifle_Weapon, 1);
+	_currentGun = _weaponManager->getWeapon(Pistol_Weapon, 0);
+	//_otherGun = _weaponManager->getWeapon(BasicRifle_Weapon, 1);
 
 	_playerArm->setTexture(_currentGun->getArmTexture());
 
@@ -145,7 +145,7 @@ void Player::revive()
 	_playerPanel->updateCoinsCounter(_money->getWallet());
 
 	_currentGun->resetAmmo();
-	_otherGun->resetAmmo();
+	if(_otherGun != nullptr) _otherGun->resetAmmo();
 	_playerPanel->updateAmmoViewer(_currentGun->getClip(), _currentGun->getMagazine());
 
 	_playerPanel->resetDashViewer();
@@ -237,12 +237,15 @@ void Player::update(const double& deltaTime)
 
 void Player::swapGun()
 {
-	Gun* auxGun = _currentGun;
-	_currentGun = _otherGun;
-	_otherGun = auxGun;
-	_playerArm->setTexture(_currentGun->getArmTexture());
-	_playerPanel->updateAmmoViewer(_currentGun->getClip(), _currentGun->getMagazine());
-	_playerPanel->updateWeaponryViewer();
+	if (_otherGun != nullptr)
+	{
+		Gun* auxGun = _currentGun;
+		_currentGun = _otherGun;
+		_otherGun = auxGun;
+		_playerArm->setTexture(_currentGun->getArmTexture());
+		_playerPanel->updateAmmoViewer(_currentGun->getClip(), _currentGun->getMagazine());
+		_playerPanel->updateWeaponryViewer();
+	}
 }
 
 
@@ -350,7 +353,7 @@ void Player::refreshDashCoolDown(const double& deltaTime)
 		{
 			_numDash++;
 			_playerPanel->updateDashViewer(_numDash);
-			_dashCD = 3000; //Se restablecen los 3 segundos
+			_dashCD = 1000; //Se restablecen los 3 segundos
 		}
 	}
 }
@@ -371,7 +374,8 @@ void Player::dashTimer(const double & deltaTime)
 void Player::refreshGunCadence(const double& deltaTime)
 {
 	_currentGun->refreshGunCadence(deltaTime);
-	_otherGun->refreshGunCadence(deltaTime);
+	if(_otherGun != nullptr)
+		_otherGun->refreshGunCadence(deltaTime);
 }
 
 void Player::move(const Vector2D& dir, const double& speed)
