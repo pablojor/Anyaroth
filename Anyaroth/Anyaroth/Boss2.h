@@ -29,6 +29,6 @@ public:
 	virtual void fase2(const double& deltaTime);
 	virtual void fase3(const double& deltaTime);
 	virtual void beetwenFases(const double& deltaTime);
-
+	virtual void manageLife(Life& l, int damage);
 };
 

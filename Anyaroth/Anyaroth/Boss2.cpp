@@ -67,25 +67,26 @@ void Boss2::Jump()
 
 void Boss2::movement(const double& deltaTime)
 {
-		if(_endJump)
+	if (_actualFase != BetweenFase)
+	{
+		if (_endJump)
 			endJump();
-		_bodyPos= Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL);
+		_bodyPos = Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL);
 		_playerPos = Vector2D(_playerBody->getBody()->GetPosition().x * M_TO_PIXEL, _playerBody->getBody()->GetPosition().y * M_TO_PIXEL);
 
 		double pos = _body->getBody()->GetPosition().x* M_TO_PIXEL;
-		_dir = ( pos >= _playerPos.getX()) ? -1 : 1;
+		_dir = (pos >= _playerPos.getX()) ? -1 : 1;
 		double range = _playerPos.getX() - _body->getBody()->GetPosition().x* M_TO_PIXEL;
 
 
-		if(_dir == 1)
+		if (_dir == 1)
 			_anim->unFlip();
 		else
 			_anim->flip();
 
 		if (_actualState != Jumping && (range <= -_stopRange || range >= _stopRange))
 			_body->getBody()->SetLinearVelocity(b2Vec2(_velocity.getX() * _dir / M_TO_PIXEL, _body->getBody()->GetLinearVelocity().y));
-		
-
+	}
 }
 
 void Boss2::beginCollision(GameObject * other, b2Contact* contact)
@@ -218,18 +219,34 @@ void Boss2::fase3(const double& deltaTime)
 	}
 }
 
-
 void Boss2::beetwenFases(const double& deltaTime)
 {
-	if (_lastFase == Fase1)
+	if (_anim->animationFinished())
 	{
-		_lasers->Activate();
-		changeFase(Fase2);
+		if (_lastFase == Fase1)
+		{
+			_lasers->Activate();
+			changeFase(Fase2);
+		}
+		else if (_lastFase == Fase2)
+			changeFase(Fase3);
+		else
+		{
+			die();
+		}
+		_bossPanel->updateLifeBar(_life1.getLife(), _life2.getLife(), _life3.getLife(), _life.getLife());
+		_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 	}
-	else if (_lastFase == Fase2)
-		changeFase(Fase3);
-	else
+}
+
+void Boss2::manageLife(Life& l, int damage)
+{
+	l.subLife(damage);
+	if (l.getLife() == 0)
 	{
-		die();
+		_doSomething = 0;
+		_lastFase = _actualFase;
+		_actualFase = BetweenFase;
+		_anim->playAnim(AnimatedSpriteComponent::EnemyDie);
 	}
 }

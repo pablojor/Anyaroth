@@ -93,10 +93,13 @@ void Boss::checkMelee()
 	{
 		_melee->endMelee();
 		//Provisional
-		_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
-		_actualState = Moving;
-		_armVision = true;;
+		if (_actualFase != BetweenFase)
+		{
+			_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
+			_actualState = Moving;
+			_armVision = true;;
 
-		_doSomething = _game->random(900, 1300);
+			_doSomething = _game->random(900, 1300);
+		}
 	}
 }
