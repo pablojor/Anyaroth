@@ -7,13 +7,14 @@ class Boss2 : public Boss
 private:
 	LaserHandler* _lasers = nullptr;
 	Vector2D _velocity = { 20,0 }, _originalVelocity = { 20,0 };
-	int _dir, _onFloor = 0;
+	int _dir, _onFloor = 0, _stopRange = 25;
 	double _shootRange = 75;
 	bool _endJump = false;
 
 public:
 	Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool);
 	~Boss2();
+
 	void Jump();
 
 	virtual void movement(const double& deltaTime);
