@@ -8,7 +8,7 @@ class ShopItem : public ButtonUI
 	private:
 		struct ItemInfo 
 		{
-			int _zona;
+			int _zone;
 
 			string _name;
 			int _price;
@@ -31,7 +31,7 @@ class ShopItem : public ButtonUI
 		~ShopItem();
 
 		inline Texture* getItemImage() const { return getImage(); }
-		inline ItemInfo getItemInfo() const { return _info; }
+		inline ItemInfo& getItemInfo() { return _info; }
 		inline void getItem(Game* game) {  }
 
 		void setItemImage(Texture* image) { setImage(image); }

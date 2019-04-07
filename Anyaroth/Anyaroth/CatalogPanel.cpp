@@ -120,7 +120,7 @@ void CatalogPanel::reorderCatalog()
 			auto item = *it;
 			auto info = item->getItemInfo();
 
-			if (!info._sold && info._zona <= _zone && info._zona != -1)
+			if (!info._sold && info._zone <= _zone && info._zone != -1)
 			{
 				item->setVisible(true);
 				if (primItem == nullptr)

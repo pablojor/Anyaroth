@@ -79,6 +79,27 @@ void DepotPanel::inicializeCallback(ShopMenu * menu)
 	_exitButton->onDown([menu](Game* game) { menu->closeDepotPanel(game); });
 }
 
+void DepotPanel::setPlayer(Player * ply)
+{
+	_player = ply;
+
+	ShopItem* fItem = nullptr, * sItem = nullptr;
+
+	for (auto i = _items->begin(); i != _items->end() && (fItem == nullptr || sItem == nullptr); i++)
+	{
+		if ((*i)->getItemInfo()._type == _player->getCurrentGun()->getGunID())
+			fItem = (*i);
+		else if ((*i)->getItemInfo()._type == _player->getOtherGun()->getGunID())
+			sItem = (*i);
+	}
+	//Cogemos la info de las armas equipadas
+	auto* fInfo = &fItem->getItemInfo(); fInfo->_sold = true; fInfo->_equiped = true;
+	auto* sInfo = &sItem->getItemInfo(); sInfo->_sold = true; sInfo->_equiped = true;
+
+	_firstWeapon->setItemInfo(*fInfo);
+	_secondWeapon->setItemInfo(*sInfo);
+}
+
 void DepotPanel::setItems(list<ShopItem*>* list)
 {
 	_items = list;

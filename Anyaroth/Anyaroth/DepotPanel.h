@@ -40,7 +40,7 @@ class DepotPanel : public PanelUI
 
 		void inicializeCallback(ShopMenu* menu);
 
-		void setPlayer(Player* ply) { _player = ply; }
+		void setPlayer(Player* ply);
 
 		void setItems(list<ShopItem*>* list);
 		void removeItems();
