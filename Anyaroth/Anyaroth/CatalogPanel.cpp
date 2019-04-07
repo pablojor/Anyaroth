@@ -7,22 +7,21 @@ CatalogPanel::CatalogPanel(Game* game) : PanelUI(game)
 {
 	//----MARCO----//
 
-	_frame = new ImageUI(game, game->getTexture("ShopPanel"), 5, 5);
+	_frame = new ImageUI(game, game->getTexture("CatalogPanel"), 21, 5);
 
 	addChild(_frame);
 
 	//----BOTON DE SALIR----//
 
-	_exitButton = new ButtonUI(game, game->getTexture("Button"), nullptr, { 0,1,2,3 });
-	_exitButton->setPosition(_frame->getX(), _frame->getY() + _frame->getH() + 2);
-	_exitButton->setSize(_frame->getW(), _exitButton->getH() + 4);
+	_exitButton = new ButtonUI(game, game->getTexture("ReturnButton"), nullptr, { 0, 1, 1, 1, 1 });
+	_exitButton->setPosition(CAMERA_RESOLUTION_X - _exitButton->getW() - 12, 188 - 1 - _exitButton->getH());
 
 	addChild(_exitButton);
 
 	//----PANEL DE INFORMACIÓN----//
 
-	int infoPanelPosX = _frame->getX() + _frame->getW() + 4,
-		infoPanelPosY = _frame->getY();
+	int infoPanelPosX = _frame->getX() + _frame->getW() + 1,
+		infoPanelPosY = _frame->getY() + 11;
 
 	_infoPanel = new ShopInfoPanel(game, infoPanelPosX, infoPanelPosY);
 	_infoPanel->setVisible(false);
@@ -31,12 +30,18 @@ CatalogPanel::CatalogPanel(Game* game) : PanelUI(game)
 
 	//----BOTON DE COMPRAR----//
 
-	_buyButton = new ButtonUI(game, game->getTexture("BuyButton"), nullptr, { 0,1,2,1 });
+	_buyButton = new ButtonUI(game, game->getTexture("BuyButton"), nullptr, { 0, 1, 1, 1, 1 });
 	_buyButton->setPosition(infoPanelPosX + _infoPanel->getInfoPanelWidth() / 2 - _buyButton->getW() / 2, infoPanelPosY + _infoPanel->getInfoPanelHeight() + 2);
 	_buyButton->onDown([this](Game* game) { buyItem(game); });
 	_buyButton->setVisible(false);
 
+	_buyText = new TextUI(game, "Buy", game->getFont("ARIAL12"), 12, 0, 0, { 255, 255, 255, 255 });
+	_buyText->setPosition(_buyButton->getX() + _buyButton->getW() / 2 - _buyText->getW() / 2,
+							_buyButton->getY() + _buyButton->getH() / 2 - _buyText->getH() / 2);
+	_buyText->setVisible(false);
+
 	addChild(_buyButton);
+	addChild(_buyText);
 
 	//----MOSTRADOR DE DINERO----//
 
@@ -63,12 +68,6 @@ void CatalogPanel::setItems(list<ShopItem*>* list, const int& zone) // Crear ite
 	_items = list;
 	_zone = zone;
 
-	int margin = 20; // PROBABLEMENTE PROVISIONAL TAMBIEN
-	itemWidth = (_frame->getW() - margin) / itemsPerRow;
-	itemHeight = (_frame->getH() - margin) / itemsPerCol;
-
-	itemHeight < itemWidth ? itemSize = itemHeight : itemSize = itemWidth;
-
 	for (auto it : *_items)
 		addChild(it);
 }
@@ -84,29 +83,33 @@ void CatalogPanel::openCatalog()
 	for (auto it : *_items)
 	{
 		it->onDown([this, it](Game* game) {	selectItem(game, it); });
-		//it->onOver([this, it](Game* game) { showItemInfo(it); });
-		//it->onOut([this, it](Game* game) { showSelectedItemInfo(); });
-		it->setSize(itemSize, itemSize);
 	}
 	reorderCatalog();
 
-	_visible = true;
+	setVisible(true);
+
 	_infoPanel->setVisible(false);
 	_buyButton->setVisible(false);
+	_buyText->setVisible(false);
 }
 
 void CatalogPanel::closeCatalog()
 {
 	setVisible(false);
+
 	_infoPanel->setVisible(false);
 	_buyButton->setVisible(false);
+	_buyText->setVisible(false);
+
 	_selectedItem = nullptr;
 }
 
 void CatalogPanel::reorderCatalog()
 {
-	int xOffset = (_frame->getW() - itemSize * itemsPerRow) / (itemsPerRow + 1);
-	int yOffset = (_frame->getH() - itemSize * itemsPerCol) / (itemsPerCol + 1);
+	int posIniX = 11,
+		posIniY = 10,
+		distX = 9,
+		distY = 4;
 
 	ShopItem* primItem = nullptr;
 
@@ -125,11 +128,11 @@ void CatalogPanel::reorderCatalog()
 				item->setVisible(true);
 				if (primItem == nullptr)
 				{
-					item->setPosition(_frame->getX() + xOffset, _frame->getY() + yOffset);
+					item->setPosition(_frame->getX() + posIniX, _frame->getY() + posIniY);
 					primItem = item;
 				}
 				else
-					item->setPosition(primItem->getX() + (primItem->getW() + xOffset) * col, primItem->getY() + (primItem->getH() + yOffset) * fil);
+					item->setPosition(primItem->getX() + (primItem->getW() + distX) * col, primItem->getY() + (primItem->getH() + distY) * fil);
 
 				col++;
 			}
@@ -154,14 +157,21 @@ void CatalogPanel::showItemInfo(ShopItem* item)
 	_infoPanel->setName(info._name);
 	_infoPanel->setCadence(info._cadence);
 	_infoPanel->setDamage(info._damage);
-	_infoPanel->setDistance(info._distance);
+	_infoPanel->setClip(info._clip);
 	_infoPanel->setPrice(info._price);
-	_infoPanel->setVisible(true);	
 
-	if (item == _selectedItem) 
+	_infoPanel->openInfoPanel();
+
+	if (item == _selectedItem)
+	{
 		_buyButton->setVisible(true);
+		_buyText->setVisible(true);
+	}
 	else
+	{
 		_buyButton->setVisible(false);
+		_buyText->setVisible(false);
+	}
 }
 
 void CatalogPanel::showSelectedItemInfo() 
@@ -173,21 +183,30 @@ void CatalogPanel::showSelectedItemInfo()
 		auto info = _selectedItem->getItemInfo();
 
 		_buyButton->setVisible(true);
+		_buyText->setVisible(true);
+
 		if (info._price > _player->getBank())
+		{
 			_buyButton->setInputEnable(false);
+			_buyText->setColor({ 55, 55, 55, 255 });
+		}
 		else
+		{
 			_buyButton->setInputEnable(true);
+			_buyText->setColor({ 255, 255, 255, 255 });
+		}
 	}
 	else
-		_infoPanel->setVisible(false);
+		_infoPanel->closeInfoPanel();
 }
 
 void CatalogPanel::buyItem(Game * game)
 {
 	if (_player->spendMoney(_selectedItem->getItemInfo()._price))
 	{
-		_infoPanel->setVisible(false);
+		_infoPanel->closeInfoPanel();
 		_buyButton->setVisible(false);
+		_buyText->setVisible(false);
 		_selectedItem->setVisible(false);
 		_selectedItem->setItemSell(true);
 

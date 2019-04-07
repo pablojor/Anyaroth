@@ -3,7 +3,7 @@
 class Money
 {
 	private:
-		int _bank = 1000, _wallet = 0;
+		int _bank = 10000, _wallet = 0;
 
 	public:
 		inline void restartWallet() { _wallet = 0; }

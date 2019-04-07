@@ -15,7 +15,7 @@ class ShopItem : public ButtonUI
 
 			int _damage;
 			int _cadence;
-			int _distance;
+			int _clip;
 
 			//ID del arma
 			GunType _type;

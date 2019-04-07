@@ -1,6 +1,7 @@
 #pragma once
 #include "PanelUI.h"
 #include "ImageUI.h"
+#include "TextUI.h"
 #include "ShopItem.h"
 #include "ButtonUI.h"
 #include "ShopInfoPanel.h"
@@ -15,6 +16,7 @@ class CatalogPanel : public PanelUI
 {
 	private:
 		Player* _player;
+		TextUI* _buyText;
 		ButtonUI* _buyButton;
 		ShopInfoPanel* _infoPanel;
 
@@ -28,10 +30,7 @@ class CatalogPanel : public PanelUI
 		CoinsCounter* _playerMoney = nullptr;
 
 		int itemsPerRow = 2;
-		int itemsPerCol = 4; 
-		int itemWidth;
-		int itemHeight;
-		int itemSize;
+		int itemsPerCol = 4;
 
 		int _zone = -1;
 

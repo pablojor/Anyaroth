@@ -13,8 +13,11 @@ class ShopMenu : public PanelUI
 	private:
 		Player* _player;
 
+		TextUI* _shopText;
 		ButtonUI * _shopButton;
+		TextUI* _talkText;
 		ButtonUI* _talkButton;
+		TextUI* _depotText;
 		ButtonUI* _depotButton;
 		ButtonUI* _exitButton;
 
