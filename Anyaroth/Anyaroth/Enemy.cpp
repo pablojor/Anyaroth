@@ -2,6 +2,8 @@
 #include "Game.h"
 #include "Player.h"
 #include "Bullet.h"
+#include "Coin.h"
+#include "AmmoPackage.h"
 
 Enemy::Enemy(Game* g, Player* player, Vector2D pos, Texture* texture) : GameObject(g, "Enemy"), _player(player)
 {
@@ -42,6 +44,11 @@ void Enemy::update(const double& deltaTime)
 
 	b2Vec2 playerPos = _player->getComponent<BodyComponent>()->getBody()->GetPosition(), enemyPos = _body->getBody()->GetPosition();
 	_playerDistance = Vector2D((playerPos.x - enemyPos.x)*M_TO_PIXEL, (playerPos.y - enemyPos.y)*M_TO_PIXEL);
+	if (isDead()&& _drop)
+	{
+		_drop = false;
+		spawnDrop();
+	}
 }
 
 void Enemy::die()
@@ -50,6 +57,17 @@ void Enemy::die()
 	_anim->playAnim(AnimatedSpriteComponent::EnemyDie);
 	setDead(true);
 	_body->filterCollisions(DEAD_ENEMIES, FLOOR | PLATFORMS);
+}
+
+void Enemy::spawnDrop()
+{
+	int rnd=random(0, 100);
+	if(rnd<=10)
+	{
+		//EL PAQUETE DE MUNICION
+	}
+	else if(rnd<=40)
+	_game->getCurrentState()->addObject(new Coin(_game, _game->getTexture("Coin"), Vector2D(_body->getBody()->GetPosition().x*M_TO_PIXEL -_body->getW()*M_TO_PIXEL, _body->getBody()->GetPosition().y*M_TO_PIXEL- _body->getH() * M_TO_PIXEL /2), 10));
 }
 
 void Enemy::subLife(int damage)

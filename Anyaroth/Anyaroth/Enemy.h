@@ -19,7 +19,7 @@ protected:
 	Vector2D _playerDistance;
 
 	Life _life;
-	bool _attacking = false;
+	bool _attacking = false, _drop = true;
 	int _vision, _attackRangeX, _attackRangeY, _attackTime, _damage;
 	double _time;
 	float32 _speed;
@@ -37,6 +37,7 @@ public:
 	inline int random(int low, int high) const { return low + (rand() % abs(high - low)); }
 
 	void die();
+	void spawnDrop();
 	virtual void subLife(int damage);
 	inline Life getLife() const { return _life; }
 
