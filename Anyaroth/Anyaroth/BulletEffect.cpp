@@ -43,7 +43,7 @@ void BulletEffect::update(Bullet* bullet, double time)
 		}
 		else
 		{
-			if (bullet->getComponent<AnimatedSpriteComponent>()->animationFinished() && bullet->getComponent<AnimatedSpriteComponent>()->getCurrentAnim() == AnimatedSpriteComponent::Destroy)
+			if ((bullet->getComponent<AnimatedSpriteComponent>()->animationFinished() && bullet->getComponent<AnimatedSpriteComponent>()->getCurrentAnim() == AnimatedSpriteComponent::Destroy) || bullet->getComponent<AnimatedSpriteComponent>()->isLooping())
 			{
 				reset(bullet);
 			}
@@ -64,4 +64,5 @@ void BulletEffect::reset(Bullet* bullet)
 	bullet->setAliveTime(0);
 	bullet->setCollided(false);
 	bullet->getComponent<AnimatedSpriteComponent>()->reset();
+	bullet->getComponent<BodyComponent>()->getBody()->SetActive(false);
 }

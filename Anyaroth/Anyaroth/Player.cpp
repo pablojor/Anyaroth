@@ -56,7 +56,7 @@ Player::Player(Game* game, int xPos, int yPos) : GameObject(game, "Player")
 	_anim->addAnim(AnimatedSpriteComponent::ReloadShotgun, 5, false);
 
 	//Brazo
-	_playerArm = new PlayerArm(game, this, { 28, 18 });
+	_playerArm = new PlayerArm(game, this, { 28, 15 });
 	addChild(_playerArm);
 
 	//Armas del juego

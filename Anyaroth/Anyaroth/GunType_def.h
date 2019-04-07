@@ -25,6 +25,7 @@ enum MeleeType
 enum BulletAnimType
 {
 	Default,
+	ShotGunBullet,
 	TurretBullet,
 	SpentaBomb,
 	SpentaOrb

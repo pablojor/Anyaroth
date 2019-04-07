@@ -49,10 +49,10 @@ PlayState::PlayState(Game* g) : GameState(g)
 	g->getWorld()->SetDebugDraw(&_debugger);
 
 	//World
-	_debugger.getRenderer(g->getRenderer());
+	/*_debugger.getRenderer(g->getRenderer());
 	_debugger.getTexture(g->getTexture("Box"));
 	_debugger.SetFlags(b2Draw::e_shapeBit);
-	_debugger.getCamera(_mainCamera);
+	_debugger.getCamera(_mainCamera);*/
 	
 	//Gestion de colisiones
 	g->getWorld()->SetContactListener(&_colManager);

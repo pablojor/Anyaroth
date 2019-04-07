@@ -13,7 +13,7 @@ Shotgun::~Shotgun()
 }
 
 
-void Shotgun::shoot(BulletPool * bulletPool, const Vector2D & position, const double & angle, const string & tag)
+void Shotgun::shoot(PoolWrapper * bulletPool, const Vector2D & position, const double & angle, const string & tag)
 {
 	if (_clip > 0 && _cadence <= 0)
 	{
