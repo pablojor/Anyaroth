@@ -29,7 +29,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_player->setPlayerPanel(_hud->getPlayerPanel());
 
 	//Levels
-	_currentLevel = LevelManager::Level1_1;
+	_currentLevel = LevelManager::Level2_1;
 	_levelManager = LevelManager(g, _player, &_stages, _hud);
 	_levelManager.setLevel(_currentLevel);
 
@@ -78,6 +78,11 @@ bool PlayState::handleEvent(const SDL_Event& event)
 	}
 	else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_0) //Boton de prueba para reiniciar el nivel
 		_levelManager.resetLevel();
+	else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_1) //Boton de prueba para reiniciar la munición
+	{
+		_player->getCurrentGun()->resetAmmo();
+		_hud->getPlayerPanel()->updateAmmoViewer(_player->getCurrentGun()->getClip(), _player->getCurrentGun()->getMagazine());
+	}
 	else if (event.type == SDL_KEYDOWN && (event.key.keysym.sym == SDLK_KP_MINUS || event.key.keysym.sym == SDLK_MINUS)) //Para probar el Zoom y sus distintan opciones
 		_mainCamera->zoomOut();
 	else if (event.type == SDL_KEYDOWN && (event.key.keysym.sym == SDLK_KP_PLUS || event.key.keysym.sym == SDLK_PLUS))
@@ -92,19 +97,20 @@ bool PlayState::handleEvent(const SDL_Event& event)
 
 void PlayState::update(const double& deltaTime)
 {
-	/*if (_player->changeLevel())
+	if (_player->changeLevel())
 	{
 		_player->setChangeLevel(false);
-		_levelManager.nextLevel(_currentLevel++);
-	}*/
+		_currentLevel++;
+		_levelManager.changeLevel(_currentLevel);
+	}
 
 	if (_player->isDead())
 	{
 		cout << "player is dead\n";
 		_playerBulletPool->stopBullets();
 		_player->revive();
-		_levelManager.resetLevel();
-		//_levelManager.previousLevel(_currentLevel--);
+		_currentLevel--;
+		_levelManager.changeLevel(_currentLevel);
 	}
 
 	GameState::update(deltaTime);

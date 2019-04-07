@@ -126,7 +126,7 @@ void Map::createObjects()
 			}
 			else if (name == "NPCs")
 			{
-				_n = new NPC(_game, { 60, 730 }, { _game->getTexture("DialogueFace"),
+				_npc = new NPC(_game, { 60, 730 }, { _game->getTexture("DialogueFace"),
 																"exampleVoice",
 																"Jose Maria",
 																{ "*Bzzt..Bip, bip..* Hey, que tal?",
@@ -135,8 +135,8 @@ void Map::createObjects()
 																{0,1,2},
 																{" ", " ", " ", " "}
 					});
-				_n->setDialoguePanel(_hud->getDialoguePanel());
-				_objects->addChild(_n);
+				_npc->setDialoguePanel(_hud->getDialoguePanel());
+				_objects->addChild(_npc);
 			}
 		}
 	}
@@ -144,8 +144,11 @@ void Map::createObjects()
 
 void Map::restartLevel()
 {
-	_objects->destroyAllChildren();
-	createObjects();
+	if (_objects->getChildren().size() != 0)
+	{
+		_objects->destroyAllChildren();
+		createObjects();
+	}
 }
 
 bool Map::handleEvent(const SDL_Event & event)

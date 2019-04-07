@@ -18,37 +18,37 @@ void LevelManager::setLevel(int l)
 		//_currentMap = ...
 		break;
 	case LevelManager::Safe1_1:
-		//_currentSafeZone = ...
+		_currentSafeZone = new Map(TILEMAP_PATH + "SafeZonePrueba.json", _game, _player, _tilesetZone1, _enemyBulletPool, _hud, 10);
 		break;
 	case LevelManager::Level1_1:
 		_currentMap = new Map(TILEMAP_PATH + "Nivel1-1.json", _game, _player, _tilesetZone1, _enemyBulletPool, _hud, 10);
 		break;
 	case LevelManager::Safe1_2:
-		//_currentSafeZone = ...
+		_currentSafeZone = new Map(TILEMAP_PATH + "SafeZonePrueba.json", _game, _player, _tilesetZone1, _enemyBulletPool, _hud, 10);
 		break;
 	case LevelManager::Level1_2:
 		//_currentMap = ...
 		break;
 	case LevelManager::SafeBoss1:
-		//_currentSafeZone = ...
+		_currentSafeZone = new Map(TILEMAP_PATH + "SafeZonePrueba.json", _game, _player, _tilesetZone1, _enemyBulletPool, _hud, 10);
 		break;
 	case LevelManager::Boss1:
 		_currentMap = new Map(TILEMAP_PATH + "Nivel1-3.json", _game, _player, _tilesetZone1, _enemyBulletPool, _hud, 10);
 		break;
 	case LevelManager::Safe2_1:
-		//_currentSafeZone = ...
+		_currentSafeZone = new Map(TILEMAP_PATH + "SafeZonePrueba.json", _game, _player, _tilesetZone1, _enemyBulletPool, _hud, 10);
 		break;
 	case LevelManager::Level2_1:
 		_currentMap = new Map(TILEMAP_PATH + "Nivel2-1.json", _game, _player, _tilesetZone2, _enemyBulletPool, _hud, 10);
 		break;
 	case LevelManager::Safe2_2:
-		//_currentSafeZone = ...
+		_currentSafeZone = new Map(TILEMAP_PATH + "SafeZonePrueba.json", _game, _player, _tilesetZone1, _enemyBulletPool, _hud, 10);
 		break;
 	case LevelManager::Level2_2:
 		_currentMap = new Map(TILEMAP_PATH + "Nivel2-2.json", _game, _player, _tilesetZone2, _enemyBulletPool, _hud, 10);
 		break;
 	case LevelManager::SafeBoss2:
-		//_currentSafeZone = ...
+		_currentSafeZone = new Map(TILEMAP_PATH + "SafeZonePrueba.json", _game, _player, _tilesetZone1, _enemyBulletPool, _hud, 10);
 		break;
 	case LevelManager::Boss2:
 		//_currentMap = ...
@@ -81,37 +81,20 @@ void LevelManager::setLevel(int l)
 		_objectList->push_back(_currentSafeZone);
 }
 
-void LevelManager::nextLevel(int l)
+void LevelManager::changeLevel(int l)
 {
-	if (_currentMap != nullptr)
+	if (_currentSafeZone != nullptr)
 	{
+		_objectList->remove(_currentSafeZone);
+		delete _currentSafeZone;
+		_currentSafeZone = nullptr;
+	}
+	else if (_currentMap != nullptr)
+	{
+		_enemyBulletPool->stopBullets();
 		_objectList->remove(_currentMap);
 		delete _currentMap;
 		_currentMap = nullptr;
-
-		if (_currentSafeZone != nullptr && !_currentSafeZone->isActive())
-		{
-			_objectList->remove(_currentSafeZone);
-			delete _currentSafeZone;
-			_currentSafeZone = nullptr;
-		}
-
-		setLevel(l);
 	}
-	else if (_currentSafeZone != nullptr)
-	{
-		_currentSafeZone->setActive(false);
-
-		if (_currentMap == nullptr)
-			setLevel(l);
-		else
-			_currentMap->setActive(true);
-	}
-}
-
-void LevelManager::previousLevel(int l)
-{
-	resetLevel();
-	_currentMap->setActive(false);
-	_currentSafeZone->setActive(true);
+	setLevel(l);
 }

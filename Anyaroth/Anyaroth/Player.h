@@ -112,7 +112,7 @@ public:
 	void changeMelee(Melee* newMelee);
 
 	inline bool changeLevel() const { return _changeLevel; }
-	inline bool setChangeLevel(bool change) { _changeLevel = change; }
+	inline void setChangeLevel(bool change) { _changeLevel = change; }
 
 	inline bool isGrounded() const { return _floorCount; }
 	bool isDashing() const;

@@ -16,13 +16,11 @@ private:
 	Player* _player = nullptr;
 	PlayStateHUD* _hud = nullptr;
 	BulletPool* _bulletPool = nullptr;
-	/*ExplosiveBulletPool* _explosivePool = nullptr;
-	BouncingBulletPool* _bouncingPool = nullptr;*/
 
-	GameObject* _layers;
-	GameObject* _objects;
+	GameObject* _layers = nullptr;
+	GameObject* _objects = nullptr;
 	Boss1* _boss1 = nullptr;
-	NPC * _n = nullptr;
+	NPC* _npc = nullptr;
 
 	vector <ObjectLayer*> _objectLayers;
 

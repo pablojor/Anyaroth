@@ -24,8 +24,6 @@ public:
 	~LevelManager() {}
 
 	inline void resetLevel() { _currentMap->restartLevel(); _enemyBulletPool->stopBullets(); }
-	inline Map* getCurrentMap() const { return _currentMap; }
-	inline Map* getCurrentSafeZone() const { return _currentSafeZone; }
 
 	enum Level
 	{
@@ -35,6 +33,5 @@ public:
 	};
 
 	void setLevel(int l);
-	void nextLevel(int l);
-	void previousLevel(int l);
+	void changeLevel(int l);
 };
