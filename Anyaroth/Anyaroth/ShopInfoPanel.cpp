@@ -115,11 +115,13 @@ void ShopInfoPanel::openInfoPanel()
 {
 	setVisible(true);
 	_frame->playAnim(AnimatedImageUI::Start);
+	_game->getSoundManager()->playSFX("openDialogue");
 }
 
 void ShopInfoPanel::closeInfoPanel()
 {
 	_frame->playAnim(AnimatedImageUI::End);
+	_game->getSoundManager()->playSFX("closeDialogue");
 }
 
 void ShopInfoPanel::setName(string name)

@@ -5,7 +5,7 @@
 
 class ButtonUI : public FramedImageUI
 {
-	private:
+	protected:
 		typedef std::function<void(Game*)> Callback;
 		struct Frames { uint onOut = 0; uint onOver = 0; uint onDown = 0; uint onUp = 0; uint onInactive = 0; };
 

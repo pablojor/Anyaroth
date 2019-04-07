@@ -146,7 +146,11 @@ void CatalogPanel::reorderCatalog()
 
 void CatalogPanel::selectItem(Game * game, ShopItem* item)
 {
+	if (_selectedItem != nullptr)
+		_selectedItem->select(false);
+
 	_selectedItem = item;
+	_selectedItem->select(true);
 
 	showSelectedItemInfo();
 }
@@ -211,6 +215,8 @@ void CatalogPanel::buyItem(Game * game)
 		_selectedItem->setItemSell(true);
 
 		_playerMoney->updateCoinsCounter(_player->getBank());
+
+		_selectedItem->select(false);
 		_selectedItem = nullptr;
 
 		reorderCatalog();

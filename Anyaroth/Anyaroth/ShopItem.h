@@ -31,6 +31,8 @@ class ShopItem : public ButtonUI
 
 		ImageUI* _weaponIcon = nullptr;
 
+		bool selected = false;
+
 
 	public:
 		ShopItem(Game* game, Texture* image = nullptr, int xPos = 0, int yPos = 0);
@@ -38,12 +40,14 @@ class ShopItem : public ButtonUI
 
 		virtual void render() const;
 
-		virtual void setPosition(int x, int y);
-		virtual void setSize(int w, int h);
+		void select(bool b);
 
 		inline Texture* getItemImage() const { return getImage(); }
 		inline ItemInfo& getItemInfo() { return _info; }
 		inline void getItem(Game* game) {  }
+
+		virtual void setPosition(int x, int y);
+		virtual void setSize(int w, int h);
 
 		void setItemImage(Texture* image) { setImage(image); }
 		void setItemInfo(const ItemInfo& info);
