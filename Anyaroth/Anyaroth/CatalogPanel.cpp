@@ -206,6 +206,7 @@ void CatalogPanel::buyItem(Game * game)
 	{
 		_infoPanel->closeInfoPanel();
 		_buyButton->setVisible(false);
+		_buyText->setVisible(false);
 		_selectedItem->setVisible(false);
 		_selectedItem->setItemSell(true);
 
