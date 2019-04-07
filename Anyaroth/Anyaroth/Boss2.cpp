@@ -71,8 +71,18 @@ void Boss2::movement(const double& deltaTime)
 			endJump();
 		_bodyPos= Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL);
 		_playerPos = Vector2D(_playerBody->getBody()->GetPosition().x * M_TO_PIXEL, _playerBody->getBody()->GetPosition().y * M_TO_PIXEL);
-		_dir = (_body->getBody()->GetPosition().x* M_TO_PIXEL >= _playerPos.getX()) ? -1 : 1;
-		if (_actualState != Jumping)
+
+		double pos = _body->getBody()->GetPosition().x* M_TO_PIXEL;
+		_dir = ( pos >= _playerPos.getX()) ? -1 : 1;
+		double range = _playerPos.getX() - _body->getBody()->GetPosition().x* M_TO_PIXEL;
+
+
+		if(_dir == 1)
+			_anim->unFlip();
+		else
+			_anim->flip();
+
+		if (_actualState != Jumping && (range <= -_stopRange || range >= _stopRange))
 			_body->getBody()->SetLinearVelocity(b2Vec2(_velocity.getX() * _dir / M_TO_PIXEL, _body->getBody()->GetLinearVelocity().y));
 		
 
@@ -129,7 +139,10 @@ void Boss2::endJump()
 void Boss2::checkMelee()
 {
 	if (!isMeleeing() && _melee != nullptr && _melee->isActive())
- 		_velocity = { _originalVelocity.getX(), _originalVelocity.getY() };
+	{
+		_velocity = { _originalVelocity.getX(), _originalVelocity.getY() };
+		_armVision = true;
+	}
 	//Se llama despues por que si no no entra en la condicion anterior
 	Boss::checkMelee();
 }
@@ -154,6 +167,7 @@ void Boss2::fase1(const double& deltaTime)
 					_actualState = Meleeing;
 					_doSomething = _game->random(400, 800);
 					_noAction = 0;
+					_armVision = false;
 				}
 			}
 			else
