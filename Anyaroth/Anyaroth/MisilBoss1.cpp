@@ -50,6 +50,8 @@ void MisilBoss1::beginCollision(GameObject * other, b2Contact * contact)
 	contact->SetEnabled(false);
 	_body->getBody()->SetLinearVelocity(b2Vec2(0, 0));
 	_anim->playAnim(AnimatedSpriteComponent::Destroy);
+	contact->SetEnabled(false);
+	setActive(false);
 }
 
 void MisilBoss1::update(const double& deltaTime)
@@ -95,7 +97,6 @@ void MisilBoss1::update(const double& deltaTime)
 		if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::Destroy)
 		{
 			_anim->playAnim(AnimatedSpriteComponent::Default);
-			setActive(false);
 			destroy();
 		}
 	}
