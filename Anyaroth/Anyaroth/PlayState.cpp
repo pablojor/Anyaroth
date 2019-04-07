@@ -31,7 +31,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	//Levels
 	_currentZone = _currentLevel = 1;
 	_levelManager = LevelManager(g, _player, &_stages, _hud);
-	_levelManager.setLevel(_currentZone, 2);
+	_levelManager.setLevel(_currentZone, 1);
 
 	//Background
 	_parallaxZone1 = new ParallaxBackGround(_mainCamera);

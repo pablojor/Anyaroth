@@ -4,6 +4,7 @@
 #include "CustomAnimatedSpriteComponent.h"
 #include "FollowingComponent.h"
 #include "checkML.h"
+#include "GunType_def.h"
 
 class Gun;
 
@@ -20,6 +21,7 @@ public:
 	virtual ~Arm() {};
 
 	void setTexture(Texture* armTex);
+	void setAnimations(ArmAnimType type);
 
 	void lookAtTarget(const Vector2D& target) const;
 

@@ -11,9 +11,7 @@ Arm::Arm(Game* g, GameObject* owner, Vector2D offset) : GameObject(g), _owner(ow
 	_followC = addComponent<FollowingComponent>(_owner);
 	_followC->setInitialOffset(offset);
 
-	_anim->addAnim(AnimatedSpriteComponent::None, 1, false);
-	_anim->addAnim(AnimatedSpriteComponent::Shoot, 2, false);
-	_anim->addAnim(AnimatedSpriteComponent::NoAmmo, 2, false);
+	
 	_anim->playAnim(AnimatedSpriteComponent::None);
 
 	_transform->setDefaultAnchor(0.1, 0.6); //Parametros para la pistola
@@ -22,6 +20,23 @@ Arm::Arm(Game* g, GameObject* owner, Vector2D offset) : GameObject(g), _owner(ow
 void Arm::setTexture(Texture* texture)
 {
 	_anim->setTexture(texture);
+}
+
+void Arm::setAnimations(ArmAnimType type)
+{
+	switch (type)
+	{
+	case TurretArmType:
+		_anim->addAnim(AnimatedSpriteComponent::None, 12, true);
+		_anim->addAnim(AnimatedSpriteComponent::Shoot, 9, false);
+		break;
+	case PlayerArmType:
+	default:
+		_anim->addAnim(AnimatedSpriteComponent::None, 1, false);
+		_anim->addAnim(AnimatedSpriteComponent::Shoot, 2, false);
+		_anim->addAnim(AnimatedSpriteComponent::NoAmmo, 2, false);
+		break;
+	}
 }
 
 void Arm::lookAtTarget(const Vector2D& target) const

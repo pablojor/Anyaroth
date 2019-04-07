@@ -4,8 +4,9 @@
 
 DistanceEnemy::DistanceEnemy(Game* g, Player* player, Vector2D pos, Texture* texture, BulletPool* pool) : Enemy(g, player, pos, texture)
 {
-	_arm = new EnemyArm(g, this, player, this, { 35, 30 });
+	_arm = new EnemyArm(g, this, player, this, { 10, 12 });
 	_arm->setTexture(g->getTexture("ArmPistol"));
+	_arm->setAnimations(PlayerArmType);
 	addChild(_arm);
 
 	_myGun = new BasicPistol(g);
