@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "AnimatedSpriteComponent.h"
 #include "Player.h"
+#include "BasicPistol.h"
 
 DistanceDynamicEnemy::DistanceDynamicEnemy(Game* g, Player* player, Vector2D pos, BulletPool* pool) : DistanceEnemy(g, player, pos, g->getTexture("EnemyMelee"), pool), GroundEnemy(g, player, pos, g->getTexture("EnemyMelee")), Enemy(g, player, pos, g->getTexture("EnemyMelee"))
 {
@@ -10,6 +11,8 @@ DistanceDynamicEnemy::DistanceDynamicEnemy(Game* g, Player* player, Vector2D pos
 	_speed = 8;
 	_attackRangeX = _attackRangeY = _vision / 2; //No se puede poner mas pequeño que la velocidad
 	_attackTime = 1300; //La animacion tarda unos 450
+
+	_myGun = new BasicPistol(g);
 
 	if (_attackRangeX < _speed)
 		_attackRangeX += _speed;

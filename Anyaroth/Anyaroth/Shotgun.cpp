@@ -13,7 +13,7 @@ Shotgun::~Shotgun()
 }
 
 
-void Shotgun::shoot(BulletPool * bulletPool, const Vector2D & position, const double & angle, const string & tag)
+void Shotgun::shoot(PoolWrapper* bulletPool, const Vector2D& position, const double& angle, const string& tag)
 {
 	if (_clip > 0 && _cadence <= 0)
 	{
@@ -31,6 +31,35 @@ void Shotgun::shoot(BulletPool * bulletPool, const Vector2D & position, const do
 				b->init(_bulletTexture, bulletPos, _speed, _damage, angle + i * _angleBetweenBullet, _range, tag);
 			else
 				bulletPool->addNewBullet()->init(_bulletTexture, bulletPos, _speed, _damage, angle + i * _angleBetweenBullet, _range, tag);
+		}
+	}
+}
+
+void Shotgun::enemyShoot(PoolWrapper* bulletPool, const Vector2D& position, const double& angle, const string& tag)
+{
+	if (_clip > 0 && _cadence <= 0)
+	{
+		_cadence = _maxCadence;
+
+		int iniAngleMult = -trunc(double(_numBulletsPerShot) / 2);
+
+		for (int i = iniAngleMult; i < _numBulletsPerShot + iniAngleMult; i++)
+		{
+			//Disparar la bala aqui
+			Bullet* b = bulletPool->getUnusedObject();
+			Vector2D bulletPos = prepareBulletPosition(position, angle);
+			if (b != nullptr)
+			{
+				b->init(_bulletTexture, bulletPos, _speed, _damage, angle + i * _angleBetweenBullet, _range, tag);
+				b->changeFilter();
+			}
+			else
+			{
+				Bullet* b2 = bulletPool->addNewBullet();
+				b2->init(_bulletTexture, bulletPos, _speed, _damage, angle + i * _angleBetweenBullet, _range, tag);
+				b2->changeFilter();
+			}
+
 		}
 	}
 }

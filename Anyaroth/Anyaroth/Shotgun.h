@@ -10,6 +10,7 @@ public:
 	Shotgun(Texture* armTexture, Texture* bulletTexture, double speed, double damage, double range, int maxClip, int maxMagazine, double maxCadence, bool automatic = false);
 	virtual ~Shotgun();
 
-	virtual void shoot(BulletPool* bulletPool, const Vector2D& position, const double& angle, const string& tag);
+	virtual void shoot(PoolWrapper* bulletPool, const Vector2D& position, const double& angle, const string& tag);
+	virtual void enemyShoot(PoolWrapper* bulletPool, const Vector2D& position, const double& angle, const string& tag);
 };
 

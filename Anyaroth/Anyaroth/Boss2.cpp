@@ -4,6 +4,7 @@
 
 Boss2::Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, player, pos, pool), Enemy(g, player, pos, g->getTexture("EnemyMelee"))
 {
+	_myGun = new BasicShotgun(g);
 
 	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 13, true);
 	_anim->addAnim(AnimatedSpriteComponent::EnemyWalk, 8, true);
@@ -35,7 +36,7 @@ Boss2::Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, 
 	_lasers = new LaserHandler(g, g->getTexture("Arm"), g->getTexture("ArmUp"), player, 4);
 	addChild(_lasers);
 
-	_melee = new Poleaxe(getGame(), { 50,0 }, PLAYER, 25, 15, 5, this);
+	_melee = new Poleaxe(getGame(), { 50,0 }, PLAYER, 5, 15, 5, this);
 	addChild(_melee);
 }
 

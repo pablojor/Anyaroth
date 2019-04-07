@@ -8,7 +8,6 @@ DistanceEnemy::DistanceEnemy(Game* g, Player* player, Vector2D pos, Texture* tex
 	_arm->setTexture(g->getTexture("ArmPistol"));
 	addChild(_arm);
 
-	_myGun = new BasicPistol(g);
 	_myBulletPool = pool;
 }
 
