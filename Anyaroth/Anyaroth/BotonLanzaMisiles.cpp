@@ -45,7 +45,7 @@ void BotonLanzaMisiles::interact()
 {
 	if (usable &&ready)
 	{
-		MisilBoss1 * misil = new MisilBoss1(_boss, _game, _play, _game->getTexture("PistolBullet"), _transform->getPosition(), "Misil");
+		MisilBoss1 * misil = new MisilBoss1(_boss, _game, _play, _game->getTexture("SpentaMisil"), _transform->getPosition(), "Misil");
 		addChild(misil);
 		ready = false;
 		usable = false;
