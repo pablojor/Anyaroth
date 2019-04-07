@@ -29,7 +29,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_player->setPlayerPanel(_hud->getPlayerPanel());
 
 	//Levels
-	_currentLevel = LevelManager::Level2_1;
+	_currentLevel = LevelManager::Level1_2;
 	_levelManager = LevelManager(g, _player, &_stages, _hud);
 	_levelManager.setLevel(_currentLevel);
 
