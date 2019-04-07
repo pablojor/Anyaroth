@@ -36,6 +36,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 
 	Boss2* boss = new Boss2(g, _player, Vector2D(200, 300), _playerBulletPool);
 	_stages.push_back(boss);
+	boss->setBossPanel(_hud->getBossPanel());
 
 	//Background
 	_parallaxZone1 = new ParallaxBackGround(_mainCamera);

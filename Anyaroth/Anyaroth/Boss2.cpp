@@ -61,7 +61,7 @@ void Boss2::Jump()
 	setTag("Melee");
 	_body->addFixture(&fDef, this);
 	
-	_doSomething = _game->random(2000, 3000);
+	_doSomething = _game->random(1500, 2500);
 }
 
 
@@ -183,7 +183,6 @@ void Boss2::fase1(const double& deltaTime)
 
 void Boss2::fase2(const double& deltaTime)
 {
-	_lasers->Activate();
 	fase1(deltaTime);
 }
 
@@ -191,18 +190,31 @@ void Boss2::fase3(const double& deltaTime)
 {
 	if (_actualState != Jumping)
 	{
-		if (_noAction > _doSomething)
+		if (_actualState != Shooting)
 		{
-			int ra = _game->random(0, 100);
-			if (ra >= 70)
+			if (_actualState != Meleeing)
 			{
-				_actualState = Jumping;
-				Jump();
-				_noAction = 0;
+				if (_noAction > _doSomething)
+				{
+					int ra = _game->random(0, 100);
+					if (ra >= 70)
+					{
+						_actualState = Jumping;
+						Jump();
+						_noAction = 0;
+					}
+					else
+						fase2(deltaTime);
+				}
+				else
+					_noAction += deltaTime;
 			}
 		}
 		else
-			fase2(deltaTime);
+		{
+			shoot();
+			_actualState = Moving;
+		}
 	}
 }
 
@@ -210,7 +222,10 @@ void Boss2::fase3(const double& deltaTime)
 void Boss2::beetwenFases(const double& deltaTime)
 {
 	if (_lastFase == Fase1)
+	{
+		_lasers->Activate();
 		changeFase(Fase2);
+	}
 	else if (_lastFase == Fase2)
 		changeFase(Fase3);
 	else
