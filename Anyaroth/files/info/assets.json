@@ -40,12 +40,19 @@
 		["NameBg", "nameBg.png", 3, 7],
 		["DialogueFace", "faces.png", 1, 3],
 		["InteractIndicator", "interactIndicator.png", 1, 2],
-        ["Button", "button.png", 1, 4],
         ["ShopBackground", "shop_background.png", 1, 1],
-        ["InfoPanel", "infoPanel.png", 1, 1],
-        ["InfoIcon", "infoIcon.png", 1, 1],
-        ["BuyButton", "buyButton.png", 1, 3],
-        ["ShopPanel", "shopPanel.png", 1, 1]
+        ["CatalogPanel", "shop_panel.png", 1, 1],
+        ["InfoPanel", "info_panel.png", 3, 7],
+        ["DepotPanel", "depot_panel.png", 1, 1],
+        ["EquipPanel", "equip_panel.png", 1, 1],
+        ["ShopButton", "shop_menubuttons.png", 3, 6],
+        ["ExitButton", "exit_button.png", 1, 2],
+        ["ReturnButton", "return_button.png", 1, 2],
+        ["ChangeButton", "changeweapons_button.png", 1, 2],
+        ["BuyButton", "buy_button.png", 1, 2],
+        ["CadenceIcon", "cadence_icon.png", 1, 1],
+        ["PropertiesBar", "properties_bar.png", 1, 1],
+        ["ItemFrame", "item_frame.png", 5, 2]
     ],
     "fonts" : [
         ["ARIAL12", "arial.ttf", 12]

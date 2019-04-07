@@ -7,22 +7,21 @@ CatalogPanel::CatalogPanel(Game* game) : PanelUI(game)
 {
 	//----MARCO----//
 
-	_frame = new ImageUI(game, game->getTexture("ShopPanel"), 5, 5);
+	_frame = new ImageUI(game, game->getTexture("CatalogPanel"), 21, 5);
 
 	addChild(_frame);
 
 	//----BOTON DE SALIR----//
 
-	_exitButton = new ButtonUI(game, game->getTexture("Button"), nullptr, { 0,1,2,3 });
-	_exitButton->setPosition(_frame->getX(), _frame->getY() + _frame->getH() + 2);
-	_exitButton->setSize(_frame->getW(), _exitButton->getH() + 4);
+	_exitButton = new ButtonUI(game, game->getTexture("ReturnButton"), nullptr, { 0,1,1,1 });
+	_exitButton->setPosition(CAMERA_RESOLUTION_X - _exitButton->getW() - 12, 188 - 1 - _exitButton->getH());
 
 	addChild(_exitButton);
 
 	//----PANEL DE INFORMACIÓN----//
 
-	int infoPanelPosX = _frame->getX() + _frame->getW() + 4,
-		infoPanelPosY = _frame->getY();
+	int infoPanelPosX = _frame->getX() + _frame->getW() + 1,
+		infoPanelPosY = _frame->getY() + 17;
 
 	_infoPanel = new ShopInfoPanel(game, infoPanelPosX, infoPanelPosY);
 	_infoPanel->setVisible(false);
@@ -31,7 +30,7 @@ CatalogPanel::CatalogPanel(Game* game) : PanelUI(game)
 
 	//----BOTON DE COMPRAR----//
 
-	_buyButton = new ButtonUI(game, game->getTexture("BuyButton"), nullptr, { 0,1,2,1 });
+	_buyButton = new ButtonUI(game, game->getTexture("BuyButton"), nullptr, { 0,1,1,1 });
 	_buyButton->setPosition(infoPanelPosX + _infoPanel->getInfoPanelWidth() / 2 - _buyButton->getW() / 2, infoPanelPosY + _infoPanel->getInfoPanelHeight() + 2);
 	_buyButton->onDown([this](Game* game) { buyItem(game); });
 	_buyButton->setVisible(false);

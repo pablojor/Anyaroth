@@ -10,10 +10,8 @@ DepotPanel::DepotPanel(Game* game) : PanelUI(game)
 {
 	//----MARCOS----//
 
-	_depotFrame = new ImageUI(game, game->getTexture("ShopPanel"), 5, 5);
-	_depotFrame->setSize(_depotFrame->getW() * 2, _depotFrame->getH()); //POSIBLEMENTE PROVISIONAL
-	_equipmentFrame = new ImageUI(game, game->getTexture("ShopPanel"), _depotFrame->getX() + _depotFrame->getW() + 10, 5);
-	_equipmentFrame->setSize(_equipmentFrame->getW() * 0.75, _equipmentFrame->getH() * 0.75);
+	_depotFrame = new ImageUI(game, game->getTexture("DepotPanel"), 21, 29);
+	_equipmentFrame = new ImageUI(game, game->getTexture("InfoPanel"), _depotFrame->getX() + _depotFrame->getW() + 5, _depotFrame->getY() + 14);
 
 		//Añadir como hijo
 	addChild(_depotFrame);
@@ -21,9 +19,8 @@ DepotPanel::DepotPanel(Game* game) : PanelUI(game)
 
 	//----BOTON DE SALIR----//
 
-	_exitButton = new ButtonUI(game, game->getTexture("Button"), nullptr, { 0,1,2,3 });
-	_exitButton->setPosition(_depotFrame->getX(), _depotFrame->getY() + _depotFrame->getH() + 2);
-	_exitButton->setSize(_depotFrame->getW(), _exitButton->getH() + 4); //POSIBLEMENTE PROVISIONAL
+	_exitButton = new ButtonUI(game, game->getTexture("ReturnButton"), nullptr, { 0,1,1,1 });
+	_exitButton->setPosition(CAMERA_RESOLUTION_X - _exitButton->getW() - 12, 188 - 1 - _exitButton->getH());
 
 		//Añadir como hijo
 	addChild(_exitButton);
@@ -34,20 +31,17 @@ DepotPanel::DepotPanel(Game* game) : PanelUI(game)
 	itemEquipWidth = (_equipmentFrame->getW() / 2) - (10 + 5),
 	itemEquipHeight = itemEquipWidth;
 
-	_firstWeapon = new ShopItem(game, game->getTexture("InfoIcon"));
-	_firstWeapon->setSize(itemEquipWidth, itemEquipHeight); //POSIBLEMENTE PROVISIONAL
+	_firstWeapon = new ShopItem(game, game->getTexture("Dash"));
 	_firstWeapon->setPosition(_equipmentFrame->getX() + distanceBetweenEquipmentSlots,
 		_equipmentFrame->getY() + _equipmentFrame->getH() / 4 + distanceBetweenEquipmentSlots * 0.5);
 	_firstWeapon->setItemInfo({ -1, "arma1", 0, 14, 25, 10, GunType::Pistol_Weapon, true, true });
 
 	_secondWeapon = new ShopItem(game, game->getTexture("Dash"));
-	_secondWeapon->setSize(itemEquipWidth, itemEquipHeight); //POSIBLEMENTE PROVISIONAL
 	_secondWeapon->setPosition(_firstWeapon->getX() + _firstWeapon->getW() + distanceBetweenEquipmentSlots,
 		_firstWeapon->getY());
 	_secondWeapon->setItemInfo({ -1, "arma2", 0, 14, 25, 10, GunType::Pistol_Weapon, true, true });
 
-	_meleeWeapon = new ShopItem(game, game->getTexture("InfoIcon"));
-	_meleeWeapon->setSize(itemEquipWidth, itemEquipHeight); //POSIBLEMENTE PROVISIONAL
+	_meleeWeapon = new ShopItem(game, game->getTexture("Dash"));
 	_meleeWeapon->setPosition(_equipmentFrame->getX() + _equipmentFrame->getW() / 2 - itemEquipWidth / 2,
 							_firstWeapon->getY() + _firstWeapon->getH() + distanceBetweenEquipmentSlots);
 
@@ -63,8 +57,7 @@ DepotPanel::DepotPanel(Game* game) : PanelUI(game)
 
 	//----BOTON DE CAMBIO DE EQUIPAMIENTO----//
 
-	_changeButton = new ButtonUI(game, game->getTexture("Button"), [this](Game* game) {changeEquipedGuns(game); }, { 0,1,2,3 });
-	_changeButton->setSize(itemEquipWidth * 0.75, itemEquipHeight / 2); //POSIBLEMENTE PROVISIONAL
+	_changeButton = new ButtonUI(game, game->getTexture("ChangeButton"), [this](Game* game) {changeEquipedGuns(game); }, { 0,1,1,1 });
 	_changeButton->setPosition(_equipmentFrame->getX() + _equipmentFrame->getW() / 2 - _changeButton->getW() / 2,
 								_equipmentFrame->getY() + _equipmentFrame->getH() / 4 + distanceBetweenEquipmentSlots / 2 - _changeButton->getH() - distanceBetweenEquipmentSlots * 0.25);
 

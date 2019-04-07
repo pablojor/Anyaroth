@@ -20,21 +20,21 @@ ShopMenu::ShopMenu(Game* game) : PanelUI(game)
 		middleOfTheButtonPanelX = CAMERA_RESOLUTION_X,
 		middleOfTheButtonPanelY = 100;
 
-	_talkButton = new ButtonUI(game, game->getTexture("Button"), [this](Game* game) { startTalking(game); }, { 0,1,2,3 });
+	_talkButton = new ButtonUI(game, game->getTexture("ShopButton"), [this](Game* game) { startTalking(game); }, { 0, 1, 1, 1 });
 	_talkButton->setPosition(middleOfTheButtonPanelX / 2 - _talkButton->getW() / 2,
 							middleOfTheButtonPanelY - (distanceBetweenButtons/2) - _talkButton->getH());
 
-	_shopButton = new ButtonUI(game, game->getTexture("Button"), [this](Game* game) { openCatalogPanel(game); }, { 0,1,2,3 });
+	_shopButton = new ButtonUI(game, game->getTexture("ShopButton"), [this](Game* game) { openCatalogPanel(game); }, { 0, 1, 1, 1 });
 	_shopButton->setPosition(middleOfTheButtonPanelX / 2 - _shopButton->getW() / 2,
 							_talkButton->getY() - _shopButton->getH() - distanceBetweenButtons);
 
-	_depotButton = new ButtonUI(game, game->getTexture("Button"), [this](Game* game) { openDepotPanel(game); }, { 0,1,2,3 });
+	_depotButton = new ButtonUI(game, game->getTexture("ShopButton"), [this](Game* game) { openDepotPanel(game); }, { 0, 1, 1 ,1 });
 	_depotButton->setPosition(middleOfTheButtonPanelX / 2 - _depotButton->getW() / 2,
 							middleOfTheButtonPanelY + (distanceBetweenButtons/2));
 
-	_exitButton = new ButtonUI(game, game->getTexture("Button"), nullptr, { 0,1,2,3 });
-	_exitButton->setPosition(middleOfTheButtonPanelX / 2 - _exitButton->getW() / 2,
-							_depotButton->getY() + _depotButton->getH() + distanceBetweenButtons);
+	_exitButton = new ButtonUI(game, game->getTexture("ExitButton"), nullptr, { 0, 1, 1, 1 });
+	_exitButton->setPosition(CAMERA_RESOLUTION_X - _exitButton->getW() - 12, 188 - 1 - _exitButton->getH());
+
 	_exitButton->onUp([this](Game* game) { exit(game); });
 
 	addChild(_shopButton);

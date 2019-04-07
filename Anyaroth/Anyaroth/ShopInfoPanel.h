@@ -16,8 +16,8 @@ class ShopInfoPanel : public PanelUI
 		ImageUI* _damageIcon = nullptr;
 		ImageUI* _damageBar = nullptr;
 
-		ImageUI* _distanceIcon = nullptr;
-		ImageUI* _distanceBar = nullptr;
+		ImageUI* _ammoIcon = nullptr;
+		ImageUI* _ammoBar = nullptr;
 
 		ImageUI* _cadenceIcon = nullptr;
 		ImageUI* _cadenceBar = nullptr;
@@ -27,8 +27,8 @@ class ShopInfoPanel : public PanelUI
 
 		int maxDamage = 50,
 			minDamage = 1,
-			maxDistance = 2000,
-			minDistance = 10,
+			maxAmmo = 2000,
+			minAmmo = 10,
 			maxCadence = 1000,
 			minCadence = 100;
 
