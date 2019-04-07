@@ -86,8 +86,8 @@ void DepotPanel::setPlayer(Player * ply)
 	auto* fInfo = &fItem->getItemInfo(); fInfo->_sold = true; fInfo->_equiped = true;
 	auto* sInfo = &sItem->getItemInfo(); sInfo->_sold = true; sInfo->_equiped = true;
 
-	_firstWeapon->setItemInfo(*fInfo);
-	_secondWeapon->setItemInfo(*sInfo);
+	_firstWeaponFrame->setItemInfo(*fInfo);
+	_secondWeaponFrame->setItemInfo(*sInfo);
 }
 
 void DepotPanel::setItems(list<ShopItem*>* list)
