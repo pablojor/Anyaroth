@@ -34,5 +34,5 @@ public:
 	virtual void init(Texture* texture, const Vector2D& position, const double& speed, const double& damage, const double& angle, const double& range, const string& tag);
 	virtual void update(const double& deltaTime);
 	virtual void reset();
-	void changeFilter();
+	void changeFilter(bool enemy);
 };

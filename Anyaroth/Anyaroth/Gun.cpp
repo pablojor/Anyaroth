@@ -26,9 +26,15 @@ void Gun::shoot(PoolWrapper* bulletPool, const Vector2D& position, const double&
 		Bullet* b = bulletPool->getUnusedObject();
 		Vector2D bulletPos = prepareBulletPosition(position, angle);
 		if (b != nullptr)
+		{
 			b->init(_bulletTexture, bulletPos, _speed, _damage, angle, _range, tag);
+			b->changeFilter(false);
+		}
 		else
+		{
 			bulletPool->addNewBullet()->init(_bulletTexture, bulletPos, _speed, _damage, angle, _range, tag);
+			b->changeFilter(false);
+		}
 	}
 }
 void Gun::enemyShoot(PoolWrapper* bulletPool, const Vector2D& position, const double& angle, const string& tag)
@@ -43,13 +49,13 @@ void Gun::enemyShoot(PoolWrapper* bulletPool, const Vector2D& position, const do
 		if (b != nullptr)
 		{
 			b->init(_bulletTexture, bulletPos, _speed, _damage, angle, _range, tag);
-			b->changeFilter();
+			b->changeFilter(true);
 		}
 		else
 		{
 			Bullet* b2 = bulletPool->addNewBullet();
 			b2->init(_bulletTexture, bulletPos, _speed, _damage, angle, _range, tag);
-			b2->changeFilter();
+			b2->changeFilter(true);
 		}
 	}
 }

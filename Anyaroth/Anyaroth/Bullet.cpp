@@ -81,7 +81,12 @@ void Bullet::reset()
 	_collided = false;
 }
 
-void Bullet::changeFilter() 
+void Bullet::changeFilter(bool enemy) 
 {
+	if(enemy)
 	_body->filterCollisions(ENEMY_BULLETS, FLOOR | PLATFORMS | PLAYER);
+	else
+	{
+		_body->filterCollisions(PLAYER_BULLETS, FLOOR | PLATFORMS | ENEMIES);
+	}
 }

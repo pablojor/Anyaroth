@@ -291,14 +291,14 @@ void Boss1::throwBomb()
 	if (b != nullptr)
 	{
 		b->init(_bombTexture, helpPos, 0, 10, 90, _bombRange, "EnemyBullet");
-		b->changeFilter();
+		b->changeFilter(true);
 	}
 	else
 	{
 		Bullet* b2 = _myExplosivePool->addNewBullet();
 
 		b2->init(_bombTexture, helpPos, 0, 10, 90, _bombRange, "EnemyBullet");
-		b2->changeFilter();
+		b2->changeFilter(true);
 	}
 }
 
@@ -310,14 +310,14 @@ void Boss1::throwOrb()
 	if (b != nullptr)
 	{
 		b->init(_game->getTexture("Coin"), helpPos, 20, 10, _game->random(80,180), _bombRange, "EnemyBullet");
-		b->changeFilter();
+		b->changeFilter(true);
 	}
 	else
 	{
 		Bullet* b2 = _myExplosivePool->addNewBullet();
 
 		b->init(_game->getTexture("Coin"), helpPos, 20, 10, _game->random(80, 180), _bombRange, "EnemyBullet");
-		b2->changeFilter();
+		b2->changeFilter(true);
 	}
 }
 
@@ -352,13 +352,13 @@ void Boss1::shoot()
 	if (b != nullptr)
 	{
 		b->init(_game->getTexture("PistolBullet") , _bodyPos, 8, _damage, _angle, 1000, "EnemyBullet");
-		b->changeFilter();
+		b->changeFilter(true);
 	}
 	else
 	{
 		Bullet* b2 = _myBulletPool->addNewBullet();
 		b2->init(_game->getTexture("PistolBullet"), _bodyPos, 8, _damage, _angle, 1000, "EnemyBullet");
-		b2->changeFilter();
+		b2->changeFilter(true);
 	}
 }
 

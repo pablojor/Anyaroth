@@ -28,9 +28,15 @@ void Shotgun::shoot(PoolWrapper* bulletPool, const Vector2D& position, const dou
 			Bullet* b = bulletPool->getUnusedObject();
 			Vector2D bulletPos = prepareBulletPosition(position, angle);
 			if (b != nullptr)
+			{
 				b->init(_bulletTexture, bulletPos, _speed, _damage, angle + i * _angleBetweenBullet, _range, tag);
+				b->changeFilter(false);
+			}
 			else
+			{
 				bulletPool->addNewBullet()->init(_bulletTexture, bulletPos, _speed, _damage, angle + i * _angleBetweenBullet, _range, tag);
+				b->changeFilter(false);
+			}
 		}
 	}
 }
@@ -51,13 +57,13 @@ void Shotgun::enemyShoot(PoolWrapper* bulletPool, const Vector2D& position, cons
 			if (b != nullptr)
 			{
 				b->init(_bulletTexture, bulletPos, _speed, _damage, angle + i * _angleBetweenBullet, _range, tag);
-				b->changeFilter();
+				b->changeFilter(true);
 			}
 			else
 			{
 				Bullet* b2 = bulletPool->addNewBullet();
 				b2->init(_bulletTexture, bulletPos, _speed, _damage, angle + i * _angleBetweenBullet, _range, tag);
-				b2->changeFilter();
+				b2->changeFilter(true);
 			}
 
 		}

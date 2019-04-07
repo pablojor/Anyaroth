@@ -74,13 +74,13 @@ void BomberEnemy::throwBomb(const Vector2D& position)
 	if (b != nullptr)
 	{
 		b->init(_bulletTexture, position, 0, _damage, _angle, _range, "EnemyBullet");
-		b->changeFilter();
+		b->changeFilter(true);
 	}
 	else
 	{
 		Bullet* b2 = _bulletPool->addNewBullet();
 		
 		b2->init(_bulletTexture, position, 0, _damage, _angle, _range, "EnemyBullet");
-		b2->changeFilter();
+		b2->changeFilter(true);
 	}
 }
