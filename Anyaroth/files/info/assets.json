@@ -42,7 +42,11 @@
 		["InteractIndicator", "interactIndicator.png", 1, 5],
 		["Bomb", "bomb_spritesheet.png", 2, 8],
       [ "Spenta", "spenta_spritesheet.png", 12, 26 ],
-      ["SpentaOrb", "spenta_orb_spritesheet.png", 2, 10]
+      ["SpentaOrb", "spenta_orb_spritesheet.png", 2, 10],
+	  ["TurretBullet", "turret_bullet_spritesheet.png", 2, 5],
+	  ["Turret", "turret_spritesheet.png", 3, 13],
+	  ["TurretArm", "turret_arm_spritesheet.png", 2, 12]
+	  
     ],
     "fonts" : [
         ["ARIAL12", "arial.ttf", 12]

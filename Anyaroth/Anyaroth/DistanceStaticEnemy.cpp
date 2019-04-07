@@ -4,7 +4,7 @@
 #include "Player.h"
 #include"Game.h"
 
-DistanceStaticEnemy::DistanceStaticEnemy(Game* g, Player* player, Vector2D pos, BulletPool* pool) : DistanceEnemy(g, player, pos, g->getTexture("EnemyMelee"), pool), Enemy(g, player, pos, g->getTexture("EnemyMelee"))
+DistanceStaticEnemy::DistanceStaticEnemy(Game* g, Player* player, Vector2D pos, BulletPool* pool) : DistanceEnemy(g, player, pos, g->getTexture("Turret"), pool), Enemy(g, player, pos, g->getTexture("Turret"))
 {
 	_vision = 500;
 	_life = 50;
@@ -14,8 +14,11 @@ DistanceStaticEnemy::DistanceStaticEnemy(Game* g, Player* player, Vector2D pos, 
 	if (_attackRangeX < _speed)
 		_attackRangeX += _speed;
 
-	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 13, true);
-	_anim->addAnim(AnimatedSpriteComponent::EnemyDie, 18, false);
+	_arm->setTexture(g->getTexture("TurretArm"));
+
+	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 12, true);
+	_anim->addAnim(AnimatedSpriteComponent::EnemyAttack, 8, false);
+	_anim->addAnim(AnimatedSpriteComponent::EnemyDie, 13, false);
 
 	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 
