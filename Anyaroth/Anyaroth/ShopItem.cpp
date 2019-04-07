@@ -21,9 +21,9 @@ void ShopItem::render() const
 
 void ShopItem::select(bool b)
 {
-	selected = b;
+	_selected = b;
 
-	if (selected)
+	if (_selected)
 		setFrames({ 1, 1, 1, 1, 1 });
 	else
 		setFrames({ 0, 0, 1, 1, 1 });

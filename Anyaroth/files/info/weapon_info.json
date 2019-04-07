@@ -4,7 +4,7 @@
       "BasicPistol": 
       {
         "zona": -1,
-	      "frame": "BasicFrame",
+	"frame": "BasicFrame",
         "icon": "Dash",
         "price": 0,
         "speed": 100,

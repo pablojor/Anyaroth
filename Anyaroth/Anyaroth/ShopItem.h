@@ -31,7 +31,7 @@ class ShopItem : public ButtonUI
 
 		ImageUI* _weaponIcon = nullptr;
 
-		bool selected = false;
+		bool _selected = false;
 
 
 	public:

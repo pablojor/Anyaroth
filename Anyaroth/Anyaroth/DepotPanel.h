@@ -52,6 +52,7 @@ class DepotPanel : public PanelUI
 		void setDistanceWeapon(Game* game, ShopItem* item);
 		void setMeleeWeapon(Game* game, ShopItem* item);
 
-		void swapItems(ShopItem* other);
+		void swapDistanceItems(ShopItem* other);
+		void swapMeleeItems(ShopItem* other);
 };
 

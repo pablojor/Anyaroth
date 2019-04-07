@@ -32,16 +32,19 @@ DepotPanel::DepotPanel(Game* game) : PanelUI(game)
 	_firstWeaponFrame->setPosition(_equipmentFrame->getX() + 8,
 									_equipmentFrame->getY() + 8);
 	_firstWeaponFrame->setItemInfo({ -1, "arma1", 0, 14, 25, 10, GunType::Pistol_Weapon, "Dash","CommonFrame",true, true });
+	_firstWeaponFrame->setFrames({ 0, 0, 0, 0, 0 });
 
 	_secondWeaponFrame = new ShopItem(game, game->getTexture("ItemFrame"));
 	_secondWeaponFrame->setPosition(_firstWeaponFrame->getX() + _firstWeaponFrame->getW() + 26,
 									_firstWeaponFrame->getY());
 	_secondWeaponFrame->setItemInfo({ -1, "arma2", 0, 14, 25, 10, GunType::Pistol_Weapon, "Dash","CommonFrame",true, true });
+	_secondWeaponFrame->setFrames({ 0, 0, 0, 0, 0 });
 
 	_meleeWeaponFrame = new ShopItem(game, game->getTexture("ItemFrame"));
 	_meleeWeaponFrame->setPosition(_equipmentFrame->getX() + _equipmentFrame->getW() / 2 - _meleeWeaponFrame->getW() / 2,
 							_firstWeaponFrame->getY() + _firstWeaponFrame->getH() + distanceBetweenEquipmentSlots);
 	_meleeWeaponFrame->setItemInfo({ -1, "melee1", 0, 14, 25, 10, GunType::Pistol_Weapon, "Dash","CommonFrame",true, true });
+	_meleeWeaponFrame->setFrames({ 0, 0, 0, 0, 0 });
 
 		//Callbacks
 	_firstWeaponFrame->onDown([this](Game* game) { setDistanceWeapon(game, _firstWeaponFrame); });
@@ -179,30 +182,69 @@ void DepotPanel::changeEquipedGuns(Game* game)
 
 void DepotPanel::selectItem(Game * game, ShopItem* item)
 {
-	_selectedItem = item;
+	if (_selectedItem != nullptr)
+		_selectedItem->select(false);
+	else if (item != _firstWeaponFrame && item != _secondWeaponFrame)
+	{
+		_selectedItem = item;
+		_selectedItem->select(true);
+	}
 }
 
 void DepotPanel::setDistanceWeapon(Game* game, ShopItem* item)
 {
-	if (_selectedItem != nullptr)
+	if (_selectedItem != nullptr) //COMPROBAR QUE NO ES MELEE
 	{
-		swapItems(item);
+		swapDistanceItems(item);
 		reorderDepot();
+
+		_selectedItem->select(false);
 		_selectedItem = nullptr;
 	}
 }
 
 void DepotPanel::setMeleeWeapon(Game* game, ShopItem* item)
 {
-	if (_selectedItem != nullptr)
+	if (_selectedItem != nullptr) //COMPROBAR QUE NO ES A DISTANCIA
 	{
-		swapItems(item);
+		swapMeleeItems(item);
 		reorderDepot();
+
+		_selectedItem->select(false);
 		_selectedItem = nullptr;
 	}
 }
 
-void DepotPanel::swapItems(ShopItem* _equiped)
+void DepotPanel::swapDistanceItems(ShopItem* _equiped)
+{
+	//Cambiamos la info
+	auto infoSelected = _selectedItem->getItemInfo();
+	auto infoEquiped = _equiped->getItemInfo();
+	infoSelected._equiped = true;
+	infoEquiped._equiped = false;
+
+	//Cambiar cuadro por equipado
+	//_selectedItem->setItemInfo(infoEquiped);
+	//_equiped->setItemInfo(infoSelected);
+
+	_selectedItem->setImage(_game->getTexture(infoSelected._rarityFrame));
+	_equiped->setImage(_game->getTexture("ItemFrame"));
+
+	//Cambio de texturas
+	/*auto imageSelect = _selectedItem->getImage();
+	auto imageOther = _equiped->getImage();
+	_selectedItem->setImage(imageOther);
+	_equiped->setImage(imageSelect);*/
+
+	//Equipo arma
+	Gun* newGun = WeaponManager::getWeapon(_game, _equiped->getItemInfo()._type);
+	if (_equiped == _firstWeaponFrame) 
+		_player->changeCurrentGun(newGun);
+	else if (_equiped == _secondWeaponFrame)
+		_player->changeOtherGun(newGun);
+}
+
+void DepotPanel::swapMeleeItems(ShopItem* _equiped)
 {
 	//Cambiamos la info
 	auto infoSelected = _selectedItem->getItemInfo();
@@ -220,9 +262,6 @@ void DepotPanel::swapItems(ShopItem* _equiped)
 	_equiped->setImage(imageSelect);*/
 
 	//Equipo arma
-	Gun* newGun = WeaponManager::getWeapon(_game, _equiped->getItemInfo()._type);
-	if (_equiped == _firstWeaponFrame) 
-		_player->changeCurrentGun(newGun);
-	else if (_equiped == _secondWeaponFrame)
-		_player->changeOtherGun(newGun);
+	//Gun* newGun = WeaponManager::getWeapon(_game, _equiped->getItemInfo()._type);
+	_player->changeMelee();
 }

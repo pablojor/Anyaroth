@@ -82,6 +82,7 @@ public:
 	void swapGun();
 	void changeCurrentGun(Gun* gun);
 	void changeOtherGun(Gun* gun);
+	void changeMelee() {} //HABLAR COMO HACERLO
 	inline Gun* getCurrentGun() const { return _currentGun; }
 	inline Gun* getOtherGun() const { return _otherGun; }
 
