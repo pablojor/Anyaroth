@@ -24,6 +24,7 @@ struct GunInfo {
 	int _distance;
 
 	string _iconName;
+	string _rarityFrame;
 };
 
 class WeaponManager

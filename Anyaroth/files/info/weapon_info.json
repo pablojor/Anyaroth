@@ -4,7 +4,7 @@
       "BasicPistol": 
       {
         "zona": -1,
-	"frame": "BasicFrame",
+	      "frame": "BasicFrame",
         "icon": "Dash",
         "price": 0,
         "speed": 100,
@@ -19,7 +19,7 @@
       "BasicRifle": 
       {
         "zona": 1,
-	"frame": "BasicFrame",
+	      "frame": "BasicFrame",
         "icon": "Dash",
         "price": 150,
         "speed": 100,
@@ -34,7 +34,7 @@
       "BasicShotgun": 
       {
         "zona": 1,
-	"frame": "BasicFrame",
+	      "frame": "BasicFrame",
         "icon": "Dash",
         "price": 150,
         "speed": 100,
@@ -52,7 +52,7 @@
       "ImproveRifle": 
       {
         "zona": 1,
-	"frame": "CommonFrame",
+	      "frame": "CommonFrame",
         "icon": "Dash",
         "price": 300,
         "speed": 100,
@@ -67,7 +67,7 @@
       "ImproveShotgun": 
       {
         "zona": 1,
-	"frame": "CommonFrame",
+	      "frame": "CommonFrame",
         "icon": "Dash",
         "price": 300,
         "speed": 100,
@@ -85,7 +85,7 @@
       "BounceOrbCanon": 
       {
         "zona": 2,
-	"frame": "RareFrame",
+	      "frame": "RareFrame",
         "icon": "Dash",
         "price": 1000,
         "speed": 30,

@@ -28,7 +28,7 @@ void WeaponManager::init()
 			for (nlohmann::json::iterator typeWeapon = weapon.begin(); typeWeapon != weapon.end(); ++typeWeapon)
 			{
 				_weaponInfo[typeWeapon.value()["id"]] = { typeWeapon.value()["zona"], typeWeapon.key(), typeWeapon.value()["price"] ,
-														typeWeapon.value()["damage"], typeWeapon.value()["cadence"], typeWeapon.value()["range"], typeWeapon.value()["icon"].get<string>() };
+														typeWeapon.value()["damage"], typeWeapon.value()["cadence"], typeWeapon.value()["range"], typeWeapon.value()["icon"].get<string>(), typeWeapon.value()["frame"].get<string>() };
 			}
 		}
 		file.close();

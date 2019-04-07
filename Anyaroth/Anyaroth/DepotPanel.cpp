@@ -31,16 +31,17 @@ DepotPanel::DepotPanel(Game* game) : PanelUI(game)
 	_firstWeaponFrame = new ShopItem(game, game->getTexture("ItemFrame"));
 	_firstWeaponFrame->setPosition(_equipmentFrame->getX() + 8,
 									_equipmentFrame->getY() + 8);
-	_firstWeaponFrame->setItemInfo({ -1, "arma1", 0, 14, 25, 10, GunType::Pistol_Weapon, true, true });
+	_firstWeaponFrame->setItemInfo({ -1, "arma1", 0, 14, 25, 10, GunType::Pistol_Weapon, "Dash","CommonFrame",true, true });
 
 	_secondWeaponFrame = new ShopItem(game, game->getTexture("ItemFrame"));
 	_secondWeaponFrame->setPosition(_firstWeaponFrame->getX() + _firstWeaponFrame->getW() + 26,
 									_firstWeaponFrame->getY());
-	_secondWeaponFrame->setItemInfo({ -1, "arma2", 0, 14, 25, 10, GunType::Pistol_Weapon, true, true });
+	_secondWeaponFrame->setItemInfo({ -1, "arma2", 0, 14, 25, 10, GunType::Pistol_Weapon, "Dash","CommonFrame",true, true });
 
 	_meleeWeaponFrame = new ShopItem(game, game->getTexture("ItemFrame"));
 	_meleeWeaponFrame->setPosition(_equipmentFrame->getX() + _equipmentFrame->getW() / 2 - _meleeWeaponFrame->getW() / 2,
 							_firstWeaponFrame->getY() + _firstWeaponFrame->getH() + distanceBetweenEquipmentSlots);
+	_meleeWeaponFrame->setItemInfo({ -1, "melee1", 0, 14, 25, 10, GunType::Pistol_Weapon, "Dash","CommonFrame",true, true });
 
 		//Callbacks
 	_firstWeaponFrame->onDown([this](Game* game) { setDistanceWeapon(game, _firstWeaponFrame); });
@@ -82,10 +83,11 @@ void DepotPanel::setPlayer(Player * ply)
 		else if ((*i)->getItemInfo()._type == _player->getOtherGun()->getGunID())
 			sItem = (*i);
 	}
-	//Cogemos la info de las armas equipadas
+
 	auto* fInfo = &fItem->getItemInfo(); fInfo->_sold = true; fInfo->_equiped = true;
 	auto* sInfo = &sItem->getItemInfo(); sInfo->_sold = true; sInfo->_equiped = true;
 
+	//FALTA HACERLO PARA EL ARMA A MELEE
 	_firstWeaponFrame->setItemInfo(*fInfo);
 	_secondWeaponFrame->setItemInfo(*sInfo);
 }
@@ -107,9 +109,7 @@ void DepotPanel::removeItems()
 void DepotPanel::openDepotPanel()
 {
 	for (auto it : *_items)
-	{
 		it->onDown([this, it](Game* game) {	selectItem(game, it); });
-	}
 
 	reorderDepot();
 	setVisible(true);
@@ -171,10 +171,10 @@ void DepotPanel::changeEquipedGuns(Game* game)
 	auto firstWeaponImage = _firstWeaponFrame->getItemImage();
 
 	_firstWeaponFrame->setItemInfo(_secondWeaponFrame->getItemInfo());
-	_firstWeaponFrame->setItemImage(_secondWeaponFrame->getItemImage());
+	//_firstWeaponFrame->setItemImage(_secondWeaponFrame->getItemImage());
 
 	_secondWeaponFrame->setItemInfo(firstWeaponInfo);
-	_secondWeaponFrame->setItemImage(firstWeaponImage);
+	//_secondWeaponFrame->setItemImage(firstWeaponImage);
 }
 
 void DepotPanel::selectItem(Game * game, ShopItem* item)
@@ -214,10 +214,10 @@ void DepotPanel::swapItems(ShopItem* _equiped)
 	_equiped->setItemInfo(infoSelected);
 
 	//Cambio de texturas
-	auto imageSelect = _selectedItem->getImage();
+	/*auto imageSelect = _selectedItem->getImage();
 	auto imageOther = _equiped->getImage();
 	_selectedItem->setImage(imageOther);
-	_equiped->setImage(imageSelect);
+	_equiped->setImage(imageSelect);*/
 
 	//Equipo arma
 	Gun* newGun = WeaponManager::getWeapon(_game, _equiped->getItemInfo()._type);
@@ -226,5 +226,3 @@ void DepotPanel::swapItems(ShopItem* _equiped)
 	else if (_equiped == _secondWeaponFrame)
 		_player->changeOtherGun(newGun);
 }
-
-
