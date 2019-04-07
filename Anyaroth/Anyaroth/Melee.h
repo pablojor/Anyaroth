@@ -21,5 +21,5 @@ public:
 	int getDamage() const { return _damage; }
 	void endMelee();
 
-	inline bool isActive() const { return (_body != nullptr && _body->getBody() != nullptr); }
+	inline bool isActive() const { return (_body !=nullptr && _body->getBody() != nullptr &&  _body->getBody()->IsActive()); }
 };

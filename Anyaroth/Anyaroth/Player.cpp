@@ -5,7 +5,7 @@
 #include "GunType_def.h"
 #include "WeaponManager.h"
 
-Player::Player(Game* game, int xPos, int yPos) :  GameObject(game, "Player")
+Player::Player(Game* game, int xPos, int yPos) : GameObject(game, "Player")
 {
 	_game = game;
 
@@ -20,7 +20,7 @@ Player::Player(Game* game, int xPos, int yPos) :  GameObject(game, "Player")
 
 	_body->setW(12);
 	_body->setH(26);
-	
+
 	_body->filterCollisions(PLAYER, OBJECTS | FLOOR | PLATFORMS | ENEMY_BULLETS | MELEE);
 	_body->addCricleShape(b2Vec2(0, 1.1), 0.7, PLAYER, FLOOR | PLATFORMS);
 	_body->getBody()->SetFixedRotation(true);
@@ -54,7 +54,7 @@ Player::Player(Game* game, int xPos, int yPos) :  GameObject(game, "Player")
 	_anim->addAnim(AnimatedSpriteComponent::DashDown, 3, true);
 	_anim->addAnim(AnimatedSpriteComponent::DashBack, 6, false);
 	_anim->addAnim(AnimatedSpriteComponent::ReloadShotgun, 5, false);
-	
+
 	//Brazo
 	_playerArm = new PlayerArm(game, this, { 28, 18 });
 	addChild(_playerArm);
@@ -66,7 +66,7 @@ Player::Player(Game* game, int xPos, int yPos) :  GameObject(game, "Player")
 	_otherGun = _weaponManager->getWeapon(BasicShotgun_Weapon, 1);
 
 	_playerArm->setTexture(_currentGun->getArmTexture());
-
+	_playerArm->setAnimations(PlayerArmType);
 	//Monedero
 	_money = new Money();
 
@@ -162,8 +162,6 @@ void Player::subLife(int damage)
 			if (_life.getLife() == 0)
 			{
 				die();
-				//_hurt->die();
-				//_playerArm->die();
 			}
 			else
 			{

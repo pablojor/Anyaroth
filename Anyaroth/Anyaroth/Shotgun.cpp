@@ -28,9 +28,9 @@ void Shotgun::shoot(BulletPool * bulletPool, const Vector2D & position, const do
 			Bullet* b = bulletPool->getUnusedObject();
 			Vector2D bulletPos = prepareBulletPosition(position, angle);
 			if (b != nullptr)
-				b->init(_bulletTexture, bulletPos, _speed, _damage, angle + i * _angleBetweenBullet, _range, tag, _effect);
+				b->init(_bulletTexture, bulletPos, _speed, _damage, angle + i * _angleBetweenBullet, _range, tag, _effect, _bulletAnimType);
 			else
-				bulletPool->addNewBullet()->init(_bulletTexture, bulletPos, _speed, _damage, angle + i * _angleBetweenBullet, _range, tag, _effect);
+				bulletPool->addNewBullet()->init(_bulletTexture, bulletPos, _speed, _damage, angle + i * _angleBetweenBullet, _range, tag, _effect, _bulletAnimType);
 		}
 	}
 }

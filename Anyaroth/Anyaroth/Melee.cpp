@@ -15,8 +15,11 @@ void Melee::meleeAttack(double x, double y, int dir)
 		_body = new BodyComponent(this, x + _offset.getX() * _dir, y + _offset.getY(), _w, _h);
 		addComponent<BodyComponent>(_body);
 	}
-	else
-		_body->setBody(this, x + _offset.getX() * _dir, y + _offset.getY(), _w, _h);
+	else if (!_body->getBody()->IsActive())
+	{
+		_body->getBody()->SetActive(true);
+		_body->getBody()->SetTransform(b2Vec2((x + _offset.getX() * _dir) / M_TO_PIXEL, (y + _offset.getY() * _dir) / M_TO_PIXEL), 0);
+	}
 
 	_body->filterCollisions(MELEE, _collidesWith);
 	_body->getBody()->SetType(b2_kinematicBody);
@@ -28,5 +31,9 @@ void Melee::meleeAttack(double x, double y, int dir)
 
 void Melee::endMelee()
 {
-	_body->deleteBody();
+	if (_body->getBody() != nullptr && _body->getBody()->IsActive())
+	{
+		if (!_body->getBody()->GetWorld()->IsLocked())
+			_body->getBody()->SetActive(false);
+	}
 }

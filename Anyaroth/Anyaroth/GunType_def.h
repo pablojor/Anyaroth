@@ -21,3 +21,18 @@ enum MeleeType
 	Lightsaber_Weapon,
 	Chainsaw_Weapon
 };
+
+enum BulletAnimType
+{
+	Default,
+	TurretBullet,
+	SpentaBomb,
+	SpentaOrb
+};
+
+enum ArmAnimType
+{
+	DefaultArmType,
+	PlayerArmType,
+	TurretArmType
+};
