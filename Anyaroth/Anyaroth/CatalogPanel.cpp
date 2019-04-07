@@ -68,12 +68,6 @@ void CatalogPanel::setItems(list<ShopItem*>* list, const int& zone) // Crear ite
 	_items = list;
 	_zone = zone;
 
-	int margin = 20; // PROBABLEMENTE PROVISIONAL TAMBIEN
-	itemWidth = (_frame->getW() - margin) / itemsPerRow;
-	itemHeight = (_frame->getH() - margin) / itemsPerCol;
-
-	itemHeight < itemWidth ? itemSize = itemHeight : itemSize = itemWidth;
-
 	for (auto it : *_items)
 		addChild(it);
 }
@@ -89,9 +83,6 @@ void CatalogPanel::openCatalog()
 	for (auto it : *_items)
 	{
 		it->onDown([this, it](Game* game) {	selectItem(game, it); });
-		//it->onOver([this, it](Game* game) { showItemInfo(it); });
-		//it->onOut([this, it](Game* game) { showSelectedItemInfo(); });
-		it->setSize(itemSize, itemSize);
 	}
 	reorderCatalog();
 
@@ -115,8 +106,10 @@ void CatalogPanel::closeCatalog()
 
 void CatalogPanel::reorderCatalog()
 {
-	int xOffset = (_frame->getW() - itemSize * itemsPerRow) / (itemsPerRow + 1);
-	int yOffset = (_frame->getH() - itemSize * itemsPerCol) / (itemsPerCol + 1);
+	int posIniX = 11,
+		posIniY = 10,
+		distX = 9,
+		distY = 4;
 
 	ShopItem* primItem = nullptr;
 
@@ -135,11 +128,11 @@ void CatalogPanel::reorderCatalog()
 				item->setVisible(true);
 				if (primItem == nullptr)
 				{
-					item->setPosition(_frame->getX() + xOffset, _frame->getY() + yOffset);
+					item->setPosition(_frame->getX() + posIniX, _frame->getY() + posIniY);
 					primItem = item;
 				}
 				else
-					item->setPosition(primItem->getX() + (primItem->getW() + xOffset) * col, primItem->getY() + (primItem->getH() + yOffset) * fil);
+					item->setPosition(primItem->getX() + (primItem->getW() + distX) * col, primItem->getY() + (primItem->getH() + distY) * fil);
 
 				col++;
 			}

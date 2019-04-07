@@ -52,7 +52,11 @@
         ["BuyButton", "buy_button.png", 1, 2],
         ["CadenceIcon", "cadence_icon.png", 1, 1],
         ["PropertiesBar", "properties_bar.png", 1, 1],
-        ["ItemFrame", "item_frame.png", 5, 2]
+        ["ItemFrame", "item_frame.png", 1, 2],
+        ["MeleeFrame", "melee_frame.png", 1, 2],
+        ["BasicFrame", "basicweapon_frame.png", 1, 2],
+        ["CommonFrame", "commonweapon_frame.png", 1, 2],
+        ["RareFrame", "rareweapon_frame.png", 1, 2]
     ],
     "fonts" : [
         ["ARIAL12", "arial.ttf", 12]

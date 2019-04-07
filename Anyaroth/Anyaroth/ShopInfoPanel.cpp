@@ -60,7 +60,7 @@ ShopInfoPanel::ShopInfoPanel(Game* game, int xPos, int yPos) : PanelUI(game)
 	_priceIcon->setPosition(_priceText->getX() + _priceText->getW(),
 							_priceText->getY() + _priceText->getH() / 2 - _priceIcon->getH() / 2);
 
-	setChildrensVisibility(false);
+	setChildrenVisibility(false);
 
 	addChild(_damageIcon);
 	addChild(_damageBar);
@@ -78,7 +78,7 @@ void ShopInfoPanel::update(const double& deltaTime)
 
 	if (_frame->getCurrentAnim() == AnimatedImageUI::End)
 	{
-		setChildrensVisibility(false);
+		setChildrenVisibility(false);
 
 		if (_frame->animationFinished())
 			setVisible(false);
@@ -91,14 +91,14 @@ void ShopInfoPanel::update(const double& deltaTime)
 		{
 			_frame->playAnim(AnimatedImageUI::Default);
 
-			setChildrensVisibility(true);
+			setChildrenVisibility(true);
 		}
 		else
-			setChildrensVisibility(false);
+			setChildrenVisibility(false);
 	}
 }
 
-void ShopInfoPanel::setChildrensVisibility(bool b)
+void ShopInfoPanel::setChildrenVisibility(bool b)
 {
 	_nameText->setVisible(b);
 	_damageIcon->setVisible(b);

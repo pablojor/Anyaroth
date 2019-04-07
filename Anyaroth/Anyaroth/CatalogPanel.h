@@ -30,10 +30,7 @@ class CatalogPanel : public PanelUI
 		CoinsCounter* _playerMoney = nullptr;
 
 		int itemsPerRow = 2;
-		int itemsPerCol = 4; 
-		int itemWidth;
-		int itemHeight;
-		int itemSize;
+		int itemsPerCol = 4;
 
 		int _zone = -1;
 

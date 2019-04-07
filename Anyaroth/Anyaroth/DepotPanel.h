@@ -20,9 +20,9 @@ class DepotPanel : public PanelUI
 		ButtonUI* _exitButton = nullptr;
 		ButtonUI* _changeButton = nullptr;
 
-		ShopItem* _firstWeapon;
-		ShopItem* _secondWeapon;
-		ShopItem* _meleeWeapon;
+		ShopItem* _firstWeaponFrame;
+		ShopItem* _secondWeaponFrame;
+		ShopItem* _meleeWeaponFrame;
 
 		list<ShopItem*>* _items;
 
@@ -31,8 +31,6 @@ class DepotPanel : public PanelUI
 		int itemsPerRow = 4, 
 			itemsPerCol = 4, 
 			distanceBetweenEquipmentSlots = 10;
-
-		int itemWidth, itemHeight, itemEquipWidth, itemEquipHeight, itemSize;
 
 	public:
 		DepotPanel(Game* game);
