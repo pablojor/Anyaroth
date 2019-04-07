@@ -20,6 +20,7 @@ public:
 
 	inline void setImage(Texture* image) { _image = image; }
 	inline Texture* getImage() const { return _image; }
+	inline SDL_Rect getClipArea() const { return _clipArea; }
 
 	void setPosition(int x, int y);
 	void setSize(int w, int h);

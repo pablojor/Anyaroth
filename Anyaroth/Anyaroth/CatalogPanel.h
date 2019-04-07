@@ -1,6 +1,7 @@
 #pragma once
 #include "PanelUI.h"
 #include "ImageUI.h"
+#include "TextUI.h"
 #include "ShopItem.h"
 #include "ButtonUI.h"
 #include "ShopInfoPanel.h"
@@ -15,6 +16,7 @@ class CatalogPanel : public PanelUI
 {
 	private:
 		Player* _player;
+		TextUI* _buyText;
 		ButtonUI* _buyButton;
 		ShopInfoPanel* _infoPanel;
 
