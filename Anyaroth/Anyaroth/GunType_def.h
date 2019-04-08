@@ -36,5 +36,6 @@ enum ArmAnimType
 {
 	DefaultArmType,
 	PlayerArmType,
-	TurretArmType
+	TurretArmType,
+	BHCannonArmType
 };

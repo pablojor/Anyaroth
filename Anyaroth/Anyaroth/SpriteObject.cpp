@@ -10,8 +10,8 @@ SpriteObject::SpriteObject(Game* g, Texture* texture, Vector2D iniPos) : GameObj
 	transform->setPosition(iniPos.getX(), iniPos.getY());
 
 	auto anim = addComponent<AnimatedSpriteComponent>();
-	/*anim->addAnim(AnimatedSpriteComponent::Idle, 16, true);
-	anim->playAnim(AnimatedSpriteComponent::Idle);*/
+	anim->addAnim(AnimatedSpriteComponent::Idle, 4, true);
+	anim->playAnim(AnimatedSpriteComponent::Idle);
 
 }
 

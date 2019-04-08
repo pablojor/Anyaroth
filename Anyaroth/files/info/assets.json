@@ -52,7 +52,8 @@
 	[ "ShotgunIcon", "shotgunIcon.png", 1, 1 ],
 	[ "BHCannonIcon", "bHCannonIcon.png", 1, 1 ],
 	[ "ArmBHCannon", "mk_arm_bHCannon_spritesheet.png", 3, 6 ],
-	[ "BHBullet", "bHCannon_bullet_spritesheet.png", 2, 5 ]
+	[ "BHBullet", "bHCannon_bullet_spritesheet.png", 2, 5 ],
+	[ "BHArea", "bHCannon_area.png", 1, 4 ]
 
   ],
   "fonts": [

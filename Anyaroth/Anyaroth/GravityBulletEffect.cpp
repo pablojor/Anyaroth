@@ -90,7 +90,9 @@ void GravityBulletEffect::update(Bullet* bullet, double time)
 				startAbsorbing(bullet);
 				bullet->getComponent<AnimatedSpriteComponent>()->playAnim(AnimatedSpriteComponent::Destroy);
 
-				SpriteObject* sprite = new SpriteObject(bullet->getGame(), bullet->getGame()->getTexture("Mk"), bullet->getComponent<TransformComponent>()->getPosition());
+				SpriteObject* sprite = new SpriteObject(bullet->getGame(), bullet->getGame()->getTexture("BHArea"),
+					{ bullet->getComponent<TransformComponent>()->getPosition().getX()- 115,
+					bullet->getComponent<TransformComponent>()->getPosition().getY()- 95 });
 				//sprite->getComponent<TransformComponent>()->setScale(40);
 				bullet->addChild(sprite);
 			}
