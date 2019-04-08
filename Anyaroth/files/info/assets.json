@@ -50,7 +50,9 @@
     [ "SpentaMisil", "spenta_misil_spritesheet.png", 2, 6 ],
 	[ "PistolIcon", "pistolIcon.png", 1, 1 ],
 	[ "ShotgunIcon", "shotgunIcon.png", 1, 1 ],
-	[ "BHCannonIcon", "bHCannonIcon.png", 1, 1 ]
+	[ "BHCannonIcon", "bHCannonIcon.png", 1, 1 ],
+	[ "ArmBHCannon", "mk_arm_bHCannon_spritesheet.png", 3, 6 ],
+	[ "BHBullet", "bHCannon_bullet_spritesheet.png", 2, 5 ]
 
   ],
   "fonts": [

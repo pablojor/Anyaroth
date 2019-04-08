@@ -73,20 +73,22 @@ void GravityBulletEffect::update(Bullet* bullet, double time)
 {
 	if (bullet->isActive())
 	{
+		bullet->GameObject::update(time);
+
 		if (!bullet->isAbsorbing())
 		{
 			double dist = bullet->getIniPos().distance(bullet->getTransform()->getPosition());
 
 			if (dist < bullet->getRange() && !bullet->hasCollided())
 			{
-				bullet->GameObject::update(time);
+				
 
 				bullet->setAliveTime(bullet->getAliveTime() + time);
 			}
 			else
 			{
 				startAbsorbing(bullet);
-
+				bullet->getComponent<AnimatedSpriteComponent>()->playAnim(AnimatedSpriteComponent::Destroy);
 
 				SpriteObject* sprite = new SpriteObject(bullet->getGame(), bullet->getGame()->getTexture("Mk"), bullet->getComponent<TransformComponent>()->getPosition());
 				//sprite->getComponent<TransformComponent>()->setScale(40);

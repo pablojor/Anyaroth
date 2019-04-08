@@ -125,6 +125,10 @@ void Bullet::setAnimations(BulletAnimType type)
 	case ShotGunBullet:
 		_anim->addAnim(AnimatedSpriteComponent::Default, 2, true);
 		break;
+	case BHBullet:
+		_anim->addAnim(AnimatedSpriteComponent::Default, 2, true);
+		_anim->addAnim(AnimatedSpriteComponent::Destroy, 5, false);
+		break;
 	case Default:
 	default:
 		_anim->addAnim(AnimatedSpriteComponent::Default, 4, true);

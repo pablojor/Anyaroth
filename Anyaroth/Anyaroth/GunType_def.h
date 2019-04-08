@@ -28,7 +28,8 @@ enum BulletAnimType
 	ShotGunBullet,
 	TurretBullet,
 	SpentaBomb,
-	SpentaOrb
+	SpentaOrb,
+	BHBullet
 };
 
 enum ArmAnimType
