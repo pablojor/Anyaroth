@@ -15,6 +15,6 @@ PlayStateHUD::PlayStateHUD(Game * g)
 
 	//Anyadir a elementos
 	addUIElement(_playerPanel);
-	addUIElement(_bossPanel);
+	//addUIElement(_bossPanel);
 	addUIElement(_dialoguePanel);
 }
