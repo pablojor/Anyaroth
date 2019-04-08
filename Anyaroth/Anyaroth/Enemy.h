@@ -19,10 +19,12 @@ protected:
 	Vector2D _playerDistance;
 
 	Life _life;
-	bool _attacking = false, _drop = true;
+	bool _attacking = false, _drop = true, extraDrop = false;
 	int _vision, _attackRangeX, _attackRangeY, _attackTime, _damage;
 	double _time;
 	float32 _speed;
+	
+	int _coinValue = 10;
 
 	bool _stunned = false;
 
