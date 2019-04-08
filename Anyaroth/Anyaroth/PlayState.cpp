@@ -14,7 +14,6 @@ PlayState::PlayState(Game* g) : GameState(g)
 
 	//Player
 	_player = new Player(g, 100, 500);
-	_stages.push_back(_player);
 
 	//Pool player
 	_playerBulletPool = new BulletPool(g);
@@ -24,9 +23,10 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_player->setPlayerPanel(_hud->getPlayerPanel());
 
 	//Levels
-	_currentLevel = LevelManager::Level1_2;
+	_currentLevel = LevelManager::Level1_1;
 	_levelManager = LevelManager(g, _player, &_stages, _hud);
 	_levelManager.setLevel(_currentLevel);
+	_stages.push_back(_player);
 
 	//Background
 	_parallaxZone1 = new ParallaxBackGround(_mainCamera);

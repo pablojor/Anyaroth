@@ -88,7 +88,7 @@ void Map::createObjects()
 			}
 			else if (name == "DistanceStatic")
 			{
-				_objects->addChild(new DistanceStaticEnemy(_game, _player, Vector2D(pos[j].getX() - TILES_SIZE * 2, pos[j].getY() - TILES_SIZE * 2), _bulletPool));
+				_objects->addChild(new DistanceStaticEnemy(_game, _player, Vector2D(pos[j].getX() - TILES_SIZE, pos[j].getY() - TILES_SIZE), _bulletPool));
 			}
 			else if (name == "DistanceDynamic")
 			{
