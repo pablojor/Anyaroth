@@ -400,6 +400,7 @@ void Player::setPlayerPanel(PlayerPanel * p)
 	_playerPanel->updateDashViewer(_dashCD);
 	_playerPanel->updateCoinsCounter(_money->getWallet());
 	_playerPanel->updateLifeBar(_life.getLife(), _life.getMaxLife());
+	if (_currentGun->getIconTexture() != nullptr) _playerPanel->updateWeaponryViewer(_currentGun->getIconTexture());
 }
 
 bool Player::isDashing() const
