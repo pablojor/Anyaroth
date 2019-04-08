@@ -62,7 +62,7 @@ Player::Player(Game* game, int xPos, int yPos) : GameObject(game, "Player")
 	//Armas del juego
 	_weaponManager = new WeaponManager(game);
 
-	_currentGun = _weaponManager->getWeapon(ImprovedRifle_Weapon, 0);
+	_currentGun = _weaponManager->getWeapon(BasicRifle_Weapon, 0);
 	_otherGun = _weaponManager->getWeapon(BasicShotgun_Weapon, 1);
 
 	_playerArm->setTexture(_currentGun->getArmTexture());
