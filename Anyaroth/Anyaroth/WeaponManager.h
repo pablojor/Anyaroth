@@ -22,6 +22,7 @@ struct GunInfo {
 	int _damage;
 	int _cadence;
 	int _distance;
+	int _clip;
 
 	string _iconName;
 	string _rarityFrame;
