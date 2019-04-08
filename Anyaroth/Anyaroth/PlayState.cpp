@@ -12,12 +12,6 @@ PlayState::PlayState(Game* g) : GameState(g)
 	//Inicializa el manager de armas
 	WeaponManager::init();
 
-	//Levels
-	_currentZone = 1;
-	_currentLevel = 3;
-	_levelManager = LevelManager(g, _player, &_stages, _hud);
-	_levelManager.setLevel(_currentZone, _currentLevel);
-
 	//HUD
 	_hud = new PlayStateHUD(g);
 	setCanvas(_hud);
@@ -41,6 +35,12 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_stages.push_back(_playerBulletPool);
 
 	_player->setPlayerBulletPool(_playerBulletPool);
+
+	//Levels
+	_currentZone = 1;
+	_currentLevel = 3;
+	_levelManager = LevelManager(g, _player, &_stages, _hud);
+	_levelManager.setLevel(_currentZone, _currentLevel);
 
 	//Tienda PROVISIONAL
 	_shop = new Shop(_gameptr, Vector2D(50, 330), _hud->getShop(), _currentZone);

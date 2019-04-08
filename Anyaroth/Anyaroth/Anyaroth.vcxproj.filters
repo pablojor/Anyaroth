@@ -217,9 +217,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
     <ClCompile Include="ExplosiveBulletPool.cpp">
       <Filter>Archivos de código fuente\Pools</Filter>
     </ClCompile>
@@ -323,6 +320,9 @@
       <Filter>Archivos de código fuente\HUD\Shop</Filter>
     </ClCompile>
     <ClCompile Include="Shop.cpp" />
+    <ClCompile Include="Game.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
