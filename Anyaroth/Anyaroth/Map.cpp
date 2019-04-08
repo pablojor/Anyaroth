@@ -130,11 +130,12 @@ void Map::createObjects()
 			{
 				_npc = new NPC(_game, { pos[j].getX() - TILES_SIZE * 2, pos[j].getY() - TILES_SIZE * 2 }, { _game->getTexture("NpcFaces"),
 																"bossVoice",
-																"Jose Maria",
-																{ "*Bzzt..Bip, bip..* Hey, que tal?",
-																"Aju, con que programando... ya veo...",
-																"Pues sigue con eso, chaval! Deja de jugar tanto al Sekiro y ponte a estudiar de una maldita vez, escoria infrahumana (...) Adew! *Bip*" },
-																{0,0,0},
+																"Tyrvass [rebelde]",
+																{ "Así que tú eres el que ha venido a salvarnos a todos los anyas...",
+																"Viajarás al centro del planeta a asesinar a la reina, acabarás con todo su ejército y liberarás de su control mental a nuestras familias...",
+																"Ya bueno, no eres el primero en intentarlo.",
+																"No hay tiempo que perder. Si de verdad te ves capaz de hacerlo, sal ahí fuera y mata unos cuantos imperiales."},
+																{0,0,0,0},
 																{" ", " ", " ", " "}
 					});
 				_npc->setDialoguePanel(_hud->getDialoguePanel());
