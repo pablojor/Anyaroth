@@ -115,21 +115,17 @@ void Map::createObjects()
 			{
 				_objects->addChild(new BomberEnemy(_game, _player, Vector2D(pos[j].getX() - TILES_SIZE * 2, pos[j].getY() - TILES_SIZE * 2), _bulletPool));
 			}
-			else if (name == "Misil")
-			{
-				_objects->addChild(new BotonLanzaMisiles(_game, _boss1, _game->getTexture("EnemyMartyr"), Vector2D(pos[j].getX() - TILES_SIZE * 2, pos[j].getY() - TILES_SIZE * 2)));
-			}
 			else if (name == "Boss1")
 			{
 				_boss1 = (new Boss1(_game, _player, Vector2D(pos[j].getX() - TILES_SIZE * 2, pos[j].getY() - TILES_SIZE * 2), _bulletPool));
 				_objects->addChild(_boss1);
 				_boss1->setBossPanel(_hud->getBossPanel());
 			}
-			/*else if (name == "Misiles")
+			else if (name == "Misil")
 			{
-				_objects->addChild(new BotonLanzaMisiles(_game, _boss1, _game->getTexture("MissileTurret"), Vector2D(pos[j].getX(), pos[j].getY()), _faseMisil));
+				_objects->addChild(new BotonLanzaMisiles(_game, _boss1, _game->getTexture("MissileTurret"), Vector2D(pos[j].getX(), pos[j].getY()  + 3 - TILES_SIZE * 3), _faseMisil));
 				_faseMisil++;
-			}*/
+			}
 			else if (name == "NPCs")
 			{
 				_npc = new NPC(_game, { pos[j].getX() - TILES_SIZE * 2, pos[j].getY() - TILES_SIZE * 2 }, { _game->getTexture("NpcFaces"),

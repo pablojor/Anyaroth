@@ -394,7 +394,7 @@ void Boss1::changeFase(int nextFase)
 
 void Boss1::throwBomb()
 {
-	Vector2D helpPos = Vector2D(random(100, 700 /*Futuro tope por la derecha*/), 200);
+	Vector2D helpPos = Vector2D(random(_transform->getPosition().getX() - 500, _transform->getPosition().getX() + 500/*100, 700 /*Futuro tope por la derecha*/), 200);
 	_bombGun->enemyShoot(_myBulletPool, helpPos, 90, "EnemyBullet");
 	//Bullet* b = _myExplosivePool->getUnusedObject();
 	//Vector2D helpPos = Vector2D(random(100,700 /*Fututo tope por la derecha*/), 200);
