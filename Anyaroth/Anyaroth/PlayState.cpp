@@ -12,11 +12,6 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_hud = new PlayStateHUD(g);
 	setCanvas(_hud);
 
-	//Cursor
-	_cursor = new Cursor(g);
-	_stages.push_back(_cursor);
-	//SDL_ShowCursor(false);
-
 	//Player
 	_player = new Player(g, 100, 500);
 	_stages.push_back(_player);
@@ -38,6 +33,11 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_parallaxZone1->addLayer(new ParallaxLayer(g->getTexture("BgZ1L1"), _mainCamera, 0.25));
 	_parallaxZone1->addLayer(new ParallaxLayer(g->getTexture("BgZ1L2"), _mainCamera, 0.5));
 	_parallaxZone1->addLayer(new ParallaxLayer(g->getTexture("BgZ1L3"), _mainCamera, 0.75));
+
+	//Cursor
+	_cursor = new Cursor(g);
+	_stages.push_back(_cursor);
+	SDL_ShowCursor(false);
 
 	//Camera
 	_mainCamera->fixCameraToObject(_player);
