@@ -121,7 +121,12 @@ void DepotPanel::openDepotPanel()
 void DepotPanel::closeDepotPanel()
 {
 	setVisible(false);
-	_selectedItem = nullptr;
+
+	if (_selectedItem != nullptr)
+	{
+		_selectedItem->select(false);
+		_selectedItem = nullptr;
+	}
 }
 
 void DepotPanel::reorderDepot()

@@ -203,7 +203,7 @@ void ShopMenu::openCatalogPanel(Game* game)
 
 void ShopMenu::closeCatalogPanel(Game * game)
 {
-	_catalogPanel->setVisible(false);
+	_catalogPanel->closeCatalog();
 	_dialoguePanel->endDialogue();
 
 	ableMainMenu(game);

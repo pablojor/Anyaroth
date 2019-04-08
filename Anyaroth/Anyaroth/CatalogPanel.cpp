@@ -101,7 +101,11 @@ void CatalogPanel::closeCatalog()
 	_buyButton->setVisible(false);
 	_buyText->setVisible(false);
 
-	_selectedItem = nullptr;
+	if (_selectedItem != nullptr)
+	{
+		_selectedItem->select(false);
+		_selectedItem = nullptr;
+	}
 }
 
 void CatalogPanel::reorderCatalog()
