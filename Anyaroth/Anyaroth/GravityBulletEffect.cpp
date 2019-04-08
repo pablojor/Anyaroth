@@ -2,6 +2,7 @@
 #include "Bullet.h"
 #include "Game.h"
 #include "MovingComponent.h"
+#include "SpriteObject.h"
 
 
 GravityBulletEffect::GravityBulletEffect(int maxAbsorbTime) : _maxAbsorbingTime(maxAbsorbTime)
@@ -37,6 +38,7 @@ void GravityBulletEffect::beginCollision(Bullet* bullet, GameObject * other, b2C
 		== "Platform")
 	{
 		bullet->setCollided(true);
+
 	}
 	else if(other->getTag() == "Enemy" || other->getTag() == "Player")
 	{
@@ -82,7 +84,14 @@ void GravityBulletEffect::update(Bullet* bullet, double time)
 				bullet->setAliveTime(bullet->getAliveTime() + time);
 			}
 			else
+			{
 				startAbsorbing(bullet);
+
+
+				SpriteObject* sprite = new SpriteObject(bullet->getGame(), bullet->getGame()->getTexture("Mk"), bullet->getComponent<TransformComponent>()->getPosition());
+				//sprite->getComponent<TransformComponent>()->setScale(40);
+				bullet->addChild(sprite);
+			}
 		}
 		else if (bullet->getAbsorbingTime() < _maxAbsorbingTime)
 		{
@@ -107,6 +116,7 @@ void GravityBulletEffect::reset(Bullet* bullet)
 	}
 	_debuffs.clear();
 
+	bullet->destroyAllChildren(); //borra el sprite de área
 	
 	BulletEffect::reset(bullet);
 }

@@ -319,6 +319,7 @@
     <ClCompile Include="StaticFlyingEnemy.cpp">
       <Filter>Archivos de código fuente\Objects\Enemies\DistanceEnemies</Filter>
     </ClCompile>
+    <ClCompile Include="SpriteObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -672,6 +673,7 @@
     <ClInclude Include="StaticFlyingEnemy.h">
       <Filter>Archivos de encabezado\Objects\Enemies\DistanceEnemies</Filter>
     </ClInclude>
+    <ClInclude Include="SpriteObject.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de código fuente">

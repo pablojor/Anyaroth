@@ -227,6 +227,7 @@
     <ClCompile Include="SpawnerEnemy.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
     <ClCompile Include="Money.cpp" />
+    <ClCompile Include="SpriteObject.cpp" />
     <ClCompile Include="StaticFlyingEnemy.cpp" />
     <ClCompile Include="StaticSpawnerEnemy.cpp" />
     <ClCompile Include="TextUI.cpp" />
@@ -346,6 +347,7 @@
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="SpriteComponent.h" />
     <ClInclude Include="Money.h" />
+    <ClInclude Include="SpriteObject.h" />
     <ClInclude Include="StaticFlyingEnemy.h" />
     <ClInclude Include="StaticSpawnerEnemy.h" />
     <ClInclude Include="TextUI.h" />
