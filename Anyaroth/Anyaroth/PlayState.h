@@ -25,6 +25,10 @@ private:
 
 	int _currentLevel;
 
+	double deathTime = 3000, deathTimer = 0;
+	bool _killed = false;
+	TextUI* deathText;
+
 public:
 	PlayState(Game* g);
 

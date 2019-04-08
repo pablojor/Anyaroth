@@ -115,6 +115,7 @@ public:
 	inline void setChangeLevel(bool change) { _changeLevel = change; }
 
 	inline bool isGrounded() const { return _floorCount; }
+	inline bool isDead() const { return GameObject::isDead() && _anim->animationFinished(); }
 	bool isDashing() const;
 	bool isMeleeing() const;
 	bool isReloading() const;
