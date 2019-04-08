@@ -8,7 +8,8 @@
     [ "ArmPistol", "mk_pistol_spritesheet.png", 3, 3 ],
     [ "ArmShotgun", "mk_shotgun_spritesheet.png", 3, 2 ],
     [ "PistolBullet", "pistolbullet.png", 2, 4 ],
-    [ "ShotgunBullet", "shotgunbullet.png", 1, 2 ],
+    [ "ShotgunBullet", "shotgunbullet.png", 2, 2 ],
+	[ "RifleBullet", "riflebullet.png", 1, 2 ],
     [ "Armback", "mk_armback.png", 1, 1 ],
     [ "Tileset1", "zona1_tileset.png", 9, 8 ],
     [ "Tileset2", "zona2_tileset.png", 8, 6 ],
@@ -57,7 +58,8 @@
 	[ "BHBullet", "bHCannon_bullet_spritesheet.png", 2, 5 ],
 	[ "BHArea", "bHCannon_area.png", 1, 4 ],
 	[ "Npc", "npc_idle.png", 1, 8 ],
-	[ "NpcFaces", "dialogueFaces_npc.png", 1, 1 ]
+	[ "NpcFaces", "dialogueFaces_npc.png", 1, 1 ],
+	[ "ArmRifle", "subfusil_spritesheet.png", 3, 2 ]
 
   ],
   "fonts": [
