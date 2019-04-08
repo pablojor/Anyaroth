@@ -46,7 +46,8 @@
 	  ["TurretBullet", "turret_bullet_spritesheet.png", 2, 5],
 	  ["Turret", "turret_spritesheet.png", 3, 13],
 	  ["TurretArm", "turret_arm_spritesheet.png", 2, 12],
-	  ["SpentaMisil", "spenta_misil_spritesheet.png", 2, 6]
+	  ["SpentaMisil", "spenta_misil_spritesheet.png", 2, 6],
+	  ["MissileTurret", "missileturret_spritesheet.png", 4, 12]
 	  
     ],
     "fonts" : [
