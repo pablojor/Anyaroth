@@ -23,7 +23,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_player->setPlayerPanel(_hud->getPlayerPanel());
 
 	//Levels
-	_currentLevel = LevelManager::Level1_2;
+	_currentLevel = LevelManager::Level1_1;
 	_levelManager = LevelManager(g, _player, &_stages, _hud);
 	_levelManager.setLevel(_currentLevel);
 	_stages.push_back(_player);
@@ -57,6 +57,10 @@ PlayState::PlayState(Game* g) : GameState(g)
 	//Gestion de colisiones
 	g->getWorld()->SetContactListener(&_colManager);
 	g->getWorld()->SetDebugDraw(&_debugger);
+
+	deathText = new TextUI(_gameptr, "ANYAHILATED", _gameptr->getFont("ARIAL12"), 50, CAMERA_RESOLUTION_X / 2 - 50, CAMERA_RESOLUTION_Y / 2 - 10, { 255,0,0,1 });
+	deathText->setVisible(false);
+	_hud->addUIElement(deathText);
 }
 
 
@@ -104,14 +108,24 @@ void PlayState::update(const double& deltaTime)
 		_levelManager.changeLevel(_currentLevel);
 	}
 
-	if (_player->isDead())
+	if (_player->isDead() && !_killed)
 	{
-		cout << "player is dead\n";
+		deathText->setVisible(true);
+		_killed = true;
+		_player->setStopped(true);
+	}
+	if (_killed && deathTimer > deathTime)
+	{
 		_playerBulletPool->stopBullets();
 		_player->revive();
-		_currentLevel--;
-		_levelManager.changeLevel(_currentLevel);
+		_levelManager.resetLevel();
+		deathTimer = 0;
+		_killed = false;
+		deathText->setVisible(false);
 	}
+	else if (_killed)
+		deathTimer += deltaTime;
+
 
 	GameState::update(deltaTime);
 }

@@ -14,7 +14,7 @@ TextUI::TextUI(Game* game): UIElement(game)
 TextUI::TextUI(Game* game, string text, Font* font, uint fontSize, int xPos, int yPos, SDL_Color color) : UIElement(game)
 {
 	_text = text;
-	_fontSize = 12;
+	_fontSize = fontSize;
 	_font = font;
 	_color = color;
 	_texture = new Texture(_game->getRenderer(), _text, _font, _color);
