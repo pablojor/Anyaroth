@@ -88,7 +88,7 @@ void Map::createObjects()
 			}
 			else if (name == "DistanceStatic")
 			{
-				_objects->addChild(new DistanceStaticEnemy(_game, _player, Vector2D(pos[j].getX() - TILES_SIZE, pos[j].getY() - TILES_SIZE), _bulletPool));
+				_objects->addChild(new DistanceStaticEnemy(_game, _player, Vector2D(pos[j].getX(), pos[j].getY() - TILES_SIZE * 2), _bulletPool));
 			}
 			else if (name == "DistanceDynamic")
 			{
@@ -126,7 +126,7 @@ void Map::createObjects()
 			}
 			else if (name == "NPCs")
 			{
-				_npc = new NPC(_game, { 60, 730 }, { _game->getTexture("DialogueFace"),
+				_npc = new NPC(_game, { pos[j].getX() - TILES_SIZE * 2, pos[j].getY() - TILES_SIZE * 2 }, { _game->getTexture("DialogueFace"),
 																"exampleVoice",
 																"Jose Maria",
 																{ "*Bzzt..Bip, bip..* Hey, que tal?",
