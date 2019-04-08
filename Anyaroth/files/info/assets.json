@@ -48,9 +48,9 @@
     [ "Turret", "turret_spritesheet.png", 3, 13 ],
     [ "TurretArm", "turret_arm_spritesheet.png", 2, 12 ],
     [ "SpentaMisil", "spenta_misil_spritesheet.png", 2, 6 ],
-	[ "pistolIcon", "pistolIcon.png", 1, 1 ],
-	[ "shotgunIcon", "shotgunIcon.png", 1, 1 ],
-	[ "bHCannonIcon", "bHCannonIcon.png", 1, 1 ]
+	[ "PistolIcon", "pistolIcon.png", 1, 1 ],
+	[ "ShotgunIcon", "shotgunIcon.png", 1, 1 ],
+	[ "BHCannonIcon", "bHCannonIcon.png", 1, 1 ]
 
   ],
   "fonts": [
