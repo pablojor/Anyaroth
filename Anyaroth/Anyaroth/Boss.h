@@ -35,6 +35,7 @@ public:
 
 	bool inline const isbeetweenFases() { return _actualFase==BetweenFase; }
 	void setBossPanel(BossPanel* b);
+	int inline const getLastFase() { return _lastFase; }
 
 	virtual void update(const double& deltaTime);
 
