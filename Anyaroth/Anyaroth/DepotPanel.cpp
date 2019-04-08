@@ -182,8 +182,18 @@ void DepotPanel::changeEquipedGuns(Game* game)
 
 void DepotPanel::selectItem(Game * game, ShopItem* item)
 {
-	if (_selectedItem != nullptr)
+	if (_selectedItem != nullptr) 
+	{
 		_selectedItem->select(false);
+
+		if (_selectedItem != item)
+		{
+			_selectedItem = item;
+			_selectedItem->select(true);
+		}
+		else
+			_selectedItem = nullptr;
+	}
 	else if (item != _firstWeaponFrame && item != _secondWeaponFrame)
 	{
 		_selectedItem = item;
@@ -223,12 +233,13 @@ void DepotPanel::swapDistanceItems(ShopItem* _equiped)
 	infoSelected._equiped = true;
 	infoEquiped._equiped = false;
 
-	//Cambiar cuadro por equipado
-	//_selectedItem->setItemInfo(infoEquiped);
-	//_equiped->setItemInfo(infoSelected);
+	_selectedItem->setItemInfo(infoEquiped);
+	_equiped->setItemInfo(infoSelected);
 
-	_selectedItem->setImage(_game->getTexture(infoSelected._rarityFrame));
-	_equiped->setImage(_game->getTexture("ItemFrame"));
+
+	//Cambiar cuadro por equipado
+	/*_selectedItem->setImage(_game->getTexture(infoSelected._rarityFrame));
+	_equiped->setImage(_game->getTexture("ItemFrame"));*/
 
 	//Cambio de texturas
 	/*auto imageSelect = _selectedItem->getImage();
