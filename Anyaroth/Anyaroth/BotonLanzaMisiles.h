@@ -16,8 +16,9 @@ private:
 	PlayState* _play = nullptr;
 
 	bool ready = false, usable = true;
+	int _activeFase;
 public:
-	BotonLanzaMisiles(Game* g, Boss1* Boss, Texture* texture, Vector2D pos);
+	BotonLanzaMisiles(Game* g, Boss1* Boss, Texture* texture, Vector2D pos, int activeFase);
 	virtual void update(const double& deltaTime);
 	virtual ~BotonLanzaMisiles();
 

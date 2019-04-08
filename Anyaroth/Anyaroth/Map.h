@@ -24,7 +24,7 @@ private:
 
 	vector <ObjectLayer*> _objectLayers;
 
-	int _coinValue;
+	int _coinValue, _faseMisil=0;
 
 public:
 	Map(string filename, Game* game, Player* player, Texture* tileset, BulletPool* bulletPool, PlayStateHUD* hud, int coinValue);
