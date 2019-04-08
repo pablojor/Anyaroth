@@ -23,6 +23,12 @@
                  "height":16,
                  "id":2,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"Data",
+                         "type":"string",
+                         "value":"Jose Maria 1"
+                        }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
