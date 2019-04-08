@@ -100,6 +100,7 @@ void PlayState::update(const double& deltaTime)
 	if (_player->changeLevel())
 	{
 		_player->setChangeLevel(false);
+		_player->revive();
 		_currentLevel++;
 		_levelManager.changeLevel(_currentLevel);
 	}

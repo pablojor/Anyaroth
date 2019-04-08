@@ -130,6 +130,10 @@ void Player::endCollision(GameObject * other, b2Contact* contact)
 void Player::die()
 {
 	setDead(true);
+
+	_money->restartWallet();
+	_playerPanel->updateCoinsCounter(_money->getWallet());
+
 	_body->getBody()->SetLinearVelocity(b2Vec2(0.0, 0.0));
 	_body->getBody()->SetAngularVelocity(0);
 }
@@ -140,9 +144,6 @@ void Player::revive()
 
 	_life.resetLife();
 	_playerPanel->updateLifeBar(_life.getLife(), _life.getMaxLife());
-
-	_money->restartWallet();
-	_playerPanel->updateCoinsCounter(_money->getWallet());
 
 	_currentGun->resetAmmo();
 	if(_otherGun != nullptr) _otherGun->resetAmmo();

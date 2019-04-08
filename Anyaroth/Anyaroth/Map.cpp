@@ -124,9 +124,9 @@ void Map::createObjects()
 				_objects->addChild(_boss1);
 				_boss1->setBossPanel(_hud->getBossPanel());
 			}
-			else if (name == "NPCs")
+			else if (name == "NPC")
 			{
-				_npc = new NPC(_game, { 60, 730 }, { _game->getTexture("DialogueFace"),
+				_npc = new NPC(_game, Vector2D(pos[j].getX() - TILES_SIZE * 2, pos[j].getY() - TILES_SIZE * 2), { _game->getTexture("DialogueFace"),
 																"exampleVoice",
 																"Jose Maria",
 																{ "*Bzzt..Bip, bip..* Hey, que tal?",
