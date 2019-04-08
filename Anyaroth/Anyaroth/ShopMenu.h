@@ -31,11 +31,15 @@ class ShopMenu : public PanelUI
 
 		int _zone = 1;
 
+		bool _talking = false;
+
 		void loadWeaponInfo();
 
 	public:
 		ShopMenu(Game* game);
 		~ShopMenu();
+
+		virtual void update(const double& deltaTime);
 
 		void setPlayer(Player* ply);
 

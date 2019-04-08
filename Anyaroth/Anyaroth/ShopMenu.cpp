@@ -91,6 +91,18 @@ ShopMenu::~ShopMenu()
 	}
 }
 
+
+void ShopMenu::update(const double& deltaTime)
+{
+	PanelUI::update(deltaTime);
+
+	if (_talking && _dialoguePanel->conversationEnd())
+	{
+		_talking = false;
+		stopTalking();
+	}
+}
+
 void ShopMenu::loadWeaponInfo()
 {
 	auto weaponInfo = WeaponManager::getAllWeaponInfo();
@@ -211,8 +223,9 @@ void ShopMenu::closeCatalogPanel(Game * game)
 
 void ShopMenu::startTalking(Game* game)
 {
-	//disableMainMenu(game);
-	_dialoguePanel->endDialogue();
+	disableMainMenu(game);
+
+	_talking = true;
 	_dialoguePanel->startDialogue({
 		nullptr,
 		"exampleVoice",
@@ -228,7 +241,6 @@ void ShopMenu::startTalking(Game* game)
 
 void ShopMenu::stopTalking()
 {
-	_dialoguePanel->endDialogue();
 	ableMainMenu(_game);
 }
 

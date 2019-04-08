@@ -102,11 +102,15 @@ void DialoguePanel::startDialogue(const Dialogue& dialogue)
 		//ponemos visible el cuadro de dialogo primero antes que las demas cosas
 		setVisible(true);
 		_backgroundImage->setVisible(true);
-		//comenzamos animación de abrir diálogo
-		_backgroundImage->playAnim(AnimatedImageUI::Start);
-		_nameBackground->playAnim(AnimatedImageUI::Start);
-		//REPRODUCIR SONIDO DE ABRIR DIALOGO
-		_game->getSoundManager()->playSFX("openDialogue");
+
+		if (_keepLastLine)
+		{
+			//comenzamos animación de abrir diálogo
+			_backgroundImage->playAnim(AnimatedImageUI::Start);
+			_nameBackground->playAnim(AnimatedImageUI::Start);
+			//REPRODUCIR SONIDO DE ABRIR DIALOGO
+			_game->getSoundManager()->playSFX("openDialogue");
+		}
 	}
 }
 
@@ -248,7 +252,7 @@ void DialoguePanel::update(const double& deltaTime)
 			setVisible(false);
 		}
 		//Cuando termine animacion de abrir dialogo (START DIALOGUE)
-		else if (_backgroundImage->getCurrentAnim() == AnimatedImageUI::Start && _backgroundImage->animationFinished())
+		else if ((_keepLastLine && _backgroundImage->getCurrentAnim() != AnimatedImageUI::Default) || (_backgroundImage->getCurrentAnim() == AnimatedImageUI::Start && _backgroundImage->animationFinished()))
 		{
 			_backgroundImage->playAnim(AnimatedImageUI::Default);
 			_nameBackground->playAnim(AnimatedImageUI::Default);
