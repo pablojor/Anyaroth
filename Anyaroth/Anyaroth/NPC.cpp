@@ -6,7 +6,7 @@ NPC::NPC(Game* g, Vector2D posIni, Dialogue dialogue) : Interactable(g, posIni)
 {
 	_dialogue = dialogue;
 
-	addComponent<Texture>(g->getTexture("Coin"));
+	addComponent<Texture>(g->getTexture("Npc"));
 
 	auto _texture = getComponent<Texture>();
 	auto _indicatorTexture = _interactIndicator->getComponent<Texture>();
@@ -22,7 +22,7 @@ NPC::NPC(Game* g, Vector2D posIni, Dialogue dialogue) : Interactable(g, posIni)
 
 
 	_anim = addComponent<AnimatedSpriteComponent>();
-	_anim->addAnim(AnimatedSpriteComponent::Main, 6, true);
+	_anim->addAnim(AnimatedSpriteComponent::Main, 8, true);
 
 	_anim->playAnim(AnimatedSpriteComponent::Main);
 
