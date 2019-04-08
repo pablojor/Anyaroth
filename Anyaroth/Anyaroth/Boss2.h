@@ -24,6 +24,10 @@ public:
 	virtual void meleeAttack();
 	void endJump();
 	virtual void checkMelee();
+	virtual int const  getDamage()
+	{
+		return _damage;
+	}
 
 	virtual void fase1(const double& deltaTime);
 	virtual void fase2(const double& deltaTime);

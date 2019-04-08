@@ -52,7 +52,7 @@ void Boss2::Jump()
 	_body->getBody()->ApplyLinearImpulseToCenter(b2Vec2(_dir * 300, -300), true);
 
 	b2PolygonShape shape;
-	shape.SetAsBox(13 / M_TO_PIXEL, 15 / M_TO_PIXEL, b2Vec2(0, 0), 0);
+	shape.SetAsBox(15 / M_TO_PIXEL, 22 / M_TO_PIXEL, b2Vec2(0, 0), 0);
 	b2FixtureDef fDef;
 	fDef.shape = &shape;
 	fDef.filter.categoryBits = MELEE;
@@ -61,6 +61,8 @@ void Boss2::Jump()
 	setTag("Melee");
 	_body->addFixture(&fDef, this);
 	
+	_damage = 20;
+
 	_doSomething = _game->random(1500, 2500);
 }
 
