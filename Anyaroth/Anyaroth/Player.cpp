@@ -242,7 +242,7 @@ void Player::swapGun()
 		_otherGun = auxGun;
 		_playerArm->setTexture(_currentGun->getArmTexture());
 		_playerPanel->updateAmmoViewer(_currentGun->getClip(), _currentGun->getMagazine());
-		_playerPanel->updateWeaponryViewer();
+		if(_currentGun->getIconTexture() != nullptr) _playerPanel->updateWeaponryViewer(_currentGun->getIconTexture());
 	}
 }
 

@@ -17,10 +17,10 @@ protected:
 
 	Vector2D _offset = { 0, 0 };
 
-	Texture* _armTexture = nullptr, *_bulletTexture = nullptr;
+	Texture* _armTexture = nullptr, *_bulletTexture = nullptr, *_iconTexture = nullptr;
 
 public:
-	Gun(Texture* armTexture, Texture* bulletTexture, double speed, double damage, double range, int maxClip, int maxMagazine, double maxCadence, EffectInterface* effect, bool automatic = false, BulletAnimType bType = BulletAnimType::Default);
+	Gun(Texture* armTexture, Texture* bulletTexture, double speed, double damage, double range, int maxClip, int maxMagazine, double maxCadence, EffectInterface* effect, bool automatic = false, BulletAnimType bType = BulletAnimType::Default, Texture* iconTexture = nullptr);
 	virtual ~Gun() {}
 
 	virtual void shoot(PoolWrapper* bulletPool, const Vector2D& position, const double& angle, const string& tag);
@@ -49,6 +49,7 @@ public:
 	
 	inline Texture* getBulletTexture() const { return _bulletTexture; }
 	inline Texture* getArmTexture() const { return _armTexture; }
+	inline Texture* getIconTexture() const { return _iconTexture; }
 
 	//setters
 	void setEffect(EffectInterface* effect) { _effect = effect; }
@@ -56,6 +57,6 @@ public:
 	inline void setBulletSpeed(double value) { _speed = value; }
 	inline void setDamage(double value) { _damage = value; }
 	inline void setBulletAnimType(BulletAnimType bType) { _bulletAnimType = bType; }
-	inline BulletAnimType getBulletAnimType() { return _bulletAnimType; }
+	inline BulletAnimType getBulletAnimType() const { return _bulletAnimType; }
 
 };
