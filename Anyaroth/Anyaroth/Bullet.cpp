@@ -23,17 +23,23 @@ Bullet::Bullet(Game* game) : GameObject(game)
 	setActive(false);
 }
 
-void Bullet::beginCollision(GameObject * other, b2Contact* contact)
+Bullet::~Bullet()
 {
-	if(getTag() == "Bullet" && (other->getTag() == "Ground" || other->getTag() == "Platform" || other->getTag() == "Enemy"))
-		_collided = true;
-	else if (getTag() == "EnemyBullet" && (other->getTag() == "Ground" || other->getTag() == "Platform" || other->getTag() == "Player"))
-		_collided = true;
-
-	contact->SetEnabled(false);
 }
 
-void Bullet::init(Texture* texture, const Vector2D& position, const double& speed, const double& damage, const double& angle, const double& range, const string& tag)
+void Bullet::beginCollision(GameObject * other, b2Contact* contact)
+{
+	if(isActive() && _effect != nullptr)
+		_effect->beginCollision(this, other, contact);
+}
+
+void Bullet::endCollision(GameObject * other, b2Contact* contact)
+{
+	if(isActive() && _effect != nullptr)
+		_effect->endCollision(this, other, contact);
+}
+
+void Bullet::init(Texture* texture, const Vector2D& position, const double& speed, const double& damage, const double& angle, const double& range, const string& tag, EffectInterface* effect)
 {
 	setTag(tag);
 	_iniPos = position;
@@ -42,12 +48,19 @@ void Bullet::init(Texture* texture, const Vector2D& position, const double& spee
 	_damage = damage;
 	_range = range;
 
+
 	_texture = texture;
 	_transform->setRotation(angle);
 
 	_body->getBody()->SetActive(true);
 	_body->getBody()->SetTransform({ (float32)(position.getX() / M_TO_PIXEL), (float32)(position.getY() / M_TO_PIXEL) }, _body->getBody()->GetAngle());
 	_body->getBody()->SetLinearVelocity(b2Vec2(0, 0));
+
+
+
+
+	_effect = effect;
+	_effect->init(this);
 
 	_anim->setTexture(texture);
 	_anim->addAnim(AnimatedSpriteComponent::Default, 4, false);
@@ -57,31 +70,17 @@ void Bullet::init(Texture* texture, const Vector2D& position, const double& spee
 
 void Bullet::update(const double& deltaTime) 
 {
-	if (isActive())
-	{
-		double dist = _iniPos.distance(_transform->getPosition());
-
-		if (dist < _range && !_collided)
-		{
-			GameObject::update(deltaTime);
-
-			_body->getBody()->SetLinearVelocity(b2Vec2(_speed * cos(_transform->getRotation() * M_PI / 180.0), _speed * sin(_transform->getRotation() * M_PI / 180.0)));
-			_aliveTime++;
-		}
-		else
-			reset();
-	}
-}
-
-void Bullet::reset()
-{
-	_body->getBody()->SetActive(false);
-	setActive(false);
-	_aliveTime = 0;
-	_collided = false;
+	if(isActive() && _effect != nullptr)
+		_effect->update(this, deltaTime);
 }
 
 void Bullet::changeFilter() 
 {
 	_body->filterCollisions(ENEMY_BULLETS, FLOOR | PLATFORMS | PLAYER);
+}
+
+void Bullet::reset()
+{
+	if(isActive() && _effect != nullptr)
+		_effect->reset(this);
 }

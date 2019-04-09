@@ -1,18 +1,9 @@
 ﻿#include "Player.h"
 #include "Game.h"
 #include "Coin.h"
-#include "BasicPistol.h"
-#include "BasicShotgun.h"
-#include "ImprovedShotgun.h"
-#include "BasicRifle.h"
-#include "ImprovedRifle.h"
-//#include "PlasmaSniper.h"
-#include "BounceOrbCannon.h"
-//#include "GravitationalBombCannon.h"
 #include "Axe.h"
 #include "GunType_def.h"
 #include "WeaponManager.h"
-
 
 Player::Player(Game* game, int xPos, int yPos) :  GameObject(game, "Player")
 {

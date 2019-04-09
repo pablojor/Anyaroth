@@ -21,13 +21,15 @@ DistanceDynamicEnemy::DistanceDynamicEnemy(Game* g, Player* player, Vector2D pos
 	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 
 	_body->addCricleShape(b2Vec2(0, _body->getH() + _body->getH() / 20), _body->getW() - _body->getW() / 20, ENEMIES, FLOOR | PLATFORMS);
+
+	addSensors();
 }
 
 void DistanceDynamicEnemy::update(const double& deltaTime)
 {
 	DistanceEnemy::update(deltaTime);
 
-	if (!isDead() && inCamera())
+	if (!isStunned() && !isDead() && inCamera())
 	{
 		bool inVision = _playerDistance.getX() < _vision && _playerDistance.getX() > -_vision && _playerDistance.getY() < _vision && _playerDistance.getY() > -_vision;
 
@@ -72,7 +74,7 @@ void DistanceDynamicEnemy::attacking(const double& deltaTime)
 		raycast();
 		shoot();
 
-		if(!_armVision)
+		if(!_armVision && !isStunned())
 			_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
 	}
 }
