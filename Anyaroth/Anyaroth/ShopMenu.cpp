@@ -154,7 +154,7 @@ void ShopMenu::closeShop()
 {
 	_dialoguePanel->endDialogue();
 	_dialoguePanel->stopAtLastLineShown(false);
-	_dialoguePanel->setVisible(false);
+
 	_player->setActive(true);
 }
 

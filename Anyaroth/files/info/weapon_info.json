@@ -4,7 +4,7 @@
       "BasicPistol": 
       {
         "zona": -1,
-	"frame": "BasicFrame",
+	      "frame": "BasicFrame",
         "icon": "Dash",
         "price": 0,
         "speed": 100,
@@ -19,7 +19,7 @@
       "BasicRifle": 
       {
         "zona": 1,
-	"frame": "BasicFrame",
+	      "frame": "BasicFrame",
         "icon": "Dash",
         "price": 150,
         "speed": 100,
@@ -34,7 +34,7 @@
       "BasicShotgun": 
       {
         "zona": 1,
-	"frame": "BasicFrame",
+	      "frame": "BasicFrame",
         "icon": "Dash",
         "price": 150,
         "speed": 100,
@@ -82,6 +82,21 @@
 
     "Rare" :
     {
+      "PlasmaSniper": 
+      {
+        "zona": 3,
+	      "frame": "RareFrame",
+        "icon": "Dash",
+        "price": 1250,
+        "speed": 100,
+        "damage": 60,
+        "range": 1000,
+        "clip": 1,
+        "magazine": 30,
+        "cadence": 1500,
+        "id": 5
+      },
+
       "BounceOrbCanon": 
       {
         "zona": 2,
@@ -95,6 +110,21 @@
         "magazine": 120,
         "cadence": 200,
         "id": 6
+      },
+
+      "GravityCannon": 
+      {
+        "zona": 2,
+	      "frame": "RareFrame",
+        "icon": "Dash",
+        "price": 1000,
+        "speed": 45,
+        "damage": 5,
+        "range": 150,
+        "clip": 3,
+        "magazine": 30,
+        "cadence": 400,
+        "id": 7
       }
     }
 }
