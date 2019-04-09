@@ -32,7 +32,7 @@ void BouncingBullet::endCollision(GameObject * other, b2Contact* contact)
 	_isColliding = false;
 }
 
-void BouncingBullet::update(double time)
+void BouncingBullet::update(double deltaTime)
 {
 	if (isActive()) {
 
@@ -40,7 +40,7 @@ void BouncingBullet::update(double time)
 
 		if (dist < _range && !_collided && _numBounces < _maxBounces)
 		{
-			GameObject::update(time);
+			GameObject::update(deltaTime);
 			_aliveTime++;
 		}
 		else

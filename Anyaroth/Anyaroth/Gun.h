@@ -5,6 +5,9 @@
 
 class Gun
 {
+private:
+	GunType _id;
+
 protected:
 	int _maxMagazine = 0, _magazine = 0, _maxClip = 0, _clip = 0;
 	double _maxCadence = 0, _cadence = 0;	//Tiempo entre bala y bala (se actualizara con el deltaTime)
@@ -18,7 +21,7 @@ protected:
 	Texture* _armTexture = nullptr, *_bulletTexture = nullptr;
 
 public:
-	Gun(Texture* armTexture, Texture* bulletTexture, double speed, double damage, double range, int maxClip, int maxMagazine, double maxCadence, EffectInterface* effect, bool automatic = false);
+	Gun(Texture* armTexture, Texture* bulletTexture, double speed, double damage, double range, int maxClip, int maxMagazine, double maxCadence, EffectInterface* effect, bool automatic, GunType id);
 	virtual ~Gun() {}
 
 	virtual void shoot(PoolWrapper* bulletPool, const Vector2D& position, const double& angle, const string& tag);
@@ -48,6 +51,7 @@ public:
 	inline Texture* getBulletTexture() const { return _bulletTexture; }
 	inline Texture* getArmTexture() const { return _armTexture; }
 
+	inline const GunType& getGunID() const { return _id; }
 	//setters
 	void setEffect(EffectInterface* effect) { _effect = effect; }
 	inline void setMaxCadence(double value) { _maxCadence = value; _cadence = 0; }

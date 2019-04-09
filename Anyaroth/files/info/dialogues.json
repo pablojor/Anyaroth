@@ -1,0 +1,16 @@
+{
+    "dialogues": {
+        "Jose Maria 1": {
+            "face" : "DialogueFace",
+            "name": "Jose Maria",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "*Bzzt..Bip, bip..* Hey, �qu� tal?",
+                "Aj�, con que programando... ya veo...",
+                "�Pues sigue con eso, chaval! Deja de jugar tanto al Sekiro y ponte a estudiar de una maldita vez, escoria infrahumana (...) �Adew! *Bip*"
+            ],
+            "faces" : [ 0, 1, 2],
+            "sounds": [ " ", " ", " ", " "]
+        }
+    }
+}

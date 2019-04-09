@@ -2,7 +2,7 @@
 
 
 
-Shotgun::Shotgun(Texture* armTexture, Texture* bulletTexture, double speed, double damage, double range, int maxClip, int maxMagazine, double maxCadence, BulletEffect* effect, bool automatic) : Gun( armTexture,  bulletTexture,  speed,  damage,  range,  maxClip,  maxMagazine,  maxCadence, effect,  automatic)
+Shotgun::Shotgun(Texture* armTexture, Texture* bulletTexture, double speed, double damage, double range, int maxClip, int maxMagazine, double maxCadence, BulletEffect* effect, bool automatic, GunType id) : Gun( armTexture,  bulletTexture,  speed,  damage,  range,  maxClip,  maxMagazine,  maxCadence, effect,  automatic, id)
 {
 	_offset = { 28, -1 };
 }

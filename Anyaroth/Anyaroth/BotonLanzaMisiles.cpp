@@ -4,7 +4,7 @@
 #include "AnimatedSpriteComponent.h"
 #include "Game.h"
 
-BotonLanzaMisiles::BotonLanzaMisiles(Game* g, Boss1* boss, Texture* texture, Vector2D pos) : _boss(boss), Interactable(g, pos)
+BotonLanzaMisiles::BotonLanzaMisiles(Game* g, Boss1* boss, Texture* texture, Vector2D pos, int activeFase) : _boss(boss), _activeFase(activeFase), Interactable(g, pos)
 {
 	addComponent<Texture>(texture);
 
@@ -31,7 +31,7 @@ void BotonLanzaMisiles::update(const double & deltaTime)
 	Interactable::update(deltaTime);
 
 	if (usable )
-		ready = _boss->isbeetweenFases();
+		ready = _boss->isbeetweenFases() && _activeFase >= _boss->getLastFase();
 	if (_canInteract)
 	{
 		if(usable && ready)

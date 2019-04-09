@@ -5,9 +5,13 @@
 #include "NPC.h"
 #include "PiercingBulletPool.h"
 #include "checkML.h"
+#include "WeaponManager.h"
 
 PlayState::PlayState(Game* g) : GameState(g)
 {
+	//Inicializa el manager de armas
+	WeaponManager::init();
+
 	//HUD
 	_hud = new PlayStateHUD(g);
 	setCanvas(_hud);
@@ -18,20 +22,29 @@ PlayState::PlayState(Game* g) : GameState(g)
 	//SDL_ShowCursor(false);
 
 	//Player
-	_player = new Player(g, 100, 500);
+	_player = new Player(g, 10, 200);
 	_stages.push_back(_player);
+
+	_player->setPlayerPanel(_hud->getPlayerPanel());
+
+	_hud->getShop()->setPlayer(_player);
+	_hud->getShop()->setVisible(false);
 
 	//Pool player
 	_playerBulletPool = new BulletPool(g);
 	_stages.push_back(_playerBulletPool);
 
 	_player->setPlayerBulletPool(_playerBulletPool);
-	_player->setPlayerPanel(_hud->getPlayerPanel());
 
 	//Levels
-	_currentZone = _currentLevel = 1;
+	_currentZone = 1;
+	_currentLevel = 3;
 	_levelManager = LevelManager(g, _player, &_stages, _hud);
-	_levelManager.setLevel(_currentZone, 1);
+	_levelManager.setLevel(_currentZone, _currentLevel);
+
+	//Tienda PROVISIONAL
+	_shop = new Shop(_gameptr, Vector2D(50, 330), _hud->getShop(), _currentZone);
+	_stages.push_back(_shop);
 
 	//Background
 	_parallaxZone1 = new ParallaxBackGround(_mainCamera);

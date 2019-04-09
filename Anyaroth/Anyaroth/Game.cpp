@@ -3,13 +3,15 @@
 #include "AnyarothError.h"
 #include <json.hpp>
 
+using namespace nlohmann;
+
 void Game::createTextures()
 {
 	ifstream input;
 	input.open(INFO_PATH + "assets.json");
 	if (input.is_open())
 	{
-		nlohmann::json j;
+		json j;
 		input >> j;
 		j = j["textures"];
 		int numTextures = j.size();
@@ -37,7 +39,7 @@ void Game::createFonts()
 	input.open(INFO_PATH + "assets.json");
 	if (input.is_open())
 	{
-		nlohmann::json j;
+		json j;
 		input >> j;
 		j = j["fonts"];
 		int numFonts = j.size();
@@ -76,6 +78,42 @@ void Game::createSounds()
 	_soundManager->addSFX("exampleVoice", SOUNDS_PATH + "exampleVoice.wav");
 		//Boss
 	_soundManager->addSFX("bossVoice", SOUNDS_PATH + "bossVoice.wav");
+}
+
+void Game::createDialogues()
+{
+	ifstream input;
+	input.open(INFO_PATH + "dialogues.json");
+	if (input.is_open())
+	{
+		json j;
+		input >> j;
+		j = j["dialogues"];
+		for (json::iterator it = j.begin(); it != j.end(); ++it) 
+		{
+			string id = it.key();
+			json aux = it.value();
+			cout << id<<endl;
+			int numDialogues = j.size();
+			string face, voice, name;
+			vector<string> conversation;
+			vector<int> faces;
+			vector<string> sounds;
+
+			face = aux["face"].get<string>();
+			name = aux["name"].get<string>();
+			voice = aux["voice"].get<string>();
+			conversation = aux["dialogue"].get<vector<string>>();
+			faces = aux["faces"].get<vector<int>>();
+			sounds = aux["sounds"].get<vector<string>>();
+
+			_dialogues.insert(pair <string, Dialogue>(id, Dialogue{ getTexture(face),voice,name, conversation,faces,sounds }));
+		}
+	}
+	else
+		throw AnyarothError("No se ha encontrado el archivo introducido");
+
+	input.close();
 }
 
 /*Texture* Game::newTexture(string id, string nameText)
@@ -123,6 +161,8 @@ Game::Game()
 	//---Create sounds
 	_soundManager = new SoundManager();
 	createSounds();
+	//---Create dialogues
+	createDialogues();
 	//---Create world
 	_world = new b2World(b2Vec2(0.0, 9.8));
 	//---Create states
@@ -178,7 +218,7 @@ void Game::render() const
 {
 	SDL_RenderClear(_renderer);
 	_stateMachine->currentState()->render();
-	_world->DrawDebugData();
+	//_world->DrawDebugData();
 	SDL_RenderPresent(_renderer);
 }
 

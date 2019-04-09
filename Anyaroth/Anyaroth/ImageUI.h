@@ -15,14 +15,15 @@ public:
 	~ImageUI() {}
 
 	virtual void render() const;
-	virtual void update(double time) {}
+	virtual void update(const double& deltaTime) {}
 	virtual void handleEvent(const SDL_Event& event) {}
 
 	inline void setImage(Texture* image) { _image = image; }
 	inline Texture* getImage() const { return _image; }
+	inline SDL_Rect getClipArea() const { return _clipArea; }
 
-	void setPosition(int x, int y);
-	void setSize(int w, int h);
+	virtual void setPosition(int x, int y);
+	virtual void setSize(int w, int h);
 	void setClippingAreaSize(float w, float h);		//Solo el alto y ancho porque la posicion tiene que ser la misma (Valor de 0 a 1)
 
 	inline int getW() const { return _destRect.w; }
