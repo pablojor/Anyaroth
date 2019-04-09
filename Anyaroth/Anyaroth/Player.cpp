@@ -54,6 +54,7 @@ Player::Player(Game* game, int xPos, int yPos) : GameObject(game, "Player")
 	_anim->addAnim(AnimatedSpriteComponent::DashDown, 3, true);
 	_anim->addAnim(AnimatedSpriteComponent::DashBack, 6, false);
 	_anim->addAnim(AnimatedSpriteComponent::ReloadShotgun, 5, false);
+	_anim->addAnim(AnimatedSpriteComponent::PlayerDie, 35, false);
 
 	//Brazo
 	_playerArm = new PlayerArm(game, this, { 28, 15 });
@@ -131,7 +132,8 @@ void Player::die()
 {
 	if (!isDead())
 	{
-		_anim->playAnim(AnimatedSpriteComponent::MeleeKnife);
+		_anim->playAnim(AnimatedSpriteComponent::PlayerDie);
+		_playerArm->setActive(false);
 		setDead(true);
 		_body->getBody()->SetLinearVelocity(b2Vec2(0.0, 0.0));
 		_body->getBody()->SetAngularVelocity(0);
@@ -141,6 +143,7 @@ void Player::die()
 void Player::revive()
 {
 	setDead(false);
+	_playerArm->setActive(true);
 
 	_life.resetLife();
 	_playerPanel->updateLifeBar(_life.getLife(), _life.getMaxLife());
@@ -149,7 +152,7 @@ void Player::revive()
 	_playerPanel->updateCoinsCounter(_money->getWallet());
 
 	_currentGun->resetAmmo();
-	if(_otherGun != nullptr) _otherGun->resetAmmo();
+	if (_otherGun != nullptr) _otherGun->resetAmmo();
 	_playerPanel->updateAmmoViewer(_currentGun->getClip(), _currentGun->getMagazine());
 
 	_playerPanel->resetDashViewer();
@@ -223,15 +226,18 @@ void Player::update(const double& deltaTime)
 	const Uint8* keyboard = SDL_GetKeyboardState(NULL);
 	GameObject::update(deltaTime);
 
-	if (isDashing() || isMeleeing() || isReloading())
-		_playerArm->setActive(false);
-	else
-		_playerArm->setActive(true);
+	if (!isDead())
+	{
+		if (isDashing() || isMeleeing() || isReloading())
+			_playerArm->setActive(false);
+		else
+			_playerArm->setActive(true);
 
-	if (isDashing() || isMeleeing() || isReloading())
-		_playerArm->setActive(false);
-	else if (!_playerArm->isActive())
-		_playerArm->setActive(true);
+		if (isDashing() || isMeleeing() || isReloading())
+			_playerArm->setActive(false);
+		else if (!_playerArm->isActive())
+			_playerArm->setActive(true);
+	}
 
 	checkMovement(keyboard);
 	checkMelee();
@@ -248,7 +254,7 @@ void Player::swapGun()
 		_otherGun = auxGun;
 		_playerArm->setTexture(_currentGun->getArmTexture());
 		_playerPanel->updateAmmoViewer(_currentGun->getClip(), _currentGun->getMagazine());
-		if(_currentGun->getIconTexture() != nullptr) _playerPanel->updateWeaponryViewer(_currentGun->getIconTexture());
+		if (_currentGun->getIconTexture() != nullptr) _playerPanel->updateWeaponryViewer(_currentGun->getIconTexture());
 	}
 }
 
@@ -300,7 +306,7 @@ void Player::handleAnimations()
 	//La animacion del Dash se activa en la funcion del Dash, 
 	//ya que se trata de una habilidad y no del movimiento "normal" del personaje
 	auto vel = _body->getBody()->GetLinearVelocity();
-	
+
 	if (!isDead())
 	{
 		//Idle&Walking
@@ -383,7 +389,7 @@ void Player::dashTimer(const double & deltaTime)
 void Player::refreshGunCadence(const double& deltaTime)
 {
 	_currentGun->refreshGunCadence(deltaTime);
-	if(_otherGun != nullptr)
+	if (_otherGun != nullptr)
 		_otherGun->refreshGunCadence(deltaTime);
 }
 

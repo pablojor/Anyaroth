@@ -39,7 +39,7 @@ private:
 	//Variable auxiliares
 	double _dashCD = 1000;
 
-	int _maxDash = 1, 
+	int _maxDash = 1,
 		_numDash = _maxDash,
 		_dashDur = 250;
 
@@ -115,7 +115,7 @@ public:
 	inline void setChangeLevel(bool change) { _changeLevel = change; }
 
 	inline bool isGrounded() const { return _floorCount; }
-	inline bool isDead() const { return GameObject::isDead() && _anim->animationFinished(); }
+	inline bool isDead() const { return GameObject::isDead(); }
 	bool isDashing() const;
 	bool isMeleeing() const;
 	bool isReloading() const;
