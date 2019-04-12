@@ -386,6 +386,7 @@ void Boss1::beetwenFases(const double& deltaTime)
 {
 	bomberAttack(deltaTime, 200, 600);
 	_actualState = Bombing;
+	checkMelee(deltaTime);
 
 	if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaStartShield)
 	{

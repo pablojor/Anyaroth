@@ -11,7 +11,7 @@
 class Boss1 : public Boss
 {
 	private:
-		Vector2D _amplitude = Vector2D(150,25), _velocity = Vector2D(0.5, 0.5), _dir = Vector2D(1,0);
+		Vector2D _amplitude = Vector2D(150,25), _velocity = Vector2D(0.8, 0.8), _dir = Vector2D(1,0);
 		double  _damage = 50, _angularFrequency = 0.05, _k = _angularFrequency / _velocity.distance(Vector2D());
 
 		//Cosas para el ataque bombardero
