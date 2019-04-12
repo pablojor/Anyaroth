@@ -2,7 +2,7 @@
 
 
 
-BomberGun::BomberGun(Game* game) : Gun(game->getTexture("ArmShotgun"), game->getTexture("Coin"), 0, 10, 600, 3, 30, 400, &_effect, false)
+BomberGun::BomberGun(Game* game) : Gun(game->getTexture("ArmShotgun"), game->getTexture("Coin"), 0, 10, 600, 3, 30, 400, &_effect, false, BomberGun_Weapon)
 {
 }
 

@@ -9,6 +9,8 @@
 //#include "Coin.h"
 //#include "ExplosiveBulletPool.h"
 #include "Cursor.h"
+#include "PlayStateHUD.h"
+#include "Shop.h"
 
 class PlayState : public GameState
 {
@@ -19,14 +21,15 @@ private:
 	//Bullet Pools
 	BulletPool* _playerBulletPool = nullptr; //Balas del jugador
 
-	//BulletPool* _enemyBulletPool = nullptr; //Balas de los enemigos
-	//ExplosiveBulletPool* _explosivePool = nullptr;
+	PlayStateHUD* _hud = nullptr;
 
 	LevelManager _levelManager;
 	CollisionManager _colManager;
 	DebugDraw _debugger;
 
 	ParallaxBackGround* _parallaxZone1 = nullptr;
+
+	Shop* _shop = nullptr;
 
 	int _currentZone;
 	int _currentLevel;

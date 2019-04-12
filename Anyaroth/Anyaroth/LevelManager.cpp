@@ -24,6 +24,8 @@ void LevelManager::setLevel(int zone, int level)
 			_objectList->push_back(_currentMap);
 			break;
 		case 3:
+			_currentMap = new Map(TILEMAP_PATH + "SafeZone.json", _game, _player, _tilesetZone1, _enemyBulletPool, _hud, 10);
+			_objectList->push_back(_currentMap);
 			break;
 		default:
 			break;

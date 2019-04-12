@@ -58,6 +58,12 @@
                  "height":16,
                  "id":5,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"Data",
+                         "type":"string",
+                         "value":"2"
+                        }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
@@ -70,6 +76,12 @@
                  "height":16,
                  "id":6,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"Data",
+                         "type":"string",
+                         "value":"3"
+                        }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
@@ -82,6 +94,12 @@
                  "height":16,
                  "id":7,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"Data",
+                         "type":"string",
+                         "value":"1"
+                        }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
