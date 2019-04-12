@@ -99,3 +99,7 @@ bool Enemy::inCamera()
 {
 	return _game->getCurrentState()->getMainCamera()->inCamera(Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL));
 }
+bool Enemy::inCameraX()
+{
+	return _game->getCurrentState()->getMainCamera()->inCameraX(Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, 0));
+}

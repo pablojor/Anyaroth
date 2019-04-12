@@ -47,4 +47,5 @@ public:
 	inline void setStunned(bool value) { _stunned = value; }
 
 	bool inCamera();
+	bool inCameraX();
 };
