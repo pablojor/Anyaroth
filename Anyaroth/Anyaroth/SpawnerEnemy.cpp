@@ -1,5 +1,4 @@
 #include "SpawnerEnemy.h"
-#include "Capsule.h"
 
 SpawnerEnemy::SpawnerEnemy(Game* g, Player* player, Vector2D pos) : Enemy(g, player, pos, g->getTexture("EnemyMartyr"))
 {
@@ -25,33 +24,35 @@ void SpawnerEnemy::move()
 	_body->getBody()->SetLinearVelocity({ _speed*(float32)_dir.getX(), _body->getBody()->GetLinearVelocity().y });
 }
 
-void SpawnerEnemy::dropCapsule(const double& deltaTime)
-{
-	if (_time >= _spawnTime && _currentEnemies < _maxEnemies)
-	{
-		_game->getCurrentState()->addObject(new Capsule(_game, _player, Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL), this));
-		_time = 0;
-	}
-	else
-		_time += deltaTime;
-}
-
 void SpawnerEnemy::update(const double& deltaTime)
 {
 	Enemy::update(deltaTime);
 
 	bool inVision = _playerDistance.getX() < _vision && _playerDistance.getX() > -_vision && _playerDistance.getY() < _vision && _playerDistance.getY() > -_vision;
 
-	if (!isDead() && inCamera() && inVision)
+	if (!isDead() && inVision)
 	{
 		_currentEnemies = deadEnemies();
 
-		if (_playerDistance.getX() > _attackRangeX)
-			_dir = Vector2D(1, 0);
-		else if (_playerDistance.getX() < -_attackRangeX)
-			_dir = Vector2D(-1, 0);
-		else if (_playerDistance.getX() < _attackRangeX && _playerDistance.getX() > -_attackRangeX)
-			_dir = Vector2D(0, 0);
+		if (!inCameraX() || _move)
+		{
+			if (_bloqueDer && _playerDistance.getX() < 0)
+			{
+				_dir = Vector2D(-1,0);
+				_move = false;
+				_bloqueDer = false;
+			}
+			else if (_bloqueIzq && _playerDistance.getX() > 0)
+			{
+				_dir = Vector2D(1, 0);
+				_move = false;
+				_bloqueIzq = false;
+			}
+			else if (_playerDistance.getX() < 0)
+				_dir = Vector2D(-1, 0);
+			else
+				_dir = Vector2D(1, 0);
+		}
 
 		move();
 		dropCapsule(deltaTime);
@@ -77,4 +78,28 @@ int SpawnerEnemy::deadEnemies()
 	}
 
 	return count;
+}
+
+void SpawnerEnemy::beginCollision(GameObject * other, b2Contact* contact)
+{
+	Enemy::beginCollision(other, contact);
+
+	string otherTag = other->getTag();
+
+	if (otherTag == "Ground" || otherTag == "Platform")
+	{
+		double x = other->getComponent<BodyComponent>()->getBody()->GetPosition().x;
+		double y = _body->getBody()->GetPosition().x;
+
+		if (x > y)
+		{
+			_bloqueDer = true;
+			_move = true;
+		}
+		else
+		{
+			_bloqueIzq = true;
+			_move = true;
+		}
+	}
 }

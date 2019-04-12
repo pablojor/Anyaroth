@@ -6,9 +6,13 @@
 #include "PiercingBulletPool.h"
 #include "checkML.h"
 #include "Boss2.h"
+#include "WeaponManager.h"
 
 PlayState::PlayState(Game* g) : GameState(g)
 {
+	//Inicializa el manager de armas
+	WeaponManager::init();
+
 	//HUD
 	_hud = new PlayStateHUD(g);
 	setCanvas(_hud);
@@ -22,17 +26,22 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_player = new Player(g, 100, 300);
 	_stages.push_back(_player);
 
-	//Pool player
-	_playerBulletPool = new BulletPool(g);
-	_stages.push_back(_playerBulletPool);
-
-	_player->setPlayerBulletPool(_playerBulletPool);
 	_player->setPlayerPanel(_hud->getPlayerPanel());
 
+	_hud->getShop()->setPlayer(_player);
+	_hud->getShop()->setVisible(false);
+
+	//Pool player
+	_playerBulletPool = new BulletPool(g);
+	auto enemyPool = new BulletPool(g);
+
+	_player->setPlayerBulletPool(_playerBulletPool);
+
 	//Levels
-	_currentZone = _currentLevel = 1;
+	_currentZone = 2;
+	_currentLevel = 3;
 	_levelManager = LevelManager(g, _player, &_stages, _hud);
-	_levelManager.setLevel(_currentZone, 3);
+	_levelManager.setLevel(_currentZone, _currentLevel);
 
 	Boss2* boss = new Boss2(g, _player, Vector2D(200, 300), _playerBulletPool);
 	_stages.push_back(boss);
@@ -44,9 +53,14 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_parallaxZone1->addLayer(new ParallaxLayer(g->getTexture("BgZ1L2"), _mainCamera, 0.5));
 	_parallaxZone1->addLayer(new ParallaxLayer(g->getTexture("BgZ1L3"), _mainCamera, 0.75));
 
+	//Balas se renderizan al final
+	_stages.push_back(_playerBulletPool);
+	_stages.push_back(enemyPool);
+
 	//Camera
 	_mainCamera->fixCameraToObject(_player);
 	_mainCamera->setBackGround(_parallaxZone1);
+
 
 	//Collisions and debugger
 	g->getWorld()->SetContactListener(&_colManager);
@@ -96,11 +110,15 @@ bool PlayState::handleEvent(const SDL_Event& event)
 
 void PlayState::update(const double& deltaTime)
 {
-	GameState::update(deltaTime);
 
 	if (_player->isDead())
 	{
+		cout << "player is dead\n";
+		_playerBulletPool->stopBullets();
 		_player->revive();
 		_levelManager.resetLevel();
 	}
+
+
+	GameState::update(deltaTime);
 }

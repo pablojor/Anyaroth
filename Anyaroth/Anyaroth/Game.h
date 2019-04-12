@@ -8,6 +8,7 @@
 #include "MenuState.h"
 #include "PlayState.h"
 #include "PauseState.h"
+#include "DialoguePanel.h"
 #include "SoundManager.h"
 
 // Resolución interna del juego
@@ -58,6 +59,7 @@ private:
 
 	map <string, Texture*> _textures;
 	map <string, Font*> _fonts;
+	map <string, Dialogue> _dialogues;
 	
 	b2World* _world = nullptr;
 	float _timestep = 1 / 60.0;
@@ -68,6 +70,7 @@ public:
 	void createTextures();
 	void createFonts();
 	void createSounds();
+	void createDialogues();
 
 	inline GameState* getCurrentState() const { return _stateMachine->currentState(); }
 	inline void pushState(GameState* state) { _stateMachine->pushState(state); }
@@ -77,6 +80,7 @@ public:
 	//Texture* newTexture(string id, string nameText);
 	inline Texture* getTexture(string nameText) { return _textures[nameText]; }
 	inline Font* getFont(string nameFont) { return _fonts[nameFont]; }
+	inline Dialogue getDialogue(string nameDialogue) { return _dialogues[nameDialogue]; }
 
 	inline SDL_Renderer* getRenderer() const { return _renderer; }
 	inline SDL_Window* getWindow() const { return _window; }

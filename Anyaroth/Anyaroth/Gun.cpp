@@ -2,7 +2,8 @@
 #include <algorithm>
 
 
-Gun::Gun(Texture* armTexture, Texture* bulletTexture, double speed, double damage, double range, int maxClip, int maxMagazine, double maxCadence, bool automatic) : _armTexture(armTexture), _bulletTexture(bulletTexture)
+
+Gun::Gun(Texture* armTexture, Texture* bulletTexture, double speed, double damage, double range, int maxClip, int maxMagazine, double maxCadence, EffectInterface* effect, bool automatic, GunType id,BulletAnimType bType) : _armTexture(armTexture), _bulletTexture(bulletTexture)
 {
 	_maxCadence = maxCadence;
 	_maxClip = maxClip;
@@ -13,6 +14,9 @@ Gun::Gun(Texture* armTexture, Texture* bulletTexture, double speed, double damag
 	_damage = damage;
 	_speed = speed;
 	_isAutomatic = automatic;
+	_id = id;
+	_effect = effect;
+	_bulletAnimType = bType;
 }
 
 void Gun::shoot(PoolWrapper* bulletPool, const Vector2D& position, const double& angle, const string& tag)
@@ -26,17 +30,12 @@ void Gun::shoot(PoolWrapper* bulletPool, const Vector2D& position, const double&
 		Bullet* b = bulletPool->getUnusedObject();
 		Vector2D bulletPos = prepareBulletPosition(position, angle);
 		if (b != nullptr)
-		{
-			b->init(_bulletTexture, bulletPos, _speed, _damage, angle, _range, tag);
-			b->changeFilter(false);
-		}
+			b->init(_bulletTexture, bulletPos, _speed, _damage, angle, _range, tag, _effect, _bulletAnimType);
 		else
-		{
-			bulletPool->addNewBullet()->init(_bulletTexture, bulletPos, _speed, _damage, angle, _range, tag);
-			b->changeFilter(false);
-		}
+			bulletPool->addNewBullet()->init(_bulletTexture, bulletPos, _speed, _damage, angle, _range, tag, _effect, _bulletAnimType);
 	}
 }
+
 void Gun::enemyShoot(PoolWrapper* bulletPool, const Vector2D& position, const double& angle, const string& tag)
 {
 	if (_cadence <= 0)
@@ -48,14 +47,14 @@ void Gun::enemyShoot(PoolWrapper* bulletPool, const Vector2D& position, const do
 		Vector2D bulletPos = prepareBulletPosition(position, angle);
 		if (b != nullptr)
 		{
-			b->init(_bulletTexture, bulletPos, _speed, _damage, angle, _range, tag);
-			b->changeFilter(true);
+			b->init(_bulletTexture, bulletPos, _speed, _damage, angle, _range, tag, _effect, _bulletAnimType);
+			b->changeFilter();
 		}
 		else
 		{
 			Bullet* b2 = bulletPool->addNewBullet();
-			b2->init(_bulletTexture, bulletPos, _speed, _damage, angle, _range, tag);
-			b2->changeFilter(true);
+			b2->init(_bulletTexture, bulletPos, _speed, _damage, angle, _range, tag, _effect, _bulletAnimType);
+			b2->changeFilter();
 		}
 	}
 }

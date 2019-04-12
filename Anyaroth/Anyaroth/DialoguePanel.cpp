@@ -22,11 +22,11 @@ DialoguePanel::DialoguePanel(Game* game) : PanelUI(game)
 	_backgroundImage->addAnim(AnimatedImageUI::Default, 1, false);
 	_backgroundImage->addAnim(AnimatedImageUI::End, 10, false);
 	_backgroundImage->addAnim(AnimatedImageUI::Start, 10, false);
-		//Background name
+	//Background name
 	_nameBackground->addAnim(AnimatedImageUI::Default, 1, false);
 	_nameBackground->addAnim(AnimatedImageUI::End, 7, false);
 	_nameBackground->addAnim(AnimatedImageUI::Start, 7, false);
-		//Indicator
+	//Indicator
 	_indicatorImage->addAnim(AnimatedImageUI::Idle, 7, true);
 
 	_backgroundImage->playAnim(AnimatedImageUI::Default);
@@ -102,12 +102,15 @@ void DialoguePanel::startDialogue(const Dialogue& dialogue)
 		//ponemos visible el cuadro de dialogo primero antes que las demas cosas
 		setVisible(true);
 		_backgroundImage->setVisible(true);
-		//_nameBackground->setVisible(true);
-		//comenzamos animación de abrir diálogo
-		_backgroundImage->playAnim(AnimatedImageUI::Start);
-		_nameBackground->playAnim(AnimatedImageUI::Start);
-		//REPRODUCIR SONIDO DE ABRIR DIALOGO
-		_game->getSoundManager()->playSFX("openDialogue");
+
+		if (_keepLastLine)
+		{
+			//comenzamos animación de abrir diálogo
+			_backgroundImage->playAnim(AnimatedImageUI::Start);
+			_nameBackground->playAnim(AnimatedImageUI::Start);
+			//REPRODUCIR SONIDO DE ABRIR DIALOGO
+			_game->getSoundManager()->playSFX("openDialogue");
+		}
 	}
 }
 
@@ -131,6 +134,9 @@ void DialoguePanel::endDialogue()
 		_dialogueTexts[i]->setText(" ");
 		_dialogueTexts[i]->setTextTyped(false);
 	}
+
+	for (int i = 0; i < _lines; i++)
+		_segments[i] = " ";
 
 	//REPRODUCIR SONIDO ESPECIAL DE FINAL DE DIALOGO
 	if (_dialogue.sounds[_currentText] != " ")
@@ -229,9 +235,9 @@ void DialoguePanel::chopTextIfNecesary(string text)
 		_segments[0] = text;
 }
 
-void DialoguePanel::update(double time)
+void DialoguePanel::update(const double& deltaTime)
 {
-	PanelUI::update(time);
+	PanelUI::update(deltaTime);
 
 	if (_visible)
 	{
@@ -246,7 +252,7 @@ void DialoguePanel::update(double time)
 			setVisible(false);
 		}
 		//Cuando termine animacion de abrir dialogo (START DIALOGUE)
-		else if (_backgroundImage->getCurrentAnim() == AnimatedImageUI::Start && _backgroundImage->animationFinished())
+		else if ((_keepLastLine && _backgroundImage->getCurrentAnim() != AnimatedImageUI::Default) || (_backgroundImage->getCurrentAnim() == AnimatedImageUI::Start && _backgroundImage->animationFinished()))
 		{
 			_backgroundImage->playAnim(AnimatedImageUI::Default);
 			_nameBackground->playAnim(AnimatedImageUI::Default);
@@ -275,9 +281,10 @@ void DialoguePanel::update(double time)
 			//Hacer visible indicador cuando termina de escribir el texto
 			if (_isConversating && !_indicatorImage->isVisible())
 			{
-				_indicatorImage->setVisible(true);
-
+				if (!_keepLastLine || (_keepLastLine && _currentText != _dialogue.conversation.size() - 1))
+					_indicatorImage->setVisible(true);
 			}
+
 		}//Si se ha terminado de escribir una linea, se escribe la siguiente
 		else if (_dialogueTexts[_linesTyped]->textTyped())
 		{
@@ -295,6 +302,9 @@ void DialoguePanel::handleEvent(const SDL_Event& event)
 	if (event.type == SDL_KEYDOWN && !event.key.repeat) // Captura solo el primer frame que se pulsa
 	{
 		if (event.key.keysym.sym == SDLK_e) //TECLA PARA PASAR DE TEXTO EN EL DIALOGO
-			nextText();
+			if (!_keepLastLine)
+				nextText();
+			else if (_currentText != _dialogue.conversation.size() - 1)
+				nextText();
 	}
 }

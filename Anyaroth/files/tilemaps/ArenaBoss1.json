@@ -40,7 +40,7 @@
                  "visible":true,
                  "width":16,
                  "x":407,
-                 "y":493
+                 "y":350
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -56,38 +56,56 @@
                 {
                  "gid":26,
                  "height":16,
-                 "id":2,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16,
-                 "x":664,
-                 "y":580
-                }, 
-                {
-                 "gid":26,
-                 "height":16,
-                 "id":4,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16,
-                 "x":399,
-                 "y":629
-                }, 
-                {
-                 "gid":26,
-                 "height":16,
                  "id":5,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"Data",
+                         "type":"string",
+                         "value":"2"
+                        }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":16,
                  "x":117,
                  "y":548
+                }, 
+                {
+                 "gid":13,
+                 "height":16,
+                 "id":6,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"Data",
+                         "type":"string",
+                         "value":"3"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":658,
+                 "y":581
+                }, 
+                {
+                 "gid":13,
+                 "height":16,
+                 "id":7,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"Data",
+                         "type":"string",
+                         "value":"1"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":396,
+                 "y":628
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -96,7 +114,7 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":6,
+ "nextobjectid":8,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.2.1",

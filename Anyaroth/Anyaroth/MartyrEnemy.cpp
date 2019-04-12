@@ -30,13 +30,15 @@ MartyrEnemy::MartyrEnemy(Game* g, Player* player, Vector2D pos) : GroundEnemy(g,
 	_body->filterCollisions(ENEMIES, FLOOR | PLATFORMS | PLAYER_BULLETS | MELEE);
 
 	_body->addCricleShape(b2Vec2(0.4, _body->getH() + _body->getH() * 2 / 3), _body->getH() + _body->getH() / 3, ENEMIES, FLOOR | PLATFORMS);
+
+	addSensors();
 }
 
 void MartyrEnemy::update(const double& deltaTime)
 {
 	Enemy::update(deltaTime);
 
-	if (!isDead() && inCamera())
+	if (!isStunned() && !isDead() && inCamera())
 	{
 		bool inVision = _playerDistance.getX() < _vision && _playerDistance.getX() > -_vision && _playerDistance.getY() < _vision && _playerDistance.getY() > -_vision;
 		bool sameFloor = _playerDistance.getY() < _attackRangeY && _playerDistance.getY() > -_attackRangeY;

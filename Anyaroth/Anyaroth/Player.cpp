@@ -1,20 +1,11 @@
 ﻿#include "Player.h"
 #include "Game.h"
 #include "Coin.h"
-#include "BasicPistol.h"
-#include "BasicShotgun.h"
-#include "ImprovedShotgun.h"
-#include "BasicRifle.h"
-#include "ImprovedRifle.h"
-//#include "PlasmaSniper.h"
-#include "BounceOrbCannon.h"
-//#include "GravitationalBombCannon.h"
 #include "Axe.h"
 #include "GunType_def.h"
 #include "WeaponManager.h"
 
-
-Player::Player(Game* game, int xPos, int yPos) :  GameObject(game, "Player")
+Player::Player(Game* game, int xPos, int yPos) : GameObject(game, "Player")
 {
 	_game = game;
 
@@ -63,19 +54,16 @@ Player::Player(Game* game, int xPos, int yPos) :  GameObject(game, "Player")
 	_anim->addAnim(AnimatedSpriteComponent::DashDown, 3, true);
 	_anim->addAnim(AnimatedSpriteComponent::DashBack, 6, false);
 	_anim->addAnim(AnimatedSpriteComponent::ReloadShotgun, 5, false);
-	
+
 	//Brazo
 	_playerArm = new PlayerArm(game, this, { 28, 18 });
 	addChild(_playerArm);
-
-	//Armas del juego
-	_weaponManager = new WeaponManager(game);
-
-	_currentGun = _weaponManager->getWeapon(BounceOrbCannon_Weapon, 0);
-	_otherGun = _weaponManager->getWeapon(BasicRifle_Weapon, 1);
+	
+	_currentGun = WeaponManager::getWeapon(game, BounceOrbCannon_Weapon);
+	_otherGun = WeaponManager::getWeapon(game, BasicRifle_Weapon);
 
 	_playerArm->setTexture(_currentGun->getArmTexture());
-
+	_playerArm->setAnimations(PlayerArmType);
 	//Monedero
 	_money = new Money();
 
@@ -87,9 +75,8 @@ Player::Player(Game* game, int xPos, int yPos) :  GameObject(game, "Player")
 Player::~Player()
 {
 	delete _money;
-	delete _weaponManager;
-	_weaponManager = nullptr;
-	//for (auto g : _gameWeapons) delete g;
+	if (_currentGun != nullptr) delete _currentGun;
+	if (_otherGun != nullptr) delete _otherGun;
 }
 
 void Player::beginCollision(GameObject * other, b2Contact* contact)
@@ -167,8 +154,6 @@ void Player::subLife(int damage)
 			if (_life.getLife() == 0)
 			{
 				die();
-				//_hurt->die();
-				//_playerArm->die();
 			}
 			else
 			{
@@ -222,17 +207,13 @@ bool Player::handleEvent(const SDL_Event& event)
 void Player::update(const double& deltaTime)
 {
 	const Uint8* keyboard = SDL_GetKeyboardState(NULL);
-	GameObject::update(deltaTime);
-
-	//if (isDashing() || isMeleeing() || isReloading()||_stunned)
-	//	_playerArm->setActive(false);
-	//else
-	//	_playerArm->setActive(true);
 
 	if (isDashing() || isMeleeing() || isReloading() || _stunned)
 		_playerArm->setActive(false);
 	else if (!_playerArm->isActive())
 		_playerArm->setActive(true);
+
+	GameObject::update(deltaTime);
 
 	checkMovement(keyboard);
 	checkMelee();
@@ -248,6 +229,27 @@ void Player::swapGun()
 	_playerArm->setTexture(_currentGun->getArmTexture());
 	_playerPanel->updateAmmoViewer(_currentGun->getClip(), _currentGun->getMagazine());
 	_playerPanel->updateWeaponryViewer();
+}
+
+void Player::changeCurrentGun(Gun * gun)
+{
+	if (gun != nullptr) 
+	{
+		delete _currentGun;
+		_currentGun = gun;
+		_playerArm->setTexture(_currentGun->getArmTexture());
+		_playerPanel->updateAmmoViewer(_currentGun->getClip(), _currentGun->getMagazine());
+		_playerPanel->updateWeaponryViewer();
+	}
+}
+
+void Player::changeOtherGun(Gun * gun)
+{
+	if (gun != nullptr)
+	{
+		delete _otherGun;
+		_otherGun = gun;
+	}
 }
 
 

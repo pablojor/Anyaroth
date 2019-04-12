@@ -6,29 +6,43 @@
 #include "ImprovedRifle.h"
 #include "ImprovedShotgun.h"
 #include "BounceOrbCannon.h"
+#include "GravityBombCannon.h"
+#include "PlasmaSniper.h"
+
+#include <json.hpp>
+#include <map>
 
 
-WeaponManager::WeaponManager(Game* g) : _game(g)
+map<GunType, GunInfo> WeaponManager::_weaponInfo;
+
+void WeaponManager::init()
 {
-}
+	ifstream file;
+	nlohmann::json j;
 
-
-WeaponManager::~WeaponManager()
-{
-	for (Gun* gun : _equippedWeapons)
+	file.open(INFO_PATH + "weapon_info.json");
+	if (file.is_open())
 	{
-		if (gun != nullptr) //destruye el arma que había antes
-			delete gun;
-		gun = nullptr;
+		file >> j;
+
+		for (nlohmann::json::iterator it = j.begin(); it != j.end(); ++it)
+		{
+			nlohmann::json weapon = it.value();
+
+			for (nlohmann::json::iterator typeWeapon = weapon.begin(); typeWeapon != weapon.end(); ++typeWeapon)
+			{
+				_weaponInfo[typeWeapon.value()["id"]] = { typeWeapon.value()["zona"], typeWeapon.key(), typeWeapon.value()["price"] ,
+														typeWeapon.value()["damage"], typeWeapon.value()["cadence"], typeWeapon.value()["range"], typeWeapon.value()["clip"], typeWeapon.value()["icon"].get<string>(), typeWeapon.value()["frame"].get<string>() };
+			}
+		}
+		file.close();
 	}
+	else
+		cout << "Error al cargar " << INFO_PATH << "weapon_info.json" << endl;
 }
 
-
-Gun* WeaponManager::getWeapon(GunType type, int slotIndex)
+Gun* WeaponManager::getWeapon(Game* _game, GunType type)
 {
-	if(_equippedWeapons[slotIndex] != nullptr) //destruye el arma que había antes
-		delete _equippedWeapons[slotIndex];
-
 	Gun* w = nullptr;
 	switch (type)
 	{
@@ -48,20 +62,16 @@ Gun* WeaponManager::getWeapon(GunType type, int slotIndex)
 		w = new ImprovedRifle(_game);
 		break;
 	case PlasmaSniper_Weapon:
+		w = new PlasmaSniper(_game);
 		break;
 	case BounceOrbCannon_Weapon:
 		w = new BounceOrbCannon(_game);
 		break;
-	case GravitationalBombCannon_Weapon:
-		break;
-	case BasicEnemyGun_Weapon:
-		break;
-	case BasicEnemyShotgun_Weapon:
+	case GravityBombCannon_Weapon:
+		w = new GravityBombCannon(_game);
 		break;
 	default:
 		break;
 	}
-
-	_equippedWeapons[slotIndex] = w;
 	return w;
 }

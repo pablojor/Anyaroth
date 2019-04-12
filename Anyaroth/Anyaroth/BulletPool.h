@@ -10,4 +10,5 @@ class BulletPool : public ObjectPool<Bullet, 100>
 
 		Bullet* addNewBullet();
 		void changePoolTag(string tag);
+		void stopBullets();
 };

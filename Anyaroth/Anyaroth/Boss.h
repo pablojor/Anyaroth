@@ -34,11 +34,12 @@ protected:
 	Melee* _melee = nullptr;
 
 public:
-	Boss(Game* g, Player* player, Vector2D pos, BulletPool* pool);
+	Boss(Game* g, Player* player, Vector2D pos, BulletPool* pool, Texture* text);
 	virtual ~Boss();
 
 	bool inline const isbeetweenFases() { return _actualFase==BetweenFase; }
 	void setBossPanel(BossPanel* b);
+	int inline const getLastFase() { return _lastFase; }
 
 	virtual void update(const double& deltaTime);
 
