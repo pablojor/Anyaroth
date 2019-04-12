@@ -105,11 +105,6 @@ setActive(false);
 _aliveTime = 0;
 _collided = false;*/
 
-void Bullet::changeFilter()
-{
-	_body->filterCollisions(ENEMY_BULLETS, FLOOR | PLATFORMS | PLAYER);
-}
-
 void Bullet::changeFilter(bool enemy) 
 {
 	if(enemy)

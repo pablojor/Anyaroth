@@ -167,7 +167,7 @@ void Boss1::checkMelee(const double& deltaTime)
 			}
 			_armVision = true;;
 
-			_doSomething = random(900, 1300);
+			_doSomething = _game->random(900, 1300);
 			_timeOnMelee = 0;
 		}
 		else
@@ -408,7 +408,7 @@ void Boss1::changeFase(int nextFase)
 
 void Boss1::throwBomb()
 {
-	Vector2D helpPos = Vector2D(random(100, 700 /*Futuro tope por la derecha*/), 200);
+	Vector2D helpPos = Vector2D(_game->random(100, 700 /*Futuro tope por la derecha*/), 200);
 	_bombGun->enemyShoot(_myBulletPool, helpPos, 90, "EnemyBullet");
 	//Bullet* b = _myExplosivePool->getUnusedObject();
 	//Vector2D helpPos = Vector2D(random(100,700 /*Fututo tope por la derecha*/), 200);
@@ -431,7 +431,7 @@ void Boss1::throwBomb()
 void Boss1::throwOrb()
 {
 	Vector2D helpPos = Vector2D(_body->getBody()->GetPosition().x * 8, _body->getBody()->GetPosition().y * 8);
-	_orbGun->enemyShoot(_myBulletPool, helpPos, random(80, 180), "EnemyBullet");
+	_orbGun->enemyShoot(_myBulletPool, helpPos, _game->random(80, 180), "EnemyBullet");
 	/*Bullet* b = _myBouncingBulletPool->getUnusedObject();
 	Vector2D helpPos = Vector2D(_body->getBody()->GetPosition().x * 8, _body->getBody()->GetPosition().y * 8);
 

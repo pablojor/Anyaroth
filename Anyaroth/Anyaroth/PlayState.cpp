@@ -40,7 +40,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	//Levels
 	_currentZone = 2;
 	_currentLevel = 3;
-	_levelManager = LevelManager(g, _player, &_stages, _hud);
+	_levelManager = LevelManager(g, _player, &_stages, _hud, enemyPool);
 	_levelManager.setLevel(_currentZone, _currentLevel);
 
 	Boss2* boss = new Boss2(g, _player, Vector2D(200, 300), _playerBulletPool);

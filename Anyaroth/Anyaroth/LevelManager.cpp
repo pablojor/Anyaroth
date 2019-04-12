@@ -35,7 +35,7 @@ void LevelManager::setLevel(int zone, int level)
 		switch (level)
 		{
 		case 3:
-			_currentMap = new Map(TILEMAP_PATH + "ArenaBoss2.json", _game, _player, _tilesetZone1, _enemyBulletPool, _enemyExplosivePool, _enemyBouncingPool, _hud, 10);
+			_currentMap = new Map(TILEMAP_PATH + "ArenaBoss2.json", _game, _player, _tilesetZone1, _enemyBulletPool, _hud, 10);
 				_objectList->push_back(_currentMap);
 				break;
 		}

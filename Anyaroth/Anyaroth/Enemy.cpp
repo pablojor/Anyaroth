@@ -65,7 +65,7 @@ void Enemy::die()
 
 void Enemy::spawnDrop()
 {
-	int rnd=random(0, 100);
+	int rnd=_game->random(0, 100);
 	if(rnd<=10&& extraDrop)
 	{
 		//EL PAQUETE DE MUNICION

@@ -40,6 +40,8 @@ class Boss1 : public Boss
 		Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool);
 		virtual ~Boss1();
 
+		void update(const double& deltaTime);
+
 		void movement(const double& deltaTime);
 		void bomberAttack(const double& deltaTime,int t1, int t2);
 		void meleeAttack();
