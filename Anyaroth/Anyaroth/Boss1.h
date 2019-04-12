@@ -22,6 +22,7 @@ class Boss1 : public Boss
 
 		//Cosas Melee
 		Melee* _melee;
+		int _timeMelee = 950, _timeOnMelee = 0;
 
 		//Cosas de la ronda disparos
 		bool ida = true;
@@ -45,9 +46,7 @@ class Boss1 : public Boss
 		void movement(const double& deltaTime);
 		void bomberAttack(const double& deltaTime,int t1, int t2);
 		void meleeAttack();
-		bool inline const isMeleeing() { return ((_anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaSwordLeft) || _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaSwordRight)  
-			&& !_anim->animationFinished(); }
-		void checkMelee();
+		void checkMelee(const double& deltaTime);
 		void armShoot(const double& deltaTime);
 
 		void orbAttack();

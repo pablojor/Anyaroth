@@ -19,6 +19,7 @@ public:
 
 	virtual void meleeAttack(double x, double y, int dir);
 	int getDamage() const { return _damage; }
+	void setDamage(int dmg) { _damage = dmg; }
 	void endMelee();
 
 	inline bool isActive() const { return (_body !=nullptr && _body->getBody() != nullptr &&  _body->getBody()->IsActive()); }
