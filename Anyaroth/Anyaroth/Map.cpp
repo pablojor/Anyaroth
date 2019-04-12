@@ -66,6 +66,7 @@ Map::~Map()
 
 void Map::createObjects()
 {
+	_faseMisil = 0;
 	for (int i = 0; i < _objectLayers.size(); i++)
 	{
 		string name = _objectLayers[i]->getName();
@@ -123,7 +124,8 @@ void Map::createObjects()
 			}
 			else if (name == "Misiles")
 			{
-				_objects->addChild(new BotonLanzaMisiles(_game, _boss1, _game->getTexture("EnemyMartyr"), Vector2D(pos.getX(), pos.getY()), atoi(data.c_str())));
+				_objects->addChild(new BotonLanzaMisiles(_game, _boss1, _game->getTexture("MissileTurret"), Vector2D(pos[j].getX(), pos[j].getY()), _faseMisil));
+				_faseMisil++;
 			}
 			else if (name == "NPCs")
 			{

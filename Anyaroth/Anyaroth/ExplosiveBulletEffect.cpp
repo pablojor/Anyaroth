@@ -12,8 +12,9 @@ ExplosiveBulletEffect::~ExplosiveBulletEffect() {}
 
 void ExplosiveBulletEffect::init(Bullet* bullet)
 {
-	bullet->getBulletBody()->filterCollisions(PLAYER_BULLETS, FLOOR | ENEMIES);
+	bullet->getBulletBody()->filterCollisions(PLAYER_BULLETS, FLOOR | PLATFORMS | ENEMIES);
 	bullet->getBulletBody()->getBody()->SetType(b2_dynamicBody);
+	bullet->getBulletBody()->moveShape(b2Vec2(0, bullet->getBulletBody()->getH() + 2.7));
 	bullet->getBulletBody()->getBody()->SetBullet(true);
 	bullet->getBulletBody()->getBody()->SetFixedRotation(true);
 	bullet->getBulletBody()->getBody()->SetGravityScale(6);
@@ -38,19 +39,20 @@ void ExplosiveBulletEffect::update(Bullet* bullet, double time)
 {
 	if (bullet->isActive())
 	{
-
 		double dist = bullet->getIniPos().distance(bullet->getTransform()->getPosition());
+		bullet->GameObject::update(time);
 
 		if (!bullet->isExploding())
 		{
 			if (dist < bullet->getRange() && !bullet->hasCollided())
 			{
-				bullet->GameObject::update(time);
+				
 				bullet->setAliveTime(bullet->getAliveTime() + 1);
 			}
 			else
 			{
 				explosion(bullet);
+				bullet->getComponent<AnimatedSpriteComponent>()->playAnim(AnimatedSpriteComponent::Destroy);
 				bullet->getBulletBody()->getBody()->SetGravityScale(0);
 				bullet->getBulletBody()->getBody()->SetLinearVelocity(b2Vec2_zero);
 			}
@@ -59,11 +61,22 @@ void ExplosiveBulletEffect::update(Bullet* bullet, double time)
 		{
 			if (bullet->getExplosionTime() >= _explodeTime)
 			{
-				BulletEffect::reset(bullet);
-				bullet->setExplosionTime(0);
-				bullet->setExploding(false);
-				bullet->getBulletBody()->getBody()->DestroyFixture(bullet->getBulletBody()->getBody()->GetFixtureList());
-				bullet->getBulletBody()->getBody()->SetGravityScale(4);
+				if (bullet->getComponent<AnimatedSpriteComponent>()->animationFinished() && bullet->getComponent<AnimatedSpriteComponent>()->getCurrentAnim() == AnimatedSpriteComponent::Destroy)
+				{
+					BulletEffect::reset(bullet);
+					bullet->setExplosionTime(0);
+					bullet->setExploding(false);
+					bullet->getBulletBody()->getBody()->DestroyFixture(bullet->getBulletBody()->getBody()->GetFixtureList());
+					bullet->getBulletBody()->getBody()->SetGravityScale(6);
+				}
+				else
+				{
+
+					bullet->getComponent<AnimatedSpriteComponent>()->playAnim(AnimatedSpriteComponent::Destroy);
+					bullet->getComponent<BodyComponent>()->getBody()->SetActive(false);
+
+
+				}
 			}
 			else
 				bullet->setExplosionTime(bullet->getExplosionTime() + time);
@@ -75,7 +88,7 @@ void ExplosiveBulletEffect::explosion(Bullet* bullet)
 {
 	bullet->setExploding(true);
 	b2PolygonShape *explosion=new b2PolygonShape();
-	explosion->SetAsBox(bullet->getBulletBody()->getW() * 4, bullet->getBulletBody()->getH() * 4);
+	explosion->SetAsBox(bullet->getBulletBody()->getW() * 8, bullet->getBulletBody()->getH() * 10);
 
 	b2FixtureDef* fixt = new b2FixtureDef();
 	fixt->restitution = 0;

@@ -11,18 +11,18 @@
 class Boss1 : public Boss
 {
 	private:
-		Vector2D _amplitude = Vector2D(200,25), _velocity = Vector2D(0.5, 0.5), _dir = Vector2D(1,0);
+		Vector2D _amplitude = Vector2D(150,25), _velocity = Vector2D(0.8, 0.8), _dir = Vector2D(1,0);
 		double  _damage = 50, _angularFrequency = 0.05, _k = _angularFrequency / _velocity.distance(Vector2D());
 
 		//Cosas para el ataque bombardero
 		//ExplosiveBulletPool* _myExplosivePool = nullptr;
 		BomberGun* _bombGun = nullptr;
 
-		Texture* _bombTexture = nullptr;
 		int _bomberAttackTime = 2500, _timeOnBomberAttack = 0, _timeBeetwenBombs = 0,_bombRange = 1000;
 
 		//Cosas Melee
 		Melee* _melee;
+		int _timeMelee = 950, _timeOnMelee = 0;
 
 		//Cosas de la ronda disparos
 		bool ida = true;
@@ -35,7 +35,6 @@ class Boss1 : public Boss
 		BossOrbCannon* _orbGun = nullptr;
 		int _numOrbs = 3, _actualNumOrbs = 0;
 
-	private:
 		void shoot();
 
 	public:
@@ -47,13 +46,13 @@ class Boss1 : public Boss
 		void movement(const double& deltaTime);
 		void bomberAttack(const double& deltaTime,int t1, int t2);
 		void meleeAttack();
-		bool inline const isMeleeing() { return ((_anim->getCurrentAnim() == AnimatedSpriteComponent::EnemyAttack) && !_anim->animationFinished()); }
-		void checkMelee();
+		void checkMelee(const double& deltaTime);
 		void armShoot(const double& deltaTime);
 
 		void orbAttack();
 
 		virtual void beginCollision(GameObject* other, b2Contact* contact);
+		virtual void manageLife(Life& l, int damage);
 
 		void fase1(const double& deltaTime);
 		void fase2(const double& deltaTime);

@@ -32,14 +32,15 @@ PlayState::PlayState(Game* g) : GameState(g)
 
 	//Pool player
 	_playerBulletPool = new BulletPool(g);
-	_stages.push_back(_playerBulletPool);
+	auto enemyPool = new BulletPool(g);
 
 	_player->setPlayerBulletPool(_playerBulletPool);
 
 	//Levels
+
 	_currentZone = 1;
-	_currentLevel = 3;
-	_levelManager = LevelManager(g, _player, &_stages, _hud);
+	_currentLevel = 2;
+	_levelManager = LevelManager(g, _player, &_stages, _hud, enemyPool);
 	_levelManager.setLevel(_currentZone, _currentLevel);
 
 	//Tienda PROVISIONAL
@@ -51,6 +52,10 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_parallaxZone1->addLayer(new ParallaxLayer(g->getTexture("BgZ1L1"), _mainCamera, 0.25));
 	_parallaxZone1->addLayer(new ParallaxLayer(g->getTexture("BgZ1L2"), _mainCamera, 0.5));
 	_parallaxZone1->addLayer(new ParallaxLayer(g->getTexture("BgZ1L3"), _mainCamera, 0.75));
+
+	//Balas se renderizan al final
+	_stages.push_back(_playerBulletPool);
+	_stages.push_back(enemyPool);
 
 	//Camera
 	_mainCamera->fixCameraToObject(_player);

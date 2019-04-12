@@ -16,7 +16,7 @@ Interactable::Interactable(Game* g, Vector2D posIni) : GameObject(g, "Interactab
 	_interactIndicator->addComponent<TransformComponent>();
 
 	_interactIndicator->addComponent<AnimatedSpriteComponent>();
-	_interactIndicator->getComponent<AnimatedSpriteComponent>()->addAnim(AnimatedSpriteComponent::Idle, 2, true);
+	_interactIndicator->getComponent<AnimatedSpriteComponent>()->addAnim(AnimatedSpriteComponent::Idle, 5, true);
 
 	_interactIndicator->getComponent<AnimatedSpriteComponent>()->playAnim(AnimatedSpriteComponent::Idle);
 
