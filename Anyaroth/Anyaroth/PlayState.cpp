@@ -22,7 +22,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	//SDL_ShowCursor(false);
 
 	//Player
-	_player = new Player(g, 10, 200);
+	_player = new Player(g, 100, 200);
 	_stages.push_back(_player);
 
 	_player->setPlayerPanel(_hud->getPlayerPanel());

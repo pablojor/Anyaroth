@@ -24,7 +24,7 @@ protected:
 
 public:
 
-	Gun(Texture* armTexture, Texture* bulletTexture, double speed, double damage, double range, int maxClip, int maxMagazine, double maxCadence, EffectInterface* effect, bool automatic = false, BulletAnimType bType = BulletAnimType::Default);
+	Gun(Texture* armTexture, Texture* bulletTexture, double speed, double damage, double range, int maxClip, int maxMagazine, double maxCadence, EffectInterface* effect, bool automatic, GunType id,BulletAnimType bType = BulletAnimType::Default);
 
 	virtual ~Gun() {}
 
