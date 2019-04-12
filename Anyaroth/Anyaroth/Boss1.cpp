@@ -40,11 +40,13 @@ Boss1::Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, 
 
 	_anim->playAnim(AnimatedSpriteComponent::SpentaIdle);
 
+	_body->setW(40);
+	_body->setH(70);
 	_body->filterCollisions(ENEMIES, FLOOR | PLAYER_BULLETS | MELEE | MISIL);
 	_body->getBody()->SetGravityScale(0);
 
 	_originalPos = Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL);
-	_melee = new Axe(g, { 200,0 }, PLAYER, 20, 25, 25, 0);
+	_melee = new Axe(g, { 150, 0 }, PLAYER, 20, 25, 25, 270);
 	addChild(_melee);
 
 	_armVision = true;
@@ -279,7 +281,7 @@ void Boss1::fase1(const double& deltaTime)
 			{
 				int ra = random(0, 100);
 
-				if (ra >= 65)
+				if (ra >= 0)
 				{
 					_actualState = Meleeing;
 					_noAction = 0;

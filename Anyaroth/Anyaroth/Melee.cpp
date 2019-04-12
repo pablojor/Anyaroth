@@ -23,6 +23,8 @@ void Melee::meleeAttack(double x, double y, int dir)
 
 	_body->filterCollisions(MELEE, _collidesWith);
 	_body->getBody()->SetType(b2_kinematicBody);
+	_body->setW(90);
+	_body->setH(90);
 	_body->getBody()->GetFixtureList()->SetSensor(true);
 
 	_center = Vector2D(x, y);
