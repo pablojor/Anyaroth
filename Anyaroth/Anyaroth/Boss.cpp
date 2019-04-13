@@ -81,7 +81,7 @@ void Boss::changeFase(int fase)
 
 void Boss::meleeAttack()
 {
-	_melee->endMelee();
+	//_melee->endMelee();
 	_bodyPos = Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL);
 	int dir = (_bodyPos.getX() >= _playerPos.getX()) ? -1 : 1;
 	_melee->meleeAttack(_bodyPos.getX(), _bodyPos.getY(), dir);
