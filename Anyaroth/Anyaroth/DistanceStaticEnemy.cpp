@@ -4,18 +4,25 @@
 #include "Player.h"
 #include"Game.h"
 
-DistanceStaticEnemy::DistanceStaticEnemy(Game* g, Player* player, Vector2D pos, BulletPool* pool) : DistanceEnemy(g, player, pos, g->getTexture("EnemyMelee"), pool), Enemy(g, player, pos, g->getTexture("EnemyMelee"))
+DistanceStaticEnemy::DistanceStaticEnemy(Game* g, Player* player, Vector2D pos, BulletPool* pool) : DistanceEnemy(g, player, pos, g->getTexture("Turret"), pool), Enemy(g, player, pos, g->getTexture("Turret"))
 {
 	_vision = 500;
 	_life = 50;
 	_attackRangeX = _attackRangeY = _vision; //No se puede poner mas pequeño que la velocidad
-	_attackTime = 1300; //La animacion tarda unos 450
+	_attackTime = 2000; //La animacion tarda unos 450
 
 	if (_attackRangeX < _speed)
 		_attackRangeX += _speed;
 
-	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 13, true);
-	_anim->addAnim(AnimatedSpriteComponent::EnemyDie, 18, false);
+	_myGun->setBulletAnimType(TurretBullet);
+	_myGun->setBulletTexture(g->getTexture("TurretBullet"));
+
+	_arm->setTexture(g->getTexture("TurretArm"));
+	_arm->setAnimations(TurretArmType);
+
+	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 12, true);
+	_anim->addAnim(AnimatedSpriteComponent::EnemyAttack, 8, false);
+	_anim->addAnim(AnimatedSpriteComponent::EnemyDie, 13, false);
 
 	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 

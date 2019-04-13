@@ -5,9 +5,13 @@
 #include "NPC.h"
 #include "PiercingBulletPool.h"
 #include "checkML.h"
+#include "WeaponManager.h"
 
 PlayState::PlayState(Game* g) : GameState(g)
 {
+	//Inicializa el manager de armas
+	WeaponManager::init();
+
 	//HUD
 	_hud = new PlayStateHUD(g);
 	setCanvas(_hud);
@@ -18,15 +22,19 @@ PlayState::PlayState(Game* g) : GameState(g)
 	//SDL_ShowCursor(false);
 
 	//Player
-	_player = new Player(g, 100, 500);
+	_player = new Player(g, 100, 200);
 	_stages.push_back(_player);
+
+	_player->setPlayerPanel(_hud->getPlayerPanel());
+
+	_hud->getShop()->setPlayer(_player);
+	_hud->getShop()->setVisible(false);
 
 	//Pool player
 	_playerBulletPool = new BulletPool(g);
-	_stages.push_back(_playerBulletPool);
+	auto enemyPool = new BulletPool(g);
 
 	_player->setPlayerBulletPool(_playerBulletPool);
-	_player->setPlayerPanel(_hud->getPlayerPanel());
 
 	//Levels
 	_currentLevel = LevelManager::Level2_1;
@@ -38,6 +46,10 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_parallaxZone1->addLayer(new ParallaxLayer(g->getTexture("BgZ1L1"), _mainCamera, 0.25));
 	_parallaxZone1->addLayer(new ParallaxLayer(g->getTexture("BgZ1L2"), _mainCamera, 0.5));
 	_parallaxZone1->addLayer(new ParallaxLayer(g->getTexture("BgZ1L3"), _mainCamera, 0.75));
+
+	//Balas se renderizan al final
+	_stages.push_back(_playerBulletPool);
+	_stages.push_back(enemyPool);
 
 	//Camera
 	_mainCamera->fixCameraToObject(_player);
@@ -78,7 +90,7 @@ bool PlayState::handleEvent(const SDL_Event& event)
 	}
 	else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_0) //Boton de prueba para reiniciar el nivel
 		_levelManager.resetLevel();
-	else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_1) //Boton de prueba para reiniciar la munición
+	else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_1) //Boton de prueba para reiniciar la municiï¿½n
 	{
 		_player->getCurrentGun()->resetAmmo();
 		_hud->getPlayerPanel()->updateAmmoViewer(_player->getCurrentGun()->getClip(), _player->getCurrentGun()->getMagazine());

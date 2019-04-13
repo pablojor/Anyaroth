@@ -1,0 +1,130 @@
+{
+    "Basic":
+    {
+      "BasicPistol": 
+      {
+        "zona": -1,
+	      "frame": "BasicFrame",
+        "icon": "Dash",
+        "price": 0,
+        "speed": 100,
+        "damage": 10,
+        "range": 1000,
+        "clip": 12,
+        "magazine": 60,
+        "cadence": 270,
+        "id": 0
+      },
+
+      "BasicRifle": 
+      {
+        "zona": 1,
+	      "frame": "BasicFrame",
+        "icon": "Dash",
+        "price": 150,
+        "speed": 100,
+        "damage": 15,
+        "range": 1000,
+        "clip": 30,
+        "magazine": 120,
+        "cadence": 170,
+        "id": 3
+      },
+
+      "BasicShotgun": 
+      {
+        "zona": 1,
+	      "frame": "BasicFrame",
+        "icon": "Dash",
+        "price": 150,
+        "speed": 100,
+        "damage": 7,
+        "range": 60,
+        "clip": 3,
+        "magazine": 48,
+        "cadence": 800,
+        "id": 1
+      }
+    },
+
+    "Common":
+    {
+      "ImproveRifle": 
+      {
+        "zona": 1,
+	      "frame": "CommonFrame",
+        "icon": "Dash",
+        "price": 300,
+        "speed": 100,
+        "damage": 20,
+        "range": 1000,
+        "clip": 36,
+        "magazine": 160,
+        "cadence": 100,
+        "id": 4
+      },
+
+      "ImproveShotgun": 
+      {
+        "zona": 1,
+	      "frame": "CommonFrame",
+        "icon": "Dash",
+        "price": 300,
+        "speed": 100,
+        "damage": 7,
+        "range": 60,
+        "clip": 2,
+        "magazine": 50,
+        "cadence": 800,
+        "id": 2
+      }
+    },
+
+    "Rare" :
+    {
+      "PlasmaSniper": 
+      {
+        "zona": 3,
+	      "frame": "RareFrame",
+        "icon": "Dash",
+        "price": 1250,
+        "speed": 100,
+        "damage": 60,
+        "range": 1000,
+        "clip": 1,
+        "magazine": 30,
+        "cadence": 1500,
+        "id": 5
+      },
+
+      "BounceOrbCanon": 
+      {
+        "zona": 2,
+	      "frame": "RareFrame",
+        "icon": "Dash",
+        "price": 1000,
+        "speed": 30,
+        "damage": 15,
+        "range": 1000,
+        "clip": 30,
+        "magazine": 120,
+        "cadence": 200,
+        "id": 6
+      },
+
+      "GravityCannon": 
+      {
+        "zona": 2,
+	      "frame": "RareFrame",
+        "icon": "Dash",
+        "price": 1000,
+        "speed": 45,
+        "damage": 5,
+        "range": 150,
+        "clip": 3,
+        "magazine": 30,
+        "cadence": 400,
+        "id": 7
+      }
+    }
+}

@@ -2,7 +2,7 @@
 
 
 
-Shotgun::Shotgun(Texture* armTexture, Texture* bulletTexture, double speed, double damage, double range, int maxClip, int maxMagazine, double maxCadence, BulletEffect* effect, bool automatic) : Gun( armTexture,  bulletTexture,  speed,  damage,  range,  maxClip,  maxMagazine,  maxCadence, effect,  automatic)
+Shotgun::Shotgun(Texture* armTexture, Texture* bulletTexture, double speed, double damage, double range, int maxClip, int maxMagazine, double maxCadence, BulletEffect* effect, bool automatic, GunType id) : Gun( armTexture,  bulletTexture,  speed,  damage,  range,  maxClip,  maxMagazine,  maxCadence, effect,  automatic, id)
 {
 	_offset = { 28, -1 };
 }
@@ -28,9 +28,9 @@ void Shotgun::shoot(BulletPool * bulletPool, const Vector2D & position, const do
 			Bullet* b = bulletPool->getUnusedObject();
 			Vector2D bulletPos = prepareBulletPosition(position, angle);
 			if (b != nullptr)
-				b->init(_bulletTexture, bulletPos, _speed, _damage, angle + i * _angleBetweenBullet, _range, tag, _effect);
+				b->init(_bulletTexture, bulletPos, _speed, _damage, angle + i * _angleBetweenBullet, _range, tag, _effect, _bulletAnimType);
 			else
-				bulletPool->addNewBullet()->init(_bulletTexture, bulletPos, _speed, _damage, angle + i * _angleBetweenBullet, _range, tag, _effect);
+				bulletPool->addNewBullet()->init(_bulletTexture, bulletPos, _speed, _damage, angle + i * _angleBetweenBullet, _range, tag, _effect, _bulletAnimType);
 		}
 	}
 }

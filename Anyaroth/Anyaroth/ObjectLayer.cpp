@@ -42,7 +42,13 @@ ObjectLayer::ObjectLayer(std::string filename, std::string name) : _name(name)
 				if (it != j[i].end())
 					y = *it;
 
-				_objectsPos.push_back(Vector2D(x, y));
+				it = j[i].find("properties");
+				if (it != j[i].end())
+				{
+					json data = *it;
+					_data = data[0]["value"].get<string>();
+				}
+				_objectsPos.push_back(pair<Vector2D, std::string>( Vector2D(x, y),_data));
 			}
 		}
 		else

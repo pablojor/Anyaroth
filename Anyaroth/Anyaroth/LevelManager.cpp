@@ -1,10 +1,9 @@
 #include "LevelManager.h"
 #include "Game.h"
 
-LevelManager::LevelManager(Game* game, Player* player, list<GameObject*>* objects, PlayStateHUD* hud) : _game(game), _player(player), _hud(hud), _objectList(objects)
+LevelManager::LevelManager(Game* game, Player* player, list<GameObject*>* objects, PlayStateHUD* hud, BulletPool* enemyPool) : _game(game), _player(player), _hud(hud), _objectList(objects)
 {
-	_enemyBulletPool = new BulletPool(game);
-	_objectList->push_back(_enemyBulletPool);
+	_enemyBulletPool = enemyPool;
 
 	_tilesetZone1 = game->getTexture("Tileset1");
 	_tilesetZone2 = game->getTexture("Tileset2");

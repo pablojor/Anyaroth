@@ -7,6 +7,8 @@
 #include "Player.h"
 #include "BulletPool.h"
 #include "Cursor.h"
+#include "PlayStateHUD.h"
+#include "Shop.h"
 
 class PlayState : public GameState
 {
@@ -17,12 +19,16 @@ private:
 	//Bullet Pools
 	BulletPool* _playerBulletPool = nullptr; //Balas del jugador
 
+	PlayStateHUD* _hud = nullptr;
+
 	LevelManager _levelManager;
 	CollisionManager _colManager;
 	DebugDraw _debugger;
 
 	ParallaxBackGround* _parallaxZone1 = nullptr;
 
+	Shop* _shop = nullptr;
+	
 	int _currentLevel;
 
 public:

@@ -1,12 +1,14 @@
 #pragma once
 #include "UIElement.h"
-#include <vector>
+#include <list>
 
 class PanelUI : public UIElement
 {
 protected:
-	std::vector<UIElement*> _children;
+	std::list<UIElement*> _children;
 	void addChild(UIElement* child);
+	void removeChild(UIElement* child);
+	void removeAllChildren();
 
 public:
 	PanelUI() : UIElement(nullptr) {}
@@ -14,6 +16,6 @@ public:
 	virtual ~PanelUI();
 
 	virtual void render() const;
-	virtual void update(double time);
+	virtual void update(const double& deltaTime);
 	virtual void handleEvent(const SDL_Event& event);
 };

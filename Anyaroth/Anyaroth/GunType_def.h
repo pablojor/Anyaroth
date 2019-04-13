@@ -10,8 +10,11 @@ enum GunType
 	PlasmaSniper_Weapon,
 	BounceOrbCannon_Weapon,
 	GravityBombCannon_Weapon,
+
+	BomberGun_Weapon,
 	BasicEnemyGun_Weapon,
-	BasicEnemyShotgun_Weapon
+	BasicEnemyShotgun_Weapon,
+	BossOrbCanon_Weapon
 };
 
 enum MeleeType
@@ -20,4 +23,19 @@ enum MeleeType
 	Axe_Weapon,
 	Lightsaber_Weapon,
 	Chainsaw_Weapon
+};
+
+enum BulletAnimType
+{
+	Default,
+	TurretBullet,
+	SpentaBomb,
+	SpentaOrb
+};
+
+enum ArmAnimType
+{
+	DefaultArmType,
+	PlayerArmType,
+	TurretArmType
 };

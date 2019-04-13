@@ -318,6 +318,29 @@
     </ClCompile>
     <ClCompile Include="StaticFlyingEnemy.cpp">
       <Filter>Archivos de código fuente\Objects\Enemies\DistanceEnemies</Filter>
+    <ClCompile Include="ShopInfoPanel.cpp">
+      <Filter>Archivos de código fuente\HUD\Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="ShopItem.cpp">
+      <Filter>Archivos de código fuente\HUD\Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="ShopMenu.cpp">
+      <Filter>Archivos de código fuente\HUD\Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="DepotPanel.cpp">
+      <Filter>Archivos de código fuente\HUD\Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="CatalogPanel.cpp">
+      <Filter>Archivos de código fuente\HUD\Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="ButtonUI.cpp">
+      <Filter>Archivos de código fuente\HUD\UIElements</Filter>
+    </ClCompile>
+    <ClCompile Include="Shop.cpp">
+      <Filter>Archivos de código fuente\Objects\Interactables</Filter>
+    </ClCompile>
+    <ClCompile Include="GravityBombDebuff.cpp">
+      <Filter>Archivos de código fuente\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -671,6 +694,29 @@
     </ClInclude>
     <ClInclude Include="StaticFlyingEnemy.h">
       <Filter>Archivos de encabezado\Objects\Enemies\DistanceEnemies</Filter>
+    <ClInclude Include="ShopMenu.h">
+      <Filter>Archivos de encabezado\HUD\Shop</Filter>
+    </ClInclude>
+    <ClInclude Include="ShopItem.h">
+      <Filter>Archivos de encabezado\HUD\Shop</Filter>
+    </ClInclude>
+    <ClInclude Include="ShopInfoPanel.h">
+      <Filter>Archivos de encabezado\HUD\Shop</Filter>
+    </ClInclude>
+    <ClInclude Include="CatalogPanel.h">
+      <Filter>Archivos de encabezado\HUD\Shop</Filter>
+    </ClInclude>
+    <ClInclude Include="DepotPanel.h">
+      <Filter>Archivos de encabezado\HUD\Shop</Filter>
+    </ClInclude>
+    <ClInclude Include="ButtonUI.h">
+      <Filter>Archivos de encabezado\HUD\UIElements</Filter>
+    </ClInclude>
+    <ClInclude Include="Shop.h">
+      <Filter>Archivos de encabezado\Objects\Interactables</Filter>
+    </ClInclude>
+    <ClInclude Include="GravityBombDebuff.h">
+      <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -820,6 +866,12 @@
     </Filter>
     <Filter Include="Archivos de código fuente\Objects\Player\Melee">
       <UniqueIdentifier>{91c2fb3e-33b4-42c8-b741-0a0b383c9988}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código fuente\HUD\Shop">
+      <UniqueIdentifier>{82374948-29e9-45e7-a3a0-fd573588350b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\HUD\Shop">
+      <UniqueIdentifier>{34784df1-da49-4c07-b58e-b2ba2d639505}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
