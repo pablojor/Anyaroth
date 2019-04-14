@@ -72,6 +72,9 @@ PlayState::PlayState(Game* g) : GameState(g)
 	deathText = new TextUI(_gameptr, "ANYAHILATED", _gameptr->getFont("ARIAL12"), 50, CAMERA_RESOLUTION_X / 2 - 50, CAMERA_RESOLUTION_Y / 2 - 10, { 255,0,0,1 });
 	deathText->setVisible(false);
 	_hud->addUIElement(deathText);
+
+	auto tienda = new Shop(g, { 200,400 }, _hud->getShop(), 3);
+	_stages.push_back(tienda);
 }
 
 

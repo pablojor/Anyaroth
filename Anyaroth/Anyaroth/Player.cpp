@@ -91,7 +91,7 @@ void Player::beginCollision(GameObject * other, b2Contact* contact)
 		_floorCount++;
 		setGrounded(true);
 	}
-	else if (other->getTag() == "EnemyBullet" || other->getTag() == "Melee")
+	else if (other->getTag() == "EnemyBullet" || (other->getTag() == "Melee" && other != _melee))
 	{
 		int damage = other->getDamage();
 		subLife(damage);

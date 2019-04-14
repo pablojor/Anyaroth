@@ -2,7 +2,7 @@
 
 
 
-BounceOrbCannon::BounceOrbCannon(Game* game) : Gun(game->getTexture("ArmPistol"), game->getTexture("Coin"), 30, 25, 1000, 5, 40, 200, &_effect, BounceOrbCannon_Weapon, false)
+BounceOrbCannon::BounceOrbCannon(Game* game) : Gun(game->getTexture("ArmPistol"), game->getTexture("Coin"), 30, 25, 1000, 5, 40, 200, &_effect, BounceOrbCannon_Weapon,game->getTexture("Weapon1"), false)
 {
 	_offset = { 24, -1 };
 }

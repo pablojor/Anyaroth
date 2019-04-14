@@ -5,7 +5,7 @@
       {
         "zona": -1,
 	      "frame": "BasicFrame",
-        "icon": "Weapon1",
+        "icon": "PistolIcon",
         "price": 0,
         "speed": 100,
         "damage": 10,
@@ -19,7 +19,7 @@
       "BasicRifle": {
         "zona": 1,
         "frame": "BasicFrame",
-        "icon": "Weapon1",
+        "icon": "RifleIcon",
         "price": 150,
         "speed": 100,
         "damage": 15,
@@ -33,7 +33,7 @@
       "BasicShotgun": {
         "zona": 1,
         "frame": "BasicFrame",
-        "icon": "Weapon1",
+        "icon": "ShotgunIcon",
         "price": 150,
         "speed": 100,
         "damage": 7,

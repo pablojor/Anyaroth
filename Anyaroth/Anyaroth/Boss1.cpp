@@ -46,7 +46,7 @@ Boss1::Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, 
 	_body->getBody()->SetGravityScale(0);
 
 	_originalPos = Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL);
-	_melee = new Axe(g, { 150, 0 }, PLAYER, 2, 25, 25, 270);
+	_melee = new Axe(g, { 150, 0 }, PLAYER, 2, 90, 90, 270);
 	addChild(_melee);
 
 	_armVision = true;
