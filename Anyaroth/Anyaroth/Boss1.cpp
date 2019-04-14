@@ -82,6 +82,21 @@ void Boss1::update(const double& deltaTime)
 	{
 		_actualState = Moving;
 	}
+	else
+	{
+		if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaEndShield)
+		{
+			_anim->playAnim(AnimatedSpriteComponent::SpentaDie);
+		}
+	}
+	if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaEndShield)
+	{
+		_actualState = Moving;
+	}
+	if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaEndBomb)
+	{
+		_actualState = Moving;
+	}
 }
 
 

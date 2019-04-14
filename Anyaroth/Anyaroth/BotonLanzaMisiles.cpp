@@ -35,6 +35,7 @@ BotonLanzaMisiles::~BotonLanzaMisiles()
 void BotonLanzaMisiles::update(const double & deltaTime)
 {
 	Interactable::update(deltaTime);
+
   
 	if (_canInteract)
 	{

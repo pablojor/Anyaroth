@@ -20,12 +20,10 @@ protected:
 
 	Vector2D _offset = { 0, 0 };
 
-	Texture* _armTexture = nullptr, *_bulletTexture = nullptr;
+	Texture* _armTexture = nullptr, *_bulletTexture = nullptr, *_iconTexture = nullptr;
 
 public:
-
-	Gun(Texture* armTexture, Texture* bulletTexture, double speed, double damage, double range, int maxClip, int maxMagazine, double maxCadence, EffectInterface* effect, bool automatic, GunType id,BulletAnimType bType = BulletAnimType::Default);
-
+	Gun(Texture* armTexture, Texture* bulletTexture, double speed, double damage, double range, int maxClip, int maxMagazine, int maxCadence, EffectInterface* effect, GunType id, bool automatic = false, BulletAnimType bType = BulletAnimType::Default, Texture* iconTexture = nullptr);
 	virtual ~Gun() {}
 
 	virtual void shoot(PoolWrapper* bulletPool, const Vector2D& position, const double& angle, const string& tag);
@@ -42,6 +40,8 @@ public:
 	inline int getMagazine() const { return _magazine; }
 	inline int getClip() const { return _clip; }
 
+	inline const GunType& getGunID() const { return _id; }
+
 	inline bool hasToBeReloaded() const { return _clip == 0 && _magazine > 0; }
 
 	Vector2D prepareBulletPosition(const Vector2D& position, const double& angle);
@@ -54,14 +54,14 @@ public:
 	
 	inline Texture* getBulletTexture() const { return _bulletTexture; }
 	inline Texture* getArmTexture() const { return _armTexture; }
+	inline Texture* getIconTexture() const { return _iconTexture; }
 
-	inline const GunType& getGunID() const { return _id; }
 	//setters
 	void setEffect(EffectInterface* effect) { _effect = effect; }
 	inline void setMaxCadence(double value) { _maxCadence = value; _cadence = 0; }
 	inline void setBulletSpeed(double value) { _speed = value; }
 	inline void setDamage(double value) { _damage = value; }
 	inline void setBulletAnimType(BulletAnimType bType) { _bulletAnimType = bType; }
-	inline BulletAnimType getBulletAnimType() { return _bulletAnimType; }
+	inline BulletAnimType getBulletAnimType() const { return _bulletAnimType; }
 
 };

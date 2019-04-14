@@ -20,9 +20,11 @@ WeaponryViewer::WeaponryViewer(Game* game, int xPos, int yPos) : PanelUI(game)
 	addChild(_currentWeapon);
 }
 
-void WeaponryViewer::updateWeaponryViewer()
+void WeaponryViewer::updateWeaponryViewer(Texture* iconTex)
 {
-	Texture* aux = _currentWeapon->getImage();
+	/*Texture* aux = _currentWeapon->getImage();
 	_currentWeapon->setImage(_otherWeapon->getImage());
-	_otherWeapon->setImage(aux);
+	_otherWeapon->setImage(aux);*/
+
+	_currentWeapon->setImage(iconTex);
 }

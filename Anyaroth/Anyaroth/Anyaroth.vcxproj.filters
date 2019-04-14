@@ -313,6 +313,12 @@
     <ClCompile Include="SpawnerEnemy.cpp">
       <Filter>Archivos de código fuente\Objects\Enemies\SpawnerEnemies</Filter>
     </ClCompile>
+    <ClCompile Include="GravityBombDebuff.cpp">
+      <Filter>Archivos de código fuente\Objects\Bullets\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticFlyingEnemy.cpp">
+      <Filter>Archivos de código fuente\Objects\Enemies\DistanceEnemies</Filter>
+    </ClCompile>
     <ClCompile Include="ShopInfoPanel.cpp">
       <Filter>Archivos de código fuente\HUD\Shop</Filter>
     </ClCompile>
@@ -339,6 +345,9 @@
     </ClCompile>
     <ClCompile Include="StaticFlyingEnemy.cpp">
       <Filter>Archivos de código fuente\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteObject.cpp">
+      <Filter>Archivos de código fuente\Objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -687,6 +696,12 @@
     <ClInclude Include="DistanceSpawner.h">
       <Filter>Archivos de encabezado\Objects\Enemies\SpawnerEnemies</Filter>
     </ClInclude>
+    <ClInclude Include="GravityBombDebuff.h">
+      <Filter>Archivos de encabezado\Objects\Bullets\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticFlyingEnemy.h">
+      <Filter>Archivos de encabezado\Objects\Enemies\DistanceEnemies</Filter>
+    </ClInclude>
     <ClInclude Include="ShopMenu.h">
       <Filter>Archivos de encabezado\HUD\Shop</Filter>
     </ClInclude>
@@ -713,6 +728,9 @@
     </ClInclude>
     <ClInclude Include="StaticFlyingEnemy.h">
       <Filter>Archivos de encabezado\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteObject.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

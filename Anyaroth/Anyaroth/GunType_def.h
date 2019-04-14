@@ -28,14 +28,18 @@ enum MeleeType
 enum BulletAnimType
 {
 	Default,
+	RifleBullet,
+	ShotGunBullet,
 	TurretBullet,
 	SpentaBomb,
-	SpentaOrb
+	SpentaOrb,
+	BHBullet
 };
 
 enum ArmAnimType
 {
 	DefaultArmType,
 	PlayerArmType,
-	TurretArmType
+	TurretArmType,
+	BHCannonArmType
 };

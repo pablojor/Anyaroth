@@ -27,9 +27,14 @@ private:
 
 	ParallaxBackGround* _parallaxZone1 = nullptr;
 
+	int _currentLevel;
+
+	double deathTime = 3000, deathTimer = 0;
+	bool _killed = false;
+	TextUI* deathText;
+
 	Shop* _shop = nullptr;
 	
-	int _currentLevel;
 
 public:
 	PlayState(Game* g);
