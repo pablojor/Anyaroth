@@ -134,6 +134,11 @@ void Map::createObjects()
 				_npc->setDialoguePanel(_hud->getDialoguePanel());
 				_objects->addChild(_npc);
 			}
+			else if (name == "Shop")
+			{
+				auto tienda = new Shop(_game, Vector2D(pos.getX() - TILES_SIZE * 2, pos.getY() - TILES_SIZE * 2), _hud->getShop(), 3);
+				_objects->addChild(tienda);
+			}
 		}
 	}
 }
