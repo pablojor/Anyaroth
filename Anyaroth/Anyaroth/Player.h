@@ -52,7 +52,7 @@ private:
 
 	Gun* _currentGun = nullptr;
 	Gun* _otherGun = nullptr;
-	PoolWrapper* _playerBulletPool = nullptr;
+	BulletPool* _playerBulletPool = nullptr;
 
 	inline bool dashIsAble() const { return _numDash > 0 && _isDashing; }
 	void checkMovement(const Uint8* keyboard);
@@ -103,7 +103,7 @@ public:
 
 	void setPlayerPanel(PlayerPanel* p);
 
-	inline void setPlayerBulletPool(PoolWrapper* pool) { _playerBulletPool = pool; }
+	inline void setPlayerBulletPool(BulletPool* pool) { _playerBulletPool = pool; }
 	inline void setPlayerPosition(Vector2D pos) { _body->getBody()->SetTransform(b2Vec2(pos.getX(), pos.getY()), 0); }
 
 	

@@ -2,6 +2,7 @@
 #include "PoolWrapper.h"
 #include "Game.h"
 #include "EffectInterface.h"
+#include "BulletPool.h"
 
 class Gun
 {
@@ -24,8 +25,8 @@ public:
 	Gun(Texture* armTexture, Texture* bulletTexture, double speed, double damage, double range, int maxClip, int maxMagazine, double maxCadence, EffectInterface* effect, bool automatic, GunType id);
 	virtual ~Gun() {}
 
-	virtual void shoot(PoolWrapper* bulletPool, const Vector2D& position, const double& angle, const string& tag);
-	virtual void enemyShoot(PoolWrapper* bulletPool, const Vector2D& position, const double& angle, const string& tag);
+	virtual void shoot(BulletPool* bulletPool, const Vector2D& position, const double& angle, const string& tag);
+	virtual void enemyShoot(BulletPool* bulletPool, const Vector2D& position, const double& angle, const string& tag);
 
 	virtual void reload();
 

@@ -6,6 +6,8 @@
 #include "ParallaxBackGround.h"
 #include "Player.h"
 #include "BulletPool.h"
+#include "ParticlePull.h"
+#include "ParticleManager.h"
 //#include "Coin.h"
 //#include "ExplosiveBulletPool.h"
 #include "Cursor.h"
@@ -21,6 +23,9 @@ private:
 	//Bullet Pools
 	BulletPool* _playerBulletPool = nullptr; //Balas del jugador
 
+	//Paticle pool
+	ParticlePull * _particles;
+
 	PlayStateHUD* _hud = nullptr;
 
 	LevelManager _levelManager;
@@ -34,9 +39,10 @@ private:
 	int _currentZone;
 	int _currentLevel;
 
+	ParticleManager * _particleManager;
 
 	//vector <list<GameObject*>::iterator> items_ToDelete;
-
+	Game* gg;
 public:
 	PlayState(Game* g);
 

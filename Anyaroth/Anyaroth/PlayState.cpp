@@ -9,8 +9,15 @@
 
 PlayState::PlayState(Game* g) : GameState(g)
 {
+	gg = g;
 	//Inicializa el manager de armas
 	WeaponManager::init();
+
+	_particles = new ParticlePull(g);
+	_stages.push_back(_particles);
+
+	_particleManager = ParticleManager::GetParticleManager();
+	_particleManager->setParticlePull(_particles);
 
 	//HUD
 	_hud = new PlayStateHUD(g);
@@ -90,7 +97,11 @@ bool PlayState::handleEvent(const SDL_Event& event)
 		handled = true;
 	}
 	else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_0) //Boton de prueba para reiniciar el nivel
+	{
 		_levelManager.resetLevel();
+		/*_particleManager->CreateSimpleParticle(gg->getTexture("Coin"), Vector2D(5, 45), 2, -75, 20000);
+		cout << _player->getComponent<BodyComponent>()->getBody()->GetPosition().y << endl;*/
+	}
 	else if (event.type == SDL_KEYDOWN && (event.key.keysym.sym == SDLK_KP_MINUS || event.key.keysym.sym == SDLK_MINUS)) //Para probar el Zoom y sus distintan opciones
 		_mainCamera->zoomOut();
 	else if (event.type == SDL_KEYDOWN && (event.key.keysym.sym == SDLK_KP_PLUS || event.key.keysym.sym == SDLK_PLUS))
