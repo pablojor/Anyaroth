@@ -60,6 +60,7 @@ public:
 	void setEffect(EffectInterface* effect) { _effect = effect; }
 	inline void setMaxCadence(double value) { _maxCadence = value; _cadence = 0; }
 	inline void setBulletSpeed(double value) { _speed = value; }
+	inline void setDamage(double value) { _damage = value; }
 	inline void setBulletAnimType(BulletAnimType bType) { _bulletAnimType = bType; }
 	inline BulletAnimType getBulletAnimType() { return _bulletAnimType; }
 

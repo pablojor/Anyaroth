@@ -107,6 +107,10 @@ void Player::beginCollision(GameObject * other, b2Contact* contact)
 		}
 		contact->SetEnabled(false);
 	}
+	else if (other->getTag() == "Door")
+	{
+		_changeLevel = true;
+	}
 }
 
 void Player::endCollision(GameObject * other, b2Contact* contact)
@@ -122,6 +126,10 @@ void Player::endCollision(GameObject * other, b2Contact* contact)
 void Player::die()
 {
 	setDead(true);
+
+	_money->restartWallet();
+	_playerPanel->updateCoinsCounter(_money->getWallet());
+
 	_body->getBody()->SetLinearVelocity(b2Vec2(0.0, 0.0));
 	_body->getBody()->SetAngularVelocity(0);
 }
@@ -133,11 +141,8 @@ void Player::revive()
 	_life.resetLife();
 	_playerPanel->updateLifeBar(_life.getLife(), _life.getMaxLife());
 
-	_money->restartWallet();
-	_playerPanel->updateCoinsCounter(_money->getWallet());
-
 	_currentGun->resetAmmo();
-	_otherGun->resetAmmo();
+	if(_otherGun != nullptr) _otherGun->resetAmmo();
 	_playerPanel->updateAmmoViewer(_currentGun->getClip(), _currentGun->getMagazine());
 
 	_playerPanel->resetDashViewer();
@@ -223,12 +228,15 @@ void Player::update(const double& deltaTime)
 
 void Player::swapGun()
 {
-	Gun* auxGun = _currentGun;
-	_currentGun = _otherGun;
-	_otherGun = auxGun;
-	_playerArm->setTexture(_currentGun->getArmTexture());
-	_playerPanel->updateAmmoViewer(_currentGun->getClip(), _currentGun->getMagazine());
-	_playerPanel->updateWeaponryViewer();
+	if (_otherGun != nullptr)
+	{
+		Gun* auxGun = _currentGun;
+		_currentGun = _otherGun;
+		_otherGun = auxGun;
+		_playerArm->setTexture(_currentGun->getArmTexture());
+		_playerPanel->updateAmmoViewer(_currentGun->getClip(), _currentGun->getMagazine());
+		_playerPanel->updateWeaponryViewer();
+	}
 }
 
 void Player::changeCurrentGun(Gun * gun)
@@ -357,7 +365,7 @@ void Player::refreshDashCoolDown(const double& deltaTime)
 		{
 			_numDash++;
 			_playerPanel->updateDashViewer(_numDash);
-			_dashCD = 3000; //Se restablecen los 3 segundos
+			_dashCD = 1000; //Se restablecen los 3 segundos
 		}
 	}
 }
@@ -378,7 +386,8 @@ void Player::dashTimer(const double & deltaTime)
 void Player::refreshGunCadence(const double& deltaTime)
 {
 	_currentGun->refreshGunCadence(deltaTime);
-	_otherGun->refreshGunCadence(deltaTime);
+	if(_otherGun != nullptr)
+		_otherGun->refreshGunCadence(deltaTime);
 }
 
 void Player::move(const Vector2D& dir, const double& speed)

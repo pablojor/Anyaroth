@@ -337,6 +337,9 @@
     <ClCompile Include="GravityBombDebuff.cpp">
       <Filter>Archivos de código fuente\Components</Filter>
     </ClCompile>
+    <ClCompile Include="StaticFlyingEnemy.cpp">
+      <Filter>Archivos de código fuente\Objects\Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -707,6 +710,9 @@
     </ClInclude>
     <ClInclude Include="GravityBombDebuff.h">
       <Filter>Archivos de encabezado\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticFlyingEnemy.h">
+      <Filter>Archivos de encabezado\Objects\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

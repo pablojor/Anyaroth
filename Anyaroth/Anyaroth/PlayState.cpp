@@ -37,15 +37,9 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_player->setPlayerBulletPool(_playerBulletPool);
 
 	//Levels
-
-	_currentZone = 1;
-	_currentLevel = 2;
+	_currentLevel = LevelManager::Level2_1;
 	_levelManager = LevelManager(g, _player, &_stages, _hud, enemyPool);
-	_levelManager.setLevel(_currentZone, _currentLevel);
-
-	//Tienda PROVISIONAL
-	_shop = new Shop(_gameptr, Vector2D(50, 330), _hud->getShop(), _currentZone);
-	_stages.push_back(_shop);
+	_levelManager.setLevel(_currentLevel);
 
 	//Background
 	_parallaxZone1 = new ParallaxBackGround(_mainCamera);
@@ -68,7 +62,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 
 	//World
 	_debugger.getRenderer(g->getRenderer());
-	_debugger.getTexture(g->getTexture("body"));
+	_debugger.getTexture(g->getTexture("Box"));
 	_debugger.SetFlags(b2Draw::e_shapeBit);
 	_debugger.getCamera(_mainCamera);
 	
@@ -96,6 +90,11 @@ bool PlayState::handleEvent(const SDL_Event& event)
 	}
 	else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_0) //Boton de prueba para reiniciar el nivel
 		_levelManager.resetLevel();
+	else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_1) //Boton de prueba para reiniciar la munici�n
+	{
+		_player->getCurrentGun()->resetAmmo();
+		_hud->getPlayerPanel()->updateAmmoViewer(_player->getCurrentGun()->getClip(), _player->getCurrentGun()->getMagazine());
+	}
 	else if (event.type == SDL_KEYDOWN && (event.key.keysym.sym == SDLK_KP_MINUS || event.key.keysym.sym == SDLK_MINUS)) //Para probar el Zoom y sus distintan opciones
 		_mainCamera->zoomOut();
 	else if (event.type == SDL_KEYDOWN && (event.key.keysym.sym == SDLK_KP_PLUS || event.key.keysym.sym == SDLK_PLUS))
@@ -110,15 +109,22 @@ bool PlayState::handleEvent(const SDL_Event& event)
 
 void PlayState::update(const double& deltaTime)
 {
+	if (_player->changeLevel())
+	{
+		_player->setChangeLevel(false);
+		_player->revive();
+		_currentLevel++;
+		_levelManager.changeLevel(_currentLevel);
+	}
 
 	if (_player->isDead())
 	{
 		cout << "player is dead\n";
 		_playerBulletPool->stopBullets();
 		_player->revive();
-		_levelManager.resetLevel();
+		_currentLevel--;
+		_levelManager.changeLevel(_currentLevel);
 	}
-
 
 	GameState::update(deltaTime);
 }
