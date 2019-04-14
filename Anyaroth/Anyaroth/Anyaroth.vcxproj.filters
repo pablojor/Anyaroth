@@ -65,13 +65,13 @@
       <Filter>Archivos de código fuente\Background</Filter>
     </ClCompile>
     <ClCompile Include="BasicPistol.cpp">
-      <Filter>Archivos de código fuente\Guns</Filter>
+      <Filter>Archivos de código fuente\Objects\Guns</Filter>
     </ClCompile>
     <ClCompile Include="BasicShotgun.cpp">
-      <Filter>Archivos de código fuente\Guns</Filter>
+      <Filter>Archivos de código fuente\Objects\Guns</Filter>
     </ClCompile>
     <ClCompile Include="Gun.cpp">
-      <Filter>Archivos de código fuente\Guns</Filter>
+      <Filter>Archivos de código fuente\Objects\Guns</Filter>
     </ClCompile>
     <ClCompile Include="CollisionManager.cpp">
       <Filter>Archivos de código fuente\Others\Managers</Filter>
@@ -230,28 +230,28 @@
       <Filter>Archivos de código fuente\HUD\UIElements</Filter>
     </ClCompile>
     <ClCompile Include="BasicRifle.cpp">
-      <Filter>Archivos de código fuente\Guns</Filter>
+      <Filter>Archivos de código fuente\Objects\Guns</Filter>
     </ClCompile>
     <ClCompile Include="BounceOrbCannon.cpp">
-      <Filter>Archivos de código fuente\Guns</Filter>
+      <Filter>Archivos de código fuente\Objects\Guns</Filter>
     </ClCompile>
     <ClCompile Include="ImprovedRifle.cpp">
-      <Filter>Archivos de código fuente\Guns</Filter>
+      <Filter>Archivos de código fuente\Objects\Guns</Filter>
     </ClCompile>
     <ClCompile Include="ImprovedShotgun.cpp">
-      <Filter>Archivos de código fuente\Guns</Filter>
+      <Filter>Archivos de código fuente\Objects\Guns</Filter>
     </ClCompile>
     <ClCompile Include="Shotgun.cpp">
-      <Filter>Archivos de código fuente\Guns</Filter>
+      <Filter>Archivos de código fuente\Objects\Guns</Filter>
     </ClCompile>
     <ClCompile Include="WeaponManager.cpp">
-      <Filter>Archivos de código fuente\Guns</Filter>
+      <Filter>Archivos de código fuente\Objects\Guns</Filter>
     </ClCompile>
     <ClCompile Include="PlasmaSniper.cpp">
-      <Filter>Archivos de código fuente\Guns</Filter>
+      <Filter>Archivos de código fuente\Objects\Guns</Filter>
     </ClCompile>
     <ClCompile Include="GravityBombCannon.cpp">
-      <Filter>Archivos de código fuente\Guns</Filter>
+      <Filter>Archivos de código fuente\Objects\Guns</Filter>
     </ClCompile>
     <ClCompile Include="BulletEffect.cpp">
       <Filter>Archivos de código fuente\Objects\Bullets\Effects</Filter>
@@ -302,10 +302,10 @@
       <Filter>Archivos de código fuente\Objects\Bullets\Effects</Filter>
     </ClCompile>
     <ClCompile Include="BossOrbCannon.cpp">
-      <Filter>Archivos de código fuente\Guns</Filter>
+      <Filter>Archivos de código fuente\Objects\Guns</Filter>
     </ClCompile>
     <ClCompile Include="BomberGun.cpp">
-      <Filter>Archivos de código fuente\Guns</Filter>
+      <Filter>Archivos de código fuente\Objects\Guns</Filter>
     </ClCompile>
     <ClCompile Include="Capsule.cpp">
       <Filter>Archivos de código fuente\Objects\Enemies</Filter>
@@ -815,9 +815,6 @@
     <Filter Include="Archivos de código fuente\Background">
       <UniqueIdentifier>{13f0db75-7397-4d71-956f-71da1cb273d7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de código fuente\Guns">
-      <UniqueIdentifier>{4f97f6a1-796b-40fe-b2a8-322f3bdaa034}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Archivos de código fuente\Others">
       <UniqueIdentifier>{9e24d06e-9c30-484e-b8f6-4c9de6a8f644}</UniqueIdentifier>
     </Filter>
@@ -886,6 +883,9 @@
     </Filter>
     <Filter Include="Archivos de encabezado\HUD\Shop">
       <UniqueIdentifier>{34784df1-da49-4c07-b58e-b2ba2d639505}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código fuente\Objects\Guns">
+      <UniqueIdentifier>{4f97f6a1-796b-40fe-b2a8-322f3bdaa034}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

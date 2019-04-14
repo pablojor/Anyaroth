@@ -6,7 +6,7 @@ class BounceOrbCannon :
 	public Gun
 {
 private:
-	BouncingBulletEffect _effect = BouncingBulletEffect(4);
+	BouncingBulletEffect _effect = BouncingBulletEffect(6);
 public:
 	BounceOrbCannon(Game* game);
 	virtual ~BounceOrbCannon();
