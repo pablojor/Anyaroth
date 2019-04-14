@@ -83,60 +83,56 @@ void Map::createObjects()
 			}
 			else if (name == "Melee")
 			{
-				_objects->addChild(new MeleeEnemy(_game, _player, Vector2D(pos[j].getX() - TILES_SIZE * 2, pos[j].getY() - TILES_SIZE * 2)));
+				_objects->addChild(new MeleeEnemy(_game, _player, Vector2D(pos.getX() - TILES_SIZE * 2, pos.getY() - TILES_SIZE * 2)));
 			}
 			else if (name == "Martyr")
 			{
-				_objects->addChild(new MartyrEnemy(_game, _player, Vector2D(pos[j].getX() - TILES_SIZE * 2, pos[j].getY() - TILES_SIZE * 2)));
+				_objects->addChild(new MartyrEnemy(_game, _player, Vector2D(pos.getX() - TILES_SIZE * 2, pos.getY() - TILES_SIZE * 2)));
 			}
 			else if (name == "DistanceStatic")
 			{
-				_objects->addChild(new DistanceStaticEnemy(_game, _player, Vector2D(pos[j].getX() - TILES_SIZE * 2, pos[j].getY() - TILES_SIZE * 2), _bulletPool));
+				_objects->addChild(new DistanceStaticEnemy(_game, _player, Vector2D(pos.getX() - TILES_SIZE * 2, pos.getY() - TILES_SIZE * 2), _bulletPool));
 			}
 			else if (name == "DistanceDynamic")
 			{
-				_objects->addChild(new DistanceDynamicEnemy(_game, _player, Vector2D(pos[j].getX() - TILES_SIZE * 2, pos[j].getY() - TILES_SIZE * 2), _bulletPool));
+				_objects->addChild(new DistanceDynamicEnemy(_game, _player, Vector2D(pos.getX() - TILES_SIZE * 2, pos.getY() - TILES_SIZE * 2), _bulletPool));
 			}
 			else if (name == "FlyingDistance")
 			{
-				_objects->addChild(new StaticFlyingEnemy(_game, _player, Vector2D(pos[j].getX() - TILES_SIZE * 2, pos[j].getY() - TILES_SIZE * 2), _bulletPool));
+				_objects->addChild(new StaticFlyingEnemy(_game, _player, Vector2D(pos.getX() - TILES_SIZE * 2, pos.getY() - TILES_SIZE * 2), _bulletPool));
 			}
 			else if (name == "Spawner")
 			{
-				_objects->addChild(new StaticSpawnerEnemy(_game, _player, Vector2D(pos[j].getX() - TILES_SIZE * 2, pos[j].getY() - TILES_SIZE * 2)));
+				_objects->addChild(new StaticSpawnerEnemy(_game, _player, Vector2D(pos.getX() - TILES_SIZE * 2, pos.getY() - TILES_SIZE * 2)));
 			}
 			else if (name == "MeleeShip")
 			{
-				_objects->addChild(new NormalSpawner<MeleeEnemy>(_game, _player, Vector2D(pos[j].getX() - TILES_SIZE * 2, pos[j].getY() - TILES_SIZE * 2)));
+				_objects->addChild(new NormalSpawner<MeleeEnemy>(_game, _player, Vector2D(pos.getX() - TILES_SIZE * 2, pos.getY() - TILES_SIZE * 2)));
 			}
 			else if (name == "DistanceStaticShip")
 			{
-				_objects->addChild(new DistanceSpawner<DistanceStaticEnemy>(_game, _player, Vector2D(pos[j].getX() - TILES_SIZE * 2, pos[j].getY() - TILES_SIZE * 2), _bulletPool));
+				_objects->addChild(new DistanceSpawner<DistanceStaticEnemy>(_game, _player, Vector2D(pos.getX() - TILES_SIZE * 2, pos.getY() - TILES_SIZE * 2), _bulletPool));
 			}
 			else if (name == "Bomber")
 			{
-				_objects->addChild(new BomberEnemy(_game, _player, Vector2D(pos[j].getX() - TILES_SIZE * 2, pos[j].getY() - TILES_SIZE * 2), _bulletPool));
+				_objects->addChild(new BomberEnemy(_game, _player, Vector2D(pos.getX() - TILES_SIZE * 2, pos.getY() - TILES_SIZE * 2), _bulletPool));
 			}
 			else if (name == "Misil")
 			{
-				_objects->addChild(new BotonLanzaMisiles(_game, _boss1, _game->getTexture("EnemyMartyr"), Vector2D(pos[j].getX() - TILES_SIZE * 2, pos[j].getY() - TILES_SIZE * 2)));
+				_objects->addChild(new BotonLanzaMisiles(_game, _boss1, _game->getTexture("MissileTurret"), Vector2D(pos.getX() - TILES_SIZE * 2, pos.getY() - TILES_SIZE * 2), _faseMisil));
+				_faseMisil++;
 			}
 			else if (name == "Boss1")
 			{
-				_boss1 = (new Boss1(_game, _player, Vector2D(pos[j].getX() - TILES_SIZE * 2, pos[j].getY() - TILES_SIZE * 2), _bulletPool));
+				_boss1 = (new Boss1(_game, _player, Vector2D(pos.getX() - TILES_SIZE * 2, pos.getY() - TILES_SIZE * 2), _bulletPool));
 				_objects->addChild(_boss1);
 				_boss1->setBossPanel(_hud->getBossPanel());
 			}
 			else if (name == "NPC")
 			{
-				_objects->addChild(new BotonLanzaMisiles(_game, _boss1, _game->getTexture("MissileTurret"), Vector2D(pos.getX() - TILES_SIZE * 2, pos.getY() - TILES_SIZE * 2), _faseMisil));
-				_faseMisil++;
-			}
-			else if (name == "NPCs")
-			{
-				_n = new NPC(_game, Vector2D(pos.getX() - TILES_SIZE * 2, pos.getY() - TILES_SIZE * 2), _game->getDialogue(data));
-				_n->setDialoguePanel(_hud->getDialoguePanel());
-				_objects->addChild(_n);
+				_npc = new NPC(_game, Vector2D(pos.getX() - TILES_SIZE * 2, pos.getY() - TILES_SIZE * 2), _game->getDialogue(data));
+				_npc->setDialoguePanel(_hud->getDialoguePanel());
+				_objects->addChild(_npc);
 			}
 		}
 	}

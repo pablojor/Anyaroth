@@ -38,7 +38,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 
 	//Levels
 	_currentLevel = LevelManager::Level2_1;
-	_levelManager = LevelManager(g, _player, &_stages, _hud);
+	_levelManager = LevelManager(g, _player, &_stages, _hud, enemyPool);
 	_levelManager.setLevel(_currentLevel);
 
 	//Background
