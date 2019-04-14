@@ -15,15 +15,20 @@ const int CAMERA_RESOLUTION_Y = CAMERA_ASPECT_RATIO_Y * CAMERA_SCALE_FACTOR;
 class Camera
 {
 private:
-	GameObject * _followedObject = nullptr;
 	SDL_Rect _cameraRect;
 	BackGround* _backGround = nullptr;
 
+	GameObject * _followedObject = nullptr;	
+
 	void moveCamera(const double& deltaTime);
 	void smoothCameraZoom(/*const double& deltaTime*/);
+	void shakeCamera(const double& deltaTime);
 
 	pair<bool, int> _cameraStatus = pair<bool, int>(false, 0);
 	int _zoom = CAMERA_SCALE_FACTOR; int _zoomGoal = CAMERA_SCALE_FACTOR;
+
+	float _shakeIntensity = -1.f;
+	float _shakeTime = 0.f;
 
 public:
 	Camera() {}
@@ -55,6 +60,8 @@ public:
 
 	inline void zoomOut() { _zoom++; _zoomGoal = _zoom; setCameraSize(CAMERA_ASPECT_RATIO_X * _zoom, CAMERA_ASPECT_RATIO_Y * _zoom); }
 	inline void zoomIn() { _zoom - 1 < 0 ? _zoom = 0 : _zoom--; _zoomGoal = _zoom; setCameraSize(CAMERA_ASPECT_RATIO_X * _zoom, CAMERA_ASPECT_RATIO_Y * _zoom); }
+
+	void shake(const float& intensity, const float& time);
 
 	void update(const double& deltaTime);
 	void render() const;

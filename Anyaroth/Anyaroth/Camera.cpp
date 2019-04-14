@@ -66,6 +66,26 @@ void Camera::smoothCameraZoom()
 	}
 }
 
+void Camera::shakeCamera(const double& deltaTime)
+{
+	if (_shakeIntensity > 0)
+	{
+		float randomX = -1.f + (double)rand() / (double)(RAND_MAX / 2);
+		float randomY = -1.f + (double)rand() / (double)(RAND_MAX / 2);
+
+		int x = _cameraRect.x + randomX * _shakeIntensity;
+		int y = _cameraRect.y + randomY * _shakeIntensity;
+
+		_cameraRect.x = x;
+		_cameraRect.y = y;
+
+		_shakeTime -= deltaTime;
+		if (_shakeTime <= 0) {
+			_shakeIntensity = -1;
+		}
+	}
+}
+
 Camera::Camera(GameObject * followObject)
 {
 	fixCameraToObject(followObject);
@@ -110,9 +130,16 @@ void Camera::setZoom(const float& zoomRatio, const bool& smoothZoom)
 	}
 }
 
+void Camera::shake(const float & intensity, const float & time)
+{
+	_shakeIntensity = intensity;
+	_shakeTime = time;
+}
+
 void Camera::update(const double& deltaTime)
 {
 	moveCamera(deltaTime);
+	shakeCamera(deltaTime);
 
 	if (_backGround != nullptr)
 		if (_backGround->checkCameraStatus(_cameraStatus))

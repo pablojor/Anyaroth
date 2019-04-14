@@ -106,6 +106,8 @@ bool PlayState::handleEvent(const SDL_Event& event)
 		_mainCamera->setZoom(_mainCamera->getZoomRatio() + 1, true);
 	else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_m)
 		_mainCamera->setZoom(_mainCamera->getZoomRatio() - 1, true);
+	else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_KP_ENTER && !event.key.repeat)
+		_mainCamera->shake(10, 750);
 
 	return handled;
 }
