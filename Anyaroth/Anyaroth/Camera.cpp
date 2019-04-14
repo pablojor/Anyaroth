@@ -3,14 +3,31 @@
 #include "TransformComponent.h"
 #include "ParallaxBackGround.h"
 
-void Camera::moveCamera()
+void Camera::moveCamera(const double& deltaTime)
 {
 	SDL_Rect preChange = _cameraRect;
 	if (_followedObject != nullptr)
 	{
-		auto a = _followedObject->getComponent<TransformComponent>()->getPosition();
-		_cameraRect.x = a.getX() - _cameraRect.w / 2;
-		_cameraRect.y = a.getY() - _cameraRect.h / 2;
+		auto a = _followedObject->getComponent<TransformComponent>();
+		auto s = _followedObject->getComponent<CustomAnimatedSpriteComponent>();
+		float playerOffsetX = (s->getTexture()->getW() / s->getTexture()->getNumCols()) / 2;
+
+		//Aqui se lleva a cabo todo el movimiento
+		float smoothSpeed = 7.0f;
+		float offsetX = 100;
+		Vector2D desiredPos;
+		if (!s->isFlipped())
+			desiredPos = Vector2D(a->getPosition().getX() + playerOffsetX - _cameraRect.w / 2 + offsetX, a->getPosition().getY() - _cameraRect.h / 2);
+		else
+			desiredPos = Vector2D(a->getPosition().getX() + playerOffsetX - _cameraRect.w / 2 - offsetX, a->getPosition().getY() - _cameraRect.h / 2);
+			
+		Vector2D smoothPos = Vector2D::Lerp(Vector2D(_cameraRect.x, _cameraRect.y), desiredPos, smoothSpeed * deltaTime / 1000.0f);
+
+		if (abs(desiredPos.getX() - smoothPos.getX()) > 1.5f || abs(desiredPos.getY() - smoothPos.getY()) > 1.5f)
+		{
+			_cameraRect.x = smoothPos.getX();
+			_cameraRect.y = smoothPos.getY();
+		}
 	}
 
 	//Aqui se haran los ajustes para que no se salga del mundo
@@ -95,7 +112,7 @@ void Camera::setZoom(const float& zoomRatio, const bool& smoothZoom)
 
 void Camera::update(const double& deltaTime)
 {
-	moveCamera();
+	moveCamera(deltaTime);
 
 	if (_backGround != nullptr)
 		if (_backGround->checkCameraStatus(_cameraStatus))

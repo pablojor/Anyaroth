@@ -19,7 +19,7 @@ private:
 	SDL_Rect _cameraRect;
 	BackGround* _backGround = nullptr;
 
-	void moveCamera();
+	void moveCamera(const double& deltaTime);
 	void smoothCameraZoom(/*const double& deltaTime*/);
 
 	pair<bool, int> _cameraStatus = pair<bool, int>(false, 0);

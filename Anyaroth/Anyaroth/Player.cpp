@@ -307,7 +307,7 @@ void Player::checkMovement(const Uint8* keyboard)
 			move(Vector2D(0, 0), _speed);
 
 		if (keyboard[SDL_SCANCODE_SPACE] && !isMeleeing() && !isJumping()/*&& !isReloading()*/)
-			if ((isGrounded() && !isFalling()) || (!isGrounded() && isFalling() && _timeToJump > 0))
+			if ((isGrounded() && !isFalling() && !isDashing()) || (!isGrounded() && isFalling() && _timeToJump > 0 && !isDashing()))
 				jump();
 
 		//Recarga
