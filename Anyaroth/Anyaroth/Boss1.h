@@ -11,7 +11,7 @@
 class Boss1 : public Boss
 {
 	private:
-		Vector2D _amplitude = Vector2D(150,25), _velocity = Vector2D(0.5, 0.5), _dir = Vector2D(1,0);
+		Vector2D _amplitude = Vector2D(150,25), _velocity = Vector2D(0.8, 0.8), _dir = Vector2D(1,0);
 		double  _damage = 50, _angularFrequency = 0.05, _k = _angularFrequency / _velocity.distance(Vector2D());
 
 		//Cosas para el ataque bombardero
@@ -22,6 +22,7 @@ class Boss1 : public Boss
 
 		//Cosas Melee
 		Melee* _melee;
+		int _timeMelee = 950, _timeOnMelee = 0;
 
 		//Cosas de la ronda disparos
 		bool ida = true;
@@ -45,9 +46,7 @@ class Boss1 : public Boss
 		void movement(const double& deltaTime);
 		void bomberAttack(const double& deltaTime,int t1, int t2);
 		void meleeAttack();
-		bool inline const isMeleeing() { return ((_anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaSwordLeft) || _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaSwordRight)  
-			&& !_anim->animationFinished(); }
-		void checkMelee();
+		void checkMelee(const double& deltaTime);
 		void armShoot(const double& deltaTime);
 
 		void orbAttack();

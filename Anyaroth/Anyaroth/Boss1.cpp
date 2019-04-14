@@ -40,11 +40,13 @@ Boss1::Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, 
 
 	_anim->playAnim(AnimatedSpriteComponent::SpentaIdle);
 
+	_body->setW(40);
+	_body->setH(70);
 	_body->filterCollisions(ENEMIES, FLOOR | PLAYER_BULLETS | MELEE | MISIL);
 	_body->getBody()->SetGravityScale(0);
 
 	_originalPos = Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL);
-	_melee = new Axe(g, { 200,0 }, PLAYER, 20, 25, 25, 0);
+	_melee = new Axe(g, { 150, 0 }, PLAYER, 2, 25, 25, 270);
 	addChild(_melee);
 
 	_armVision = true;
@@ -64,9 +66,21 @@ Boss1::~Boss1()
 void Boss1::update(const double& deltaTime)
 {
 	Boss::update(deltaTime);
-	if (!isDead())
+	if (isDead())
 	{
-		checkMelee();
+		if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaEndShield)
+		{
+			_anim->playAnim(AnimatedSpriteComponent::SpentaDie);
+		}
+	}
+
+	if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaEndShield)
+	{
+		_actualState = Moving;
+	}
+	if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaEndBomb)
+	{
+		_actualState = Moving;
 	}
 	else
 	{
@@ -151,20 +165,26 @@ void Boss1::meleeAttack()
 	_armVision = false;
 }
 
-void Boss1::checkMelee()
+void Boss1::checkMelee(const double& deltaTime)
 {
-	if (!isMeleeing() && _melee != nullptr && _melee->isActive())
+	if (_melee != nullptr && _melee->isActive())
 	{
-		_melee->endMelee();
-		//Provisional
-		if (_actualFase != BetweenFase)
+		if (_timeOnMelee > _timeMelee)
 		{
-			_anim->playAnim(AnimatedSpriteComponent::SpentaIdle);
-			_actualState = Moving;
-		}
-		_armVision = true;;
+			_melee->endMelee();
+			//Provisional
+			if (_actualFase != BetweenFase)
+			{
+				_anim->playAnim(AnimatedSpriteComponent::SpentaIdle);
+				_actualState = Moving;
+			}
+			_armVision = true;;
 
-		_doSomething = random(900, 1300);
+			_doSomething = random(900, 1300);
+			_timeOnMelee = 0;
+		}
+		else
+			_timeOnMelee += deltaTime;
 	}
 }
 
@@ -279,7 +299,7 @@ void Boss1::fase1(const double& deltaTime)
 			{
 				int ra = random(0, 100);
 
-				if (ra >= 65)
+				if (ra >= 50)
 				{
 					_actualState = Meleeing;
 					_noAction = 0;
@@ -297,6 +317,8 @@ void Boss1::fase1(const double& deltaTime)
 			else
 				_noAction += deltaTime;
 		}
+		else
+			checkMelee(deltaTime);
 	}
 	else
 		armShoot(deltaTime);
@@ -329,6 +351,8 @@ void Boss1::fase2(const double& deltaTime)
 					fase1(deltaTime);
 				}
 			}
+			else
+				checkMelee(deltaTime);
 		}
 		else
 			armShoot(deltaTime);
@@ -360,6 +384,8 @@ void Boss1::fase3(const double& deltaTime)
 					else
 						_noAction += deltaTime;
 				}
+				else
+					checkMelee(deltaTime);
 			}
 			else
 				orbAttack();
@@ -375,6 +401,7 @@ void Boss1::beetwenFases(const double& deltaTime)
 {
 	bomberAttack(deltaTime, 200, 600);
 	_actualState = Bombing;
+	checkMelee(deltaTime);
 
 	if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaStartShield)
 	{
@@ -394,7 +421,7 @@ void Boss1::changeFase(int nextFase)
 
 void Boss1::throwBomb()
 {
-	Vector2D helpPos = Vector2D(random(_transform->getPosition().getX() - 500, _transform->getPosition().getX() + 500/*100, 700 /*Futuro tope por la derecha*/), 200);
+	Vector2D helpPos = Vector2D(random(100, 700 /*Futuro tope por la derecha*/), 200);
 	_bombGun->enemyShoot(_myBulletPool, helpPos, 90, "EnemyBullet");
 	//Bullet* b = _myExplosivePool->getUnusedObject();
 	//Vector2D helpPos = Vector2D(random(100,700 /*Fututo tope por la derecha*/), 200);

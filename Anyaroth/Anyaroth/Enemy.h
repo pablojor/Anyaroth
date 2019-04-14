@@ -19,10 +19,12 @@ protected:
 	Vector2D _playerDistance;
 
 	Life _life;
-	bool _attacking = false;
+	bool _attacking = false, _drop = true, extraDrop = false;
 	int _vision, _attackRangeX, _attackRangeY, _attackTime, _damage;
 	double _time;
 	float32 _speed;
+	
+	int _coinValue = 10;
 
 	bool _stunned = false;
 
@@ -37,6 +39,7 @@ public:
 	inline int random(int low, int high) const { return low + (rand() % abs(high - low)); }
 
 	void die();
+	void spawnDrop();
 	virtual void subLife(int damage);
 	inline Life getLife() const { return _life; }
 
@@ -44,4 +47,5 @@ public:
 	inline void setStunned(bool value) { _stunned = value; }
 
 	bool inCamera();
+	bool inCameraX();
 };

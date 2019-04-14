@@ -7,6 +7,8 @@
 #include "Player.h"
 #include "BulletPool.h"
 #include "Cursor.h"
+#include "PlayStateHUD.h"
+#include "Shop.h"
 
 class PlayState : public GameState
 {
@@ -16,6 +18,8 @@ private:
 
 	//Bullet Pools
 	BulletPool* _playerBulletPool = nullptr; //Balas del jugador
+
+	PlayStateHUD* _hud = nullptr;
 
 	LevelManager _levelManager;
 	CollisionManager _colManager;
@@ -28,6 +32,9 @@ private:
 	double deathTime = 3000, deathTimer = 0;
 	bool _killed = false;
 	TextUI* deathText;
+
+	Shop* _shop = nullptr;
+	
 
 public:
 	PlayState(Game* g);

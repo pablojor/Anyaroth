@@ -5,28 +5,36 @@
 #include "NPC.h"
 #include "PiercingBulletPool.h"
 #include "checkML.h"
+#include "WeaponManager.h"
 
 PlayState::PlayState(Game* g) : GameState(g)
 {
+	//Inicializa el manager de armas
+	WeaponManager::init();
+
 	//HUD
 	_hud = new PlayStateHUD(g);
 	setCanvas(_hud);
 
 	//Player
-	_player = new Player(g, 100, 500);
+	_player = new Player(g, 100, 200);
+	_stages.push_back(_player);
+
+	_player->setPlayerPanel(_hud->getPlayerPanel());
+
+	_hud->getShop()->setPlayer(_player);
+	_hud->getShop()->setVisible(false);
 
 	//Pool player
 	_playerBulletPool = new BulletPool(g);
-	_stages.push_back(_playerBulletPool);
+	auto enemyPool = new BulletPool(g);
 
 	_player->setPlayerBulletPool(_playerBulletPool);
-	_player->setPlayerPanel(_hud->getPlayerPanel());
 
 	//Levels
-	_currentLevel = LevelManager::Level1_1;
-	_levelManager = LevelManager(g, _player, &_stages, _hud);
+	_currentLevel = LevelManager::Level2_1;
+	_levelManager = LevelManager(g, _player, &_stages, _hud, enemyPool);
 	_levelManager.setLevel(_currentLevel);
-	_stages.push_back(_player);
 
 	//Background
 	_parallaxZone1 = new ParallaxBackGround(_mainCamera);
@@ -38,6 +46,9 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_cursor = new Cursor(g);
 	_stages.push_back(_cursor);
 	SDL_ShowCursor(false);
+	//Balas se renderizan al final
+	_stages.push_back(_playerBulletPool);
+	_stages.push_back(enemyPool);
 
 	//Camera
 	_mainCamera->fixCameraToObject(_player);
@@ -49,10 +60,10 @@ PlayState::PlayState(Game* g) : GameState(g)
 	g->getWorld()->SetDebugDraw(&_debugger);
 
 	//World
-	/*_debugger.getRenderer(g->getRenderer());
+	_debugger.getRenderer(g->getRenderer());
 	_debugger.getTexture(g->getTexture("Box"));
 	_debugger.SetFlags(b2Draw::e_shapeBit);
-	_debugger.getCamera(_mainCamera);*/
+	_debugger.getCamera(_mainCamera);
 	
 	//Gestion de colisiones
 	g->getWorld()->SetContactListener(&_colManager);
@@ -104,6 +115,7 @@ void PlayState::update(const double& deltaTime)
 	if (_player->changeLevel())
 	{
 		_player->setChangeLevel(false);
+		_player->revive();
 		_currentLevel++;
 		_levelManager.changeLevel(_currentLevel);
 	}
@@ -118,14 +130,14 @@ void PlayState::update(const double& deltaTime)
 	{
 		_playerBulletPool->stopBullets();
 		_player->revive();
-		_levelManager.resetLevel();
+		_currentLevel--;
+		_levelManager.changeLevel(_currentLevel);
 		deathTimer = 0;
 		_killed = false;
 		deathText->setVisible(false);
 	}
 	else if (_killed)
 		deathTimer += deltaTime;
-
 
 	GameState::update(deltaTime);
 }

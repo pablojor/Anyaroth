@@ -9,19 +9,14 @@
 #include "Life.h"
 #include "PlayerPanel.h"
 #include "PoolWrapper.h"
-//#include "BulletPool.h"
-//#include "BouncingBulletPool.h"
 #include "Melee.h"
 
-class WeaponManager;
 class Game;
 
 
 class Player : public GameObject
 {
 private:
-	Game* _game = nullptr;
-
 	//Componentes
 	TransformComponent* _transform = nullptr;
 	CustomAnimatedSpriteComponent* _anim = nullptr;
@@ -59,7 +54,6 @@ private:
 	Gun* _currentGun = nullptr;
 	Gun* _otherGun = nullptr;
 	PoolWrapper* _playerBulletPool = nullptr;
-	WeaponManager* _weaponManager = nullptr;
 
 	inline bool dashIsAble() const { return _numDash > 0 && _isDashing; }
 	void checkMovement(const Uint8* keyboard);
@@ -89,10 +83,14 @@ public:
 	void subLife(int damage);
 
 	void swapGun();
-	inline void changeCurrentGun(Gun* gun) { _currentGun = gun; }
-	inline void changeOtherGun(Gun* gun) { _otherGun = gun; }
+	void changeCurrentGun(Gun* gun);
+	void changeOtherGun(Gun* gun);
+	void changeMelee() {} //HABLAR COMO HACERLO
 	inline Gun* getCurrentGun() const { return _currentGun; }
 	inline Gun* getOtherGun() const { return _otherGun; }
+
+	inline int getBank() const { return _money->getBank(); }
+	inline bool spendMoney(int n) { return _money->spend(n); }
 
 	void move(const Vector2D& dir, const double& speed);
 	void dash(const Vector2D& dir);

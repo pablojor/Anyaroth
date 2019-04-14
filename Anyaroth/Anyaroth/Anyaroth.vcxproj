@@ -135,6 +135,8 @@
     <ClCompile Include="AmmoPackage.cpp" />
     <ClCompile Include="AmmoViewer.cpp" />
     <ClCompile Include="AnimatedImageUI.cpp" />
+    <ClCompile Include="ButtonUI.cpp" />
+    <ClCompile Include="DepotPanel.cpp" />
     <ClCompile Include="BomberGun.cpp" />
     <ClCompile Include="BossOrbCannon.cpp" />
     <ClCompile Include="BulletEffect.cpp" />
@@ -222,6 +224,11 @@
     <ClCompile Include="PlayStateHUD.cpp" />
     <ClCompile Include="PoolWrapper.cpp" />
     <ClCompile Include="RenderComponent.cpp" />
+    <ClCompile Include="Shop.cpp" />
+    <ClCompile Include="ShopInfoPanel.cpp" />
+    <ClCompile Include="ShopMenu.cpp" />
+    <ClCompile Include="ShopItem.cpp" />
+    <ClCompile Include="CatalogPanel.cpp" />
     <ClCompile Include="Shotgun.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="SpawnerEnemy.cpp" />
@@ -244,6 +251,8 @@
     <ClInclude Include="AmmoPackage.h" />
     <ClInclude Include="AmmoViewer.h" />
     <ClInclude Include="AnimatedImageUI.h" />
+    <ClInclude Include="ButtonUI.h" />
+    <ClInclude Include="DepotPanel.h" />
     <ClInclude Include="BomberGun.h" />
     <ClInclude Include="BossOrbCannon.h" />
     <ClInclude Include="BulletEffect.h" />
@@ -342,6 +351,11 @@
     <ClInclude Include="PoolWrapper.h" />
     <ClInclude Include="RenderComponent.h" />
     <ClInclude Include="SDLError.h" />
+    <ClInclude Include="Shop.h" />
+    <ClInclude Include="ShopInfoPanel.h" />
+    <ClInclude Include="ShopMenu.h" />
+    <ClInclude Include="ShopItem.h" />
+    <ClInclude Include="CatalogPanel.h" />
     <ClInclude Include="Shotgun.h" />
     <ClInclude Include="SpawnerEnemy.h" />
     <ClInclude Include="SoundManager.h" />

@@ -1,10 +1,9 @@
 #include "LevelManager.h"
 #include "Game.h"
 
-LevelManager::LevelManager(Game* game, Player* player, list<GameObject*>* objects, PlayStateHUD* hud) : _game(game), _player(player), _hud(hud), _objectList(objects)
+LevelManager::LevelManager(Game* game, Player* player, list<GameObject*>* objects, PlayStateHUD* hud, BulletPool* enemyPool) : _game(game), _player(player), _hud(hud), _objectList(objects)
 {
-	_enemyBulletPool = new BulletPool(game);
-	_objectList->push_back(_enemyBulletPool);
+	_enemyBulletPool = enemyPool;
 
 	_tilesetZone1 = game->getTexture("Tileset1");
 	_tilesetZone2 = game->getTexture("Tileset2");
@@ -27,7 +26,7 @@ void LevelManager::setLevel(int l)
 		_currentSafeZone = new Map(TILEMAP_PATH + "SafeZonePrueba.json", _game, _player, _tilesetZone1, _enemyBulletPool, _hud, 10);
 		break;
 	case LevelManager::Level1_2:
-		_currentMap = new Map(TILEMAP_PATH + "Nivel1-2.json", _game, _player, _tilesetZone1, _enemyBulletPool, _hud, 10);
+		//_currentMap = ...
 		break;
 	case LevelManager::SafeBoss1:
 		_currentSafeZone = new Map(TILEMAP_PATH + "SafeZonePrueba.json", _game, _player, _tilesetZone1, _enemyBulletPool, _hud, 10);

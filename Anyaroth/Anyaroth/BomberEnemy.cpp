@@ -49,6 +49,7 @@ void BomberEnemy::move()
 void BomberEnemy::update(const double& deltaTime)
 {
 	Enemy::update(deltaTime);
+	_gun->refreshGunCadence(deltaTime);
 
 	bool inVision = _playerDistance.getX() < _vision && _playerDistance.getX() > -_vision && _playerDistance.getY() < _vision && _playerDistance.getY() > -_vision;
 

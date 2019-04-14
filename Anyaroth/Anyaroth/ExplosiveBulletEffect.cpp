@@ -14,6 +14,7 @@ void ExplosiveBulletEffect::init(Bullet* bullet)
 {
 	bullet->getBulletBody()->filterCollisions(PLAYER_BULLETS, FLOOR | PLATFORMS | ENEMIES);
 	bullet->getBulletBody()->getBody()->SetType(b2_dynamicBody);
+	bullet->getBulletBody()->moveShape(b2Vec2(0, bullet->getBulletBody()->getH() + 2.7));
 	bullet->getBulletBody()->getBody()->SetBullet(true);
 	bullet->getBulletBody()->getBody()->SetFixedRotation(true);
 	bullet->getBulletBody()->getBody()->SetGravityScale(6);
@@ -87,7 +88,7 @@ void ExplosiveBulletEffect::explosion(Bullet* bullet)
 {
 	bullet->setExploding(true);
 	b2PolygonShape *explosion=new b2PolygonShape();
-	explosion->SetAsBox(bullet->getBulletBody()->getW() * 4, bullet->getBulletBody()->getH() * 4);
+	explosion->SetAsBox(bullet->getBulletBody()->getW() * 8, bullet->getBulletBody()->getH() * 10);
 
 	b2FixtureDef* fixt = new b2FixtureDef();
 	fixt->restitution = 0;

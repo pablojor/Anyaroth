@@ -13,6 +13,7 @@ Gun::Gun(Texture* armTexture, Texture* bulletTexture, double speed, double damag
 	_damage = damage;
 	_speed = speed;
 	_isAutomatic = automatic;
+	_id = id;
 	_effect = effect;
 	_bulletAnimType = bType;
 }

@@ -6,6 +6,9 @@
 
 class Gun
 {
+private:
+	GunType _id;
+
 protected:
 	int _maxMagazine = 0, _magazine = 0, _maxClip = 0, _clip = 0;
 	double _maxCadence = 0, _cadence = 0;	//Tiempo entre bala y bala (se actualizara con el deltaTime)
@@ -51,6 +54,7 @@ public:
 	inline Texture* getArmTexture() const { return _armTexture; }
 	inline Texture* getIconTexture() const { return _iconTexture; }
 
+	inline const GunType& getGunID() const { return _id; }
 	//setters
 	void setEffect(EffectInterface* effect) { _effect = effect; }
 	inline void setMaxCadence(double value) { _maxCadence = value; _cadence = 0; }

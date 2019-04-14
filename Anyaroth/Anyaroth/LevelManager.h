@@ -20,7 +20,7 @@ private:
 
 public:
 	LevelManager() {}
-	LevelManager(Game* game, Player* player, list<GameObject*>* objects, PlayStateHUD* hud);
+	LevelManager(Game* game, Player* player, list<GameObject*>* objects, PlayStateHUD* hud, BulletPool* bulletPool);
 	~LevelManager() {}
 
 	inline void resetLevel() { _currentMap->restartLevel(); _enemyBulletPool->stopBullets(); }

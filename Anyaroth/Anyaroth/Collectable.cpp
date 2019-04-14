@@ -11,8 +11,9 @@ Collectable::Collectable(Game* g, Texture* texture, Vector2D iniPos, int value, 
 	transform->setPosition(iniPos.getX(), iniPos.getY());
 
 	_body = addComponent<BodyComponent>();
-	_body->getBody()->SetType(b2_kinematicBody);
-	_body->filterCollisions(OBJECTS, PLAYER);
+	_body->getBody()->SetType(b2_dynamicBody);
+	_body->filterCollisions(OBJECTS, PLAYER|FLOOR);
+	_body->getBody()->SetGravityScale(0.4);
 }
 
 void Collectable::collect()
