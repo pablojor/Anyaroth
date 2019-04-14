@@ -319,7 +319,6 @@
     <ClCompile Include="StaticFlyingEnemy.cpp">
       <Filter>Archivos de código fuente\Objects\Enemies\DistanceEnemies</Filter>
     </ClCompile>
-    <ClCompile Include="SpriteObject.cpp" />
     <ClCompile Include="ShopInfoPanel.cpp">
       <Filter>Archivos de código fuente\HUD\Shop</Filter>
     </ClCompile>
@@ -346,6 +345,9 @@
     </ClCompile>
     <ClCompile Include="StaticFlyingEnemy.cpp">
       <Filter>Archivos de código fuente\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteObject.cpp">
+      <Filter>Archivos de código fuente\Objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -700,7 +702,6 @@
     <ClInclude Include="StaticFlyingEnemy.h">
       <Filter>Archivos de encabezado\Objects\Enemies\DistanceEnemies</Filter>
     </ClInclude>
-    <ClInclude Include="SpriteObject.h" />
     <ClInclude Include="ShopMenu.h">
       <Filter>Archivos de encabezado\HUD\Shop</Filter>
     </ClInclude>
@@ -727,6 +728,9 @@
     </ClInclude>
     <ClInclude Include="StaticFlyingEnemy.h">
       <Filter>Archivos de encabezado\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteObject.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
