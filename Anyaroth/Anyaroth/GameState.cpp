@@ -30,6 +30,8 @@ void GameState::render() const
 
 	if (_canvas != nullptr)
 		_canvas->render();
+
+	_mainCamera->last_render();
 }
 
 void GameState::update(const double& deltaTime)
@@ -161,7 +163,7 @@ Vector2D GameState::getMousePositionOnScreen() const
 
 void GameState::initializeCamera()
 {
-	_mainCamera = new Camera();
+	_mainCamera = new Camera(_gameptr);
 	_mainCamera->setCameraPosition(0, 0);
 	_mainCamera->setCameraSize(CAMERA_RESOLUTION_X, CAMERA_RESOLUTION_Y);
 }

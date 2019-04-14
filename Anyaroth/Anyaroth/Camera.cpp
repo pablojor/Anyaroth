@@ -86,9 +86,28 @@ void Camera::shakeCamera(const double& deltaTime)
 	}
 }
 
-Camera::Camera(GameObject * followObject)
+void Camera::fadingControl(const double & deltaTime)
+{
+	if (_isFading)
+	{
+		if (_fadeMaxTime < 0)
+			_fadeTime -= deltaTime;
+		else
+			_fadeTime += deltaTime;
+
+		if (_fadeTime / _fadeMaxTime >= 1)
+		{
+			_isFading = false;
+		}
+	}
+	else if (_fadeTime != 0)
+		_fadeTime = 0;
+}
+
+Camera::Camera(Game* game, GameObject * followObject)
 {
 	fixCameraToObject(followObject);
+	_game = game;
 }
 
 Camera::~Camera()
@@ -136,10 +155,25 @@ void Camera::shake(const float & intensity, const float & time)
 	_shakeTime = time;
 }
 
+void Camera::fadeIn(const float & time)
+{
+	_fadeTime = 0;
+	_fadeMaxTime = time;
+	_isFading = true;
+}
+
+void Camera::fadeOut(const float & time)
+{
+	_fadeTime = 0;
+	_fadeMaxTime = -time;
+	_isFading = true;
+}
+
 void Camera::update(const double& deltaTime)
 {
 	moveCamera(deltaTime);
 	shakeCamera(deltaTime);
+	fadingControl(deltaTime);
 
 	if (_backGround != nullptr)
 		if (_backGround->checkCameraStatus(_cameraStatus))
@@ -152,4 +186,17 @@ void Camera::render() const
 {
 	if (_backGround != nullptr) 
 		_backGround->render();
+}
+
+void Camera::last_render() const 
+{
+	if (_isFading) {
+		Texture tex = Texture(_game->getRenderer());
+		Uint8 alpha = (_fadeTime / _fadeMaxTime) * 255;
+		tex.load(_cameraRect.w, _cameraRect.h, 0, 0, 0, _fadeMaxTime < 0 ? alpha : 255 - alpha);
+
+		/* Filling the surface with red color. */
+		//SDL_FillRect(s, NULL, SDL_MapRGB(s->format, 255, 0, 0));
+		tex.render({ 0, 0, GAME_RESOLUTION_X, GAME_RESOLUTION_Y });
+	}
 }

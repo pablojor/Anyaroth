@@ -33,6 +33,27 @@ void Texture::load(string filename, uint nRows, uint nCols)
 	SDL_FreeSurface(tempSurface);
 }
 
+void Texture::load(int width, int height, Uint8 red, Uint8 green, Uint8 blue, Uint8 alpha)
+{
+	SDL_Surface* tempSurface = SDL_CreateRGBSurface(0, width, height, 32, red, green, blue, alpha);
+	if (tempSurface == nullptr) throw SDLError();
+	free();
+	_texture = SDL_CreateTextureFromSurface(_renderer, tempSurface);
+	if (_texture == nullptr) throw SDLError();
+	_numRows = 1;
+	_numCols = 1;
+	_w = tempSurface->w;
+	_h = tempSurface->h;
+	_fw = _w / _numCols;
+	_fh = _h / _numRows;
+	SDL_FreeSurface(tempSurface);
+
+	SDL_SetTextureBlendMode(_texture, SDL_BLENDMODE_BLEND);
+
+	SDL_SetTextureColorMod(_texture, red, green, blue);
+	SDL_SetTextureAlphaMod(_texture, alpha);
+}
+
 void Texture::render(const SDL_Rect& destRect, double angle, SDL_Point anchor, SDL_RendererFlip flip) const
 {
 	SDL_Rect srcRect;
