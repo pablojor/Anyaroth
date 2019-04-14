@@ -70,6 +70,12 @@
                  "height":16,
                  "id":11,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"Data",
+                         "type":"string",
+                         "value":"Jose Maria 1"
+                        }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
@@ -87,7 +93,7 @@
  "nextobjectid":12,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.2.3",
+ "tiledversion":"1.2.1",
  "tileheight":16,
  "tilesets":[
         {
