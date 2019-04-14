@@ -6,8 +6,6 @@
 #include "ParallaxBackGround.h"
 #include "Player.h"
 #include "BulletPool.h"
-//#include "Coin.h"
-//#include "ExplosiveBulletPool.h"
 #include "Cursor.h"
 #include "PlayStateHUD.h"
 #include "Shop.h"
@@ -29,13 +27,14 @@ private:
 
 	ParallaxBackGround* _parallaxZone1 = nullptr;
 
-	Shop* _shop = nullptr;
-
-	int _currentZone;
 	int _currentLevel;
 
+	double deathTime = 3000, deathTimer = 0;
+	bool _killed = false;
+	TextUI* deathText;
 
-	//vector <list<GameObject*>::iterator> items_ToDelete;
+	Shop* _shop = nullptr;
+	
 
 public:
 	PlayState(Game* g);
@@ -44,11 +43,6 @@ public:
 	virtual void update(const double& deltaTime);
 	virtual bool handleEvent(const SDL_Event& event);
 
-	//inline Player* getPlayer() const { return _player; }
-	//inline BulletPool* getEnemyPool() const { return _enemyBulletPool; }
-	//inline ExplosiveBulletPool* getExplosivePool() const { return _explosivePool; }
 	inline Cursor* getCursor() const { return _cursor; }
-
-	inline int getCurrentZone() const { return _currentZone; }
 	inline int getCurrentLevel() const { return _currentLevel; }
 };

@@ -30,6 +30,11 @@ void Arm::setAnimations(ArmAnimType type)
 		_anim->addAnim(AnimatedSpriteComponent::None, 12, true);
 		_anim->addAnim(AnimatedSpriteComponent::Shoot, 9, false);
 		break;
+	case BHCannonArmType:
+		_anim->addAnim(AnimatedSpriteComponent::None, 2, true);
+		_anim->addAnim(AnimatedSpriteComponent::Shoot, 6, false);
+		_anim->addAnim(AnimatedSpriteComponent::NoAmmo, 2, false);
+		break;
 	case PlayerArmType:
 	default:
 		_anim->addAnim(AnimatedSpriteComponent::None, 1, false);

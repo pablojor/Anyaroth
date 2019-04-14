@@ -46,7 +46,7 @@ Boss1::Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, 
 	_body->getBody()->SetGravityScale(0);
 
 	_originalPos = Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL);
-	_melee = new Axe(g, { 150, 0 }, PLAYER, 2, 25, 25, 270);
+	_melee = new Axe(g, { 150, 0 }, PLAYER, 2, 90, 90, 270);
 	addChild(_melee);
 
 	_armVision = true;
@@ -74,6 +74,21 @@ void Boss1::update(const double& deltaTime)
 		}
 	}
 
+	if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaEndShield)
+	{
+		_actualState = Moving;
+	}
+	if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaEndBomb)
+	{
+		_actualState = Moving;
+	}
+	else
+	{
+		if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaEndShield)
+		{
+			_anim->playAnim(AnimatedSpriteComponent::SpentaDie);
+		}
+	}
 	if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaEndShield)
 	{
 		_actualState = Moving;
@@ -408,7 +423,7 @@ void Boss1::changeFase(int nextFase)
 
 void Boss1::throwBomb()
 {
-	Vector2D helpPos = Vector2D(_game->random(100, 700 /*Futuro tope por la derecha*/), 200);
+	Vector2D helpPos = Vector2D(random(100, 700 /*Futuro tope por la derecha*/), 100);
 	_bombGun->enemyShoot(_myBulletPool, helpPos, 90, "EnemyBullet");
 	//Bullet* b = _myExplosivePool->getUnusedObject();
 	//Vector2D helpPos = Vector2D(random(100,700 /*Fututo tope por la derecha*/), 200);

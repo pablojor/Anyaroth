@@ -29,7 +29,7 @@ protected:
 	bool _animationFinished = false;
 
 public:
-	enum Player { Idle, Walk, WalkBack, MeleeKnife, ReloadPistol, BeforeJump, Jump, StartFalling, Falling, Hurt, Dash, DashDown, DashBack, ReloadShotgun };
+	enum Player { Idle, Walk, WalkBack, MeleeKnife, ReloadPistol, BeforeJump, Jump, StartFalling, Falling, Hurt, Dash, DashDown, DashBack, ReloadShotgun, PlayerDie };
 	enum Gun { None, Shoot, NoAmmo };
 	enum Enemy { EnemyIdle, EnemyWalk, EnemyAttack, EnemyDie };
 	enum Coin { Main };
@@ -51,6 +51,7 @@ public:
 
 	inline bool animationFinished() { return _animations[_currentAnim].animationFinished; }
 	inline uint getCurrentAnim() const { return _currentAnim; }
+	inline bool isLooping() { return _animations[_currentAnim].loop; }
 
 	void reset();
 };

@@ -134,6 +134,7 @@ void ShopMenu::setPlayer(Player* ply)
 
 void ShopMenu::openShop(int zona)
 {
+	SDL_ShowCursor(true);
 	if (zona != _zone)
 		_zone = zona;
 	_visible = true;
@@ -153,9 +154,10 @@ void ShopMenu::openShop(int zona)
 void ShopMenu::closeShop()
 {
 	_dialoguePanel->endDialogue();
-	_dialoguePanel->stopAtLastLineShown(false);
+	//_dialoguePanel->stopAtLastLineShown(false);
 
 	_player->setActive(true);
+	SDL_ShowCursor(false);
 }
 
 void ShopMenu::setDialoguePanel(DialoguePanel* dialoguePanel)

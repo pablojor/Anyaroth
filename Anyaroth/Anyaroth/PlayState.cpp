@@ -17,11 +17,6 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_hud = new PlayStateHUD(g);
 	setCanvas(_hud);
 
-	//Cursor
-	_cursor = new Cursor(g);
-	_stages.push_back(_cursor);
-	//SDL_ShowCursor(false);
-
 	//Player
 	_player = new Player(g, 100, 300);
 	_stages.push_back(_player);
@@ -38,21 +33,23 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_player->setPlayerBulletPool(_playerBulletPool);
 
 	//Levels
-	_currentZone = 2;
-	_currentLevel = 3;
+	_currentLevel = LevelManager::Boss1;
 	_levelManager = LevelManager(g, _player, &_stages, _hud, enemyPool);
-	_levelManager.setLevel(_currentZone, _currentLevel);
-
+	_levelManager.setLevel(_currentLevel);
+	
 	Boss2* boss = new Boss2(g, _player, Vector2D(200, 300), _playerBulletPool);
 	_stages.push_back(boss);
 	boss->setBossPanel(_hud->getBossPanel());
-
 	//Background
 	_parallaxZone1 = new ParallaxBackGround(_mainCamera);
 	_parallaxZone1->addLayer(new ParallaxLayer(g->getTexture("BgZ1L1"), _mainCamera, 0.25));
 	_parallaxZone1->addLayer(new ParallaxLayer(g->getTexture("BgZ1L2"), _mainCamera, 0.5));
 	_parallaxZone1->addLayer(new ParallaxLayer(g->getTexture("BgZ1L3"), _mainCamera, 0.75));
 
+	//Cursor
+	_cursor = new Cursor(g);
+	_stages.push_back(_cursor);
+	SDL_ShowCursor(false);
 	//Balas se renderizan al final
 	_stages.push_back(_playerBulletPool);
 	_stages.push_back(enemyPool);
@@ -68,13 +65,17 @@ PlayState::PlayState(Game* g) : GameState(g)
 
 	//World
 	_debugger.getRenderer(g->getRenderer());
-	_debugger.getTexture(g->getTexture("body"));
+	_debugger.getTexture(g->getTexture("Box"));
 	_debugger.SetFlags(b2Draw::e_shapeBit);
 	_debugger.getCamera(_mainCamera);
 	
 	//Gestion de colisiones
 	g->getWorld()->SetContactListener(&_colManager);
 	g->getWorld()->SetDebugDraw(&_debugger);
+
+	deathText = new TextUI(_gameptr, "ANYAHILATED", _gameptr->getFont("ARIAL12"), 50, CAMERA_RESOLUTION_X / 2 - 50, CAMERA_RESOLUTION_Y / 2 - 10, { 255,0,0,1 });
+	deathText->setVisible(false);
+	_hud->addUIElement(deathText);
 }
 
 
@@ -96,6 +97,11 @@ bool PlayState::handleEvent(const SDL_Event& event)
 	}
 	else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_0) //Boton de prueba para reiniciar el nivel
 		_levelManager.resetLevel();
+	else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_1) //Boton de prueba para reiniciar la munici�n
+	{
+		_player->getCurrentGun()->resetAmmo();
+		_hud->getPlayerPanel()->updateAmmoViewer(_player->getCurrentGun()->getClip(), _player->getCurrentGun()->getMagazine());
+	}
 	else if (event.type == SDL_KEYDOWN && (event.key.keysym.sym == SDLK_KP_MINUS || event.key.keysym.sym == SDLK_MINUS)) //Para probar el Zoom y sus distintan opciones
 		_mainCamera->zoomOut();
 	else if (event.type == SDL_KEYDOWN && (event.key.keysym.sym == SDLK_KP_PLUS || event.key.keysym.sym == SDLK_PLUS))
@@ -110,15 +116,32 @@ bool PlayState::handleEvent(const SDL_Event& event)
 
 void PlayState::update(const double& deltaTime)
 {
-
-	if (_player->isDead())
+	if (_player->changeLevel())
 	{
-		cout << "player is dead\n";
-		_playerBulletPool->stopBullets();
+		_player->setChangeLevel(false);
 		_player->revive();
-		_levelManager.resetLevel();
+		_currentLevel++;
+		_levelManager.changeLevel(_currentLevel);
 	}
 
+	if (_player->isDead() && !_killed)
+	{
+		deathText->setVisible(true);
+		_killed = true;
+		_player->setStopped(true);
+	}
+	if (_killed && deathTimer > deathTime)
+	{
+		_playerBulletPool->stopBullets();
+		_player->revive();
+		_currentLevel--;
+		_levelManager.changeLevel(_currentLevel);
+		deathTimer = 0;
+		_killed = false;
+		deathText->setVisible(false);
+	}
+	else if (_killed)
+		deathTimer += deltaTime;
 
 	GameState::update(deltaTime);
 }

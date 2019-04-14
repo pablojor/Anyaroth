@@ -24,7 +24,7 @@ private:
 	Melee* _melee = nullptr;
 
 	//Propiedades
-	Life _life = Life(100);
+	Life _life = Life(300);
 	Money* _money = nullptr;
 	PlayerPanel* _playerPanel = nullptr;
 
@@ -32,7 +32,7 @@ private:
 	PlayerArm* _playerArm = nullptr;
 
 	//Variable auxiliares
-	double _dashCD = 3000,
+	double _dashCD = 1000,
 		_stunTime = 1000;
 
 	double _maxDash = 1, 
@@ -47,8 +47,9 @@ private:
 		_dashDown = false,
 		_stunned = false;
 
-	int _floorCount = 0;
+	bool _changeLevel = false;
 
+	int _floorCount = 0;
 
 	float _timeToJump = 100.f;
 
@@ -110,10 +111,13 @@ public:
 	inline void setPlayerBulletPool(PoolWrapper* pool) { _playerBulletPool = pool; }
 	inline void setPlayerPosition(Vector2D pos) { _body->getBody()->SetTransform(b2Vec2(pos.getX(), pos.getY()), 0); }
 
-	
 	void changeMelee(Melee* newMelee);
 
+	inline bool changeLevel() const { return _changeLevel; }
+	inline void setChangeLevel(bool change) { _changeLevel = change; }
+
 	inline bool isGrounded() const { return _floorCount; }
+	inline bool isDead() const { return GameObject::isDead(); }
 	bool isDashing() const;
 	bool isMeleeing() const;
 	bool isReloading() const;

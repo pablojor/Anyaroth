@@ -14,5 +14,5 @@ class WeaponryViewer : public PanelUI
 		WeaponryViewer(Game* game, int xPos, int yPos);
 		~WeaponryViewer() { delete _otherWeapon; }
 
-		void updateWeaponryViewer();
+		void updateWeaponryViewer(Texture* iconTex);
 };

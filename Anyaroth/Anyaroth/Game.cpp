@@ -116,15 +116,6 @@ void Game::createDialogues()
 	input.close();
 }
 
-/*Texture* Game::newTexture(string id, string nameText)
-{
-	int i = _textures[nameText]->getNumFils();
-	int j = _textures[nameText]->getNumCols();
-
-	_textures.insert(pair <string, Texture*>(id,new Texture(_renderer, _textures[nameText]->getFilename(), i, j) ));
-	return _textures[id];
-}*/
-
 void Game::toggleFullscreen()
 {
 	Uint32 FullscreenFlag = SDL_WINDOW_FULLSCREEN_DESKTOP; //fake fullscreen (windowed mode)
@@ -218,7 +209,7 @@ void Game::render() const
 {
 	SDL_RenderClear(_renderer);
 	_stateMachine->currentState()->render();
-	//_world->DrawDebugData();
+	_world->DrawDebugData();
 	SDL_RenderPresent(_renderer);
 }
 
