@@ -22,6 +22,7 @@ private:
 	GameObject * _followedObject = nullptr;	
 
 	void moveCamera(const double& deltaTime);
+	void smoothMovement(const double& deltaTime);
 	void smoothCameraZoom(/*const double& deltaTime*/);
 	void shakeCamera(const double& deltaTime);
 	void fadingControl(const double& deltaTime);

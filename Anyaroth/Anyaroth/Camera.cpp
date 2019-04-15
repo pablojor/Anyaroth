@@ -6,29 +6,7 @@
 void Camera::moveCamera(const double& deltaTime)
 {
 	SDL_Rect preChange = _cameraRect;
-	if (_followedObject != nullptr)
-	{
-		auto a = _followedObject->getComponent<TransformComponent>();
-		auto s = _followedObject->getComponent<CustomAnimatedSpriteComponent>();
-		float playerOffsetX = (s->getTexture()->getW() / s->getTexture()->getNumCols()) / 2;
-
-		//Aqui se lleva a cabo todo el movimiento
-		float smoothSpeed = 7.0f;
-		float offsetX = 100;
-		Vector2D desiredPos;
-		if (!s->isFlipped())
-			desiredPos = Vector2D(a->getPosition().getX() + playerOffsetX - _cameraRect.w / 2 + offsetX, a->getPosition().getY() - _cameraRect.h / 2);
-		else
-			desiredPos = Vector2D(a->getPosition().getX() + playerOffsetX - _cameraRect.w / 2 - offsetX, a->getPosition().getY() - _cameraRect.h / 2);
-			
-		Vector2D smoothPos = Vector2D::Lerp(Vector2D(_cameraRect.x, _cameraRect.y), desiredPos, smoothSpeed * deltaTime / 1000.0f);
-
-		if (abs(desiredPos.getX() - smoothPos.getX()) > 1.5f || abs(desiredPos.getY() - smoothPos.getY()) > 1.5f)
-		{
-			_cameraRect.x = smoothPos.getX();
-			_cameraRect.y = smoothPos.getY();
-		}
-	}
+	smoothMovement(deltaTime);
 
 	//Aqui se haran los ajustes para que no se salga del mundo
 	if (_cameraRect.x < 0)
@@ -49,6 +27,35 @@ void Camera::moveCamera(const double& deltaTime)
 	}
 	else
 		_cameraStatus.first = false;
+}
+
+void Camera::smoothMovement(const double & deltaTime)
+{
+	if (_followedObject != nullptr)
+	{
+		auto a = _followedObject->getComponent<TransformComponent>();
+		auto s = _followedObject->getComponent<CustomAnimatedSpriteComponent>();
+		float playerOffsetX = (s->getTexture()->getW() / s->getTexture()->getNumCols()) / 2;
+
+		//Aqui se lleva a cabo todo el movimiento
+		float smoothSpeed = 7.0f;	// Velocidad del smooth
+		float offsetX = 40;			// Offset del objeto al centro de la pantalla
+
+		Vector2D desiredPos;
+		if (!s->isFlipped())
+			desiredPos = Vector2D(a->getPosition().getX() + playerOffsetX - _cameraRect.w / 2 + offsetX, a->getPosition().getY() - _cameraRect.h / 2);
+		else
+			desiredPos = Vector2D(a->getPosition().getX() + playerOffsetX - _cameraRect.w / 2 - offsetX, a->getPosition().getY() - _cameraRect.h / 2);
+
+		Vector2D smoothPos = Vector2D::Lerp(Vector2D(_cameraRect.x, _cameraRect.y), desiredPos, smoothSpeed * deltaTime / 1000.0f);
+
+		//Eje X
+		if (abs(desiredPos.getX() - smoothPos.getX()) > 12.f)		// 12.f porque cuanto mas grande, mas facil controlar los movimientos residuales
+			_cameraRect.x = smoothPos.getX();
+		//Eje Y
+		if (abs(desiredPos.getY() - smoothPos.getY()) > 12.f)
+			_cameraRect.y = smoothPos.getY();
+	}
 }
 
 void Camera::smoothCameraZoom()
@@ -96,9 +103,7 @@ void Camera::fadingControl(const double & deltaTime)
 			_fadeTime += deltaTime;
 
 		if (_fadeTime / _fadeMaxTime >= 1)
-		{
 			_isFading = false;
-		}
 	}
 	else if (_fadeTime != 0)
 		_fadeTime = 0;
