@@ -11,6 +11,7 @@ body {
   font-size: 18px;
   padding: 0;
   color: #5a5a5a;
+  background-color: #000
 }
 .background {
   position: fixed;
@@ -69,6 +70,7 @@ body {
 
 .generalBlock{
   text-align : center;
+  color: #e2e2e2
 }
 .generalBlock div h2 ul {
   text-align: center;
@@ -82,7 +84,7 @@ body {
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
-  background-color: #FFF;
+  background-color: #000;
   background-size: 100%;
 }
 
@@ -117,6 +119,19 @@ img.img-header {
 
 .marketing {
   margin-top: 1rem;
+}
+
+.marketing h1 { 
+  color: white;
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 1rem 0;
+}
+
+.marketing li { 
+  color: white;
+  vertical-align: middle;
+  align-content: center;
 }
 
 .marketing h2 {
