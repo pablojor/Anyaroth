@@ -6,6 +6,8 @@ Boss2::Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, 
 {
 	_myGun = new BasicShotgun(g);
 
+	_arm->setOffSet(Vector2D(20, 20));
+
 	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 13, true);
 	_anim->addAnim(AnimatedSpriteComponent::EnemyWalk, 8, true);
 	_anim->addAnim(AnimatedSpriteComponent::EnemyAttack, 11, false);
@@ -78,7 +80,8 @@ void Boss2::movement(const double& deltaTime)
 
 		double pos = _body->getBody()->GetPosition().x* M_TO_PIXEL;
 		_dir = (pos >= _playerPos.getX()) ? -1 : 1;
-		double range = _playerPos.getX() - _body->getBody()->GetPosition().x* M_TO_PIXEL;
+
+		double range = _playerPos.getX() + _playerBody->getW() / 2 - _bodyPos.getX() +_body->getW() / 2;
 
 
 		if (_dir == 1)
@@ -227,7 +230,7 @@ void Boss2::beetwenFases(const double& deltaTime)
 	{
 		if (_lastFase == Fase1)
 		{
-			_lasers->Activate();
+			_lasers->Activate(true);
 			changeFase(Fase2);
 		}
 		else if (_lastFase == Fase2)
@@ -235,6 +238,7 @@ void Boss2::beetwenFases(const double& deltaTime)
 		else
 		{
 			die();
+			_lasers->Activate(false);
 		}
 		_bossPanel->updateLifeBar(_life1.getLife(), _life2.getLife(), _life3.getLife(), _life.getLife());
 		_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);

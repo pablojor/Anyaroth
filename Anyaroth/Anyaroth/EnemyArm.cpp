@@ -55,7 +55,10 @@ void EnemyArm::update(const double& deltaTime)
 void EnemyArm::shoot()
 {
 	if (_myEnemy->getGun()->canShoot())
+	{
+		_anim->playAnim(AnimatedSpriteComponent::Idle);
 		_anim->playAnim(AnimatedSpriteComponent::Shoot);
+	}
 	else if(_anim->animationFinished())
 		_anim->playAnim(AnimatedSpriteComponent::Idle);
 }

@@ -22,5 +22,5 @@ public:
 
 	void Shoot();
 	void Stop();
-	void Activate() { _active = true; }
+	void Activate(bool act) { _active = act; }
 };

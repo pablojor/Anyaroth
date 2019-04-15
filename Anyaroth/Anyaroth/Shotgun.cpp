@@ -51,9 +51,15 @@ void Shotgun::enemyShoot(PoolWrapper* bulletPool, const Vector2D& position, cons
 			Bullet* b = bulletPool->getUnusedObject();
 			Vector2D bulletPos = prepareBulletPosition(position, angle);
 			if (b != nullptr)
-							b->init(_bulletTexture, bulletPos, _speed, _damage, angle + i * _angleBetweenBullet, _range, tag, _effect, _bulletAnimType);
+			{
+				b->init(_bulletTexture, bulletPos, _speed, _damage, angle + i * _angleBetweenBullet, _range, tag, _effect, _bulletAnimType);
+				b->changeFilter(true);
+			}
 			else
+			{
 				bulletPool->addNewBullet()->init(_bulletTexture, bulletPos, _speed, _damage, angle + i * _angleBetweenBullet, _range, tag, _effect, _bulletAnimType);
+				b->changeFilter(true);
+			}
 		}
 	}
 }
