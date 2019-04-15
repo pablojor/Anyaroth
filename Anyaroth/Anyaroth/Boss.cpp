@@ -71,7 +71,7 @@ void Boss::manageLife(Life& l, int damage)
 void Boss::beginCollision(GameObject * other, b2Contact * contact)
 {
 	string otherTag = other->getTag();
-	if (otherTag == "Bullet" || (other->getTag() == "Melee" && other != _melee))
+	if (otherTag == "Bullet" || other->getTag() == "Melee")
 	{
 		int damage = other->getDamage();
 		subLife(damage);

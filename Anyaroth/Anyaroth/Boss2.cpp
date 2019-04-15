@@ -13,10 +13,9 @@ Boss2::Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, 
 	_anim->addAnim(AnimatedSpriteComponent::EnemyAttack, 11, false);
 	_anim->addAnim(AnimatedSpriteComponent::EnemyDie, 18, false);
 	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
+
 	_body->addCricleShape(b2Vec2(0, 1.1), 0.7, PLAYER, FLOOR | PLATFORMS);
 	
-
-	_body->filterCollisions(ENEMIES, FLOOR | PLAYER_BULLETS | MELEE);
 	_body->getBody()->SetFixedRotation(true);
 	_body->getBody()->SetGravityScale(3.5);
 	
@@ -30,6 +29,8 @@ Boss2::Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, 
 	fDef.filter.maskBits = FLOOR | PLATFORMS;
 	fDef.isSensor = true;
 	_body->addFixture(&fDef, this);
+
+	_body->filterCollisions(ENEMIES, FLOOR | PLAYER_BULLETS | MELEE);
 
 	_armVision = true;
 
