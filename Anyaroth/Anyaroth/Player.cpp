@@ -441,6 +441,7 @@ void Player::reload()
 	_playerArm->reload();
 	_currentGun->reload();
 	_playerPanel->updateAmmoViewer(_currentGun->getClip(), _currentGun->getMagazine());
+	_isReloading = false;
 }
 
 void Player::setPlayerPanel(PlayerPanel * p)
