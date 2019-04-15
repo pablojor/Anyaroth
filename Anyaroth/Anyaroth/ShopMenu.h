@@ -5,6 +5,7 @@
 #include "DialoguePanel.h"
 #include "ImageUI.h"
 #include "DepotPanel.h"
+#include "AnimatedImageUI.h"
 
 class Player;
 
@@ -25,7 +26,7 @@ class ShopMenu : public PanelUI
 		CatalogPanel* _catalogPanel;
 		DepotPanel* _depotPanel;
 
-		ImageUI* _imageBG = nullptr;
+		AnimatedImageUI* _imageBG = nullptr;
 
 		list<ShopItem*> _items;
 

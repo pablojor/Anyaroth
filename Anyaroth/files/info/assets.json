@@ -61,7 +61,7 @@
     [ "TurretArm", "turret_arm_spritesheet.png", 2, 12 ],
     [ "SpentaMisil", "spenta_misil_spritesheet.png", 2, 6 ],
     [ "MissileTurret", "missileturret_spritesheet.png", 4, 12 ],
-    [ "ShopBackground", "shop_background.png", 1, 1 ],
+    [ "ShopBackground", "shop_background.png", 1, 6 ],
     [ "CatalogPanel", "shop_panel.png", 1, 1 ],
     [ "InfoPanel", "info_panel.png", 3, 7 ],
     [ "DepotPanel", "depot_panel.png", 1, 1 ],

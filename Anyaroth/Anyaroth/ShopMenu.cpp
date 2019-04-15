@@ -4,13 +4,14 @@
 #include "PlayStateHUD.h"
 #include <json.hpp>
 #include "WeaponManager.h"
-
+#include "SoundManager.h"
 
 ShopMenu::ShopMenu(Game* game) : PanelUI(game)
 {
 	//----FONDO----//
 
-	_imageBG = new ImageUI(game, game->getTexture("ShopBackground"), 0, 0);
+	_imageBG = new AnimatedImageUI(game, game->getTexture("ShopBackground"));
+	_imageBG->addAnim(AnimatedImageUI::Idle, 6, true);
 	addChild(_imageBG);
 
 
@@ -23,30 +24,30 @@ ShopMenu::ShopMenu(Game* game) : PanelUI(game)
 	//BOTON DE HABLAR
 	_talkButton = new ButtonUI(game, game->getTexture("ShopButton"), [this](Game* game) { startTalking(game); }, { 0, 1, 1, 1, 1 });
 	_talkButton->setPosition(middleOfTheButtonPanelX / 2 - _talkButton->getW() / 2,
-							middleOfTheButtonPanelY - (distanceBetweenButtons / 2) - _talkButton->getH());
+		middleOfTheButtonPanelY - (distanceBetweenButtons / 2) - _talkButton->getH());
 
 	_talkText = new TextUI(game, "Talk", game->getFont("ARIAL12"), 12, 0, 0, { 145, 255, 255, 255 });
 	_talkText->setPosition(_talkButton->getX() + _talkButton->getW() / 2 - _talkText->getW() / 2,
-							_talkButton->getY() + _talkButton->getH() / 2 - _talkText->getH() / 2);
+		_talkButton->getY() + _talkButton->getH() / 2 - _talkText->getH() / 2);
 
 	//BOTON DE TIENDA
 	_shopButton = new ButtonUI(game, game->getTexture("ShopButton"), [this](Game* game) { openCatalogPanel(game); }, { 0, 1, 1, 1, 1 });
 	_shopButton->setPosition(middleOfTheButtonPanelX / 2 - _shopButton->getW() / 2,
-							_talkButton->getY() - _shopButton->getH() - distanceBetweenButtons);
+		_talkButton->getY() - _shopButton->getH() - distanceBetweenButtons);
 
 	_shopText = new TextUI(game, "Shop", game->getFont("ARIAL12"), 12, 0, 0, { 145, 255, 255, 255 });
 	_shopText->setPosition(_shopButton->getX() + _shopButton->getW() / 2 - _shopText->getW() / 2,
-							_shopButton->getY() + _shopButton->getH() / 2 - _shopText->getH() / 2);
+		_shopButton->getY() + _shopButton->getH() / 2 - _shopText->getH() / 2);
 
 	//BOTON DE ALMACEN
 	_depotButton = new ButtonUI(game, game->getTexture("ShopButton"), [this](Game* game) { openDepotPanel(game); }, { 0, 1, 1, 1, 1 });
 	_depotButton->setPosition(middleOfTheButtonPanelX / 2 - _depotButton->getW() / 2,
-							middleOfTheButtonPanelY + (distanceBetweenButtons/2));
+		middleOfTheButtonPanelY + (distanceBetweenButtons / 2));
 
 	_depotText = new TextUI(game, "Depot", game->getFont("ARIAL12"), 12, 0, 0, { 145, 255, 255, 255 });
 	_depotText->setPosition(_depotButton->getX() + _depotButton->getW() / 2 - _depotText->getW() / 2,
-							_depotButton->getY() + _depotButton->getH() / 2 - _depotText->getH() / 2);
-	 
+		_depotButton->getY() + _depotButton->getH() / 2 - _depotText->getH() / 2);
+
 	//BOTON DE SALIR
 	_exitButton = new ButtonUI(game, game->getTexture("ExitButton"), nullptr, { 0, 1, 1, 1 });
 	_exitButton->setPosition(CAMERA_RESOLUTION_X - _exitButton->getW() - 12, 188 - 1 - _exitButton->getH());
@@ -84,7 +85,7 @@ ShopMenu::~ShopMenu()
 {
 	_depotPanel->removeItems();
 	_catalogPanel->removeItems();
-	if(_dialoguePanel != nullptr) removeChild(_dialoguePanel);
+	if (_dialoguePanel != nullptr) removeChild(_dialoguePanel);
 	for (auto it = _items.begin(); it != _items.end(); it++)
 	{
 		delete *it;
@@ -124,8 +125,8 @@ void ShopMenu::loadWeaponInfo()
 	}
 }
 
-void ShopMenu::setPlayer(Player* ply) 
-{ 
+void ShopMenu::setPlayer(Player* ply)
+{
 	_player = ply;
 
 	_catalogPanel->setPlayer(_player);
@@ -139,6 +140,8 @@ void ShopMenu::openShop(int zona)
 		_zone = zona;
 	_visible = true;
 	_player->setActive(false);
+
+	_game->getSoundManager()->playMusic("shop", true);
 
 	_dialoguePanel->stopAtLastLineShown(true);
 	_dialoguePanel->startDialogue({
@@ -156,13 +159,15 @@ void ShopMenu::closeShop()
 	_dialoguePanel->endDialogue();
 	//_dialoguePanel->stopAtLastLineShown(false);
 
+	_game->getSoundManager()->stopMusic();
+
 	_player->setActive(true);
 	SDL_ShowCursor(false);
 }
 
 void ShopMenu::setDialoguePanel(DialoguePanel* dialoguePanel)
 {
-	_dialoguePanel = dialoguePanel; 
+	_dialoguePanel = dialoguePanel;
 	addChild(_dialoguePanel);
 }
 
@@ -183,7 +188,7 @@ void ShopMenu::ableMainMenu(Game * game)
 		{ "Quieres algo mas?"},
 		{ 1 },
 		{ " ", " ", " ", " " }
-	});
+		});
 }
 
 void ShopMenu::disableMainMenu(Game * game)
@@ -212,7 +217,7 @@ void ShopMenu::openCatalogPanel(Game* game)
 		{ "Te gusta algo de lo que tengo?"},
 		{ 0 },
 		{ " ", " ", " ", " " }
-	});
+		});
 }
 
 void ShopMenu::closeCatalogPanel(Game * game)
@@ -238,7 +243,7 @@ void ShopMenu::startTalking(Game* game)
 		"Esperemos que solo sea un rumor."},
 		{ 2, 1, 2, 0 },
 		{ " ", " ", " ", " " }
-	});
+		});
 }
 
 void ShopMenu::stopTalking()
@@ -259,7 +264,7 @@ void ShopMenu::openDepotPanel(Game* game)
 		{ "¡Equipate bien antes de salir ahi fuera!"},
 		{ 0 },
 		{ " ", " ", " ", " " }
-	});
+		});
 }
 
 void ShopMenu::closeDepotPanel(Game * game)

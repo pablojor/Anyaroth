@@ -64,6 +64,7 @@ void Game::createSounds()
 {
 
 	_soundManager->addMusic("bgMusic", SOUNDS_PATH + "bgMusic.wav");
+	_soundManager->addMusic("shop", SOUNDS_PATH + "shop.mp3");
 	_soundManager->addSFX("example1", SOUNDS_PATH + "example1.wav");
 
 	//UI SOUNDS
