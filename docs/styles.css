@@ -41,6 +41,24 @@ body {
 
 #footer_info{
   text-align: center;
+  color: #c0c0c0
+}
+
+
+#footer_info a:link {
+  color: #e2e2e2
+}
+
+#footer_info a:visited {
+  color: #a8a8a8;
+}
+
+#footer_info a:hover {
+  color:#c0c0c0;
+}
+
+#footer_info a:active {
+  color: green;
 }
 
 .header h2{
