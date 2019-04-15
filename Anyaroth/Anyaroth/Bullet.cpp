@@ -43,22 +43,21 @@ void Bullet::endCollision(GameObject * other, b2Contact* contact)
 void Bullet::init(Texture* texture, const Vector2D& position, const double& speed, const double& damage, const double& angle, const double& range, const string& tag, EffectInterface* effect, BulletAnimType type)
 {
 	setTag(tag);
+
 	_iniPos = position;
 	_transform->setPosition(position);
 	_speed = speed;
 	_damage = damage;
 	_range = range;
 
-
 	_texture = texture;
 	_transform->setRotation(angle);
 
 	_body->getBody()->SetActive(true);
+	_body->setW(((_texture->getW() / _texture->getNumCols()) / 2) / M_TO_PIXEL);
+	_body->setH(((_texture->getH() / _texture->getNumFils()) / 2) / M_TO_PIXEL);
 	_body->getBody()->SetTransform({ (float32)(position.getX() / M_TO_PIXEL), (float32)(position.getY() / M_TO_PIXEL) }, _body->getBody()->GetAngle());
 	_body->getBody()->SetLinearVelocity(b2Vec2(0, 0));
-
-
-
 
 	_effect = effect;
 	_effect->init(this);

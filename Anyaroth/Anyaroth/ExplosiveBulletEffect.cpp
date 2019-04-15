@@ -88,7 +88,9 @@ void ExplosiveBulletEffect::explosion(Bullet* bullet)
 {
 	bullet->setExploding(true);
 	b2PolygonShape *explosion=new b2PolygonShape();
-	explosion->SetAsBox(bullet->getBulletBody()->getW() * 8, bullet->getBulletBody()->getH() * 10);
+	explosion->SetAsBox(40 / M_TO_PIXEL, 20 / M_TO_PIXEL);
+
+	bullet->getGame()->getCurrentState()->getMainCamera()->shake(3, 500);
 
 	b2FixtureDef* fixt = new b2FixtureDef();
 	fixt->restitution = 0;
