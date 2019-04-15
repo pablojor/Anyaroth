@@ -14,7 +14,7 @@ void Axe::update(const double& deltaTime)
 {
 	if (isActive())
 	{
-		_angle += 2.4 * _dir;
+		_angle += 4 * _dir;
 		double x, y;
 		x = _center.getX() + _r * cos(_angle *M_PI / 180);
 		y = _center.getY() + _r * sin(_angle * M_PI / 180);

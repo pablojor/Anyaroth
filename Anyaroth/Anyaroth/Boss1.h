@@ -22,7 +22,7 @@ class Boss1 : public Boss
 
 		//Cosas Melee
 		Melee* _melee;
-		int _timeMelee = 950, _timeOnMelee = 0;
+		int _timeMelee = 900, _timeOnMelee = 0;
 
 		//Cosas de la ronda disparos
 		bool ida = true;
