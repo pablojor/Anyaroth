@@ -230,7 +230,7 @@ void Boss2::beetwenFases(const double& deltaTime)
 	{
 		if (_lastFase == Fase1)
 		{
-			_lasers->Activate(true);
+			_lasers->Activate();
 			changeFase(Fase2);
 		}
 		else if (_lastFase == Fase2)
@@ -238,7 +238,7 @@ void Boss2::beetwenFases(const double& deltaTime)
 		else
 		{
 			die();
-			_lasers->Activate(false);
+			_lasers->Deactivate();
 		}
 		_bossPanel->updateLifeBar(_life1.getLife(), _life2.getLife(), _life3.getLife(), _life.getLife());
 		_actualState = Moving;

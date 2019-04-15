@@ -70,7 +70,16 @@ void Boss::manageLife(Life& l, int damage)
 
 void Boss::beginCollision(GameObject * other, b2Contact * contact)
 {
-	DistanceEnemy::beginCollision(other, contact);
+	string otherTag = other->getTag();
+	if (otherTag == "Bullet" || (other->getTag() == "Melee" && other != _melee))
+	{
+		int damage = other->getDamage();
+		subLife(damage);
+		if (otherTag == "Melee")
+			extraDrop = true;
+		else
+			extraDrop = false;
+	}
 }
 
 void Boss::changeFase(int fase)
