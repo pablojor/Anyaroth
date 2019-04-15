@@ -180,22 +180,20 @@ Game::~Game()
 
 void Game::run()
 {
-	double deltaTime = FRAME_RATE;
-	double startTime = SDL_GetTicks();
+	Uint32 deltaTime = FRAME_RATE;
+	Uint32 startTime = SDL_GetTicks();
 
 	while (!_exit)
 	{
-		auto startTicks = SDL_GetTicks();
-		deltaTime = startTicks - startTime;
-		startTime = startTicks;
-
 		handleEvents();
-		_world->Step(_timestep, 8, 3);
-		update(deltaTime);
-		render();
-
-		if (deltaTime < FRAME_RATE)
-			SDL_Delay(FRAME_RATE - deltaTime);
+		deltaTime = SDL_GetTicks() - startTime;
+		if (deltaTime >= FRAME_RATE)
+		{
+			_world->Step((float32)deltaTime / 1000.f, 8, 3);
+			update(deltaTime);
+			render();
+			startTime = SDL_GetTicks();
+		}
 	}
 }
 

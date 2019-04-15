@@ -154,7 +154,14 @@ void Camera::setZoom(const float& zoomRatio, const bool& smoothZoom)
 	}
 }
 
-void Camera::shake(const float & intensity, const float & time)
+void Camera::setZoom(const int& zoom)
+{
+	_zoom = zoom;
+	_zoomGoal = _zoom;
+	setCameraSize(CAMERA_ASPECT_RATIO_X * _zoom, CAMERA_ASPECT_RATIO_Y * _zoom);
+}
+
+void Camera::shake(const float& intensity, const float& time)
 {
 	_shakeIntensity = intensity;
 	_shakeTime = time;

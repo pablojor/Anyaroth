@@ -27,7 +27,7 @@ const string SPRITE_PATH = "..\\assets\\sprites\\";
 const string TILEMAP_PATH = "..\\files\\tilemaps\\";
 const string SOUNDS_PATH = "..\\assets\\sounds\\";
 
-const int FRAME_RATE = 1000 / 60;
+const Uint32 FRAME_RATE = 1000 / 60;
 const int TILES_SIZE = 16;
 const double M_TO_PIXEL = 8;
 const double BUTTON_SCALE = 0.25;
