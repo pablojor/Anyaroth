@@ -241,6 +241,7 @@ void Boss2::beetwenFases(const double& deltaTime)
 			_lasers->Activate(false);
 		}
 		_bossPanel->updateLifeBar(_life1.getLife(), _life2.getLife(), _life3.getLife(), _life.getLife());
+		_actualState = Moving;
 		_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 	}
 }
@@ -253,6 +254,7 @@ void Boss2::manageLife(Life& l, int damage)
 		_doSomething = 0;
 		_lastFase = _actualFase;
 		_actualFase = BetweenFase;
+		_melee->endMelee();
 		_anim->playAnim(AnimatedSpriteComponent::EnemyDie);
 	}
 }
