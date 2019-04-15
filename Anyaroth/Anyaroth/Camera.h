@@ -15,11 +15,11 @@ const int CAMERA_RESOLUTION_Y = CAMERA_ASPECT_RATIO_Y * CAMERA_SCALE_FACTOR;
 class Camera
 {
 private:
-	Game * _game = nullptr;
+	Game* _game = nullptr;
 	SDL_Rect _cameraRect;
 	BackGround* _backGround = nullptr;
 
-	GameObject * _followedObject = nullptr;	
+	GameObject* _followedObject = nullptr;	
 
 	void moveCamera(const double& deltaTime);
 	void smoothMovement(const double& deltaTime);
@@ -62,6 +62,7 @@ public:
 	inline GameObject* getFollowedObject() const { return _followedObject; };
 
 	void setZoom(const float& zoomRatio, const bool& smoothZoom = false);
+	void setZoom(const int& zoom);
 	inline int getZoom() const { return _zoom; }
 	inline float getZoomRatio() const { return float(_zoom) / float(CAMERA_SCALE_FACTOR); };
 
