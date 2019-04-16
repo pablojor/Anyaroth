@@ -10,7 +10,7 @@ Boss2::Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, 
 
 	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 13, true);
 	_anim->addAnim(AnimatedSpriteComponent::EnemyWalk, 8, true);
-	_anim->addAnim(AnimatedSpriteComponent::EnemyAttack, 11, false);
+	_anim->addAnim(AnimatedSpriteComponent::EnemyAttack, 11, true);
 	_anim->addAnim(AnimatedSpriteComponent::EnemyDie, 18, false);
 	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 	
@@ -145,15 +145,28 @@ void Boss2::endJump()
 	_player->stunPlayer();
 }
 
-void Boss2::checkMelee()
+void Boss2::checkMelee(const double& deltaTime)
 {
-	if (!isMeleeing() && _melee != nullptr && _melee->isActive())
+
+	if (_melee != nullptr && _melee->isActive())
 	{
-		_velocity = { _originalVelocity.getX(), _originalVelocity.getY() };
-		_armVision = true;
+		if (_timeOnMelee > _timeMelee)
+		{
+			_melee->endMelee();
+			//Provisional
+			if (_actualFase != BetweenFase)
+			{
+				_anim->playAnim(AnimatedSpriteComponent::SpentaIdle);
+				_actualState = Moving;
+			}
+			_armVision = true;;
+			_velocity = { _originalVelocity.getX(), _originalVelocity.getY() };
+			_doSomething = _game->random(400, 800);
+			_timeOnMelee = 0;
+		}
+		else
+			_timeOnMelee += deltaTime;
 	}
-	//Se llama despues por que si no no entra en la condicion anterior
-	Boss::checkMelee();
 }
 
 void Boss2::fase1(const double& deltaTime)
@@ -164,17 +177,16 @@ void Boss2::fase1(const double& deltaTime)
 		{
 			if (_noAction > _doSomething)
 			{
-				if(_playerPos.distance(_bodyPos)<=_shootRange)
+				if (_playerPos.distance(_bodyPos) <= _shootRange)
 				{
 					_actualState = Shooting;
 					_noAction = 0;
 				}
 
-				else 
+				else
 				{
 					meleeAttack();
 					_actualState = Meleeing;
-					_doSomething = _game->random(400, 800);
 					_noAction = 0;
 					_armVision = false;
 				}
@@ -182,6 +194,8 @@ void Boss2::fase1(const double& deltaTime)
 			else
 				_noAction += deltaTime;
 		}
+		else
+			checkMelee(deltaTime);
 	}
 	else
 	{
@@ -218,6 +232,8 @@ void Boss2::fase3(const double& deltaTime)
 				else
 					_noAction += deltaTime;
 			}
+			else
+				checkMelee(deltaTime);
 		}
 		else
 		{

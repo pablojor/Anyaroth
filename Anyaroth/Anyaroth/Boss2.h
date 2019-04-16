@@ -11,6 +11,7 @@ private:
 	double _shootRange = 75;
 	bool _endJump = false;
 
+	int _timeMelee = 1250, _timeOnMelee = 0;
 public:
 	Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool);
 	~Boss2();
@@ -23,7 +24,7 @@ public:
 
 	virtual void meleeAttack();
 	void endJump();
-	virtual void checkMelee();
+	virtual void checkMelee(const double& deltaTime);
 	virtual int const  getDamage()
 	{
 		return _damage;
