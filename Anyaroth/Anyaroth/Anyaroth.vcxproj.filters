@@ -349,6 +349,9 @@
     <ClCompile Include="SpriteObject.cpp">
       <Filter>Archivos de código fuente\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="AidKit.cpp">
+      <Filter>Archivos de código fuente\Objects\Collectables</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -731,6 +734,9 @@
     </ClInclude>
     <ClInclude Include="SpriteObject.h">
       <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="AidKit.h">
+      <Filter>Archivos de encabezado\Objects\Collectables</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

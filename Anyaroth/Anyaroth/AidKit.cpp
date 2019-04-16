@@ -1,6 +1,6 @@
-#include "AmmoPackage.h"
+#include "AidKit.h"
 
-AmmoPackage::AmmoPackage(Game * game, Vector2D pos, int value) : Collectable(game, game->getTexture("Ammo"), pos, value, "Ammo")
+AidKit::AidKit(Game * game, Vector2D pos, int value) : Collectable(game, game->getTexture("AidKit"), pos, value, "AidKit")
 {
 	auto anim = addComponent<AnimatedSpriteComponent>();
 	anim->addAnim(AnimatedSpriteComponent::Main, 6, true);

@@ -14,11 +14,8 @@ class PlayState : public GameState
 {
 private:
 	Player* _player = nullptr;
+	BulletPool* _playerBulletPool = nullptr;
 	Cursor* _cursor = nullptr;
-
-	//Bullet Pools
-	BulletPool* _playerBulletPool = nullptr; //Balas del jugador
-
 	PlayStateHUD* _hud = nullptr;
 
 	LevelManager _levelManager;
@@ -29,13 +26,6 @@ private:
 
 	int _currentLevel;
 
-	double deathTime = 3000, deathTimer = 0;
-	bool _killed = false;
-	TextUI* deathText;
-
-	Shop* _shop = nullptr;
-	
-
 public:
 	PlayState(Game* g);
 
@@ -43,6 +33,5 @@ public:
 	virtual void update(const double& deltaTime);
 	virtual bool handleEvent(const SDL_Event& event);
 
-	inline Cursor* getCursor() const { return _cursor; }
 	inline int getCurrentLevel() const { return _currentLevel; }
 };

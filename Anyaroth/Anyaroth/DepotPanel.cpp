@@ -258,5 +258,5 @@ void DepotPanel::swapMeleeItems(ShopItem* _equiped)
 	_selectedItem->setItemInfo(otherInfo);
 	_equiped->setItemInfo(infoSelected);
 
-	_player->changeMelee();
+	//_player->changeMelee();
 }

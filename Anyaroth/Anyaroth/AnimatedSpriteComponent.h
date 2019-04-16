@@ -30,15 +30,15 @@ protected:
 
 public:
 	enum Player { Idle, Walk, WalkBack, MeleeKnife, ReloadPistol, BeforeJump, Jump, StartFalling, Falling, Hurt, Dash, DashDown, DashBack, ReloadShotgun, PlayerDie };
-	enum Gun { None, Shoot, NoAmmo };
 	enum Enemy { EnemyIdle, EnemyWalk, EnemyAttack, EnemyDie };
-	enum Coin { Main };
+	enum Gun { None, Shoot, NoAmmo };
 	enum Bullet { Default, Destroy };
+	enum MissileTurret { Deactivated, Activating, Active, Used };
+	enum SingleAnim { Main };
 	enum Spenta {
 		SpentaIdle, SpentaSwordLeft, SpentaSwordRight, SpentaStartShield, SpentaLoopShield, SpentaEndShield,
 		SpentaDie, SpentaStartBomb, SpentaLoopBomb, SpentaEndBomb, SpentaOrb, SpentaWing
 	};
-	enum MissileTurret { Deactivated, Activating, Active, Used };
 
 	AnimatedSpriteComponent(GameObject* obj) : SpriteComponent(obj), PhysicsComponent(obj), RenderComponent(obj), Component(), _obj(obj) {}
 	virtual ~AnimatedSpriteComponent() {}

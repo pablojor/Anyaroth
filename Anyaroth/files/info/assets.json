@@ -28,6 +28,7 @@
     [ "Weapon2", "weapon2.png", 1, 1 ],
     [ "Ammo", "ammo.png", 1, 8 ],
     [ "AmmoIcon", "ammo_icon.png", 1, 1 ],
+    [ "AidKit", "first_aid_kit.png", 1, 8 ],
     [ "DashIcon", "dash_spritesheet.png", 2, 81 ],
     [ "LifeBar", "life_bar.png", 1, 1 ],
     [ "LifeBarMask", "life_bar_mask.png", 1, 1 ],

@@ -94,7 +94,6 @@ void Game::createDialogues()
 		{
 			string id = it.key();
 			json aux = it.value();
-			cout << id<<endl;
 			int numDialogues = j.size();
 			string face, voice, name;
 			vector<string> conversation;
