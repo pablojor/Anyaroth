@@ -241,6 +241,7 @@
     <ClCompile Include="TextUI.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Tile.cpp" />
+    <ClCompile Include="Tilemap.cpp" />
     <ClCompile Include="TransformComponent.cpp" />
     <ClCompile Include="TTFclass.cpp" />
     <ClCompile Include="UIElement.cpp" />
@@ -369,6 +370,7 @@
     <ClInclude Include="TextUI.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Tile.h" />
+    <ClInclude Include="Tilemap.h" />
     <ClInclude Include="TransformComponent.h" />
     <ClInclude Include="TTFclass.h" />
     <ClInclude Include="UIElement.h" />

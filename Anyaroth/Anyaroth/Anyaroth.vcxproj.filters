@@ -352,6 +352,7 @@
     <ClCompile Include="AidKit.cpp">
       <Filter>Archivos de código fuente\Objects\Collectables</Filter>
     </ClCompile>
+    <ClCompile Include="Tilemap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -738,6 +739,7 @@
     <ClInclude Include="AidKit.h">
       <Filter>Archivos de encabezado\Objects\Collectables</Filter>
     </ClInclude>
+    <ClInclude Include="Tilemap.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de código fuente">

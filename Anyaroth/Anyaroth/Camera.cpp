@@ -11,13 +11,13 @@ void Camera::moveCamera(const double& deltaTime)
 	//Aqui se haran los ajustes para que no se salga del mundo
 	if (_cameraRect.x < 0)
 		_cameraRect.x = 0;
-	else if (_cameraRect.x > LEVEL_WIDTH - _cameraRect.w)
-		_cameraRect.x = LEVEL_WIDTH - _cameraRect.w;
+	else if (_cameraRect.x > _xWorldBounds - _cameraRect.w)
+		_cameraRect.x = _xWorldBounds - _cameraRect.w;
 
 	if (_cameraRect.y < 0)
 		_cameraRect.y = 0;
-	else if (_cameraRect.y > LEVEL_HEIGHT - _cameraRect.h)
-		_cameraRect.y = LEVEL_HEIGHT - _cameraRect.h;
+	else if (_cameraRect.y > _yWorldBounds - _cameraRect.h)
+		_cameraRect.y = _yWorldBounds - _cameraRect.h;
 
 	//Comparamos los cambios de la camara con su aspecto anterior
 	if (preChange.x != _cameraRect.x)
@@ -183,7 +183,7 @@ void Camera::fadeOut(const float & time)
 
 void Camera::update(const double& deltaTime)
 {
-	moveCamera(deltaTime);
+	//moveCamera(deltaTime);
 	shakeCamera(deltaTime);
 	fadingControl(deltaTime);
 
@@ -211,4 +211,10 @@ void Camera::last_render() const
 		//SDL_FillRect(s, NULL, SDL_MapRGB(s->format, 255, 0, 0));
 		tex.render({ 0, 0, GAME_RESOLUTION_X, GAME_RESOLUTION_Y });
 	}
+}
+
+void Camera::setWorldBounds(const int & xBound, const int & yBound)
+{
+	_xWorldBounds = xBound;
+	_yWorldBounds = yBound;
 }

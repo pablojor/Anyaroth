@@ -19,7 +19,9 @@ private:
 	SDL_Rect _cameraRect;
 	BackGround* _backGround = nullptr;
 
-	GameObject* _followedObject = nullptr;	
+	GameObject* _followedObject = nullptr;
+
+	int _xWorldBounds = 0, _yWorldBounds = 0;
 
 	void moveCamera(const double& deltaTime);
 	void smoothMovement(const double& deltaTime);
@@ -77,4 +79,6 @@ public:
 	void update(const double& deltaTime);
 	void render() const;
 	void last_render() const;
+
+	void setWorldBounds(const int& xBound, const int& yBound);
 };

@@ -6,9 +6,11 @@
 #include "PiercingBulletPool.h"
 #include "checkML.h"
 #include "WeaponManager.h"
+#include "Tilemap.h"
 
 PlayState::PlayState(Game* g) : GameState(g)
 {
+	_mainCamera->setWorldBounds(LEVEL_WIDTH, LEVEL_HEIGHT);
 	//Cursor
 	_cursor = new Cursor(g);
 	_stages.push_back(_cursor);
@@ -35,9 +37,13 @@ PlayState::PlayState(Game* g) : GameState(g)
 	auto enemyPool = new BulletPool(g);
 
 	//Levels
-	_currentLevel = LevelManager::Boss1;
+	/*_currentLevel = LevelManager::Boss1;
 	_levelManager = LevelManager(g, _player, &_stages, _hud, enemyPool);
-	_levelManager.setLevel(_currentLevel);
+	_levelManager.setLevel(_currentLevel);*/
+
+	Tilemap* tileMap = new Tilemap(g, g->getTexture("Tileset1"));
+	tileMap->loadTileMap(TILEMAP_PATH + "MapaPrueba.json");
+	_stages.push_back(tileMap);
 
 	//Background
 	_parallaxZone1 = new ParallaxBackGround(_mainCamera);
