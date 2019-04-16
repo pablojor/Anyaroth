@@ -3,17 +3,19 @@
 #include "Game.h"
 #include <json.hpp>
 
+using namespace nlohmann;
 
 Tilemap::Tilemap(Game* game, Texture* tileSet) : GameObject(game)
 {
 	_tileSet = tileSet;
-
 	_tileSize = _tileSet->getW() / _tileSet->getNumCols();
 }
 
-
 Tilemap::~Tilemap()
 {
+	for (b2Body* b : _colliders)
+		_game->getWorld()->DestroyBody(b);
+	_colliders.clear();
 }
 
 void Tilemap::update(const double & deltaTime)
@@ -76,28 +78,74 @@ void Tilemap::loadTileMap(const string & filename)
 		data = data["layers"];
 		
 		int index, height = 0, width = 0;
-		data = data[0];
-
-		auto it = data.find("height");
-		if (it != data.end())
-			height = *it;
-
-		it = data.find("width");
-		if (it != data.end())
-			width = *it;
-
-		it = data.find("data");
-		if (it != data.end())
-			data = *it;
-
-		int indexCount = 1;
-		_maxFils = height;
-		_maxCols = width;
-
-		for (int i = 0; i < _maxFils * _maxCols; i++)
+		string type, name;
+		for (int i = 0; i < data.size(); i++)
 		{
-			if (data[i] != 0)
-				_grid[i + 1] = { data[i] };
+			json layer = data[i];
+
+			auto it = layer.find("type");
+			if (it != layer.end())
+				type = (*it).get<string>();
+
+			if (type == "tilelayer")
+			{
+				it = layer.find("name");
+				if (it != layer.end())
+					name = (*it).get<string>();
+
+				it = layer.find("height");
+				if (it != layer.end())
+					height = *it;
+
+				it = layer.find("width");
+				if (it != layer.end())
+					width = *it;
+
+				it = layer.find("data");
+				if (it != layer.end())
+					layer = *it;
+
+				int indexCount = 1;
+				_maxFils = height;
+				_maxCols = width;
+
+				for (int i = 0; i < _maxFils * _maxCols; i++)
+				{
+					if (layer[i] != 0)
+					{
+						_grid[i + 1] = Tile(layer[i]);
+
+						if (name == "Ground" || name == "Platform" || name == "Door")
+						{
+							_grid[i + 1].setTag(name);
+
+							int y = (i + 1) / (_maxCols - 1);
+							int x = ((i + 1) % _maxCols) - 1;
+
+							b2BodyDef bodydef;
+							bodydef.type = b2_staticBody;
+							bodydef.position = b2Vec2(x*_tileSize / M_TO_PIXEL + 1, y*_tileSize / M_TO_PIXEL + 1);
+							bodydef.angle = 0.0;
+							b2Body* body = _game->getWorld()->CreateBody(&bodydef);
+
+							b2PolygonShape shape;
+							shape.SetAsBox(_tileSize / (M_TO_PIXEL*2), _tileSize / (M_TO_PIXEL*2));
+
+							b2FixtureDef fixture;
+							fixture.shape = &shape;
+							fixture.density = 1;
+							fixture.restitution = 0;
+							fixture.friction = 0.001;
+
+							body->CreateFixture(&fixture);
+							body->SetUserData(&_grid[i + 1]);
+							body->SetFixedRotation(true);
+
+							_colliders.push_back(body);
+						}
+					}
+				}
+			}
 		}
 
 		file.close();

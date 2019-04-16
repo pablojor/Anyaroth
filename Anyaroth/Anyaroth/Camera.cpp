@@ -183,7 +183,7 @@ void Camera::fadeOut(const float & time)
 
 void Camera::update(const double& deltaTime)
 {
-	//moveCamera(deltaTime);
+	moveCamera(deltaTime);
 	shakeCamera(deltaTime);
 	fadingControl(deltaTime);
 
@@ -206,9 +206,6 @@ void Camera::last_render() const
 		Texture tex = Texture(_game->getRenderer());
 		Uint8 alpha = (_fadeTime / _fadeMaxTime) * 255;
 		tex.load(_cameraRect.w, _cameraRect.h, 0, 0, 0, _fadeMaxTime < 0 ? alpha : 255 - alpha);
-
-		/* Filling the surface with red color. */
-		//SDL_FillRect(s, NULL, SDL_MapRGB(s->format, 255, 0, 0));
 		tex.render({ 0, 0, GAME_RESOLUTION_X, GAME_RESOLUTION_Y });
 	}
 }

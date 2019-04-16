@@ -42,7 +42,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_levelManager.setLevel(_currentLevel);*/
 
 	Tilemap* tileMap = new Tilemap(g, g->getTexture("Tileset1"));
-	tileMap->loadTileMap(TILEMAP_PATH + "MapaPrueba.json");
+	tileMap->loadTileMap(TILEMAP_PATH + "Nivel1-1.json");
 	_stages.push_back(tileMap);
 
 	//Background

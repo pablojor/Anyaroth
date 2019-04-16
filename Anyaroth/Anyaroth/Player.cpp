@@ -277,7 +277,7 @@ void Player::update(const double& deltaTime)
 			_changeLevel = true;
 	}
 
-	//GameObject::update(deltaTime);
+	GameObject::update(deltaTime);
 
 	refreshCooldowns(deltaTime);
 	dashTimer(deltaTime);
