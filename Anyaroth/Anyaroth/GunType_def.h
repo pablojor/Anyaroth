@@ -33,7 +33,8 @@ enum BulletAnimType
 	TurretBullet,
 	SpentaBomb,
 	SpentaOrb,
-	BHBullet
+	BHBullet,
+	SniperBullet
 };
 
 enum ArmAnimType

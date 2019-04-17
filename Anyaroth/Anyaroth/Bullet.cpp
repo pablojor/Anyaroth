@@ -133,6 +133,10 @@ void Bullet::setAnimations(BulletAnimType type)
 		_anim->addAnim(AnimatedSpriteComponent::Default, 2, true);
 		_anim->addAnim(AnimatedSpriteComponent::Destroy, 5, false);
 		break;
+	case SniperBullet:
+		_anim->addAnim(AnimatedSpriteComponent::Default, 2, true);
+		_anim->addAnim(AnimatedSpriteComponent::Destroy, 3, false);
+		break;
 	case Default:
 	default:
 		_anim->addAnim(AnimatedSpriteComponent::Default, 4, true);
