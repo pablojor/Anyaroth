@@ -7,7 +7,6 @@
 #include "checkML.h"
 #include "WeaponManager.h"
 #include "CutScene.h"
-#include "checkML.h"
 
 PlayState::PlayState(Game* g) : GameState(g)
 {

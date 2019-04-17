@@ -27,7 +27,7 @@ public:
 
 	void play();
 
-	void addMoveEvent();
+	void addMoveEvent(BodyComponent* body, int dir, int speed, int xDestination);
 	void addDialogueEvent(DialoguePanel* dialoguePanel, Dialogue dialogue);
 	void addCameraEvent();
 

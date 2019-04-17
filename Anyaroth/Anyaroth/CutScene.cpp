@@ -1,5 +1,4 @@
 #include "CutScene.h"
-#include "checkML.h"
 
 
 CutScene::CutScene(Player* player) : _player(player)
@@ -48,9 +47,9 @@ void CutScene::play()
 
 }
 
-void CutScene::addMoveEvent()
+void CutScene::addMoveEvent(BodyComponent* body, int dir, int speed, int xDestination)
 {
-
+	_events.push(new MoveEvent(body, dir, speed, xDestination));
 }
 
 void CutScene::addDialogueEvent(DialoguePanel* dialoguePanel, Dialogue dialogue)

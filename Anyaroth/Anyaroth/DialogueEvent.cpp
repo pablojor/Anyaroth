@@ -1,5 +1,4 @@
 #include "DialogueEvent.h"
-#include "checkML.h"
 
 
 DialogueEvent::DialogueEvent(DialoguePanel* dialoguePanel, Dialogue dialogue) : _dialoguePanel(dialoguePanel), _dialogue(dialogue)

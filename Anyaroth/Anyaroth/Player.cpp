@@ -6,7 +6,6 @@
 #include "Axe.h"
 #include "GunType_def.h"
 #include "WeaponManager.h"
-#include "checkML.h"
 
 
 Player::Player(Game* game, int xPos, int yPos) : GameObject(game, "Player")
