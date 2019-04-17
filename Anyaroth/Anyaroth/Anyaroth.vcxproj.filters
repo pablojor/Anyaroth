@@ -178,16 +178,10 @@
     <ClCompile Include="StaticSpawnerEnemy.cpp">
       <Filter>Archivos de código fuente\Objects\Enemies\SpawnerEnemies</Filter>
     </ClCompile>
-    <ClCompile Include="Tile.cpp">
-      <Filter>Archivos de código fuente\Objects\Level</Filter>
-    </ClCompile>
     <ClCompile Include="ObjectLayer.cpp">
       <Filter>Archivos de código fuente\Objects\Level</Filter>
     </ClCompile>
     <ClCompile Include="Map.cpp">
-      <Filter>Archivos de código fuente\Objects\Level</Filter>
-    </ClCompile>
-    <ClCompile Include="Layer.cpp">
       <Filter>Archivos de código fuente\Objects\Level</Filter>
     </ClCompile>
     <ClCompile Include="Axe.cpp">
@@ -352,6 +346,9 @@
     <ClCompile Include="AidKit.cpp">
       <Filter>Archivos de código fuente\Objects\Collectables</Filter>
     </ClCompile>
+    <ClCompile Include="Tilemap.cpp">
+      <Filter>Archivos de código fuente\Objects\Level</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -501,13 +498,7 @@
     <ClInclude Include="Gun.h">
       <Filter>Archivos de encabezado\Guns</Filter>
     </ClInclude>
-    <ClInclude Include="Tile.h">
-      <Filter>Archivos de encabezado\Objects\Level</Filter>
-    </ClInclude>
     <ClInclude Include="Map.h">
-      <Filter>Archivos de encabezado\Objects\Level</Filter>
-    </ClInclude>
-    <ClInclude Include="Layer.h">
       <Filter>Archivos de encabezado\Objects\Level</Filter>
     </ClInclude>
     <ClInclude Include="ObjectLayer.h">
@@ -737,6 +728,9 @@
     </ClInclude>
     <ClInclude Include="AidKit.h">
       <Filter>Archivos de encabezado\Objects\Collectables</Filter>
+    </ClInclude>
+    <ClInclude Include="Tilemap.h">
+      <Filter>Archivos de encabezado\Objects\Level</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
