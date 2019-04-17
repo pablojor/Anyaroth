@@ -6,6 +6,8 @@
 #include "PiercingBulletPool.h"
 #include "checkML.h"
 #include "WeaponManager.h"
+#include "CutScene.h"
+#include "checkML.h"
 
 PlayState::PlayState(Game* g) : GameState(g)
 {
@@ -39,6 +41,13 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_levelManager = LevelManager(g, _player, &_stages, _hud, enemyPool);
 	_levelManager.setLevel(_currentLevel);
 
+
+	_cutScene = new CutScene(_player);
+
+	_cutScene->addDialogueEvent(_hud->getDialoguePanel(), g->getDialogue("Jose Maria 1"));
+
+	_cutScene->play();
+
 	//Background
 	_parallaxZone1 = new ParallaxBackGround(_mainCamera);
 	_parallaxZone1->addLayer(new ParallaxLayer(g->getTexture("BgZ1L1"), _mainCamera, 0.25));
@@ -62,12 +71,17 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_debugger.getTexture(g->getTexture("Box"));
 	_debugger.SetFlags(b2Draw::e_shapeBit);
 	_debugger.getCamera(_mainCamera);
-	
+
 	//Gestion de colisiones
 	g->getWorld()->SetContactListener(&_colManager);
 	g->getWorld()->SetDebugDraw(&_debugger);
 }
 
+PlayState::~PlayState()
+{
+	if (_cutScene != nullptr)
+		delete _cutScene;
+}
 
 void PlayState::render() const
 {
@@ -128,6 +142,20 @@ void PlayState::update(const double& deltaTime)
 			_currentLevel--;
 			_levelManager.changeLevel(_currentLevel);
 		}
+	}
+	else
+	{
+		if (_cutScene != nullptr)
+		{
+			if (_cutScene->isPlaying())
+				_cutScene->update(deltaTime);
+			else
+			{
+				delete _cutScene;
+				_cutScene = nullptr;
+			}
+		}
+
 	}
 
 	GameState::update(deltaTime);

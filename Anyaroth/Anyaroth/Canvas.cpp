@@ -1,4 +1,6 @@
 #include "Canvas.h"
+#include "checkML.h"
+
 
 Canvas::~Canvas()
 {

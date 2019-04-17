@@ -1,5 +1,7 @@
 #include "DialogueTextUI.h"
 #include "Game.h"
+#include "checkML.h"
+
 
 DialogueTextUI::DialogueTextUI(Game* game, string text, Font* font, uint fontSize, int xPos, int yPos, SDL_Color color) :
 	TextUI(game, text, font, fontSize, xPos, yPos, color)

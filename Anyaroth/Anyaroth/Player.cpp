@@ -6,6 +6,8 @@
 #include "Axe.h"
 #include "GunType_def.h"
 #include "WeaponManager.h"
+#include "checkML.h"
+
 
 Player::Player(Game* game, int xPos, int yPos) : GameObject(game, "Player")
 {
@@ -213,7 +215,7 @@ bool Player::handleEvent(const SDL_Event& event)
 {
 	GameObject::handleEvent(event);
 
-	if (!isDead())
+	if (!isDead() && !_inputFreezed)
 	{
 		if (event.type == SDL_KEYDOWN && !event.key.repeat) // Captura solo el primer frame que se pulsa
 		{
@@ -328,7 +330,7 @@ void Player::checkMovement(const Uint8* keyboard)
 {
 	double _speed = 15;
 
-	if (!isDead())
+	if (!isDead() && !_inputFreezed)
 	{
 		if (keyboard[SDL_SCANCODE_A] && keyboard[SDL_SCANCODE_D] && !isMeleeing() && !isDashing())
 			move(Vector2D(0, 0), _speed);

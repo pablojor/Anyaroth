@@ -2,6 +2,7 @@
 #include "Game.h"
 #include <iterator>
 #include <sstream>
+#include "checkML.h"
 
 DialoguePanel::DialoguePanel(Game* game) : PanelUI(game)
 {

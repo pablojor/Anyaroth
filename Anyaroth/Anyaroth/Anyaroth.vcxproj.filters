@@ -352,6 +352,10 @@
     <ClCompile Include="AidKit.cpp">
       <Filter>Archivos de código fuente\Objects\Collectables</Filter>
     </ClCompile>
+    <ClCompile Include="CutScene.cpp" />
+    <ClCompile Include="Event.cpp" />
+    <ClCompile Include="MoveEvent.cpp" />
+    <ClCompile Include="DialogueEvent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -738,6 +742,10 @@
     <ClInclude Include="AidKit.h">
       <Filter>Archivos de encabezado\Objects\Collectables</Filter>
     </ClInclude>
+    <ClInclude Include="CutScene.h" />
+    <ClInclude Include="Event.h" />
+    <ClInclude Include="MoveEvent.h" />
+    <ClInclude Include="DialogueEvent.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de código fuente">
