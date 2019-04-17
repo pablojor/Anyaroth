@@ -3,7 +3,7 @@
 #include "Camera.h"
 #include "CamEffectType.h"
 
-class FadeInOut : public Event
+class FadeInOutEvent : public Event
 {
 private:
 	int _time, _timeOnEvent = 0;
@@ -11,7 +11,7 @@ private:
 	CamEffect _camEffect;
 
 	public:
-		FadeInOut(Camera* cam, int time, CamEffect type);
+		FadeInOutEvent(Camera* cam, int time, CamEffect type);
 
 		virtual void update(const double& time);
 		virtual void play();

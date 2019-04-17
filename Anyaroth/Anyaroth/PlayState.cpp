@@ -43,8 +43,15 @@ PlayState::PlayState(Game* g) : GameState(g)
 
 	_cutScene = new CutScene(_player);
 
-	_cutScene->addMoveEvent(_player->getComponent<BodyComponent>(), 1, 10, 50);
-	_cutScene->addWaitEvent(5000);
+	_cutScene->addMoveEvent(_player->getComponent<BodyComponent>(), 1, 10, 30);
+	_cutScene->addCameraEvent(_mainCamera, 1000, CamEffect::ZoomOut);
+	_cutScene->addCameraEvent(_mainCamera, 1000, CamEffect::ZoomIn);
+	_cutScene->addCameraEvent(_mainCamera, 1000, CamEffect::FadeIn);
+	_cutScene->addCameraEvent(_mainCamera, 1000, CamEffect::FadeOut);
+	_cutScene->addCameraShakeEvent(_mainCamera, 1000, 10);
+	_cutScene->addWaitEvent(2000);
+
+
 	_cutScene->addDialogueEvent(_hud->getDialoguePanel(), g->getDialogue("Jose Maria 1"));
 
 	_cutScene->play();

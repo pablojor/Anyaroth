@@ -64,10 +64,17 @@ void CutScene::addWaitEvent(int time)
 
 void CutScene::addCameraEvent(Camera* cam, int time, CamEffect type)
 {
-
+	if (type == CamEffect::FadeIn || type == CamEffect::FadeOut)
+	{
+		_events.push(new FadeInOutEvent(cam, time, type));
+	}
+	else
+	{
+		_events.push(new ZoomInOutEvent(cam, time, type));
+	}
 }
 
-void CutScene::addCameraShakeEvent(Camera* cam, int time, int intesity)
+void CutScene::addCameraShakeEvent(Camera* cam, int time, int intensity)
 {
-
+	_events.push(new ShakeEvent(cam, time, intensity));
 }

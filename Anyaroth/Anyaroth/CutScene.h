@@ -8,6 +8,8 @@
 #include "MoveEvent.h"
 #include "waitEvent.h"
 #include "ZoomInOutEvent.h"
+#include "FadeInOutEvent.h"
+#include "ShakeEvent.h"
 
 
 using namespace std;
@@ -32,7 +34,7 @@ public:
 	void addDialogueEvent(DialoguePanel* dialoguePanel, Dialogue dialogue);
 	void addWaitEvent(int time);
 	void addCameraEvent(Camera* cam, int time, CamEffect type);
-	void addCameraShakeEvent(Camera* cam, int time, int intesity);
+	void addCameraShakeEvent(Camera* cam, int time, int intensity);
 
 	inline bool isPlaying() { return _isPlaying; }
 };

@@ -1,10 +1,20 @@
 #pragma once
 #include "Event.h"
-class ShakeEvent :
-	public Event
+#include "Camera.h"
+#include "CamEffectType.h"
+
+class ShakeEvent : public Event
 {
-public:
-	ShakeEvent();
-	virtual ~ShakeEvent();
+	private:
+		int _time, _timeOnEvent = 0;
+		int _intensity;
+		Camera* _cam;
+		CamEffect _camEffect;
+
+	public:
+		ShakeEvent(Camera* cam, int time, int intesity);
+
+		virtual void update(const double& time);
+		virtual void play();
 };
 

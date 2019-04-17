@@ -358,8 +358,8 @@
     <ClCompile Include="DialogueEvent.cpp" />
     <ClCompile Include="waitEvent.cpp" />
     <ClCompile Include="ZoomInOutEvent.cpp" />
-    <ClCompile Include="FadeInOut.cpp" />
     <ClCompile Include="ShakeEvent.cpp" />
+    <ClCompile Include="FadeInOutEvent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -753,8 +753,8 @@
     <ClInclude Include="waitEvent.h" />
     <ClInclude Include="CamEffectType.h" />
     <ClInclude Include="ZoomInOutEvent.h" />
-    <ClInclude Include="FadeInOut.h" />
     <ClInclude Include="ShakeEvent.h" />
+    <ClInclude Include="FadeInOutEvent.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de código fuente">
