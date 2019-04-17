@@ -2,8 +2,8 @@
 #include "GameObject.h"
 #include "Texture.h"
 #include <Box2D/Box2D.h>
-#include <map>
 #include <string>
+#include <map>
 
 class Tilemap : public GameObject
 {
@@ -31,7 +31,7 @@ public:
 	~Tilemap();
 
 	virtual bool handleEvent(const SDL_Event& event) { return false; }
-	virtual void update(const double& deltaTime);
+	virtual void update(const double& deltaTime) {}
 	virtual void render(Camera* c) const;
 
 	void loadTileMap(const string& filename);

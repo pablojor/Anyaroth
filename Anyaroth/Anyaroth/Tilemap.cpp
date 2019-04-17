@@ -1,6 +1,6 @@
 #include "Tilemap.h"
-#include "Camera.h"
 #include "Game.h"
+#include "Camera.h"
 #include <json.hpp>
 
 using namespace nlohmann;
@@ -15,11 +15,8 @@ Tilemap::~Tilemap()
 {
 	for (b2Body* b : _colliders)
 		_game->getWorld()->DestroyBody(b);
-	_colliders.clear();
-}
 
-void Tilemap::update(const double & deltaTime)
-{
+	_colliders.clear();
 }
 
 void Tilemap::render(Camera * c) const
@@ -40,6 +37,7 @@ void Tilemap::render(Camera * c) const
 		//Por cada una de las columnas llevas de tiles
 		auto beginOfFil = _grid.upper_bound(pIndex);
 		auto endOfFil = _grid.lower_bound(pIndex + colsInCam + 1);
+
 		if (beginOfFil != _grid.end() && (*beginOfFil).first <= pIndex + colsInCam)
 		{
 			while (beginOfFil != endOfFil)
@@ -58,6 +56,7 @@ void Tilemap::render(Camera * c) const
 				beginOfFil++;
 			}
 		}
+
 		filsInCam--;
 		pIndex += _maxCols;
 	}
@@ -65,10 +64,10 @@ void Tilemap::render(Camera * c) const
 
 void Tilemap::loadTileMap(const string & filename)
 {
-	nlohmann::json data;
-	//_tilemap.clear();
+	json data;
 	fstream file;
 	file.open(filename);
+
 	if (file.is_open())
 	{
 		file >> data;
@@ -76,6 +75,7 @@ void Tilemap::loadTileMap(const string & filename)
 		
 		int index, height = 0, width = 0;
 		string type, name;
+
 		for (int i = 0; i < data.size(); i++)
 		{
 			json layer = data[i];

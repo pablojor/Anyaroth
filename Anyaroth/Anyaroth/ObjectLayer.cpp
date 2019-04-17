@@ -1,21 +1,23 @@
 #include "ObjectLayer.h"
+#include "AnyarothError.h"
 #include <json.hpp>
 #include <fstream>
-#include "AnyarothError.h"
 
 using namespace nlohmann;
 
 ObjectLayer::ObjectLayer(std::string filename, std::string name) : _name(name)
 {
-	std::fstream file;
+	fstream file;
 	file.open(filename);
 	if (file.is_open())
 	{
 		json j;
 		file >> j;
 		j = j["layers"];
+
 		int i = 0;
 		bool cont = true, found = true;
+
 		while (i < j.size() && cont)
 		{
 			auto it = j[i].find("name");
@@ -26,12 +28,15 @@ ObjectLayer::ObjectLayer(std::string filename, std::string name) : _name(name)
 					i++;
 			}
 		}
+
 		j = j[i];
 		auto it = j.find("objects");
+
 		if (it != j.end())
 		{
 			j = *it;
 			double x = 0, y = 0;
+
 			for (int i = 0; i < j.size(); i++)
 			{
 				it = j[i].find("x");

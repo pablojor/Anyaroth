@@ -215,7 +215,6 @@
     <ClCompile Include="GameStateMachine.cpp" />
     <ClCompile Include="Gun.cpp" />
     <ClCompile Include="InputComponent.cpp" />
-    <ClCompile Include="Layer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MenuState.cpp" />
     <ClCompile Include="PauseState.cpp" />
@@ -240,7 +239,6 @@
     <ClCompile Include="StaticSpawnerEnemy.cpp" />
     <ClCompile Include="TextUI.cpp" />
     <ClCompile Include="Texture.cpp" />
-    <ClCompile Include="Tile.cpp" />
     <ClCompile Include="Tilemap.cpp" />
     <ClCompile Include="TransformComponent.cpp" />
     <ClCompile Include="TTFclass.cpp" />
@@ -344,7 +342,6 @@
     <ClInclude Include="GameStateMachine.h" />
     <ClInclude Include="Gun.h" />
     <ClInclude Include="InputComponent.h" />
-    <ClInclude Include="Layer.h" />
     <ClInclude Include="MenuState.h" />
     <ClInclude Include="PauseState.h" />
     <ClInclude Include="PhysicsComponent.h" />
@@ -369,7 +366,6 @@
     <ClInclude Include="StaticSpawnerEnemy.h" />
     <ClInclude Include="TextUI.h" />
     <ClInclude Include="Texture.h" />
-    <ClInclude Include="Tile.h" />
     <ClInclude Include="Tilemap.h" />
     <ClInclude Include="TransformComponent.h" />
     <ClInclude Include="TTFclass.h" />

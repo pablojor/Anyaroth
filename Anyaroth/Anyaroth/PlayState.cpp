@@ -2,15 +2,13 @@
 #include "Game.h"
 #include "PauseState.h"
 #include "ParallaxLayer.h"
-#include "NPC.h"
-#include "PiercingBulletPool.h"
-#include "checkML.h"
 #include "WeaponManager.h"
-#include "Tilemap.h"
+#include "checkML.h"
 
 PlayState::PlayState(Game* g) : GameState(g)
 {
 	_mainCamera->setWorldBounds(LEVEL_WIDTH, LEVEL_HEIGHT);
+
 	//Cursor
 	_cursor = new Cursor(g);
 	_stages.push_back(_cursor);
@@ -37,14 +35,9 @@ PlayState::PlayState(Game* g) : GameState(g)
 	auto enemyPool = new BulletPool(g);
 
 	//Levels
-	/*_currentLevel = LevelManager::Boss1;
+	_currentLevel = LevelManager::Boss1;
 	_levelManager = LevelManager(g, _player, &_stages, _hud, enemyPool);
-	_levelManager.setLevel(_currentLevel);*/
-
-	Tilemap* tileMap = new Tilemap(g, g->getTexture("Tileset1"));
-	tileMap->loadTileMap(TILEMAP_PATH + "Nivel1-1.json");
-	_stages.push_back(tileMap);
-	_player->setPlayerPosition(Vector2D(250, 20));
+	_levelManager.setLevel(_currentLevel);
 
 	//Background
 	_parallaxZone1 = new ParallaxBackGround(_mainCamera);
@@ -94,7 +87,7 @@ bool PlayState::handleEvent(const SDL_Event& event)
 	}
 	else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_0) //Boton de prueba para reiniciar el nivel
 		_levelManager.resetLevel();
-	else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_1) //Boton de prueba para reiniciar la munici�n
+	else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_1) //Boton de prueba para reiniciar la municion
 	{
 		_player->getCurrentGun()->resetAmmo();
 		_hud->getPlayerPanel()->updateAmmoViewer(_player->getCurrentGun()->getClip(), _player->getCurrentGun()->getMagazine());
