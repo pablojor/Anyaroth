@@ -7,6 +7,7 @@
 
 #include "DialogueEvent.h"
 #include "MoveEvent.h"
+#include "waitEvent.h"
 
 
 using namespace std;
@@ -29,6 +30,7 @@ public:
 
 	void addMoveEvent(BodyComponent* body, int dir, int speed, int xDestination);
 	void addDialogueEvent(DialoguePanel* dialoguePanel, Dialogue dialogue);
+	void addWaitEvent(int time);
 	void addCameraEvent();
 
 	inline bool isPlaying() { return _isPlaying; }

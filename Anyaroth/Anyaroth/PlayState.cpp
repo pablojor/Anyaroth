@@ -43,6 +43,8 @@ PlayState::PlayState(Game* g) : GameState(g)
 
 	_cutScene = new CutScene(_player);
 
+	_cutScene->addMoveEvent(_player->getComponent<BodyComponent>(), 1, 10, 50);
+	_cutScene->addWaitEvent(5000);
 	_cutScene->addDialogueEvent(_hud->getDialoguePanel(), g->getDialogue("Jose Maria 1"));
 
 	_cutScene->play();

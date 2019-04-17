@@ -57,6 +57,11 @@ void CutScene::addDialogueEvent(DialoguePanel* dialoguePanel, Dialogue dialogue)
 	_events.push(new DialogueEvent(dialoguePanel, dialogue));
 }
 
+void CutScene::addWaitEvent(int time)
+{
+	_events.push(new waitEvent(time));
+}
+
 void CutScene::addCameraEvent()
 {
 }

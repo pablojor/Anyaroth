@@ -356,6 +356,7 @@
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="MoveEvent.cpp" />
     <ClCompile Include="DialogueEvent.cpp" />
+    <ClCompile Include="waitEvent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -746,6 +747,7 @@
     <ClInclude Include="Event.h" />
     <ClInclude Include="MoveEvent.h" />
     <ClInclude Include="DialogueEvent.h" />
+    <ClInclude Include="waitEvent.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de código fuente">
