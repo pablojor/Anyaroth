@@ -35,7 +35,7 @@ void Tilemap::render(Camera * c) const
 	while (filsInCam >= 0)
 	{
 		//Por cada una de las columnas llevas de tiles
-		auto beginOfFil = _grid.upper_bound(pIndex);
+		auto beginOfFil = _grid.upper_bound(pIndex - 1);
 		auto endOfFil = _grid.lower_bound(pIndex + colsInCam + 1);
 
 		if (beginOfFil != _grid.end() && (*beginOfFil).first <= pIndex + colsInCam)
@@ -110,8 +110,8 @@ void Tilemap::loadTileMap(const string & filename)
 				{
 					if (layer[i] != 0)
 					{
-						int y = (i - 1) / _maxCols;
-						int x = (i - 1) % _maxCols;
+						int y = i / _maxCols;
+						int x = i % _maxCols;
 
 						_grid[i + 1] = Tile(layer[i], x ,y);
 
