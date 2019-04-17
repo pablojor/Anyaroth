@@ -147,6 +147,7 @@
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="Capsule.cpp" />
     <ClCompile Include="Event.cpp" />
+    <ClCompile Include="FadeInOut.cpp" />
     <ClCompile Include="FramedImageUI.cpp" />
     <ClCompile Include="AnimatedSpriteComponent.cpp" />
     <ClCompile Include="Arm.cpp" />
@@ -229,6 +230,7 @@
     <ClCompile Include="PlayStateHUD.cpp" />
     <ClCompile Include="PoolWrapper.cpp" />
     <ClCompile Include="RenderComponent.cpp" />
+    <ClCompile Include="ShakeEvent.cpp" />
     <ClCompile Include="Shop.cpp" />
     <ClCompile Include="ShopInfoPanel.cpp" />
     <ClCompile Include="ShopMenu.cpp" />
@@ -252,6 +254,7 @@
     <ClCompile Include="waitEvent.cpp" />
     <ClCompile Include="WeaponManager.cpp" />
     <ClCompile Include="WeaponryViewer.cpp" />
+    <ClCompile Include="ZoomInOutEvent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AidKit.h" />
@@ -259,6 +262,7 @@
     <ClInclude Include="AmmoViewer.h" />
     <ClInclude Include="AnimatedImageUI.h" />
     <ClInclude Include="ButtonUI.h" />
+    <ClInclude Include="CamEffectType.h" />
     <ClInclude Include="CutScene.h" />
     <ClInclude Include="DepotPanel.h" />
     <ClInclude Include="BomberGun.h" />
@@ -271,6 +275,7 @@
     <ClInclude Include="CapsuleNormal.h" />
     <ClInclude Include="DistanceSpawner.h" />
     <ClInclude Include="Event.h" />
+    <ClInclude Include="FadeInOut.h" />
     <ClInclude Include="FramedImageUI.h" />
     <ClInclude Include="AnimatedSpriteComponent.h" />
     <ClInclude Include="AnyarothError.h" />
@@ -362,6 +367,7 @@
     <ClInclude Include="PoolWrapper.h" />
     <ClInclude Include="RenderComponent.h" />
     <ClInclude Include="SDLError.h" />
+    <ClInclude Include="ShakeEvent.h" />
     <ClInclude Include="Shop.h" />
     <ClInclude Include="ShopInfoPanel.h" />
     <ClInclude Include="ShopMenu.h" />
@@ -385,6 +391,7 @@
     <ClInclude Include="waitEvent.h" />
     <ClInclude Include="WeaponManager.h" />
     <ClInclude Include="WeaponryViewer.h" />
+    <ClInclude Include="ZoomInOutEvent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

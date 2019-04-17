@@ -62,6 +62,12 @@ void CutScene::addWaitEvent(int time)
 	_events.push(new waitEvent(time));
 }
 
-void CutScene::addCameraEvent()
+void CutScene::addCameraEvent(Camera* cam, int time, CamEffect type)
 {
+
+}
+
+void CutScene::addCameraShakeEvent(Camera* cam, int time, int intesity)
+{
+
 }
