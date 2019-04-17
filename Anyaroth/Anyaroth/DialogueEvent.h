@@ -12,7 +12,6 @@ private:
 
 public:
 	DialogueEvent(DialoguePanel* dialoguePanel, Dialogue dialogue);
-	virtual ~DialogueEvent();
 
 	virtual void update(const double& time);
 

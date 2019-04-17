@@ -8,7 +8,7 @@ protected:
 
 public:
 	Event();
-	~Event();
+	virtual ~Event();
 
 	virtual void play() = 0;
 	virtual void update(const double& deltaTime) = 0;

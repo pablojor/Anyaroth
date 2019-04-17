@@ -1,11 +1,19 @@
 #pragma once
 
 #include "Event.h"
+#include "BodyComponent.h"
 
 class MoveEvent : public Event
 {
+private:
+	BodyComponent* _myBody;
+	int _dir, _xDestination, _speed;
+
 public:
-	MoveEvent();
-	virtual ~MoveEvent();
+	MoveEvent(BodyComponent* body, int dir, int speed, int xDestination);
+
+	virtual void update(const double& time) {};
+
+	virtual void play() {};
 };
 

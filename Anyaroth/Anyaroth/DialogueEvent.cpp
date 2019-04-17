@@ -6,9 +6,6 @@ DialogueEvent::DialogueEvent(DialoguePanel* dialoguePanel, Dialogue dialogue) : 
 {
 }
 
-DialogueEvent::~DialogueEvent()
-{
-}
 
 void DialogueEvent::update(const double& time)
 {
