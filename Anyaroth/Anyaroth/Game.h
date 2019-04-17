@@ -60,6 +60,8 @@ private:
 	map <string, Font*> _fonts;
 	map <string, Dialogue> _dialogues;
 	
+	SDL_Joystick* _joystick;	bool _joystickAttached;
+
 	b2World* _world = nullptr;
 	float _timestep = 1 / 60.0;
 	bool _exit = false;
@@ -70,6 +72,7 @@ public:
 	void createFonts();
 	void createSounds();
 	void createDialogues();
+	void initialiseJoysticks();
 
 	inline GameState* getCurrentState() const { return _stateMachine->currentState(); }
 	inline void pushState(GameState* state) { _stateMachine->pushState(state); }

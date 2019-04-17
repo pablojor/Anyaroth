@@ -43,9 +43,15 @@ private:
 		_onDash = false,
 		_dashDown = false,
 		_dashEnabled = true,
-		_changeLevel = false;
+		_changeLevel = false,
+		_jMoveLeft = false,
+		_jMoveDown = false,
+		_jJump = false,
+		_jMoveRight = false;
 
 	float _timeToJump = 100.f;
+
+	double _speed = 15;
 
 	Gun* _currentGun = nullptr;
 	Gun* _otherGun = nullptr;

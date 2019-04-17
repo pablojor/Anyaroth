@@ -215,7 +215,7 @@ bool Player::handleEvent(const SDL_Event& event)
 
 	if (!isDead())
 	{
-		if (event.type == SDL_KEYDOWN && !event.key.repeat) // Captura solo el primer frame que se pulsa
+		if ((event.type == SDL_KEYDOWN && !event.key.repeat)) // Captura solo el primer frame que se pulsa
 		{
 			if (event.key.keysym.sym == SDLK_q)
 				swapGun();
@@ -233,9 +233,9 @@ bool Player::handleEvent(const SDL_Event& event)
 			else if (isJumping())
 				cancelJump();
 		}
-		else if (event.type == SDL_MOUSEBUTTONDOWN && event.button.state == SDL_PRESSED)
+		else if ((event.type == SDL_MOUSEBUTTONDOWN && event.button.state == SDL_PRESSED))
 		{
-			if (event.button.button == SDL_BUTTON_LEFT)
+			if (event.button.button == SDL_BUTTON_LEFT || event.jaxis.which == 0)
 				_isShooting = true;
 			else if (event.button.button == SDL_BUTTON_RIGHT)
 				_isMeleeing = true;
@@ -246,6 +246,100 @@ bool Player::handleEvent(const SDL_Event& event)
 				_isShooting = false;
 			else if (event.button.button == SDL_BUTTON_RIGHT)
 				_isMeleeing = false;
+		}
+
+		if (event.type == SDL_JOYBUTTONDOWN)
+		{
+			switch (event.jbutton.button)
+			{
+			case 0:
+				_jJump = true;
+				break;
+			case 2:
+				_isReloading = true;
+				break;
+			case 3:
+				swapGun();
+				break;
+			case 4:
+				_isMeleeing = true;
+				break;
+			case 5:
+				_isDashing = true;
+				break;
+			default:
+				break;
+			}
+		}
+		if (event.type == SDL_JOYBUTTONUP)
+		{
+			switch (event.jbutton.button)
+			{
+			case 0:
+				_jJump = false;
+				break;
+			case 2:
+				_isReloading = false;
+				break;
+			case 4:
+				_isMeleeing = false;
+				break;
+			case 5:
+				_isDashing = false;
+				break;
+			default:
+				break;
+			}
+		}
+		else if (event.type == SDL_JOYAXISMOTION)
+		{
+			//X axis motion
+			if (event.jaxis.axis == 0)
+			{
+				//Left of dead zone
+				if (event.jaxis.value < -8000)
+				{
+					_jMoveLeft = true;
+					_jMoveRight = false;
+				}
+				//Right of dead zone
+				else if (event.jaxis.value > 8000)
+				{
+					_jMoveLeft = false;
+					_jMoveRight = true;
+				}
+				else
+				{
+					_jMoveLeft = false;
+					_jMoveRight = false;
+				}
+			}
+			//Y axis
+			else if (event.jaxis.axis == 1)
+			{
+				//Left of dead zone
+				if (event.jaxis.value > 8000)
+					_jMoveDown = true;
+				else
+					_jMoveDown = false;
+			}
+			//right joystick axis
+			else if (event.jaxis.axis == 3)
+			{
+			
+			}
+			else if (event.jaxis.axis == 4)
+			{
+			
+			}
+			//Right trigger
+			else if (event.jaxis.axis == 5)
+			{
+				if (event.jaxis.value > 8000)
+					_isShooting = true;
+				else 
+					_isShooting = false;
+			}
 		}
 	}
 
@@ -326,32 +420,31 @@ void Player::changeOtherGun(Gun * gun)
 
 void Player::checkMovement(const Uint8* keyboard)
 {
-	double _speed = 15;
 
 	if (!isDead())
 	{
 		if (keyboard[SDL_SCANCODE_A] && keyboard[SDL_SCANCODE_D] && !isMeleeing() && !isDashing())
 			move(Vector2D(0, 0), _speed);
-		else if (keyboard[SDL_SCANCODE_A] && !isMeleeing() && !isDashing())
+		else if ((keyboard[SDL_SCANCODE_A] || _jMoveLeft) && !isMeleeing() && !isDashing())
 		{
 			if (_isDashing && _dashEnabled)
 				dash(Vector2D(-1, 0));
 			else
 				move(Vector2D(-1, 0), _speed);
 		}
-		else if (keyboard[SDL_SCANCODE_D] && !isMeleeing() && !isDashing())
+		else if ((keyboard[SDL_SCANCODE_D] || _jMoveRight) && !isMeleeing() && !isDashing())
 		{
 			if (_isDashing && _dashEnabled)
 				dash(Vector2D(1, 0));
 			else
 				move(Vector2D(1, 0), _speed);
 		}
-		else if (keyboard[SDL_SCANCODE_S] && _isDashing && _dashEnabled && !isGrounded() && !isMeleeing()/*&& !isReloading()*/)
+		else if ((keyboard[SDL_SCANCODE_S] || _jMoveDown) && _isDashing && _dashEnabled && !isGrounded() && !isMeleeing()/*&& !isReloading()*/)
 			dash(Vector2D(0, 1));
 		else
 			move(Vector2D(0, 0), _speed);
 
-		if (keyboard[SDL_SCANCODE_SPACE] && !isMeleeing() && !isJumping()/*&& !isReloading()*/)
+		if ((keyboard[SDL_SCANCODE_SPACE] || _jJump) && !isMeleeing() && !isJumping()/*&& !isReloading()*/)
 			if ((isGrounded() && !isFalling() && !isDashing()) || (!isGrounded() && isFalling() && _timeToJump > 0 && !isDashing()))
 				jump();
 
