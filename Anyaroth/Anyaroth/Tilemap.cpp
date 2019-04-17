@@ -29,30 +29,27 @@ void Tilemap::render(Camera * c) const
 
 	int pXIndex = camPos.getX() / _tileSize + 1;
 	int pYIndex = camPos.getY() / _tileSize + 1;
-	int colsInCam = camSize.getX() / _tileSize + 1;
-	int filsInCam = camSize.getY() / _tileSize + 1;
+	int colsInCam = camSize.getX() / _tileSize + 1; if (colsInCam > _maxCols) colsInCam = _maxCols;
+	int filsInCam = camSize.getY() / _tileSize + 1; if (filsInCam > _maxFils) filsInCam = _maxFils;
 
 	int pIndex = pXIndex + (pYIndex - 1) * _maxCols;
 
 	//Por cada fila que quepa en camara
-	while (filsInCam > 0)
+	while (filsInCam >= 0)
 	{
 		//Por cada una de las columnas llevas de tiles
-		auto beginOfFil = _grid.upper_bound(pIndex - 1);
-		auto endOfFil = _grid.lower_bound(pIndex + colsInCam);
-		if (beginOfFil != _grid.end() && (*beginOfFil).first < pIndex + colsInCam - 1)
+		auto beginOfFil = _grid.upper_bound(pIndex);
+		auto endOfFil = _grid.lower_bound(pIndex + colsInCam + 1);
+		if (beginOfFil != _grid.end() && (*beginOfFil).first <= pIndex + colsInCam)
 		{
 			while (beginOfFil != endOfFil)
 			{
 				//Fila y columna de la textura
 				Tile t = (*beginOfFil).second;
-				int row = (t.index - 1) / _tileSet->getNumCols();
-				int col = (t.index - 1) % _tileSet->getNumCols();
+				int row = (t.tilesetIndex - 1) / _tileSet->getNumCols();
+				int col = (t.tilesetIndex - 1) % _tileSet->getNumCols();
 
-				int y = (*beginOfFil).first / (_maxCols - 1);
-				int x = ((*beginOfFil).first % _maxCols) - 1;
-
-				SDL_Rect destRect = { x * _tileSize, y * _tileSize, _tileSize, _tileSize };
+				SDL_Rect destRect = { t.xIndex * _tileSize - c->getCameraPosition().getX(), t.yIndex * _tileSize - c->getCameraPosition().getY(), _tileSize, _tileSize };
 
 				SDL_Rect winRect = { destRect.x * GAME_RESOLUTION_X / c->getCameraSize().getX(), destRect.y * GAME_RESOLUTION_Y / c->getCameraSize().getY(),
 					destRect.w * GAME_RESOLUTION_X / c->getCameraSize().getX() + 1, destRect.h * GAME_RESOLUTION_Y / c->getCameraSize().getY() + 1 }; //+1 para el tema del Zoom
@@ -113,14 +110,14 @@ void Tilemap::loadTileMap(const string & filename)
 				{
 					if (layer[i] != 0)
 					{
-						_grid[i + 1] = Tile(layer[i]);
+						int y = (i - 1) / _maxCols;
+						int x = (i - 1) % _maxCols;
+
+						_grid[i + 1] = Tile(layer[i], x ,y);
 
 						if (name == "Ground" || name == "Platform" || name == "Door")
 						{
 							_grid[i + 1].setTag(name);
-
-							int y = (i + 1) / (_maxCols - 1);
-							int x = ((i + 1) % _maxCols) - 1;
 
 							b2BodyDef bodydef;
 							bodydef.type = b2_staticBody;

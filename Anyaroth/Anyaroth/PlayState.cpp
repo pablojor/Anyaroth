@@ -44,6 +44,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	Tilemap* tileMap = new Tilemap(g, g->getTexture("Tileset1"));
 	tileMap->loadTileMap(TILEMAP_PATH + "Nivel1-1.json");
 	_stages.push_back(tileMap);
+	_player->setPlayerPosition(Vector2D(250, 20));
 
 	//Background
 	_parallaxZone1 = new ParallaxBackGround(_mainCamera);
