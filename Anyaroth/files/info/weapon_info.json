@@ -50,7 +50,7 @@
       "ImproveRifle": {
         "zona": 1,
         "frame": "CommonFrame",
-        "icon": "Weapon1",
+        "icon": "ImprovedRifleIcon",
         "price": 300,
         "speed": 100,
         "damage": 20,
@@ -64,7 +64,7 @@
       "ImproveShotgun": {
         "zona": 1,
         "frame": "CommonFrame",
-        "icon": "Weapon1",
+        "icon": "ImprovedShotgunIcon",
         "price": 300,
         "speed": 100,
         "damage": 7,
@@ -109,7 +109,7 @@
       "GravityCannon": {
         "zona": 2,
         "frame": "RareFrame",
-        "icon": "Weapon1",
+        "icon": "BHCannonIcon",
         "price": 1000,
         "speed": 45,
         "damage": 5,
