@@ -3,10 +3,12 @@
 #include "PauseState.h"
 #include "ParallaxLayer.h"
 #include "WeaponManager.h"
+#include "GameManager.h"
 #include "checkML.h"
 
 PlayState::PlayState(Game* g) : GameState(g)
 {
+	GameManager::init();
 	_mainCamera->setWorldBounds(LEVEL_WIDTH, LEVEL_HEIGHT);
 
 	//Cursor
