@@ -373,10 +373,11 @@
     <ClCompile Include="ZoomInOutEvent.cpp">
       <Filter>Archivos de código fuente\CutScenes\Events</Filter>
     </ClCompile>
-    <ClCompile Include="ShopEvent.cpp" />
-    </ClCompile>
     <ClCompile Include="Tilemap.cpp">
       <Filter>Archivos de código fuente\Objects\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="ShopEvent.cpp">
+      <Filter>Archivos de código fuente\CutScenes\Events</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -788,10 +789,11 @@
     <ClInclude Include="ZoomInOutEvent.h">
       <Filter>Archivos de encabezado\CutScenes\Events</Filter>
     </ClInclude>
-    <ClInclude Include="ShopEvent.h" />
-    </ClInclude>
     <ClInclude Include="Tilemap.h">
       <Filter>Archivos de encabezado\Objects\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="ShopEvent.h">
+      <Filter>Archivos de encabezado\CutScenes\Events</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
