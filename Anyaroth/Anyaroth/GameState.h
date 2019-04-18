@@ -45,4 +45,5 @@ public:
 
 	Vector2D getMousePositionInWorld() const;
 	Vector2D getMousePositionOnScreen() const;
+	void setMousePositionInWorld(Vector2D coord);
 };

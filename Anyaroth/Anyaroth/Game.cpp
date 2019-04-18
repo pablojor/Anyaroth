@@ -139,7 +139,8 @@ void Game::initialiseJoysticks()
 	}
 	else
 		_joystickAttached = false;
-}
+}
+
 
 void Game::toggleFullscreen()
 {
@@ -198,7 +199,8 @@ Game::~Game()
 		delete (*it).second;
 
 	//close joysticks
-	SDL_JoystickClose(_joystick);
+	SDL_JoystickClose(_joystick);
+
 
 	delete _stateMachine;
 	delete _world;

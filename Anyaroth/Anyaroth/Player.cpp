@@ -235,7 +235,7 @@ bool Player::handleEvent(const SDL_Event& event)
 		}
 		else if ((event.type == SDL_MOUSEBUTTONDOWN && event.button.state == SDL_PRESSED))
 		{
-			if (event.button.button == SDL_BUTTON_LEFT || event.jaxis.which == 0)
+			if (event.button.button == SDL_BUTTON_LEFT )
 				_isShooting = true;
 			else if (event.button.button == SDL_BUTTON_RIGHT)
 				_isMeleeing = true;
@@ -255,7 +255,7 @@ bool Player::handleEvent(const SDL_Event& event)
 			case 0:
 				_jJump = true;
 				break;
-			case 2:
+			case 1:
 				_isReloading = true;
 				break;
 			case 3:
@@ -278,7 +278,7 @@ bool Player::handleEvent(const SDL_Event& event)
 			case 0:
 				_jJump = false;
 				break;
-			case 2:
+			case 1:
 				_isReloading = false;
 				break;
 			case 4:
@@ -290,54 +290,52 @@ bool Player::handleEvent(const SDL_Event& event)
 			default:
 				break;
 			}
-		}
+		}
+
 		else if (event.type == SDL_JOYAXISMOTION)
 		{
+			if (event.jaxis.axis == 3 || event.jaxis.axis == 4)
+			{
+				if (event.jaxis.value < -JOYSTICK_DEADZONE || event.jaxis.value > JOYSTICK_DEADZONE)
+				{
+					_jPosX = (SDL_JoystickGetAxis(_game->getJoystick(), 3) / 32768.0);
+					_jPosY = (SDL_JoystickGetAxis(_game->getJoystick(), 4) / 32768.0);
+
+					double angle = atan2(_jPosY, _jPosX);
+					double mouseX = (_body->getBody()->GetPosition().x - _body->getW() / 2) * M_TO_PIXEL + cos(angle) * 125;
+					double mouseY = (_body->getBody()->GetPosition().y - _body->getH() / 2) * M_TO_PIXEL + sin(angle) * 125;
+
+					_game->getCurrentState()->setMousePositionInWorld({ mouseX,mouseY });
+				}
+			}
 			//X axis motion
 			if (event.jaxis.axis == 0)
 			{
 				//Left of dead zone
-				if (event.jaxis.value < -8000)
-				{
-					_jMoveLeft = true;
-					_jMoveRight = false;
-				}
+				if (event.jaxis.value < -JOYSTICK_DEADZONE)
+					_jMoveRight = !(_jMoveLeft = true);
 				//Right of dead zone
-				else if (event.jaxis.value > 8000)
-				{
-					_jMoveLeft = false;
-					_jMoveRight = true;
-				}
+				else if (event.jaxis.value > JOYSTICK_DEADZONE)
+					_jMoveRight = !(_jMoveLeft = false);
 				else
-				{
-					_jMoveLeft = false;
-					_jMoveRight = false;
-				}
+					_jMoveLeft = _jMoveRight = false;
 			}
 			//Y axis
 			else if (event.jaxis.axis == 1)
 			{
 				//Left of dead zone
-				if (event.jaxis.value > 8000)
+				if (event.jaxis.value > JOYSTICK_DEADZONE)
 					_jMoveDown = true;
 				else
 					_jMoveDown = false;
 			}
-			//right joystick axis
-			else if (event.jaxis.axis == 3)
-			{
-			
-			}
-			else if (event.jaxis.axis == 4)
-			{
-			
-			}
+
 			//Right trigger
 			else if (event.jaxis.axis == 5)
 			{
-				if (event.jaxis.value > 8000)
+				if (event.jaxis.value > JOYSTICK_DEADZONE)
 					_isShooting = true;
-				else 
+				else
 					_isShooting = false;
 			}
 		}

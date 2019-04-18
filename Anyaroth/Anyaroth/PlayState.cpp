@@ -9,11 +9,6 @@ PlayState::PlayState(Game* g) : GameState(g)
 {
 	_mainCamera->setWorldBounds(LEVEL_WIDTH, LEVEL_HEIGHT);
 
-	//Cursor
-	_cursor = new Cursor(g);
-	_stages.push_back(_cursor);
-	SDL_ShowCursor(false);
-
 	//Inicializa el manager de armas
 	WeaponManager::init();
 
@@ -44,6 +39,11 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_parallaxZone1->addLayer(new ParallaxLayer(g->getTexture("BgZ1L1"), _mainCamera, 0.25));
 	_parallaxZone1->addLayer(new ParallaxLayer(g->getTexture("BgZ1L2"), _mainCamera, 0.5));
 	_parallaxZone1->addLayer(new ParallaxLayer(g->getTexture("BgZ1L3"), _mainCamera, 0.75));
+
+	//Cursor
+	_cursor = new Cursor(g);
+	_stages.push_back(_cursor);
+	SDL_ShowCursor(false);
 
 	//Balas se renderizan al final
 	_stages.push_back(_playerBulletPool);

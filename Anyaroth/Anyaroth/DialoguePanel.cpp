@@ -300,9 +300,9 @@ void DialoguePanel::handleEvent(const SDL_Event& event)
 {
 	PanelUI::handleEvent(event);
 
-	if (event.type == SDL_KEYDOWN && !event.key.repeat) // Captura solo el primer frame que se pulsa
+	if ((event.type == SDL_KEYDOWN && !event.key.repeat) || event.type == SDL_JOYBUTTONDOWN) // Captura solo el primer frame que se pulsa
 	{
-		if (event.key.keysym.sym == SDLK_e) //TECLA PARA PASAR DE TEXTO EN EL DIALOGO
+		if (event.key.keysym.sym == SDLK_e || event.jbutton.button==2) //TECLA PARA PASAR DE TEXTO EN EL DIALOGO
 			if (!_keepLastLine)
 				nextText();
 			else if (_currentText != _dialogue.conversation.size() - 1)

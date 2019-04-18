@@ -49,9 +49,11 @@ private:
 		_jJump = false,
 		_jMoveRight = false;
 
-	float _timeToJump = 100.f;
+	double _speed = 15,
+		   _jPosX,
+		   _jPosY;
 
-	double _speed = 15;
+	float _timeToJump = 100.f;
 
 	Gun* _currentGun = nullptr;
 	Gun* _otherGun = nullptr;
