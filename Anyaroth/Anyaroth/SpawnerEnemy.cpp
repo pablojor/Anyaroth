@@ -34,7 +34,7 @@ void SpawnerEnemy::update(const double& deltaTime)
 	{
 		_currentEnemies = deadEnemies();
 
-		if (!inCameraX() || _move)
+		if (!inCamera() || _move)
 		{
 			if (_bloqueDer && _playerDistance.getX() < 0)
 			{

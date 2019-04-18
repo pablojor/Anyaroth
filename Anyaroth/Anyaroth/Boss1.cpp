@@ -51,7 +51,7 @@ Boss1::Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, 
 	_body->filterCollisions(ENEMIES, FLOOR | PLAYER_BULLETS | MELEE | MISIL);
 	_body->getBody()->SetGravityScale(0);
 
-	_originalPos = Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL);
+	_originalPos = pos;
 	_melee = new Axe(g, { 100, 0 }, PLAYER, 15, 50, 50, 270);
 	addChild(_melee);
 

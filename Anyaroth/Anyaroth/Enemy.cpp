@@ -69,16 +69,15 @@ void Enemy::drop()
 {
 	int rnd = random(0, 100);
 
-	
-	if (rnd <= 30 && _dropMelee)
-	{
-		_game->getCurrentState()->addObject(new AmmoPackage(_game, Vector2D(_body->getBody()->GetPosition().x*M_TO_PIXEL, _body->getBody()->GetPosition().y*M_TO_PIXEL), _ammoClips));
-	}
-	else if (rnd >= 85 || (rnd >= 70 && _dropMelee))
+	if (rnd < 30 && _dropMelee)
 	{
 		_game->getCurrentState()->addObject(new AidKit(_game, Vector2D(_body->getBody()->GetPosition().x*M_TO_PIXEL, _body->getBody()->GetPosition().y*M_TO_PIXEL), _aidKitValue));
 	}
-	else if (rnd <= 80)
+	else if (rnd < 10)
+	{
+		_game->getCurrentState()->addObject(new AmmoPackage(_game, Vector2D(_body->getBody()->GetPosition().x*M_TO_PIXEL, _body->getBody()->GetPosition().y*M_TO_PIXEL), _ammoClips));
+	}
+	else if (rnd > 10)
 	{
 		_game->getCurrentState()->addObject(new Coin(_game, Vector2D(_body->getBody()->GetPosition().x*M_TO_PIXEL, _body->getBody()->GetPosition().y*M_TO_PIXEL), _coinValue));
 	}
@@ -100,9 +99,4 @@ void Enemy::subLife(int damage)
 bool Enemy::inCamera()
 {
 	return _game->getCurrentState()->getMainCamera()->inCamera(Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL));
-}
-
-bool Enemy::inCameraX()
-{
-	return _game->getCurrentState()->getMainCamera()->inCameraX(Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, 0));
 }

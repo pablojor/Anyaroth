@@ -41,7 +41,7 @@ public:
 	inline int random(int low, int high) const { return low + (rand() % abs(high - low)); }
 
 	void die();
-	void drop();
+	virtual void drop();
 
 	virtual void subLife(int damage);
 	inline Life getLife() const { return _life; }
@@ -50,5 +50,4 @@ public:
 	inline void setStunned(bool value) { _stunned = value; }
 
 	bool inCamera();
-	bool inCameraX();
 };

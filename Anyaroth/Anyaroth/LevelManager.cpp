@@ -6,6 +6,7 @@ LevelManager::LevelManager(Game* game, Player* player, list<GameObject*>* object
 	_enemyBulletPool = enemyPool;
 
 	_tilesetZone1 = game->getTexture("Tileset1");
+	_tilesetBoss1 = game->getTexture("TilesetBoss1");
 	_tilesetZone2 = game->getTexture("Tileset2");
 }
 
@@ -32,7 +33,7 @@ void LevelManager::setLevel(int l)
 		_currentSafeZone = new Map(TILEMAP_PATH + "SafeZonePrueba.json", _game, _player, _tilesetZone1, _enemyBulletPool, _hud);
 		break;
 	case LevelManager::Boss1:
-		_currentMap = new Map(TILEMAP_PATH + "Nivel1-3.json", _game, _player, _tilesetZone1, _enemyBulletPool, _hud);
+		_currentMap = new Map(TILEMAP_PATH + "Nivel1-3.json", _game, _player, _tilesetBoss1, _enemyBulletPool, _hud);
 		break;
 	case LevelManager::Safe2_1:
 		_currentSafeZone = new Map(TILEMAP_PATH + "SafeZonePrueba.json", _game, _player, _tilesetZone1, _enemyBulletPool, _hud);

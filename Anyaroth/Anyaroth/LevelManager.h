@@ -14,6 +14,7 @@ private:
 	BulletPool* _enemyBulletPool = nullptr;
 
 	Texture* _tilesetZone1 = nullptr;
+	Texture* _tilesetBoss1 = nullptr;
 	Texture* _tilesetZone2 = nullptr;
 
 	list<GameObject*>* _objectList;
