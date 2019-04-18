@@ -11,6 +11,7 @@
 #include "FadeInOutEvent.h"
 #include "ShakeEvent.h"
 #include "FlipEvent.h"
+#include "ShopEvent.h"
 
 using namespace std;
 
@@ -36,6 +37,7 @@ public:
 	void addCameraEvent(Camera* cam, int time, CamEffect type);
 	void addCameraShakeEvent(Camera* cam, int time, int intensity);
 	void addFlipEvent();
+	void addShopEvent(ShopMenu* shop, int currentZone);
 
 
 	inline bool isPlaying() { return _isPlaying; }

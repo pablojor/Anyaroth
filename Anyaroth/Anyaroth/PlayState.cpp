@@ -51,10 +51,17 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_cutScene->addCameraEvent(_mainCamera, 1000, CamEffect::FadeOut);
 	_cutScene->addCameraShakeEvent(_mainCamera, 1000, 10);
 	_cutScene->addFlipEvent();
+	_cutScene->addWaitEvent(500);
+	_cutScene->addFlipEvent();
+	_cutScene->addWaitEvent(500);
+	_cutScene->addFlipEvent();
 	_cutScene->addWaitEvent(2000);
-
-
 	_cutScene->addDialogueEvent(_hud->getDialoguePanel(), g->getDialogue("Jose Maria 1"));
+	_cutScene->addMoveEvent(_player->getComponent<BodyComponent>(), 1, 10, 40);
+	_cutScene->addWaitEvent(1000);
+	_cutScene->addShopEvent(_hud->getShop(), 3);
+	_cutScene->addWaitEvent(500);
+	_cutScene->addMoveEvent(_player->getComponent<BodyComponent>(), 1, 10, 50);
 
 	_cutScene->play();
 
