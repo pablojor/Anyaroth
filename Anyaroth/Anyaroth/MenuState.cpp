@@ -17,13 +17,3 @@ MenuState::MenuState(Game* g) : GameState(g)
 
 	//g->getSoundManager()->playMusic("bgMusic", true);
 }
-
-void MenuState::startGame(Game * g)
-{
-	g->changeState(new PlayState(g));
-}
-
-void MenuState::exitGame(Game * g)
-{
-	g->setExit(true);
-}

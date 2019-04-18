@@ -188,6 +188,8 @@
     <ClCompile Include="MisilBoss1.cpp" />
     <ClCompile Include="MovingComponent.cpp" />
     <ClCompile Include="Melee.cpp" />
+    <ClCompile Include="PausePanel.cpp" />
+    <ClCompile Include="PauseStateHUD.cpp" />
     <ClCompile Include="PiercingBulletEffect.cpp" />
     <ClCompile Include="PlasmaSniper.cpp" />
     <ClCompile Include="PlayerArm.cpp" />
@@ -323,6 +325,8 @@
     <ClInclude Include="NPC.h" />
     <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="Melee.h" />
+    <ClInclude Include="PausePanel.h" />
+    <ClInclude Include="PauseStateHUD.h" />
     <ClInclude Include="PiercingBulletEffect.h" />
     <ClInclude Include="PlasmaSniper.h" />
     <ClInclude Include="PlayerArm.h" />
