@@ -346,8 +346,38 @@
     <ClCompile Include="AidKit.cpp">
       <Filter>Archivos de código fuente\Objects\Collectables</Filter>
     </ClCompile>
+    <ClCompile Include="CutScene.cpp">
+      <Filter>Archivos de código fuente\CutScenes</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogueEvent.cpp">
+      <Filter>Archivos de código fuente\CutScenes\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="Event.cpp">
+      <Filter>Archivos de código fuente\CutScenes\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="FadeInOutEvent.cpp">
+      <Filter>Archivos de código fuente\CutScenes\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="FlipEvent.cpp">
+      <Filter>Archivos de código fuente\CutScenes\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveEvent.cpp">
+      <Filter>Archivos de código fuente\CutScenes\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="ShakeEvent.cpp">
+      <Filter>Archivos de código fuente\CutScenes\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="waitEvent.cpp">
+      <Filter>Archivos de código fuente\CutScenes\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="ZoomInOutEvent.cpp">
+      <Filter>Archivos de código fuente\CutScenes\Events</Filter>
+    </ClCompile>
     <ClCompile Include="Tilemap.cpp">
       <Filter>Archivos de código fuente\Objects\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="ShopEvent.cpp">
+      <Filter>Archivos de código fuente\CutScenes\Events</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -729,8 +759,41 @@
     <ClInclude Include="AidKit.h">
       <Filter>Archivos de encabezado\Objects\Collectables</Filter>
     </ClInclude>
+    <ClInclude Include="CamEffectType.h">
+      <Filter>Archivos de encabezado\CutScenes</Filter>
+    </ClInclude>
+    <ClInclude Include="CutScene.h">
+      <Filter>Archivos de encabezado\CutScenes</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogueEvent.h">
+      <Filter>Archivos de encabezado\CutScenes\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Event.h">
+      <Filter>Archivos de encabezado\CutScenes\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="FadeInOutEvent.h">
+      <Filter>Archivos de encabezado\CutScenes\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="FlipEvent.h">
+      <Filter>Archivos de encabezado\CutScenes\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveEvent.h">
+      <Filter>Archivos de encabezado\CutScenes\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="ShakeEvent.h">
+      <Filter>Archivos de encabezado\CutScenes\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="waitEvent.h">
+      <Filter>Archivos de encabezado\CutScenes\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="ZoomInOutEvent.h">
+      <Filter>Archivos de encabezado\CutScenes\Events</Filter>
+    </ClInclude>
     <ClInclude Include="Tilemap.h">
       <Filter>Archivos de encabezado\Objects\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="ShopEvent.h">
+      <Filter>Archivos de encabezado\CutScenes\Events</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -886,6 +949,18 @@
     </Filter>
     <Filter Include="Archivos de código fuente\Objects\Guns">
       <UniqueIdentifier>{4f97f6a1-796b-40fe-b2a8-322f3bdaa034}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código fuente\CutScenes">
+      <UniqueIdentifier>{e574184e-1a14-49d1-b849-b80a4ae00238}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\CutScenes">
+      <UniqueIdentifier>{aa911362-bdba-408b-9262-94b3518e6a35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\CutScenes\Events">
+      <UniqueIdentifier>{74617f16-362a-4da2-9392-d0f5857d9da4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código fuente\CutScenes\Events">
+      <UniqueIdentifier>{015528cc-95af-4c03-8e65-31922f6d840b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -43,6 +43,8 @@ public:
 	inline virtual list<GameObject*>& getObjects() { return _stages; }
 	inline virtual void setCanvas(Canvas* canvas) { _canvas = canvas; }
 
+	inline virtual void addCutScene() {};
+
 	Vector2D getMousePositionInWorld() const;
 	Vector2D getMousePositionOnScreen() const;
 };

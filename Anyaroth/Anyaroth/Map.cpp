@@ -16,6 +16,7 @@
 #include "BotonLanzaMisiles.h"
 #include <json.hpp>
 
+
 using namespace nlohmann;
 
 Map::Map(string filename, Game* game, Player* player, Texture* tileset, BulletPool* bulletPool, PlayStateHUD* hud) : GameObject(game), _player(player), _bulletPool(bulletPool),  _hud(hud)
