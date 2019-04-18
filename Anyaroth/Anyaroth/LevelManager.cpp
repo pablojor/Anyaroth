@@ -26,7 +26,7 @@ void LevelManager::setLevel(int l)
 		_currentSafeZone = new Map(TILEMAP_PATH + "SafeZonePrueba.json", _game, _player, _tilesetZone1, _enemyBulletPool, _hud);
 		break;
 	case LevelManager::Level1_2:
-		//_currentMap = ...
+		_currentMap = new Map(TILEMAP_PATH + "Nivel1-2.json", _game, _player, _tilesetZone1, _enemyBulletPool, _hud);
 		break;
 	case LevelManager::SafeBoss1:
 		_currentSafeZone = new Map(TILEMAP_PATH + "SafeZonePrueba.json", _game, _player, _tilesetZone1, _enemyBulletPool, _hud);
