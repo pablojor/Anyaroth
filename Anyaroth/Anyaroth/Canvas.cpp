@@ -1,5 +1,6 @@
 #include "Canvas.h"
 
+
 Canvas::~Canvas()
 {
 	for (UIElement* e : _elements)
