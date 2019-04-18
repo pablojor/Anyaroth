@@ -360,6 +360,7 @@
     <ClCompile Include="ZoomInOutEvent.cpp" />
     <ClCompile Include="ShakeEvent.cpp" />
     <ClCompile Include="FadeInOutEvent.cpp" />
+    <ClCompile Include="FlipEvent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -755,6 +756,7 @@
     <ClInclude Include="ZoomInOutEvent.h" />
     <ClInclude Include="ShakeEvent.h" />
     <ClInclude Include="FadeInOutEvent.h" />
+    <ClInclude Include="FlipEvent.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de código fuente">

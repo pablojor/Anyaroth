@@ -148,6 +148,7 @@
     <ClCompile Include="Capsule.cpp" />
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="FadeInOutEvent.cpp" />
+    <ClCompile Include="FlipEvent.cpp" />
     <ClCompile Include="FramedImageUI.cpp" />
     <ClCompile Include="AnimatedSpriteComponent.cpp" />
     <ClCompile Include="Arm.cpp" />
@@ -276,6 +277,7 @@
     <ClInclude Include="DistanceSpawner.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="FadeInOutEvent.h" />
+    <ClInclude Include="FlipEvent.h" />
     <ClInclude Include="FramedImageUI.h" />
     <ClInclude Include="AnimatedSpriteComponent.h" />
     <ClInclude Include="AnyarothError.h" />

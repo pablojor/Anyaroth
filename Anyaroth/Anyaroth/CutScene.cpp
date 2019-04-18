@@ -78,3 +78,8 @@ void CutScene::addCameraShakeEvent(Camera* cam, int time, int intensity)
 {
 	_events.push(new ShakeEvent(cam, time, intensity));
 }
+
+void CutScene::addFlipEvent()
+{
+	_events.push(new FlipEvent(_player));
+}

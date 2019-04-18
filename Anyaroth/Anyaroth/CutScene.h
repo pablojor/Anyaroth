@@ -10,7 +10,7 @@
 #include "ZoomInOutEvent.h"
 #include "FadeInOutEvent.h"
 #include "ShakeEvent.h"
-
+#include "FlipEvent.h"
 
 using namespace std;
 
@@ -35,6 +35,8 @@ public:
 	void addWaitEvent(int time);
 	void addCameraEvent(Camera* cam, int time, CamEffect type);
 	void addCameraShakeEvent(Camera* cam, int time, int intensity);
+	void addFlipEvent();
+
 
 	inline bool isPlaying() { return _isPlaying; }
 };
