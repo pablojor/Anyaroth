@@ -379,6 +379,8 @@
     <ClCompile Include="ShopEvent.cpp">
       <Filter>Archivos de código fuente\CutScenes\Events</Filter>
     </ClCompile>
+    <ClCompile Include="MenuStateHUD.cpp" />
+    <ClCompile Include="MainMenuPanel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -795,6 +797,8 @@
     <ClInclude Include="ShopEvent.h">
       <Filter>Archivos de encabezado\CutScenes\Events</Filter>
     </ClInclude>
+    <ClInclude Include="MenuStateHUD.h" />
+    <ClInclude Include="MainMenuPanel.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de código fuente">

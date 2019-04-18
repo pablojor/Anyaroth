@@ -22,7 +22,7 @@ public:
 
 	virtual void render() const;
 	virtual void update(const double& deltaTime) {}
-	virtual void handleEvent(const SDL_Event& event) {}
+	virtual bool handleEvent(const SDL_Event& event) { return false; }
 
 	inline string getText() const { return _text; }
 	void setText(string text);

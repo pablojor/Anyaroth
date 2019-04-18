@@ -296,7 +296,7 @@ void DialoguePanel::update(const double& deltaTime)
 	}
 }
 
-void DialoguePanel::handleEvent(const SDL_Event& event)
+bool DialoguePanel::handleEvent(const SDL_Event& event)
 {
 	PanelUI::handleEvent(event);
 
@@ -308,4 +308,5 @@ void DialoguePanel::handleEvent(const SDL_Event& event)
 			else if (_currentText != _dialogue.conversation.size() - 1)
 				nextText();
 	}
+	return false;
 }

@@ -174,6 +174,8 @@
     <ClCompile Include="GravityBombDebuff.cpp" />
     <ClCompile Include="GravityBulletEffect.cpp" />
     <ClCompile Include="Interactable.cpp" />
+    <ClCompile Include="MainMenuPanel.cpp" />
+    <ClCompile Include="MenuStateHUD.cpp" />
     <ClCompile Include="MoveEvent.cpp" />
     <ClCompile Include="NPC.cpp" />
     <ClCompile Include="ImprovedRifle.cpp" />
@@ -309,9 +311,11 @@
     <ClInclude Include="ImprovedShotgun.h" />
     <ClInclude Include="GroundEnemy.h" />
     <ClInclude Include="LevelManager.h" />
+    <ClInclude Include="MainMenuPanel.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="ExplosiveBulletEffect.h" />
     <ClInclude Include="FlyingEnemy.h" />
+    <ClInclude Include="MenuStateHUD.h" />
     <ClInclude Include="MisilBoss1.h" />
     <ClInclude Include="MoveEvent.h" />
     <ClInclude Include="MovingComponent.h" />
