@@ -1,11 +1,11 @@
 #pragma once
-#include <memory>
 
 class GameManager
 {
 
 private:
-	static std::unique_ptr<GameManager> _instance;
+	static GameManager _instance;
+	static bool _initilized;
 
 	GameManager(GameManager&) = delete;
 	GameManager& operator=(const GameManager&) = delete;

@@ -1,18 +1,18 @@
 #include "GameManager.h"
 
-std::unique_ptr<GameManager> GameManager::_instance = nullptr;
+GameManager GameManager::_instance;
+bool GameManager::_initilized = false;
+
 
 void GameManager::init()
 {
-	if (_instance.get() == nullptr) {
-		_instance.reset(new GameManager());
-	}
+	_initilized = true;
 }
 
 GameManager * GameManager::getInstance()
 {
-	if (_instance.get() == nullptr) {
-		_instance.reset(new GameManager());
-	}
-	return _instance.get();
+	if (!_initilized)
+		init();
+
+	return &_instance;
 }
