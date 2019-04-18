@@ -2,14 +2,15 @@
 #include "Game.h"
 #include "PauseState.h"
 #include "ParallaxLayer.h"
-#include "NPC.h"
-#include "PiercingBulletPool.h"
-#include "checkML.h"
 #include "WeaponManager.h"
 #include "CutScene.h"
+#include "checkML.h"
+
 
 PlayState::PlayState(Game* g) : GameState(g)
 {
+	_mainCamera->setWorldBounds(LEVEL_WIDTH, LEVEL_HEIGHT);
+
 	//Cursor
 	_cursor = new Cursor(g);
 	_stages.push_back(_cursor);
@@ -118,7 +119,7 @@ bool PlayState::handleEvent(const SDL_Event& event)
 	}
 	else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_0) //Boton de prueba para reiniciar el nivel
 		_levelManager.resetLevel();
-	else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_1) //Boton de prueba para reiniciar la munici�n
+	else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_1) //Boton de prueba para reiniciar la municion
 	{
 		_player->getCurrentGun()->resetAmmo();
 		_hud->getPlayerPanel()->updateAmmoViewer(_player->getCurrentGun()->getClip(), _player->getCurrentGun()->getMagazine());

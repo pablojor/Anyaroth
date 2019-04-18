@@ -8,7 +8,6 @@
 #include "BulletPool.h"
 #include "Cursor.h"
 #include "PlayStateHUD.h"
-#include "Shop.h"
 
 class CutScene;
 

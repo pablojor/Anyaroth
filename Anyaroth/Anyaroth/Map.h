@@ -1,10 +1,9 @@
 #pragma once
 #include "GameObject.h"
-#include "Layer.h"
+#include "Tilemap.h"
 #include "ObjectLayer.h"
 #include "BulletPool.h"
 #include "PlayStateHUD.h"
-#include "NPC.h"
 #include <vector>
 
 class Player;
@@ -17,17 +16,15 @@ private:
 	PlayStateHUD* _hud = nullptr;
 	BulletPool* _bulletPool = nullptr;
 
-	GameObject* _layers = nullptr;
+	Tilemap* _tilemap = nullptr;
 	GameObject* _objects = nullptr;
-	Boss1* _boss1 = nullptr;
-	NPC* _npc = nullptr;
-
 	vector <ObjectLayer*> _objectLayers;
 
-	int _coinValue, _faseMisil = 0;
+	Boss1* _spenta = nullptr;
+	int _faseMisil = 0;
 
 public:
-	Map(string filename, Game* game, Player* player, Texture* tileset, BulletPool* bulletPool, PlayStateHUD* hud, int coinValue);
+	Map(string filename, Game* game, Player* player, Texture* tileset, BulletPool* bulletPool, PlayStateHUD* hud);
 	~Map();
 
 	void createObjects();

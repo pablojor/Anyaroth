@@ -1,16 +1,17 @@
 ﻿#include "Map.h"
 #include "BodyComponent.h"
-#include "Coin.h"
 #include "MeleeEnemy.h"
 #include "MartyrEnemy.h"
 #include "DistanceStaticEnemy.h"
 #include "DistanceDynamicEnemy.h"
+#include "StaticFlyingEnemy.h"
 #include "BomberEnemy.h"
 #include "NormalSpawner.h"
 #include "DistanceSpawner.h"
 #include "StaticSpawnerEnemy.h"
-#include "StaticFlyingEnemy.h"
 #include "Player.h"
+#include "NPC.h"
+#include "Shop.h"
 #include "GunType_def.h"
 #include "BotonLanzaMisiles.h"
 #include <json.hpp>
@@ -18,10 +19,11 @@
 
 using namespace nlohmann;
 
-Map::Map(string filename, Game* game, Player* player, Texture* tileset, BulletPool* bulletPool, PlayStateHUD* hud, int coinValue) : GameObject(game), _player(player), _bulletPool(bulletPool),  _hud(hud), _coinValue(coinValue)
+Map::Map(string filename, Game* game, Player* player, Texture* tileset, BulletPool* bulletPool, PlayStateHUD* hud) : GameObject(game), _player(player), _bulletPool(bulletPool),  _hud(hud)
 {
-	_layers = new GameObject(_game);
-	addChild(_layers);
+	_tilemap = new Tilemap(game, tileset);
+	_tilemap->loadTileMap(filename);
+	addChild(_tilemap);
 
 	_objects = new GameObject(_game);
 	addChild(_objects);
@@ -29,24 +31,18 @@ Map::Map(string filename, Game* game, Player* player, Texture* tileset, BulletPo
 	json j;
 	fstream file;
 	file.open(filename);
+
 	if (file.is_open())
 	{
 		file >> j;
 		j = j["layers"];
+
 		for (int i = 0; i < j.size(); i++)
 		{
 			auto it = j[i].find("name");
 			if (it != j[i].end())
 			{
-				if (*it == "Map" || *it == "Ground" || *it == "Platform" || *it == "Door")
-				{
-					auto layer = new Layer(filename, *it, tileset, game, *it);
-					_layers->addChild(layer);
-
-					if(*it!="Map")
-						layer->addComponent<BodyComponent>();
-				}
-				else
+				if (*it != "Map" && *it != "Ground" && *it != "Platform" && *it != "Door")
 					_objectLayers.push_back(new ObjectLayer(filename, *it));
 			}
 		}
@@ -69,6 +65,7 @@ Map::~Map()
 void Map::createObjects()
 {
 	_faseMisil = 0;
+
 	for (int i = 0; i < _objectLayers.size(); i++)
 	{
 		string name = _objectLayers[i]->getName();
@@ -78,6 +75,7 @@ void Map::createObjects()
 		{
 			Vector2D pos = objectData[j].first;
 			string data = objectData[j].second;
+
 			if (name == "Player")
 			{
 				_player->setPlayerPosition(Vector2D(pos.getX() / M_TO_PIXEL, (pos.getY() - TILES_SIZE * 2) / M_TO_PIXEL));
@@ -120,20 +118,20 @@ void Map::createObjects()
 			}
 			else if (name == "Misil")
 			{
-				_objects->addChild(new BotonLanzaMisiles(_game, _boss1, _game->getTexture("MissileTurret"), Vector2D(pos.getX() - TILES_SIZE * 2, pos.getY() - TILES_SIZE * 2), _faseMisil));
+				_objects->addChild(new BotonLanzaMisiles(_game, _spenta, _game->getTexture("MissileTurret"), Vector2D(pos.getX() - TILES_SIZE * 2, pos.getY() - TILES_SIZE * 2), _faseMisil));
 				_faseMisil++;
 			}
 			else if (name == "Boss1")
 			{
-				_boss1 = (new Boss1(_game, _player, Vector2D(pos.getX() - TILES_SIZE * 2, pos.getY() - TILES_SIZE * 2), _bulletPool));
-				_objects->addChild(_boss1);
-				_boss1->setBossPanel(_hud->getBossPanel());
+				_spenta = (new Boss1(_game, _player, Vector2D(pos.getX() - TILES_SIZE * 2, pos.getY() - TILES_SIZE * 2), _bulletPool));
+				_objects->addChild(_spenta);
+				_spenta->setBossPanel(_hud->getBossPanel());
 			}
 			else if (name == "NPC")
 			{
-				_npc = new NPC(_game, Vector2D(pos.getX() - TILES_SIZE * 2, pos.getY() - TILES_SIZE * 2), _game->getDialogue(data));
-				_npc->setDialoguePanel(_hud->getDialoguePanel());
-				_objects->addChild(_npc);
+				auto npc = new NPC(_game, Vector2D(pos.getX() - TILES_SIZE * 2, pos.getY() - TILES_SIZE * 2), _game->getDialogue(data));
+				npc->setDialoguePanel(_hud->getDialoguePanel());
+				_objects->addChild(npc);
 			}
 			else if (name == "Shop")
 			{
