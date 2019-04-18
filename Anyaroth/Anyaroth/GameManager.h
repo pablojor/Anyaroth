@@ -13,7 +13,7 @@ private:
 	GameManager() {};
 
 	//Aqui irán todas la varibles que se necesite en el juego
-	int _currentZone = 0;
+	int _currentLevel = 0;
 
 public:
 	~GameManager() {};
@@ -21,6 +21,7 @@ public:
 	static void init();
 	static GameManager* getInstance();
 
-	int getCurrentZone() const { return _currentZone; }
+	int getCurrentLevel() const { return _currentLevel; }
+	void setCurrentLevel(const int& a) { _currentLevel = a; }
 };
 

@@ -1,7 +1,8 @@
 #include "Shop.h"
 #include "Game.h"
+#include "GameManager.h"
 
-Shop::Shop(Game* g, Vector2D posIni, ShopMenu* shop, int currentZone) : _shop(shop), _currentZone(currentZone), Interactable(g, posIni)
+Shop::Shop(Game* g, Vector2D posIni, ShopMenu* shop) : _shop(shop), Interactable(g, posIni)
 {
 	addComponent<Texture>(g->getTexture("Coin"));
 	auto _texture = getComponent<Texture>();
@@ -27,5 +28,5 @@ Shop::Shop(Game* g, Vector2D posIni, ShopMenu* shop, int currentZone) : _shop(sh
 void Shop::interact()
 {
 	if (!_shop->isVisible())
-		_shop->openShop(_currentZone);
+		_shop->openShop(GameManager::getInstance()->getCurrentLevel());
 }

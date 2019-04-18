@@ -37,9 +37,9 @@ PlayState::PlayState(Game* g) : GameState(g)
 	auto enemyPool = new BulletPool(g);
 
 	//Levels
-	_currentLevel = LevelManager::Safe1_1;
+	GameManager::getInstance()->setCurrentLevel(LevelManager::Safe1_1);
 	_levelManager = LevelManager(g, _player, &_stages, _hud, enemyPool);
-	_levelManager.setLevel(_currentLevel);
+	_levelManager.setLevel(GameManager::getInstance()->getCurrentLevel());
 
 	//Background
 	_parallaxZone1 = new ParallaxBackGround(_mainCamera);
@@ -116,19 +116,20 @@ void PlayState::update(const double& deltaTime)
 {
 	if (_player->changeLevel())
 	{
+		GameManager* gManager = GameManager::getInstance();
 		_player->setChangeLevel(false);
 		if (!_player->isDead())
 		{
 			_player->revive();
-			_currentLevel++;
-			_levelManager.changeLevel(_currentLevel);
+			gManager->setCurrentLevel(gManager->getCurrentLevel() + 1);
+			_levelManager.changeLevel(gManager->getCurrentLevel());
 		}
 		else
 		{
 			_playerBulletPool->stopBullets();
 			_player->revive();
-			_currentLevel--;
-			_levelManager.changeLevel(_currentLevel);
+			gManager->setCurrentLevel(gManager->getCurrentLevel() - 1);
+			_levelManager.changeLevel(gManager->getCurrentLevel());
 		}
 	}
 
