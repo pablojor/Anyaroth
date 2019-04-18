@@ -15,6 +15,7 @@ void Boss::setBossPanel(BossPanel * b)
 	//Actualizamos de primeras el aspecto del Panel del Jugador
 	_bossPanel->updateBossName("Spenta Manyu");
 	_bossPanel->updateLifeBar(_life1.getLife(), _life2.getLife(), _life3.getLife(), _life.getLife());
+	_bossPanel->setVisible(true);
 }
 
 void Boss::update(const double & deltaTime)
@@ -33,6 +34,8 @@ void Boss::update(const double & deltaTime)
 		else
 			beetwenFases(deltaTime);
 	}
+	else
+		_bossPanel->setVisible(false);
 }
 
 void Boss::subLife(int damage)

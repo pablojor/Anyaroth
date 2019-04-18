@@ -97,3 +97,11 @@ void LevelManager::changeLevel(int l)
 	}
 	setLevel(l);
 }
+
+Map * LevelManager::getCurrentLevel(int l) const
+{
+	if (l % 2 == 0)
+		return _currentMap;
+	else
+		return _currentSafeZone;
+}
