@@ -7,8 +7,8 @@ class Boss2 : public Boss
 private:
 	LaserHandler* _lasers = nullptr;
 	Vector2D _velocity = { 20,0 }, _originalVelocity = { 20,0 };
-	int _dir, _onFloor = 0, _stopRange = 25;
-	double _shootRange = 75;
+	int _dir, _onFloor = 0, _stopRange = 40;
+	double _shootRange = 100;
 	bool _endJump = false;
 
 	int _timeMelee = 1250, _timeOnMelee = 0;
