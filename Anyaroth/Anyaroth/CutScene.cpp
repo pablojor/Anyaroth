@@ -1,8 +1,8 @@
 #include "CutScene.h"
 
-
 CutScene::CutScene(Player* player) : _player(player)
 {
+
 }
 
 CutScene::~CutScene()
@@ -59,7 +59,7 @@ void CutScene::addDialogueEvent(DialoguePanel* dialoguePanel, Dialogue dialogue)
 
 void CutScene::addWaitEvent(int time)
 {
-	_events.push(new waitEvent(time));
+	_events.push(new WaitingEvent(time));
 }
 
 void CutScene::addCameraEvent(Camera* cam, int time, CamEffect type)

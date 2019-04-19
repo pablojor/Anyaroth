@@ -1,7 +1,8 @@
 #include "ShopEvent.h"
 
-ShopEvent::ShopEvent(ShopMenu* shop, int currentZone) : _shop(shop), _currentZone(currentZone)
+ShopEvent::ShopEvent(ShopMenu* shop, int currentZone) : _shop(shop)
 {
+
 }
 
 void ShopEvent::update(const double& time)
@@ -14,5 +15,5 @@ void ShopEvent::update(const double& time)
 
 void ShopEvent::play()
 {
-	_shop->openShop(_currentZone);
+	_shop->openShop();
 }

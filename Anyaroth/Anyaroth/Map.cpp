@@ -144,7 +144,7 @@ void Map::createObjects()
 			}
 			else if (name == "Shop")
 			{
-				auto tienda = new Shop(_game, Vector2D(pos.getX() - TILES_SIZE, pos.getY() - TILES_SIZE), _hud->getShop(), 3);
+				auto tienda = new Shop(_game, Vector2D(pos.getX() - TILES_SIZE, pos.getY() - TILES_SIZE), _hud->getShop());
 				_objects->addChild(tienda);
 			}
 		}

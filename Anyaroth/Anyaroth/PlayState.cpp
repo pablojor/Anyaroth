@@ -40,7 +40,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	GameManager::getInstance()->setCurrentLevel(LevelManager::SafeBoss1);
 	_levelManager = LevelManager(g, _player, &_stages, _hud, enemyPool);
 	_levelManager.setLevel(GameManager::getInstance()->getCurrentLevel());
-	_mainCamera->setWorldBounds(_levelManager.getCurrentLevel(_currentLevel)->getWidth(), _levelManager.getCurrentLevel(_currentLevel)->getHeight());
+	_mainCamera->setWorldBounds(_levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getWidth(), _levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getHeight());
 
 	//Background
 	_parallaxZone1 = new ParallaxBackGround(_mainCamera);
@@ -154,7 +154,7 @@ void PlayState::update(const double& deltaTime)
 			_player->revive();
 			gManager->setCurrentLevel(gManager->getCurrentLevel() + 1);
 			_levelManager.changeLevel(gManager->getCurrentLevel());
-			_mainCamera->setWorldBounds(_levelManager.getCurrentLevel(_currentLevel)->getWidth(), _levelManager.getCurrentLevel(_currentLevel)->getHeight());
+			_mainCamera->setWorldBounds(_levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getWidth(), _levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getHeight());
 			_mainCamera->setZoom(CAMERA_SCALE_FACTOR);
 		}
 		else
@@ -163,7 +163,7 @@ void PlayState::update(const double& deltaTime)
 			_player->revive();
 			gManager->setCurrentLevel(gManager->getCurrentLevel() - 1);
 			_levelManager.changeLevel(gManager->getCurrentLevel());
-			_mainCamera->setWorldBounds(_levelManager.getCurrentLevel(_currentLevel)->getWidth(), _levelManager.getCurrentLevel(_currentLevel)->getHeight());
+			_mainCamera->setWorldBounds(_levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getWidth(), _levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getHeight());
 			_mainCamera->setZoom(CAMERA_SCALE_FACTOR);
 		}
 	}
