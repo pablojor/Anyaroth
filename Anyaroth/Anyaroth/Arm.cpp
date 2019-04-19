@@ -11,7 +11,7 @@ Arm::Arm(Game* g, GameObject* owner, Vector2D offset) : GameObject(g), _owner(ow
 	_followC = addComponent<FollowingComponent>(_owner);
 	_followC->setInitialOffset(offset);
 
-	
+
 	_anim->playAnim(AnimatedSpriteComponent::None);
 
 	_transform->setDefaultAnchor(0.1, 0.6); //Parametros para la pistola
@@ -35,7 +35,25 @@ void Arm::setAnimations(ArmAnimType type)
 		_anim->addAnim(AnimatedSpriteComponent::Shoot, 6, false);
 		_anim->addAnim(AnimatedSpriteComponent::NoAmmo, 2, false);
 		break;
-	case PlayerArmType:
+	case PlayerShotgunArmType:
+		_anim->addAnim(AnimatedSpriteComponent::None, 1, false);
+		_anim->addAnim(AnimatedSpriteComponent::Shoot, 2, false);
+		_anim->addAnim(AnimatedSpriteComponent::NoAmmo, 2, false);
+		_anim->addAnim(AnimatedSpriteComponent::Reload, 5, false);
+		break;
+	case PlayerPistolArmType:
+		_anim->addAnim(AnimatedSpriteComponent::None, 1, false);
+		_anim->addAnim(AnimatedSpriteComponent::Shoot, 2, false);
+		_anim->addAnim(AnimatedSpriteComponent::NoAmmo, 2, false);
+		_anim->addAnim(AnimatedSpriteComponent::Reload, 13, false);
+		break;
+	case PlayerRifleArmType:
+		_anim->addAnim(AnimatedSpriteComponent::None, 1, false);
+		_anim->addAnim(AnimatedSpriteComponent::Shoot, 2, false);
+		_anim->addAnim(AnimatedSpriteComponent::NoAmmo, 2, false);
+		_anim->addAnim(AnimatedSpriteComponent::Reload, 14, false);
+		break;
+	case DefaultArmType:
 	default:
 		_anim->addAnim(AnimatedSpriteComponent::None, 1, false);
 		_anim->addAnim(AnimatedSpriteComponent::Shoot, 2, false);

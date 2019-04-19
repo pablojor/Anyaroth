@@ -60,12 +60,12 @@ Player::Player(Game* game, int xPos, int yPos) : GameObject(game, "Player")
 	//Brazo
 	_playerArm = new PlayerArm(game, this, { 28, 15 });
 	addChild(_playerArm);
-	
-	_currentGun = WeaponManager::getWeapon(game, BounceOrbCannon_Weapon);
-	_otherGun = WeaponManager::getWeapon(game, PlasmaSniper_Weapon);
+
+	_currentGun = WeaponManager::getWeapon(game, Pistol_Weapon);
+	_otherGun = WeaponManager::getWeapon(game, BasicShotgun_Weapon);
 
 	_playerArm->setTexture(_currentGun->getArmTexture());
-	_playerArm->setAnimations(PlayerArmType);
+	_playerArm->setAnimations(PlayerPistolArmType);
 
 	//Monedero
 	_money = new Money();
@@ -228,7 +228,7 @@ bool Player::handleEvent(const SDL_Event& event)
 		else if (event.type == SDL_KEYUP && !event.key.repeat)
 		{
 			if (event.key.keysym.sym == SDLK_r)
-				_isReloading = false;
+				;//_isReloading = false;
 			else if (event.key.keysym.sym == SDLK_LSHIFT)
 				_isDashing = false;
 			else if (isJumping())
@@ -259,15 +259,14 @@ void Player::update(const double& deltaTime)
 
 	if (!isDead())
 	{
-		if (isDashing() || isMeleeing() || isReloading())
-			_playerArm->setActive(false);
-		else
-			_playerArm->setActive(true);
-
-		if (isDashing() || isMeleeing() || isReloading())
+		if (isDashing() || isMeleeing())
 			_playerArm->setActive(false);
 		else if (!_playerArm->isActive())
 			_playerArm->setActive(true);
+
+		/*if (isReloading() &&  _playerArm->getComponent<CustomAnimatedSpriteComponent>()->getCurrentAnim() == AnimatedSpriteComponent::Reload
+			&& _playerArm->getComponent<CustomAnimatedSpriteComponent>()->animationFinished())
+			_isReloading = false;*/
 	}
 	else
 	{
@@ -298,14 +297,14 @@ void Player::swapGun()
 		_otherGun = auxGun;
 		_playerArm->setTexture(_currentGun->getArmTexture());
 		_playerPanel->updateAmmoViewer(_currentGun->getClip(), _currentGun->getMagazine());
-		
+
 		if (_currentGun->getIconTexture() != nullptr) _playerPanel->updateWeaponryViewer(_currentGun->getIconTexture());
 	}
 }
 
 void Player::changeCurrentGun(Gun * gun)
 {
-	if (gun != nullptr) 
+	if (gun != nullptr)
 	{
 		delete _currentGun;
 		_currentGun = gun;
