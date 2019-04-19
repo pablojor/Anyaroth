@@ -33,4 +33,6 @@ public:
 	virtual bool handleEvent(const SDL_Event& event);
 
 	inline int getCurrentLevel() const { return _currentLevel; }
+	void saveGame();
+	void loadGame();
 };

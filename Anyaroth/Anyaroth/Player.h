@@ -99,6 +99,7 @@ public:
 
 	inline bool spendMoney(int n) { return _money->spend(n); }
 	inline int getBank() const { return _money->getBank(); }
+	inline void setBank(int amount) { _money->setBank(amount); }
 
 	void move(const Vector2D& dir, const double& speed);
 	void dash(const Vector2D& dir);

@@ -4,6 +4,9 @@
 #include "ParallaxLayer.h"
 #include "WeaponManager.h"
 #include "checkML.h"
+#include <json.hpp>
+
+using namespace nlohmann;
 
 PlayState::PlayState(Game* g) : GameState(g)
 {
@@ -108,6 +111,38 @@ bool PlayState::handleEvent(const SDL_Event& event)
 		_mainCamera->fadeOut(5000);
 
 	return handled;
+}
+
+void PlayState::saveGame()
+{
+	ofstream output;
+	output.open(SAVES_PATH + "save.json");
+	if (output.is_open())
+	{
+		json j;
+		j["level"] = _levelManager.getLevel();
+		j["Bank"] = _player->getBank();
+		j["currentGun"] = _player->getCurrentGun()->getGunID();
+		j["otherGun"] = _player->getOtherGun()->getGunID();
+		//tienda save
+		output << j;
+	}
+}
+
+void PlayState::loadGame()
+{
+	ifstream input;
+	input.open(SAVES_PATH + "save.json");
+	if (input.is_open())
+	{
+		json j;
+		input >> j;
+		_player->setBank(j["Bank"]);
+		_levelManager.setLevel(j["level"]);
+		_player->changeCurrentGun(WeaponManager::getWeapon(_gameptr, j["currentGun"]));
+		_player->changeOtherGun(WeaponManager::getWeapon(_gameptr, j["otherGun"]));
+		//tienda load
+	}
 }
 
 void PlayState::update(const double& deltaTime)

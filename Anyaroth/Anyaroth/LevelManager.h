@@ -18,6 +18,8 @@ private:
 
 	list<GameObject*>* _objectList;
 
+	int _currentLevel = 0;
+
 public:
 	LevelManager() {}
 	LevelManager(Game* game, Player* player, list<GameObject*>* objects, PlayStateHUD* hud, BulletPool* bulletPool);
@@ -32,6 +34,7 @@ public:
 		Safe3_1, Level3_1, Safe3_2, Level3_2, SafeBoss3, Boss3
 	};
 
+	inline int const getLevel() { return _currentLevel; }
 	void setLevel(int l);
 	void changeLevel(int l);
 };
