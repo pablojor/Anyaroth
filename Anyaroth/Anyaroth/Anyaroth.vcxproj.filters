@@ -385,9 +385,15 @@
     <ClCompile Include="MainMenuPanel.cpp">
       <Filter>Archivos de código fuente\HUD\Panels</Filter>
     </ClCompile>
-    <ClCompile Include="PauseStateHUD.cpp" />
-    <ClCompile Include="PausePanel.cpp" />
-    <ClCompile Include="OptionsPanel.cpp" />
+    <ClCompile Include="PauseStateHUD.cpp">
+      <Filter>Archivos de código fuente\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="PausePanel.cpp">
+      <Filter>Archivos de código fuente\HUD\Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="OptionsPanel.cpp">
+      <Filter>Archivos de código fuente\HUD\Panels</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -810,9 +816,15 @@
     <ClInclude Include="MainMenuPanel.h">
       <Filter>Archivos de encabezado\HUD\Panels</Filter>
     </ClInclude>
-    <ClInclude Include="PauseStateHUD.h" />
-    <ClInclude Include="PausePanel.h" />
-    <ClInclude Include="OptionsPanel.h" />
+    <ClInclude Include="PauseStateHUD.h">
+      <Filter>Archivos de encabezado\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="PausePanel.h">
+      <Filter>Archivos de encabezado\HUD\Panels</Filter>
+    </ClInclude>
+    <ClInclude Include="OptionsPanel.h">
+      <Filter>Archivos de encabezado\HUD\Panels</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de código fuente">
