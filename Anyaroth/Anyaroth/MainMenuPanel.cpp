@@ -38,6 +38,7 @@ void MainMenuPanel::startGame(Game * g)
 void MainMenuPanel::options(Game * g)
 {
 	_visible = !_visible;
+	g->getCurrentState()->getMenuHUD()->getOptionsPanel()->setVisible(true);
 }
 
 void MainMenuPanel::exitGame(Game * g)

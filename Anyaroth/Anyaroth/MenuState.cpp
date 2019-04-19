@@ -9,8 +9,8 @@ MenuState::MenuState(Game* g) : GameState(g)
 	SDL_ShowCursor(true);
 
 	//HUD
-	_menuHUD = new MenuStateHUD(g);
-	setCanvas(_menuHUD);
+	_menuHud = new MenuStateHUD(g);
+	setCanvas(_menuHud);
 
 	//Camera BackGound
 	_mainCamera->setBackGround(new BackGround(g->getTexture("BgMenu"), _mainCamera));

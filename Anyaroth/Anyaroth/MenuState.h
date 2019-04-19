@@ -5,9 +5,6 @@
 
 class MenuState : public GameState
 {
-private:
-	MenuStateHUD* _menuHUD;
-
 public:
 	MenuState(Game* g);
 	~MenuState() {}

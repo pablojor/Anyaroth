@@ -7,6 +7,6 @@ PauseState::PauseState(Game* g) : GameState(g)
 	SDL_ShowCursor(true);
 
 	//HUD
-	_pauseHUD = new PauseStateHUD(g);
-	setCanvas(_pauseHUD);
+	_pauseHud = new PauseStateHUD(g);
+	setCanvas(_pauseHud);
 }

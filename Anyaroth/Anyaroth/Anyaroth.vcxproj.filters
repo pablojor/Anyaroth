@@ -387,6 +387,7 @@
     </ClCompile>
     <ClCompile Include="PauseStateHUD.cpp" />
     <ClCompile Include="PausePanel.cpp" />
+    <ClCompile Include="OptionsPanel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -811,6 +812,7 @@
     </ClInclude>
     <ClInclude Include="PauseStateHUD.h" />
     <ClInclude Include="PausePanel.h" />
+    <ClInclude Include="OptionsPanel.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de código fuente">
