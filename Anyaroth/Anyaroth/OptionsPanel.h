@@ -1,6 +1,7 @@
 #pragma once
 #include "PanelUI.h"
 #include "ButtonUI.h"
+#include "TextUI.h"
 
 class OptionsPanel : public PanelUI
 {
@@ -10,10 +11,13 @@ private:
 	ButtonUI *_moreBright, *_lessBright;
 	ButtonUI* _screenButton;
 
+	TextUI* _volumeSFXText;
+	TextUI* _volumeText;
+	TextUI* _brightText;
+
 	ButtonUI* _backButton;
 
 	bool _menu, _fullScreen;
-	float _volume, _sfxVolume;
 public:
 	OptionsPanel(Game* g, bool mainMenu);
 	~OptionsPanel();
