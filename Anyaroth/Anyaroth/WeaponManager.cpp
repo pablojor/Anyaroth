@@ -12,11 +12,14 @@
 #include <json.hpp>
 #include <map>
 
-
+WeaponManager WeaponManager::_instance;
+bool WeaponManager::_initilized = false;
 map<GunType, GunInfo> WeaponManager::_weaponInfo;
 
 void WeaponManager::init()
 {
+	_initilized = true;
+
 	ifstream file;
 	nlohmann::json j;
 
@@ -31,14 +34,23 @@ void WeaponManager::init()
 
 			for (nlohmann::json::iterator typeWeapon = weapon.begin(); typeWeapon != weapon.end(); ++typeWeapon)
 			{
-				_weaponInfo[typeWeapon.value()["id"]] = { typeWeapon.value()["zona"], typeWeapon.key(), typeWeapon.value()["price"] ,
-														typeWeapon.value()["damage"], typeWeapon.value()["cadence"], typeWeapon.value()["range"], typeWeapon.value()["clip"], typeWeapon.value()["icon"].get<string>(), typeWeapon.value()["frame"].get<string>() };
+				_weaponInfo[typeWeapon.value()["id"]] = { typeWeapon.value()["zone"], typeWeapon.key(), typeWeapon.value()["price"] ,
+														typeWeapon.value()["damage"], typeWeapon.value()["cadence"], typeWeapon.value()["range"],
+														typeWeapon.value()["clip"], typeWeapon.value()["icon"].get<string>(), typeWeapon.value()["frame"].get<string>() };
 			}
 		}
 		file.close();
 	}
 	else
 		cout << "Error al cargar " << INFO_PATH << "weapon_info.json" << endl;
+}
+
+WeaponManager * WeaponManager::getInstance()
+{
+	if (!_initilized)
+		init();
+
+	return &_instance;
 }
 
 Gun* WeaponManager::getWeapon(Game* _game, GunType type)

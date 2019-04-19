@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "ShopMenu.h"
 #include "Player.h"
+#include "GameManager.h"
 
 CatalogPanel::CatalogPanel(Game* game) : PanelUI(game)
 {
@@ -63,10 +64,10 @@ void CatalogPanel::setPlayer(Player* ply)
 	_playerMoney->updateCoinsCounter(_player->getBank());
 }
 
-void CatalogPanel::setItems(list<ShopItem*>* list, const int& zone) // Crear items
+void CatalogPanel::setItems(list<ShopItem*>* list) // Crear items
 {
 	_items = list;
-	_zone = zone;
+	_zone = GameManager::getInstance()->getCurrentLevel();;
 
 	for (auto it : *_items)
 		addChild(it);

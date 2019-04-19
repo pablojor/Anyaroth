@@ -28,5 +28,5 @@ Shop::Shop(Game* g, Vector2D posIni, ShopMenu* shop) : _shop(shop), Interactable
 void Shop::interact()
 {
 	if (!_shop->isVisible())
-		_shop->openShop(GameManager::getInstance()->getCurrentLevel());
+		_shop->openShop();
 }

@@ -13,7 +13,7 @@ private:
 	GameManager() {};
 
 	//Aqui irán todas la varibles que se necesite en el juego
-	int _currentLevel = 0;
+	int _currentLevel = 1;
 
 public:
 	~GameManager() {};
