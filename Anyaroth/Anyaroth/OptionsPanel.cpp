@@ -12,7 +12,7 @@ OptionsPanel::OptionsPanel(Game* g, bool mainMenu) : _menu(mainMenu)
 	_moreVolume->setSize(buttonW, buttonH);
 
 	_lessVolume = new ButtonUI(g, g->getTexture("Coin"), [this](Game* game) { lessVolume(game); });
-	_lessVolume->setPosition(CAMERA_RESOLUTION_X / 2 - buttonW / 2 - 100, CAMERA_RESOLUTION_Y / 3 - buttonH + 50);
+	_lessVolume->setPosition(CAMERA_RESOLUTION_X / 2 - buttonW / 2 - 80, CAMERA_RESOLUTION_Y / 3 - buttonH + 50);
 	_lessVolume->setSize(buttonW, buttonH);
 
 	_moreSFXVolume = new ButtonUI(g, g->getTexture("Play"), [this](Game* game) { moreSFXVolume(game); });
@@ -20,15 +20,15 @@ OptionsPanel::OptionsPanel(Game* g, bool mainMenu) : _menu(mainMenu)
 	_moreSFXVolume->setSize(buttonW, buttonH);
 
 	_lessSFXVolume = new ButtonUI(g, g->getTexture("Coin"), [this](Game* game) { lessSFXVolume(game); });
-	_lessSFXVolume->setPosition(CAMERA_RESOLUTION_X / 2 - buttonW / 2 - 100, CAMERA_RESOLUTION_Y / 3 - buttonH + 100);
+	_lessSFXVolume->setPosition(CAMERA_RESOLUTION_X / 2 - buttonW / 2 - 80, CAMERA_RESOLUTION_Y / 3 - buttonH + 100);
 	_lessSFXVolume->setSize(buttonW, buttonH);
 
 	_moreBright = new ButtonUI(g, g->getTexture("Play"), [this](Game* game) { moreBright(game); });
-	_moreBright->setPosition(CAMERA_RESOLUTION_X / 2 + buttonW / 2, CAMERA_RESOLUTION_Y / 3 - buttonH + 150);
+	_moreBright->setPosition(CAMERA_RESOLUTION_X / 2 + buttonW / 2 - 80, CAMERA_RESOLUTION_Y / 3 - buttonH + 150);
 	_moreBright->setSize(buttonW, buttonH);
 
 	_lessBright = new ButtonUI(g, g->getTexture("Coin"), [this](Game* game) { lessBright(game); });
-	_lessBright->setPosition(CAMERA_RESOLUTION_X / 2 - buttonW / 2 - 100, CAMERA_RESOLUTION_Y / 3 - buttonH + 150);
+	_lessBright->setPosition(CAMERA_RESOLUTION_X / 2 - buttonW / 2 - 80, CAMERA_RESOLUTION_Y / 3 - buttonH + 150);
 	_lessBright->setSize(buttonW, buttonH);
 
 	_backButton = new ButtonUI(g, g->getTexture("Exit"), [this](Game* game) { back(game); });
@@ -41,8 +41,10 @@ OptionsPanel::OptionsPanel(Game* g, bool mainMenu) : _menu(mainMenu)
 
 	_volumeSFXText = new TextUI(g, "100", g->getFont("ARIAL12"), 12, CAMERA_RESOLUTION_X / 2 + buttonW / 2 - 50, CAMERA_RESOLUTION_Y / 3 - buttonH + 100, { 200, 200, 200, 200 });
 	_volumeText = new TextUI(g, "100", g->getFont("ARIAL12"), 12, CAMERA_RESOLUTION_X / 2 + buttonW / 2 - 50, CAMERA_RESOLUTION_Y / 3 - buttonH + 50, { 200, 200, 200, 200 });
-	_brightText = new TextUI(g, "100", g->getFont("ARIAL12"), 12, CAMERA_RESOLUTION_X / 2 + buttonW / 2 - 50, CAMERA_RESOLUTION_Y / 3 - buttonH + 150, { 200, 200, 200, 200 });
 
+	_nameVolumeSFXText = new TextUI(g, "Volumen Efectos", g->getFont("ARIAL12"), 12, CAMERA_RESOLUTION_X / 2 + buttonW / 2 + 90, CAMERA_RESOLUTION_Y / 3 - buttonH + 100, { 200, 200, 200, 200 });
+	_nameVolumeText = new TextUI(g, "Volumen Musica", g->getFont("ARIAL12"), 12, CAMERA_RESOLUTION_X / 2 + buttonW / 2 + 90, CAMERA_RESOLUTION_Y / 3 - buttonH + 50, { 200, 200, 200, 200 });
+	_nameBrightText = new TextUI(g, "Brillo", g->getFont("ARIAL12"), 12, CAMERA_RESOLUTION_X / 2 + buttonW / 2 + 50, CAMERA_RESOLUTION_Y / 3 - buttonH + 150, { 200, 200, 200, 200 });
 
 	addChild(_moreVolume);
 	addChild(_lessVolume);
@@ -54,7 +56,9 @@ OptionsPanel::OptionsPanel(Game* g, bool mainMenu) : _menu(mainMenu)
 	addChild(_screenButton);
 	addChild(_volumeSFXText);
 	addChild(_volumeText);
-	addChild(_brightText);
+	addChild(_nameVolumeSFXText);
+	addChild(_nameVolumeText);
+	addChild(_nameBrightText);
 
 	_visible = false;
 }
@@ -151,14 +155,6 @@ void OptionsPanel::moreBright(Game * g)
 		bright += 0.1;
 
 	SDL_SetWindowBrightness(g->getWindow(), bright);
-
-	bright *= 10;
-	bright = ceil(bright);
-	bright *= 10;
-	bright = ceil(bright);
-
-	int vol = bright;
-	_brightText->setText(to_string(vol));;
 }
 
 void OptionsPanel::lessBright(Game * g)
@@ -171,14 +167,6 @@ void OptionsPanel::lessBright(Game * g)
 		bright -= 0.1;
 
 	SDL_SetWindowBrightness(g->getWindow(), bright);
-
-	bright *= 10;
-	bright = ceil(bright);
-	bright *= 10;
-	bright = ceil(bright);
-
-	int vol = bright;
-	_brightText->setText(to_string(vol));;
 }
 
 void OptionsPanel::back(Game * g)

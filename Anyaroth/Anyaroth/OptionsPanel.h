@@ -13,7 +13,9 @@ private:
 
 	TextUI* _volumeSFXText;
 	TextUI* _volumeText;
-	TextUI* _brightText;
+	TextUI* _nameVolumeSFXText;
+	TextUI* _nameVolumeText;
+	TextUI* _nameBrightText;
 
 	ButtonUI* _backButton;
 
