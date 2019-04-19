@@ -45,16 +45,16 @@ Player::Player(Game* game, int xPos, int yPos) : GameObject(game, "Player")
 	_anim->addAnim(AnimatedSpriteComponent::Walk, 10, true);
 	_anim->addAnim(AnimatedSpriteComponent::WalkBack, 10, true);
 	_anim->addAnim(AnimatedSpriteComponent::MeleeKnife, 6, false);
-	_anim->addAnim(AnimatedSpriteComponent::ReloadPistol, 13, false);
+	_anim->addAnim(AnimatedSpriteComponent::MeleeSword, 13, false);
 	_anim->addAnim(AnimatedSpriteComponent::BeforeJump, 1, false);
 	_anim->addAnim(AnimatedSpriteComponent::Jump, 4, true);
 	_anim->addAnim(AnimatedSpriteComponent::StartFalling, 2, false);
 	_anim->addAnim(AnimatedSpriteComponent::Falling, 2, true);
 	_anim->addAnim(AnimatedSpriteComponent::Hurt, 2, true);
-	_anim->addAnim(AnimatedSpriteComponent::Dash, 6, false);
+	_anim->addAnim(AnimatedSpriteComponent::Dash, 5, false);
 	_anim->addAnim(AnimatedSpriteComponent::DashDown, 3, true);
-	_anim->addAnim(AnimatedSpriteComponent::DashBack, 6, false);
-	_anim->addAnim(AnimatedSpriteComponent::ReloadShotgun, 5, false);
+	_anim->addAnim(AnimatedSpriteComponent::DashBack, 5, false);
+	_anim->addAnim(AnimatedSpriteComponent::MeleeHalberd, 5, false);
 	_anim->addAnim(AnimatedSpriteComponent::PlayerDie, 35, false);
 
 	//Brazo

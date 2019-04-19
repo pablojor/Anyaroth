@@ -29,7 +29,7 @@ protected:
 	bool _animationFinished = false;
 
 public:
-	enum Player { Idle, Walk, WalkBack, MeleeKnife, ReloadPistol, BeforeJump, Jump, StartFalling, Falling, Hurt, Dash, DashDown, DashBack, ReloadShotgun, PlayerDie };
+	enum Player { Idle, Walk, WalkBack, MeleeKnife, MeleeSword, BeforeJump, Jump, StartFalling, Falling, Hurt, Dash, DashDown, DashBack, MeleeHalberd, PlayerDie };
 	enum Enemy { EnemyIdle, EnemyWalk, EnemyAttack, EnemyDie };
 	enum Gun { None, Shoot, NoAmmo };
 	enum Bullet { Default, Destroy };
