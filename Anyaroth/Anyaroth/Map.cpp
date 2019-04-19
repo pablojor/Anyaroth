@@ -43,6 +43,16 @@ Map::Map(string filename, Game* game, Player* player, Texture* tileset, BulletPo
 			{
 				if (*it != "Map" && *it != "Ground" && *it != "Platform" && *it != "Door")
 					_objectLayers.push_back(new ObjectLayer(filename, *it));
+				else if (*it == "Map")
+				{
+					it = j[i].find("height");
+					_height = *it;
+					_height = _height * TILES_SIZE;
+
+					it = j[i].find("width");
+					_width = *it;
+					_width = _width * TILES_SIZE;
+				}
 			}
 		}
 		file.close();
@@ -63,7 +73,7 @@ Map::~Map()
 
 void Map::createObjects()
 {
-	_faseMisil = 0;
+	_misilFase = 0;
 
 	for (int i = 0; i < _objectLayers.size(); i++)
 	{
@@ -117,8 +127,8 @@ void Map::createObjects()
 			}
 			else if (name == "Misil")
 			{
-				_objects->addChild(new BotonLanzaMisiles(_game, _spenta, _game->getTexture("MissileTurret"), Vector2D(pos.getX() - TILES_SIZE * 2, pos.getY() - TILES_SIZE * 2), _faseMisil));
-				_faseMisil++;
+				_objects->addChild(new BotonLanzaMisiles(_game, _spenta, _game->getTexture("MissileTurret"), Vector2D(pos.getX() - TILES_SIZE * 2, pos.getY() - TILES_SIZE * 2), _misilFase));
+				_misilFase++;
 			}
 			else if (name == "Boss1")
 			{
@@ -134,7 +144,7 @@ void Map::createObjects()
 			}
 			else if (name == "Shop")
 			{
-				auto tienda = new Shop(_game, Vector2D(pos.getX() - TILES_SIZE * 2, pos.getY() - TILES_SIZE * 2), _hud->getShop(), 3);
+				auto tienda = new Shop(_game, Vector2D(pos.getX() - TILES_SIZE * 2, pos.getY() - TILES_SIZE * 2), _hud->getShop());
 				_objects->addChild(tienda);
 			}
 		}

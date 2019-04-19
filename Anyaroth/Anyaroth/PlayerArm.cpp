@@ -11,9 +11,20 @@ PlayerArm::PlayerArm(Game* game, Player* player, Vector2D offset) : Arm(game, pl
 void PlayerArm::update(const double& deltaTime)
 {
 	GameObject::update(deltaTime);
-	
+
+	Vector2D mousePos;
+
 	//Rotacion del brazo
-	Vector2D mousePos = getGame()->getCurrentState()->getMousePositionInWorld();
+	if (_player->isInputFreezed())
+	{
+		if (_player->getComponent<CustomAnimatedSpriteComponent>()->isFlipped())
+			mousePos = { _transform->getPosition().getX() - 200, _transform->getPosition().getY() };
+		else
+			mousePos = { _transform->getPosition().getX() + 200, _transform->getPosition().getY() };
+	}
+	else
+		mousePos = getGame()->getCurrentState()->getMousePositionInWorld();
+
 	lookAtTarget(mousePos);
 	handleFlipState(mousePos);
 

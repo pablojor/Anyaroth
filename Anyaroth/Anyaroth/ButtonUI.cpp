@@ -22,8 +22,9 @@ bool ButtonUI::mouseIsOver()
 }
 
 
-void ButtonUI::handleEvent(const SDL_Event& event)
+bool ButtonUI::handleEvent(const SDL_Event& event)
 {
+	bool handle = false;
 	if (_visible && _inputEnable)
 	{
 		if (mouseIsOver())
@@ -39,6 +40,7 @@ void ButtonUI::handleEvent(const SDL_Event& event)
 				{
 					_pressState = Down;
 					if (_onDownCallback != nullptr) _onDownCallback(_game);
+					handle = true;
 				}
 			}
 			else if ((event.type == SDL_MOUSEBUTTONUP && _pressState == Down) || event.type == SDL_CONTROLLERBUTTONUP)
@@ -47,11 +49,13 @@ void ButtonUI::handleEvent(const SDL_Event& event)
 				{
 					_pressState = Up;
 					if (_onUpCallback != nullptr) _onUpCallback(_game);
+					handle = true;
 				}
 			}
 			else if (_positionState != Over)
 			{
 				if (_onOverCallback != nullptr) _onOverCallback(_game);
+				handle = true;
 			}
 			_positionState = Over;
 		}
@@ -63,11 +67,14 @@ void ButtonUI::handleEvent(const SDL_Event& event)
 				SDL_Cursor* cursor;
 				cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
 				SDL_SetCursor(cursor);
+				handle = true;
 			}
 			_positionState = Out;
 			_pressState = None;
 		}
+
 	}
+	return handle;
 }
 
 void ButtonUI::update(const double& deltaTime)

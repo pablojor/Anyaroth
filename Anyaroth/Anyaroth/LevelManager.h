@@ -25,8 +25,6 @@ public:
 	LevelManager(Game* game, Player* player, list<GameObject*>* objects, PlayStateHUD* hud, BulletPool* bulletPool);
 	~LevelManager() {}
 
-	inline void resetLevel() { _currentMap->restartLevel(); _enemyBulletPool->stopBullets(); }
-
 	enum Level
 	{
 		Tutorial, Safe1_1, Level1_1, Safe1_2, Level1_2, SafeBoss1, Boss1,
@@ -37,4 +35,7 @@ public:
 	inline int const getLevel() { return _currentLevel; }
 	void setLevel(int l);
 	void changeLevel(int l);
+	Map* getCurrentLevel(int l) const;
+
+	inline void resetLevel() { _currentMap->restartLevel(); _enemyBulletPool->stopBullets(); }
 };

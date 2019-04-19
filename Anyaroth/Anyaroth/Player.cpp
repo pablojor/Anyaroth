@@ -7,6 +7,7 @@
 #include "GunType_def.h"
 #include "WeaponManager.h"
 
+
 Player::Player(Game* game, int xPos, int yPos) : GameObject(game, "Player")
 {
 	addComponent<Texture>(game->getTexture("Mk"));
@@ -44,16 +45,16 @@ Player::Player(Game* game, int xPos, int yPos) : GameObject(game, "Player")
 	_anim->addAnim(AnimatedSpriteComponent::Walk, 10, true);
 	_anim->addAnim(AnimatedSpriteComponent::WalkBack, 10, true);
 	_anim->addAnim(AnimatedSpriteComponent::MeleeKnife, 6, false);
-	_anim->addAnim(AnimatedSpriteComponent::ReloadPistol, 13, false);
+	_anim->addAnim(AnimatedSpriteComponent::MeleeSword, 13, false);
 	_anim->addAnim(AnimatedSpriteComponent::BeforeJump, 1, false);
 	_anim->addAnim(AnimatedSpriteComponent::Jump, 4, true);
 	_anim->addAnim(AnimatedSpriteComponent::StartFalling, 2, false);
 	_anim->addAnim(AnimatedSpriteComponent::Falling, 2, true);
 	_anim->addAnim(AnimatedSpriteComponent::Hurt, 2, true);
-	_anim->addAnim(AnimatedSpriteComponent::Dash, 6, false);
+	_anim->addAnim(AnimatedSpriteComponent::Dash, 5, false);
 	_anim->addAnim(AnimatedSpriteComponent::DashDown, 3, true);
-	_anim->addAnim(AnimatedSpriteComponent::DashBack, 6, false);
-	_anim->addAnim(AnimatedSpriteComponent::ReloadShotgun, 5, false);
+	_anim->addAnim(AnimatedSpriteComponent::DashBack, 5, false);
+	_anim->addAnim(AnimatedSpriteComponent::MeleeHalberd, 5, false);
 	_anim->addAnim(AnimatedSpriteComponent::PlayerDie, 35, false);
 
 	//Brazo
@@ -213,7 +214,7 @@ bool Player::handleEvent(const SDL_Event& event)
 {
 	GameObject::handleEvent(event);
 
-	if (!isDead())
+	if (!isDead() && !_inputFreezed)
 	{
 		if ((event.type == SDL_KEYDOWN && !event.key.repeat)) // Captura solo el primer frame que se pulsa
 		{
@@ -423,7 +424,7 @@ void Player::changeOtherGun(Gun * gun)
 void Player::checkMovement(const Uint8* keyboard)
 {
 
-	if (!isDead())
+	if (!isDead() && !_inputFreezed)
 	{
 		if (keyboard[SDL_SCANCODE_A] && keyboard[SDL_SCANCODE_D] && !isMeleeing() && !isDashing())
 			move(Vector2D(0, 0), _speed);

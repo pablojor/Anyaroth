@@ -3,14 +3,18 @@
 #include "PauseState.h"
 #include "ParallaxLayer.h"
 #include "WeaponManager.h"
+#include "GameManager.h"
+#include "CutScene.h"
 #include "checkML.h"
 #include <json.hpp>
 
 using namespace nlohmann;
 
+
 PlayState::PlayState(Game* g) : GameState(g)
 {
 	_mainCamera->setWorldBounds(LEVEL_WIDTH, LEVEL_HEIGHT);
+	GameManager::init();
 
 	//Inicializa el manager de armas
 	WeaponManager::init();
@@ -33,9 +37,10 @@ PlayState::PlayState(Game* g) : GameState(g)
 	auto enemyPool = new BulletPool(g);
 
 	//Levels
-	_currentLevel = LevelManager::Safe1_1;
+	GameManager::getInstance()->setCurrentLevel(LevelManager::SafeBoss1);
 	_levelManager = LevelManager(g, _player, &_stages, _hud, enemyPool);
-	_levelManager.setLevel(_currentLevel);
+	_levelManager.setLevel(GameManager::getInstance()->getCurrentLevel());
+	_mainCamera->setWorldBounds(_levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getWidth(), _levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getHeight());
 
 	//Background
 	_parallaxZone1 = new ParallaxBackGround(_mainCamera);
@@ -65,13 +70,43 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_debugger.getTexture(g->getTexture("Box"));
 	_debugger.SetFlags(b2Draw::e_shapeBit);
 	_debugger.getCamera(_mainCamera);
-	
+
 	//Gestion de colisiones
 	g->getWorld()->SetContactListener(&_colManager);
 	g->getWorld()->SetDebugDraw(&_debugger);
-	loadGame();
+	//loadGame();
+
+	//Escena de prueba
+	_cutScene = new CutScene(_player);
+
+	_cutScene->addMoveEvent(_player->getComponent<BodyComponent>(), 1, 10, 30);
+	_cutScene->addFlipEvent();
+	_cutScene->addCameraEvent(_mainCamera, 1000, CamEffect::ZoomOut);
+	_cutScene->addCameraEvent(_mainCamera, 1000, CamEffect::ZoomIn);
+	_cutScene->addCameraEvent(_mainCamera, 1000, CamEffect::FadeIn);
+	_cutScene->addCameraEvent(_mainCamera, 1000, CamEffect::FadeOut);
+	_cutScene->addCameraShakeEvent(_mainCamera, 1000, 10);
+	_cutScene->addFlipEvent();
+	_cutScene->addWaitEvent(500);
+	_cutScene->addFlipEvent();
+	_cutScene->addWaitEvent(500);
+	_cutScene->addFlipEvent();
+	_cutScene->addWaitEvent(2000);
+	_cutScene->addDialogueEvent(_hud->getDialoguePanel(), g->getDialogue("Jose Maria 1"));
+	_cutScene->addMoveEvent(_player->getComponent<BodyComponent>(), 1, 10, 40);
+	_cutScene->addWaitEvent(1000);
+	_cutScene->addShopEvent(_hud->getShop());
+	_cutScene->addWaitEvent(500);
+	_cutScene->addMoveEvent(_player->getComponent<BodyComponent>(), 1, 10, 50);
+
+	//_cutScene->play();
 }
 
+PlayState::~PlayState()
+{
+	if (_cutScene != nullptr)
+		delete _cutScene;
+}
 
 void PlayState::render() const
 {
@@ -159,20 +194,39 @@ void PlayState::update(const double& deltaTime)
 {
 	if (_player->changeLevel())
 	{
+		GameManager* gManager = GameManager::getInstance();
 		_player->setChangeLevel(false);
 		if (!_player->isDead())
 		{
 			_player->revive();
-			_currentLevel++;
-			_levelManager.changeLevel(_currentLevel);
+			gManager->setCurrentLevel(gManager->getCurrentLevel() + 1);
+			_levelManager.changeLevel(gManager->getCurrentLevel());
+			_mainCamera->setWorldBounds(_levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getWidth(), _levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getHeight());
+			_mainCamera->setZoom(CAMERA_SCALE_FACTOR);
 		}
 		else
 		{
 			_playerBulletPool->stopBullets();
 			_player->revive();
-			_currentLevel--;
-			_levelManager.changeLevel(_currentLevel);
+			gManager->setCurrentLevel(gManager->getCurrentLevel() - 1);
+			_levelManager.changeLevel(gManager->getCurrentLevel());
+			_mainCamera->setWorldBounds(_levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getWidth(), _levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getHeight());
+			_mainCamera->setZoom(CAMERA_SCALE_FACTOR);
 		}
+	}
+	else
+	{
+		if (_cutScene != nullptr)
+		{
+			if (_cutScene->isPlaying())
+				_cutScene->update(deltaTime);
+			else
+			{
+				delete _cutScene;
+				_cutScene = nullptr;
+			}
+		}
+
 	}
 
 	GameState::update(deltaTime);

@@ -33,7 +33,7 @@ class ButtonUI : public FramedImageUI
 		virtual ~ButtonUI() {};
 
 		virtual void update(const double& deltaTime);
-		virtual void handleEvent(const SDL_Event& event);
+		virtual bool handleEvent(const SDL_Event& event);
 
 		inline void onUp(const Callback& callback) { _onUpCallback = callback; }
 		inline void onDown(const Callback& callback) { _onDownCallback = callback; }

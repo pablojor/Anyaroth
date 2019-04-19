@@ -52,6 +52,7 @@ private:
 	double _speed = 15,
 		   _jPosX,
 		   _jPosY;
+		_inputFreezed = false;
 
 	float _timeToJump = 100.f;
 
@@ -121,12 +122,18 @@ public:
 	inline bool changeLevel() const { return _changeLevel; }
 	inline void setChangeLevel(bool change) { _changeLevel = change; }
 
+	inline void setInputFreezed(bool b) { _inputFreezed = b; }
+	inline bool isInputFreezed() { return _inputFreezed; }
+
 	inline bool isDashing() const { return _onDash; }
-	inline bool isReloading() const { return false; } //Cambiar al añadir animación
-	inline bool isMeleeing() const { 
-		return (_anim->getCurrentAnim() == AnimatedSpriteComponent::MeleeKnife || _anim->getCurrentAnim() == AnimatedSpriteComponent::MeleeKnife) && !_anim->animationFinished(); }
-	inline bool isJumping() const { 
-		return (_anim->getCurrentAnim() == AnimatedSpriteComponent::BeforeJump || _anim->getCurrentAnim() == AnimatedSpriteComponent::Jump) && !_anim->animationFinished(); }
-	inline bool isFalling() const { 
-		return (_anim->getCurrentAnim() == AnimatedSpriteComponent::Falling || _anim->getCurrentAnim() == AnimatedSpriteComponent::StartFalling) && !_anim->animationFinished(); }
+	inline bool isReloading() const { return false; } //Cambiar al aï¿½adir animaciï¿½n
+	inline bool isMeleeing() const {
+		return (_anim->getCurrentAnim() == AnimatedSpriteComponent::MeleeKnife || _anim->getCurrentAnim() == AnimatedSpriteComponent::MeleeKnife) && !_anim->animationFinished();
+	}
+	inline bool isJumping() const {
+		return (_anim->getCurrentAnim() == AnimatedSpriteComponent::BeforeJump || _anim->getCurrentAnim() == AnimatedSpriteComponent::Jump) && !_anim->animationFinished();
+	}
+	inline bool isFalling() const {
+		return (_anim->getCurrentAnim() == AnimatedSpriteComponent::Falling || _anim->getCurrentAnim() == AnimatedSpriteComponent::StartFalling) && !_anim->animationFinished();
+	}
 };

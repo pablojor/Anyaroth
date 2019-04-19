@@ -44,10 +44,21 @@ void PanelUI::update(const double& deltaTime)
 				e->update(deltaTime);
 }
 
-void PanelUI::handleEvent(const SDL_Event & event)
+bool PanelUI::handleEvent(const SDL_Event & event)
 {
+	bool handled = false;
 	if (_visible)
-		for (UIElement* e : _children)
-			if (e->isVisible())
-				e->handleEvent(event);
+	{
+		auto it = _children.begin();
+
+		while (!handled && it != _children.end())
+		{
+			if ((*it)->handleEvent(event))
+				handled = true;
+			else
+				it++;
+		}
+	}
+
+	return handled;
 }

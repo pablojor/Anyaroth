@@ -9,6 +9,8 @@
 #include "Cursor.h"
 #include "PlayStateHUD.h"
 
+class CutScene;
+
 class PlayState : public GameState
 {
 private:
@@ -17,16 +19,17 @@ private:
 	Cursor* _cursor = nullptr;
 	PlayStateHUD* _hud = nullptr;
 
+	CutScene* _cutScene = nullptr;
+
 	LevelManager _levelManager;
 	CollisionManager _colManager;
 	DebugDraw _debugger;
 
 	ParallaxBackGround* _parallaxZone1 = nullptr;
 
-	int _currentLevel;
-
 public:
 	PlayState(Game* g);
+	virtual ~PlayState();
 
 	virtual void render() const;
 	virtual void update(const double& deltaTime);
@@ -35,4 +38,6 @@ public:
 	inline int getCurrentLevel() const { return _currentLevel; }
 	void saveGame();
 	void loadGame();
+	
+	inline virtual void addCutScene(CutScene* cutScene) { _cutScene = cutScene; };
 };

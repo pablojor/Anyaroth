@@ -33,6 +33,7 @@ class ShopMenu : public PanelUI
 		int _zone = 1;
 
 		bool _talking = false;
+		bool _closed = true;
 
 		void loadWeaponInfo();
 
@@ -44,7 +45,7 @@ class ShopMenu : public PanelUI
 
 		void setPlayer(Player* ply);
 
-		void openShop(int zona);
+		void openShop();
 		void closeShop();
 
 		void setDialoguePanel(DialoguePanel* dialoguePanel);
@@ -64,6 +65,7 @@ class ShopMenu : public PanelUI
 
 		inline list<ShopItem*> getItems() const { return _items; }
 		
+		inline bool isClosed() { return _closed; }
 
 		void exit(Game* game);
 };

@@ -39,6 +39,7 @@ public:
 	void pauseAll();
 
 	int getGeneralVolume() const;
+	int getMusicVolume() const;
 	int getChannelVolume(const int& channel) const;
 	void setGeneralVolume(const float& volumeRatio);
 	void setChannelVolume(const int& channel, const float& volumeRatio);
