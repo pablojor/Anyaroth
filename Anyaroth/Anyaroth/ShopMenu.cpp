@@ -55,6 +55,11 @@ ShopMenu::ShopMenu(Game* game) : PanelUI(game)
 
 	_exitButton->onUp([this](Game* game) { exit(game); });
 
+	_buttons.push_back(_shopButton);
+	_buttons.push_back(_talkButton);
+	_buttons.push_back(_depotButton);
+	_buttons.push_back(_exitButton);
+
 	addChild(_shopButton);
 	addChild(_shopText);
 	addChild(_talkButton);

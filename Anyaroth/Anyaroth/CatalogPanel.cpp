@@ -17,6 +17,7 @@ CatalogPanel::CatalogPanel(Game* game) : PanelUI(game)
 	_exitButton = new ButtonUI(game, game->getTexture("ReturnButton"), nullptr, { 0, 1, 1, 1, 1 });
 	_exitButton->setPosition(CAMERA_RESOLUTION_X - _exitButton->getW() - 12, 188 - 1 - _exitButton->getH());
 
+	_buttons.push_back(_exitButton);
 	addChild(_exitButton);
 
 	//----PANEL DE INFORMACIÓN----//
@@ -35,6 +36,7 @@ CatalogPanel::CatalogPanel(Game* game) : PanelUI(game)
 	_buyButton->setPosition(infoPanelPosX + _infoPanel->getInfoPanelWidth() / 2 - _buyButton->getW() / 2, infoPanelPosY + _infoPanel->getInfoPanelHeight() + 2);
 	_buyButton->onDown([this](Game* game) { buyItem(game); });
 	_buyButton->setVisible(false);
+	_buttons.push_back(_buyButton);
 
 	_buyText = new TextUI(game, "Buy", game->getFont("ARIAL12"), 12, 0, 0, { 255, 255, 255, 255 });
 	_buyText->setPosition(_buyButton->getX() + _buyButton->getW() / 2 - _buyText->getW() / 2,
@@ -70,7 +72,10 @@ void CatalogPanel::setItems(list<ShopItem*>* list) // Crear items
 	_zone = GameManager::getInstance()->getCurrentLevel();;
 
 	for (auto it : *_items)
+	{
 		addChild(it);
+		_buttons.push_back(it);
+	}
 }
 
 void CatalogPanel::removeItems()

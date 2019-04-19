@@ -35,7 +35,7 @@ public:
 	virtual void update(const double& deltaTime);
 	virtual bool handleEvent(const SDL_Event& event);
 
-	inline int getCurrentLevel() const { return _currentLevel; }
+	inline int getCurrentLevel() { return _levelManager.getLevel(); }
 	void saveGame();
 	void loadGame();
 	

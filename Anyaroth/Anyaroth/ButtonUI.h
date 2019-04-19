@@ -43,6 +43,8 @@ class ButtonUI : public FramedImageUI
 		void setFrames(Frames frames);
 		virtual void setVisible(bool a);
 
+		void setSelected(bool selected) { _positionState = (selected) ? Over : Out; }
+
 		void setInputEnable(bool b);
 };
 

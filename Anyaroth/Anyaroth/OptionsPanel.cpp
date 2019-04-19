@@ -39,6 +39,15 @@ OptionsPanel::OptionsPanel(Game* g, bool mainMenu) : _menu(mainMenu)
 	_screenButton->setPosition(CAMERA_RESOLUTION_X / 2 - 150, CAMERA_RESOLUTION_Y / 3 + 150);
 	_screenButton->setSize(20, 20);
 
+	_buttons.push_back(_moreVolume);
+	_buttons.push_back(_lessVolume);
+	_buttons.push_back(_moreSFXVolume);
+	_buttons.push_back(_lessSFXVolume);
+	_buttons.push_back(_moreBright);
+	_buttons.push_back(_lessBright);
+	_buttons.push_back(_screenButton);
+	_buttons.push_back(_backButton);
+
 	_volumeSFXText = new TextUI(g, "100", g->getFont("ARIAL12"), 12, CAMERA_RESOLUTION_X / 2 + buttonW / 2 - 50, CAMERA_RESOLUTION_Y / 3 - buttonH + 100, { 200, 200, 200, 200 });
 	_volumeText = new TextUI(g, "100", g->getFont("ARIAL12"), 12, CAMERA_RESOLUTION_X / 2 + buttonW / 2 - 50, CAMERA_RESOLUTION_Y / 3 - buttonH + 50, { 200, 200, 200, 200 });
 

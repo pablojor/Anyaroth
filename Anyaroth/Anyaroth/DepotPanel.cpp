@@ -65,6 +65,11 @@ DepotPanel::DepotPanel(Game* game) : PanelUI(game)
 		//Añadir como hijo
 	addChild(_changeButton);
 
+	_buttons.push_back(_exitButton);
+	_buttons.push_back(_changeButton);
+	_buttons.push_back(_firstWeaponFrame);
+	_buttons.push_back(_secondWeaponFrame);
+	_buttons.push_back(_meleeWeaponFrame);
 	//----ALMACEN----//
 }
 
@@ -100,7 +105,10 @@ void DepotPanel::setItems(list<ShopItem*>* list)
 	_items = list;
 
 	for (auto it : *_items)
+	{
 		addChild(it);
+		_buttons.push_back(it);
+	}
 }
 
 void DepotPanel::removeItems()

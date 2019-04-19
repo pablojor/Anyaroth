@@ -19,6 +19,10 @@ MainMenuPanel::MainMenuPanel(Game* g)
 	_exitButton->setPosition(CAMERA_RESOLUTION_X / 2 - buttonW / 2, CAMERA_RESOLUTION_Y / 3 + buttonH + 100);
 	_exitButton->setSize(buttonW, buttonH);
 
+	_buttons.push_back(_playButton);
+	_buttons.push_back(_optionsButton);
+	_buttons.push_back(_exitButton);
+
 	addChild(_playButton);
 	addChild(_exitButton);
 	addChild(_optionsButton);

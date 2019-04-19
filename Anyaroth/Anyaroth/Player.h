@@ -51,7 +51,7 @@ private:
 
 	double _speed = 15,
 		   _jPosX,
-		   _jPosY;
+		   _jPosY,
 		_inputFreezed = false;
 
 	float _timeToJump = 100.f;

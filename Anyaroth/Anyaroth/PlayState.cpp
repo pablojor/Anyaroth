@@ -74,7 +74,6 @@ PlayState::PlayState(Game* g) : GameState(g)
 	//Gestion de colisiones
 	g->getWorld()->SetContactListener(&_colManager);
 	g->getWorld()->SetDebugDraw(&_debugger);
-	//loadGame();
 
 	//Escena de prueba
 	_cutScene = new CutScene(_player);
