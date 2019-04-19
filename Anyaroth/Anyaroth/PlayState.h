@@ -27,8 +27,6 @@ private:
 
 	ParallaxBackGround* _parallaxZone1 = nullptr;
 
-	int _currentLevel;
-
 public:
 	PlayState(Game* g);
 	virtual ~PlayState();
@@ -36,8 +34,6 @@ public:
 	virtual void render() const;
 	virtual void update(const double& deltaTime);
 	virtual bool handleEvent(const SDL_Event& event);
-
-	inline int getCurrentLevel() const { return _currentLevel; }
-
+	
 	inline virtual void addCutScene(CutScene* cutScene) { _cutScene = cutScene; };
 };

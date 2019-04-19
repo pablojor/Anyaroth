@@ -3,12 +3,14 @@
 #include "PauseState.h"
 #include "ParallaxLayer.h"
 #include "WeaponManager.h"
+#include "GameManager.h"
 #include "CutScene.h"
 #include "checkML.h"
 
 
 PlayState::PlayState(Game* g) : GameState(g)
 {
+	GameManager::init();
 	//Cursor
 	_cursor = new Cursor(g);
 	_stages.push_back(_cursor);
@@ -35,9 +37,9 @@ PlayState::PlayState(Game* g) : GameState(g)
 	auto enemyPool = new BulletPool(g);
 
 	//Levels
-	_currentLevel = LevelManager::Boss1;
+	GameManager::getInstance()->setCurrentLevel(LevelManager::SafeBoss1);
 	_levelManager = LevelManager(g, _player, &_stages, _hud, enemyPool);
-	_levelManager.setLevel(_currentLevel);
+	_levelManager.setLevel(GameManager::getInstance()->getCurrentLevel());
 	_mainCamera->setWorldBounds(_levelManager.getCurrentLevel(_currentLevel)->getWidth(), _levelManager.getCurrentLevel(_currentLevel)->getHeight());
 
 	//Background
@@ -145,12 +147,13 @@ void PlayState::update(const double& deltaTime)
 {
 	if (_player->changeLevel())
 	{
+		GameManager* gManager = GameManager::getInstance();
 		_player->setChangeLevel(false);
 		if (!_player->isDead())
 		{
 			_player->revive();
-			_currentLevel++;
-			_levelManager.changeLevel(_currentLevel);
+			gManager->setCurrentLevel(gManager->getCurrentLevel() + 1);
+			_levelManager.changeLevel(gManager->getCurrentLevel());
 			_mainCamera->setWorldBounds(_levelManager.getCurrentLevel(_currentLevel)->getWidth(), _levelManager.getCurrentLevel(_currentLevel)->getHeight());
 			_mainCamera->setZoom(CAMERA_SCALE_FACTOR);
 		}
@@ -158,8 +161,8 @@ void PlayState::update(const double& deltaTime)
 		{
 			_playerBulletPool->stopBullets();
 			_player->revive();
-			_currentLevel--;
-			_levelManager.changeLevel(_currentLevel);
+			gManager->setCurrentLevel(gManager->getCurrentLevel() - 1);
+			_levelManager.changeLevel(gManager->getCurrentLevel());
 			_mainCamera->setWorldBounds(_levelManager.getCurrentLevel(_currentLevel)->getWidth(), _levelManager.getCurrentLevel(_currentLevel)->getHeight());
 			_mainCamera->setZoom(CAMERA_SCALE_FACTOR);
 		}

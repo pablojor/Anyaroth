@@ -45,7 +45,7 @@ class ShopMenu : public PanelUI
 
 		void setPlayer(Player* ply);
 
-		void openShop(int zona);
+		void openShop();
 		void closeShop();
 
 		void setDialoguePanel(DialoguePanel* dialoguePanel);

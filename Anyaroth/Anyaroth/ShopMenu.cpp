@@ -5,6 +5,7 @@
 #include <json.hpp>
 #include "WeaponManager.h"
 #include "SoundManager.h"
+#include "GameManager.h"
 
 ShopMenu::ShopMenu(Game* game) : PanelUI(game)
 {
@@ -77,7 +78,7 @@ ShopMenu::ShopMenu(Game* game) : PanelUI(game)
 
 	loadWeaponInfo();
 
-	_catalogPanel->setItems(&_items, _zone);
+	_catalogPanel->setItems(&_items);
 	_depotPanel->setItems(&_items);
 }
 
@@ -133,11 +134,10 @@ void ShopMenu::setPlayer(Player* ply)
 	_depotPanel->setPlayer(_player);
 }
 
-void ShopMenu::openShop(int zona)
+void ShopMenu::openShop()
 {
 	SDL_ShowCursor(true);
-	if (zona != _zone)
-		_zone = zona;
+	_zone = GameManager::getInstance()->getCurrentLevel();
 	_visible = true;
 	_closed = false;
 	_player->setActive(false);
