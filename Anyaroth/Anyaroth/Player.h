@@ -23,7 +23,7 @@ private:
 	Melee* _melee = nullptr;
 
 	//Propiedades
-	Life _life = Life(300);
+	Life _life = Life(100);
 	Money* _money = nullptr;
 	PlayerPanel* _playerPanel = nullptr;
 

@@ -4,10 +4,10 @@
 BomberEnemy::BomberEnemy(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Enemy(g, player, pos, g->getTexture("EnemyMartyr")), _myBulletPool(pool)
 {
 	_bulletTexture = g->getTexture("PistolBullet");
-	_damage = 10;
+	_damage = 25;
 
 	_vision = 800;
-	_life = 300;
+	_life = 24;
 	_gun = new BomberGun(g);
 	_attackRangeX = 2;
 	_speed = 8;

@@ -7,7 +7,7 @@
 DistanceStaticEnemy::DistanceStaticEnemy(Game* g, Player* player, Vector2D pos, BulletPool* pool) : DistanceEnemy(g, player, pos, g->getTexture("Turret"), pool), Enemy(g, player, pos, g->getTexture("Turret"))
 {
 	_vision = 500;
-	_life = 50;
+	_life = 12;
 	_attackRangeX = _attackRangeY = _vision; //No se puede poner mas pequeño que la velocidad
 	_attackTime = 2000; //La animacion tarda unos 450
 
@@ -29,6 +29,7 @@ DistanceStaticEnemy::DistanceStaticEnemy(Game* g, Player* player, Vector2D pos, 
 	//_body->addCricleShape(b2Vec2(0, _body->getH() + _body->getH() / 20), _body->getW() - _body->getW() / 20, ENEMIES, FLOOR | PLATFORMS);
 
 	//Ajustes del arma
+	_myGun->setDamage(2);
 	_myGun->setMaxCadence(700);
 	_myGun->setBulletSpeed(30);
 }

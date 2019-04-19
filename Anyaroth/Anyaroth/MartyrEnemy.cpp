@@ -7,8 +7,8 @@
 MartyrEnemy::MartyrEnemy(Game* g, Player* player, Vector2D pos) : GroundEnemy(g, player, pos, g->getTexture("EnemyMartyr")), Enemy(g, player, pos, g->getTexture("EnemyMartyr"))
 {
 	_vision = 300;
-	_life = 50;
-	_damage = 80;
+	_life = 30;
+	_damage = 35;
 	_speed = 20;
 	_attackRangeX = 25; //No se puede poner mas pequeño que la velocidad
 	_attackRangeY = 20;

@@ -3,7 +3,7 @@
 SpawnerEnemy::SpawnerEnemy(Game* g, Player* player, Vector2D pos) : Enemy(g, player, pos, g->getTexture("EnemyMartyr"))
 {
 	_vision = 800;
-	_life = 300;
+	_life = 40;
 	_attackRangeX = 2;
 	_speed = 8;
 	_time = 0;
