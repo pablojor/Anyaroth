@@ -175,6 +175,8 @@
     <ClCompile Include="GravityBombDebuff.cpp" />
     <ClCompile Include="GravityBulletEffect.cpp" />
     <ClCompile Include="Interactable.cpp" />
+    <ClCompile Include="MainMenuPanel.cpp" />
+    <ClCompile Include="MenuStateHUD.cpp" />
     <ClCompile Include="MoveEvent.cpp" />
     <ClCompile Include="NPC.cpp" />
     <ClCompile Include="ImprovedRifle.cpp" />
@@ -187,6 +189,9 @@
     <ClCompile Include="MisilBoss1.cpp" />
     <ClCompile Include="MovingComponent.cpp" />
     <ClCompile Include="Melee.cpp" />
+    <ClCompile Include="OptionsPanel.cpp" />
+    <ClCompile Include="PausePanel.cpp" />
+    <ClCompile Include="PauseStateHUD.cpp" />
     <ClCompile Include="PiercingBulletEffect.cpp" />
     <ClCompile Include="PlasmaSniper.cpp" />
     <ClCompile Include="PlayerArm.cpp" />
@@ -311,9 +316,11 @@
     <ClInclude Include="ImprovedShotgun.h" />
     <ClInclude Include="GroundEnemy.h" />
     <ClInclude Include="LevelManager.h" />
+    <ClInclude Include="MainMenuPanel.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="ExplosiveBulletEffect.h" />
     <ClInclude Include="FlyingEnemy.h" />
+    <ClInclude Include="MenuStateHUD.h" />
     <ClInclude Include="MisilBoss1.h" />
     <ClInclude Include="MoveEvent.h" />
     <ClInclude Include="MovingComponent.h" />
@@ -321,6 +328,9 @@
     <ClInclude Include="NPC.h" />
     <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="Melee.h" />
+    <ClInclude Include="OptionsPanel.h" />
+    <ClInclude Include="PausePanel.h" />
+    <ClInclude Include="PauseStateHUD.h" />
     <ClInclude Include="PiercingBulletEffect.h" />
     <ClInclude Include="PlasmaSniper.h" />
     <ClInclude Include="PlayerArm.h" />
