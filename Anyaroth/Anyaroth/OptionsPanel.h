@@ -20,6 +20,8 @@ private:
 	ButtonUI* _backButton;
 
 	bool _menu, _fullScreen;
+	int buttonW, buttonH;
+
 public:
 	OptionsPanel(Game* g, bool mainMenu);
 	~OptionsPanel();
