@@ -137,13 +137,18 @@
     <ClCompile Include="AmmoViewer.cpp" />
     <ClCompile Include="AnimatedImageUI.cpp" />
     <ClCompile Include="ButtonUI.cpp" />
+    <ClCompile Include="CutScene.cpp" />
     <ClCompile Include="DepotPanel.cpp" />
     <ClCompile Include="BomberGun.cpp" />
     <ClCompile Include="BossOrbCannon.cpp" />
     <ClCompile Include="BulletEffect.cpp" />
+    <ClCompile Include="DialogueEvent.cpp" />
     <ClCompile Include="EffectInterface.cpp" />
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="Capsule.cpp" />
+    <ClCompile Include="Event.cpp" />
+    <ClCompile Include="FadeInOutEvent.cpp" />
+    <ClCompile Include="FlipEvent.cpp" />
     <ClCompile Include="FramedImageUI.cpp" />
     <ClCompile Include="AnimatedSpriteComponent.cpp" />
     <ClCompile Include="Arm.cpp" />
@@ -170,6 +175,7 @@
     <ClCompile Include="GravityBombDebuff.cpp" />
     <ClCompile Include="GravityBulletEffect.cpp" />
     <ClCompile Include="Interactable.cpp" />
+    <ClCompile Include="MoveEvent.cpp" />
     <ClCompile Include="NPC.cpp" />
     <ClCompile Include="ImprovedRifle.cpp" />
     <ClCompile Include="ImprovedShotgun.cpp" />
@@ -225,7 +231,9 @@
     <ClCompile Include="PlayStateHUD.cpp" />
     <ClCompile Include="PoolWrapper.cpp" />
     <ClCompile Include="RenderComponent.cpp" />
+    <ClCompile Include="ShakeEvent.cpp" />
     <ClCompile Include="Shop.cpp" />
+    <ClCompile Include="ShopEvent.cpp" />
     <ClCompile Include="ShopInfoPanel.cpp" />
     <ClCompile Include="ShopMenu.cpp" />
     <ClCompile Include="ShopItem.cpp" />
@@ -245,8 +253,10 @@
     <ClCompile Include="TTFclass.cpp" />
     <ClCompile Include="UIElement.cpp" />
     <ClCompile Include="Vector2D.cpp" />
+    <ClCompile Include="waitEvent.cpp" />
     <ClCompile Include="WeaponManager.cpp" />
     <ClCompile Include="WeaponryViewer.cpp" />
+    <ClCompile Include="ZoomInOutEvent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AidKit.h" />
@@ -254,15 +264,21 @@
     <ClInclude Include="AmmoViewer.h" />
     <ClInclude Include="AnimatedImageUI.h" />
     <ClInclude Include="ButtonUI.h" />
+    <ClInclude Include="CamEffectType.h" />
+    <ClInclude Include="CutScene.h" />
     <ClInclude Include="DepotPanel.h" />
     <ClInclude Include="BomberGun.h" />
     <ClInclude Include="BossOrbCannon.h" />
     <ClInclude Include="BulletEffect.h" />
+    <ClInclude Include="DialogueEvent.h" />
     <ClInclude Include="EffectInterface.h" />
     <ClInclude Include="Boss.h" />
     <ClInclude Include="CapsuleDistance.h" />
     <ClInclude Include="CapsuleNormal.h" />
     <ClInclude Include="DistanceSpawner.h" />
+    <ClInclude Include="Event.h" />
+    <ClInclude Include="FadeInOutEvent.h" />
+    <ClInclude Include="FlipEvent.h" />
     <ClInclude Include="FramedImageUI.h" />
     <ClInclude Include="AnimatedSpriteComponent.h" />
     <ClInclude Include="AnyarothError.h" />
@@ -299,6 +315,7 @@
     <ClInclude Include="ExplosiveBulletEffect.h" />
     <ClInclude Include="FlyingEnemy.h" />
     <ClInclude Include="MisilBoss1.h" />
+    <ClInclude Include="MoveEvent.h" />
     <ClInclude Include="MovingComponent.h" />
     <ClInclude Include="NormalSpawner.h" />
     <ClInclude Include="NPC.h" />
@@ -353,7 +370,9 @@
     <ClInclude Include="PoolWrapper.h" />
     <ClInclude Include="RenderComponent.h" />
     <ClInclude Include="SDLError.h" />
+    <ClInclude Include="ShakeEvent.h" />
     <ClInclude Include="Shop.h" />
+    <ClInclude Include="ShopEvent.h" />
     <ClInclude Include="ShopInfoPanel.h" />
     <ClInclude Include="ShopMenu.h" />
     <ClInclude Include="ShopItem.h" />
@@ -373,8 +392,10 @@
     <ClInclude Include="TTFclass.h" />
     <ClInclude Include="UIElement.h" />
     <ClInclude Include="Vector2D.h" />
+    <ClInclude Include="waitEvent.h" />
     <ClInclude Include="WeaponManager.h" />
     <ClInclude Include="WeaponryViewer.h" />
+    <ClInclude Include="ZoomInOutEvent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

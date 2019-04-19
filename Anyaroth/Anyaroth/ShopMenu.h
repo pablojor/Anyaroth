@@ -33,6 +33,7 @@ class ShopMenu : public PanelUI
 		int _zone = 1;
 
 		bool _talking = false;
+		bool _closed = true;
 
 		void loadWeaponInfo();
 
@@ -61,6 +62,8 @@ class ShopMenu : public PanelUI
 
 		void openDepotPanel(Game* game);
 		void closeDepotPanel(Game* game);
+
+		inline bool isClosed() { return _closed; }
 
 		void exit(Game* game);
 };

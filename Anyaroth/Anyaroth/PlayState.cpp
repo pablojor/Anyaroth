@@ -4,13 +4,13 @@
 #include "ParallaxLayer.h"
 #include "WeaponManager.h"
 #include "GameManager.h"
+#include "CutScene.h"
 #include "checkML.h"
+
 
 PlayState::PlayState(Game* g) : GameState(g)
 {
 	GameManager::init();
-	_mainCamera->setWorldBounds(LEVEL_WIDTH, LEVEL_HEIGHT);
-
 	//Cursor
 	_cursor = new Cursor(g);
 	_stages.push_back(_cursor);
@@ -37,9 +37,10 @@ PlayState::PlayState(Game* g) : GameState(g)
 	auto enemyPool = new BulletPool(g);
 
 	//Levels
-	GameManager::getInstance()->setCurrentLevel(LevelManager::Level1_1);
+	GameManager::getInstance()->setCurrentLevel(LevelManager::SafeBoss1);
 	_levelManager = LevelManager(g, _player, &_stages, _hud, enemyPool);
 	_levelManager.setLevel(GameManager::getInstance()->getCurrentLevel());
+	_mainCamera->setWorldBounds(_levelManager.getCurrentLevel(_currentLevel)->getWidth(), _levelManager.getCurrentLevel(_currentLevel)->getHeight());
 
 	//Background
 	_parallaxZone1 = new ParallaxBackGround(_mainCamera);
@@ -64,12 +65,42 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_debugger.getTexture(g->getTexture("Box"));
 	_debugger.SetFlags(b2Draw::e_shapeBit);
 	_debugger.getCamera(_mainCamera);
-	
+
 	//Gestion de colisiones
 	g->getWorld()->SetContactListener(&_colManager);
 	g->getWorld()->SetDebugDraw(&_debugger);
+
+	//Escena de prueba
+	_cutScene = new CutScene(_player);
+
+	_cutScene->addMoveEvent(_player->getComponent<BodyComponent>(), 1, 10, 30);
+	_cutScene->addFlipEvent();
+	_cutScene->addCameraEvent(_mainCamera, 1000, CamEffect::ZoomOut);
+	_cutScene->addCameraEvent(_mainCamera, 1000, CamEffect::ZoomIn);
+	_cutScene->addCameraEvent(_mainCamera, 1000, CamEffect::FadeIn);
+	_cutScene->addCameraEvent(_mainCamera, 1000, CamEffect::FadeOut);
+	_cutScene->addCameraShakeEvent(_mainCamera, 1000, 10);
+	_cutScene->addFlipEvent();
+	_cutScene->addWaitEvent(500);
+	_cutScene->addFlipEvent();
+	_cutScene->addWaitEvent(500);
+	_cutScene->addFlipEvent();
+	_cutScene->addWaitEvent(2000);
+	_cutScene->addDialogueEvent(_hud->getDialoguePanel(), g->getDialogue("Jose Maria 1"));
+	_cutScene->addMoveEvent(_player->getComponent<BodyComponent>(), 1, 10, 40);
+	_cutScene->addWaitEvent(1000);
+	_cutScene->addShopEvent(_hud->getShop(), 3);
+	_cutScene->addWaitEvent(500);
+	_cutScene->addMoveEvent(_player->getComponent<BodyComponent>(), 1, 10, 50);
+
+	//_cutScene->play();
 }
 
+PlayState::~PlayState()
+{
+	if (_cutScene != nullptr)
+		delete _cutScene;
+}
 
 void PlayState::render() const
 {
@@ -123,6 +154,8 @@ void PlayState::update(const double& deltaTime)
 			_player->revive();
 			gManager->setCurrentLevel(gManager->getCurrentLevel() + 1);
 			_levelManager.changeLevel(gManager->getCurrentLevel());
+			_mainCamera->setWorldBounds(_levelManager.getCurrentLevel(_currentLevel)->getWidth(), _levelManager.getCurrentLevel(_currentLevel)->getHeight());
+			_mainCamera->setZoom(CAMERA_SCALE_FACTOR);
 		}
 		else
 		{
@@ -130,7 +163,23 @@ void PlayState::update(const double& deltaTime)
 			_player->revive();
 			gManager->setCurrentLevel(gManager->getCurrentLevel() - 1);
 			_levelManager.changeLevel(gManager->getCurrentLevel());
+			_mainCamera->setWorldBounds(_levelManager.getCurrentLevel(_currentLevel)->getWidth(), _levelManager.getCurrentLevel(_currentLevel)->getHeight());
+			_mainCamera->setZoom(CAMERA_SCALE_FACTOR);
 		}
+	}
+	else
+	{
+		if (_cutScene != nullptr)
+		{
+			if (_cutScene->isPlaying())
+				_cutScene->update(deltaTime);
+			else
+			{
+				delete _cutScene;
+				_cutScene = nullptr;
+			}
+		}
+
 	}
 
 	GameState::update(deltaTime);

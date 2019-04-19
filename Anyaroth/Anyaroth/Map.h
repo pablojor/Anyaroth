@@ -21,7 +21,7 @@ private:
 	vector <ObjectLayer*> _objectLayers;
 
 	Boss1* _spenta = nullptr;
-	int _faseMisil = 0;
+	int _misilFase = 0, _height = 0, _width = 0;
 
 public:
 	Map(string filename, Game* game, Player* player, Texture* tileset, BulletPool* bulletPool, PlayStateHUD* hud);
@@ -33,4 +33,7 @@ public:
 	virtual bool handleEvent(const SDL_Event& event);
 	virtual void update(const double& deltaTime);
 	virtual void render(Camera* c) const;
+
+	inline int getHeight() const { return _height; }
+	inline int getWidth() const { return _width; }
 };

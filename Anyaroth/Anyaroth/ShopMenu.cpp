@@ -139,6 +139,7 @@ void ShopMenu::openShop()
 	SDL_ShowCursor(true);
 	_zone = GameManager::getInstance()->getCurrentLevel();
 	_visible = true;
+	_closed = false;
 	_player->setActive(false);
 
 	_game->getSoundManager()->playMusic("shop", true);
@@ -163,6 +164,7 @@ void ShopMenu::closeShop()
 
 	_player->setActive(true);
 	SDL_ShowCursor(false);
+	_closed = true;
 }
 
 void ShopMenu::setDialoguePanel(DialoguePanel* dialoguePanel)

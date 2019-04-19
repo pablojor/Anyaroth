@@ -9,6 +9,8 @@
 #include "Cursor.h"
 #include "PlayStateHUD.h"
 
+class CutScene;
+
 class PlayState : public GameState
 {
 private:
@@ -16,6 +18,8 @@ private:
 	BulletPool* _playerBulletPool = nullptr;
 	Cursor* _cursor = nullptr;
 	PlayStateHUD* _hud = nullptr;
+
+	CutScene* _cutScene = nullptr;
 
 	LevelManager _levelManager;
 	CollisionManager _colManager;
@@ -25,8 +29,11 @@ private:
 
 public:
 	PlayState(Game* g);
+	virtual ~PlayState();
 
 	virtual void render() const;
 	virtual void update(const double& deltaTime);
 	virtual bool handleEvent(const SDL_Event& event);
+	
+	inline virtual void addCutScene(CutScene* cutScene) { _cutScene = cutScene; };
 };
