@@ -349,7 +349,9 @@
     <ClCompile Include="Tilemap.cpp">
       <Filter>Archivos de código fuente\Objects\Level</Filter>
     </ClCompile>
-    <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="GameManager.cpp">
+      <Filter>Archivos de código fuente\Others\Managers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -733,7 +735,9 @@
     <ClInclude Include="Tilemap.h">
       <Filter>Archivos de encabezado\Objects\Level</Filter>
     </ClInclude>
-    <ClInclude Include="GameManager.h" />
+    <ClInclude Include="GameManager.h">
+      <Filter>Archivos de encabezado\Others\Managers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de código fuente">
