@@ -117,7 +117,7 @@ public:
 	inline bool isInputFreezed() { return _inputFreezed; }
 
 	inline bool isDashing() const { return _onDash; }
-	inline bool isReloading() const { return false; } //Cambiar al añadir animación
+	inline bool isReloading() const { return _isReloading; }
 	inline bool isMeleeing() const {
 		return (_anim->getCurrentAnim() == AnimatedSpriteComponent::MeleeKnife || _anim->getCurrentAnim() == AnimatedSpriteComponent::MeleeKnife) && !_anim->animationFinished();
 	}
