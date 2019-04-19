@@ -12,11 +12,13 @@ private:
 	ButtonUI* _backButton;
 
 	bool _menu;
+	int _volume;
 public:
 	OptionsPanel(Game* g, bool mainMenu);
 	~OptionsPanel();
 
+	void moreVolume(Game * g);
+	void lessVolume(Game * g);
+
 	void back(Game * g);
-	void options(Game * g);
-	void exitGame(Game * g);
 };

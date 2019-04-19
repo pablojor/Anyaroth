@@ -112,7 +112,7 @@ int SoundManager::getChannelVolume(const int& channel) const
 
 void SoundManager::setGeneralVolume(const float& volumeRatio)
 {
-	Mix_Volume(-1, MIX_MAX_VOLUME * volumeRatio);
+	Mix_Volume(-1, volumeRatio);
 }
 
 void SoundManager::setChannelVolume(const int& channel, const float& volumeRatio)
