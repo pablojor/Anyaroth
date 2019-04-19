@@ -182,18 +182,25 @@ void Game::run()
 {
 	Uint32 deltaTime = FRAME_RATE;
 	Uint32 startTime = SDL_GetTicks();
+	Uint32 lag = 0;
 
 	while (!_exit)
 	{
+		Uint32 current = SDL_GetTicks();
+		Uint32 elapsed = current - startTime;
+		startTime = current;
+		lag += elapsed;
+
 		handleEvents();
-		deltaTime = SDL_GetTicks() - startTime;
-		if (deltaTime >= FRAME_RATE)
+
+		while (lag >= FRAME_RATE)
 		{
-			_world->Step((float32)deltaTime / 1000.f, 8, 3);
-			update(deltaTime);
-			render();
-			startTime = SDL_GetTicks();
+			cout << "Actualizado con tiempo: " << lag << endl;
+			_world->Step((float)FRAME_RATE / 1000.0f, 8, 3);
+			update(FRAME_RATE);
+			lag -= FRAME_RATE;
 		}
+		render();
 	}
 }
 

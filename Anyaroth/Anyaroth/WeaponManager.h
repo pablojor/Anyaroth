@@ -31,10 +31,21 @@ struct GunInfo {
 class WeaponManager
 {
 private:
+	static WeaponManager _instance;
+	static bool _initilized;
+
+	WeaponManager(WeaponManager&) = delete;
+	WeaponManager& operator=(const WeaponManager&) = delete;
+
 	static std::map<GunType, GunInfo> _weaponInfo;
 
+	WeaponManager() {}
+
 public:
+	~WeaponManager() {};
+
 	static void init();
+	static WeaponManager* getInstance();
 
 	static Gun* getWeapon(Game* game, GunType type);
 	static const GunInfo& getGunInfo(const GunType& id) { return _weaponInfo[id]; };

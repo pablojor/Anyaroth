@@ -3,7 +3,7 @@
     {
       "BasicPistol": 
       {
-        "zona": -1,
+        "zone": -1,
 	      "frame": "BasicFrame",
         "icon": "PistolIcon",
         "price": 0,
@@ -17,7 +17,7 @@
       },
 
       "BasicRifle": {
-        "zona": 1,
+        "zone": 1,
         "frame": "BasicFrame",
         "icon": "RifleIcon",
         "price": 150,
@@ -31,7 +31,7 @@
       },
 
       "BasicShotgun": {
-        "zona": 1,
+        "zone": 1,
         "frame": "BasicFrame",
         "icon": "ShotgunIcon",
         "price": 150,
@@ -48,7 +48,7 @@
     "Common":
     {
       "ImproveRifle": {
-        "zona": 1,
+        "zone": 1,
         "frame": "CommonFrame",
         "icon": "ImprovedRifleIcon",
         "price": 300,
@@ -62,7 +62,7 @@
       },
 
       "ImproveShotgun": {
-        "zona": 1,
+        "zone": 1,
         "frame": "CommonFrame",
         "icon": "ImprovedShotgunIcon",
         "price": 300,
@@ -79,7 +79,7 @@
     "Rare" :
     {
       "PlasmaSniper": {
-        "zona": 3,
+        "zone": 3,
         "frame": "RareFrame",
         "icon": "Weapon1",
         "price": 1250,
@@ -93,7 +93,7 @@
       },
 
       "BounceOrbCanon": {
-        "zona": 2,
+        "zone": 2,
         "frame": "RareFrame",
         "icon": "Weapon1",
         "price": 1000,
@@ -107,7 +107,7 @@
       },
 
       "GravityCannon": {
-        "zona": 2,
+        "zone": 2,
         "frame": "RareFrame",
         "icon": "BHCannonIcon",
         "price": 1000,

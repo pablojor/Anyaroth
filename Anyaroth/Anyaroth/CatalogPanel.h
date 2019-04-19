@@ -46,13 +46,11 @@ class CatalogPanel : public PanelUI
 
 		void setPlayer(Player* ply);
 
-		void setItems(list<ShopItem*>* list, const int& zone);
+		void setItems(list<ShopItem*>* list);
 		void removeItems();
 
 		void openCatalog();
 		void closeCatalog();
-
-		inline void setZone(const int& zone) { _zone = zone; }
 
 		void selectItem(Game* game, ShopItem* item);
 		void buyItem(Game* game);
