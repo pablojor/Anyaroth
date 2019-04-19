@@ -69,6 +69,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	//Gestion de colisiones
 	g->getWorld()->SetContactListener(&_colManager);
 	g->getWorld()->SetDebugDraw(&_debugger);
+	loadGame();
 }
 
 
@@ -124,7 +125,11 @@ void PlayState::saveGame()
 		j["Bank"] = _player->getBank();
 		j["currentGun"] = _player->getCurrentGun()->getGunID();
 		j["otherGun"] = _player->getOtherGun()->getGunID();
-		//tienda save
+		auto items = _hud->getShop()->getItems();
+		for (ShopItem* i : items)
+		{
+			j[i->getItemInfo()._name] = i->getItemInfo()._sold;
+		}
 		output << j;
 	}
 }
@@ -141,7 +146,12 @@ void PlayState::loadGame()
 		_levelManager.setLevel(j["level"]);
 		_player->changeCurrentGun(WeaponManager::getWeapon(_gameptr, j["currentGun"]));
 		_player->changeOtherGun(WeaponManager::getWeapon(_gameptr, j["otherGun"]));
-		//tienda load
+
+		auto items = _hud->getShop()->getItems();
+		for (ShopItem* i : items)
+		{
+			i->setItemSell(j[i->getItemInfo()._name]);
+		}
 	}
 }
 

@@ -62,6 +62,9 @@ class ShopMenu : public PanelUI
 		void openDepotPanel(Game* game);
 		void closeDepotPanel(Game* game);
 
+		inline list<ShopItem*> getItems() const { return _items; }
+		
+
 		void exit(Game* game);
 };
 

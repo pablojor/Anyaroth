@@ -119,7 +119,7 @@ void ShopMenu::loadWeaponInfo()
 			equiped = true;
 			sold = true;
 		}
-
+		
 		item->setItemInfo({ (*it).second._zone, (*it).second._name, (*it).second._price ,(*it).second._damage, (*it).second._cadence, (*it).second._clip, (*it).first, (*it).second._iconName, (*it).second._rarityFrame, sold, equiped });
 		_items.push_back(item);
 	}
