@@ -4,7 +4,9 @@
 
 OptionsPanel::OptionsPanel(Game* g, bool mainMenu) : _menu(mainMenu)
 {
-	_volume = g->getSoundManager()->getGeneralVolume();
+	_sfxVolume = g->getSoundManager()->getGeneralVolume() / MIX_MAX_VOLUME;
+	_volume = g->getSoundManager()->getMusicVolume() / MIX_MAX_VOLUME;
+
 	int buttonH = 20;
 	int buttonW = 80;
 
@@ -16,12 +18,22 @@ OptionsPanel::OptionsPanel(Game* g, bool mainMenu) : _menu(mainMenu)
 	_lessVolume->setPosition(CAMERA_RESOLUTION_X / 2 - buttonW / 2, CAMERA_RESOLUTION_Y / 3 - buttonH + 50);
 	_lessVolume->setSize(buttonW, buttonH);
 
+	_moreSFXVolume = new ButtonUI(g, g->getTexture("Play"), [this](Game* game) { moreSFXVolume(game); });
+	_moreSFXVolume->setPosition(CAMERA_RESOLUTION_X / 2 + buttonW / 2, CAMERA_RESOLUTION_Y / 3 - buttonH + 100);
+	_moreSFXVolume->setSize(buttonW, buttonH);
+
+	_lessSFXVolume = new ButtonUI(g, g->getTexture("Coin"), [this](Game* game) { lessSFXVolume(game); });
+	_lessSFXVolume->setPosition(CAMERA_RESOLUTION_X / 2 - buttonW / 2, CAMERA_RESOLUTION_Y / 3 - buttonH + 100);
+	_lessSFXVolume->setSize(buttonW, buttonH);
+
 	_backButton = new ButtonUI(g, g->getTexture("Exit"), [this](Game* game) { back(game); });
 	_backButton->setPosition(CAMERA_RESOLUTION_X / 2 + 150, CAMERA_RESOLUTION_Y / 3 + 150);
 	_backButton->setSize(20, 20);
 
 	addChild(_moreVolume);
 	addChild(_lessVolume);
+	addChild(_moreSFXVolume);
+	addChild(_lessSFXVolume);
 	addChild(_backButton);
 
 	_visible = false;
@@ -34,24 +46,42 @@ OptionsPanel::~OptionsPanel()
 
 void OptionsPanel::moreVolume(Game * g)
 {
-	if (_volume + 8 > MIX_MAX_VOLUME)
-		_volume = MIX_MAX_VOLUME;
+	if (_volume + 0.1 > 1)
+		_volume = 1;
 	else
-		_volume += 8;
+		_volume += 0.1;
 
-	g->getSoundManager()->setGeneralVolume(_volume);
-	//g->getSoundManager()->setMusicVolume(_volume);
+	g->getSoundManager()->setMusicVolume(_volume);
 }
 
 void OptionsPanel::lessVolume(Game * g)
 {
-	if (_volume - 8 < 0)
+	if (_volume - 0.1 < 0)
 		_volume = 0;
 	else
-		_volume -= 8;
+		_volume -= 0.1;
 
-	g->getSoundManager()->setGeneralVolume(_volume);
-	//g->getSoundManager()->setMusicVolume(_volume);
+	g->getSoundManager()->setMusicVolume(_volume);
+}
+
+void OptionsPanel::moreSFXVolume(Game * g)
+{
+	if (_sfxVolume + 0.1 > 1)
+		_sfxVolume = 1;
+	else
+		_sfxVolume += 0.1;
+
+	g->getSoundManager()->setGeneralVolume(_sfxVolume);
+}
+
+void OptionsPanel::lessSFXVolume(Game * g)
+{
+	if (_sfxVolume - 0.1 < 0)
+		_sfxVolume = 0;
+	else
+		_sfxVolume -= 0.1;
+
+	g->getSoundManager()->setGeneralVolume(_sfxVolume);
 }
 
 void OptionsPanel::back(Game * g)
