@@ -79,7 +79,7 @@ bool PlayState::handleEvent(const SDL_Event& event)
 	GameState::handleEvent(event);
 
 	bool handled = false;
-	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)
+	if ((event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE) || (event.type == SDL_CONTROLLERBUTTONDOWN && event.cbutton.button == SDL_CONTROLLER_BUTTON_START))
 	{
 		_gameptr->setTimestep(0);
 		_gameptr->pushState(new PauseState(_gameptr));

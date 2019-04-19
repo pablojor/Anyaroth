@@ -31,7 +31,7 @@ const Uint32 FRAME_RATE = 1000 / 60;
 const int TILES_SIZE = 16;
 const double M_TO_PIXEL = 8;
 const double BUTTON_SCALE = 0.25;
-const int JOYSTICK_DEADZONE = 8000;
+const int JOYSTICK_DEADZONE = 6000;
 
 enum _Category
 {
@@ -61,7 +61,7 @@ private:
 	map <string, Font*> _fonts;
 	map <string, Dialogue> _dialogues;
 	
-	SDL_Joystick* _joystick = nullptr;
+	SDL_GameController* _joystick = nullptr;
 	bool _joystickAttached;
 
 
@@ -86,7 +86,7 @@ public:
 	inline Texture* getTexture(string nameText) { return _textures[nameText]; }
 	inline Font* getFont(string nameFont) { return _fonts[nameFont]; }
 	inline Dialogue getDialogue(string nameDialogue) { return _dialogues[nameDialogue]; }
-	inline SDL_Joystick* getJoystick() const { return _joystick; }
+	inline SDL_GameController* getJoystick() const { return _joystick; }
 	inline bool isJoystick() const { return _joystickAttached; }
 
 	inline SDL_Renderer* getRenderer() const { return _renderer; }

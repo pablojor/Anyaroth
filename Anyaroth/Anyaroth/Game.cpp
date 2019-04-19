@@ -119,26 +119,14 @@ void Game::createDialogues()
 
 void Game::initialiseJoysticks()
 {
-	if (SDL_WasInit(SDL_INIT_JOYSTICK) == 0)
+	for (int i = 0; i < SDL_NumJoysticks(); i++)
 	{
-		SDL_InitSubSystem(SDL_INIT_JOYSTICK);
-	}
-	if (SDL_NumJoysticks() > 0)
-	{
-		SDL_Joystick* joy = SDL_JoystickOpen(0);
-		if (SDL_JoystickGetAttached(joy))
+		if (SDL_IsGameController(i))
 		{
-			_joystick = joy;
+			_joystick = SDL_GameControllerOpen(i);
 		}
-		else
-		{
-			throw SDLError();
-		}
-		SDL_JoystickEventState(SDL_ENABLE);
-		_joystickAttached = true;
 	}
-	else
-		_joystickAttached = false;
+	_joystickAttached = _joystick != nullptr;
 }
 
 
@@ -153,7 +141,7 @@ Game::Game()
 {
 	srand(time(NULL));//random seed
 
-	SDL_Init(SDL_INIT_TIMER | SDL_INIT_AUDIO | SDL_INIT_VIDEO | SDL_INIT_EVENTS);
+	SDL_Init(SDL_INIT_TIMER | SDL_INIT_AUDIO | SDL_INIT_VIDEO | SDL_INIT_EVENTS| SDL_INIT_GAMECONTROLLER);
 	TTF_Init(); //Ventana del tamaño de la pantalla de cada dispositivo
 	SDL_DisplayMode monitor;
 	SDL_GetCurrentDisplayMode(0, &monitor);
@@ -199,7 +187,7 @@ Game::~Game()
 		delete (*it).second;
 
 	//close joysticks
-	SDL_JoystickClose(_joystick);
+	SDL_GameControllerClose(_joystick);
 
 
 	delete _stateMachine;

@@ -248,43 +248,43 @@ bool Player::handleEvent(const SDL_Event& event)
 				_isMeleeing = false;
 		}
 
-		if (event.type == SDL_JOYBUTTONDOWN)
+		if (event.type == SDL_CONTROLLERBUTTONDOWN)
 		{
-			switch (event.jbutton.button)
+			switch (event.cbutton.button)
 			{
-			case 0:
+			case SDL_CONTROLLER_BUTTON_A:
 				_jJump = true;
 				break;
-			case 1:
+			case SDL_CONTROLLER_BUTTON_B:
 				_isReloading = true;
 				break;
-			case 3:
+			case SDL_CONTROLLER_BUTTON_Y:
 				swapGun();
 				break;
-			case 4:
+			case SDL_CONTROLLER_BUTTON_LEFTSHOULDER:
 				_isMeleeing = true;
 				break;
-			case 5:
+			case SDL_CONTROLLER_BUTTON_RIGHTSHOULDER:
 				_isDashing = true;
 				break;
 			default:
 				break;
 			}
 		}
-		if (event.type == SDL_JOYBUTTONUP)
+		if (event.type == SDL_CONTROLLERBUTTONUP)
 		{
-			switch (event.jbutton.button)
+			switch (event.cbutton.button)
 			{
-			case 0:
+			case SDL_CONTROLLER_BUTTON_A:
 				_jJump = false;
 				break;
-			case 1:
+			case SDL_CONTROLLER_BUTTON_B:
 				_isReloading = false;
 				break;
-			case 4:
+			case SDL_CONTROLLER_BUTTON_LEFTSHOULDER:
 				_isMeleeing = false;
 				break;
-			case 5:
+			case SDL_CONTROLLER_BUTTON_RIGHTSHOULDER:
 				_isDashing = false;
 				break;
 			default:
@@ -292,48 +292,52 @@ bool Player::handleEvent(const SDL_Event& event)
 			}
 		}
 
-		else if (event.type == SDL_JOYAXISMOTION)
+		else if (event.type == SDL_CONTROLLERAXISMOTION)
 		{
-			if (event.jaxis.axis == 3 || event.jaxis.axis == 4)
+			if (event.caxis.axis == SDL_CONTROLLER_AXIS_RIGHTX || event.caxis.axis == SDL_CONTROLLER_AXIS_RIGHTY)
 			{
-				if (event.jaxis.value < -JOYSTICK_DEADZONE || event.jaxis.value > JOYSTICK_DEADZONE)
+				if (event.caxis.value < -JOYSTICK_DEADZONE/2 || event.caxis.value > JOYSTICK_DEADZONE/2)
 				{
-					_jPosX = (SDL_JoystickGetAxis(_game->getJoystick(), 3) / 32768.0);
-					_jPosY = (SDL_JoystickGetAxis(_game->getJoystick(), 4) / 32768.0);
+					_jPosX = (SDL_GameControllerGetAxis(_game->getJoystick(), SDL_CONTROLLER_AXIS_RIGHTX) / SDL_CONTROLLER_AXIS_MAX);
+					_jPosY = (SDL_GameControllerGetAxis(_game->getJoystick(), SDL_CONTROLLER_AXIS_RIGHTY) / SDL_CONTROLLER_AXIS_MAX);
+					
+					int winWidth = 0;	int winHeight = 0;
+					SDL_GetWindowSize(_game->getWindow(), &winWidth, &winHeight);
+					double radius = 250 * _game->getCurrentState()->getMainCamera()->getCameraSize().distance({}) / Vector2D(winWidth, winHeight).distance({});
 
 					double angle = atan2(_jPosY, _jPosX);
-					double mouseX = (_body->getBody()->GetPosition().x - _body->getW() / 2) * M_TO_PIXEL + cos(angle) * 125;
-					double mouseY = (_body->getBody()->GetPosition().y - _body->getH() / 2) * M_TO_PIXEL + sin(angle) * 125;
+					double mouseX = (_body->getBody()->GetPosition().x - _body->getW() / 2) * M_TO_PIXEL + cos(angle) * radius;
+					double mouseY = (_body->getBody()->GetPosition().y - _body->getH() / 2) * M_TO_PIXEL + sin(angle) * radius;
 
 					_game->getCurrentState()->setMousePositionInWorld({ mouseX,mouseY });
 				}
 			}
 			//X axis motion
-			if (event.jaxis.axis == 0)
+			if (event.caxis.axis == SDL_CONTROLLER_AXIS_LEFTX)
 			{
 				//Left of dead zone
-				if (event.jaxis.value < -JOYSTICK_DEADZONE)
+				if (event.caxis.value < -JOYSTICK_DEADZONE)
 					_jMoveRight = !(_jMoveLeft = true);
 				//Right of dead zone
-				else if (event.jaxis.value > JOYSTICK_DEADZONE)
+				else if (event.caxis.value > JOYSTICK_DEADZONE)
 					_jMoveRight = !(_jMoveLeft = false);
 				else
 					_jMoveLeft = _jMoveRight = false;
 			}
 			//Y axis
-			else if (event.jaxis.axis == 1)
+			else if (event.caxis.axis == SDL_CONTROLLER_AXIS_LEFTY)
 			{
 				//Left of dead zone
-				if (event.jaxis.value > JOYSTICK_DEADZONE)
+				if (event.caxis.value > JOYSTICK_DEADZONE)
 					_jMoveDown = true;
 				else
 					_jMoveDown = false;
 			}
 
 			//Right trigger
-			else if (event.jaxis.axis == 5)
+			else if (event.caxis.axis == SDL_CONTROLLER_AXIS_TRIGGERRIGHT)
 			{
-				if (event.jaxis.value > JOYSTICK_DEADZONE)
+				if (event.caxis.value > JOYSTICK_DEADZONE)
 					_isShooting = true;
 				else
 					_isShooting = false;

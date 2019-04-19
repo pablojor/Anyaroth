@@ -33,17 +33,17 @@ void ButtonUI::handleEvent(const SDL_Event& event)
 			SDL_SetCursor(cursor);
 
 
-			if (event.type == SDL_MOUSEBUTTONDOWN && event.button.state == SDL_PRESSED)
+			if ((event.type == SDL_MOUSEBUTTONDOWN && event.button.state == SDL_PRESSED) || event.type == SDL_CONTROLLERBUTTONDOWN)
 			{
-				if (event.button.button == SDL_BUTTON_LEFT)
+				if (event.button.button == SDL_BUTTON_LEFT || event.cbutton.button == SDL_CONTROLLER_BUTTON_X)
 				{
 					_pressState = Down;
 					if (_onDownCallback != nullptr) _onDownCallback(_game);
 				}
 			}
-			else if (event.type == SDL_MOUSEBUTTONUP && _pressState == Down)
+			else if ((event.type == SDL_MOUSEBUTTONUP && _pressState == Down) || event.type == SDL_CONTROLLERBUTTONUP)
 			{
-				if (event.button.button == SDL_BUTTON_LEFT)
+				if (event.button.button == SDL_BUTTON_LEFT || event.cbutton.button == SDL_CONTROLLER_BUTTON_X)
 				{
 					_pressState = Up;
 					if (_onUpCallback != nullptr) _onUpCallback(_game);
