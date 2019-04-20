@@ -9,6 +9,7 @@ class Money
 		inline void restartWallet() { _wallet = 0; }
 		inline void storeWallet() { _bank += _wallet; }
 		inline void store(int s) { _wallet += s; }
+		inline void setBank(int amount) { _bank = amount; }
 
 		bool spend(int n);
 		inline int getWallet() const { return _wallet; }

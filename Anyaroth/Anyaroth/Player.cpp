@@ -216,7 +216,7 @@ bool Player::handleEvent(const SDL_Event& event)
 
 	if (!isDead() && !_inputFreezed)
 	{
-		if (event.type == SDL_KEYDOWN && !event.key.repeat) // Captura solo el primer frame que se pulsa
+		if ((event.type == SDL_KEYDOWN && !event.key.repeat)) // Captura solo el primer frame que se pulsa
 		{
 			if (event.key.keysym.sym == SDLK_q)
 				swapGun();
@@ -234,9 +234,9 @@ bool Player::handleEvent(const SDL_Event& event)
 			else if (isJumping())
 				cancelJump();
 		}
-		else if (event.type == SDL_MOUSEBUTTONDOWN && event.button.state == SDL_PRESSED)
+		else if ((event.type == SDL_MOUSEBUTTONDOWN && event.button.state == SDL_PRESSED))
 		{
-			if (event.button.button == SDL_BUTTON_LEFT)
+			if (event.button.button == SDL_BUTTON_LEFT )
 				_isShooting = true;
 			else if (event.button.button == SDL_BUTTON_RIGHT)
 				_isMeleeing = true;
@@ -247,6 +247,105 @@ bool Player::handleEvent(const SDL_Event& event)
 				_isShooting = false;
 			else if (event.button.button == SDL_BUTTON_RIGHT)
 				_isMeleeing = false;
+		}
+
+		if (event.type == SDL_CONTROLLERBUTTONDOWN)
+		{
+			switch (event.cbutton.button)
+			{
+			case SDL_CONTROLLER_BUTTON_A:
+				_jJump = true;
+				break;
+			case SDL_CONTROLLER_BUTTON_B:
+				_isReloading = true;
+				break;
+			case SDL_CONTROLLER_BUTTON_Y:
+				swapGun();
+				break;
+			case SDL_CONTROLLER_BUTTON_LEFTSHOULDER:
+				_isMeleeing = true;
+				break;
+			case SDL_CONTROLLER_BUTTON_RIGHTSHOULDER:
+				_isDashing = true;
+				break;
+			default:
+				break;
+			}
+		}
+		if (event.type == SDL_CONTROLLERBUTTONUP)
+		{
+			switch (event.cbutton.button)
+			{
+			case SDL_CONTROLLER_BUTTON_A:
+				_jJump = false;
+				break;
+			case SDL_CONTROLLER_BUTTON_B:
+				_isReloading = false;
+				break;
+			case SDL_CONTROLLER_BUTTON_LEFTSHOULDER:
+				_isMeleeing = false;
+				break;
+			case SDL_CONTROLLER_BUTTON_RIGHTSHOULDER:
+				_isDashing = false;
+				break;
+			default:
+				break;
+			}
+		}
+
+		else if (event.type == SDL_CONTROLLERAXISMOTION)
+		{
+			if (event.caxis.axis == SDL_CONTROLLER_AXIS_RIGHTX || event.caxis.axis == SDL_CONTROLLER_AXIS_RIGHTY)
+			{
+				if (event.caxis.value < -JOYSTICK_DEADZONE/2 || event.caxis.value > JOYSTICK_DEADZONE/2)
+				{
+					_jPosX = (SDL_GameControllerGetAxis(_game->getJoystick(), SDL_CONTROLLER_AXIS_RIGHTX));
+					_jPosY = (SDL_GameControllerGetAxis(_game->getJoystick(), SDL_CONTROLLER_AXIS_RIGHTY));
+					
+					int winWidth = 0;	int winHeight = 0;
+					SDL_GetWindowSize(_game->getWindow(), &winWidth, &winHeight);
+					double radius = 250 * _game->getCurrentState()->getMainCamera()->getCameraSize().distance({}) / Vector2D(winWidth, winHeight).distance({});
+
+					double angle = atan2(_jPosY, _jPosX);
+					double mouseX = (_body->getBody()->GetPosition().x - _body->getW() / 2) * M_TO_PIXEL + cos(angle) * radius;
+					double mouseY = (_body->getBody()->GetPosition().y - _body->getH() / 2) * M_TO_PIXEL + sin(angle) * radius;
+
+					_game->getCurrentState()->setMousePositionInWorld({ mouseX,mouseY });
+				}
+			}
+			//X axis motion
+			if (event.caxis.axis == SDL_CONTROLLER_AXIS_LEFTX)
+			{
+				//Left of dead zone
+				if (event.caxis.value < -JOYSTICK_DEADZONE)
+					_jMoveRight = !(_jMoveLeft = true);
+				//Right of dead zone
+				else if (event.caxis.value > JOYSTICK_DEADZONE)
+					_jMoveRight = !(_jMoveLeft = false);
+				else
+					_jMoveLeft = _jMoveRight = false;
+			}
+			//Y axis
+			else if (event.caxis.axis == SDL_CONTROLLER_AXIS_LEFTY)
+			{
+				//Left of dead zone
+				if (event.caxis.value > JOYSTICK_DEADZONE)
+					_jMoveDown = true;
+				else
+					_jMoveDown = false;
+			}
+
+			//Right trigger
+			else if (event.caxis.axis == SDL_CONTROLLER_AXIS_TRIGGERRIGHT)
+			{
+				if (event.caxis.value > JOYSTICK_DEADZONE)
+				{
+					if (!_jShoot)
+						_isShooting = _jShoot = true;
+				}
+				else
+					_isShooting = _jShoot = false;
+			}
 		}
 	}
 
@@ -326,32 +425,31 @@ void Player::changeOtherGun(Gun * gun)
 
 void Player::checkMovement(const Uint8* keyboard)
 {
-	double _speed = 15;
 
 	if (!isDead() && !_inputFreezed)
 	{
 		if (keyboard[SDL_SCANCODE_A] && keyboard[SDL_SCANCODE_D] && !isMeleeing() && !isDashing())
 			move(Vector2D(0, 0), _speed);
-		else if (keyboard[SDL_SCANCODE_A] && !isMeleeing() && !isDashing())
+		else if ((keyboard[SDL_SCANCODE_A] || _jMoveLeft) && !isMeleeing() && !isDashing())
 		{
 			if (_isDashing && _dashEnabled)
 				dash(Vector2D(-1, 0));
 			else
 				move(Vector2D(-1, 0), _speed);
 		}
-		else if (keyboard[SDL_SCANCODE_D] && !isMeleeing() && !isDashing())
+		else if ((keyboard[SDL_SCANCODE_D] || _jMoveRight) && !isMeleeing() && !isDashing())
 		{
 			if (_isDashing && _dashEnabled)
 				dash(Vector2D(1, 0));
 			else
 				move(Vector2D(1, 0), _speed);
 		}
-		else if (keyboard[SDL_SCANCODE_S] && _isDashing && _dashEnabled && !isGrounded() && !isMeleeing()/*&& !isReloading()*/)
+		else if ((keyboard[SDL_SCANCODE_S] || _jMoveDown) && _isDashing && _dashEnabled && !isGrounded() && !isMeleeing()/*&& !isReloading()*/)
 			dash(Vector2D(0, 1));
 		else
 			move(Vector2D(0, 0), _speed);
 
-		if (keyboard[SDL_SCANCODE_SPACE] && !isMeleeing() && !isJumping()/*&& !isReloading()*/)
+		if ((keyboard[SDL_SCANCODE_SPACE] || _jJump) && !isMeleeing() && !isJumping()/*&& !isReloading()*/)
 			if ((isGrounded() && !isFalling() && !isDashing()) || (!isGrounded() && isFalling() && _timeToJump > 0 && !isDashing()))
 				jump();
 

@@ -11,6 +11,51 @@
             ],
             "faces" : [ 0, 0, 0],
             "sounds": [ " ", " ", " ", " "]
-        }
+        },
+            "Olivander 1": {
+            "face": "nullptr",
+            "name":"Ollivander",
+            "voice":"exampleVoice",
+            "dialogue": ["Espero que encuentres algo de tu agrado"],
+            "faces": [2],
+            "sounds":[ " ", " ", " ", " " ]
+        },
+            "Olivander 2": {
+            "face": "nullptr",
+            "name":"Ollivander",
+            "voice":"exampleVoice",
+            "dialogue": ["Quieres algo mas"],
+            "faces": [2],
+            "sounds":[ " ", " ", " ", " " ]
+        },
+            "Olivander Catalog 1": {
+            "face": "nullptr",
+            "name":"Ollivander",
+            "voice":"exampleVoice",
+            "dialogue": ["Te gusta algo de lo que tengo"],
+            "faces": [0],
+            "sounds":[ " ", " ", " ", " " ]
+        },
+            "Olivander Talk 1": {
+            "face": "nullptr",
+            "name":"Ollivander",
+            "voice":"exampleVoice",
+            "dialogue": ["He oido que la colmena esta experimentando con sustancias mutagenicas para crear super-anyas.",
+                "Si esto es verdad... estamos jodidos.",
+                "Pero bueno...",
+                "Esperemos que solo sea un rumor."],
+            "faces": [2, 1, 2, 0],
+            "sounds":[ " ", " ", " ", " " ]
+        },
+            "Olivander Depot 1": {
+            "face": "nullptr",
+            "name":"Ollivander",
+            "voice":"exampleVoice",
+            "dialogue": ["¡Equipate bien antes de salir ahi fuera!"],
+            "faces": [0],
+            "sounds":[ " ", " ", " ", " " ]
+    }
+        
+        
     }
 }

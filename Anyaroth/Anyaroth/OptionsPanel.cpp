@@ -2,7 +2,7 @@
 #include "Game.h"
 
 
-OptionsPanel::OptionsPanel(Game* g, bool mainMenu) : _menu(mainMenu)
+OptionsPanel::OptionsPanel(Game* g, bool mainMenu) : _menu(mainMenu), PanelUI(g)
 {
 	//----BOTONES----//
 
@@ -38,6 +38,14 @@ OptionsPanel::OptionsPanel(Game* g, bool mainMenu) : _menu(mainMenu)
 	_screenButton = new ButtonUI(g, g->getTexture("MenuFullScreenButton"), [this](Game* game) { fullScreen(game); }, { 0, 1, 2, 2, 2 });
 	_screenButton->setPosition(CAMERA_RESOLUTION_X / 2 - 150, _backButton->getY());
 
+	_buttons.push_back(_lessVolume);
+	_buttons.push_back(_moreVolume);
+	_buttons.push_back(_lessSFXVolume);
+	_buttons.push_back(_moreSFXVolume);
+	_buttons.push_back(_lessBright);
+	_buttons.push_back(_moreBright);
+	_buttons.push_back(_screenButton);
+	_buttons.push_back(_backButton);
 	//----TEXTOS----//
 
 	//Valores
@@ -84,11 +92,27 @@ OptionsPanel::OptionsPanel(Game* g, bool mainMenu) : _menu(mainMenu)
 	addChild(_nameBrightText);
 
 	_visible = false;
+
+	if (_game->isJoystick())
+		_buttons[_selectedButton]->setSelected(true);
 }
 
 
 OptionsPanel::~OptionsPanel()
 {
+}
+
+bool OptionsPanel::handleEvent(const SDL_Event& event)
+{
+	if (_visible)
+	{
+		if (event.type == SDL_CONTROLLERBUTTONDOWN && event.cbutton.button == SDL_CONTROLLER_BUTTON_B)
+		{
+			back(_game);
+			return true;
+		}
+	}
+	return PanelUI::handleEvent(event);;
 }
 
 void OptionsPanel::moreVolume(Game * g)

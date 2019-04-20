@@ -116,6 +116,20 @@ void Game::createDialogues()
 	input.close();
 }
 
+
+void Game::initialiseJoysticks()
+{
+	for (int i = 0; i < SDL_NumJoysticks(); i++)
+	{
+		if (SDL_IsGameController(i))
+		{
+			_joystick = SDL_GameControllerOpen(i);
+		}
+	}
+	_joystickAttached = _joystick != nullptr;
+}
+
+
 void Game::toggleFullscreen()
 {
 	Uint32 FullscreenFlag = SDL_WINDOW_FULLSCREEN_DESKTOP; //fake fullscreen (windowed mode)
@@ -127,7 +141,7 @@ Game::Game()
 {
 	srand(time(NULL));//random seed
 
-	SDL_Init(SDL_INIT_TIMER | SDL_INIT_AUDIO | SDL_INIT_VIDEO | SDL_INIT_EVENTS);
+	SDL_Init(SDL_INIT_TIMER | SDL_INIT_AUDIO | SDL_INIT_VIDEO | SDL_INIT_EVENTS| SDL_INIT_GAMECONTROLLER);
 	TTF_Init(); //Ventana del tamaño de la pantalla de cada dispositivo
 	SDL_DisplayMode monitor;
 	SDL_GetCurrentDisplayMode(0, &monitor);
@@ -154,6 +168,8 @@ Game::Game()
 	createSounds();
 	//---Create dialogues
 	createDialogues();
+	//---Initialise Joysticks
+	initialiseJoysticks();
 	//---Create world
 	_world = new b2World(b2Vec2(0.0, 9.8));
 	//---Create states
@@ -169,6 +185,10 @@ Game::~Game()
 	//delete fonts
 	for (auto it = _fonts.begin(); it != _fonts.end(); it++)
 		delete (*it).second;
+
+	//close joysticks
+	SDL_GameControllerClose(_joystick);
+
 
 	delete _stateMachine;
 	delete _world;

@@ -6,15 +6,15 @@
 #include "GameManager.h"
 #include "CutScene.h"
 #include "checkML.h"
+#include <json.hpp>
+
+using namespace nlohmann;
 
 
 PlayState::PlayState(Game* g) : GameState(g)
 {
+	_mainCamera->setWorldBounds(LEVEL_WIDTH, LEVEL_HEIGHT);
 	GameManager::init();
-	//Cursor
-	_cursor = new Cursor(g);
-	_stages.push_back(_cursor);
-	SDL_ShowCursor(false);
 
 	//Inicializa el manager de armas
 	WeaponManager::init();
@@ -47,6 +47,11 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_parallaxZone1->addLayer(new ParallaxLayer(g->getTexture("BgZ1L1"), _mainCamera, 0.25));
 	_parallaxZone1->addLayer(new ParallaxLayer(g->getTexture("BgZ1L2"), _mainCamera, 0.5));
 	_parallaxZone1->addLayer(new ParallaxLayer(g->getTexture("BgZ1L3"), _mainCamera, 0.75));
+
+	//Cursor
+	_cursor = new Cursor(g);
+	_stages.push_back(_cursor);
+	SDL_ShowCursor(false);
 
 	//Balas se renderizan al final
 	_stages.push_back(_playerBulletPool);
@@ -112,7 +117,7 @@ bool PlayState::handleEvent(const SDL_Event& event)
 	GameState::handleEvent(event);
 
 	bool handled = false;
-	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)
+	if ((event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE) || (event.type == SDL_CONTROLLERBUTTONDOWN && event.cbutton.button == SDL_CONTROLLER_BUTTON_START))
 	{
 		_gameptr->setTimestep(0);
 		_gameptr->pushState(new PauseState(_gameptr));
@@ -143,6 +148,53 @@ bool PlayState::handleEvent(const SDL_Event& event)
 	return handled;
 }
 
+void PlayState::saveGame()
+{
+	ofstream output;
+	output.open(SAVES_PATH + "save.json");
+	if (output.is_open())
+	{
+		json j;
+		j["level"] = GameManager::getInstance()->getCurrentLevel();
+		j["Bank"] = _player->getBank();
+		j["currentGun"] = _player->getCurrentGun()->getGunID();
+		j["otherGun"] = _player->getOtherGun()->getGunID();
+
+		auto items = _hud->getShop()->getItems();
+		for (ShopItem* i : items)
+		{
+			cout << i->getItemInfo()._name << " " << i->getItemInfo()._sold;
+			j[i->getItemInfo()._name] = i->getItemInfo()._sold;
+		}
+		output << j;
+	}
+}
+
+void PlayState::loadGame()
+{
+	ifstream input;
+	input.open(SAVES_PATH + "save.json");
+	if (input.is_open())
+	{
+		json j;
+		input >> j;
+		cout << j;
+		_player->setBank(j["Bank"]);
+		_levelManager.changeLevel(j["level"]);
+		_player->changeCurrentGun(WeaponManager::getWeapon(_gameptr, j["currentGun"]));
+		_player->changeOtherGun(WeaponManager::getWeapon(_gameptr, j["otherGun"]));
+
+
+		auto items = _hud->getShop()->getItems();
+		for (ShopItem* i : items)
+		{
+			i->setItemSell(j[i->getItemInfo()._name]);
+			i->setItemEquiped(false);
+		}
+		_hud->getShop()->setPlayer(_player);
+	}
+}
+
 void PlayState::update(const double& deltaTime)
 {
 	if (_player->changeLevel())
@@ -152,8 +204,13 @@ void PlayState::update(const double& deltaTime)
 		if (!_player->isDead())
 		{
 			_player->revive();
+
+			if ((gManager->getCurrentLevel() + 1) % 2 == 0)//Si el proximo nivel no es una safezone guarda el juego
+				saveGame();
+
 			gManager->setCurrentLevel(gManager->getCurrentLevel() + 1);
 			_levelManager.changeLevel(gManager->getCurrentLevel());
+
 			_mainCamera->setWorldBounds(_levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getWidth(), _levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getHeight());
 			_mainCamera->setZoom(CAMERA_SCALE_FACTOR);
 		}

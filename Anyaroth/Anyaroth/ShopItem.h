@@ -54,5 +54,7 @@ class ShopItem : public ButtonUI
 
 		void setItemSell(const bool& b) { _info._sold = b; }
 		void setItemEquiped(const bool& b) { _info._equiped = b; }
+
+		void setSelected(bool selected) { ButtonUI::setSelected(selected); select(selected); }
 };
 

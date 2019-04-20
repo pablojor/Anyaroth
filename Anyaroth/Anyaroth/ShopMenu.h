@@ -34,6 +34,7 @@ class ShopMenu : public PanelUI
 
 		bool _talking = false;
 		bool _closed = true;
+		bool _mainMenuAbled = false;
 
 		void loadWeaponInfo();
 
@@ -42,6 +43,7 @@ class ShopMenu : public PanelUI
 		~ShopMenu();
 
 		virtual void update(const double& deltaTime);
+		virtual bool handleEvent(const SDL_Event& event);
 
 		void setPlayer(Player* ply);
 
@@ -63,6 +65,8 @@ class ShopMenu : public PanelUI
 		void openDepotPanel(Game* game);
 		void closeDepotPanel(Game* game);
 
+		inline list<ShopItem*> getItems() const { return _items; }
+		
 		inline bool isClosed() { return _closed; }
 
 		void exit(Game* game);
