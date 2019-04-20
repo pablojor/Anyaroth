@@ -155,13 +155,15 @@ void PlayState::saveGame()
 	if (output.is_open())
 	{
 		json j;
-		j["level"] = _levelManager.getLevel();
+		j["level"] = GameManager::getInstance()->getCurrentLevel();
 		j["Bank"] = _player->getBank();
 		j["currentGun"] = _player->getCurrentGun()->getGunID();
 		j["otherGun"] = _player->getOtherGun()->getGunID();
+
 		auto items = _hud->getShop()->getItems();
 		for (ShopItem* i : items)
 		{
+			cout << i->getItemInfo()._name << " " << i->getItemInfo()._sold;
 			j[i->getItemInfo()._name] = i->getItemInfo()._sold;
 		}
 		output << j;
@@ -176,16 +178,20 @@ void PlayState::loadGame()
 	{
 		json j;
 		input >> j;
+		cout << j;
 		_player->setBank(j["Bank"]);
-		_levelManager.setLevel(j["level"]);
+		_levelManager.changeLevel(j["level"]);
 		_player->changeCurrentGun(WeaponManager::getWeapon(_gameptr, j["currentGun"]));
 		_player->changeOtherGun(WeaponManager::getWeapon(_gameptr, j["otherGun"]));
+
 
 		auto items = _hud->getShop()->getItems();
 		for (ShopItem* i : items)
 		{
 			i->setItemSell(j[i->getItemInfo()._name]);
+			i->setItemEquiped(false);
 		}
+		_hud->getShop()->setPlayer(_player);
 	}
 }
 
@@ -198,8 +204,13 @@ void PlayState::update(const double& deltaTime)
 		if (!_player->isDead())
 		{
 			_player->revive();
+
+			if ((gManager->getCurrentLevel() + 1) % 2 == 0)//Si el proximo nivel no es una safezone guarda el juego
+				saveGame();
+
 			gManager->setCurrentLevel(gManager->getCurrentLevel() + 1);
 			_levelManager.changeLevel(gManager->getCurrentLevel());
+
 			_mainCamera->setWorldBounds(_levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getWidth(), _levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getHeight());
 			_mainCamera->setZoom(CAMERA_SCALE_FACTOR);
 		}

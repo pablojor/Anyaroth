@@ -86,7 +86,8 @@ OptionsPanel::OptionsPanel(Game* g, bool mainMenu) : _menu(mainMenu), PanelUI(g)
 
 	_visible = false;
 
-	_buttons[_selectedButton]->setSelected(true);
+	if (_game->isJoystick())
+		_buttons[_selectedButton]->setSelected(true);
 }
 
 

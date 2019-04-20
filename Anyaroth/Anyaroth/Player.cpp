@@ -299,8 +299,8 @@ bool Player::handleEvent(const SDL_Event& event)
 			{
 				if (event.caxis.value < -JOYSTICK_DEADZONE/2 || event.caxis.value > JOYSTICK_DEADZONE/2)
 				{
-					_jPosX = (SDL_GameControllerGetAxis(_game->getJoystick(), SDL_CONTROLLER_AXIS_RIGHTX) / SDL_CONTROLLER_AXIS_MAX);
-					_jPosY = (SDL_GameControllerGetAxis(_game->getJoystick(), SDL_CONTROLLER_AXIS_RIGHTY) / SDL_CONTROLLER_AXIS_MAX);
+					_jPosX = (SDL_GameControllerGetAxis(_game->getJoystick(), SDL_CONTROLLER_AXIS_RIGHTX));
+					_jPosY = (SDL_GameControllerGetAxis(_game->getJoystick(), SDL_CONTROLLER_AXIS_RIGHTY));
 					
 					int winWidth = 0;	int winHeight = 0;
 					SDL_GetWindowSize(_game->getWindow(), &winWidth, &winHeight);
@@ -339,9 +339,12 @@ bool Player::handleEvent(const SDL_Event& event)
 			else if (event.caxis.axis == SDL_CONTROLLER_AXIS_TRIGGERRIGHT)
 			{
 				if (event.caxis.value > JOYSTICK_DEADZONE)
-					_isShooting = true;
+				{
+					if (!_jShoot)
+						_isShooting = _jShoot = true;
+				}
 				else
-					_isShooting = false;
+					_isShooting = _jShoot = false;
 			}
 		}
 	}

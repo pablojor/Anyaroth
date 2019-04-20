@@ -44,9 +44,10 @@ private:
 		_dashDown = false,
 		_dashEnabled = true,
 		_changeLevel = false,
+		_jJump = false,
+		_jShoot = false,
 		_jMoveLeft = false,
 		_jMoveDown = false,
-		_jJump = false,
 		_jMoveRight = false;
 
 	double _speed = 15,

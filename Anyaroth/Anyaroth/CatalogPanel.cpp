@@ -81,7 +81,6 @@ void CatalogPanel::setPlayer(Player* ply)
 void CatalogPanel::setItems(list<ShopItem*>* list) // Crear items
 {
 	_items = list;
-	_zone = GameManager::getInstance()->getCurrentLevel();;
 
 	for (auto it : *_items)
 	{
@@ -99,6 +98,7 @@ void CatalogPanel::removeItems()
 
 void CatalogPanel::openCatalog()
 {
+	_zone = GameManager::getInstance()->getCurrentLevel() % 6;
 	for (auto it : *_items)
 	{
 		it->onDown([this, it](Game* game) {	selectItem(game, it); });
@@ -111,7 +111,8 @@ void CatalogPanel::openCatalog()
 	_buyButton->setVisible(false);
 	_buyText->setVisible(false);
 
-	_buttons[_selectedButton]->setSelected(true);
+	if (_game->isJoystick())
+		_buttons[_selectedButton]->setSelected(true);
 }
 
 void CatalogPanel::closeCatalog()

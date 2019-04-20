@@ -42,7 +42,8 @@ PausePanel::PausePanel(Game* g) : PanelUI(g)
 	addChild(_optionsText);
 	addChild(_menuText);
 
-	_buttons[_selectedButton]->setSelected(true);
+	if (_game->isJoystick())
+		_buttons[_selectedButton]->setSelected(true);
 }
 
 

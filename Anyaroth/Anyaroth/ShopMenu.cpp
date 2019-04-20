@@ -205,14 +205,7 @@ void ShopMenu::openShop()
 	_game->getSoundManager()->playMusic("shop", true);
 
 	_dialoguePanel->stopAtLastLineShown(true);
-	_dialoguePanel->startDialogue({
-		nullptr,
-		"exampleVoice",
-		"Ollivander",
-		{"Espero que encuentres algo de tu agrado"},
-		{ 2 },
-		{ " ", " ", " ", " " }
-		});
+	_dialoguePanel->startDialogue(_game->getDialogue("Olivander 1"));
 
 	_mainMenuAbled = true;
 
@@ -247,14 +240,7 @@ void ShopMenu::ableMainMenu(Game * game)
 	_depotText->setVisible(true);
 	_exitButton->setVisible(true);
 
-	_dialoguePanel->startDialogue({
-		nullptr,
-		"exampleVoice",
-		"Ollivander",
-		{ "Quieres algo mas?"},
-		{ 1 },
-		{ " ", " ", " ", " " }
-		});
+	_dialoguePanel->startDialogue(_game->getDialogue("Olivander 2"));
 	_mainMenuAbled = true;
 }
 
@@ -278,14 +264,7 @@ void ShopMenu::openCatalogPanel(Game* game)
 
 	_catalogPanel->openCatalog();
 
-	_dialoguePanel->startDialogue({
-		nullptr,
-		"exampleVoice",
-		"Ollivander",
-		{ "Te gusta algo de lo que tengo?"},
-		{ 0 },
-		{ " ", " ", " ", " " }
-		});
+	_dialoguePanel->startDialogue(_game->getDialogue("Olivander Catalog 1"));
 }
 
 void ShopMenu::closeCatalogPanel(Game * game)
@@ -301,17 +280,7 @@ void ShopMenu::startTalking(Game* game)
 	disableMainMenu(game);
 
 	_talking = true;
-	_dialoguePanel->startDialogue({
-		nullptr,
-		"exampleVoice",
-		"Ollivander",
-		{ "He oido que la colmena esta experimentando con sustancias mutagenicas para crear super-anyas.",
-		"Si esto es verdad... estamos jodidos.",
-		"Pero bueno...",
-		"Esperemos que solo sea un rumor."},
-		{ 2, 1, 2, 0 },
-		{ " ", " ", " ", " " }
-		});
+	_dialoguePanel->startDialogue(_game->getDialogue("Olivander Talk 1"));
 }
 
 void ShopMenu::stopTalking()
@@ -325,14 +294,7 @@ void ShopMenu::openDepotPanel(Game* game)
 
 	_depotPanel->openDepotPanel();
 
-	_dialoguePanel->startDialogue({
-		nullptr,
-		"exampleVoice",
-		"Ollivander",
-		{ "¡Equipate bien antes de salir ahi fuera!"},
-		{ 0 },
-		{ " ", " ", " ", " " }
-		});
+	_dialoguePanel->startDialogue(_game->getDialogue("Olivander Depot 1"));
 }
 
 void ShopMenu::closeDepotPanel(Game * game)
