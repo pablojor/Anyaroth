@@ -43,6 +43,8 @@ enum ArmAnimType
 	PlayerShotgunArmType,
 	PlayerPistolArmType,
 	PlayerRifleArmType,
+	PlayerBounceCannonArmType,
+	PlayerSniperArmType,
 	TurretArmType,
 	BHCannonArmType
 };

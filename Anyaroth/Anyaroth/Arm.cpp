@@ -24,6 +24,8 @@ void Arm::setTexture(Texture* texture)
 
 void Arm::setAnimations(ArmAnimType type)
 {
+	_anim->reset();
+
 	switch (type)
 	{
 	case TurretArmType:
@@ -41,11 +43,18 @@ void Arm::setAnimations(ArmAnimType type)
 		_anim->addAnim(AnimatedSpriteComponent::NoAmmo, 2, false);
 		_anim->addAnim(AnimatedSpriteComponent::Reload, 5, false);
 		break;
+	case PlayerSniperArmType:
 	case PlayerPistolArmType:
 		_anim->addAnim(AnimatedSpriteComponent::None, 1, false);
 		_anim->addAnim(AnimatedSpriteComponent::Shoot, 2, false);
 		_anim->addAnim(AnimatedSpriteComponent::NoAmmo, 2, false);
 		_anim->addAnim(AnimatedSpriteComponent::Reload, 13, false);
+		break;
+	case PlayerBounceCannonArmType:
+		_anim->addAnim(AnimatedSpriteComponent::None, 1, false);
+		_anim->addAnim(AnimatedSpriteComponent::Shoot, 2, false);
+		_anim->addAnim(AnimatedSpriteComponent::NoAmmo, 2, false);
+		_anim->addAnim(AnimatedSpriteComponent::Reload, 12, false);
 		break;
 	case PlayerRifleArmType:
 		_anim->addAnim(AnimatedSpriteComponent::None, 1, false);

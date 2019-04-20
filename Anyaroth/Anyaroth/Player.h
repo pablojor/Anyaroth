@@ -36,7 +36,7 @@ private:
 		_floorCount = 0,
 		_deathCD = 3000;
 
-	bool _isReloading = false,
+	bool _hasToReload = false,
 		_isShooting = false,
 		_isMeleeing = false,
 		_isDashing = false,
@@ -106,6 +106,7 @@ public:
 	void reload();
 
 	void setPlayerPanel(PlayerPanel* p);
+	inline PlayerPanel* getPlayerPanel() const { return _playerPanel; };
 
 	inline void setPlayerPosition(Vector2D pos) { _body->getBody()->SetTransform(b2Vec2(pos.getX(), pos.getY()), 0); }
 	inline void setPlayerBulletPool(PoolWrapper* pool) { _playerBulletPool = pool; }
@@ -117,7 +118,8 @@ public:
 	inline bool isInputFreezed() { return _inputFreezed; }
 
 	inline bool isDashing() const { return _onDash; }
-	inline bool isReloading() const { return _isReloading; }
+	inline bool isReloading() const { return _playerArm->isReloading(); }
+	inline void setIsReloading(const bool& b) { _hasToReload = b; }
 	inline bool isMeleeing() const {
 		return (_anim->getCurrentAnim() == AnimatedSpriteComponent::MeleeKnife || _anim->getCurrentAnim() == AnimatedSpriteComponent::MeleeKnife) && !_anim->animationFinished();
 	}
