@@ -40,7 +40,9 @@ enum BulletAnimType
 enum ArmAnimType
 {
 	DefaultArmType,
-	PlayerArmType,
+	PlayerShotgunArmType,
+	PlayerPistolArmType,
+	PlayerRifleArmType,
 	TurretArmType,
 	BHCannonArmType
 };

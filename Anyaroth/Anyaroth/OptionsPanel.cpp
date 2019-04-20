@@ -4,56 +4,71 @@
 
 OptionsPanel::OptionsPanel(Game* g, bool mainMenu) : _menu(mainMenu)
 {
-	int buttonH = 20;
-	int buttonW = 80;
+	//----BOTONES----//
 
-	_moreVolume = new ButtonUI(g, g->getTexture("Play"), [this](Game* game) { moreVolume(game); });
-	_moreVolume->setPosition(CAMERA_RESOLUTION_X / 2 + buttonW / 2, CAMERA_RESOLUTION_Y / 3 - buttonH + 50);
-	_moreVolume->setSize(buttonW, buttonH);
+	//Cambiar valores
+		//Volumen
+	_moreVolume = new ButtonUI(g, g->getTexture("MenuPlusButton"), [this](Game* game) { moreVolume(game); }, { 0, 1, 2, 2, 2 });
+	buttonW = _moreVolume->getW();
+	buttonH = _moreVolume->getH();
+	_moreVolume->setPosition(CAMERA_RESOLUTION_X / 2 + buttonW, CAMERA_RESOLUTION_Y - 212);
 
-	_lessVolume = new ButtonUI(g, g->getTexture("Coin"), [this](Game* game) { lessVolume(game); });
-	_lessVolume->setPosition(CAMERA_RESOLUTION_X / 2 - buttonW / 2 - 80, CAMERA_RESOLUTION_Y / 3 - buttonH + 50);
-	_lessVolume->setSize(buttonW, buttonH);
+	_lessVolume = new ButtonUI(g, g->getTexture("MenuLessButton"), [this](Game* game) { lessVolume(game); }, { 0, 1, 2, 2, 2 });
+	_lessVolume->setPosition(CAMERA_RESOLUTION_X / 2 - buttonW * 2, CAMERA_RESOLUTION_Y - 212);
+		
+		//Efectos
+	_moreSFXVolume = new ButtonUI(g, g->getTexture("MenuPlusButton"), [this](Game* game) { moreSFXVolume(game); }, { 0, 1, 2, 2, 2 });
+	_moreSFXVolume->setPosition(_moreVolume->getX(), CAMERA_RESOLUTION_Y - 137);
 
-	_moreSFXVolume = new ButtonUI(g, g->getTexture("Play"), [this](Game* game) { moreSFXVolume(game); });
-	_moreSFXVolume->setPosition(CAMERA_RESOLUTION_X / 2 + buttonW / 2, CAMERA_RESOLUTION_Y / 3 - buttonH + 100);
-	_moreSFXVolume->setSize(buttonW, buttonH);
+	_lessSFXVolume = new ButtonUI(g, g->getTexture("MenuLessButton"), [this](Game* game) { lessSFXVolume(game); }, { 0, 1, 2, 2, 2 });
+	_lessSFXVolume->setPosition(_lessVolume->getX(), CAMERA_RESOLUTION_Y - 137);
+	
+		//Brillo
+	_moreBright = new ButtonUI(g, g->getTexture("MenuPlusButton"), [this](Game* game) { moreBright(game); }, { 0, 1, 2, 2, 2 });
+	_moreBright->setPosition(CAMERA_RESOLUTION_X / 2 + buttonW / 4, CAMERA_RESOLUTION_Y - 61);
 
-	_lessSFXVolume = new ButtonUI(g, g->getTexture("Coin"), [this](Game* game) { lessSFXVolume(game); });
-	_lessSFXVolume->setPosition(CAMERA_RESOLUTION_X / 2 - buttonW / 2 - 80, CAMERA_RESOLUTION_Y / 3 - buttonH + 100);
-	_lessSFXVolume->setSize(buttonW, buttonH);
+	_lessBright = new ButtonUI(g, g->getTexture("MenuLessButton"), [this](Game* game) { lessBright(game); }, { 0, 1, 2, 2, 2 });
+	_lessBright->setPosition(CAMERA_RESOLUTION_X / 2 - buttonW / 4 - buttonW, CAMERA_RESOLUTION_Y - 61);
 
-	_moreBright = new ButtonUI(g, g->getTexture("Play"), [this](Game* game) { moreBright(game); });
-	_moreBright->setPosition(CAMERA_RESOLUTION_X / 2 + buttonW / 2 - 80, CAMERA_RESOLUTION_Y / 3 - buttonH + 150);
-	_moreBright->setSize(buttonW, buttonH);
+	//Volver menu
+	_backButton = new ButtonUI(g, g->getTexture("MenuReturnButton"), [this](Game* game) { back(game); }, { 0, 1, 2, 2, 2 });
+	_backButton->setPosition(CAMERA_RESOLUTION_X / 2 + 150 - _backButton->getW(), CAMERA_RESOLUTION_Y - 34);
 
-	_lessBright = new ButtonUI(g, g->getTexture("Coin"), [this](Game* game) { lessBright(game); });
-	_lessBright->setPosition(CAMERA_RESOLUTION_X / 2 - buttonW / 2 - 80, CAMERA_RESOLUTION_Y / 3 - buttonH + 150);
-	_lessBright->setSize(buttonW, buttonH);
+	//Pantalla completa
+	_screenButton = new ButtonUI(g, g->getTexture("MenuFullScreenButton"), [this](Game* game) { fullScreen(game); }, { 0, 1, 2, 2, 2 });
+	_screenButton->setPosition(CAMERA_RESOLUTION_X / 2 - 150, _backButton->getY());
 
-	_backButton = new ButtonUI(g, g->getTexture("Exit"), [this](Game* game) { back(game); });
-	_backButton->setPosition(CAMERA_RESOLUTION_X / 2 + 150, CAMERA_RESOLUTION_Y / 3 + 150);
-	_backButton->setSize(20, 20);
-
-	_screenButton = new ButtonUI(g, g->getTexture("Exit"), [this](Game* game) { fullScreen(game); });
-	_screenButton->setPosition(CAMERA_RESOLUTION_X / 2 - 150, CAMERA_RESOLUTION_Y / 3 + 150);
-	_screenButton->setSize(20, 20);
-
-	_buttons.push_back(_moreVolume);
 	_buttons.push_back(_lessVolume);
-	_buttons.push_back(_moreSFXVolume);
+	_buttons.push_back(_moreVolume);
 	_buttons.push_back(_lessSFXVolume);
-	_buttons.push_back(_moreBright);
+	_buttons.push_back(_moreSFXVolume);
 	_buttons.push_back(_lessBright);
+	_buttons.push_back(_moreBright);
 	_buttons.push_back(_screenButton);
 	_buttons.push_back(_backButton);
+	//----TEXTOS----//
 
-	_volumeSFXText = new TextUI(g, "100", g->getFont("ARIAL12"), 12, CAMERA_RESOLUTION_X / 2 + buttonW / 2 - 50, CAMERA_RESOLUTION_Y / 3 - buttonH + 100, { 200, 200, 200, 200 });
-	_volumeText = new TextUI(g, "100", g->getFont("ARIAL12"), 12, CAMERA_RESOLUTION_X / 2 + buttonW / 2 - 50, CAMERA_RESOLUTION_Y / 3 - buttonH + 50, { 200, 200, 200, 200 });
+	//Valores
+	_volumeText = new TextUI(g, "100", g->getFont("ARIAL12"), 12, 0, 0, { 255, 255, 255, 255 });
+	_volumeText->setPosition(CAMERA_RESOLUTION_X / 2 - _volumeText->getW() / 2,
+							_moreVolume->getY() + buttonH / 2 - _volumeText->getH() / 2);
 
-	_nameVolumeSFXText = new TextUI(g, "Volumen Efectos", g->getFont("ARIAL12"), 12, CAMERA_RESOLUTION_X / 2 + buttonW / 2 + 90, CAMERA_RESOLUTION_Y / 3 - buttonH + 100, { 200, 200, 200, 200 });
-	_nameVolumeText = new TextUI(g, "Volumen Musica", g->getFont("ARIAL12"), 12, CAMERA_RESOLUTION_X / 2 + buttonW / 2 + 90, CAMERA_RESOLUTION_Y / 3 - buttonH + 50, { 200, 200, 200, 200 });
-	_nameBrightText = new TextUI(g, "Brillo", g->getFont("ARIAL12"), 12, CAMERA_RESOLUTION_X / 2 + buttonW / 2 + 50, CAMERA_RESOLUTION_Y / 3 - buttonH + 150, { 200, 200, 200, 200 });
+	_volumeSFXText = new TextUI(g, "100", g->getFont("ARIAL12"), 12, 0, 0, { 255, 255, 255, 255 });
+	_volumeSFXText->setPosition(CAMERA_RESOLUTION_X / 2 - _volumeSFXText->getW() / 2,
+								_moreSFXVolume->getY() + buttonH / 2 - _volumeSFXText->getH() / 2);
+
+	//Nombres
+	_nameVolumeText = new TextUI(g, "Volumen Musica", g->getFont("ARIAL12"), 12, 0, 0, { 255, 255, 255, 255 });
+	_nameVolumeText->setPosition(CAMERA_RESOLUTION_X / 2 - _nameVolumeText->getW() / 2,
+								_moreVolume->getY() - 30);
+
+	_nameVolumeSFXText = new TextUI(g, "Volumen Efectos", g->getFont("ARIAL12"), 12, 0, 0, { 255, 255, 255, 255 });
+	_nameVolumeSFXText->setPosition(CAMERA_RESOLUTION_X / 2 - _nameVolumeSFXText->getW() / 2,
+									_moreSFXVolume->getY() - 30);
+
+	_nameBrightText = new TextUI(g, "Brillo", g->getFont("ARIAL12"), 12, 0, 0, { 255, 255, 255, 255 });
+	_nameBrightText->setPosition(CAMERA_RESOLUTION_X / 2 - _nameBrightText->getW() / 2,
+								_moreBright->getY() - 30);
 
 	addChild(_moreVolume);
 	addChild(_lessVolume);
@@ -93,7 +108,10 @@ void OptionsPanel::moreVolume(Game * g)
 	_volume = ceil(_volume);
 
 	int vol = _volume;
+
 	_volumeText->setText(to_string(vol));
+	_volumeText->setPosition(CAMERA_RESOLUTION_X / 2 - _volumeText->getW() / 2,
+		_moreVolume->getY() + buttonH / 2 - _volumeText->getH() / 2);
 }
 
 void OptionsPanel::lessVolume(Game * g)
@@ -112,7 +130,10 @@ void OptionsPanel::lessVolume(Game * g)
 	_volume = ceil(_volume);
 
 	int vol = _volume;
+
 	_volumeText->setText(to_string(vol));
+	_volumeText->setPosition(CAMERA_RESOLUTION_X / 2 - _volumeText->getW() / 2,
+		_moreVolume->getY() + buttonH / 2 - _volumeText->getH() / 2);
 }
 
 void OptionsPanel::moreSFXVolume(Game * g)
@@ -132,7 +153,10 @@ void OptionsPanel::moreSFXVolume(Game * g)
 	_sfxVolume = ceil(_sfxVolume);
 
 	int vol = _sfxVolume;
+
 	_volumeSFXText->setText(to_string(vol));
+	_volumeSFXText->setPosition(CAMERA_RESOLUTION_X / 2 - _volumeSFXText->getW() / 2,
+		_moreSFXVolume->getY() + buttonH / 2 - _volumeSFXText->getH() / 2);
 }
 
 void OptionsPanel::lessSFXVolume(Game * g)
@@ -151,7 +175,10 @@ void OptionsPanel::lessSFXVolume(Game * g)
 	_sfxVolume = ceil(_sfxVolume);
 
 	int vol = _sfxVolume;
+
 	_volumeSFXText->setText(to_string(vol));
+	_volumeSFXText->setPosition(CAMERA_RESOLUTION_X / 2 - _volumeSFXText->getW() / 2,
+		_moreSFXVolume->getY() + buttonH / 2 - _volumeSFXText->getH() / 2);
 }
 
 void OptionsPanel::moreBright(Game * g)
@@ -181,10 +208,16 @@ void OptionsPanel::lessBright(Game * g)
 void OptionsPanel::back(Game * g)
 {
 	_visible = !_visible;
-	if(_menu)
+	if (_menu)
+	{
+		g->getCurrentState()->getMainCamera()->setBackGround(new BackGround(g->getTexture("BgMenu"), g->getCurrentState()->getMainCamera()));
 		g->getCurrentState()->getMenuHUD()->getMainMenuPanel()->setVisible(true);
+	}
 	else
+	{
+		g->getCurrentState()->getMainCamera()->setBackGround(new BackGround(g->getTexture("BgPauseMenu"), g->getCurrentState()->getMainCamera()));
 		g->getCurrentState()->getPauseHUD()->getPausePanel()->setVisible(true);
+	}
 }
 
 void OptionsPanel::fullScreen(Game* g)
@@ -192,10 +225,12 @@ void OptionsPanel::fullScreen(Game* g)
 	bool IsFullscreen = SDL_GetWindowFlags(g->getWindow()) & SDL_WINDOW_FULLSCREEN_DESKTOP;
 	if (IsFullscreen)
 	{
+		_screenButton->setFrames({ 0, 1, 2, 3, 2 });
 		SDL_SetWindowFullscreen(g->getWindow(), 0);
 	}
 	else
 	{
+		_screenButton->setFrames({ 3, 4, 5, 0, 5 });
 		SDL_SetWindowFullscreen(g->getWindow(), SDL_WINDOW_FULLSCREEN_DESKTOP);
 	}
 }

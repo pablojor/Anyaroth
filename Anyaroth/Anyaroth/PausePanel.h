@@ -1,19 +1,25 @@
 #pragma once
 #include "PanelUI.h"
 #include "ButtonUI.h"
+#include "TextUI.h"
 
 class PausePanel : public PanelUI
 {
-private:
-	ButtonUI * _playButton;
-	ButtonUI * _optionsButton;
-	ButtonUI * _exitButton;
-public:
-	PausePanel(Game* g);
-	~PausePanel();
+	private:
+		ButtonUI * _playButton;
+		ButtonUI * _optionsButton;
+		ButtonUI * _menuButton;
 
-	void continueGame(Game * g);
-	void options(Game * g);
-	void returnMenu(Game * g);
+		TextUI * _playText;
+		TextUI * _optionsText;
+		TextUI * _menuText;
+
+	public:
+		PausePanel(Game* g);
+		~PausePanel();
+
+		void continueGame(Game * g);
+		void options(Game * g);
+		void returnMenu(Game * g);
 };
 

@@ -9,4 +9,7 @@ PauseState::PauseState(Game* g) : GameState(g)
 	//HUD
 	_pauseHud = new PauseStateHUD(g);
 	setCanvas(_pauseHud);
+
+	//Fondo
+	_mainCamera->setBackGround(new BackGround(g->getTexture("BgPauseMenu"), _mainCamera));
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include "PanelUI.h"
 #include "ButtonUI.h"
+#include "TextUI.h"
 
 class MainMenuPanel : public PanelUI
 {
@@ -8,6 +9,11 @@ class MainMenuPanel : public PanelUI
 		ButtonUI * _playButton;
 		ButtonUI * _optionsButton;
 		ButtonUI * _exitButton;
+
+		TextUI * _playText;
+		TextUI * _optionsText;
+		TextUI * _exitText;
+
 	public:
 		MainMenuPanel(Game* g);
 		~MainMenuPanel();
