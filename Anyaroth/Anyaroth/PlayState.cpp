@@ -37,7 +37,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	auto enemyPool = new BulletPool(g);
 
 	//Levels
-	GameManager::getInstance()->setCurrentLevel(LevelManager::Demo);
+	GameManager::getInstance()->setCurrentLevel(LevelManager::Safe1_1);
 	_levelManager = LevelManager(g, _player, &_stages, _hud, enemyPool);
 	_levelManager.setLevel(GameManager::getInstance()->getCurrentLevel());
 	_mainCamera->setWorldBounds(_levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getWidth(), _levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getHeight());

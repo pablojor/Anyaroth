@@ -79,6 +79,14 @@ void Game::createSounds()
 	_soundManager->addSFX("exampleVoice", SOUNDS_PATH + "exampleVoice.wav");
 		//Boss
 	_soundManager->addSFX("bossVoice", SOUNDS_PATH + "bossVoice.wav");
+
+	//SOUND EFFECTS
+	_soundManager->addSFX("pistolShot", SOUNDS_PATH + "pistolShot.wav");
+	_soundManager->addSFX("basicRifleShot", SOUNDS_PATH + "basicRifleShot.wav");
+	_soundManager->addSFX("basicShotgunShot", SOUNDS_PATH + "basicShotgunShot.wav");
+	_soundManager->addSFX("improvedShotgunShot", SOUNDS_PATH + "improvedShotgunShot.wav");
+	_soundManager->addSFX("turretShot", SOUNDS_PATH + "turretShot.wav");
+	_soundManager->addSFX("step", SOUNDS_PATH + "step.wav");
 }
 
 void Game::createDialogues()

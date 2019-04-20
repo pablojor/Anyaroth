@@ -61,8 +61,8 @@ Player::Player(Game* game, int xPos, int yPos) : GameObject(game, "Player")
 	_playerArm = new PlayerArm(game, this, { 28, 15 });
 	addChild(_playerArm);
 	
-	_currentGun = WeaponManager::getWeapon(game, Pistol_Weapon);
-	_otherGun = WeaponManager::getWeapon(game, BasicRifle_Weapon);
+	_currentGun = WeaponManager::getWeapon(game, ImprovedShotgun_Weapon);
+	_otherGun = WeaponManager::getWeapon(game, BasicShotgun_Weapon);
 
 	_playerArm->setTexture(_currentGun->getArmTexture());
 	_playerArm->setAnimations(PlayerArmType);
@@ -121,10 +121,10 @@ void Player::beginCollision(GameObject * other, b2Contact* contact)
 
 			ammo->collect();
 
-			_currentGun->addAmmo(_currentGun->getClip()*value);
+			_currentGun->addAmmo(_currentGun->getMaxClip()*value);
 			_playerPanel->updateAmmoViewer(_currentGun->getClip(), _currentGun->getMagazine());
 
-			if (_otherGun != nullptr) _otherGun->addAmmo(_otherGun->getClip()*value);
+			if (_otherGun != nullptr) _otherGun->addAmmo(_otherGun->getMaxClip()*value);
 		}
 		contact->SetEnabled(false);
 	}
@@ -338,14 +338,20 @@ void Player::checkMovement(const Uint8* keyboard)
 			if (_isDashing && _dashEnabled)
 				dash(Vector2D(-1, 0));
 			else
+			{
 				move(Vector2D(-1, 0), _speed);
+				_game->getSoundManager()->playSFX("step");
+			}
 		}
 		else if (keyboard[SDL_SCANCODE_D] && !isMeleeing() && !isDashing())
 		{
 			if (_isDashing && _dashEnabled)
 				dash(Vector2D(1, 0));
 			else
+			{
 				move(Vector2D(1, 0), _speed);
+				_game->getSoundManager()->playSFX("step");
+			}
 		}
 		else if (keyboard[SDL_SCANCODE_S] && _isDashing && _dashEnabled && !isGrounded() && !isMeleeing()/*&& !isReloading()*/)
 			dash(Vector2D(0, 1));

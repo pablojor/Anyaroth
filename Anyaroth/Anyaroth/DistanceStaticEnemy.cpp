@@ -32,6 +32,7 @@ DistanceStaticEnemy::DistanceStaticEnemy(Game* g, Player* player, Vector2D pos, 
 	_myGun->setDamage(2);
 	_myGun->setMaxCadence(700);
 	_myGun->setBulletSpeed(30);
+	_myGun->setShotSound("turretShot");
 }
 
 void DistanceStaticEnemy::update(const double& deltaTime)

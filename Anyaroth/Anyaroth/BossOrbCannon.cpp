@@ -2,7 +2,7 @@
 
 
 
-BossOrbCannon::BossOrbCannon(Game* game) : Gun(game->getTexture("ArmPistol"), game->getTexture("Coin"), 20, 25, 1000, 5, 40, 200, &_effect, BossOrbCanon_Weapon, false)
+BossOrbCannon::BossOrbCannon(Game* game) : Gun(game, game->getTexture("ArmPistol"), game->getTexture("Coin"), "pistolShot", 20, 25, 1000, 5, 40, 200, &_effect, BossOrbCanon_Weapon, false)
 {
 	_offset = { 24, -1 };
 }
