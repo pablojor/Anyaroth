@@ -34,5 +34,7 @@ public:
 	void lessBright(Game * g);
 	void fullScreen(Game* g);
 
+	int valueToWrite(float val);
+
 	void back(Game * g);
 };
