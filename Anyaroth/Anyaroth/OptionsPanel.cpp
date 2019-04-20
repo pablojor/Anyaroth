@@ -53,9 +53,16 @@ OptionsPanel::OptionsPanel(Game* g, bool mainMenu) : _menu(mainMenu), PanelUI(g)
 	_volumeText->setPosition(CAMERA_RESOLUTION_X / 2 - _volumeText->getW() / 2,
 							_moreVolume->getY() + buttonH / 2 - _volumeText->getH() / 2);
 
+	float _volume = g->getSoundManager()->getMusicVolume() / 128.0;
+	_volumeText->setText(to_string(valueToWrite(_volume)));
+
 	_volumeSFXText = new TextUI(g, "100", g->getFont("ARIAL12"), 12, 0, 0, { 255, 255, 255, 255 });
 	_volumeSFXText->setPosition(CAMERA_RESOLUTION_X / 2 - _volumeSFXText->getW() / 2,
 								_moreSFXVolume->getY() + buttonH / 2 - _volumeSFXText->getH() / 2);
+
+	_volume = g->getSoundManager()->getGeneralVolume() / 128.0;
+	_volumeSFXText->setText(to_string(valueToWrite(_volume)));
+
 
 	//Nombres
 	_nameVolumeText = new TextUI(g, "Volumen Musica", g->getFont("ARIAL12"), 12, 0, 0, { 255, 255, 255, 255 });
@@ -118,14 +125,8 @@ void OptionsPanel::moreVolume(Game * g)
 
 	g->getSoundManager()->setMusicVolume(_volume);
 
-	_volume *= 10;
-	_volume = ceil(_volume);
-	_volume *= 10;
-	_volume = ceil(_volume);
+	_volumeText->setText(to_string(valueToWrite(_volume)));
 
-	int vol = _volume;
-
-	_volumeText->setText(to_string(vol));
 	_volumeText->setPosition(CAMERA_RESOLUTION_X / 2 - _volumeText->getW() / 2,
 		_moreVolume->getY() + buttonH / 2 - _volumeText->getH() / 2);
 }
@@ -140,14 +141,8 @@ void OptionsPanel::lessVolume(Game * g)
 
 	g->getSoundManager()->setMusicVolume(_volume);
 
-	_volume *= 10;
-	_volume = ceil(_volume);
-	_volume *= 10;
-	_volume = ceil(_volume);
+	_volumeText->setText(to_string(valueToWrite(_volume)));
 
-	int vol = _volume;
-
-	_volumeText->setText(to_string(vol));
 	_volumeText->setPosition(CAMERA_RESOLUTION_X / 2 - _volumeText->getW() / 2,
 		_moreVolume->getY() + buttonH / 2 - _volumeText->getH() / 2);
 }
@@ -162,15 +157,7 @@ void OptionsPanel::moreSFXVolume(Game * g)
 
 	g->getSoundManager()->setGeneralVolume(_sfxVolume);
 
-
-	_sfxVolume *= 10;
-	_sfxVolume = ceil(_sfxVolume);
-	_sfxVolume *= 10;
-	_sfxVolume = ceil(_sfxVolume);
-
-	int vol = _sfxVolume;
-
-	_volumeSFXText->setText(to_string(vol));
+	_volumeSFXText->setText(to_string(valueToWrite(_sfxVolume)));
 	_volumeSFXText->setPosition(CAMERA_RESOLUTION_X / 2 - _volumeSFXText->getW() / 2,
 		_moreSFXVolume->getY() + buttonH / 2 - _volumeSFXText->getH() / 2);
 }
@@ -185,14 +172,7 @@ void OptionsPanel::lessSFXVolume(Game * g)
 
 	g->getSoundManager()->setGeneralVolume(_sfxVolume);
 
-	_sfxVolume *= 10;
-	_sfxVolume = ceil(_sfxVolume);
-	_sfxVolume *= 10;
-	_sfxVolume = ceil(_sfxVolume);
-
-	int vol = _sfxVolume;
-
-	_volumeSFXText->setText(to_string(vol));
+	_volumeSFXText->setText(to_string(valueToWrite(_sfxVolume)));
 	_volumeSFXText->setPosition(CAMERA_RESOLUTION_X / 2 - _volumeSFXText->getW() / 2,
 		_moreSFXVolume->getY() + buttonH / 2 - _volumeSFXText->getH() / 2);
 }
@@ -249,4 +229,16 @@ void OptionsPanel::fullScreen(Game* g)
 		_screenButton->setFrames({ 3, 4, 5, 0, 5 });
 		SDL_SetWindowFullscreen(g->getWindow(), SDL_WINDOW_FULLSCREEN_DESKTOP);
 	}
+}
+
+int OptionsPanel::valueToWrite(float val)
+{
+	val *= 10;
+	val = ceil(val);
+	val *= 10;
+	val = ceil(val);
+
+	int vol = val;
+
+	return vol;
 }
