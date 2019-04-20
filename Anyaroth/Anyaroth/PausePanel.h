@@ -18,6 +18,7 @@ class PausePanel : public PanelUI
 		PausePanel(Game* g);
 		~PausePanel();
 
+		virtual bool handleEvent(const SDL_Event& event);
 		void continueGame(Game * g);
 		void options(Game * g);
 		void returnMenu(Game * g);

@@ -2,7 +2,7 @@
 #include "Game.h"
 
 
-PausePanel::PausePanel(Game* g)
+PausePanel::PausePanel(Game* g) : PanelUI(g)
 {
 	//----BOTONES----//
 
@@ -33,7 +33,7 @@ PausePanel::PausePanel(Game* g)
 
 	_buttons.push_back(_playButton);
 	_buttons.push_back(_optionsButton);
-	_buttons.push_back(_exitButton);
+	_buttons.push_back(_menuButton);
 
 	addChild(_playButton);
 	addChild(_optionsButton);
@@ -41,6 +41,8 @@ PausePanel::PausePanel(Game* g)
 	addChild(_playText);
 	addChild(_optionsText);
 	addChild(_menuText);
+
+	_buttons[_selectedButton]->setSelected(true);
 }
 
 
@@ -48,6 +50,18 @@ PausePanel::~PausePanel()
 {
 }
 
+bool PausePanel::handleEvent(const SDL_Event& event)
+{
+	if (_visible)
+	{
+		if (event.type == SDL_CONTROLLERBUTTONDOWN && event.cbutton.button == SDL_CONTROLLER_BUTTON_B)
+		{
+			continueGame(_game);
+			return true;
+		}
+	}
+	return PanelUI::handleEvent(event);;
+}
 
 void PausePanel::continueGame(Game * g)
 {

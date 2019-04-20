@@ -43,6 +43,8 @@ MainMenuPanel::MainMenuPanel(Game* g)
 	addChild(_playText);
 	addChild(_optionsText);
 	addChild(_exitText);
+
+	_buttons[_selectedButton]->setSelected(true);
 }
 
 

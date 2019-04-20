@@ -27,7 +27,7 @@ bool ButtonUI::handleEvent(const SDL_Event& event)
 	bool handle = false;
 	if (_visible && _inputEnable)
 	{
-		if (mouseIsOver() || _positionState == Over)
+		if (mouseIsOver() || _selected)
 		{
 			SDL_Cursor* cursor;
 			cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_HAND);

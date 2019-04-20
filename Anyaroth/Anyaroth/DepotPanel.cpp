@@ -65,12 +65,20 @@ DepotPanel::DepotPanel(Game* game) : PanelUI(game)
 		//Añadir como hijo
 	addChild(_changeButton);
 
-	_buttons.push_back(_exitButton);
-	_buttons.push_back(_changeButton);
-	_buttons.push_back(_firstWeaponFrame);
-	_buttons.push_back(_secondWeaponFrame);
-	_buttons.push_back(_meleeWeaponFrame);
 	//----ALMACEN----//
+}
+
+bool DepotPanel::handleEvent(const SDL_Event& event)
+{
+	if (_visible)
+	{
+		if (event.type == SDL_CONTROLLERBUTTONDOWN && event.cbutton.button == SDL_CONTROLLER_BUTTON_B)
+		{
+			_exitButton->callDown();
+			return true;
+		}
+	}
+	return PanelUI::handleEvent(event);;
 }
 
 void DepotPanel::inicializeCallback(ShopMenu * menu)
@@ -107,8 +115,15 @@ void DepotPanel::setItems(list<ShopItem*>* list)
 	for (auto it : *_items)
 	{
 		addChild(it);
-		_buttons.push_back(it);
+		if (it->isVisible())
+			_buttons.push_back(it);
 	}
+
+	_buttons.push_back(_firstWeaponFrame);
+	_buttons.push_back(_changeButton);
+	_buttons.push_back(_secondWeaponFrame);
+	_buttons.push_back(_meleeWeaponFrame);
+	_buttons.push_back(_exitButton);
 }
 
 void DepotPanel::removeItems()
@@ -124,6 +139,8 @@ void DepotPanel::openDepotPanel()
 
 	reorderDepot();
 	setVisible(true);
+
+	_buttons[_selectedButton]->setSelected(true);
 }
 
 void DepotPanel::closeDepotPanel()

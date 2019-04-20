@@ -110,6 +110,61 @@ void ShopMenu::update(const double& deltaTime)
 	}
 }
 
+bool ShopMenu::handleEvent(const SDL_Event& event)
+{
+	bool handled = false;
+	if (_visible)
+	{
+		if (_mainMenuAbled)
+		{
+			if (event.type == SDL_CONTROLLERBUTTONDOWN)
+			{
+				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_B)
+				{
+					exit(_game);
+					return true;
+				}
+				else if (_buttons.size() > 0)
+				{
+					if (event.cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_LEFT)
+					{
+						_buttons[_selectedButton]->setSelected(false);
+
+						_selectedButton = (_selectedButton - 1) % _buttons.size();
+						while (!_buttons[_selectedButton]->isVisible())
+							_selectedButton = (_selectedButton - 1) % _buttons.size();
+
+						_buttons[_selectedButton]->setSelected(true);
+					}
+					else if (event.cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_RIGHT)
+					{
+						_buttons[_selectedButton]->setSelected(false);
+
+						_selectedButton = (_selectedButton + 1) % _buttons.size();
+						while (!_buttons[_selectedButton]->isVisible())
+						{
+							_selectedButton = (_selectedButton + 1) % _buttons.size();
+						}
+
+						_buttons[_selectedButton]->setSelected(true);
+					}
+				}
+			}
+		}
+		auto it = _children.begin();
+
+		while (!handled && it != _children.end())
+		{
+			if ((*it)->handleEvent(event))
+				handled = true;
+			else
+				it++;
+		}
+	}
+	
+	return handled;
+}
+
 void ShopMenu::loadWeaponInfo()
 {
 	auto weaponInfo = WeaponManager::getAllWeaponInfo();
@@ -158,6 +213,10 @@ void ShopMenu::openShop()
 		{ 2 },
 		{ " ", " ", " ", " " }
 		});
+
+	_mainMenuAbled = true;
+
+	_buttons[_selectedButton]->setSelected(false);
 }
 
 void ShopMenu::closeShop()
@@ -196,6 +255,7 @@ void ShopMenu::ableMainMenu(Game * game)
 		{ 1 },
 		{ " ", " ", " ", " " }
 		});
+	_mainMenuAbled = true;
 }
 
 void ShopMenu::disableMainMenu(Game * game)
@@ -209,6 +269,7 @@ void ShopMenu::disableMainMenu(Game * game)
 	_exitButton->setVisible(false);
 
 	_dialoguePanel->endDialogue();
+	_mainMenuAbled = false;
 }
 
 void ShopMenu::openCatalogPanel(Game* game)

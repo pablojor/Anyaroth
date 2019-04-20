@@ -26,6 +26,8 @@ public:
 	OptionsPanel(Game* g, bool mainMenu);
 	~OptionsPanel();
 
+	virtual bool handleEvent(const SDL_Event& event);
+
 	void moreVolume(Game * g);
 	void lessVolume(Game * g);
 	void moreSFXVolume(Game * g);

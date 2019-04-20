@@ -2,7 +2,7 @@
 #include "Game.h"
 
 
-OptionsPanel::OptionsPanel(Game* g, bool mainMenu) : _menu(mainMenu)
+OptionsPanel::OptionsPanel(Game* g, bool mainMenu) : _menu(mainMenu), PanelUI(g)
 {
 	//----BOTONES----//
 
@@ -85,11 +85,26 @@ OptionsPanel::OptionsPanel(Game* g, bool mainMenu) : _menu(mainMenu)
 	addChild(_nameBrightText);
 
 	_visible = false;
+
+	_buttons[_selectedButton]->setSelected(true);
 }
 
 
 OptionsPanel::~OptionsPanel()
 {
+}
+
+bool OptionsPanel::handleEvent(const SDL_Event& event)
+{
+	if (_visible)
+	{
+		if (event.type == SDL_CONTROLLERBUTTONDOWN && event.cbutton.button == SDL_CONTROLLER_BUTTON_B)
+		{
+			back(_game);
+			return true;
+		}
+	}
+	return PanelUI::handleEvent(event);;
 }
 
 void OptionsPanel::moreVolume(Game * g)

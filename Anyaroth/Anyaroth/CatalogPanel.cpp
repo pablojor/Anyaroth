@@ -17,7 +17,6 @@ CatalogPanel::CatalogPanel(Game* game) : PanelUI(game)
 	_exitButton = new ButtonUI(game, game->getTexture("ReturnButton"), nullptr, { 0, 1, 1, 1, 1 });
 	_exitButton->setPosition(CAMERA_RESOLUTION_X - _exitButton->getW() - 12, 188 - 1 - _exitButton->getH());
 
-	_buttons.push_back(_exitButton);
 	addChild(_exitButton);
 
 	//----PANEL DE INFORMACIÓN----//
@@ -36,6 +35,7 @@ CatalogPanel::CatalogPanel(Game* game) : PanelUI(game)
 	_buyButton->setPosition(infoPanelPosX + _infoPanel->getInfoPanelWidth() / 2 - _buyButton->getW() / 2, infoPanelPosY + _infoPanel->getInfoPanelHeight() + 2);
 	_buyButton->onDown([this](Game* game) { buyItem(game); });
 	_buyButton->setVisible(false);
+
 	_buttons.push_back(_buyButton);
 
 	_buyText = new TextUI(game, "Buy", game->getFont("ARIAL12"), 12, 0, 0, { 255, 255, 255, 255 });
@@ -53,6 +53,18 @@ CatalogPanel::CatalogPanel(Game* game) : PanelUI(game)
 	addChild(_playerMoney);
 }
 
+bool CatalogPanel::handleEvent(const SDL_Event& event)
+{
+	if (_visible)
+	{
+		if (event.type == SDL_CONTROLLERBUTTONDOWN && event.cbutton.button == SDL_CONTROLLER_BUTTON_B)
+		{
+			_exitButton->callDown();
+			return true;
+		}
+	}
+	return PanelUI::handleEvent(event);;
+}
 
 void CatalogPanel::inicializeCallbacks(ShopMenu* menu)
 {
@@ -76,6 +88,7 @@ void CatalogPanel::setItems(list<ShopItem*>* list) // Crear items
 		addChild(it);
 		_buttons.push_back(it);
 	}
+	_buttons.push_back(_exitButton);
 }
 
 void CatalogPanel::removeItems()
@@ -97,6 +110,8 @@ void CatalogPanel::openCatalog()
 	_infoPanel->setVisible(false);
 	_buyButton->setVisible(false);
 	_buyText->setVisible(false);
+
+	_buttons[_selectedButton]->setSelected(true);
 }
 
 void CatalogPanel::closeCatalog()
@@ -161,6 +176,9 @@ void CatalogPanel::selectItem(Game * game, ShopItem* item)
 
 	_selectedItem = item;
 	_selectedItem->select(true);
+
+	_buttons[0]->setSelected(true);
+	_buttons[_selectedButton]->setSelected(false);
 
 	showSelectedItemInfo();
 }
