@@ -379,9 +379,12 @@
     <ClCompile Include="ShopEvent.cpp">
       <Filter>Archivos de código fuente\Events</Filter>
     </ClCompile>
-    <ClCompile Include="WaitingEvent.cpp">
-      <Filter>Archivos de código fuente\Events</Filter>
-    </ClCompile>
+    <ClCompile Include="MainMenuPanel.cpp" />
+    <ClCompile Include="MenuStateHUD.cpp" />
+    <ClCompile Include="OptionsPanel.cpp" />
+    <ClCompile Include="PausePanel.cpp" />
+    <ClCompile Include="PauseStateHUD.cpp" />
+    <ClCompile Include="waitEvent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -771,9 +774,6 @@
     <ClInclude Include="ZoomInOutEvent.h">
       <Filter>Archivos de encabezado\Events</Filter>
     </ClInclude>
-    <ClInclude Include="WaitingEvent.h">
-      <Filter>Archivos de encabezado\Events</Filter>
-    </ClInclude>
     <ClInclude Include="ShopEvent.h">
       <Filter>Archivos de encabezado\Events</Filter>
     </ClInclude>
@@ -801,6 +801,12 @@
     <ClInclude Include="CamEffectType.h">
       <Filter>Archivos de encabezado\Events</Filter>
     </ClInclude>
+    <ClInclude Include="MainMenuPanel.h" />
+    <ClInclude Include="MenuStateHUD.h" />
+    <ClInclude Include="OptionsPanel.h" />
+    <ClInclude Include="PausePanel.h" />
+    <ClInclude Include="PauseStateHUD.h" />
+    <ClInclude Include="waitEvent.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de código fuente">

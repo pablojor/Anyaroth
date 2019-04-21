@@ -258,7 +258,7 @@ bool Player::handleEvent(const SDL_Event& event)
 				_jJump = true;
 				break;
 			case SDL_CONTROLLER_BUTTON_B:
-				_isReloading = true;
+				_hasToReload = true;
 				break;
 			case SDL_CONTROLLER_BUTTON_Y:
 				swapGun();
@@ -281,7 +281,7 @@ bool Player::handleEvent(const SDL_Event& event)
 				_jJump = false;
 				break;
 			case SDL_CONTROLLER_BUTTON_B:
-				_isReloading = false;
+				_hasToReload = false;
 				break;
 			case SDL_CONTROLLER_BUTTON_LEFTSHOULDER:
 				_isMeleeing = false;
