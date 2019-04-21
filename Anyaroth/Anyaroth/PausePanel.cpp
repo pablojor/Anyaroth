@@ -2,7 +2,7 @@
 #include "Game.h"
 
 
-PausePanel::PausePanel(Game* g)
+PausePanel::PausePanel(Game* g) : PanelUI(g)
 {
 	//----BOTONES----//
 
@@ -31,12 +31,19 @@ PausePanel::PausePanel(Game* g)
 	_menuText->setPosition(_menuButton->getX() + buttonW / 2 - _menuText->getW() / 2,
 							_menuButton->getY() + buttonH / 2 - _menuText->getH() / 2);
 
+	_buttons.push_back(_playButton);
+	_buttons.push_back(_optionsButton);
+	_buttons.push_back(_menuButton);
+
 	addChild(_playButton);
 	addChild(_optionsButton);
 	addChild(_menuButton);
 	addChild(_playText);
 	addChild(_optionsText);
 	addChild(_menuText);
+
+	if (_game->isJoystick())
+		_buttons[_selectedButton]->setSelected(true);
 }
 
 
@@ -44,6 +51,18 @@ PausePanel::~PausePanel()
 {
 }
 
+bool PausePanel::handleEvent(const SDL_Event& event)
+{
+	if (_visible)
+	{
+		if (event.type == SDL_CONTROLLERBUTTONDOWN && event.cbutton.button == SDL_CONTROLLER_BUTTON_B)
+		{
+			continueGame(_game);
+			return true;
+		}
+	}
+	return PanelUI::handleEvent(event);;
+}
 
 void PausePanel::continueGame(Game * g)
 {

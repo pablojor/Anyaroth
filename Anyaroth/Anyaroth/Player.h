@@ -44,6 +44,15 @@ private:
 		_dashDown = false,
 		_dashEnabled = true,
 		_changeLevel = false,
+		_jJump = false,
+		_jShoot = false,
+		_jMoveLeft = false,
+		_jMoveDown = false,
+		_jMoveRight = false;
+
+	double _speed = 15,
+		   _jPosX,
+		   _jPosY,
 		_inputFreezed = false;
 
 	float _timeToJump = 100.f;
@@ -92,6 +101,7 @@ public:
 
 	inline bool spendMoney(int n) { return _money->spend(n); }
 	inline int getBank() const { return _money->getBank(); }
+	inline void setBank(int amount) { _money->setBank(amount); }
 
 	void move(const Vector2D& dir, const double& speed);
 	void dash(const Vector2D& dir);

@@ -38,9 +38,9 @@ void Interactable::update(const double& time)
 
 bool Interactable::handleEvent(const SDL_Event& event)
 {
-	if (event.type == SDL_KEYDOWN && !event.key.repeat) // Captura solo el primer frame que se pulsa
+	if ((event.type == SDL_KEYDOWN && !event.key.repeat) || event.type == SDL_CONTROLLERBUTTONDOWN) // Captura solo el primer frame que se pulsa
 	{
-		if (event.key.keysym.sym == SDLK_e && _canInteract) { //TECLA PARA PASAR DE TEXTO EN EL DIALOGO
+		if ((event.key.keysym.sym == SDLK_e || event.cbutton.button == SDL_CONTROLLER_BUTTON_X) && _canInteract) { //TECLA PARA PASAR DE TEXTO EN EL DIALOGO
 			interact();//realiza accion
 		}
 	}

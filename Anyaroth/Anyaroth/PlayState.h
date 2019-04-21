@@ -34,6 +34,10 @@ public:
 	virtual void render() const;
 	virtual void update(const double& deltaTime);
 	virtual bool handleEvent(const SDL_Event& event);
+
+	inline int getCurrentLevel() { return _levelManager.getLevel(); }
+	void saveGame();
+	void loadGame();
 	
 	inline virtual void addCutScene(CutScene* cutScene) { _cutScene = cutScene; };
 };

@@ -124,9 +124,6 @@
     <ClCompile Include="PoolWrapper.cpp">
       <Filter>Archivos de código fuente\Pools</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Archivos de código fuente\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="Cursor.cpp">
       <Filter>Archivos de código fuente\Objects</Filter>
     </ClCompile>
@@ -346,55 +343,44 @@
     <ClCompile Include="AidKit.cpp">
       <Filter>Archivos de código fuente\Objects\Collectables</Filter>
     </ClCompile>
-    <ClCompile Include="CutScene.cpp">
-      <Filter>Archivos de código fuente\CutScenes</Filter>
-    </ClCompile>
-    <ClCompile Include="DialogueEvent.cpp">
-      <Filter>Archivos de código fuente\CutScenes\Events</Filter>
-    </ClCompile>
-    <ClCompile Include="Event.cpp">
-      <Filter>Archivos de código fuente\CutScenes\Events</Filter>
-    </ClCompile>
-    <ClCompile Include="FadeInOutEvent.cpp">
-      <Filter>Archivos de código fuente\CutScenes\Events</Filter>
-    </ClCompile>
-    <ClCompile Include="FlipEvent.cpp">
-      <Filter>Archivos de código fuente\CutScenes\Events</Filter>
-    </ClCompile>
-    <ClCompile Include="MoveEvent.cpp">
-      <Filter>Archivos de código fuente\CutScenes\Events</Filter>
-    </ClCompile>
-    <ClCompile Include="ShakeEvent.cpp">
-      <Filter>Archivos de código fuente\CutScenes\Events</Filter>
-    </ClCompile>
-    <ClCompile Include="waitEvent.cpp">
-      <Filter>Archivos de código fuente\CutScenes\Events</Filter>
-    </ClCompile>
-    <ClCompile Include="ZoomInOutEvent.cpp">
-      <Filter>Archivos de código fuente\CutScenes\Events</Filter>
-    </ClCompile>
     <ClCompile Include="Tilemap.cpp">
       <Filter>Archivos de código fuente\Objects\Level</Filter>
     </ClCompile>
     <ClCompile Include="GameManager.cpp">
       <Filter>Archivos de código fuente\Others\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Archivos de código fuente\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="ZoomInOutEvent.cpp">
+      <Filter>Archivos de código fuente\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="CutScene.cpp">
+      <Filter>Archivos de código fuente\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogueEvent.cpp">
+      <Filter>Archivos de código fuente\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="Event.cpp">
+      <Filter>Archivos de código fuente\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="FadeInOutEvent.cpp">
+      <Filter>Archivos de código fuente\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="FlipEvent.cpp">
+      <Filter>Archivos de código fuente\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveEvent.cpp">
+      <Filter>Archivos de código fuente\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="ShakeEvent.cpp">
+      <Filter>Archivos de código fuente\Events</Filter>
+    </ClCompile>
     <ClCompile Include="ShopEvent.cpp">
-      <Filter>Archivos de código fuente\CutScenes\Events</Filter>
+      <Filter>Archivos de código fuente\Events</Filter>
     </ClCompile>
-    <ClCompile Include="MenuStateHUD.cpp">
-      <Filter>Archivos de código fuente\HUD</Filter>
-    </ClCompile>
-    <ClCompile Include="MainMenuPanel.cpp">
-      <Filter>Archivos de código fuente\HUD\Panels</Filter>
-    </ClCompile>
-    <ClCompile Include="PauseStateHUD.cpp">
-      <Filter>Archivos de código fuente\HUD</Filter>
-    </ClCompile>
-    <ClCompile Include="PausePanel.cpp">
-      <Filter>Archivos de código fuente\HUD\Panels</Filter>
-    </ClCompile>
-    <ClCompile Include="OptionsPanel.cpp">
-      <Filter>Archivos de código fuente\HUD\Panels</Filter>
+    <ClCompile Include="WaitingEvent.cpp">
+      <Filter>Archivos de código fuente\Events</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -776,58 +762,44 @@
     <ClInclude Include="AidKit.h">
       <Filter>Archivos de encabezado\Objects\Collectables</Filter>
     </ClInclude>
-    <ClInclude Include="CamEffectType.h">
-      <Filter>Archivos de encabezado\CutScenes</Filter>
-    </ClInclude>
-    <ClInclude Include="CutScene.h">
-      <Filter>Archivos de encabezado\CutScenes</Filter>
-    </ClInclude>
-    <ClInclude Include="DialogueEvent.h">
-      <Filter>Archivos de encabezado\CutScenes\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="Event.h">
-      <Filter>Archivos de encabezado\CutScenes\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="FadeInOutEvent.h">
-      <Filter>Archivos de encabezado\CutScenes\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="FlipEvent.h">
-      <Filter>Archivos de encabezado\CutScenes\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="MoveEvent.h">
-      <Filter>Archivos de encabezado\CutScenes\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="ShakeEvent.h">
-      <Filter>Archivos de encabezado\CutScenes\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="waitEvent.h">
-      <Filter>Archivos de encabezado\CutScenes\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="ZoomInOutEvent.h">
-      <Filter>Archivos de encabezado\CutScenes\Events</Filter>
-    </ClInclude>
     <ClInclude Include="Tilemap.h">
       <Filter>Archivos de encabezado\Objects\Level</Filter>
     </ClInclude>
     <ClInclude Include="GameManager.h">
       <Filter>Archivos de encabezado\Others\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="ZoomInOutEvent.h">
+      <Filter>Archivos de encabezado\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="WaitingEvent.h">
+      <Filter>Archivos de encabezado\Events</Filter>
+    </ClInclude>
     <ClInclude Include="ShopEvent.h">
-      <Filter>Archivos de encabezado\CutScenes\Events</Filter>
+      <Filter>Archivos de encabezado\Events</Filter>
     </ClInclude>
-    <ClInclude Include="MenuStateHUD.h">
-      <Filter>Archivos de encabezado\HUD</Filter>
+    <ClInclude Include="ShakeEvent.h">
+      <Filter>Archivos de encabezado\Events</Filter>
     </ClInclude>
-    <ClInclude Include="MainMenuPanel.h">
-      <Filter>Archivos de encabezado\HUD\Panels</Filter>
+    <ClInclude Include="MoveEvent.h">
+      <Filter>Archivos de encabezado\Events</Filter>
     </ClInclude>
-    <ClInclude Include="PauseStateHUD.h">
-      <Filter>Archivos de encabezado\HUD</Filter>
+    <ClInclude Include="FlipEvent.h">
+      <Filter>Archivos de encabezado\Events</Filter>
     </ClInclude>
-    <ClInclude Include="PausePanel.h">
-      <Filter>Archivos de encabezado\HUD\Panels</Filter>
+    <ClInclude Include="FadeInOutEvent.h">
+      <Filter>Archivos de encabezado\Events</Filter>
     </ClInclude>
-    <ClInclude Include="OptionsPanel.h">
-      <Filter>Archivos de encabezado\HUD\Panels</Filter>
+    <ClInclude Include="Event.h">
+      <Filter>Archivos de encabezado\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogueEvent.h">
+      <Filter>Archivos de encabezado\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="CutScene.h">
+      <Filter>Archivos de encabezado\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="CamEffectType.h">
+      <Filter>Archivos de encabezado\Events</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -984,17 +956,11 @@
     <Filter Include="Archivos de código fuente\Objects\Guns">
       <UniqueIdentifier>{4f97f6a1-796b-40fe-b2a8-322f3bdaa034}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de código fuente\CutScenes">
-      <UniqueIdentifier>{e574184e-1a14-49d1-b849-b80a4ae00238}</UniqueIdentifier>
+    <Filter Include="Archivos de encabezado\Events">
+      <UniqueIdentifier>{e4951269-a6cb-44b0-9b50-72417e6d2de4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de encabezado\CutScenes">
-      <UniqueIdentifier>{aa911362-bdba-408b-9262-94b3518e6a35}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\CutScenes\Events">
-      <UniqueIdentifier>{74617f16-362a-4da2-9392-d0f5857d9da4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de código fuente\CutScenes\Events">
-      <UniqueIdentifier>{015528cc-95af-4c03-8e65-31922f6d840b}</UniqueIdentifier>
+    <Filter Include="Archivos de código fuente\Events">
+      <UniqueIdentifier>{c0c20e7b-ff95-4a2d-8b6f-2b0da7fa47a6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

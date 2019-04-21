@@ -55,6 +55,11 @@ ShopMenu::ShopMenu(Game* game) : PanelUI(game)
 
 	_exitButton->onUp([this](Game* game) { exit(game); });
 
+	_buttons.push_back(_shopButton);
+	_buttons.push_back(_talkButton);
+	_buttons.push_back(_depotButton);
+	_buttons.push_back(_exitButton);
+
 	addChild(_shopButton);
 	addChild(_shopText);
 	addChild(_talkButton);
@@ -105,6 +110,61 @@ void ShopMenu::update(const double& deltaTime)
 	}
 }
 
+bool ShopMenu::handleEvent(const SDL_Event& event)
+{
+	bool handled = false;
+	if (_visible)
+	{
+		if (_mainMenuAbled)
+		{
+			if (event.type == SDL_CONTROLLERBUTTONDOWN)
+			{
+				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_B)
+				{
+					exit(_game);
+					return true;
+				}
+				else if (_buttons.size() > 0)
+				{
+					if (event.cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_LEFT)
+					{
+						_buttons[_selectedButton]->setSelected(false);
+
+						_selectedButton = (_selectedButton - 1) % _buttons.size();
+						while (!_buttons[_selectedButton]->isVisible())
+							_selectedButton = (_selectedButton - 1) % _buttons.size();
+
+						_buttons[_selectedButton]->setSelected(true);
+					}
+					else if (event.cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_RIGHT)
+					{
+						_buttons[_selectedButton]->setSelected(false);
+
+						_selectedButton = (_selectedButton + 1) % _buttons.size();
+						while (!_buttons[_selectedButton]->isVisible())
+						{
+							_selectedButton = (_selectedButton + 1) % _buttons.size();
+						}
+
+						_buttons[_selectedButton]->setSelected(true);
+					}
+				}
+			}
+		}
+		auto it = _children.begin();
+
+		while (!handled && it != _children.end())
+		{
+			if ((*it)->handleEvent(event))
+				handled = true;
+			else
+				it++;
+		}
+	}
+	
+	return handled;
+}
+
 void ShopMenu::loadWeaponInfo()
 {
 	auto weaponInfo = WeaponManager::getAllWeaponInfo();
@@ -120,7 +180,7 @@ void ShopMenu::loadWeaponInfo()
 			equiped = true;
 			sold = true;
 		}
-
+		
 		item->setItemInfo({ (*it).second._zone, (*it).second._name, (*it).second._price ,(*it).second._damage, (*it).second._cadence, (*it).second._clip, (*it).first, (*it).second._iconName, (*it).second._rarityFrame, sold, equiped });
 		_items.push_back(item);
 	}
@@ -145,14 +205,11 @@ void ShopMenu::openShop()
 	_game->getSoundManager()->playMusic("shop", true);
 
 	_dialoguePanel->stopAtLastLineShown(true);
-	_dialoguePanel->startDialogue({
-		nullptr,
-		"exampleVoice",
-		"Ollivander",
-		{"Espero que encuentres algo de tu agrado"},
-		{ 2 },
-		{ " ", " ", " ", " " }
-		});
+	_dialoguePanel->startDialogue(_game->getDialogue("Olivander 1"));
+
+	_mainMenuAbled = true;
+
+	_buttons[_selectedButton]->setSelected(false);
 }
 
 void ShopMenu::closeShop()
@@ -183,14 +240,8 @@ void ShopMenu::ableMainMenu(Game * game)
 	_depotText->setVisible(true);
 	_exitButton->setVisible(true);
 
-	_dialoguePanel->startDialogue({
-		nullptr,
-		"exampleVoice",
-		"Ollivander",
-		{ "Quieres algo mas?"},
-		{ 1 },
-		{ " ", " ", " ", " " }
-		});
+	_dialoguePanel->startDialogue(_game->getDialogue("Olivander 2"));
+	_mainMenuAbled = true;
 }
 
 void ShopMenu::disableMainMenu(Game * game)
@@ -204,6 +255,7 @@ void ShopMenu::disableMainMenu(Game * game)
 	_exitButton->setVisible(false);
 
 	_dialoguePanel->endDialogue();
+	_mainMenuAbled = false;
 }
 
 void ShopMenu::openCatalogPanel(Game* game)
@@ -212,14 +264,7 @@ void ShopMenu::openCatalogPanel(Game* game)
 
 	_catalogPanel->openCatalog();
 
-	_dialoguePanel->startDialogue({
-		nullptr,
-		"exampleVoice",
-		"Ollivander",
-		{ "Te gusta algo de lo que tengo?"},
-		{ 0 },
-		{ " ", " ", " ", " " }
-		});
+	_dialoguePanel->startDialogue(_game->getDialogue("Olivander Catalog 1"));
 }
 
 void ShopMenu::closeCatalogPanel(Game * game)
@@ -235,17 +280,7 @@ void ShopMenu::startTalking(Game* game)
 	disableMainMenu(game);
 
 	_talking = true;
-	_dialoguePanel->startDialogue({
-		nullptr,
-		"exampleVoice",
-		"Ollivander",
-		{ "He oido que la colmena esta experimentando con sustancias mutagenicas para crear super-anyas.",
-		"Si esto es verdad... estamos jodidos.",
-		"Pero bueno...",
-		"Esperemos que solo sea un rumor."},
-		{ 2, 1, 2, 0 },
-		{ " ", " ", " ", " " }
-		});
+	_dialoguePanel->startDialogue(_game->getDialogue("Olivander Talk 1"));
 }
 
 void ShopMenu::stopTalking()
@@ -259,14 +294,7 @@ void ShopMenu::openDepotPanel(Game* game)
 
 	_depotPanel->openDepotPanel();
 
-	_dialoguePanel->startDialogue({
-		nullptr,
-		"exampleVoice",
-		"Ollivander",
-		{ "¡Equipate bien antes de salir ahi fuera!"},
-		{ 0 },
-		{ " ", " ", " ", " " }
-		});
+	_dialoguePanel->startDialogue(_game->getDialogue("Olivander Depot 1"));
 }
 
 void ShopMenu::closeDepotPanel(Game * game)
