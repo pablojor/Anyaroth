@@ -13,11 +13,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	//Inicializa el manager de armas
 	WeaponManager::init();
 
-	_particles = new ParticlePull(g);
-	_stages.push_back(_particles);
-
-	_particleManager = ParticleManager::GetParticleManager();
-	_particleManager->setParticlePull(_particles);
+	
 
 	//HUD
 	_hud = new PlayStateHUD(g);
@@ -77,6 +73,12 @@ PlayState::PlayState(Game* g) : GameState(g)
 	//Gestion de colisiones
 	g->getWorld()->SetContactListener(&_colManager);
 	g->getWorld()->SetDebugDraw(&_debugger);
+
+	_particles = new ParticlePull(g);
+	_stages.push_back(_particles);
+
+	_particleManager = ParticleManager::GetParticleManager();
+	_particleManager->setParticlePull(_particles);
 }
 
 
@@ -98,9 +100,11 @@ bool PlayState::handleEvent(const SDL_Event& event)
 	}
 	else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_0) //Boton de prueba para reiniciar el nivel
 	{
-		_levelManager.resetLevel();
-		/*_particleManager->CreateSimpleParticle(gg->getTexture("Coin"), Vector2D(5, 45), 2, -75, 20000);
-		cout << _player->getComponent<BodyComponent>()->getBody()->GetPosition().y << endl;*/
+		//_levelManager.resetLevel();
+		//_particleManager->CreateExplosion(gg->getTexture("Coin"), Vector2D(20 * 8, 30 * 8), 10, 40, 1000, 30,1);
+		//_particleManager->CreateSpray(gg->getTexture("Coin"), Vector2D(20 * 8, 35 * 8), Vector2D(1, 1), 20,50, 30, 500, 15,1);
+		_particleManager->CreateFountain(gg->getTexture("Coin"), Vector2D(20 * 8, 35 * 8), Vector2D(1, 1), 10,20, 30, 2000, 10, 10000,1);
+		//cout << _player->getComponent<BodyComponent>()->getBody()->GetPosition().y << endl;
 	}
 	else if (event.type == SDL_KEYDOWN && (event.key.keysym.sym == SDLK_KP_MINUS || event.key.keysym.sym == SDLK_MINUS)) //Para probar el Zoom y sus distintan opciones
 		_mainCamera->zoomOut();
@@ -125,6 +129,6 @@ void PlayState::update(const double& deltaTime)
 		_levelManager.resetLevel();
 	}
 
-
+	_particleManager->updateManager(deltaTime);
 	GameState::update(deltaTime);
 }

@@ -180,6 +180,7 @@ Game::~Game()
 		delete (*it).second;
 
 	delete _stateMachine;
+	ParticleManager::deleteManager();
 	delete _world;
 	delete _soundManager;
 	SDL_DestroyRenderer(_renderer);

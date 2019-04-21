@@ -14,7 +14,7 @@ Particle::Particle(Game* game) : GameObject(game)
 	_anim = addComponent<AnimatedSpriteComponent>();
 
 	_body = addComponent<BodyComponent>();
-	_body->filterCollisions(PLAYER_BULLETS,PLAYER_BULLETS);
+	_body->filterCollisions(PLAYER_BULLETS,MISIL);
 	_body->getBody()->SetType(b2_dynamicBody);
 	_body->getBody()->SetFixedRotation(true);
 	_body->getBody()->SetGravityScale(0);
@@ -60,6 +60,7 @@ void Particle::update(const double & deltaTime)
 		if (_maxAliveTime > 0)
 		{
 			_maxAliveTime -= deltaTime;
+			
 		}
 		else
 		{

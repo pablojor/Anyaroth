@@ -7,6 +7,7 @@ BodyComponent::BodyComponent(GameObject * obj) : PhysicsComponent(obj)
 	_transform = obj->getComponent<TransformComponent>();
 	auto t = obj->getComponent<Texture>();
 
+	
 	if (t != nullptr)
 	{
 		_textW = (t->getW() / t->getNumCols());
