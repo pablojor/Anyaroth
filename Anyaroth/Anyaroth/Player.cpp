@@ -338,20 +338,14 @@ void Player::checkMovement(const Uint8* keyboard)
 			if (_isDashing && _dashEnabled)
 				dash(Vector2D(-1, 0));
 			else
-			{
 				move(Vector2D(-1, 0), _speed);
-				_game->getSoundManager()->playSFX("step");
-			}
 		}
 		else if (keyboard[SDL_SCANCODE_D] && !isMeleeing() && !isDashing())
 		{
 			if (_isDashing && _dashEnabled)
 				dash(Vector2D(1, 0));
 			else
-			{
 				move(Vector2D(1, 0), _speed);
-				_game->getSoundManager()->playSFX("step");
-			}
 		}
 		else if (keyboard[SDL_SCANCODE_S] && _isDashing && _dashEnabled && !isGrounded() && !isMeleeing()/*&& !isReloading()*/)
 			dash(Vector2D(0, 1));
