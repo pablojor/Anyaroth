@@ -389,7 +389,7 @@ void Player::update(const double& deltaTime)
 
 void Player::swapGun()
 {
-	if (_otherGun != nullptr)
+	if (_otherGun != nullptr && !isReloading() && !_isShooting)
 	{
 		Gun* auxGun = _currentGun;
 		_currentGun = _otherGun;
