@@ -40,7 +40,7 @@ public:
 	inline void stopAttacking() { _attacking = false; }
 	inline int random(int low, int high) const { return low + (rand() % abs(high - low)); }
 
-	void die();
+	virtual void die();
 	virtual void drop();
 
 	virtual void subLife(int damage);

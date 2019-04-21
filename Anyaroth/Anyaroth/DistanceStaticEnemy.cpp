@@ -21,6 +21,7 @@ DistanceStaticEnemy::DistanceStaticEnemy(Game* g, Player* player, Vector2D pos, 
 	_arm->setAnimations(TurretArmType);
 
 	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 12, true);
+	_anim->addAnim(AnimatedSpriteComponent::EnemyWalk, 1, false);
 	_anim->addAnim(AnimatedSpriteComponent::EnemyAttack, 8, false);
 	_anim->addAnim(AnimatedSpriteComponent::EnemyDie, 13, false);
 
@@ -49,4 +50,10 @@ void DistanceStaticEnemy::update(const double& deltaTime)
 			shoot();
 		}
 	}
+}
+
+void DistanceStaticEnemy::die()
+{
+	Enemy::die();
+	_arm->setActive(false);
 }
