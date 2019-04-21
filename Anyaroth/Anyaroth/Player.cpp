@@ -62,7 +62,7 @@ Player::Player(Game* game, int xPos, int yPos) : GameObject(game, "Player")
 	addChild(_playerArm);
 	
 	_currentGun = WeaponManager::getWeapon(game, ImprovedShotgun_Weapon);
-	_otherGun = WeaponManager::getWeapon(game, BasicShotgun_Weapon);
+	_otherGun = WeaponManager::getWeapon(game, ImprovedRifle_Weapon);
 
 	_playerArm->setTexture(_currentGun->getArmTexture());
 	_playerArm->setAnimations(PlayerArmType);

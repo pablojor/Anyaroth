@@ -28,7 +28,6 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_playerBulletPool = new BulletPool(g);
 	_player->setPlayerBulletPool(_playerBulletPool);
 	_player->setPlayerPanel(_hud->getPlayerPanel());
-	_stages.push_back(_player);
 
 	_hud->getShop()->setPlayer(_player);
 	_hud->getShop()->setVisible(false);
@@ -37,10 +36,13 @@ PlayState::PlayState(Game* g) : GameState(g)
 	auto enemyPool = new BulletPool(g);
 
 	//Levels
-	GameManager::getInstance()->setCurrentLevel(LevelManager::Safe1_1);
+	GameManager::getInstance()->setCurrentLevel(LevelManager::Demo);
 	_levelManager = LevelManager(g, _player, &_stages, _hud, enemyPool);
 	_levelManager.setLevel(GameManager::getInstance()->getCurrentLevel());
 	_mainCamera->setWorldBounds(_levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getWidth(), _levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getHeight());
+
+	//El player se renderiza por encima del tilemap
+	_stages.push_back(_player);
 
 	//Background
 	_parallaxZone1 = new ParallaxBackGround(_mainCamera);
