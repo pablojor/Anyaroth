@@ -43,9 +43,17 @@ void NPC::update(const double& time)
 	if (_canInteract)
 	{
 		if (_dialoguePanel->isConversating())
+		{
 			_interactIndicator->setActive(false);
+			if (_other != nullptr)
+				_other->setInputFreezed(true);
+		}
 		else
+		{
 			_interactIndicator->setActive(true);
+			if (_other != nullptr)
+				_other->setInputFreezed(false);
+		}
 	}
 }
 

@@ -55,6 +55,7 @@ void Interactable::beginCollision(GameObject * other, b2Contact* contact)
 	{
 		_canInteract = true;
 		_interactIndicator->setActive(true);
+		_other = dynamic_cast<Player*>(other);
 	}
 }
 
@@ -65,5 +66,6 @@ void Interactable::endCollision(GameObject * other, b2Contact* contact)
 	{
 		_canInteract = false;
 		_interactIndicator->setActive(false);
+		_other = nullptr;
 	}
 }
