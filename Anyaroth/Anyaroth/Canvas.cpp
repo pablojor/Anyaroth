@@ -19,8 +19,20 @@ void Canvas::update(const double& deltaTime)
 		e->update(deltaTime);
 }
 
-void Canvas::handleEvent(const SDL_Event& event)
+bool Canvas::handleEvent(const SDL_Event& event)
 {
-	for (UIElement* e : _elements)
-		e->handleEvent(event);
+	bool handled = false;
+
+	auto it = _elements.begin();
+
+	while (!handled && it != _elements.end())
+	{
+		if ((*it)->handleEvent(event))
+			handled = true;
+		else
+			it++;
+	}
+	
+
+	return handled;
 }

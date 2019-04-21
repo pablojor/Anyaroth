@@ -36,6 +36,8 @@ class DepotPanel : public PanelUI
 		DepotPanel(Game* game);
 		virtual ~DepotPanel() {};
 
+		virtual bool handleEvent(const SDL_Event& event);
+
 		void inicializeCallback(ShopMenu* menu);
 
 		void setPlayer(Player* ply);

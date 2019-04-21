@@ -50,7 +50,7 @@ public:
 	void setCameraPosition(double x, double y);
 	void setCameraSize(double w, double h);
 
-	inline void setBackGround(BackGround* bg) { _backGround = bg; }
+	inline void setBackGround(BackGround* bg) { if (_backGround != nullptr) delete _backGround; _backGround = bg; }
 
 	inline Vector2D getCameraPosition() const { return Vector2D(_cameraRect.x, _cameraRect.y); }
 	inline Vector2D getCameraSize() const { return Vector2D(_cameraRect.w, _cameraRect.h); }

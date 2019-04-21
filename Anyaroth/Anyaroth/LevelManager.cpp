@@ -12,6 +12,8 @@ LevelManager::LevelManager(Game* game, Player* player, list<GameObject*>* object
 
 void LevelManager::setLevel(int l)
 {
+	_currentLevel = l;
+
 	switch (l)
 	{
 	case LevelManager::Tutorial:

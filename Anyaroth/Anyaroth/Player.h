@@ -36,7 +36,7 @@ private:
 		_floorCount = 0,
 		_deathCD = 3000;
 
-	bool _isReloading = false,
+	bool _hasToReload = false,
 		_isShooting = false,
 		_isMeleeing = false,
 		_isDashing = false,
@@ -44,6 +44,15 @@ private:
 		_dashDown = false,
 		_dashEnabled = true,
 		_changeLevel = false,
+		_jJump = false,
+		_jShoot = false,
+		_jMoveLeft = false,
+		_jMoveDown = false,
+		_jMoveRight = false;
+
+	double _speed = 15,
+		   _jPosX,
+		   _jPosY,
 		_inputFreezed = false;
 
 	float _timeToJump = 100.f;
@@ -92,6 +101,7 @@ public:
 
 	inline bool spendMoney(int n) { return _money->spend(n); }
 	inline int getBank() const { return _money->getBank(); }
+	inline void setBank(int amount) { _money->setBank(amount); }
 
 	void move(const Vector2D& dir, const double& speed);
 	void dash(const Vector2D& dir);
@@ -106,6 +116,7 @@ public:
 	void reload();
 
 	void setPlayerPanel(PlayerPanel* p);
+	inline PlayerPanel* getPlayerPanel() const { return _playerPanel; };
 
 	inline void setPlayerPosition(Vector2D pos) { _body->getBody()->SetTransform(b2Vec2(pos.getX(), pos.getY()), 0); }
 	inline void setPlayerBulletPool(PoolWrapper* pool) { _playerBulletPool = pool; }
@@ -117,7 +128,8 @@ public:
 	inline bool isInputFreezed() { return _inputFreezed; }
 
 	inline bool isDashing() const { return _onDash; }
-	inline bool isReloading() const { return false; } //Cambiar al añadir animación
+	inline bool isReloading() const { return _playerArm->isReloading(); }
+	inline void setIsReloading(const bool& b) { _hasToReload = b; }
 	inline bool isMeleeing() const {
 		return (_anim->getCurrentAnim() == AnimatedSpriteComponent::MeleeKnife || _anim->getCurrentAnim() == AnimatedSpriteComponent::MeleeKnife) && !_anim->animationFinished();
 	}

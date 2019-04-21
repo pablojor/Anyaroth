@@ -15,6 +15,7 @@ protected:
 	bool _isAutomatic = false;
 	EffectInterface* _effect;
 	BulletAnimType _bulletAnimType;
+	ArmAnimType _animType;
 
 	double _damage = 0, _range = 0, _speed = 0;
 
@@ -23,6 +24,7 @@ protected:
 	Texture* _armTexture = nullptr, *_bulletTexture = nullptr, *_iconTexture = nullptr;
 	string _shotSoundTag = "";
 	Game* _game = nullptr;
+
 
 public:
 	Gun(Game* game, Texture* armTexture, Texture* bulletTexture, string shotSoundTag, double speed, double damage, double range, int maxClip, int maxMagazine, int maxCadence, EffectInterface* effect, GunType id, Texture* iconTexture, bool automatic = false, BulletAnimType bType = BulletAnimType::Default);
@@ -44,6 +46,7 @@ public:
 	inline int getMaxClip() const { return _maxClip; }
 
 	inline const GunType& getGunID() const { return _id; }
+	inline const ArmAnimType& getAnimType() const { return _animType; }
 
 	inline bool hasToBeReloaded() const { return _clip == 0 && _magazine > 0; }
 

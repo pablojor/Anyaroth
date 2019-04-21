@@ -74,12 +74,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SolutionDir)SDL2_mixer-2.0.4\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)SDL2_mixer-2.0.4\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(IncludePath)</IncludePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>D:\gtada\Desktop\Repositorio - GitHUB\Anyaroth\Anyaroth\SDL2_mixer-2.0.4\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\gtada\Desktop\Repositorio - GitHUB\Anyaroth\Anyaroth\SDL2_mixer-2.0.4\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(IncludePath)</IncludePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -87,11 +87,13 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Json\nlohmann;$(SolutionDir)SDL2_image-2.0.1\include;$(SolutionDir)SDL2_mixer-2.0.4\include;$(SolutionDir)SDL2_ttf-2.0.14\include;$(SolutionDir)SDL2-2.0.9\include;$(SolutionDir)Box2D\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)SDL2_ttf-2.0.14\lib\x86;$(SolutionDir)SDL2_image-2.0.1\lib\x86;$(SolutionDir)SDL2_mixer-2.0.4\lib\x86;$(SolutionDir)SDL2-2.0.9\lib\x86;$(SolutionDir)Box2D\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Box2D_d.lib;SDL2.lib;SDL2main.lib;SDL2test.lib;SDL2_ttf.lib;SDL2_mixer.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -100,7 +102,11 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
+    <Link>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -110,11 +116,14 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)Json\nlohmann;$(SolutionDir)SDL2_image-2.0.1\include;$(SolutionDir)SDL2_mixer-2.0.4\include;$(SolutionDir)SDL2_ttf-2.0.14\include;$(SolutionDir)SDL2-2.0.9\include;$(SolutionDir)Box2D\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Box2D.lib;SDL2.lib;SDL2main.lib;SDL2test.lib;SDL2_ttf.lib;SDL2_mixer.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)SDL2_image-2.0.1\lib\x86;$(SolutionDir)SDL2_mixer-2.0.4\lib\x86;$(SolutionDir)SDL2_ttf-2.0.14\lib\x86;$(SolutionDir)SDL2-2.0.9\lib\x86;$(SolutionDir)Box2D\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -125,10 +134,12 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -175,6 +186,8 @@
     <ClCompile Include="GravityBombDebuff.cpp" />
     <ClCompile Include="GravityBulletEffect.cpp" />
     <ClCompile Include="Interactable.cpp" />
+    <ClCompile Include="MainMenuPanel.cpp" />
+    <ClCompile Include="MenuStateHUD.cpp" />
     <ClCompile Include="MoveEvent.cpp" />
     <ClCompile Include="NPC.cpp" />
     <ClCompile Include="ImprovedRifle.cpp" />
@@ -187,6 +200,9 @@
     <ClCompile Include="MisilBoss1.cpp" />
     <ClCompile Include="MovingComponent.cpp" />
     <ClCompile Include="Melee.cpp" />
+    <ClCompile Include="OptionsPanel.cpp" />
+    <ClCompile Include="PausePanel.cpp" />
+    <ClCompile Include="PauseStateHUD.cpp" />
     <ClCompile Include="PiercingBulletEffect.cpp" />
     <ClCompile Include="PlasmaSniper.cpp" />
     <ClCompile Include="PlayerArm.cpp" />
@@ -311,9 +327,11 @@
     <ClInclude Include="ImprovedShotgun.h" />
     <ClInclude Include="GroundEnemy.h" />
     <ClInclude Include="LevelManager.h" />
+    <ClInclude Include="MainMenuPanel.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="ExplosiveBulletEffect.h" />
     <ClInclude Include="FlyingEnemy.h" />
+    <ClInclude Include="MenuStateHUD.h" />
     <ClInclude Include="MisilBoss1.h" />
     <ClInclude Include="MoveEvent.h" />
     <ClInclude Include="MovingComponent.h" />
@@ -321,6 +339,9 @@
     <ClInclude Include="NPC.h" />
     <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="Melee.h" />
+    <ClInclude Include="OptionsPanel.h" />
+    <ClInclude Include="PausePanel.h" />
+    <ClInclude Include="PauseStateHUD.h" />
     <ClInclude Include="PiercingBulletEffect.h" />
     <ClInclude Include="PlasmaSniper.h" />
     <ClInclude Include="PlayerArm.h" />
@@ -398,6 +419,5 @@
     <ClInclude Include="ZoomInOutEvent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets">
-  </ImportGroup>
+  <ImportGroup Label="ExtensionTargets" />
 </Project>

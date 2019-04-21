@@ -79,7 +79,7 @@ Gun* WeaponManager::getWeapon(Game* _game, GunType type)
 	case BounceOrbCannon_Weapon:
 		w = new BounceOrbCannon(_game);
 		break;
-	case GravityBombCannon_Weapon:
+	case BHCannon_Weapon:
 		w = new GravityBombCannon(_game);
 		break;
 	default:

@@ -31,7 +31,7 @@ protected:
 public:
 	enum Player { Idle, Walk, WalkBack, MeleeKnife, MeleeSword, BeforeJump, Jump, StartFalling, Falling, Hurt, Dash, DashDown, DashBack, MeleeHalberd, PlayerDie };
 	enum Enemy { EnemyIdle, EnemyWalk, EnemyAttack, EnemyDie };
-	enum Gun { None, Shoot, NoAmmo };
+	enum Gun { None, Shoot, NoAmmo, Reload };
 	enum Bullet { Default, Destroy };
 	enum MissileTurret { Deactivated, Activating, Active, Used };
 	enum SingleAnim { Main };

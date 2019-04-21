@@ -84,7 +84,7 @@ void CutScene::addFlipEvent()
 	_events.push(new FlipEvent(_player));
 }
 
-void CutScene::addShopEvent(ShopMenu* shop, int currentZone)
+void CutScene::addShopEvent(ShopMenu* shop)
 {
-	_events.push(new ShopEvent(shop, currentZone));
+	_events.push(new ShopEvent(shop));
 }
