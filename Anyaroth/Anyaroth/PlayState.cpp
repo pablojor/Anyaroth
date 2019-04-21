@@ -210,10 +210,6 @@ void PlayState::update(const double& deltaTime)
 
 			gManager->setCurrentLevel(gManager->getCurrentLevel() + 1);
 			_levelManager.changeLevel(gManager->getCurrentLevel());
-<<<<<<< HEAD
-=======
-
->>>>>>> master
 			_mainCamera->setWorldBounds(_levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getWidth(), _levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getHeight());
 			_mainCamera->setZoom(CAMERA_SCALE_FACTOR);
 		}
