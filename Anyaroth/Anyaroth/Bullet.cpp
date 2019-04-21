@@ -59,6 +59,8 @@ void Bullet::init(Texture* texture, const Vector2D& position, const double& spee
 	_body->getBody()->SetTransform({ (float32)(position.getX() / M_TO_PIXEL), (float32)(position.getY() / M_TO_PIXEL) }, _body->getBody()->GetAngle());
 	_body->getBody()->SetLinearVelocity(b2Vec2(0, 0));
 
+	_body->filterCollisions(PLAYER_BULLETS, FLOOR | PLATFORMS | ENEMIES);
+
 	_effect = effect;
 	_effect->init(this);
 
