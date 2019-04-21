@@ -81,7 +81,7 @@
       "PlasmaSniper": {
         "zone": 3,
         "frame": "RareFrame",
-        "icon": "Weapon1",
+        "icon": "SniperIcon",
         "price": 1250,
         "speed": 100,
         "damage": 60,
@@ -95,7 +95,7 @@
       "BounceOrbCanon": {
         "zone": 2,
         "frame": "RareFrame",
-        "icon": "Weapon1",
+        "icon": "BounceCannonIcon",
         "price": 1000,
         "speed": 30,
         "damage": 15,
