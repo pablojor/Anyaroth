@@ -3,6 +3,7 @@
 #include "TransformComponent.h"
 #include "AnimatedSpriteComponent.h"
 #include "BodyComponent.h"
+#include "Player.h"
 
 class Interactable : public GameObject
 {
@@ -11,6 +12,7 @@ protected:
 	TransformComponent* _transform = nullptr;
 	AnimatedSpriteComponent* _anim = nullptr;
 	BodyComponent* _body = nullptr;
+	Player* _other = nullptr;
 
 	bool _canInteract = false;
 	GameObject* _interactIndicator = nullptr;
