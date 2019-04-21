@@ -9,7 +9,7 @@ enum GunType
 	ImprovedRifle_Weapon,
 	PlasmaSniper_Weapon,
 	BounceOrbCannon_Weapon,
-	GravityBombCannon_Weapon,
+	BHCannon_Weapon,
 
 	BomberGun_Weapon,
 	BasicEnemyGun_Weapon,
@@ -41,10 +41,12 @@ enum ArmAnimType
 {
 	DefaultArmType,
 	PlayerShotgunArmType,
+	PlayerImprovedShotgunArmType,
 	PlayerPistolArmType,
 	PlayerRifleArmType,
+	PlayerImprovedRifleArmType,
 	PlayerBounceCannonArmType,
 	PlayerSniperArmType,
-	TurretArmType,
-	BHCannonArmType
+	PlayerBHCannonArmType,
+	TurretArmType
 };
