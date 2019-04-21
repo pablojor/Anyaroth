@@ -28,7 +28,6 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_playerBulletPool = new BulletPool(g);
 	_player->setPlayerBulletPool(_playerBulletPool);
 	_player->setPlayerPanel(_hud->getPlayerPanel());
-	_stages.push_back(_player);
 
 	_hud->getShop()->setPlayer(_player);
 	_hud->getShop()->setVisible(false);
@@ -50,12 +49,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 
 	//Cursor
 	_cursor = new Cursor(g);
-	_stages.push_back(_cursor);
 	SDL_ShowCursor(false);
-
-	//Balas se renderizan al final
-	_stages.push_back(_playerBulletPool);
-	_stages.push_back(enemyPool);
 
 	//Camera
 	_mainCamera->fixCameraToObject(_player);
@@ -99,6 +93,13 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_cutScene->addMoveEvent(_player->getComponent<BodyComponent>(), 1, 10, 50);
 
 	//_cutScene->play();
+
+	//----AÑADIR A LOS OBJETOS----//
+
+	_stages.push_back(_cursor);
+	_stages.push_back(_player);
+	_stages.push_back(_playerBulletPool);
+	_stages.push_back(enemyPool);
 }
 
 PlayState::~PlayState()

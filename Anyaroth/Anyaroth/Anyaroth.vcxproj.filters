@@ -328,9 +328,6 @@
     <ClCompile Include="ButtonUI.cpp">
       <Filter>Archivos de código fuente\HUD\UIElements</Filter>
     </ClCompile>
-    <ClCompile Include="Shop.cpp">
-      <Filter>Archivos de código fuente\Objects\Interactables</Filter>
-    </ClCompile>
     <ClCompile Include="GravityBombDebuff.cpp">
       <Filter>Archivos de código fuente\Components</Filter>
     </ClCompile>
@@ -396,6 +393,9 @@
     </ClCompile>
     <ClCompile Include="MenuStateHUD.cpp">
       <Filter>Archivos de código fuente\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="Shop.cpp">
+      <Filter>Archivos de código fuente\Objects\Interactables</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -762,9 +762,6 @@
     <ClInclude Include="ButtonUI.h">
       <Filter>Archivos de encabezado\HUD\UIElements</Filter>
     </ClInclude>
-    <ClInclude Include="Shop.h">
-      <Filter>Archivos de encabezado\Objects\Interactables</Filter>
-    </ClInclude>
     <ClInclude Include="GravityBombDebuff.h">
       <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
@@ -830,6 +827,9 @@
     </ClInclude>
     <ClInclude Include="PausePanel.h">
       <Filter>Archivos de encabezado\HUD\Panels</Filter>
+    </ClInclude>
+    <ClInclude Include="Shop.h">
+      <Filter>Archivos de encabezado\Objects\Interactables</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
