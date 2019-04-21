@@ -15,7 +15,7 @@ void PlayerArm::update(const double& deltaTime)
 	Vector2D mousePos;
 
 	//Rotacion del brazo
-	if (_player->isInputFreezed())
+	if (_player->isInputFreezed() || isReloading())
 	{
 		if (_player->getComponent<CustomAnimatedSpriteComponent>()->isFlipped())
 			mousePos = { _transform->getPosition().getX() - 200, _transform->getPosition().getY() };
@@ -28,6 +28,14 @@ void PlayerArm::update(const double& deltaTime)
 	lookAtTarget(mousePos);
 	handleFlipState(mousePos);
 
+
+
+	if (reloadFinished())
+	{
+		_player->setIsReloading(false);
+		_player->getPlayerPanel()->updateAmmoViewer(_player->getCurrentGun()->getClip(), _player->getCurrentGun()->getMagazine());
+	}
+
 	if (_anim->animationFinished())
 		_anim->playAnim(AnimatedSpriteComponent::Idle);
 }
@@ -37,7 +45,7 @@ void PlayerArm::shoot()
 {
 	if (_player->getCurrentGun()->canShoot())
 		_anim->playAnim(AnimatedSpriteComponent::Shoot);
-	else
+	else if (!_player->getCurrentGun()->canReload())
 		_anim->playAnim(AnimatedSpriteComponent::NoAmmo);
 }
 
@@ -45,9 +53,7 @@ void PlayerArm::shoot()
 void PlayerArm::reload()
 {
 	//Activar animacion aqui
-	//if (_player->getCurrentGun()->canReload())
-		//Animacion de los brazon recargando (FALTA!!!)
-		//_anim->playAnim(AnimatedSpriteComponent::Reload);
+	_anim->playAnim(AnimatedSpriteComponent::Reload);
 }
 
 void PlayerArm::handleFlipState(const Vector2D& target)

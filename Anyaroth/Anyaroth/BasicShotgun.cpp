@@ -5,6 +5,7 @@ BasicShotgun::BasicShotgun(Game * game) : Shotgun(game, game->getTexture("ArmSho
 {
 	_angleBetweenBullet = 30;
 	_numBulletsPerShot = 2;
+	_animType = PlayerShotgunArmType;
 }
 
 BasicShotgun::~BasicShotgun() {}

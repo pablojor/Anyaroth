@@ -42,6 +42,8 @@ class CatalogPanel : public PanelUI
 		CatalogPanel(Game* game);
 		~CatalogPanel() {};
 
+		virtual bool handleEvent(const SDL_Event& event);
+
 		void inicializeCallbacks(ShopMenu* menu);
 
 		void setPlayer(Player* ply);

@@ -379,8 +379,23 @@
     <ClCompile Include="ShopEvent.cpp">
       <Filter>Archivos de código fuente\Events</Filter>
     </ClCompile>
-    <ClCompile Include="WaitingEvent.cpp">
+    <ClCompile Include="waitEvent.cpp">
       <Filter>Archivos de código fuente\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="PausePanel.cpp">
+      <Filter>Archivos de código fuente\HUD\Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="OptionsPanel.cpp">
+      <Filter>Archivos de código fuente\HUD\Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenuPanel.cpp">
+      <Filter>Archivos de código fuente\HUD\Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="PauseStateHUD.cpp">
+      <Filter>Archivos de código fuente\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuStateHUD.cpp">
+      <Filter>Archivos de código fuente\HUD</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -771,9 +786,6 @@
     <ClInclude Include="ZoomInOutEvent.h">
       <Filter>Archivos de encabezado\Events</Filter>
     </ClInclude>
-    <ClInclude Include="WaitingEvent.h">
-      <Filter>Archivos de encabezado\Events</Filter>
-    </ClInclude>
     <ClInclude Include="ShopEvent.h">
       <Filter>Archivos de encabezado\Events</Filter>
     </ClInclude>
@@ -800,6 +812,24 @@
     </ClInclude>
     <ClInclude Include="CamEffectType.h">
       <Filter>Archivos de encabezado\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="waitEvent.h">
+      <Filter>Archivos de encabezado\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="PauseStateHUD.h">
+      <Filter>Archivos de encabezado\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuStateHUD.h">
+      <Filter>Archivos de encabezado\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenuPanel.h">
+      <Filter>Archivos de encabezado\HUD\Panels</Filter>
+    </ClInclude>
+    <ClInclude Include="OptionsPanel.h">
+      <Filter>Archivos de encabezado\HUD\Panels</Filter>
+    </ClInclude>
+    <ClInclude Include="PausePanel.h">
+      <Filter>Archivos de encabezado\HUD\Panels</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

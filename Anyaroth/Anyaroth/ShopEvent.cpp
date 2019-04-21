@@ -1,6 +1,6 @@
 #include "ShopEvent.h"
 
-ShopEvent::ShopEvent(ShopMenu* shop, int currentZone) : _shop(shop)
+ShopEvent::ShopEvent(ShopMenu* shop) : _shop(shop)
 {
 
 }

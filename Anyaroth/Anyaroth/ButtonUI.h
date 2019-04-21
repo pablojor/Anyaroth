@@ -24,7 +24,8 @@ class ButtonUI : public FramedImageUI
 		uint _onUpFrame = 0;
 		uint _onInactiveFrame = 0;
 
-		bool _inputEnable = true;
+		bool _inputEnable = true,
+			 _selected = false;
 
 		bool mouseIsOver();
 
@@ -33,15 +34,22 @@ class ButtonUI : public FramedImageUI
 		virtual ~ButtonUI() {};
 
 		virtual void update(const double& deltaTime);
-		virtual void handleEvent(const SDL_Event& event);
+		virtual bool handleEvent(const SDL_Event& event);
 
 		inline void onUp(const Callback& callback) { _onUpCallback = callback; }
 		inline void onDown(const Callback& callback) { _onDownCallback = callback; }
 		inline void onOver(const Callback& callback) { _onOverCallback = callback; }
 		inline void onOut(const Callback& callback) { _onOutCallback = callback; }
 
+		inline void callUp() { _onUpCallback(_game); }
+		inline void callDown() { _onDownCallback(_game); }
+		inline void callOver() { _onOverCallback(_game); }
+		inline void callOut() { _onOutCallback(_game); }
+
 		void setFrames(Frames frames);
 		virtual void setVisible(bool a);
+
+		virtual void setSelected(bool selected) { _positionState = (selected) ? Over : Out; _selected = selected; }
 
 		void setInputEnable(bool b);
 };

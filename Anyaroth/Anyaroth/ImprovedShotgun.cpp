@@ -6,6 +6,7 @@ ImprovedShotgun::ImprovedShotgun(Game * game) : Shotgun(game, game->getTexture("
 {
 	_angleBetweenBullet = 10;
 	_numBulletsPerShot = 4;
+	_animType = PlayerImprovedShotgunArmType;
 }
 
 

@@ -296,16 +296,17 @@ void DialoguePanel::update(const double& deltaTime)
 	}
 }
 
-void DialoguePanel::handleEvent(const SDL_Event& event)
+bool DialoguePanel::handleEvent(const SDL_Event& event)
 {
 	PanelUI::handleEvent(event);
 
-	if (event.type == SDL_KEYDOWN && !event.key.repeat) // Captura solo el primer frame que se pulsa
+	if ((event.type == SDL_KEYDOWN && !event.key.repeat) || event.type == SDL_CONTROLLERBUTTONDOWN) // Captura solo el primer frame que se pulsa
 	{
-		if (event.key.keysym.sym == SDLK_e) //TECLA PARA PASAR DE TEXTO EN EL DIALOGO
+		if (event.key.keysym.sym == SDLK_e || event.jbutton.button == SDL_CONTROLLER_BUTTON_X) //TECLA PARA PASAR DE TEXTO EN EL DIALOGO
 			if (!_keepLastLine)
 				nextText();
 			else if (_currentText != _dialogue.conversation.size() - 1)
 				nextText();
 	}
+	return false;
 }

@@ -68,4 +68,5 @@ void AnimatedSpriteComponent::addAnim(uint name, uint numFrames, bool loop, uint
 void AnimatedSpriteComponent::reset()
 {
 	_animations.clear();
+	_frame = 0;
 }
