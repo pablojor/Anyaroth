@@ -1,6 +1,5 @@
 #pragma once
 #include "Map.h"
-#include <list>
 
 class LevelManager
 {
@@ -9,6 +8,7 @@ private:
 	Player* _player = nullptr;
 	PlayStateHUD* _hud = nullptr;
 
+	GameObject* _level = nullptr;
 	Map* _currentMap = nullptr;
 	Map* _currentSafeZone = nullptr;
 	BulletPool* _enemyBulletPool = nullptr;
@@ -17,13 +17,9 @@ private:
 	Texture* _tilesetBoss1 = nullptr;
 	Texture* _tilesetZone2 = nullptr;
 
-	list<GameObject*>* _objectList;
-
-	int _currentLevel = 0;
-
 public:
 	LevelManager() {}
-	LevelManager(Game* game, Player* player, list<GameObject*>* objects, PlayStateHUD* hud, BulletPool* bulletPool);
+	LevelManager(Game* game, Player* player, GameObject* level, PlayStateHUD* hud, BulletPool* bulletPool);
 	~LevelManager() {}
 
 	enum Level
@@ -33,7 +29,6 @@ public:
 		Safe3_1, Level3_1, Safe3_2, Level3_2, SafeBoss3, Boss3, Demo = 20
 	};
 
-	inline int const getLevel() { return _currentLevel; }
 	void setLevel(int l);
 	void changeLevel(int l);
 	Map* getCurrentLevel(int l) const;

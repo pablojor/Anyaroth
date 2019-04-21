@@ -10,13 +10,9 @@
 
 using namespace nlohmann;
 
-
 PlayState::PlayState(Game* g) : GameState(g)
 {
-	_mainCamera->setWorldBounds(LEVEL_WIDTH, LEVEL_HEIGHT);
 	GameManager::init();
-
-	//Inicializa el manager de armas
 	WeaponManager::init();
 
 	//HUD
@@ -36,16 +32,19 @@ PlayState::PlayState(Game* g) : GameState(g)
 	auto enemyPool = new BulletPool(g);
 
 	//Levels
-	GameManager::getInstance()->setCurrentLevel(LevelManager::Demo);
-	_levelManager = LevelManager(g, _player, &_stages, _hud, enemyPool);
+	GameManager::getInstance()->setCurrentLevel(LevelManager::Level1_1);
+	_level = new GameObject(g);
+	_levelManager = LevelManager(g, _player, _level, _hud, enemyPool);
 	_levelManager.setLevel(GameManager::getInstance()->getCurrentLevel());
 	_mainCamera->setWorldBounds(_levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getWidth(), _levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getHeight());
+
 	//Background
 	_parallaxZone1 = new ParallaxBackGround(_mainCamera);
 	_parallaxZone1->addLayer(new ParallaxLayer(g->getTexture("BgZ1L1"), _mainCamera, 0.25));
 	_parallaxZone1->addLayer(new ParallaxLayer(g->getTexture("BgZ1L2"), _mainCamera, 0.5));
 	_parallaxZone1->addLayer(new ParallaxLayer(g->getTexture("BgZ1L3"), _mainCamera, 0.75));
 
+	_stages.push_back(_level);
 	_stages.push_back(_player);
 
 	//Cursor
@@ -152,6 +151,7 @@ void PlayState::saveGame()
 {
 	ofstream output;
 	output.open(SAVES_PATH + "save.json");
+
 	if (output.is_open())
 	{
 		json j;
@@ -174,6 +174,7 @@ void PlayState::loadGame()
 {
 	ifstream input;
 	input.open(SAVES_PATH + "save.json");
+
 	if (input.is_open())
 	{
 		json j;
@@ -183,7 +184,6 @@ void PlayState::loadGame()
 		_levelManager.changeLevel(j["level"]);
 		_player->changeCurrentGun(WeaponManager::getWeapon(_gameptr, j["currentGun"]));
 		_player->changeOtherGun(WeaponManager::getWeapon(_gameptr, j["otherGun"]));
-
 
 		auto items = _hud->getShop()->getItems();
 		for (ShopItem* i : items)
@@ -201,15 +201,22 @@ void PlayState::update(const double& deltaTime)
 	{
 		GameManager* gManager = GameManager::getInstance();
 		_player->setChangeLevel(false);
+
 		if (!_player->isDead())
 		{
 			_player->revive();
 
-			if ((gManager->getCurrentLevel() + 1) % 2 == 0)//Si el proximo nivel no es una safezone guarda el juego
+			if ((gManager->getCurrentLevel() + 1) % 2 == 0) //Si el proximo nivel no es una safe zone guarda el juego
 				saveGame();
 
-			gManager->setCurrentLevel(gManager->getCurrentLevel() + 1);
-			_levelManager.changeLevel(gManager->getCurrentLevel());
+			if (gManager->getCurrentLevel() == LevelManager::Demo)
+				_levelManager.resetLevel();
+			else
+			{
+				gManager->setCurrentLevel(gManager->getCurrentLevel() + 1);
+				_levelManager.changeLevel(gManager->getCurrentLevel());
+			}
+
 			_mainCamera->setWorldBounds(_levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getWidth(), _levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getHeight());
 			_mainCamera->setZoom(CAMERA_SCALE_FACTOR);
 		}
@@ -217,8 +224,15 @@ void PlayState::update(const double& deltaTime)
 		{
 			_playerBulletPool->stopBullets();
 			_player->revive();
-			gManager->setCurrentLevel(gManager->getCurrentLevel() - 1);
-			_levelManager.changeLevel(gManager->getCurrentLevel());
+
+			if (gManager->getCurrentLevel() == LevelManager::Demo)
+				_levelManager.resetLevel();
+			else
+			{
+				gManager->setCurrentLevel(gManager->getCurrentLevel() - 1);
+				_levelManager.changeLevel(gManager->getCurrentLevel());
+			}
+
 			_mainCamera->setWorldBounds(_levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getWidth(), _levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getHeight());
 			_mainCamera->setZoom(CAMERA_SCALE_FACTOR);
 		}
@@ -235,8 +249,6 @@ void PlayState::update(const double& deltaTime)
 				_cutScene = nullptr;
 			}
 		}
-
 	}
-
 	GameState::update(deltaTime);
 }
