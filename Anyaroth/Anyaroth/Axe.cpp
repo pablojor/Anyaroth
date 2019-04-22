@@ -2,7 +2,7 @@
 #include "Game.h"
 #include <math.h>
 
-Axe::Axe(Game * g, Vector2D offset, Uint16 collidesWith, double damage, double w, double h, double iniAngle) : Melee(g, offset, collidesWith, damage, w, h), _angle(iniAngle), _iniAngle(iniAngle) {}
+Axe::Axe(Game * g, Vector2D offset, Uint16 collidesWith, double damage, double w, double h, double iniAngle) : Melee(g, offset, collidesWith, damage, w, h, Sword_Weapon), _angle(iniAngle), _iniAngle(iniAngle) {}
 
 void Axe::meleeAttack(double x, double y, int dir)
 {

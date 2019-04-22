@@ -122,6 +122,24 @@ void ShopMenu::loadWeaponInfo()
 		item->setItemInfo({ (*it).second._zone, (*it).second._name, (*it).second._price ,(*it).second._damage, (*it).second._cadence, (*it).second._clip, (*it).first, (*it).second._iconName, (*it).second._rarityFrame, sold, equiped });
 		_items.push_back(item);
 	}
+
+	auto meleeInfo = WeaponManager::getAllMeleeInfo();
+	for (auto it = meleeInfo.begin(); it != meleeInfo.end(); it++)
+	{
+		auto item = new ShopItem(_game, _game->getTexture((*it).second._iconName));
+
+		bool sold = false;
+		bool equiped = false;
+
+		if ((*it).second._zone == -1)
+		{
+			equiped = true;
+			sold = true;
+		}
+
+		item->setMeleeInfo({ (*it).second._zone, (*it).second._name,(*it).second._damage, (*it).first, (*it).second._iconName, (*it).second._rarityFrame, sold, equiped });
+		_items.push_back(item);
+	}
 }
 
 void ShopMenu::setPlayer(Player* ply) 

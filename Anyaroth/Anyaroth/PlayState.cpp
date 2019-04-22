@@ -37,9 +37,6 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_levelManager = LevelManager(g, _player, &_stages, _hud, enemyPool);
 	_levelManager.setLevel(_currentLevel);
 	
-	Boss2* boss = new Boss2(g, _player, Vector2D(200, 300), _playerBulletPool);
-	_stages.push_back(boss);
-	boss->setBossPanel(_hud->getBossPanel());
 	//Background
 	_parallaxZone1 = new ParallaxBackGround(_mainCamera);
 	_parallaxZone1->addLayer(new ParallaxLayer(g->getTexture("BgZ1L1"), _mainCamera, 0.25));

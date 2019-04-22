@@ -1,10 +1,9 @@
 {
-    "Basic":
-    {
-      "BasicPistol": 
-      {
+  "Guns": {
+    "Basic": {
+      "BasicPistol": {
         "zona": -1,
-	      "frame": "BasicFrame",
+        "frame": "BasicFrame",
         "icon": "PistolIcon",
         "price": 0,
         "speed": 100,
@@ -15,7 +14,6 @@
         "cadence": 270,
         "id": 0
       },
-
       "BasicRifle": {
         "zona": 1,
         "frame": "BasicFrame",
@@ -29,7 +27,6 @@
         "cadence": 170,
         "id": 3
       },
-
       "BasicShotgun": {
         "zona": 1,
         "frame": "BasicFrame",
@@ -44,9 +41,7 @@
         "id": 1
       }
     },
-
-    "Common":
-    {
+    "Common": {
       "ImproveRifle": {
         "zona": 1,
         "frame": "CommonFrame",
@@ -60,7 +55,6 @@
         "cadence": 100,
         "id": 4
       },
-
       "ImproveShotgun": {
         "zona": 1,
         "frame": "CommonFrame",
@@ -75,9 +69,7 @@
         "id": 2
       }
     },
-
-    "Rare" :
-    {
+    "Rare": {
       "PlasmaSniper": {
         "zona": 3,
         "frame": "RareFrame",
@@ -91,7 +83,6 @@
         "cadence": 1500,
         "id": 5
       },
-
       "BounceOrbCanon": {
         "zona": 2,
         "frame": "RareFrame",
@@ -105,7 +96,6 @@
         "cadence": 200,
         "id": 6
       },
-
       "GravityCannon": {
         "zona": 2,
         "frame": "RareFrame",
@@ -120,4 +110,28 @@
         "id": 7
       }
     }
+  },
+  "Melee": {
+    "Knife": {
+      "zone": -1,
+      "frame": "RareFrame",
+      "icon": "Weapon1",
+      "damage": 25,
+      "id": 0
+    },
+    "Sword": {
+      "zone": 2,
+      "frame": "RareFrame",
+      "icon": "Weapon1",
+      "damage": 50,
+      "id": 1
+    },
+    "Poleaxe": {
+      "zone": 3,
+      "frame": "RareFrame",
+      "icon": "Weapon1",
+      "damage": 15,
+      "id": 2
+    }
+  }
 }

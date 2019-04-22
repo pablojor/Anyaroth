@@ -69,7 +69,7 @@ Player::Player(Game* game, int xPos, int yPos) : GameObject(game, "Player")
 	_money = new Money();
 
 	//Melee
-	_melee = new Melee(game, { 15, 0 }, ENEMIES);
+	_melee = WeaponManager::getMelee(game, Knife_Weapon, this);
 	addChild(_melee);
 }
 
@@ -582,5 +582,4 @@ void Player::checkMelee()
 
 void Player::changeMelee(Melee* newMelee)
 {
-	_melee = newMelee;
 }

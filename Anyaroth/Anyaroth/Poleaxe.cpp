@@ -2,7 +2,7 @@
 #include "Game.h"
 
 
-Poleaxe::Poleaxe(Game * g, Vector2D offset, Uint16 collidesWith, double damage, double w, double h, GameObject* owner) : Melee(g, offset, collidesWith, damage, w, h)
+Poleaxe::Poleaxe(Game * g, Vector2D offset, Uint16 collidesWith, double damage, double w, double h, GameObject* owner) : Melee(g, offset, collidesWith, damage, w, h, Poleaxe_Weapon)
 {
 	_owner = owner->getComponent<BodyComponent>();
 }

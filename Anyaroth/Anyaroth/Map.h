@@ -9,6 +9,7 @@
 
 class Player;
 class Boss1;
+class Boss2;
 
 class Map : public GameObject
 {
@@ -20,6 +21,7 @@ private:
 	GameObject* _layers = nullptr;
 	GameObject* _objects = nullptr;
 	Boss1* _boss1 = nullptr;
+	Boss2* _boss2 = nullptr;
 	NPC* _npc = nullptr;
 
 	vector <ObjectLayer*> _objectLayers;
