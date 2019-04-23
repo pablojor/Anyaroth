@@ -10,7 +10,7 @@
 /* Basic */
 
 	body {
-		background: #ffe4d7;
+		background: #ffffff;
 	}
 
 		body.is-loading * {
@@ -47,7 +47,7 @@
 
 		a:hover {
 			text-decoration: none;
-			color: #e0555a !important;
+			color: #cacaca !important;
 			border-bottom-color: transparent;
 		}
 
@@ -1010,7 +1010,7 @@
 		}
 
 		.wrapper.style3 {
-			background: #e0555a;
+			background: #0a0724;
 			color: #d1f2f5;
 		}
 
@@ -1231,7 +1231,7 @@
 	#banner {
 		background-attachment: scroll,						fixed;
 		background-color: #494d53;
-		background-image: url("images/overlay.png"), url("../images/banner.jpg");
+		background-image: url("images/overlay.png"), url("../images/videoYT.gif");
 		background-position: top left,					center center;
 		background-repeat: repeat,						no-repeat;
 		background-size: auto,						cover;
@@ -1343,7 +1343,7 @@
 
 		#cta h2 {
 			display: inline-block;
-			margin: 0 1em 0 0;
+			margin: 0 1em 0 1em;
 			vertical-align: middle;
 		}
 
