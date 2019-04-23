@@ -257,17 +257,14 @@ bool Player::handleEvent(const SDL_Event& event)
 			case SDL_CONTROLLER_BUTTON_A:
 				_jJump = true;
 				break;
-			case SDL_CONTROLLER_BUTTON_B:
+			case SDL_CONTROLLER_BUTTON_X:
 				_hasToReload = true;
 				break;
 			case SDL_CONTROLLER_BUTTON_Y:
 				swapGun();
 				break;
-			case SDL_CONTROLLER_BUTTON_LEFTSHOULDER:
+			case SDL_CONTROLLER_BUTTON_RIGHTSTICK:
 				_isMeleeing = true;
-				break;
-			case SDL_CONTROLLER_BUTTON_RIGHTSHOULDER:
-				_isDashing = true;
 				break;
 			default:
 				break;
@@ -280,14 +277,11 @@ bool Player::handleEvent(const SDL_Event& event)
 			case SDL_CONTROLLER_BUTTON_A:
 				_jJump = false;
 				break;
-			case SDL_CONTROLLER_BUTTON_B:
+			case SDL_CONTROLLER_BUTTON_X:
 				_hasToReload = false;
 				break;
-			case SDL_CONTROLLER_BUTTON_LEFTSHOULDER:
+			case SDL_CONTROLLER_BUTTON_RIGHTSTICK:
 				_isMeleeing = false;
-				break;
-			case SDL_CONTROLLER_BUTTON_RIGHTSHOULDER:
-				_isDashing = false;
 				break;
 			default:
 				break;
@@ -346,6 +340,16 @@ bool Player::handleEvent(const SDL_Event& event)
 				}
 				else
 					_isShooting = _jShoot = false;
+			}
+			//Left trigger
+			else if (event.caxis.axis == SDL_CONTROLLER_AXIS_TRIGGERLEFT)
+			{
+				if (event.caxis.value > JOYSTICK_DEADZONE)
+				{
+					_isDashing = true;
+				}
+				else
+					_isDashing = false;
 			}
 		}
 	}
