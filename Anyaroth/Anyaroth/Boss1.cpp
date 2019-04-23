@@ -161,6 +161,8 @@ void Boss1::bomberAttack(const double& deltaTime, int t1, int t2)
 
 void Boss1::meleeAttack()
 {
+	_game->getSoundManager()->playSFX("spentaSword");
+
 	_bodyPos = Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL);
 	int dir = (_bodyPos.getX() >= _playerPos.getX()) ? -1 : 1;
 	_melee->meleeAttack(_bodyPos.getX(), _bodyPos.getY(), dir);
