@@ -3,6 +3,7 @@
 #include "BackGround.h"
 #include <utility>
 #include "Vector2D.h"
+#include <functional>
 
 //Valores predeterminados
 const int CAMERA_ASPECT_RATIO_X = 16;
@@ -35,6 +36,7 @@ private:
 	float _shakeIntensity = -1.f;
 	float _shakeTime = 0.f;
 
+	function<void(Game*)> _onFadeComplete = nullptr;
 	float _fadeTime = 0.f;
 	float _fadeMaxTime = 0.f;
 	bool _isFading = false;
@@ -74,6 +76,8 @@ public:
 
 	void fadeIn(const float& time);
 	void fadeOut(const float& time);
+	inline void onFadeComplete(function<void(Game*)> callback) { _onFadeComplete = callback; }
+	inline bool isFading() const { return _isFading; }
 
 	void update(const double& deltaTime);
 	void render() const;

@@ -32,7 +32,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	auto enemyPool = new BulletPool(g);
 
 	//Levels
-	GameManager::getInstance()->setCurrentLevel(LevelManager::Safe1_1);
+	GameManager::getInstance()->setCurrentLevel(LevelManager::Demo);
 	_level = new GameObject(g);
 	_levelManager = LevelManager(g, _player, _level, _hud, enemyPool);
 	_levelManager.setLevel(GameManager::getInstance()->getCurrentLevel());
@@ -103,11 +103,11 @@ PlayState::PlayState(Game* g) : GameState(g)
 	//----AÑADIR A LOS OBJETOS----//
 
 	_stages.push_back(_cursor);
-	_stages.push_back(_player);
 	_stages.push_back(_playerBulletPool);
 	_stages.push_back(enemyPool);
-  _stages.push_back(_particles);
+	_stages.push_back(_particles);
 
+	getMainCamera()->fadeIn(3000);
 }
 
 PlayState::~PlayState()
@@ -216,37 +216,36 @@ void PlayState::update(const double& deltaTime)
 
 		if (!_player->isDead())
 		{
-			_player->revive();
-
 			if ((gManager->getCurrentLevel() + 1) % 2 == 0) //Si el proximo nivel no es una safe zone guarda el juego
 				saveGame();
 
-			if (gManager->getCurrentLevel() == LevelManager::Demo)
-				_levelManager.resetLevel();
-			else
-			{
-				gManager->setCurrentLevel(gManager->getCurrentLevel() + 1);
-				_levelManager.changeLevel(gManager->getCurrentLevel());
-			}
-
-			_mainCamera->setWorldBounds(_levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getWidth(), _levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getHeight());
-			_mainCamera->setZoom(CAMERA_SCALE_FACTOR);
+			getMainCamera()->fadeOut(1000);
+			getMainCamera()->onFadeComplete([this, gManager](Game*) {
+				_player->revive();
+				if (gManager->getCurrentLevel() == LevelManager::Demo)
+					_levelManager.resetLevel();
+				else
+				{
+					gManager->setCurrentLevel(gManager->getCurrentLevel() + 1);
+					_levelManager.changeLevel(gManager->getCurrentLevel());
+				}
+			});
 		}
-		else
+		else if (!getMainCamera()->isFading())
 		{
 			_playerBulletPool->stopBullets();
-			_player->revive();
+			getMainCamera()->fadeOut(1000);
+			getMainCamera()->onFadeComplete([this, gManager](Game*) {
+				_player->revive();
 
-			if (gManager->getCurrentLevel() == LevelManager::Demo)
-				_levelManager.resetLevel();
-			else
-			{
-				gManager->setCurrentLevel(gManager->getCurrentLevel() - 1);
-				_levelManager.changeLevel(gManager->getCurrentLevel());
-			}
-
-			_mainCamera->setWorldBounds(_levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getWidth(), _levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getHeight());
-			_mainCamera->setZoom(CAMERA_SCALE_FACTOR);
+				if (gManager->getCurrentLevel() == LevelManager::Demo)
+					_levelManager.resetLevel();
+				else
+				{
+					gManager->setCurrentLevel(gManager->getCurrentLevel() - 1);
+					_levelManager.changeLevel(gManager->getCurrentLevel());
+				}
+			});
 		}
 	}
 	else

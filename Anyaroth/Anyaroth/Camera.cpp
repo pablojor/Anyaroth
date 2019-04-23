@@ -103,8 +103,12 @@ void Camera::fadingControl(const double & deltaTime)
 		else
 			_fadeTime += deltaTime;
 
-		if (_fadeTime / _fadeMaxTime >= 1)
+		if (_fadeTime / _fadeMaxTime >= 1) {
 			_isFading = false;
+			if (_onFadeComplete != nullptr)
+				_onFadeComplete(_game);
+			_onFadeComplete = nullptr;
+		}
 	}
 	else if (_fadeTime != 0)
 		_fadeTime = 0;
@@ -174,6 +178,7 @@ void Camera::shake(const float& intensity, const float& time)
 
 void Camera::fadeIn(const float & time)
 {
+	_onFadeComplete = nullptr;
 	_fadeTime = 0;
 	_fadeMaxTime = time;
 	_isFading = true;
@@ -181,6 +186,7 @@ void Camera::fadeIn(const float & time)
 
 void Camera::fadeOut(const float & time)
 {
+	_onFadeComplete = nullptr;
 	_fadeTime = 0;
 	_fadeMaxTime = -time;
 	_isFading = true;

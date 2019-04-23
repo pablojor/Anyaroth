@@ -33,5 +33,5 @@ public:
 	void changeLevel(int l);
 	Map* getCurrentLevel(int l) const;
 
-	inline void resetLevel() { _currentMap->restartLevel(); _enemyBulletPool->stopBullets(); }
+	void resetLevel();
 };

@@ -102,6 +102,7 @@ void MartyrEnemy::attacking(const double& deltaTime)
 
 			_player->subLife(_damage);
 			_attacking = false;
+			_game->getCurrentState()->getMainCamera()->shake(2, 500);
 			explosionDie();
 		}
 		else if (_anim->animationFinished())
