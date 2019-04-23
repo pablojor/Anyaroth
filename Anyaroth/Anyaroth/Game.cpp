@@ -199,6 +199,7 @@ Game::~Game()
 
 
 	delete _stateMachine;
+	ParticleManager::deleteManager();
 	delete _world;
 	delete _soundManager;
 	SDL_DestroyRenderer(_renderer);
@@ -242,7 +243,7 @@ void Game::render() const
 {
 	SDL_RenderClear(_renderer);
 	_stateMachine->currentState()->render();
-	_world->DrawDebugData();
+	//_world->DrawDebugData();
 	SDL_RenderPresent(_renderer);
 }
 

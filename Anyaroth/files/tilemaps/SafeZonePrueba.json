@@ -59,6 +59,29 @@
          "visible":true,
          "x":0,
          "y":0
+        },
+        {
+         "draworder":"topdown",
+         "id":19,
+         "name":"Shop",
+         "objects":[
+                {
+                 "gid":10,
+                 "height":16,
+                 "id":12,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":432,
+                 "y":384
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
         }, 
         {
          "draworder":"topdown",
@@ -76,29 +99,6 @@
                          "type":"string",
                          "value":"Jose Maria 1"
                         }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16,
-                 "x":432,
-                 "y":384
-                }],
-         "opacity":1,
-         "type":"objectgroup",
-         "visible":true,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "draworder":"topdown",
-         "id":19,
-         "name":"Shop",
-         "objects":[
-                {
-                 "gid":10,
-                 "height":16,
-                 "id":12,
-                 "name":"",
                  "rotation":0,
                  "type":"",
                  "visible":true,

@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "Bullet.h"
+#include "Particle.h"
 
 class PoolWrapper : public GameObject
 {
@@ -9,6 +10,7 @@ public:
 	virtual ~PoolWrapper();
 
 	/****TEMPORAL****/
-	virtual Bullet* getUnusedObject() { return nullptr; };
+	//virtual Bullet* getUnusedObject() {return nullptr;};
+
 	virtual Bullet* addNewBullet() {return nullptr;};
 };

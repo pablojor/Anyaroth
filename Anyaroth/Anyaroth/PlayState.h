@@ -6,6 +6,8 @@
 #include "ParallaxBackGround.h"
 #include "Player.h"
 #include "BulletPool.h"
+#include "ParticlePull.h"
+#include "ParticleManager.h"
 #include "Cursor.h"
 #include "PlayStateHUD.h"
 
@@ -20,6 +22,10 @@ private:
 	GameObject* _level = nullptr;
 
 	Cursor* _cursor = nullptr;
+
+	//Paticle pool
+	ParticlePull * _particles;
+
 	PlayStateHUD* _hud = nullptr;
 
 	CutScene* _cutScene = nullptr;
@@ -30,9 +36,14 @@ private:
 
 	ParallaxBackGround* _parallaxZone1 = nullptr;
 
+
+	ParticleManager * _particleManager;
+
+
 public:
 	PlayState(Game* g);
 	virtual ~PlayState();
+
 
 	virtual void render() const;
 	virtual void update(const double& deltaTime);
