@@ -13,11 +13,14 @@ using namespace nlohmann;
 
 PlayState::PlayState(Game* g) : GameState(g)
 {
+
 	_mainCamera->setWorldBounds(LEVEL_WIDTH, LEVEL_HEIGHT);
 	GameManager::init();
 
 	//Inicializa el manager de armas
 	WeaponManager::init();
+
+	
 
 	//HUD
 	_hud = new PlayStateHUD(g);
@@ -69,6 +72,12 @@ PlayState::PlayState(Game* g) : GameState(g)
 	g->getWorld()->SetContactListener(&_colManager);
 	g->getWorld()->SetDebugDraw(&_debugger);
 
+	_particles = new ParticlePull(g);
+
+
+	_particleManager = ParticleManager::GetParticleManager();
+	_particleManager->setParticlePull(_particles);
+
 	//Escena de prueba
 	_cutScene = new CutScene(_player);
 
@@ -94,12 +103,14 @@ PlayState::PlayState(Game* g) : GameState(g)
 
 	//_cutScene->play();
 
-	//----AÑADIR A LOS OBJETOS----//
+	//----AÃ‘ADIR A LOS OBJETOS----//
 
 	_stages.push_back(_cursor);
 	_stages.push_back(_player);
 	_stages.push_back(_playerBulletPool);
 	_stages.push_back(enemyPool);
+  _stages.push_back(_particles);
+
 }
 
 PlayState::~PlayState()
@@ -130,6 +141,7 @@ bool PlayState::handleEvent(const SDL_Event& event)
 	{
 		_player->getCurrentGun()->resetAmmo();
 		_hud->getPlayerPanel()->updateAmmoViewer(_player->getCurrentGun()->getClip(), _player->getCurrentGun()->getMagazine());
+
 	}
 	else if (event.type == SDL_KEYDOWN && (event.key.keysym.sym == SDLK_KP_MINUS || event.key.keysym.sym == SDLK_MINUS)) //Para probar el Zoom y sus distintan opciones
 		_mainCamera->zoomOut();
@@ -196,6 +208,7 @@ void PlayState::loadGame()
 	}
 }
 
+
 void PlayState::update(const double& deltaTime)
 {
 	if (_player->changeLevel())
@@ -240,5 +253,6 @@ void PlayState::update(const double& deltaTime)
 
 	}
 
+  _particleManager->updateManager(deltaTime);
 	GameState::update(deltaTime);
 }
