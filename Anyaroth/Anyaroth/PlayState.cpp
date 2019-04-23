@@ -32,7 +32,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	auto enemyPool = new BulletPool(g);
 
 	//Levels
-	GameManager::getInstance()->setCurrentLevel(LevelManager::Level1_1);
+	GameManager::getInstance()->setCurrentLevel(LevelManager::Level1_2);
 	_level = new GameObject(g);
 	_levelManager = LevelManager(g, _player, _level, _hud, enemyPool);
 	_levelManager.setLevel(GameManager::getInstance()->getCurrentLevel());
