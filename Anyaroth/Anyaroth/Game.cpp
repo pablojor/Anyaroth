@@ -82,11 +82,22 @@ void Game::createSounds()
 
 	//SOUND EFFECTS
 	_soundManager->addSFX("pistolShot", SOUNDS_PATH + "pistolShot.wav");
-	_soundManager->addSFX("basicRifleShot", SOUNDS_PATH + "basicRifleShot.wav");
-	_soundManager->addSFX("basicShotgunShot", SOUNDS_PATH + "basicShotgunShot.wav");
-	_soundManager->addSFX("improvedShotgunShot", SOUNDS_PATH + "improvedShotgunShot.wav");
+
 	_soundManager->addSFX("turretShot", SOUNDS_PATH + "turretShot.wav");
+	_soundManager->addSFX("spentaSword", SOUNDS_PATH + "spentaSword.wav");
 	_soundManager->addSFX("step", SOUNDS_PATH + "step.wav");
+
+	_soundManager->addSFX("hit", SOUNDS_PATH + "hit.wav");
+	_soundManager->addSFX("reload", SOUNDS_PATH + "reload.wav");
+	_soundManager->addSFX("shotgun1", SOUNDS_PATH + "shotgun1.wav");
+	_soundManager->addSFX("shotgun2", SOUNDS_PATH + "shotgun2.wav");
+	_soundManager->addSFX("rifle1", SOUNDS_PATH + "rifle1.wav");
+	_soundManager->addSFX("rifle2", SOUNDS_PATH + "rifle2.wav");
+	_soundManager->addSFX("plasmaSniper", SOUNDS_PATH + "plasmaSniper.wav");
+	_soundManager->addSFX("blackHole", SOUNDS_PATH + "blackHole.wav");
+	_soundManager->addSFX("orb", SOUNDS_PATH + "orb.wav");
+	_soundManager->addSFX("bombThrow", SOUNDS_PATH + "bombthrow.wav");
+	_soundManager->addSFX("bombExplosion", SOUNDS_PATH + "bombexplosion.wav");
 }
 
 void Game::createDialogues()

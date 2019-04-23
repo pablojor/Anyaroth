@@ -86,6 +86,7 @@ void ExplosiveBulletEffect::explosion(Bullet* bullet)
 	explosion->SetAsBox(40 / M_TO_PIXEL, 20 / M_TO_PIXEL);
 
 	bullet->getGame()->getCurrentState()->getMainCamera()->shake(3, 500);
+	bullet->getGame()->getSoundManager()->playSFX("bombExplosion");
 
 	b2FixtureDef* fixt = new b2FixtureDef();
 	fixt->restitution = 0;
