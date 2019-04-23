@@ -49,6 +49,12 @@ bool PanelUI::handleEvent(const SDL_Event & event)
 	bool handled = false;
 	if (_visible)
 	{
+		if (event.type == SDL_MOUSEMOTION && _buttons.size()>0)
+		{
+			_buttons[_selectedButton]->setSelected(false);
+			SDL_Cursor* cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
+			SDL_SetCursor(cursor);
+		}
 		if (event.type == SDL_CONTROLLERBUTTONDOWN && _buttons.size() > 0)
 		{
 			if (event.cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_LEFT )

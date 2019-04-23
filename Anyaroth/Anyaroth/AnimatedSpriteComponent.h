@@ -35,6 +35,7 @@ public:
 	enum Bullet { Default, Destroy };
 	enum MissileTurret { Deactivated, Activating, Active, Used };
 	enum SingleAnim { Main };
+	enum DoorAnim { Closed, Opened };
 	enum Spenta {
 		SpentaIdle, SpentaSwordLeft, SpentaSwordRight, SpentaStartShield, SpentaLoopShield, SpentaEndShield,
 		SpentaDie, SpentaStartBomb, SpentaLoopBomb, SpentaEndBomb, SpentaOrb, SpentaWing

@@ -328,12 +328,14 @@
     <ClCompile Include="ButtonUI.cpp">
       <Filter>Archivos de código fuente\HUD\UIElements</Filter>
     </ClCompile>
-    <ClCompile Include="Shop.cpp">
-      <Filter>Archivos de código fuente\Objects\Interactables</Filter>
-    </ClCompile>
     <ClCompile Include="GravityBombDebuff.cpp">
       <Filter>Archivos de código fuente\Components</Filter>
+    </ClCompile> 
+    <ClCompile Include="Particle.cpp" />
+    <ClCompile Include="ParticlePull.cpp">
+      <Filter>Archivos de código fuente\Pools</Filter>
     </ClCompile>
+    <ClCompile Include="ParticleManager.cpp" />
     <ClCompile Include="StaticFlyingEnemy.cpp">
       <Filter>Archivos de código fuente\Objects\Enemies</Filter>
     </ClCompile>
@@ -396,6 +398,8 @@
     </ClCompile>
     <ClCompile Include="WaitingEvent.cpp">
       <Filter>Archivos de código fuente\Events</Filter>
+    <ClCompile Include="Shop.cpp">
+      <Filter>Archivos de código fuente\Objects\Interactables</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -762,12 +766,12 @@
     <ClInclude Include="ButtonUI.h">
       <Filter>Archivos de encabezado\HUD\UIElements</Filter>
     </ClInclude>
-    <ClInclude Include="Shop.h">
-      <Filter>Archivos de encabezado\Objects\Interactables</Filter>
-    </ClInclude>
     <ClInclude Include="GravityBombDebuff.h">
       <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
+    <ClInclude Include="Particle.h" />
+    <ClInclude Include="ParticlePull.h" />
+    <ClInclude Include="ParticleManager.h" />
     <ClInclude Include="StaticFlyingEnemy.h">
       <Filter>Archivos de encabezado\Objects\Enemies</Filter>
     </ClInclude>
@@ -830,6 +834,8 @@
     </ClInclude>
     <ClInclude Include="WaitingEvent.h">
       <Filter>Archivos de encabezado\Events</Filter>
+    <ClInclude Include="Shop.h">
+      <Filter>Archivos de encabezado\Objects\Interactables</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

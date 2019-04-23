@@ -3,6 +3,7 @@
 #include "Game.h"
 #include "GunType_def.h"
 #include "EffectInterface.h"
+#include "BulletPool.h"
 
 class Gun
 {
@@ -30,8 +31,8 @@ public:
 	Gun(Game* game, Texture* armTexture, Texture* bulletTexture, string shotSoundTag, double speed, double damage, double range, int maxClip, int maxMagazine, int maxCadence, EffectInterface* effect, GunType id, Texture* iconTexture, bool automatic = false, BulletAnimType bType = BulletAnimType::Default);
 	virtual ~Gun() {}
 
-	virtual void shoot(PoolWrapper* bulletPool, const Vector2D& position, const double& angle, const string& tag);
-	virtual void enemyShoot(PoolWrapper* bulletPool, const Vector2D& position, const double& angle, const string& tag);
+	virtual void shoot(BulletPool* bulletPool, const Vector2D& position, const double& angle, const string& tag);
+	virtual void enemyShoot(BulletPool* bulletPool, const Vector2D& position, const double& angle, const string& tag);
 
 	virtual void reload();
 
