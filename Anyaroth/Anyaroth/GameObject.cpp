@@ -3,7 +3,7 @@
 
 GameObject::GameObject(Game* game, string tag) : _game(game), _inputComp(), _physicsComp(), _renderComp(), _tag(tag)
 {
-	_world = game->getWorld();
+	if (game != nullptr) _world = game->getWorld();
 }
 
 GameObject::~GameObject() 

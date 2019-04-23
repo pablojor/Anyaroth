@@ -7,14 +7,14 @@ Axe::Axe(Game * g, Vector2D offset, Uint16 collidesWith, double damage, double w
 void Axe::meleeAttack(double x, double y, int dir)
 {
 	Melee::meleeAttack(x, y, dir);
-	_angle = (_dir == 1) ? _iniAngle : 180 + _iniAngle;
+	_angle = (_dir == 1) ? _iniAngle-40 :  _iniAngle+40;
 }
 
 void Axe::update(const double& deltaTime)
 {
 	if (isActive())
 	{
-		_angle += 1 * _dir;
+		_angle += 4 * _dir;
 		double x, y;
 		x = _center.getX() + _r * cos(_angle *M_PI / 180);
 		y = _center.getY() + _r * sin(_angle * M_PI / 180);

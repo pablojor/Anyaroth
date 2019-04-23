@@ -1,14 +1,15 @@
 ﻿#include "Player.h"
 #include "Game.h"
 #include "Coin.h"
+#include "AmmoPackage.h"
+#include "AidKit.h"
 #include "Axe.h"
 #include "GunType_def.h"
 #include "WeaponManager.h"
 
-Player::Player(Game* game, int xPos, int yPos) :  GameObject(game, "Player")
-{
-	_game = game;
 
+Player::Player(Game* game, int xPos, int yPos) : GameObject(game, "Player")
+{
 	addComponent<Texture>(game->getTexture("Mk"));
 
 	_transform = addComponent<TransformComponent>();
@@ -20,7 +21,7 @@ Player::Player(Game* game, int xPos, int yPos) :  GameObject(game, "Player")
 
 	_body->setW(12);
 	_body->setH(26);
-	
+
 	_body->filterCollisions(PLAYER, OBJECTS | FLOOR | PLATFORMS | ENEMY_BULLETS | MELEE);
 	_body->addCricleShape(b2Vec2(0, 1.1), 0.7, PLAYER, FLOOR | PLATFORMS);
 	_body->getBody()->SetFixedRotation(true);
@@ -44,25 +45,27 @@ Player::Player(Game* game, int xPos, int yPos) :  GameObject(game, "Player")
 	_anim->addAnim(AnimatedSpriteComponent::Walk, 10, true);
 	_anim->addAnim(AnimatedSpriteComponent::WalkBack, 10, true);
 	_anim->addAnim(AnimatedSpriteComponent::MeleeKnife, 6, false);
-	_anim->addAnim(AnimatedSpriteComponent::ReloadPistol, 13, false);
+	_anim->addAnim(AnimatedSpriteComponent::MeleeSword, 13, false);
 	_anim->addAnim(AnimatedSpriteComponent::BeforeJump, 1, false);
 	_anim->addAnim(AnimatedSpriteComponent::Jump, 4, true);
 	_anim->addAnim(AnimatedSpriteComponent::StartFalling, 2, false);
 	_anim->addAnim(AnimatedSpriteComponent::Falling, 2, true);
 	_anim->addAnim(AnimatedSpriteComponent::Hurt, 2, true);
-	_anim->addAnim(AnimatedSpriteComponent::Dash, 6, false);
+	_anim->addAnim(AnimatedSpriteComponent::Dash, 5, false);
 	_anim->addAnim(AnimatedSpriteComponent::DashDown, 3, true);
-	_anim->addAnim(AnimatedSpriteComponent::DashBack, 6, false);
-	_anim->addAnim(AnimatedSpriteComponent::ReloadShotgun, 5, false);
-	
+	_anim->addAnim(AnimatedSpriteComponent::DashBack, 5, false);
+	_anim->addAnim(AnimatedSpriteComponent::MeleeHalberd, 5, false);
+	_anim->addAnim(AnimatedSpriteComponent::PlayerDie, 35, false);
+
 	//Brazo
-	_playerArm = new PlayerArm(game, this, { 28, 18 });
+	_playerArm = new PlayerArm(game, this, { 28, 15 });
 	addChild(_playerArm);
-	
-	_currentGun = WeaponManager::getWeapon(game, BounceOrbCannon_Weapon);
-	_otherGun = WeaponManager::getWeapon(game, BasicRifle_Weapon);
+
+	_currentGun = WeaponManager::getWeapon(game, ImprovedRifle_Weapon);
+	_otherGun = WeaponManager::getWeapon(game, ImprovedShotgun_Weapon);
 
 	_playerArm->setTexture(_currentGun->getArmTexture());
+	_playerArm->setAnimations(_currentGun->getAnimType());
 
 	//Monedero
 	_money = new Money();
@@ -90,7 +93,7 @@ void Player::beginCollision(GameObject * other, b2Contact* contact)
 		_floorCount++;
 		setGrounded(true);
 	}
-	else if (other->getTag() == "EnemyBullet" || other->getTag() == "Melee")
+	else if (other->getTag() == "EnemyBullet" || (other->getTag() == "Melee" && other != _melee))
 	{
 		int damage = other->getDamage();
 		subLife(damage);
@@ -100,12 +103,48 @@ void Player::beginCollision(GameObject * other, b2Contact* contact)
 		if (other->isActive())
 		{
 			auto coin = dynamic_cast<Coin*>(other);
-			auto cant = coin->getValue();
-			_money->store(cant);
+			auto value = coin->getValue();
+
 			coin->collect();
+
+			_money->store(value);
 			_playerPanel->updateCoinsCounter(_money->getWallet());
 		}
 		contact->SetEnabled(false);
+	}
+	else if (other->getTag() == "Ammo")
+	{
+		if (other->isActive())
+		{
+			auto ammo = dynamic_cast<AmmoPackage*>(other);
+			auto value = ammo->getValue();
+
+			ammo->collect();
+
+			_currentGun->addAmmo(_currentGun->getClip()*value);
+			_playerPanel->updateAmmoViewer(_currentGun->getClip(), _currentGun->getMagazine());
+
+			if (_otherGun != nullptr) _otherGun->addAmmo(_otherGun->getClip()*value);
+		}
+		contact->SetEnabled(false);
+	}
+	else if (other->getTag() == "AidKit")
+	{
+		if (other->isActive())
+		{
+			auto aidKit = dynamic_cast<AidKit*>(other);
+			auto value = aidKit->getValue();
+
+			aidKit->collect();
+
+			_life.addLife(value);
+			_playerPanel->updateLifeBar(_life.getLife(), _life.getMaxLife());
+		}
+		contact->SetEnabled(false);
+	}
+	else if (other->getTag() == "Door")
+	{
+		_changeLevel = true;
 	}
 }
 
@@ -122,23 +161,29 @@ void Player::endCollision(GameObject * other, b2Contact* contact)
 void Player::die()
 {
 	setDead(true);
+	_deathCD = 3000;
+	_playerArm->setActive(false);
+	_anim->playAnim(AnimatedSpriteComponent::PlayerDie);
 	_body->getBody()->SetLinearVelocity(b2Vec2(0.0, 0.0));
 	_body->getBody()->SetAngularVelocity(0);
+
+	_money->restartWallet();
+	_playerPanel->updateCoinsCounter(_money->getWallet());
 }
 
 void Player::revive()
 {
 	setDead(false);
+	_playerPanel->showDeathText(false);
+	_playerArm->setActive(true);
 
 	_life.resetLife();
 	_playerPanel->updateLifeBar(_life.getLife(), _life.getMaxLife());
 
-	_money->restartWallet();
-	_playerPanel->updateCoinsCounter(_money->getWallet());
-
 	_currentGun->resetAmmo();
-	_otherGun->resetAmmo();
 	_playerPanel->updateAmmoViewer(_currentGun->getClip(), _currentGun->getMagazine());
+
+	if (_otherGun != nullptr) _otherGun->resetAmmo();
 
 	_playerPanel->resetDashViewer();
 }
@@ -154,8 +199,6 @@ void Player::subLife(int damage)
 			if (_life.getLife() == 0)
 			{
 				die();
-				//_hurt->die();
-				//_playerArm->die();
 			}
 			else
 			{
@@ -171,38 +214,142 @@ bool Player::handleEvent(const SDL_Event& event)
 {
 	GameObject::handleEvent(event);
 
-	if (event.type == SDL_KEYDOWN && !event.key.repeat) // Captura solo el primer frame que se pulsa
+	if (!isDead() && !_inputFreezed)
 	{
-		if (event.key.keysym.sym == SDLK_q)
-			swapGun();
-		else if (event.key.keysym.sym == SDLK_r)
-			_isReloading = true;
-		else if (event.key.keysym.sym == SDLK_LSHIFT)
-			_isDashing = true;
+		if ((event.type == SDL_KEYDOWN && !event.key.repeat)) // Captura solo el primer frame que se pulsa
+		{
+			if (event.key.keysym.sym == SDLK_q)
+				swapGun();
+			else if (event.key.keysym.sym == SDLK_r && !isReloading())
+			{
+				_hasToReload = true;
+				_isShooting = false;
+			}
+			else if (event.key.keysym.sym == SDLK_LSHIFT)
+				_isDashing = true;
+		}
+		else if (event.type == SDL_KEYUP && !event.key.repeat)
+		{
+			if (event.key.keysym.sym == SDLK_LSHIFT)
+				_isDashing = false;
+			else if (isJumping())
+				cancelJump();
+		}
+		else if ((event.type == SDL_MOUSEBUTTONDOWN && event.button.state == SDL_PRESSED))
+		{
+			if (event.button.button == SDL_BUTTON_LEFT )
+				_isShooting = true;
+			else if (event.button.button == SDL_BUTTON_RIGHT)
+				_isMeleeing = true;
+		}
+		else if (event.type == SDL_MOUSEBUTTONUP)
+		{
+			if (event.button.button == SDL_BUTTON_LEFT)
+				_isShooting = false;
+			else if (event.button.button == SDL_BUTTON_RIGHT)
+				_isMeleeing = false;
+		}
+
+		if (event.type == SDL_CONTROLLERBUTTONDOWN)
+		{
+			switch (event.cbutton.button)
+			{
+			case SDL_CONTROLLER_BUTTON_A:
+				_jJump = true;
+				break;
+			case SDL_CONTROLLER_BUTTON_B:
+				_hasToReload = true;
+				break;
+			case SDL_CONTROLLER_BUTTON_Y:
+				swapGun();
+				break;
+			case SDL_CONTROLLER_BUTTON_LEFTSHOULDER:
+				_isMeleeing = true;
+				break;
+			case SDL_CONTROLLER_BUTTON_RIGHTSHOULDER:
+				_isDashing = true;
+				break;
+			default:
+				break;
+			}
+		}
+		if (event.type == SDL_CONTROLLERBUTTONUP)
+		{
+			switch (event.cbutton.button)
+			{
+			case SDL_CONTROLLER_BUTTON_A:
+				_jJump = false;
+				break;
+			case SDL_CONTROLLER_BUTTON_B:
+				_hasToReload = false;
+				break;
+			case SDL_CONTROLLER_BUTTON_LEFTSHOULDER:
+				_isMeleeing = false;
+				break;
+			case SDL_CONTROLLER_BUTTON_RIGHTSHOULDER:
+				_isDashing = false;
+				break;
+			default:
+				break;
+			}
+		}
+
+		else if (event.type == SDL_CONTROLLERAXISMOTION)
+		{
+			if (event.caxis.axis == SDL_CONTROLLER_AXIS_RIGHTX || event.caxis.axis == SDL_CONTROLLER_AXIS_RIGHTY)
+			{
+				if (event.caxis.value < -JOYSTICK_DEADZONE/2 || event.caxis.value > JOYSTICK_DEADZONE/2)
+				{
+					_jPosX = (SDL_GameControllerGetAxis(_game->getJoystick(), SDL_CONTROLLER_AXIS_RIGHTX));
+					_jPosY = (SDL_GameControllerGetAxis(_game->getJoystick(), SDL_CONTROLLER_AXIS_RIGHTY));
+					
+					int winWidth = 0;	int winHeight = 0;
+					SDL_GetWindowSize(_game->getWindow(), &winWidth, &winHeight);
+					double radius = 250 * _game->getCurrentState()->getMainCamera()->getCameraSize().distance({}) / Vector2D(winWidth, winHeight).distance({});
+
+					double angle = atan2(_jPosY, _jPosX);
+					double mouseX = (_body->getBody()->GetPosition().x - _body->getW() / 2) * M_TO_PIXEL + cos(angle) * radius;
+					double mouseY = (_body->getBody()->GetPosition().y - _body->getH() / 2) * M_TO_PIXEL + sin(angle) * radius;
+
+					_game->getCurrentState()->setMousePositionInWorld({ mouseX,mouseY });
+				}
+			}
+			//X axis motion
+			if (event.caxis.axis == SDL_CONTROLLER_AXIS_LEFTX)
+			{
+				//Left of dead zone
+				if (event.caxis.value < -JOYSTICK_DEADZONE)
+					_jMoveRight = !(_jMoveLeft = true);
+				//Right of dead zone
+				else if (event.caxis.value > JOYSTICK_DEADZONE)
+					_jMoveRight = !(_jMoveLeft = false);
+				else
+					_jMoveLeft = _jMoveRight = false;
+			}
+			//Y axis
+			else if (event.caxis.axis == SDL_CONTROLLER_AXIS_LEFTY)
+			{
+				//Left of dead zone
+				if (event.caxis.value > JOYSTICK_DEADZONE)
+					_jMoveDown = true;
+				else
+					_jMoveDown = false;
+			}
+
+			//Right trigger
+			else if (event.caxis.axis == SDL_CONTROLLER_AXIS_TRIGGERRIGHT)
+			{
+				if (event.caxis.value > JOYSTICK_DEADZONE)
+				{
+					if (!_jShoot)
+						_isShooting = _jShoot = true;
+				}
+				else
+					_isShooting = _jShoot = false;
+			}
+		}
 	}
-	else if (event.type == SDL_KEYUP && !event.key.repeat)
-	{
-		if (event.key.keysym.sym == SDLK_r)
-			_isReloading = false;
-		else if (event.key.keysym.sym == SDLK_LSHIFT)
-			_isDashing = false;
-		else if (isJumping())
-			cancelJump();
-	}
-	else if (event.type == SDL_MOUSEBUTTONDOWN && event.button.state == SDL_PRESSED)
-	{
-		if (event.button.button == SDL_BUTTON_LEFT)
-			_isShooting = true;
-		else if (event.button.button == SDL_BUTTON_RIGHT)
-			_isMeleeing = true;
-	}
-	else if (event.type == SDL_MOUSEBUTTONUP)
-	{
-		if (event.button.button == SDL_BUTTON_LEFT)
-			_isShooting = false;
-		else if (event.button.button == SDL_BUTTON_RIGHT)
-			_isMeleeing = false;
-	}
+
 	return false;
 }
 
@@ -210,38 +357,63 @@ void Player::update(const double& deltaTime)
 {
 	const Uint8* keyboard = SDL_GetKeyboardState(NULL);
 
-	if (isDashing() || isMeleeing() || isReloading())
-		_playerArm->setActive(false);
+	if (!isDead())
+	{
+		if (isDashing() || isMeleeing())
+			_playerArm->setActive(false);
+		else if (!_playerArm->isActive())
+			_playerArm->setActive(true);
+	}
 	else
-		_playerArm->setActive(true);
+	{
+		_playerPanel->showDeathText(true);
+		_deathCD -= deltaTime;
+
+		if (_deathCD <= 0)
+			_changeLevel = true;
+	}
 
 	GameObject::update(deltaTime);
 
+	refreshCooldowns(deltaTime);
+	dashTimer(deltaTime);
+
+	if (_hasToReload && _playerArm->isReloading())
+		_hasToReload = false;
+
 	checkMovement(keyboard);
 	checkMelee();
-	refreshCooldowns(deltaTime);
+
 	handleAnimations();
 }
 
 void Player::swapGun()
 {
-	Gun* auxGun = _currentGun;
-	_currentGun = _otherGun;
-	_otherGun = auxGun;
-	_playerArm->setTexture(_currentGun->getArmTexture());
-	_playerPanel->updateAmmoViewer(_currentGun->getClip(), _currentGun->getMagazine());
-	_playerPanel->updateWeaponryViewer();
+	if (_otherGun != nullptr && !isReloading() && !_isShooting)
+	{
+		Gun* auxGun = _currentGun;
+		_currentGun = _otherGun;
+		_otherGun = auxGun;
+		_playerArm->setTexture(_currentGun->getArmTexture());
+		_playerPanel->updateAmmoViewer(_currentGun->getClip(), _currentGun->getMagazine());
+
+		_playerArm->setAnimations(_currentGun->getAnimType());
+
+		if (_currentGun->getIconTexture() != nullptr) _playerPanel->updateWeaponryViewer(_currentGun->getIconTexture());
+	}
 }
 
 void Player::changeCurrentGun(Gun * gun)
 {
-	if (gun != nullptr) 
+	if (gun != nullptr)
 	{
 		delete _currentGun;
 		_currentGun = gun;
 		_playerArm->setTexture(_currentGun->getArmTexture());
 		_playerPanel->updateAmmoViewer(_currentGun->getClip(), _currentGun->getMagazine());
-		_playerPanel->updateWeaponryViewer();
+		_playerPanel->updateWeaponryViewer(_currentGun->getIconTexture());
+
+		_playerArm->setAnimations(_currentGun->getAnimType());
 	}
 }
 
@@ -257,42 +429,44 @@ void Player::changeOtherGun(Gun * gun)
 
 void Player::checkMovement(const Uint8* keyboard)
 {
-	double _speed = 15;
 
-	if (keyboard[SDL_SCANCODE_A] && keyboard[SDL_SCANCODE_D] && !isMeleeing() && !isDashing())
-		move(Vector2D(0, 0), _speed);
-	else if (keyboard[SDL_SCANCODE_A] && !isMeleeing() && !isDashing())
+	if (!isDead() && !_inputFreezed)
 	{
-		if (dashIsAble())
-			dash(Vector2D(-1, 0));
+		if (keyboard[SDL_SCANCODE_A] && keyboard[SDL_SCANCODE_D] && !isMeleeing() && !isDashing())
+			move(Vector2D(0, 0), _speed);
+		else if ((keyboard[SDL_SCANCODE_A] || _jMoveLeft) && !isMeleeing() && !isDashing())
+		{
+			if (_isDashing && _dashEnabled && !isReloading())
+				dash(Vector2D(-1, 0));
+			else
+				move(Vector2D(-1, 0), _speed);
+		}
+		else if ((keyboard[SDL_SCANCODE_D] || _jMoveRight) && !isMeleeing() && !isDashing())
+		{
+			if (_isDashing && _dashEnabled && !isReloading())
+				dash(Vector2D(1, 0));
+			else
+				move(Vector2D(1, 0), _speed);
+		}
+		else if ((keyboard[SDL_SCANCODE_S] || _jMoveDown) && _isDashing && _dashEnabled && !isGrounded() && !isMeleeing() && !isReloading())
+			dash(Vector2D(0, 1));
 		else
-			move(Vector2D(-1, 0), _speed);
-	}
-	else if (keyboard[SDL_SCANCODE_D] && !isMeleeing() && !isDashing())
-	{
-		if (dashIsAble())
-			dash(Vector2D(1, 0));
-		else
-			move(Vector2D(1, 0), _speed);
-	}
-	else if (keyboard[SDL_SCANCODE_S] && dashIsAble() && !isGrounded() && !isMeleeing()/*&& !isReloading()*/)
-		dash(Vector2D(0, 1));
-	else
-		move(Vector2D(0, 0), _speed);
+			move(Vector2D(0, 0), _speed);
 
-	if (keyboard[SDL_SCANCODE_SPACE] && !isMeleeing() && !isJumping()/*&& !isReloading()*/)
-		if ((isGrounded() && !isFalling()) || (!isGrounded() && isFalling() && _timeToJump > 0))
-			jump();
+		if ((keyboard[SDL_SCANCODE_SPACE] || _jJump) && !isMeleeing() && !isJumping() && !isReloading())
+			if ((isGrounded() && !isFalling() && !isDashing()) || (!isGrounded() && isFalling() && _timeToJump > 0 && !isDashing()))
+				jump();
 
-	//Recarga
-	if (canReload() && !isMeleeing())
-		reload();
-	//Disparo
-	if (_isShooting && !isMeleeing())
-		shoot();
-	//Melee
-	if (_isMeleeing && !isMeleeing() && isGrounded())
-		melee();
+		//Recarga
+		if (canReload() && !isMeleeing() && !isDashing())
+			reload();
+		//Disparo
+		if (_isShooting && !isMeleeing() && !isDashing() && !_hasToReload && !isReloading())
+			shoot();
+		//Melee
+		if (_isMeleeing && !isMeleeing() && isGrounded() && !isDashing())
+			melee();
+	}
 }
 
 void Player::handleAnimations()
@@ -301,48 +475,50 @@ void Player::handleAnimations()
 	//ya que se trata de una habilidad y no del movimiento "normal" del personaje
 	auto vel = _body->getBody()->GetLinearVelocity();
 
-	//Idle&Walking
-	if (isGrounded() && !isDashing() && !isMeleeing())
+	if (!isDead())
 	{
-		//Idle
-		if (vel.x == 0 && vel.y == 0 && isGrounded())
-			_anim->playAnim(AnimatedSpriteComponent::Idle);
-		//Walking
-		else if (abs(vel.x) > 0 && isGrounded() && !isDashing())
+		//Idle&Walking
+		if (isGrounded() && !isDashing() && !isMeleeing())
 		{
-			if ((!_anim->isFlipped() && vel.x > 0) || (_anim->isFlipped() && vel.x < 0))
-				_anim->playAnim(AnimatedSpriteComponent::Walk);
-			else
-				_anim->playAnim(AnimatedSpriteComponent::WalkBack);
+			//Idle
+			if (vel.x == 0 && vel.y == 0 && isGrounded())
+				_anim->playAnim(AnimatedSpriteComponent::Idle);
+			//Walking
+			else if (abs(vel.x) > 0 && isGrounded() && !isDashing())
+			{
+				if ((!_anim->isFlipped() && vel.x > 0) || (_anim->isFlipped() && vel.x < 0))
+					_anim->playAnim(AnimatedSpriteComponent::Walk);
+				else
+					_anim->playAnim(AnimatedSpriteComponent::WalkBack);
+			}
 		}
-	}
-	else if (!isGrounded() && !isDashing() && !isMeleeing()) //Jumping&Falling (Si no esta en el suelo esta Saltando/Cayendo)
-	{
-		if (vel.y > 2)
-			_anim->playAnim(AnimatedSpriteComponent::Falling);
-		else if (vel.y < 2 && vel.y > -2)
-			_anim->playAnim(AnimatedSpriteComponent::StartFalling);
-		else if (vel.y < -2)
-			_anim->playAnim(AnimatedSpriteComponent::Jump);
+		else if (!isGrounded() && !isDashing() && !isMeleeing()) //Jumping&Falling (Si no esta en el suelo esta Saltando/Cayendo)
+		{
+			if (vel.y > 2)
+				_anim->playAnim(AnimatedSpriteComponent::Falling);
+			else if (vel.y < 2 && vel.y > -2)
+				_anim->playAnim(AnimatedSpriteComponent::StartFalling);
+			else if (vel.y < -2)
+				_anim->playAnim(AnimatedSpriteComponent::Jump);
 
-		setGrounded(false);
-	}
+			setGrounded(false);
+		}
 
-	if ((isGrounded() || _body->getBody()->GetLinearVelocity().y == 0) && isDashing() && _dashDown)
-	{
-		_anim->playAnim(AnimatedSpriteComponent::Idle);
-		_onDash = false;
-		_dashDown = false;
-		dashOff();
-	}
+		if ((isGrounded() || _body->getBody()->GetLinearVelocity().y == 0) && isDashing() && _dashDown)
+		{
+			_anim->playAnim(AnimatedSpriteComponent::Idle);
+			_onDash = false;
+			_dashDown = false;
+			dashOff();
+		}
 
-	if (!isDashing())
-		dashOff();
+		if (!isDashing())
+			dashOff();
+	}
 }
 
 void Player::refreshCooldowns(const double& deltaTime)
 {
-	dashTimer(deltaTime);
 	refreshDashCoolDown(deltaTime);
 	refreshGunCadence(deltaTime);
 
@@ -352,15 +528,11 @@ void Player::refreshCooldowns(const double& deltaTime)
 
 void Player::refreshDashCoolDown(const double& deltaTime)
 {
-	if (_numDash < _maxDash)
+	_dashCD -= deltaTime;
+	if (_dashCD <= 0)
 	{
-		_dashCD -= deltaTime;
-		if (_dashCD <= 0)
-		{
-			_numDash++;
-			_playerPanel->updateDashViewer(_numDash);
-			_dashCD = 3000; //Se restablecen los 3 segundos
-		}
+		_dashCD = 1000 + _dashTime;
+		_dashEnabled = true;
 	}
 }
 
@@ -368,10 +540,10 @@ void Player::dashTimer(const double & deltaTime)
 {
 	if (_onDash && !_dashDown)
 	{
-		_dashDur -= deltaTime;
-		if (_dashDur <= 0)
+		_dashTime -= deltaTime;
+		if (_dashTime <= 0)
 		{
-			_dashDur = 250;
+			_dashTime = 250;
 			_onDash = false;
 		}
 	}
@@ -380,7 +552,8 @@ void Player::dashTimer(const double & deltaTime)
 void Player::refreshGunCadence(const double& deltaTime)
 {
 	_currentGun->refreshGunCadence(deltaTime);
-	_otherGun->refreshGunCadence(deltaTime);
+	if (_otherGun != nullptr)
+		_otherGun->refreshGunCadence(deltaTime);
 }
 
 void Player::move(const Vector2D& dir, const double& speed)
@@ -395,7 +568,6 @@ void Player::reload()
 {
 	_playerArm->reload();
 	_currentGun->reload();
-	_playerPanel->updateAmmoViewer(_currentGun->getClip(), _currentGun->getMagazine());
 }
 
 void Player::setPlayerPanel(PlayerPanel * p)
@@ -407,40 +579,18 @@ void Player::setPlayerPanel(PlayerPanel * p)
 	_playerPanel->updateDashViewer(_dashCD);
 	_playerPanel->updateCoinsCounter(_money->getWallet());
 	_playerPanel->updateLifeBar(_life.getLife(), _life.getMaxLife());
-}
-
-bool Player::isDashing() const
-{
-	return _onDash;
-}
-
-bool Player::isMeleeing() const
-{
-	return ((_anim->getCurrentAnim() == AnimatedSpriteComponent::MeleeKnife || _anim->getCurrentAnim() == AnimatedSpriteComponent::MeleeKnife) && !_anim->animationFinished());
-}
-
-bool Player::isReloading() const
-{
-	return false;
-}
-
-bool Player::isJumping() const
-{
-	return (_anim->getCurrentAnim() == AnimatedSpriteComponent::BeforeJump || _anim->getCurrentAnim() == AnimatedSpriteComponent::Jump) && !_anim->animationFinished();
-}
-
-bool Player::isFalling() const
-{
-	return (_anim->getCurrentAnim() == AnimatedSpriteComponent::Falling || _anim->getCurrentAnim() == AnimatedSpriteComponent::StartFalling) && !_anim->animationFinished();
+	if (_currentGun->getIconTexture() != nullptr) _playerPanel->updateWeaponryViewer(_currentGun->getIconTexture());
 }
 
 void Player::dash(const Vector2D& dir)
 {
 	double force = 40;
 	_body->getBody()->SetLinearVelocity(b2Vec2(dir.getX() * force, dir.getY() * force * 1.5));
-	_numDash--;
+
 	_isDashing = false;
 	_onDash = true;
+	_dashEnabled = false;
+
 	_body->getBody()->SetLinearDamping(0);
 	_body->getBody()->SetGravityScale(0);
 
@@ -495,7 +645,7 @@ void Player::melee()
 
 void Player::shoot()
 {
-	if (_currentGun->canShoot()/*&& isReloading()*/)
+	if (_currentGun->canShoot() && !isReloading())
 	{
 		_playerArm->shoot();
 		_currentGun->shoot(_playerBulletPool, _playerArm->getPosition(), !_anim->isFlipped() ? _playerArm->getAngle() : _playerArm->getAngle() + 180, "Bullet");
@@ -504,17 +654,25 @@ void Player::shoot()
 		if (!_currentGun->isAutomatic())
 			_isShooting = false;
 	}
+	else if (!_currentGun->canShoot() && !_currentGun->isAutomatic())
+	{
+		_playerArm->shoot();
+		_isShooting = false;
+	}
 
 	if (_currentGun->hasToBeReloaded())
-		reload();
+	{
+		_hasToReload = true;
+		_isShooting = false;
+	}
 }
 
 bool Player::canReload()
 {
-	if (_isReloading && isGrounded())
-		return _currentGun->canReload();
+	if (_hasToReload && _currentGun->canReload())
+		return true;
 
-	_isReloading = false;
+	_hasToReload = false;
 	return false;
 }
 

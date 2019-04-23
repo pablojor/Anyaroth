@@ -3,9 +3,9 @@
     {
       "BasicPistol": 
       {
-        "zona": -1,
+        "zone": -1,
 	      "frame": "BasicFrame",
-        "icon": "Dash",
+        "icon": "PistolIcon",
         "price": 0,
         "speed": 100,
         "damage": 10,
@@ -16,11 +16,10 @@
         "id": 0
       },
 
-      "BasicRifle": 
-      {
-        "zona": 1,
-	      "frame": "BasicFrame",
-        "icon": "Dash",
+      "BasicRifle": {
+        "zone": 1,
+        "frame": "BasicFrame",
+        "icon": "RifleIcon",
         "price": 150,
         "speed": 100,
         "damage": 15,
@@ -31,11 +30,10 @@
         "id": 3
       },
 
-      "BasicShotgun": 
-      {
-        "zona": 1,
-	      "frame": "BasicFrame",
-        "icon": "Dash",
+      "BasicShotgun": {
+        "zone": 1,
+        "frame": "BasicFrame",
+        "icon": "ShotgunIcon",
         "price": 150,
         "speed": 100,
         "damage": 7,
@@ -49,11 +47,10 @@
 
     "Common":
     {
-      "ImproveRifle": 
-      {
-        "zona": 1,
-	      "frame": "CommonFrame",
-        "icon": "Dash",
+      "ImproveRifle": {
+        "zone": 1,
+        "frame": "CommonFrame",
+        "icon": "ImprovedRifleIcon",
         "price": 300,
         "speed": 100,
         "damage": 20,
@@ -64,11 +61,10 @@
         "id": 4
       },
 
-      "ImproveShotgun": 
-      {
-        "zona": 1,
-	      "frame": "CommonFrame",
-        "icon": "Dash",
+      "ImproveShotgun": {
+        "zone": 1,
+        "frame": "CommonFrame",
+        "icon": "ImprovedShotgunIcon",
         "price": 300,
         "speed": 100,
         "damage": 7,
@@ -82,11 +78,10 @@
 
     "Rare" :
     {
-      "PlasmaSniper": 
-      {
-        "zona": 3,
-	      "frame": "RareFrame",
-        "icon": "Dash",
+      "PlasmaSniper": {
+        "zone": 3,
+        "frame": "RareFrame",
+        "icon": "SniperIcon",
         "price": 1250,
         "speed": 100,
         "damage": 60,
@@ -97,11 +92,10 @@
         "id": 5
       },
 
-      "BounceOrbCanon": 
-      {
-        "zona": 2,
-	      "frame": "RareFrame",
-        "icon": "Dash",
+      "BounceOrbCanon": {
+        "zone": 2,
+        "frame": "RareFrame",
+        "icon": "BounceCannonIcon",
         "price": 1000,
         "speed": 30,
         "damage": 15,
@@ -112,11 +106,10 @@
         "id": 6
       },
 
-      "GravityCannon": 
-      {
-        "zona": 2,
-	      "frame": "RareFrame",
-        "icon": "Dash",
+      "GravityCannon": {
+        "zone": 2,
+        "frame": "RareFrame",
+        "icon": "BHCannonIcon",
         "price": 1000,
         "speed": 45,
         "damage": 5,

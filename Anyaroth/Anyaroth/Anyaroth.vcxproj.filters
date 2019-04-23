@@ -65,13 +65,13 @@
       <Filter>Archivos de código fuente\Background</Filter>
     </ClCompile>
     <ClCompile Include="BasicPistol.cpp">
-      <Filter>Archivos de código fuente\Guns</Filter>
+      <Filter>Archivos de código fuente\Objects\Guns</Filter>
     </ClCompile>
     <ClCompile Include="BasicShotgun.cpp">
-      <Filter>Archivos de código fuente\Guns</Filter>
+      <Filter>Archivos de código fuente\Objects\Guns</Filter>
     </ClCompile>
     <ClCompile Include="Gun.cpp">
-      <Filter>Archivos de código fuente\Guns</Filter>
+      <Filter>Archivos de código fuente\Objects\Guns</Filter>
     </ClCompile>
     <ClCompile Include="CollisionManager.cpp">
       <Filter>Archivos de código fuente\Others\Managers</Filter>
@@ -124,9 +124,6 @@
     <ClCompile Include="PoolWrapper.cpp">
       <Filter>Archivos de código fuente\Pools</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Archivos de código fuente\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="Cursor.cpp">
       <Filter>Archivos de código fuente\Objects</Filter>
     </ClCompile>
@@ -178,16 +175,10 @@
     <ClCompile Include="StaticSpawnerEnemy.cpp">
       <Filter>Archivos de código fuente\Objects\Enemies\SpawnerEnemies</Filter>
     </ClCompile>
-    <ClCompile Include="Tile.cpp">
-      <Filter>Archivos de código fuente\Objects\Level</Filter>
-    </ClCompile>
     <ClCompile Include="ObjectLayer.cpp">
       <Filter>Archivos de código fuente\Objects\Level</Filter>
     </ClCompile>
     <ClCompile Include="Map.cpp">
-      <Filter>Archivos de código fuente\Objects\Level</Filter>
-    </ClCompile>
-    <ClCompile Include="Layer.cpp">
       <Filter>Archivos de código fuente\Objects\Level</Filter>
     </ClCompile>
     <ClCompile Include="Axe.cpp">
@@ -230,28 +221,28 @@
       <Filter>Archivos de código fuente\HUD\UIElements</Filter>
     </ClCompile>
     <ClCompile Include="BasicRifle.cpp">
-      <Filter>Archivos de código fuente\Guns</Filter>
+      <Filter>Archivos de código fuente\Objects\Guns</Filter>
     </ClCompile>
     <ClCompile Include="BounceOrbCannon.cpp">
-      <Filter>Archivos de código fuente\Guns</Filter>
+      <Filter>Archivos de código fuente\Objects\Guns</Filter>
     </ClCompile>
     <ClCompile Include="ImprovedRifle.cpp">
-      <Filter>Archivos de código fuente\Guns</Filter>
+      <Filter>Archivos de código fuente\Objects\Guns</Filter>
     </ClCompile>
     <ClCompile Include="ImprovedShotgun.cpp">
-      <Filter>Archivos de código fuente\Guns</Filter>
+      <Filter>Archivos de código fuente\Objects\Guns</Filter>
     </ClCompile>
     <ClCompile Include="Shotgun.cpp">
-      <Filter>Archivos de código fuente\Guns</Filter>
+      <Filter>Archivos de código fuente\Objects\Guns</Filter>
     </ClCompile>
     <ClCompile Include="WeaponManager.cpp">
-      <Filter>Archivos de código fuente\Guns</Filter>
+      <Filter>Archivos de código fuente\Objects\Guns</Filter>
     </ClCompile>
     <ClCompile Include="PlasmaSniper.cpp">
-      <Filter>Archivos de código fuente\Guns</Filter>
+      <Filter>Archivos de código fuente\Objects\Guns</Filter>
     </ClCompile>
     <ClCompile Include="GravityBombCannon.cpp">
-      <Filter>Archivos de código fuente\Guns</Filter>
+      <Filter>Archivos de código fuente\Objects\Guns</Filter>
     </ClCompile>
     <ClCompile Include="BulletEffect.cpp">
       <Filter>Archivos de código fuente\Objects\Bullets\Effects</Filter>
@@ -302,16 +293,22 @@
       <Filter>Archivos de código fuente\Objects\Bullets\Effects</Filter>
     </ClCompile>
     <ClCompile Include="BossOrbCannon.cpp">
-      <Filter>Archivos de código fuente\Guns</Filter>
+      <Filter>Archivos de código fuente\Objects\Guns</Filter>
     </ClCompile>
     <ClCompile Include="BomberGun.cpp">
-      <Filter>Archivos de código fuente\Guns</Filter>
+      <Filter>Archivos de código fuente\Objects\Guns</Filter>
     </ClCompile>
     <ClCompile Include="Capsule.cpp">
       <Filter>Archivos de código fuente\Objects\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="SpawnerEnemy.cpp">
       <Filter>Archivos de código fuente\Objects\Enemies\SpawnerEnemies</Filter>
+    </ClCompile>
+    <ClCompile Include="GravityBombDebuff.cpp">
+      <Filter>Archivos de código fuente\Objects\Bullets\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticFlyingEnemy.cpp">
+      <Filter>Archivos de código fuente\Objects\Enemies\DistanceEnemies</Filter>
     </ClCompile>
     <ClCompile Include="ShopInfoPanel.cpp">
       <Filter>Archivos de código fuente\HUD\Shop</Filter>
@@ -331,17 +328,80 @@
     <ClCompile Include="ButtonUI.cpp">
       <Filter>Archivos de código fuente\HUD\UIElements</Filter>
     </ClCompile>
-    <ClCompile Include="Shop.cpp">
-      <Filter>Archivos de código fuente\Objects\Interactables</Filter>
-    </ClCompile>
     <ClCompile Include="GravityBombDebuff.cpp">
       <Filter>Archivos de código fuente\Components</Filter>
-    </ClCompile>
+    </ClCompile> 
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="ParticlePull.cpp">
       <Filter>Archivos de código fuente\Pools</Filter>
     </ClCompile>
     <ClCompile Include="ParticleManager.cpp" />
+    <ClCompile Include="StaticFlyingEnemy.cpp">
+      <Filter>Archivos de código fuente\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteObject.cpp">
+      <Filter>Archivos de código fuente\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="AidKit.cpp">
+      <Filter>Archivos de código fuente\Objects\Collectables</Filter>
+    </ClCompile>
+    <ClCompile Include="Tilemap.cpp">
+      <Filter>Archivos de código fuente\Objects\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>Archivos de código fuente\Others\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Archivos de código fuente\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="ZoomInOutEvent.cpp">
+      <Filter>Archivos de código fuente\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="CutScene.cpp">
+      <Filter>Archivos de código fuente\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogueEvent.cpp">
+      <Filter>Archivos de código fuente\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="Event.cpp">
+      <Filter>Archivos de código fuente\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="FadeInOutEvent.cpp">
+      <Filter>Archivos de código fuente\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="FlipEvent.cpp">
+      <Filter>Archivos de código fuente\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveEvent.cpp">
+      <Filter>Archivos de código fuente\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="ShakeEvent.cpp">
+      <Filter>Archivos de código fuente\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="ShopEvent.cpp">
+      <Filter>Archivos de código fuente\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="waitEvent.cpp">
+      <Filter>Archivos de código fuente\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="PausePanel.cpp">
+      <Filter>Archivos de código fuente\HUD\Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="OptionsPanel.cpp">
+      <Filter>Archivos de código fuente\HUD\Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenuPanel.cpp">
+      <Filter>Archivos de código fuente\HUD\Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="PauseStateHUD.cpp">
+      <Filter>Archivos de código fuente\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuStateHUD.cpp">
+      <Filter>Archivos de código fuente\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="Shop.cpp">
+      <Filter>Archivos de código fuente\Objects\Interactables</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -491,13 +551,7 @@
     <ClInclude Include="Gun.h">
       <Filter>Archivos de encabezado\Guns</Filter>
     </ClInclude>
-    <ClInclude Include="Tile.h">
-      <Filter>Archivos de encabezado\Objects\Level</Filter>
-    </ClInclude>
     <ClInclude Include="Map.h">
-      <Filter>Archivos de encabezado\Objects\Level</Filter>
-    </ClInclude>
-    <ClInclude Include="Layer.h">
       <Filter>Archivos de encabezado\Objects\Level</Filter>
     </ClInclude>
     <ClInclude Include="ObjectLayer.h">
@@ -689,6 +743,12 @@
     <ClInclude Include="DistanceSpawner.h">
       <Filter>Archivos de encabezado\Objects\Enemies\SpawnerEnemies</Filter>
     </ClInclude>
+    <ClInclude Include="GravityBombDebuff.h">
+      <Filter>Archivos de encabezado\Objects\Bullets\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticFlyingEnemy.h">
+      <Filter>Archivos de encabezado\Objects\Enemies\DistanceEnemies</Filter>
+    </ClInclude>
     <ClInclude Include="ShopMenu.h">
       <Filter>Archivos de encabezado\HUD\Shop</Filter>
     </ClInclude>
@@ -707,15 +767,78 @@
     <ClInclude Include="ButtonUI.h">
       <Filter>Archivos de encabezado\HUD\UIElements</Filter>
     </ClInclude>
-    <ClInclude Include="Shop.h">
-      <Filter>Archivos de encabezado\Objects\Interactables</Filter>
-    </ClInclude>
     <ClInclude Include="GravityBombDebuff.h">
       <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
     <ClInclude Include="Particle.h" />
     <ClInclude Include="ParticlePull.h" />
     <ClInclude Include="ParticleManager.h" />
+    <ClInclude Include="StaticFlyingEnemy.h">
+      <Filter>Archivos de encabezado\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteObject.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="AidKit.h">
+      <Filter>Archivos de encabezado\Objects\Collectables</Filter>
+    </ClInclude>
+    <ClInclude Include="Tilemap.h">
+      <Filter>Archivos de encabezado\Objects\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="GameManager.h">
+      <Filter>Archivos de encabezado\Others\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="ZoomInOutEvent.h">
+      <Filter>Archivos de encabezado\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="ShopEvent.h">
+      <Filter>Archivos de encabezado\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="ShakeEvent.h">
+      <Filter>Archivos de encabezado\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveEvent.h">
+      <Filter>Archivos de encabezado\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="FlipEvent.h">
+      <Filter>Archivos de encabezado\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="FadeInOutEvent.h">
+      <Filter>Archivos de encabezado\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Event.h">
+      <Filter>Archivos de encabezado\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogueEvent.h">
+      <Filter>Archivos de encabezado\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="CutScene.h">
+      <Filter>Archivos de encabezado\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="CamEffectType.h">
+      <Filter>Archivos de encabezado\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="waitEvent.h">
+      <Filter>Archivos de encabezado\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="PauseStateHUD.h">
+      <Filter>Archivos de encabezado\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuStateHUD.h">
+      <Filter>Archivos de encabezado\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenuPanel.h">
+      <Filter>Archivos de encabezado\HUD\Panels</Filter>
+    </ClInclude>
+    <ClInclude Include="OptionsPanel.h">
+      <Filter>Archivos de encabezado\HUD\Panels</Filter>
+    </ClInclude>
+    <ClInclude Include="PausePanel.h">
+      <Filter>Archivos de encabezado\HUD\Panels</Filter>
+    </ClInclude>
+    <ClInclude Include="Shop.h">
+      <Filter>Archivos de encabezado\Objects\Interactables</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de código fuente">
@@ -799,9 +922,6 @@
     <Filter Include="Archivos de código fuente\Background">
       <UniqueIdentifier>{13f0db75-7397-4d71-956f-71da1cb273d7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de código fuente\Guns">
-      <UniqueIdentifier>{4f97f6a1-796b-40fe-b2a8-322f3bdaa034}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Archivos de código fuente\Others">
       <UniqueIdentifier>{9e24d06e-9c30-484e-b8f6-4c9de6a8f644}</UniqueIdentifier>
     </Filter>
@@ -870,6 +990,15 @@
     </Filter>
     <Filter Include="Archivos de encabezado\HUD\Shop">
       <UniqueIdentifier>{34784df1-da49-4c07-b58e-b2ba2d639505}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código fuente\Objects\Guns">
+      <UniqueIdentifier>{4f97f6a1-796b-40fe-b2a8-322f3bdaa034}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Events">
+      <UniqueIdentifier>{e4951269-a6cb-44b0-9b50-72417e6d2de4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código fuente\Events">
+      <UniqueIdentifier>{c0c20e7b-ff95-4a2d-8b6f-2b0da7fa47a6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

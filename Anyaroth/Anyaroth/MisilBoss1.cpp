@@ -22,9 +22,13 @@ MisilBoss1::MisilBoss1(GameObject* target, Game* g, PlayState* play, Texture* te
 	_body->getBody()->SetFixedRotation(true);
 
 	_anim = addComponent<AnimatedSpriteComponent>();
+	_anim->addAnim(AnimatedSpriteComponent::Default, 4, true);
+	_anim->addAnim(AnimatedSpriteComponent::Destroy, 6, false);
+
+	_anim->playAnim(AnimatedSpriteComponent::Default);
 
 	_targetBody = _target->getComponent<BodyComponent>();
-	
+
 	_targetPos = Vector2D(_targetBody->getBody()->GetPosition().x * M_TO_PIXEL, _targetBody->getBody()->GetPosition().y * M_TO_PIXEL);
 	_myPos = Vector2D(_body->getBody()->GetPosition().x  * M_TO_PIXEL, _body->getBody()->GetPosition().y  * M_TO_PIXEL);
 
@@ -38,10 +42,16 @@ MisilBoss1::~MisilBoss1()
 
 void MisilBoss1::beginCollision(GameObject * other, b2Contact * contact)
 {
-	contact->SetEnabled(false);
+	/*contact->SetEnabled(false);
 	setActive(false);
 	_body->getBody()->SetLinearVelocity(b2Vec2(0, 0));
-	destroy();
+	destroy();*/
+
+	contact->SetEnabled(false);
+	_body->getBody()->SetLinearVelocity(b2Vec2(0, 0));
+	_anim->playAnim(AnimatedSpriteComponent::Destroy);
+	contact->SetEnabled(false);
+	setActive(false);
 }
 
 void MisilBoss1::update(const double& deltaTime)
@@ -49,7 +59,6 @@ void MisilBoss1::update(const double& deltaTime)
 	GameObject::update(deltaTime);
 	if (isActive())
 	{
-		
 		_targetPos = Vector2D(_targetBody->getBody()->GetPosition().x * M_TO_PIXEL, _targetBody->getBody()->GetPosition().y * M_TO_PIXEL);
 		_myPos = Vector2D(_body->getBody()->GetPosition().x  * M_TO_PIXEL, _body->getBody()->GetPosition().y  * M_TO_PIXEL);
 		//double myX = _myPos.getX(), myY = _myPos.getY(), x=_targetPos.getX(), y = _targetPos.getY(), velX =_velocity.getX(), velY = _velocity.getY();
@@ -73,14 +82,22 @@ void MisilBoss1::update(const double& deltaTime)
 		//	myY -= (myY - y)/10;
 		//_body->getBody()->SetTransform(b2Vec2(myX / M_TO_PIXEL, myY / M_TO_PIXEL), 0);
 
+		
+
 		//Forma con el angulo peta a veces
 		_angle = atan2(_targetPos.getY() - _myPos.getY(), _targetPos.getX() - _myPos.getX()) * 180 / M_PI;
 
 		if (_targetPos.distance(_myPos) < _velocity.distance(Vector2D()) * 2)
-			_velocity = {_velocity.getX() / 2, _velocity.getY() / 2};
-		
+			_velocity = { _velocity.getX() / 2, _velocity.getY() / 2 };
+
 		_body->getBody()->SetLinearVelocity(b2Vec2(_velocity.getX() * cos(_angle), _velocity.getY() * sin(_angle)));
 		//_transform->setPosition(Vector2D(_body->getBody()->GetPosition().x * 8, _body->getBody()->GetPosition().y * 8));
 		_transform->setRotation(_angle);
+
+		if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::Destroy)
+		{
+			_anim->playAnim(AnimatedSpriteComponent::Default);
+			destroy();
+		}
 	}
 }

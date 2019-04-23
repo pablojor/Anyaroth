@@ -16,7 +16,7 @@ public:
 
 	virtual void render() const;
 	virtual void update(const double& deltaTime) {}
-	virtual void handleEvent(const SDL_Event& event) {}
+	virtual bool handleEvent(const SDL_Event& event) { return false; }
 
 	inline void setImage(Texture* image) { _image = image; }
 	inline Texture* getImage() const { return _image; }

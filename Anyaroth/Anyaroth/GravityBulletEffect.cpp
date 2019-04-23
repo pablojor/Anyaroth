@@ -2,6 +2,7 @@
 #include "Bullet.h"
 #include "Game.h"
 #include "MovingComponent.h"
+#include "SpriteObject.h"
 
 
 GravityBulletEffect::GravityBulletEffect(int maxAbsorbTime) : _maxAbsorbingTime(maxAbsorbTime)
@@ -37,6 +38,7 @@ void GravityBulletEffect::beginCollision(Bullet* bullet, GameObject * other, b2C
 		== "Platform")
 	{
 		bullet->setCollided(true);
+
 	}
 	else if(other->getTag() == "Enemy" || other->getTag() == "Player")
 	{
@@ -71,18 +73,29 @@ void GravityBulletEffect::update(Bullet* bullet, double time)
 {
 	if (bullet->isActive())
 	{
+		bullet->GameObject::update(time);
+
 		if (!bullet->isAbsorbing())
 		{
 			double dist = bullet->getIniPos().distance(bullet->getTransform()->getPosition());
 
 			if (dist < bullet->getRange() && !bullet->hasCollided())
 			{
-				bullet->GameObject::update(time);
+				
 
 				bullet->setAliveTime(bullet->getAliveTime() + time);
 			}
 			else
+			{
 				startAbsorbing(bullet);
+				bullet->getComponent<AnimatedSpriteComponent>()->playAnim(AnimatedSpriteComponent::Destroy);
+
+				SpriteObject* sprite = new SpriteObject(bullet->getGame(), bullet->getGame()->getTexture("BHArea"),
+					{ bullet->getComponent<TransformComponent>()->getPosition().getX()- 115,
+					bullet->getComponent<TransformComponent>()->getPosition().getY()- 95 });
+				//sprite->getComponent<TransformComponent>()->setScale(40);
+				bullet->addChild(sprite);
+			}
 		}
 		else if (bullet->getAbsorbingTime() < _maxAbsorbingTime)
 		{
@@ -107,6 +120,7 @@ void GravityBulletEffect::reset(Bullet* bullet)
 	}
 	_debuffs.clear();
 
+	bullet->destroyAllChildren(); //borra el sprite de área
 	
 	BulletEffect::reset(bullet);
 }

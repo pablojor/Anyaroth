@@ -28,7 +28,7 @@ void FlyingEnemy::sinusoidalMove(const double& deltaTime)
 
 	double y = prevY + _amplitude * sin(_k * prevX - _angularFrequency * deltaTime / 1000);
 
-	if (_originalPos.distance(_previousPos) < maxDistance)
+	if (_originalPos.distance(_previousPos) < _maxDistance)
 		_body->getBody()->SetTransform(b2Vec2(prevX / M_TO_PIXEL, y / M_TO_PIXEL), 0);
 }
 
@@ -53,6 +53,4 @@ void FlyingEnemy::beginCollision(GameObject * other, b2Contact * contact)
 		_player->subLife(_damage);
 		destroy();
 	}
-	else if (other->getTag() == "Ground")
-		destroy();
 }

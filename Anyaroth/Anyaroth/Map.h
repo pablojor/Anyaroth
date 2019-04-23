@@ -1,10 +1,9 @@
 #pragma once
 #include "GameObject.h"
-#include "Layer.h"
+#include "Tilemap.h"
 #include "ObjectLayer.h"
 #include "BulletPool.h"
 #include "PlayStateHUD.h"
-#include "NPC.h"
 #include <vector>
 
 class Player;
@@ -16,20 +15,16 @@ private:
 	Player* _player = nullptr;
 	PlayStateHUD* _hud = nullptr;
 	BulletPool* _bulletPool = nullptr;
-	/*ExplosiveBulletPool* _explosivePool = nullptr;
-	BouncingBulletPool* _bouncingPool = nullptr;*/
 
-	GameObject* _layers;
-	GameObject* _objects;
-	Boss1* _boss1 = nullptr;
-	NPC * _n = nullptr;
-
+	Tilemap* _tilemap = nullptr;
+	GameObject* _objects = nullptr;
 	vector <ObjectLayer*> _objectLayers;
 
-	int _coinValue;
+	Boss1* _spenta = nullptr;
+	int _misilFase = 0, _height = 0, _width = 0;
 
 public:
-	Map(string filename, Game* game, Player* player, Texture* tileset, BulletPool* bulletPool, PlayStateHUD* hud, int coinValue);
+	Map(string filename, Game* game, Player* player, Texture* tileset, BulletPool* bulletPool, PlayStateHUD* hud);
 	~Map();
 
 	void createObjects();
@@ -38,4 +33,7 @@ public:
 	virtual bool handleEvent(const SDL_Event& event);
 	virtual void update(const double& deltaTime);
 	virtual void render(Camera* c) const;
+
+	inline int getHeight() const { return _height; }
+	inline int getWidth() const { return _width; }
 };

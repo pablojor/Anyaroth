@@ -1,0 +1,283 @@
+html {
+  -webkit-font-smoothing: antialiased;
+  
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+body {  
+  display: block;
+  margin: 0;
+  font-size: 18px;
+  padding: 0;
+  color: #5a5a5a;
+}
+.background {
+  position: fixed;
+  z-index: -1;
+
+  background: url(images/background.jpg)
+  50% 0% no-repeat fixed;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+
+  filter: blur(5px);
+  background-color: #FFF;
+}
+
+#titlePhoto{ 
+  vertical-align: middle;
+  max-width: 100%;
+  height: auto
+}
+.header h2{
+  text-align: center;
+}
+
+.info{
+  text-align: center;
+}
+
+.info h2{
+  text-align: center;
+}
+
+.divider {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  margin-left: 5rem;
+  margin-right: 5rem;
+}
+.divider2{  
+  margin-top: 2rem;
+  margin-bottom: 5rem;
+  margin-left: 5rem;
+  margin-right: 5rem;
+}
+
+.generalBlock{
+  text-align : center;
+}
+.generalBlock div h2 ul {
+  text-align: center;
+}
+
+
+
+.container {
+  width: 100%;
+  z-index: 1;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  background-color: #FFF;
+  background-size: 100%;
+}
+
+.container {
+  min-width: 992px!important
+}
+
+@media (min-width:576px) {
+    .container {
+        max-width: 540px
+    }
+}
+@media (min-width:768px) {
+    .container {
+        max-width: 720px
+    }
+}
+@media (min-width:992px) {
+    .container {
+        max-width: 960px
+    }
+}
+@media (min-width:1200px) {
+    .container {
+        max-width: 1140px
+    }
+}
+
+img.img-header {
+  max-height: 500px;
+}
+
+.marketing {
+  margin-top: 1rem;
+}
+
+.marketing h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 1rem 0;
+}
+
+.media-item {
+  margin: 1rem;
+}
+
+.featurette-divider {
+  margin: 5rem 0; 
+}
+
+.featurette-heading {
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -.05rem;
+}
+
+.footer-divider {
+  margin: 5rem 0 2rem 0; 
+}
+
+footer p {
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+
+
+@media (min-width: 40em) {
+  .carousel-caption p {
+    margin-bottom: 1.25rem;
+    font-size: 1.25rem;
+    line-height: 1.4;
+  }
+
+  .featurette-heading {
+    font-size: 50px;
+  }
+}
+
+@media (min-width: 62em) {
+  .featurette-heading {
+    margin-top: 7rem;
+  }
+}
+
+
+/*HEADER*/
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:700);
+#cssmenu {
+  position: fixed;
+  background: #439b3b;
+  width: 100%;
+  top : 0px;
+  text-align: center;
+}
+#cssmenu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+  display: block;
+  zoom: 1;
+}
+#cssmenu ul:after {
+  content: " ";
+  display: block;
+  font-size: 0;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+#cssmenu ul li {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+#cssmenu.align-right ul li {
+  float: right;
+}
+#cssmenu.align-center ul {
+  text-align: center;
+}
+#cssmenu ul li a {
+  color: #ffffff;
+  text-decoration: none;
+  display: block;
+  padding: 15px 25px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 14px;
+  position: relative;
+  -webkit-transition: color .25s;
+  -moz-transition: color .25s;
+  -ms-transition: color .25s;
+  -o-transition: color .25s;
+  transition: color .25s;
+}
+#cssmenu ul li a:hover {
+  color: #333333;
+}
+#cssmenu ul li a:hover:before {
+  width: 100%;
+}
+#cssmenu ul li a:after {
+  display: block;
+  position: absolute;
+  right: -3px;
+  top: 19px;
+  height: 6px;
+  width: 6px;
+  background: #ffffff;
+  opacity: .5;
+}
+#cssmenu ul li a:before {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 0;
+  background: #333333;
+  -webkit-transition: width .25s;
+  -moz-transition: width .25s;
+  -ms-transition: width .25s;
+  -o-transition: width .25s;
+  transition: width .25s;
+}
+#cssmenu ul li.last > a:after,
+#cssmenu ul li:last-child > a:after {
+  display: none;
+}
+#cssmenu ul li.active a {
+  color: #333333;
+}
+#cssmenu ul li.active a:before {
+  width: 100%;
+}
+#cssmenu.align-right li.last > a:after,
+#cssmenu.align-right li:last-child > a:after {
+  display: block;
+}
+#cssmenu.align-right li:first-child a:after {
+  display: none;
+}
+@media screen and (max-width: 768px) {
+  #cssmenu ul li {
+    float: none;
+    display: block;
+  }
+  #cssmenu ul li a {
+    width: 100%;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border-bottom: 1px solid #fb998c;
+  }
+  #cssmenu ul li.last > a,
+  #cssmenu ul li:last-child > a {
+    border: 0;
+  }
+  #cssmenu ul li a:after {
+    display: none;
+  }
+  #cssmenu ul li a:before {
+    display: none;
+  }
+}

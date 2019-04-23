@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <title>Plants vs. Zombies: Retro</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+
+
+        <link href="styles.css" rel="stylesheet" type="text/css">
+        <style>
+        #game {
+          width: 800px;
+          height: 600px;
+        }
+        </style>
+        
+
+        <script type="text/javascript">
+            function desplegar(){
+                var game = document.getElementById('gameCont');
+                var but = document.getElementById('jugar');
+                if (game.style.display == "none") {
+                    game.style.display= "";
+                    but.style.display = "none";
+                    game.scrollIntoView({behavior: "smooth"});
+                }
+                else {                    
+                    game.scrollIntoView({behavior: "smooth"});
+                }
+            }
+        </script>
+
+    </head>
+
+
+    <body>
+        <!-- <header>
+                <div id='cssmenu'>
+                    <ul>
+                        <li><a href="#"><span>Inicio</span></a></li>
+                        <li><a href="javascript:void(0)" onclick="desplegar();"><span>¡Jugar ya!</span></a></li>
+                        <li><a href="#gameFeatures"><span>Características</span></a></li>
+                        <li><a href="#howToPlay"><span>Cómo jugar</span></a></li>
+                        <li><a href="#gameDevelopers"><span>Desarrolladores</span></a></li>
+                        <li><a href="#contact"><span>Contacto</span></a></li>
+                    </ul>
+                </div>
+        </header> -->
+
+
+        <main>
+            <!-- <div class="background"></div> -->
+            <div class="container">                   
+                <div>
+                    <div class="header">
+                        <img id="titlePhoto" src="images/logo.png" alt="Anyaroth" />
+                    </div>        
+                </div>
+    
+    
+    
+                <div class="info generalBlock marketing">
+                    <hr class="divider2">
+                </div>
+    
+    
+                <footer id='contact'>
+                    <hr class="footer-divider">
+                    <div align="center">
+                        <p>
+                            <a href="https://github.com/pablojor/Anyaroth">
+                                <strong>Anyaroth</strong><br>
+                            </a>
+                        </p>
+                        <p class="license">Published under the <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike</a>
+                            license.
+                        </p>
+                        <p>
+                            <a href="https://informatica.ucm.es/">Facultad de Informática</a>·<a href="https://www.ucm.es/">UCM</a>
+                        </p>
+                        <p>
+                            <a href="#">Volver arriba</a>
+                        </p>
+                        
+                        <br>
+
+                    </div>
+                </footer>
+
+            </div>
+            
+        </main>  
+    </body>
+</html>

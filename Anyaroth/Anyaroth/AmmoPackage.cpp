@@ -1,19 +1,8 @@
 #include "AmmoPackage.h"
 
-string AmmoPackage::getType() const
+AmmoPackage::AmmoPackage(Game * game, Vector2D pos, int value) : Collectable(game, game->getTexture("Ammo"), pos, value, "Ammo")
 {
-	switch (_type) //Si eso continuar
-	{
-		case PistolaBasica:
-			return "PistolaBasica";
-			break;
-		case EscopetaBasica:
-			return "EscopetaBasica";
-			break;
-		case Rifle:
-			return "Rifle";
-			break;
-		default:
-			break;
-	}
+	auto anim = addComponent<AnimatedSpriteComponent>();
+	anim->addAnim(AnimatedSpriteComponent::Main, 6, true);
+	anim->playAnim(AnimatedSpriteComponent::Main);
 }

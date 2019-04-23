@@ -1,6 +1,7 @@
 #include "PlayStateHUD.h"
 #include "Game.h"
 
+
 PlayStateHUD::PlayStateHUD(Game * g)
 {
 	//Panel del jugador

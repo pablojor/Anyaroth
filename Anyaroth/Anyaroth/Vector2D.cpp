@@ -74,6 +74,14 @@ double Vector2D::distance(Vector2D p)
 	return sqrt(pow(_x - p.getX(), 2) + pow(_y - p.getY(), 2));
 }
 
+Vector2D Vector2D::Lerp(const Vector2D& start, const Vector2D& end, const float& t)
+{
+	float ratio = t;
+	if (ratio < 0) ratio = 0;
+	else if (ratio > 1) ratio = 1;
+	return (start + (end - start) * ratio);
+}
+
 Vector2D Vector2D::operator+(const Vector2D& v) const 
 {
 	Vector2D r;
@@ -91,6 +99,14 @@ Vector2D Vector2D::operator-(const Vector2D& v) const
 }
 
 Vector2D Vector2D::operator*(double d) const 
+{
+	Vector2D r;
+	r._x = _x * d;
+	r._y = _y * d;
+	return r;
+}
+
+Vector2D Vector2D::operator*(float d) const
 {
 	Vector2D r;
 	r._x = _x * d;

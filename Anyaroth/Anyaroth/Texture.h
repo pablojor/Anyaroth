@@ -45,6 +45,7 @@ public:
 	void setColor(Uint8 red, Uint8 green, Uint8 blue);
 
 	void load(string filename, uint numRows = 1, uint numCols = 1);
+	void load(int width, int height, Uint8 red, Uint8 green, Uint8 blue, Uint8 alpha);
 	void render(const SDL_Rect& rect, double angle = 0, SDL_Point anchor = { 0,0 }, SDL_RendererFlip flip = SDL_FLIP_NONE) const;
 	void render(const SDL_Rect& destRect, const SDL_Rect& clipRect, double angle = 0, SDL_Point anchor = { 0,0 }, SDL_RendererFlip flip = SDL_FLIP_NONE) const;
 	void renderFrame(const SDL_Rect& destRect, int row, int col, double angle = 0, SDL_Point anchor = { 0,0 }, SDL_RendererFlip flip = SDL_FLIP_NONE) const;

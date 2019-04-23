@@ -1,7 +1,7 @@
 #pragma once
 #include "PhysicsComponent.h"
 #include "TransformComponent.h"
-#include <Box2D/Box2D.h>
+#include "Box2D/Box2D.h"
 #include <string>
 
 class BodyComponent : public PhysicsComponent

@@ -64,6 +64,7 @@ void Game::createSounds()
 {
 
 	_soundManager->addMusic("bgMusic", SOUNDS_PATH + "bgMusic.wav");
+	_soundManager->addMusic("shop", SOUNDS_PATH + "shop.mp3");
 	_soundManager->addSFX("example1", SOUNDS_PATH + "example1.wav");
 
 	//UI SOUNDS
@@ -93,7 +94,6 @@ void Game::createDialogues()
 		{
 			string id = it.key();
 			json aux = it.value();
-			cout << id<<endl;
 			int numDialogues = j.size();
 			string face, voice, name;
 			vector<string> conversation;
@@ -116,14 +116,19 @@ void Game::createDialogues()
 	input.close();
 }
 
-/*Texture* Game::newTexture(string id, string nameText)
-{
-	int i = _textures[nameText]->getNumFils();
-	int j = _textures[nameText]->getNumCols();
 
-	_textures.insert(pair <string, Texture*>(id,new Texture(_renderer, _textures[nameText]->getFilename(), i, j) ));
-	return _textures[id];
-}*/
+void Game::initialiseJoysticks()
+{
+	for (int i = 0; i < SDL_NumJoysticks(); i++)
+	{
+		if (SDL_IsGameController(i))
+		{
+			_joystick = SDL_GameControllerOpen(i);
+		}
+	}
+	_joystickAttached = _joystick != nullptr;
+}
+
 
 void Game::toggleFullscreen()
 {
@@ -136,7 +141,7 @@ Game::Game()
 {
 	srand(time(NULL));//random seed
 
-	SDL_Init(SDL_INIT_TIMER | SDL_INIT_AUDIO | SDL_INIT_VIDEO | SDL_INIT_EVENTS);
+	SDL_Init(SDL_INIT_TIMER | SDL_INIT_AUDIO | SDL_INIT_VIDEO | SDL_INIT_EVENTS| SDL_INIT_GAMECONTROLLER);
 	TTF_Init(); //Ventana del tamaño de la pantalla de cada dispositivo
 	SDL_DisplayMode monitor;
 	SDL_GetCurrentDisplayMode(0, &monitor);
@@ -163,6 +168,8 @@ Game::Game()
 	createSounds();
 	//---Create dialogues
 	createDialogues();
+	//---Initialise Joysticks
+	initialiseJoysticks();
 	//---Create world
 	_world = new b2World(b2Vec2(0.0, 9.8));
 	//---Create states
@@ -179,6 +186,10 @@ Game::~Game()
 	for (auto it = _fonts.begin(); it != _fonts.end(); it++)
 		delete (*it).second;
 
+	//close joysticks
+	SDL_GameControllerClose(_joystick);
+
+
 	delete _stateMachine;
 	ParticleManager::deleteManager();
 	delete _world;
@@ -190,22 +201,27 @@ Game::~Game()
 
 void Game::run()
 {
-	double deltaTime = FRAME_RATE;
-	double startTime = SDL_GetTicks();
+	Uint32 deltaTime = FRAME_RATE;
+	Uint32 startTime = SDL_GetTicks();
+	Uint32 lag = 0;
 
 	while (!_exit)
 	{
-		auto startTicks = SDL_GetTicks();
-		deltaTime = startTicks - startTime;
-		startTime = startTicks;
+		Uint32 current = SDL_GetTicks();
+		Uint32 elapsed = current - startTime;
+		startTime = current;
+		lag += elapsed;
 
 		handleEvents();
-		_world->Step(_timestep, 8, 3);
-		update(deltaTime);
-		render();
 
-		if (deltaTime < FRAME_RATE)
-			SDL_Delay(FRAME_RATE - deltaTime);
+		while (lag >= FRAME_RATE)
+		{
+			cout << "Actualizado con tiempo: " << lag << endl;
+			_world->Step((float)FRAME_RATE / 1000.0f, 8, 3);
+			update(FRAME_RATE);
+			lag -= FRAME_RATE;
+		}
+		render();
 	}
 }
 

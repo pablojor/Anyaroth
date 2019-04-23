@@ -42,17 +42,17 @@ class CatalogPanel : public PanelUI
 		CatalogPanel(Game* game);
 		~CatalogPanel() {};
 
+		virtual bool handleEvent(const SDL_Event& event);
+
 		void inicializeCallbacks(ShopMenu* menu);
 
 		void setPlayer(Player* ply);
 
-		void setItems(list<ShopItem*>* list, const int& zone);
+		void setItems(list<ShopItem*>* list);
 		void removeItems();
 
 		void openCatalog();
 		void closeCatalog();
-
-		inline void setZone(const int& zone) { _zone = zone; }
 
 		void selectItem(Game* game, ShopItem* item);
 		void buyItem(Game* game);

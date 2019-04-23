@@ -4,6 +4,7 @@
 #include "Bullet.h"
 #include "Coin.h"
 #include "AmmoPackage.h"
+#include "AidKit.h"
 
 Enemy::Enemy(Game* g, Player* player, Vector2D pos, Texture* texture) : GameObject(g, "Enemy"), _player(player)
 {
@@ -30,15 +31,15 @@ Enemy::Enemy(Game* g, Player* player, Vector2D pos, Texture* texture) : GameObje
 
 void Enemy::beginCollision(GameObject * other, b2Contact* contact)
 {
-	string otherTag = other->getTag();
-	if (otherTag == "Bullet" || otherTag == "Melee")
+	if (other->getTag() == "Bullet" || other->getTag() == "Melee")
 	{
 		int damage = other->getDamage();
 		subLife(damage);
-		if (otherTag == "Melee")
-			extraDrop = true;
+
+		if (other->getTag() == "Melee")
+			_dropMelee = true;
 		else
-			extraDrop = false;
+			_dropMelee = false;
 	}
 }
 
@@ -48,10 +49,11 @@ void Enemy::update(const double& deltaTime)
 
 	b2Vec2 playerPos = _player->getComponent<BodyComponent>()->getBody()->GetPosition(), enemyPos = _body->getBody()->GetPosition();
 	_playerDistance = Vector2D((playerPos.x - enemyPos.x)*M_TO_PIXEL, (playerPos.y - enemyPos.y)*M_TO_PIXEL);
-	if (isDead()&& _drop)
+
+	if (isDead() && _drop)
 	{
 		_drop = false;
-		spawnDrop();
+		drop();
 	}
 }
 
@@ -63,22 +65,22 @@ void Enemy::die()
 	_body->filterCollisions(DEAD_ENEMIES, FLOOR | PLATFORMS);
 }
 
-void Enemy::spawnDrop()
+void Enemy::drop()
 {
-	int rnd=random(0, 100);
-	if(rnd<=10&& extraDrop)
+	int rnd = random(0, 100);
+
+	
+	if (rnd <= 30 && _dropMelee)
 	{
-		//EL PAQUETE DE MUNICION
-		_game->getCurrentState()->addObject(new AmmoPackage(PistolaBasica,_game, _game->getTexture("Ammo"), Vector2D(_body->getBody()->GetPosition().x*M_TO_PIXEL - _body->getW()*M_TO_PIXEL, _body->getBody()->GetPosition().y*M_TO_PIXEL - _body->getH() * M_TO_PIXEL / 2), _coinValue));
+		_game->getCurrentState()->addObject(new AmmoPackage(_game, Vector2D(_body->getBody()->GetPosition().x*M_TO_PIXEL, _body->getBody()->GetPosition().y*M_TO_PIXEL), _ammoClips));
 	}
-	else if ((rnd <= 20 && ! extraDrop)||( rnd >= 30 && rnd<=60 && extraDrop))
+	else if (rnd >= 85 || (rnd >= 70 && _dropMelee))
 	{
-		_game->getCurrentState()->addObject(new Coin(_game, _game->getTexture("Coin"), Vector2D(_body->getBody()->GetPosition().x*M_TO_PIXEL - _body->getW()*M_TO_PIXEL, _body->getBody()->GetPosition().y*M_TO_PIXEL - _body->getH() * M_TO_PIXEL / 2), _coinValue));
+		_game->getCurrentState()->addObject(new AidKit(_game, Vector2D(_body->getBody()->GetPosition().x*M_TO_PIXEL, _body->getBody()->GetPosition().y*M_TO_PIXEL), _aidKitValue));
 	}
-	else if (rnd >= 90 || (rnd > 60 && extraDrop))
+	else if (rnd <= 80)
 	{
-		//EL PAQUETE DE VIDA
-		//_game->getCurrentState()->addObject(new Coin(_game, _game->getTexture("Coin"), Vector2D(_body->getBody()->GetPosition().x*M_TO_PIXEL - _body->getW()*M_TO_PIXEL, _body->getBody()->GetPosition().y*M_TO_PIXEL - _body->getH() * M_TO_PIXEL / 2), _coinValue));
+		_game->getCurrentState()->addObject(new Coin(_game, Vector2D(_body->getBody()->GetPosition().x*M_TO_PIXEL, _body->getBody()->GetPosition().y*M_TO_PIXEL), _coinValue));
 	}
 }
 
@@ -98,4 +100,9 @@ void Enemy::subLife(int damage)
 bool Enemy::inCamera()
 {
 	return _game->getCurrentState()->getMainCamera()->inCamera(Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL));
+}
+
+bool Enemy::inCameraX()
+{
+	return _game->getCurrentState()->getMainCamera()->inCameraX(Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, 0));
 }

@@ -43,7 +43,7 @@ void GroundEnemy::attack()
 void GroundEnemy::addSensors()
 {
 	b2PolygonShape shape;
-	shape.SetAsBox(5 / M_TO_PIXEL, 2 / M_TO_PIXEL, b2Vec2(-2, 0), 0);
+	shape.SetAsBox(5 / M_TO_PIXEL, 2 / M_TO_PIXEL, b2Vec2(-2, 2), 0);
 	b2FixtureDef fDef;
 	fDef.shape = &shape;
 	fDef.filter.categoryBits = ENEMIES;
@@ -53,7 +53,7 @@ void GroundEnemy::addSensors()
 	_body->addFixture(&fDef, this);
 
 	shape;
-	shape.SetAsBox(5 / M_TO_PIXEL, 2 / M_TO_PIXEL, b2Vec2(2, 0), 0);
+	shape.SetAsBox(5 / M_TO_PIXEL, 2 / M_TO_PIXEL, b2Vec2(2, 2), 0);
 	fDef;
 	fDef.shape = &shape;
 	fDef.filter.categoryBits = ENEMIES;

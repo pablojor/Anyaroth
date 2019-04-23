@@ -7,14 +7,12 @@ class Collectable : public GameObject
 {
 private:
 	BodyComponent* _body = nullptr;
-
 	int _value;
 
 public:
-	Collectable(Game* g, Texture* texture, Vector2D iniPos, int value, string tag);
+	Collectable(Game* game, Texture* texture, Vector2D pos, int value, string tag);
 	virtual ~Collectable() {}
 
 	inline virtual int getValue() const { return _value; }
-
 	void collect();
 };
