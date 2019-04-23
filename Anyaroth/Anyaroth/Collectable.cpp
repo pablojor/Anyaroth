@@ -13,7 +13,14 @@ Collectable::Collectable(Game* game, Texture* texture, Vector2D pos, int value, 
 	_body = addComponent<BodyComponent>();
 	_body->getBody()->SetType(b2_dynamicBody);
 	_body->filterCollisions(OBJECTS, PLAYER | FLOOR | PLATFORMS);
-	_body->getBody()->SetGravityScale(0.4);
+	_body->getBody()->SetGravityScale(1.5);
+	_body->getBody()->GetFixtureList()->SetRestitution(1);
+}
+
+void Collectable::beginCollision(GameObject * other, b2Contact * contact)
+{
+	_body->getBody()->SetLinearVelocity(b2Vec2(0.0, 0.0));
+	_body->getBody()->SetAngularVelocity(0);
 }
 
 void Collectable::collect()

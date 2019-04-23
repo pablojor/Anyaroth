@@ -89,6 +89,7 @@ public:
 	void die();
 	void revive();
 	void subLife(int damage);
+	inline Life getLife() const { return _life; }
 	inline bool isDead() const { return GameObject::isDead(); }
 
 	void swapGun();

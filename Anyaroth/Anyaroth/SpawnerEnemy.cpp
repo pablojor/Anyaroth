@@ -88,7 +88,7 @@ void SpawnerEnemy::beginCollision(GameObject * other, b2Contact* contact)
 
 	if (otherTag == "Ground" || otherTag == "Platform")
 	{
-		double x = other->getComponent<BodyComponent>()->getBody()->GetPosition().x;
+		double x = contact->GetFixtureA()->GetBody()->GetPosition().x;
 		double y = _body->getBody()->GetPosition().x;
 
 		if (x > y)

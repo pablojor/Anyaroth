@@ -379,9 +379,6 @@
     <ClCompile Include="ShopEvent.cpp">
       <Filter>Archivos de código fuente\Events</Filter>
     </ClCompile>
-    <ClCompile Include="waitEvent.cpp">
-      <Filter>Archivos de código fuente\Events</Filter>
-    </ClCompile>
     <ClCompile Include="PausePanel.cpp">
       <Filter>Archivos de código fuente\HUD\Panels</Filter>
     </ClCompile>
@@ -396,6 +393,9 @@
     </ClCompile>
     <ClCompile Include="MenuStateHUD.cpp">
       <Filter>Archivos de código fuente\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="WaitingEvent.cpp">
+      <Filter>Archivos de código fuente\Events</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -813,9 +813,6 @@
     <ClInclude Include="CamEffectType.h">
       <Filter>Archivos de encabezado\Events</Filter>
     </ClInclude>
-    <ClInclude Include="waitEvent.h">
-      <Filter>Archivos de encabezado\Events</Filter>
-    </ClInclude>
     <ClInclude Include="PauseStateHUD.h">
       <Filter>Archivos de encabezado\HUD</Filter>
     </ClInclude>
@@ -830,6 +827,9 @@
     </ClInclude>
     <ClInclude Include="PausePanel.h">
       <Filter>Archivos de encabezado\HUD\Panels</Filter>
+    </ClInclude>
+    <ClInclude Include="WaitingEvent.h">
+      <Filter>Archivos de encabezado\Events</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

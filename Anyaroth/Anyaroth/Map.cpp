@@ -91,60 +91,60 @@ void Map::createObjects()
 			}
 			else if (name == "Melee")
 			{
-				_objects->addChild(new MeleeEnemy(_game, _player, Vector2D(pos.getX() - TILES_SIZE * 2, pos.getY() - TILES_SIZE * 2)));
+				_objects->addChild(new MeleeEnemy(_game, _player, Vector2D(pos.getX() - TILES_SIZE, pos.getY() - TILES_SIZE * 2)));
 			}
 			else if (name == "Martyr")
 			{
-				_objects->addChild(new MartyrEnemy(_game, _player, Vector2D(pos.getX() - TILES_SIZE * 2, pos.getY() - TILES_SIZE * 2)));
+				_objects->addChild(new MartyrEnemy(_game, _player, Vector2D(pos.getX(), pos.getY() - TILES_SIZE * 2)));
 			}
 			else if (name == "DistanceStatic")
 			{
 				_objects->addChild(new DistanceStaticEnemy(_game, _player, Vector2D(pos.getX() - TILES_SIZE, pos.getY() - TILES_SIZE * 2), _bulletPool));
 			}
-			else if (name == "DistanceDynamic")
-			{
-				_objects->addChild(new DistanceDynamicEnemy(_game, _player, Vector2D(pos.getX() - TILES_SIZE * 2, pos.getY() - TILES_SIZE * 2), _bulletPool));
-			}
 			else if (name == "FlyingDistance")
 			{
 				_objects->addChild(new StaticFlyingEnemy(_game, _player, Vector2D(pos.getX() - TILES_SIZE, pos.getY() - TILES_SIZE * 2), _bulletPool));
 			}
+			else if (name == "DistanceDynamic")
+			{
+				_objects->addChild(new DistanceDynamicEnemy(_game, _player, Vector2D(pos.getX(), pos.getY() - TILES_SIZE * 2), _bulletPool));
+			}
 			else if (name == "Spawner")
 			{
-				_objects->addChild(new StaticSpawnerEnemy(_game, _player, Vector2D(pos.getX() - TILES_SIZE * 2, pos.getY() - TILES_SIZE * 2)));
+				_objects->addChild(new StaticSpawnerEnemy(_game, _player, Vector2D(pos.getX(), pos.getY() - TILES_SIZE * 2)));
 			}
 			else if (name == "MeleeShip")
 			{
-				_objects->addChild(new NormalSpawner<MeleeEnemy>(_game, _player, Vector2D(pos.getX() - TILES_SIZE * 2, pos.getY() - TILES_SIZE * 2)));
+				_objects->addChild(new NormalSpawner<MeleeEnemy>(_game, _player, Vector2D(pos.getX(), pos.getY() - TILES_SIZE * 2)));
 			}
 			else if (name == "DistanceStaticShip")
 			{
-				_objects->addChild(new DistanceSpawner<DistanceStaticEnemy>(_game, _player, Vector2D(pos.getX() - TILES_SIZE * 2, pos.getY() - TILES_SIZE * 2), _bulletPool));
+				_objects->addChild(new DistanceSpawner<DistanceStaticEnemy>(_game, _player, Vector2D(pos.getX(), pos.getY() - TILES_SIZE * 2), _bulletPool));
 			}
 			else if (name == "Bomber")
 			{
-				_objects->addChild(new BomberEnemy(_game, _player, Vector2D(pos.getX() - TILES_SIZE * 2, pos.getY() - TILES_SIZE * 2), _bulletPool));
+				_objects->addChild(new BomberEnemy(_game, _player, Vector2D(pos.getX(), pos.getY() - TILES_SIZE * 2), _bulletPool));
 			}
 			else if (name == "Misil")
 			{
-				_objects->addChild(new BotonLanzaMisiles(_game, _spenta, _game->getTexture("MissileTurret"), Vector2D(pos.getX() - TILES_SIZE, pos.getY() - TILES_SIZE * 3), _misilFase));
+				_objects->addChild(new BotonLanzaMisiles(_game, _spenta, _game->getTexture("MissileTurret"), Vector2D(pos.getX() - TILES_SIZE, pos.getY() - TILES_SIZE * 2.8), _misilFase));
 				_misilFase++;
 			}
 			else if (name == "Boss1")
 			{
-				_spenta = (new Boss1(_game, _player, Vector2D(pos.getX() - TILES_SIZE * 2, pos.getY() - TILES_SIZE * 2), _bulletPool));
+				_spenta = (new Boss1(_game, _player, Vector2D(pos.getX(), pos.getY() - TILES_SIZE * 2), _bulletPool));
 				_objects->addChild(_spenta);
 				_spenta->setBossPanel(_hud->getBossPanel());
 			}
 			else if (name == "NPC")
 			{
-				auto npc = new NPC(_game, Vector2D(pos.getX() - TILES_SIZE * 2, pos.getY() - TILES_SIZE * 2), _game->getDialogue(data));
+				auto npc = new NPC(_game, Vector2D(pos.getX() - TILES_SIZE, pos.getY() - TILES_SIZE * 2), _game->getDialogue(data));
 				npc->setDialoguePanel(_hud->getDialoguePanel());
 				_objects->addChild(npc);
 			}
 			else if (name == "Shop")
 			{
-				auto tienda = new Shop(_game, Vector2D(pos.getX() - TILES_SIZE, pos.getY() - TILES_SIZE), _hud->getShop());
+				auto tienda = new Shop(_game, Vector2D(pos.getX(), pos.getY() - TILES_SIZE * 2), _hud->getShop());
 				_objects->addChild(tienda);
 			}
 		}
