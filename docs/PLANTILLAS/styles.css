@@ -1,0 +1,110 @@
+html {
+  font-size: 10px;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: Courier, 'Courier New', monospace;
+  font-size: 1.6rem;
+  background: #fff;
+  color: #000;
+}
+
+a {
+  color: #c39;
+}
+
+main {
+  margin: 2rem 0;
+  text-align: center;
+}
+
+canvas{
+  width: 800px;
+  height: 600px;
+  image-rendering: -moz-crisp-edges;
+    image-rendering: -webkit-crisp-edges;
+    image-rendering: pixelated;
+}
+
+#game {
+  border: 1px solid #333;
+}
+
+footer {
+  text-align: center;
+}
+
+
+
+
+
+
+
+
+
+header{
+	width: 100%;
+}
+
+*{
+	margin: 0;
+	padding: 0;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.navegacion{
+	width: 1000px;
+	margin: 30px auto;
+	background: #fff;
+}
+
+.navegacion ul{
+	list-style: none;
+}
+
+.menu > li{
+	position: relative;
+	display: inline-block;
+}
+
+.menu > li > a{
+	display: block;
+	padding: 15px 20px;
+	color: #353535;
+	font-family: 'Open sans';
+	text-decoration: none;
+}
+
+.menu li a:hover{
+	color: #CE7D35;
+	transition: all .3s;
+}
+
+/* Submenu*/
+
+.submenu{
+	position: absolute;
+	background: #333333;
+	width: 120%;
+	visibility: hidden;
+	opacity: 0;
+	transition: opacity 1.5s;
+}
+
+.submenu li a{
+	display: block;
+	padding: 15px;
+	color: #fff;
+	font-family: 'Open sans';
+	text-decoration: none;
+}
+
+.menu li:click .submenu{
+	visibility: visible;
+	opacity: 1;
+}
