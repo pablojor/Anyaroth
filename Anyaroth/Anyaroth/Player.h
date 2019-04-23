@@ -120,7 +120,7 @@ public:
 
 
 	inline void setPlayerPosition(Vector2D pos) { _body->getBody()->SetTransform(b2Vec2(pos.getX(), pos.getY()), 0); }
-	inline void setPlayerBulletPool(PoolWrapper* pool) { _playerBulletPool = pool; }
+	inline void setPlayerBulletPool(BulletPool* pool) { _playerBulletPool = pool; }
 
 	inline bool changeLevel() const { return _changeLevel; }
 	inline void setChangeLevel(bool change) { _changeLevel = change; }

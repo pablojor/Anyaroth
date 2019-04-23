@@ -48,7 +48,7 @@ void Particle::init(Texture * texture, const Vector2D & position, const double &
 
 
 	_anim->setTexture(texture);
-	_anim->addAnim(AnimatedSpriteComponent::Coin::Main, 4, false);
+	_anim->addAnim(AnimatedSpriteComponent::Main, 4, false);
 
 	setActive(true);
 }
