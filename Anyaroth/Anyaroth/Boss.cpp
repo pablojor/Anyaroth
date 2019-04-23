@@ -46,7 +46,7 @@ void Boss::subLife(int damage)
 		{
 			manageLife(_life1, damage);
 			if (_life1.getLife() == 0)
-				_bossPanel->updateLifeBar(10, _life2.getLife(), _life3.getLife(), _life.getLife());
+				_bossPanel->updateLifeBar(2, _life2.getLife(), _life3.getLife(), _life.getLife());
 			else
 				_bossPanel->updateLifeBar(_life1.getLife(), _life2.getLife(), _life3.getLife(), _life.getLife());
 		}
@@ -54,7 +54,7 @@ void Boss::subLife(int damage)
 		{
 			manageLife(_life2, damage); 
 			if (_life2.getLife() == 0)
-				_bossPanel->updateLifeBar(_life1.getLife(), 10, _life3.getLife(), _life.getLife());
+				_bossPanel->updateLifeBar(_life1.getLife(), 23, _life3.getLife(), _life.getLife());
 			else
 				_bossPanel->updateLifeBar(_life1.getLife(), _life2.getLife(), _life3.getLife(), _life.getLife());
 		}
@@ -62,7 +62,7 @@ void Boss::subLife(int damage)
 		{
 			manageLife(_life3, damage);
 			if (_life3.getLife() == 0)
-				_bossPanel->updateLifeBar(_life1.getLife(), _life2.getLife(), 10, _life.getLife());
+				_bossPanel->updateLifeBar(_life1.getLife(), _life2.getLife(), 2, _life.getLife());
 			else
 				_bossPanel->updateLifeBar(_life1.getLife(), _life2.getLife(), _life3.getLife(), _life.getLife());
 		}

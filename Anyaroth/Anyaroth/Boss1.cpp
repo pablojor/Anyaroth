@@ -6,7 +6,7 @@
 
 Boss1::Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, player, pos, pool, g->getTexture("Spenta")), Enemy(g, player, pos, g->getTexture("Spenta"))
 {
-	_life = 700;
+	_life = 100;
 	_life1 = _life2 = _life3 = _life;
 
 	delete(_myGun);
