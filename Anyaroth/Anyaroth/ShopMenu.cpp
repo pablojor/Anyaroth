@@ -196,6 +196,7 @@ void ShopMenu::setPlayer(Player* ply)
 
 void ShopMenu::openShop()
 {
+	_game->getCurrentState()->getMainCamera()->fadeIn(500);
 	SDL_ShowCursor(true);
 	_zone = GameManager::getInstance()->getCurrentLevel();
 	_visible = true;
