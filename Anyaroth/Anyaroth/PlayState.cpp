@@ -220,7 +220,7 @@ void PlayState::update(const double& deltaTime)
 				_levelManager.changeLevel(gManager->getCurrentLevel());
 
 				int l = gManager->getCurrentLevel();
-				if (l == LevelManager::Boss1 || l == LevelManager::Boss2 || l == LevelManager::Boss3)
+				if (l == LevelManager::Boss1 || l == LevelManager::Boss2 || l == LevelManager::Boss3 || l == LevelManager::BossDemo)
 				{
 					game->getCurrentState()->getMainCamera()->fadeIn(1000);
 					game->getCurrentState()->getMainCamera()->onFadeComplete([this, gManager, l](Game* game)
