@@ -60,6 +60,8 @@ Boss1::Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, 
 	_arm->setActive(false); //poner invisible el brazo del boss
 
 	_playerBody = _player->getComponent<BodyComponent>();
+
+	_hurtParticle = _game->getTexture("Smoke");
 }
 
 Boss1::~Boss1()

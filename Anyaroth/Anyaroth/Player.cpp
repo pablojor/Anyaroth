@@ -6,6 +6,7 @@
 #include "Axe.h"
 #include "GunType_def.h"
 #include "WeaponManager.h"
+#include "ParticleManager.h"
 
 
 Player::Player(Game* game, int xPos, int yPos) : GameObject(game, "Player")
@@ -97,6 +98,8 @@ void Player::beginCollision(GameObject * other, b2Contact* contact)
 	{
 		int damage = other->getDamage();
 		subLife(damage);
+		BodyComponent* otherBody = other->getComponent<BodyComponent>();
+		_contactPoint = otherBody->getBody()->GetPosition()+ b2Vec2(otherBody->getW()/2,otherBody->getH()/2);
 	}
 	else if (other->getTag() == "Coin")
 	{
@@ -211,6 +214,8 @@ void Player::subLife(int damage)
 			{
 				_anim->hurt();
 				_playerArm->hurt();
+				_spawnParticles = true;
+        
 				int rand = _game->random(0, 100);
 				if (rand > 80)
 					_game->getSoundManager()->playSFX("pain1");
@@ -224,6 +229,7 @@ void Player::subLife(int damage)
 					_game->getSoundManager()->playSFX("pain5");
 				else
 					_game->getSoundManager()->playSFX("pain6");
+
 			}
 		}
 		_playerPanel->updateLifeBar(_life.getLife(), _life.getMaxLife());
@@ -397,6 +403,14 @@ void Player::update(const double& deltaTime)
 			_changeLevel = true;
 	}
 
+	if (_spawnParticles)
+	{
+		_spawnParticles = false;
+		double center_x = _body->getBody()->GetPosition().x + _body->getW() / 2, center_y = _body->getBody()->GetPosition().y + _body->getH() / 2;
+		Vector2D direction = Vector2D((_contactPoint.x - center_x), (center_y - _contactPoint.y));
+		ParticleManager::GetParticleManager()->CreateSpray(_game->getTexture("Blood"), Vector2D(center_x*M_TO_PIXEL, center_y*M_TO_PIXEL), direction, 10, 20, 30, 1000, 15, 2);
+	}
+
 	GameObject::update(deltaTime);
 
 	refreshCooldowns(deltaTime);
@@ -562,14 +576,45 @@ void Player::refreshDashCoolDown(const double& deltaTime)
 
 void Player::dashTimer(const double & deltaTime)
 {
-	if (_onDash && !_dashDown)
+	if (_onDash )
 	{
+		if(!_dashDown)
 		_dashTime -= deltaTime;
-		if (_dashTime <= 0)
+		_dashParticleTime -= deltaTime;
+		if (_dashTime <= 0 && !_dashDown)
 		{
+			_dashParticleTime = 40;
 			_dashTime = 250;
 			_onDash = false;
 		}
+		if (_dashParticleTime <= 0)
+		{
+			if(_anim->getCurrentAnim()== AnimatedSpriteComponent::Dash)
+			{
+				if (!_anim->isFlipped())
+					ParticleManager::GetParticleManager()->CreateSimpleParticle(_game->getTexture("DashTrail"), 1, Vector2D((_body->getBody()->GetPosition().x)*M_TO_PIXEL, (_body->getBody()->GetPosition().y)*M_TO_PIXEL), 0, 0, 120);
+				else
+					ParticleManager::GetParticleManager()->CreateSimpleParticle(_game->getTexture("DashTrailFlip"), 1, Vector2D((_body->getBody()->GetPosition().x)*M_TO_PIXEL, (_body->getBody()->GetPosition().y)*M_TO_PIXEL), 0, 0, 120);
+
+			}
+			else if(_anim->getCurrentAnim() == AnimatedSpriteComponent::DashBack)
+			{
+				if (!_anim->isFlipped())
+					ParticleManager::GetParticleManager()->CreateSimpleParticle(_game->getTexture("DashBackTrail"), 1, Vector2D((_body->getBody()->GetPosition().x)*M_TO_PIXEL, (_body->getBody()->GetPosition().y)*M_TO_PIXEL), 0, 0, 120);
+				else
+					ParticleManager::GetParticleManager()->CreateSimpleParticle(_game->getTexture("DashBackTrailFlip"), 1, Vector2D((_body->getBody()->GetPosition().x)*M_TO_PIXEL, (_body->getBody()->GetPosition().y)*M_TO_PIXEL), 0, 0, 120);
+			}
+			else
+			{
+				if(!_anim->isFlipped())
+					ParticleManager::GetParticleManager()->CreateSimpleParticle(_game->getTexture("DashDownTrail"), 1, Vector2D((_body->getBody()->GetPosition().x)*M_TO_PIXEL, (_body->getBody()->GetPosition().y)*M_TO_PIXEL), 0, 0, 120);
+				else
+					ParticleManager::GetParticleManager()->CreateSimpleParticle(_game->getTexture("DashDownTrailFlip"), 1, Vector2D((_body->getBody()->GetPosition().x)*M_TO_PIXEL, (_body->getBody()->GetPosition().y)*M_TO_PIXEL), 0, 0, 120);
+
+
+			}
+			_dashParticleTime = 40;
+			}
 	}
 }
 
@@ -586,6 +631,10 @@ void Player::move(const Vector2D& dir, const double& speed)
 		_body->getBody()->ApplyLinearImpulseToCenter(b2Vec2(dir.getX() * speed, 0), true);
 	else
 		_body->getBody()->SetLinearVelocity(b2Vec2(dir.getX() * speed, _body->getBody()->GetLinearVelocity().y));
+	if (_floorCount > 0 && dir.getX()!=0)
+	{
+		ParticleManager::GetParticleManager()->CreateFountain(_game->getTexture("Dust"), Vector2D((_body->getBody()->GetPosition().x)*M_TO_PIXEL, (_body->getBody()->GetPosition().y+_body->getH())*M_TO_PIXEL),Vector2D(-dir.getX(),1),0,speed,15,300,10, 100,3);
+	}
 }
 
 void Player::reload()
@@ -650,9 +699,13 @@ void Player::jump()
 	_body->getBody()->ApplyLinearImpulse(b2Vec2(0, -_jumpForce), _body->getBody()->GetWorldCenter(), true);
 	setGrounded(false);
 	_timeToJump = 0.f;
-	_anim->playAnim(AnimatedSpriteComponent::BeforeJump);
 
+	_anim->playAnim(AnimatedSpriteComponent::BeforeJump); 
+	ParticleManager::GetParticleManager()->CreateSpray(_game->getTexture("Dust"), Vector2D((_body->getBody()->GetPosition().x+_body->getW()/2)*M_TO_PIXEL, (_body->getBody()->GetPosition().y + _body->getH())*M_TO_PIXEL), Vector2D(-1, 1), 10, 20, 20, 400, 10, 3);
+	ParticleManager::GetParticleManager()->CreateSpray(_game->getTexture("Dust"), Vector2D((_body->getBody()->GetPosition().x - _body->getW() / 2)*M_TO_PIXEL, (_body->getBody()->GetPosition().y + _body->getH())*M_TO_PIXEL), Vector2D(1, 1), 10, 20, 20, 400, 10, 3);
+  
 	_game->getSoundManager()->playSFX("jump");
+
 }
 
 void Player::cancelJump()
