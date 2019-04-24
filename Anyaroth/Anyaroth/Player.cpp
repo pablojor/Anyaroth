@@ -651,6 +651,8 @@ void Player::jump()
 	setGrounded(false);
 	_timeToJump = 0.f;
 	_anim->playAnim(AnimatedSpriteComponent::BeforeJump);
+
+	_game->getSoundManager()->playSFX("jump");
 }
 
 void Player::cancelJump()
