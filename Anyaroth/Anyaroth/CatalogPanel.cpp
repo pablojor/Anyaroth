@@ -81,17 +81,8 @@ void CatalogPanel::setItems(list<ShopItem*>* list) // Crear items
 {
 	_items = list;
 	_selectedButton = *_items->begin();
-	for (auto it = _items->begin(); it != _items->end(); it++)
-	{
-		if (*it)
-		{
-			addChild(*it);
-			ButtonUI* nL = (it != _items->begin()) ? *prev(it) : _exitButton;
-			ButtonUI* nR = (it != prev(_items->end())) ? *next(it) : _exitButton;
-			(*it)->setNextButtons({ nL, nullptr, nR, nullptr });
-		}
-	}
-	_exitButton->setNextButtons({ *prev(_items->end()), nullptr, *(_items->begin()), nullptr });
+	for (auto it : *_items)
+		addChild(it);
 
 }
 
@@ -104,10 +95,17 @@ void CatalogPanel::removeItems()
 void CatalogPanel::openCatalog()
 {
 	_zone = GameManager::getInstance()->getCurrentLevel() % 6;
-	for (auto it : *_items)
+
+	for (auto it = _items->begin(); it != _items->end(); it++)
 	{
-		it->onDown([this, it](Game* game) {	selectItem(game, it); });
+		auto object = (*it);
+		object->onDown([this, object](Game* game) {	selectItem(game, object); });
+		ButtonUI* nL = (it != _items->begin()) ? *prev(it) : _exitButton;
+		ButtonUI* nR = (it != prev(_items->end())) ? *next(it) : _exitButton;
+		(*it)->setNextButtons({ nL, nullptr, nR, nullptr });
 	}
+	_exitButton->setNextButtons({ *prev(_items->end()), nullptr, *(_items->begin()), nullptr });
+
 	reorderCatalog();
 
 	setVisible(true);

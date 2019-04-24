@@ -120,16 +120,8 @@ void DepotPanel::setItems(list<ShopItem*>* list)
 {
 	_items = list;
 	_selectedButton = *_items->begin();
-	for (auto it = _items->begin(); it != _items->end(); it++)
-	{
-		if (*it)
-		{
-			addChild(*it);
-			ButtonUI* nL = (it != _items->begin()) ? *prev(it) : _exitButton;
-			ButtonUI* nR = (it != prev(_items->end())) ? *next(it) : _firstWeaponFrame;
-			(*it)->setNextButtons({ nL, nullptr, nR, nullptr });
-		}
-	}
+	for (auto it : *_items)
+		addChild(it);
 }
 
 void DepotPanel::removeItems()
@@ -140,9 +132,14 @@ void DepotPanel::removeItems()
 
 void DepotPanel::openDepotPanel()
 {
-	for (auto it : *_items)
-		it->onDown([this, it](Game* game) {	selectItem(game, it); });
-
+	for (auto it = _items->begin(); it != _items->end(); it++)
+	{
+		auto object = (*it);
+		object->onDown([this, object](Game* game) {	selectItem(game, object); });
+		ButtonUI* nL = (it != _items->begin()) ? *prev(it) : _exitButton;
+		ButtonUI* nR = (it != prev(_items->end())) ? *next(it) : _firstWeaponFrame;
+		(*it)->setNextButtons({ nL, nullptr, nR, nullptr });
+	}
 	reorderDepot();
 	setVisible(true);
 
