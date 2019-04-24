@@ -5,7 +5,6 @@
 
 Melee::Melee(Game * g, Vector2D offset, Uint16 collidesWith, double damage, double w, double h) : GameObject(g, "Melee") , _offset(offset), _collidesWith(collidesWith), _damage(damage), _w(w), _h(h) {}
 
-
 void Melee::meleeAttack(double x, double y, int dir)
 {
 	_dir = dir;

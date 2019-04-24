@@ -268,7 +268,7 @@ void Game::run()
 
 		while (lag >= FRAME_RATE)
 		{
-			_world->Step((float)FRAME_RATE / 1000.0f, 8, 3);
+			_world->Step(_timestep, 8, 3);
 			update(FRAME_RATE);
 			lag -= FRAME_RATE;
 		}

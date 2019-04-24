@@ -194,6 +194,7 @@ void ShopMenu::setPlayer(Player* ply)
 
 void ShopMenu::openShop()
 {
+	GameManager::getInstance()->setOnShop(true);
 	_player->getPlayerPanel()->updateCoinsCounter(_player->getMoney()->getWallet());
 	_game->getCurrentState()->getMainCamera()->fadeIn(500);
 	SDL_ShowCursor(true);
@@ -214,6 +215,7 @@ void ShopMenu::openShop()
 
 void ShopMenu::closeShop()
 {
+	GameManager::getInstance()->setOnShop(false);
 	_closed = true;
 	_dialoguePanel->endDialogue();
 	_game->getSoundManager()->stopMusic();

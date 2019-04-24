@@ -15,7 +15,7 @@ PlayerPanel::PlayerPanel(Game* game) : PanelUI(game)
 
 	_coinsCounter = new CoinsCounter(game, CAMERA_RESOLUTION_X - 30, 3);
 
-	_deathText = new TextUI(game, "ANYAHILATED", game->getFont("ARIAL12"), 50, CAMERA_RESOLUTION_X / 2 - 50, CAMERA_RESOLUTION_Y / 2 - 10, { 255,0,0,1 });
+	_deathText = new TextUI(game, "YOU FAILED", game->getFont("ARIAL12"), 50, CAMERA_RESOLUTION_X / 2 - 50, CAMERA_RESOLUTION_Y / 2 - 10, { 255,0,0,1 });
 	_deathText->setVisible(false);
 
 	//Añadimos al panel

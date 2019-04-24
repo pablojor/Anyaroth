@@ -66,7 +66,7 @@ private:
 
 
 	b2World* _world = nullptr;
-	float _timestep = 1 / 60.0;
+	float _timestep = FRAME_RATE / 1000.0f;
 	bool _exit = false;
 
 public:

@@ -32,7 +32,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	auto enemyPool = new BulletPool(g);
 
 	//Levels
-	GameManager::getInstance()->setCurrentLevel(LevelManager::SafeBossDemo);
+	GameManager::getInstance()->setCurrentLevel(LevelManager::SafeDemo);
 	_level = new GameObject(g);
 	_levelManager = LevelManager(g, _player, _level, _playHud, enemyPool);
 	_levelManager.setLevel(GameManager::getInstance()->getCurrentLevel());
@@ -99,7 +99,8 @@ bool PlayState::handleEvent(const SDL_Event& event)
 	GameState::handleEvent(event);
 
 	bool handled = false;
-	if ((event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE) || (event.type == SDL_CONTROLLERBUTTONDOWN && event.cbutton.button == SDL_CONTROLLER_BUTTON_START))
+	if (((event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE) || (event.type == SDL_CONTROLLERBUTTONDOWN && event.cbutton.button == SDL_CONTROLLER_BUTTON_START))
+		&& !GameManager::getInstance()->getOnDialogue() && !GameManager::getInstance()->getOnShop())
 	{
 		_gameptr->setTimestep(0);
 		_gameptr->pushState(new PauseState(_gameptr));

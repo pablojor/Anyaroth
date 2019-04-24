@@ -1,5 +1,6 @@
 #include "DialoguePanel.h"
 #include "Game.h"
+#include "GameManager.h"
 #include <iterator>
 #include <sstream>
 
@@ -71,6 +72,7 @@ void DialoguePanel::startDialogue(const Dialogue& dialogue)
 		_dialogue = dialogue;
 		_currentText = 0;
 		_isConversating = true;
+		GameManager::getInstance()->setOnDialogue(true);
 
 		//inicializamos cada elemento
 		if (_dialogue.name != " ")
@@ -117,6 +119,7 @@ void DialoguePanel::startDialogue(const Dialogue& dialogue)
 void DialoguePanel::endDialogue()
 {
 	_isConversating = false;
+	GameManager::getInstance()->setOnDialogue(false);
 
 	//ponemos invisible todo y reseteamos lo que había
 	_indicatorImage->setVisible(false);

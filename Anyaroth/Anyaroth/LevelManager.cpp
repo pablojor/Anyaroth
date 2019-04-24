@@ -14,7 +14,7 @@ LevelManager::LevelManager(Game* game, Player* player, GameObject* level, PlaySt
 
 void LevelManager::setLevel(int l)
 {
-	CutScene* cutscene = new CutScene(_player);
+	CutScene* cutscene;
 
 	switch (l)
 	{
@@ -85,6 +85,8 @@ void LevelManager::setLevel(int l)
 		break;
 	case LevelManager::SafeBossDemo:
 		_currentSafeZone = new Map(TILEMAP_PATH + "SafeZoneBossDemo.json", _game, _player, _tilesetZone1, _enemyBulletPool, _hud);
+
+		cutscene = new CutScene(_player);
 
 		if (_player->getComponent<CustomAnimatedSpriteComponent>()->isFlipped())
 			cutscene->addFlipEvent();

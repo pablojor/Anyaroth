@@ -3,7 +3,6 @@
 GameManager GameManager::_instance;
 bool GameManager::_initilized = false;
 
-
 void GameManager::init()
 {
 	_initilized = true;

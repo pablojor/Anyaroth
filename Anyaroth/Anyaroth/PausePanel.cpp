@@ -66,7 +66,7 @@ bool PausePanel::handleEvent(const SDL_Event& event)
 
 void PausePanel::continueGame(Game * g)
 {
-	g->setTimestep(1 / 60.0);
+	g->setTimestep(FRAME_RATE / 1000.0f);
 	g->popState();
 }
 
@@ -79,7 +79,7 @@ void PausePanel::options(Game * g)
 
 void PausePanel::returnMenu(Game * g)
 {
-	g->setTimestep(1 / 60.0);
+	g->setTimestep(FRAME_RATE / 1000.0f);
 	g->popState();
 	g->changeState(new MenuState(g));
 }
