@@ -13,7 +13,7 @@ public:
 	Collectable(Game* game, Texture* texture, Vector2D pos, int value, string tag);
 	virtual ~Collectable() {}
 
-	void beginCollision(GameObject* other, b2Contact* contact);
+	virtual void beginCollision(GameObject* other, b2Contact* contact);
 	void collect();
 
 	inline virtual int getValue() const { return _value; }

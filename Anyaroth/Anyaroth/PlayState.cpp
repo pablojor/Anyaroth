@@ -99,6 +99,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	//----AÑADIR A LOS OBJETOS----//
 
 	_stages.push_back(_level);
+	_stages.push_back(_player);
 	_stages.push_back(_cursor);
 	_stages.push_back(_playerBulletPool);
 	_stages.push_back(enemyPool);
