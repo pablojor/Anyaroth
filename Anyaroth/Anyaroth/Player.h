@@ -50,10 +50,8 @@ private:
 		_jMoveDown = false,
 		_inputFreezed = false,
 		_jMoveRight = false,
-		_jReleased = false;
-		_spawnParticles = false,
-		_inputFreezed = false;
-
+		_jReleased = false,
+		_spawnParticles = false;
 
 	double _speed = 15,
 		_jPosX,
