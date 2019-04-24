@@ -39,7 +39,7 @@ void Particle::init(Texture * texture, const Vector2D & position, const double &
 
 	_texture = texture;
 	_transform->setRotation(angle);
-
+	
 	_body->getBody()->SetActive(true);
 	_body->getBody()->SetTransform({ (float32)(position.getX() / M_TO_PIXEL), (float32)(position.getY() / M_TO_PIXEL) }, _body->getBody()->GetAngle());
 	_body->getBody()->SetLinearVelocity(b2Vec2(_speed*cos(angle* M_PI / 180.0), -_speed*sin(angle* M_PI / 180.0)));

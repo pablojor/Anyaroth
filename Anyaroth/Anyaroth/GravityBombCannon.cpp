@@ -6,6 +6,7 @@ GravityBombCannon::GravityBombCannon(Game* game) : Gun(game->getTexture("ArmBHCa
 {
 	_offset = { 24, -1 };
 	_animType = PlayerBHCannonArmType;
+	createParticles = false;
 }
 
 

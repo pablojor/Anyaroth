@@ -34,14 +34,17 @@ void Gun::shoot(BulletPool* bulletPool, const Vector2D& position, const double& 
 		else
 			bulletPool->addNewBullet()->init(_bulletTexture, bulletPos, _speed, _damage, angle, _range, tag, _effect, _bulletAnimType);
 
-		double dir = 0;
-		double absAngle = abs(angle);
-		Vector2D particlePos = (position + _offset * 0.5).rotateAroundPoint(angle, position);
-		if (absAngle > 120)
+		if (createParticles)
 		{
-			dir = -1;
+			double dir = 0;
+			double absAngle = abs(angle);
+			Vector2D particlePos = (position + _offset * 0.5).rotateAroundPoint(angle, position);
+			if (absAngle > 120)
+			{
+				dir = -1;
+			}
+			ParticleManager::GetParticleManager()->CreateSimpleParticle(_bulletTexture, 0.5, particlePos, 15, 135 + 90 * dir, 400, 4);
 		}
-		ParticleManager::GetParticleManager()->CreateSimpleParticle(_bulletTexture, 0.5, particlePos, 15, 135+90*dir , 400,4);
 	}
 }
 

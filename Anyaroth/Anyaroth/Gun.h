@@ -24,6 +24,7 @@ protected:
 
 	Texture* _armTexture = nullptr, *_bulletTexture = nullptr, *_iconTexture = nullptr;
 
+	bool createParticles = true;
 
 public:
 	Gun(Texture* armTexture, Texture* bulletTexture, double speed, double damage, double range, int maxClip, int maxMagazine, int maxCadence, EffectInterface* effect, GunType id, Texture* iconTexture, bool automatic = false, BulletAnimType bType = BulletAnimType::Default);
