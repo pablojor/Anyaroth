@@ -382,7 +382,7 @@ void Player::update(const double& deltaTime)
 		_spawnParticles = false;
 		double center_x = _body->getBody()->GetPosition().x + _body->getW() / 2, center_y = _body->getBody()->GetPosition().y + _body->getH() / 2;
 		Vector2D direction = Vector2D((_contactPoint.x - center_x), (center_y - _contactPoint.y));
-		ParticleManager::GetParticleManager()->CreateSpray(_game->getTexture("Coin"), Vector2D(center_x*M_TO_PIXEL, center_y*M_TO_PIXEL), direction, 10, 20, 30, 1000, 15, 2);
+		ParticleManager::GetParticleManager()->CreateSpray(_game->getTexture("Blood"), Vector2D(center_x*M_TO_PIXEL, center_y*M_TO_PIXEL), direction, 10, 20, 30, 1000, 15, 2);
 	}
 
 	GameObject::update(deltaTime);
@@ -550,21 +550,45 @@ void Player::refreshDashCoolDown(const double& deltaTime)
 
 void Player::dashTimer(const double & deltaTime)
 {
-	if (_onDash && !_dashDown)
+	if (_onDash )
 	{
+		if(!_dashDown)
 		_dashTime -= deltaTime;
 		_dashParticleTime -= deltaTime;
-		if (_dashTime <= 0)
+		if (_dashTime <= 0 && !_dashDown)
 		{
-			_dashParticleTime = 50;
+			_dashParticleTime = 40;
 			_dashTime = 250;
 			_onDash = false;
 		}
 		if (_dashParticleTime <= 0)
 		{
-			_dashParticleTime = 50;
-			ParticleManager::GetParticleManager()->CreateSimpleParticle(_game->getTexture("Mk"), 1, Vector2D((_body->getBody()->GetPosition().x )*M_TO_PIXEL,( _body->getBody()->GetPosition().y)*M_TO_PIXEL), 0, 0, 100);
-		}
+			if(_anim->getCurrentAnim()== AnimatedSpriteComponent::Dash)
+			{
+				if (!_anim->isFlipped())
+					ParticleManager::GetParticleManager()->CreateSimpleParticle(_game->getTexture("DashTrail"), 1, Vector2D((_body->getBody()->GetPosition().x)*M_TO_PIXEL, (_body->getBody()->GetPosition().y)*M_TO_PIXEL), 0, 0, 120);
+				else
+					ParticleManager::GetParticleManager()->CreateSimpleParticle(_game->getTexture("DashTrailFlip"), 1, Vector2D((_body->getBody()->GetPosition().x)*M_TO_PIXEL, (_body->getBody()->GetPosition().y)*M_TO_PIXEL), 0, 0, 120);
+
+			}
+			else if(_anim->getCurrentAnim() == AnimatedSpriteComponent::DashBack)
+			{
+				if (!_anim->isFlipped())
+					ParticleManager::GetParticleManager()->CreateSimpleParticle(_game->getTexture("DashBackTrail"), 1, Vector2D((_body->getBody()->GetPosition().x)*M_TO_PIXEL, (_body->getBody()->GetPosition().y)*M_TO_PIXEL), 0, 0, 120);
+				else
+					ParticleManager::GetParticleManager()->CreateSimpleParticle(_game->getTexture("DashBackTrailFlip"), 1, Vector2D((_body->getBody()->GetPosition().x)*M_TO_PIXEL, (_body->getBody()->GetPosition().y)*M_TO_PIXEL), 0, 0, 120);
+			}
+			else
+			{
+				if(!_anim->isFlipped())
+					ParticleManager::GetParticleManager()->CreateSimpleParticle(_game->getTexture("DashDownTrail"), 1, Vector2D((_body->getBody()->GetPosition().x)*M_TO_PIXEL, (_body->getBody()->GetPosition().y)*M_TO_PIXEL), 0, 0, 120);
+				else
+					ParticleManager::GetParticleManager()->CreateSimpleParticle(_game->getTexture("DashDownTrailFlip"), 1, Vector2D((_body->getBody()->GetPosition().x)*M_TO_PIXEL, (_body->getBody()->GetPosition().y)*M_TO_PIXEL), 0, 0, 120);
+
+
+			}
+			_dashParticleTime = 40;
+			}
 	}
 }
 
@@ -583,7 +607,7 @@ void Player::move(const Vector2D& dir, const double& speed)
 		_body->getBody()->SetLinearVelocity(b2Vec2(dir.getX() * speed, _body->getBody()->GetLinearVelocity().y));
 	if (_floorCount > 0 && dir.getX()!=0)
 	{
-		ParticleManager::GetParticleManager()->CreateFountain(_game->getTexture("Coin"), Vector2D((_body->getBody()->GetPosition().x)*M_TO_PIXEL, (_body->getBody()->GetPosition().y+_body->getH())*M_TO_PIXEL),Vector2D(-dir.getX(),1),0,speed,15,300,10, 100,3);
+		ParticleManager::GetParticleManager()->CreateFountain(_game->getTexture("Dust"), Vector2D((_body->getBody()->GetPosition().x)*M_TO_PIXEL, (_body->getBody()->GetPosition().y+_body->getH())*M_TO_PIXEL),Vector2D(-dir.getX(),1),0,speed,15,300,10, 100,3);
 	}
 }
 
@@ -648,8 +672,8 @@ void Player::jump()
 	setGrounded(false);
 	_timeToJump = 0.f;
 	_anim->playAnim(AnimatedSpriteComponent::BeforeJump); 
-	ParticleManager::GetParticleManager()->CreateSpray(_game->getTexture("Coin"), Vector2D((_body->getBody()->GetPosition().x+_body->getW()/2)*M_TO_PIXEL, (_body->getBody()->GetPosition().y + _body->getH())*M_TO_PIXEL), Vector2D(-1, 1), 10, 20, 20, 400, 10, 3);
-	ParticleManager::GetParticleManager()->CreateSpray(_game->getTexture("Coin"), Vector2D((_body->getBody()->GetPosition().x - _body->getW() / 2)*M_TO_PIXEL, (_body->getBody()->GetPosition().y + _body->getH())*M_TO_PIXEL), Vector2D(1, 1), 10, 20, 20, 400, 10, 3);
+	ParticleManager::GetParticleManager()->CreateSpray(_game->getTexture("Dust"), Vector2D((_body->getBody()->GetPosition().x+_body->getW()/2)*M_TO_PIXEL, (_body->getBody()->GetPosition().y + _body->getH())*M_TO_PIXEL), Vector2D(-1, 1), 10, 20, 20, 400, 10, 3);
+	ParticleManager::GetParticleManager()->CreateSpray(_game->getTexture("Dust"), Vector2D((_body->getBody()->GetPosition().x - _body->getW() / 2)*M_TO_PIXEL, (_body->getBody()->GetPosition().y + _body->getH())*M_TO_PIXEL), Vector2D(1, 1), 10, 20, 20, 400, 10, 3);
 }
 
 void Player::cancelJump()

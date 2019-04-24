@@ -32,7 +32,7 @@ private:
 
 	//Variables
 	int _dashTime = 250,
-		_dashCD = 1000 + _dashTime,_dashParticleTime=50,
+		_dashCD = 1000 + _dashTime,_dashParticleTime=40,
 		_floorCount = 0,
 		_deathCD = 3000;
 

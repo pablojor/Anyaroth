@@ -24,14 +24,24 @@ void Gun::shoot(BulletPool* bulletPool, const Vector2D& position, const double& 
 	{	
 		_clip--;
 		_cadence = _maxCadence;
-
+		double dir = 1;
 		//Disparar la bala aqui
 		Bullet* b = bulletPool->getUnusedObject();
 		Vector2D bulletPos = prepareBulletPosition(position, angle);
+		double absAngle = abs(angle);
+		if (absAngle > 90 )
+		{
+			dir = -1;
+		}
+		Vector2D particlePos = prepareBulletPosition(position - (_offset*0.5)*dir, angle );
+			
 		if (b != nullptr)
 			b->init(_bulletTexture, bulletPos, _speed, _damage, angle, _range, tag, _effect, _bulletAnimType);
 		else
 			bulletPool->addNewBullet()->init(_bulletTexture, bulletPos, _speed, _damage, angle, _range, tag, _effect, _bulletAnimType);
+
+		
+		ParticleManager::GetParticleManager()->CreateSimpleParticle(_bulletTexture, 0.5, particlePos, 15, angle + 135 * dir, 400,4);
 	}
 }
 

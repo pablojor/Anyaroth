@@ -36,6 +36,9 @@ void Enemy::beginCollision(GameObject * other, b2Contact* contact)
 		int damage = other->getDamage();
 		subLife(damage);
 
+		BodyComponent* otherBody = other->getComponent<BodyComponent>();
+		_contactPoint = otherBody->getBody()->GetPosition() + b2Vec2(otherBody->getW() / 2, otherBody->getH() / 2);
+
 		if (other->getTag() == "Melee")
 			_dropMelee = true;
 		else
@@ -54,6 +57,13 @@ void Enemy::update(const double& deltaTime)
 	{
 		_drop = false;
 		drop();
+	}
+	if (_spawnParticles)
+	{
+		_spawnParticles = false;
+		double center_x = _body->getBody()->GetPosition().x + _body->getW() / 2, center_y = _body->getBody()->GetPosition().y + _body->getH() / 2;
+		Vector2D direction = Vector2D((_contactPoint.x - center_x), (center_y - _contactPoint.y));
+		ParticleManager::GetParticleManager()->CreateSpray(_game->getTexture("Blood"), Vector2D(center_x*M_TO_PIXEL, center_y*M_TO_PIXEL), direction, 10, 20, 30, 1000, 15, 2);
 	}
 }
 
@@ -93,7 +103,10 @@ void Enemy::subLife(int damage)
 		if (_life.getLife() == 0)
 			die();
 		else
+		{
 			_anim->hurt();
+			_spawnParticles = true;
+		}
 	}
 }
 
