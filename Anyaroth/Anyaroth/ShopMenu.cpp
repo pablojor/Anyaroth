@@ -60,8 +60,6 @@ ShopMenu::ShopMenu(Game* game) : PanelUI(game)
 	_depotButton->setNextButtons({ _talkButton, _talkButton, _exitButton, _exitButton });
 	_exitButton->setNextButtons({ _depotButton, _depotButton, _shopButton, _shopButton });
 
-	_selectedButton = _shopButton;
-
 	addChild(_shopButton);
 	addChild(_shopText);
 	addChild(_talkButton);
@@ -187,9 +185,16 @@ void ShopMenu::openShop()
 	_dialoguePanel->startDialogue(_game->getDialogue("Shop 1 " + to_string(GameManager::getInstance()->getCurrentLevel())));
 
 	_mainMenuAbled = true;
+	ableMainMenu(_game);
 
 	if (_game->isJoystick())
+	{
+		_selectedButton = _shopButton;
 		_selectedButton->setSelected(true);
+		_talkButton->setSelected(false);
+		_depotButton->setSelected(false);
+		_exitButton->setSelected(false);
+	}
 }
 
 void ShopMenu::closeShop()
@@ -199,6 +204,7 @@ void ShopMenu::closeShop()
 	_game->getSoundManager()->stopMusic();
 	_player->setActive(true);
 	SDL_ShowCursor(false);
+	_selectedButton->setSelected(false);
 }
 
 void ShopMenu::setDialoguePanel(DialoguePanel* dialoguePanel)

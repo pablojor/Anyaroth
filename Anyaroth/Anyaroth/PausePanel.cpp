@@ -68,6 +68,7 @@ bool PausePanel::handleEvent(const SDL_Event& event)
 
 void PausePanel::continueGame(Game * g)
 {
+	SDL_ShowCursor(false);
 	g->setTimestep(1 / 60.0);
 	g->popState();
 }
