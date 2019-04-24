@@ -22,35 +22,14 @@
                 " "
             ]
         },
-        "Demo dude 1": {
-            "face": "DialogueFace",
-            "name": "Worker",
-            "voice": "exampleVoice",
-            "dialogue": [
-                "Are you going outside? What a bastard!",
-                "You want to kill the general Spenta... Are you crazy or something?",
-                "Well... see you in the other side."
-            ],
-            "faces": [
-                0,
-                0,
-                0
-            ],
-            "sounds": [
-                " ",
-                " ",
-                " ",
-                " "
-            ]
-        },
-        "Demo dude 2": {
+        "Demo dude": {
             "face": "DialogueFace",
             "name": "Insurgent",
             "voice": "exampleVoice",
             "dialogue": [
-                "Oh! A new comrade, and a good one.",
-                "If you want to try beating the general, keep going forward.",
-                "I hope you'll win. For the cause!"
+                "Oh! A new comrade, and looks like a good one.",
+                "Listen carefully... if you continue this path you'll find the general Spenta.",
+                "I hope you'll win and secure the cuartel. For the cause!"
             ],
             "faces": [
                 0,
@@ -64,7 +43,7 @@
                 " "
             ]
         },
-        "Shop 1 51": {
+        "Shop 1 53": {
             "face": "nullptr",
             "name": "Smuggler",
             "voice": "exampleVoice",
@@ -81,7 +60,7 @@
                 " "
             ]
         },
-        "Shop 2 51": {
+        "Shop 2 53": {
             "face": "nullptr",
             "name": "Smuggler",
             "voice": "exampleVoice",
@@ -98,12 +77,12 @@
                 " "
             ]
         },
-        "Shop Catalog 51": {
+        "Shop Catalog 53": {
             "face": "nullptr",
             "name": "Smuggler",
             "voice": "exampleVoice",
             "dialogue": [
-                "Do you like my toys? Hahahaha!!"
+                "Do you like my amazing toys? Hahahaha!!"
             ],
             "faces": [
                 0
@@ -115,7 +94,7 @@
                 " "
             ]
         },
-        "Shop Talk 51": {
+        "Shop Talk 53": {
             "face": "nullptr",
             "name": "Smuggler",
             "voice": "exampleVoice",
@@ -138,103 +117,12 @@
                 " "
             ]
         },
-        "Shop Depot 51": {
-            "face": "nullptr",
-            "name": "Smuggler",
-            "voice": "exampleVoice",
-            "dialogue": [
-                "Take a second, choose carefully."
-            ],
-            "faces": [
-                0
-            ],
-            "sounds": [
-                " ",
-                " ",
-                " ",
-                " "
-            ]
-        },
-        "Shop 1 53": {
-            "face": "nullptr",
-            "name": "Smuggler",
-            "voice": "exampleVoice",
-            "dialogue": [
-                "Uh?! You again?"
-            ],
-            "faces": [
-                2
-            ],
-            "sounds": [
-                " ",
-                " ",
-                " ",
-                " "
-            ]
-        },
-        "Shop 2 53": {
-            "face": "nullptr",
-            "name": "Smuggler",
-            "voice": "exampleVoice",
-            "dialogue": [
-                "Okay... now I think you can last a little longer."
-            ],
-            "faces": [
-                2
-            ],
-            "sounds": [
-                " ",
-                " ",
-                " ",
-                " "
-            ]
-        },
-        "Shop Catalog 53": {
-            "face": "nullptr",
-            "name": "Smuggler",
-            "voice": "exampleVoice",
-            "dialogue": [
-                "You are going to need the powerfull ones."
-            ],
-            "faces": [
-                0
-            ],
-            "sounds": [
-                " ",
-                " ",
-                " ",
-                " "
-            ]
-        },
-        "Shop Talk 53": {
-            "face": "nullptr",
-            "name": "Smuggler",
-            "voice": "exampleVoice",
-            "dialogue": [
-                "I see... you survived and reach this place... Congratulations!!",
-                "But listen, now starts the real business. The next one is tought.",
-                "You're one step away from being my favourite costumer, hahahaha!",
-                "Good luck, boy!"
-            ],
-            "faces": [
-                2,
-                1,
-                2,
-                0
-            ],
-            "sounds": [
-                " ",
-                " ",
-                " ",
-                " "
-            ]
-        },
         "Shop Depot 53": {
             "face": "nullptr",
             "name": "Smuggler",
             "voice": "exampleVoice",
             "dialogue": [
-                "I see what you like the most... Hahahaha!"
+                "Take a second, choose your weapon and enjoy the music."
             ],
             "faces": [
                 0

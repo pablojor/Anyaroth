@@ -38,6 +38,7 @@ bool ButtonUI::handleEvent(const SDL_Event& event)
 			{
 				if (event.button.button == SDL_BUTTON_LEFT || event.cbutton.button == SDL_CONTROLLER_BUTTON_A)
 				{
+					_game->getSoundManager()->playSFX("boton");
 					_pressState = Down;
 					if (_onDownCallback != nullptr) _onDownCallback(_game);
 					handle = true;

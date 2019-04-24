@@ -59,58 +59,6 @@
          "visible":true,
          "x":0,
          "y":0
-        }, 
-        {
-         "draworder":"topdown",
-         "id":19,
-         "name":"Shop",
-         "objects":[
-                {
-                 "gid":10,
-                 "height":16,
-                 "id":12,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16,
-                 "x":304,
-                 "y":384
-                }],
-         "opacity":1,
-         "type":"objectgroup",
-         "visible":true,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "draworder":"topdown",
-         "id":18,
-         "name":"NPC",
-         "objects":[
-                {
-                 "gid":10,
-                 "height":16,
-                 "id":11,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"Data",
-                         "type":"string",
-                         "value":"Demo dude 1"
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16,
-                 "x":592,
-                 "y":384
-                }],
-         "opacity":1,
-         "type":"objectgroup",
-         "visible":true,
-         "x":0,
-         "y":0
         }],
  "nextlayerid":29,
  "nextobjectid":13,
