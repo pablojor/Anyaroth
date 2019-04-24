@@ -194,6 +194,7 @@ void ShopMenu::setPlayer(Player* ply)
 
 void ShopMenu::openShop()
 {
+	_player->getPlayerPanel()->updateCoinsCounter(_player->getMoney()->getWallet());
 	_game->getCurrentState()->getMainCamera()->fadeIn(500);
 	SDL_ShowCursor(true);
 	_zone = GameManager::getInstance()->getCurrentLevel();
