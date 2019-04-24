@@ -99,7 +99,7 @@ void Map::createObjects()
 			}
 			else if (name == "DistanceStatic")
 			{
-				_objects->addChild(new DistanceStaticEnemy(_game, _player, Vector2D(pos.getX() - TILES_SIZE, pos.getY() - TILES_SIZE * 2), _bulletPool));
+				_objects->addChild(new DistanceStaticEnemy(_game, _player, Vector2D(pos.getX() /*- TILES_SIZE*/, pos.getY() - TILES_SIZE * 2), _bulletPool));
 			}
 			else if (name == "FlyingDistance")
 			{

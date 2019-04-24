@@ -33,7 +33,7 @@ void Bullet::beginCollision(GameObject * other, b2Contact* contact)
 		_effect->beginCollision(this, other, contact);
 
 	if (other->getTag() == "Ground" || other->getTag() == "Platform" || other->getTag() == "Door")
-		_game->getSoundManager()->playSFX("bulletGround");
+		_game->getSoundManager()->playSFX("bulletGround",1);
 }
 
 void Bullet::endCollision(GameObject * other, b2Contact* contact)

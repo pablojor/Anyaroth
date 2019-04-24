@@ -26,7 +26,7 @@ void Gun::shoot(BulletPool* bulletPool, const Vector2D& position, const double& 
 		_clip--;
 		_cadence = _maxCadence;
 
-		_game->getSoundManager()->playSFX(_shotSoundTag); //Reproduce el sonido de disparo
+		_game->getSoundManager()->playSFX(_shotSoundTag, _id); //Reproduce el sonido de disparo
 
 		//Disparar la bala aqui
 		Bullet* b = bulletPool->getUnusedObject();

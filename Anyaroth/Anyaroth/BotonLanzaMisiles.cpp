@@ -52,9 +52,12 @@ void BotonLanzaMisiles::update(const double & deltaTime)
 		ready = _boss->isbeetweenFases() && _boss->getLastFase() >= _activeFase;
 		if (ready)
 		{
-			if(_anim->getCurrentAnim() != AnimatedSpriteComponent::Activating 
+			if (_anim->getCurrentAnim() != AnimatedSpriteComponent::Activating
 				&& _anim->getCurrentAnim() != AnimatedSpriteComponent::Active)
-			_anim->playAnim(AnimatedSpriteComponent::Activating);
+			{
+				_anim->playAnim(AnimatedSpriteComponent::Activating);
+				_game->getSoundManager()->playSFX("rocketLuncherUp");
+			}
 			else if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::Activating)
 				_anim->playAnim(AnimatedSpriteComponent::Active);
 		}
