@@ -46,7 +46,7 @@ bool Interactable::handleEvent(const SDL_Event& event)
 	}
 	else if (event.type == SDL_CONTROLLERBUTTONDOWN)
 	{
-		if (event.cbutton.button == SDL_CONTROLLER_BUTTON_B && _canInteract)
+		if (event.cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_UP && _canInteract)
 		{
 			interact();//realiza accion
 		}

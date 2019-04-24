@@ -39,6 +39,7 @@ public:
 	virtual void update(const double& deltaTime);
 	virtual void post_update();
 	virtual bool handleEvent(const SDL_Event& event);
+	virtual bool pre_handleEvent();
 
 	virtual void addObject(GameObject* obj);
 	virtual void destroyObject(GameObject* obj);

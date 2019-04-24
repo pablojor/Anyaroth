@@ -2,7 +2,7 @@
 #include "Game.h"
 
 
-ShopItem::ShopItem(Game* game, Texture* image, int xPos, int yPos) : ButtonUI(game, image, 0, {0, 0, 1, 1, 1})
+ShopItem::ShopItem(Game* game, Texture* image, int xPos, int yPos, int arrayPos) : ButtonUI(game, image, 0, {0, 0, 1, 1, 1}, arrayPos)
 {
 	_weaponIcon = new ImageUI(game, image, xPos, yPos);
 	setPosition(xPos, yPos);

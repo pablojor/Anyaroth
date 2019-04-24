@@ -12,8 +12,7 @@ protected:
 	void removeChild(UIElement* child);
 	void removeAllChildren();
 
-	std::vector<ButtonUI*> _buttons;
-	int _selectedButton = 0;
+	ButtonUI* _selectedButton = nullptr;
 public:
 	PanelUI() : UIElement(nullptr) {}
 	PanelUI(Game* game);

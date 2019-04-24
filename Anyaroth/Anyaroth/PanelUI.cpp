@@ -49,36 +49,11 @@ bool PanelUI::handleEvent(const SDL_Event & event)
 	bool handled = false;
 	if (_visible)
 	{
-		if (event.type == SDL_MOUSEMOTION && _buttons.size()>0)
+		if (event.type == SDL_MOUSEMOTION && _selectedButton!= nullptr)
 		{
-			_buttons[_selectedButton]->setSelected(false);
+			_selectedButton->setSelected(false);
 			SDL_Cursor* cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
 			SDL_SetCursor(cursor);
-		}
-		if (event.type == SDL_CONTROLLERBUTTONDOWN && _buttons.size() > 0)
-		{
-			if (event.cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_LEFT )
-			{
-				_buttons[_selectedButton]->setSelected(false);
-
-				_selectedButton = (_selectedButton - 1) % _buttons.size();
-				while (!_buttons[_selectedButton]->isVisible())
-					_selectedButton = (_selectedButton - 1) % _buttons.size();
-
-				_buttons[_selectedButton]->setSelected(true);
-			}
-			else if (event.cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_RIGHT)
-			{
-				_buttons[_selectedButton]->setSelected(false);
-
-				_selectedButton = (_selectedButton + 1) % _buttons.size();
-				while (!_buttons[_selectedButton]->isVisible())
-				{
-					_selectedButton = (_selectedButton + 1) % _buttons.size();
-				}
-
-				_buttons[_selectedButton]->setSelected(true);
-			}
 		}
 		auto it = _children.begin();
 

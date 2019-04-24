@@ -96,7 +96,7 @@ void Camera::shakeCamera(const double& deltaTime)
 
 void Camera::fadingControl(const double & deltaTime)
 {
-	if (_isFading)
+	if (_isFading && !_fadeIsFinished)
 	{
 		if (_fadeMaxTime < 0)
 			_fadeTime -= deltaTime;
@@ -105,18 +105,13 @@ void Camera::fadingControl(const double & deltaTime)
 
 		if (_fadeTime / _fadeMaxTime >= 1) {
 			_isFading = false;
-			if (_onFadeComplete != nullptr)	//Por si dentro del callBack se redefine
-			{
-				auto t = _onFadeComplete;
-				_onFadeComplete = nullptr;
-				t(_game);
-			}
+			_fadeIsFinished = true;
+			_fadeTime = _fadeMaxTime;
 		}
 	}
-	else if (_fadeTime != 0)
+	else if (!_isFading && _fadeTime != 0 && _onFadeComplete == nullptr)
 	{
 		_fadeTime = 0;
-		_onFadeComplete = nullptr;
 	}
 }
 
@@ -197,6 +192,7 @@ void Camera::shake(const float& intensity, const float& time)
 void Camera::fadeIn(const float & time)
 {
 	_onFadeComplete = nullptr;
+	_fadeIsFinished = false;
 	_fadeTime = 0;
 	_fadeMaxTime = time;
 	_isFading = true;
@@ -205,6 +201,7 @@ void Camera::fadeIn(const float & time)
 void Camera::fadeOut(const float & time)
 {
 	_onFadeComplete = nullptr;
+	_fadeIsFinished = false;
 	_fadeTime = 0;
 	_fadeMaxTime = -time;
 	_isFading = true;
@@ -231,12 +228,39 @@ void Camera::render() const
 
 void Camera::last_render() const 
 {
-	if (_isFading) {
+	if (_isFading || (_fadeIsFinished && _onFadeComplete != nullptr)) {
 		Texture tex = Texture(_game->getRenderer());
 		Uint8 alpha = (_fadeTime / _fadeMaxTime) * 255;
+		if (alpha > 255) alpha = 255;
 		tex.load(_cameraRect.w, _cameraRect.h, 0, 0, 0, _fadeMaxTime < 0 ? alpha : 255 - alpha);
 		tex.render({ 0, 0, GAME_RESOLUTION_X, GAME_RESOLUTION_Y });
 	}
+}
+
+bool Camera::pre_handleEvent()
+{
+	if (_fadeIsFinished)
+	{
+		if (_onFadeComplete != nullptr)
+		{
+			auto t = _onFadeComplete;
+			_onFadeComplete = nullptr;
+			_fadeIsFinished = false;
+			_isFading = false;
+			_fadeTime = 0;
+
+			t(_game);
+			return true;
+		}
+		else
+		{
+			_fadeIsFinished = false;
+			_isFading = false;
+			_fadeTime = 0;
+		}
+	}
+
+	return false;
 }
 
 void Camera::setWorldBounds(const int & xBound, const int & yBound)
