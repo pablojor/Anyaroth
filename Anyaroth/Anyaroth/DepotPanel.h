@@ -24,6 +24,11 @@ class DepotPanel : public PanelUI
 		ShopItem* _secondWeaponFrame;
 		ShopItem* _meleeWeaponFrame;
 
+
+		ShopItem* _firstWeaponItem;
+		ShopItem* _secondWeaponItem;
+		ShopItem* _meleeWeaponItem;
+
 		list<ShopItem*>* _items;
 
 		ShopItem* _selectedItem = nullptr;

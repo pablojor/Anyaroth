@@ -58,7 +58,6 @@ void GravityBombDebuff::update(const double& deltaTime)
 			_obj->subLife(_gravityZone->getDamage());
 			_damageTime = 0;
 			_ticks++;
-			cout << _ticks<<endl;
 		}
 	}
 }
