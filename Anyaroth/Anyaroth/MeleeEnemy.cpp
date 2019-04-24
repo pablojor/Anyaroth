@@ -47,10 +47,7 @@ void MeleeEnemy::update(const double& deltaTime)
 				if (_playerDistance.getX() > _attackRangeX)
 					moving(_dir);
 				else if (sameFloor)
-				{
 					attack();
-					_game->getSoundManager()->playSFX("meleeEnemyAttack");
-				}
 				else
 					idle();
 			}
@@ -62,10 +59,7 @@ void MeleeEnemy::update(const double& deltaTime)
 				if (_playerDistance.getX() < -_attackRangeX)
 					moving(_dir);
 				else if (sameFloor)
-				{
 					attack();
-					_game->getSoundManager()->playSFX("meleeEnemyAttack");
-				}
 				else
 					idle();
 			}

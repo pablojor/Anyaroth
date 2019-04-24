@@ -31,6 +31,7 @@ void GroundEnemy::attack()
 	{
 		_body->getBody()->SetLinearVelocity({ 0, _body->getBody()->GetLinearVelocity().y });
 		_anim->playAnim(AnimatedSpriteComponent::EnemyAttack); //Llamas a animacion de ataque
+		_game->getSoundManager()->playSFX("meleeEnemyAttack");
 		_time = 0;
 		_attacking = true;
 	}

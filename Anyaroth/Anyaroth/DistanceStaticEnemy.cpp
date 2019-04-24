@@ -32,7 +32,7 @@ DistanceStaticEnemy::DistanceStaticEnemy(Game* g, Player* player, Vector2D pos, 
 	//_body->setW(_anim->getTexture()->getW());
 	//_body->setH(_anim->getTexture()->getH());
 	_body->moveShape(b2Vec2(0, -0.6));
-	_body->filterCollisions(ENEMIES, FLOOR | PLATFORMS | PLAYER_BULLETS);
+	_body->filterCollisions(ENEMIES, FLOOR | PLATFORMS | PLAYER_BULLETS | MELEE);
 
 	//Ajustes del arma
 	_myGun->setDamage(2);
