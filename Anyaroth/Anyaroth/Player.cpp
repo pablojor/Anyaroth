@@ -61,8 +61,8 @@ Player::Player(Game* game, int xPos, int yPos) : GameObject(game, "Player")
 	_playerArm = new PlayerArm(game, this, { 28, 15 });
 	addChild(_playerArm);
 	
-	_currentGun = WeaponManager::getWeapon(game, ImprovedRifle_Weapon);
-	_otherGun = WeaponManager::getWeapon(game, PlasmaSniper_Weapon);
+	_currentGun = WeaponManager::getWeapon(game, BasicRifle_Weapon);
+	_otherGun = WeaponManager::getWeapon(game, BasicShotgun_Weapon);
 
 	_playerArm->setTexture(_currentGun->getArmTexture());
 	_playerArm->setAnimations(_currentGun->getAnimType());
