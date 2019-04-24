@@ -23,7 +23,11 @@ class DepotPanel : public PanelUI
 		ShopItem* _firstWeaponFrame;
 		ShopItem* _secondWeaponFrame;
 		ShopItem* _meleeWeaponFrame;
-		ShopItem* _lastCatalogItem;
+
+
+		ShopItem* _firstWeaponItem;
+		ShopItem* _secondWeaponItem;
+		ShopItem* _meleeWeaponItem;
 
 		list<ShopItem*>* _items;
 

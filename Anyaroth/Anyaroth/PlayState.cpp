@@ -163,7 +163,6 @@ void PlayState::saveGame()
 		auto items = _hud->getShop()->getItems();
 		for (ShopItem* i : items)
 		{
-			cout << i->getItemInfo()._name << " " << i->getItemInfo()._sold;
 			j[i->getItemInfo()._name] = i->getItemInfo()._sold;
 		}
 		output << j;
@@ -179,7 +178,6 @@ void PlayState::loadGame()
 	{
 		json j;
 		input >> j;
-		cout << j;
 		_player->setBank(j["Bank"]);
 		_levelManager.changeLevel(j["level"]);
 		_player->changeCurrentGun(WeaponManager::getWeapon(_gameptr, j["currentGun"]));

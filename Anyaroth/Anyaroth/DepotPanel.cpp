@@ -101,13 +101,16 @@ void DepotPanel::setPlayer(Player * ply)
 	auto* sInfo = &sItem->getItemInfo(); sInfo->_sold = true; sInfo->_equiped = true;
 
 	//FALTA HACERLO PARA EL ARMA A MELEE
+	_firstWeaponItem = fItem;
+	_secondWeaponItem = sItem;
+
 	_firstWeaponFrame->setItemInfo(*fInfo);
 	_secondWeaponFrame->setItemInfo(*sInfo);
 
 	addChild(_firstWeaponFrame);
 	addChild(_secondWeaponFrame);
 
-	_firstWeaponFrame->setNextButtons({ _lastCatalogItem, nullptr, _changeButton, nullptr });
+	_firstWeaponFrame->setNextButtons({ *prev(_items->end()), nullptr, _changeButton, nullptr });
 	_changeButton->setNextButtons({ _firstWeaponFrame, nullptr, _secondWeaponFrame, nullptr });
 	_secondWeaponFrame->setNextButtons({ _changeButton, nullptr, _exitButton, nullptr });
 	_exitButton->setNextButtons({ _secondWeaponFrame, nullptr, *(_items->begin()), nullptr });
@@ -127,7 +130,6 @@ void DepotPanel::setItems(list<ShopItem*>* list)
 			(*it)->setNextButtons({ nL, nullptr, nR, nullptr });
 		}
 	}
-	_lastCatalogItem = *prev(_items->end());
 }
 
 void DepotPanel::removeItems()
@@ -201,16 +203,6 @@ void DepotPanel::reorderDepot()
 		}
 		fil++;
 	}
-
-	//_firstWeaponFrame->setPosition(_equipmentFrame->getX() + 8,  _equipmentFrame->getY() + 8);
-	//_firstWeaponFrame->setVisible(true);
-
-	//_firstWeaponFrame->onDown([this](Game * game) { setDistanceWeapon(game, _firstWeaponFrame); });
-
-	//_secondWeaponFrame->setPosition(_firstWeaponFrame->getX() + _firstWeaponFrame->getW() + 26, _firstWeaponFrame->getY());
-	//_secondWeaponFrame->setVisible(true);
-
-	//_secondWeaponFrame->onDown([this](Game * game) { setDistanceWeapon(game, _secondWeaponFrame); });
 }
 
 void DepotPanel::changeEquipedGuns(Game* game)
@@ -218,11 +210,13 @@ void DepotPanel::changeEquipedGuns(Game* game)
 	_player->swapGun();
 
 	auto firstWeaponInfo = _firstWeaponFrame->getItemInfo();
-	auto firstWeaponImage = _firstWeaponFrame->getItemImage();
-
 	_firstWeaponFrame->setItemInfo(_secondWeaponFrame->getItemInfo());
 
 	_secondWeaponFrame->setItemInfo(firstWeaponInfo);
+
+	auto aux = _firstWeaponItem;
+	_firstWeaponItem = _secondWeaponItem;
+	_secondWeaponItem = aux;
 }
 
 void DepotPanel::selectItem(Game * game, ShopItem* item)
@@ -277,6 +271,11 @@ void DepotPanel::swapDistanceItems(ShopItem* _equiped)
 	auto infoEquiped = _equiped->getItemInfo();
 	infoSelected._equiped = true;
 	infoEquiped._equiped = false;
+
+	if (infoEquiped._name == _firstWeaponFrame->getItemInfo()._name)
+		_firstWeaponItem->setItemInfo(infoSelected);
+	else
+		_secondWeaponItem->setItemInfo(infoSelected);
 
 	_selectedItem->setItemInfo(infoEquiped);
 	_equiped->setItemInfo(infoSelected);

@@ -48,12 +48,15 @@ private:
 		_jShoot = false,
 		_jMoveLeft = false,
 		_jMoveDown = false,
-		_jMoveRight = false;
+		_inputFreezed = false,
+		_jMoveRight = false,
+		_jReleased = false;
 
 	double _speed = 15,
-		   _jPosX,
-		   _jPosY,
-		_inputFreezed = false;
+		_jPosX,
+		_jPosY,
+		_prevAxisX = 0,
+		_prevAxisY = 0;
 
 	float _timeToJump = 100.f;
 
