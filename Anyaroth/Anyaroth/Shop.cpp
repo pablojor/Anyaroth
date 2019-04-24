@@ -9,7 +9,7 @@ Shop::Shop(Game* g, Vector2D posIni, ShopMenu* shop) : _shop(shop), Interactable
 	addComponent<Texture>(g->getTexture("Shop"));
 
 	_anim = addComponent<AnimatedSpriteComponent>();
-	_anim->addAnim(AnimatedSpriteComponent::Default, 8, true);
+	_anim->addAnim(AnimatedSpriteComponent::Default, 8, true, 160);
 
 	_anim->playAnim(AnimatedSpriteComponent::Default);
 
@@ -57,6 +57,7 @@ void Shop::interact()
 {
 	if (!_shop->isVisible())
 	{
+		_game->getCurrentState()->getMainCamera()->fadeOut(500);
 		goIn = true;
 		_shopDoorAnim->playAnim(AnimatedSpriteComponent::Opened);
 	}

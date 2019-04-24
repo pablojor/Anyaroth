@@ -23,7 +23,7 @@ private:
 	Melee* _melee = nullptr;
 
 	//Propiedades
-	Life _life = Life(300);
+	Life _life = Life(100);
 	Money* _money = nullptr;
 	PlayerPanel* _playerPanel = nullptr;
 
@@ -49,12 +49,13 @@ private:
 		_jMoveLeft = false,
 		_jMoveDown = false,
 		_jMoveRight = false,
-		_spawnParticles = false;
+		_spawnParticles = false,
+		_inputFreezed = false;
+
 
 	double _speed = 15,
-		   _jPosX,
-		   _jPosY,
-		_inputFreezed = false;
+		_jPosX,
+		_jPosY;
 
 	float _timeToJump = 100.f;
 
@@ -92,6 +93,7 @@ public:
 	void die();
 	void revive();
 	void subLife(int damage);
+	inline Life getLife() const { return _life; }
 	inline bool isDead() const { return GameObject::isDead(); }
 
 	void swapGun();
@@ -105,6 +107,7 @@ public:
 	inline bool spendMoney(int n) { return _money->spend(n); }
 	inline int getBank() const { return _money->getBank(); }
 	inline void setBank(int amount) { _money->setBank(amount); }
+	inline Money* getMoney() const { return _money; }
 
 	void move(const Vector2D& dir, const double& speed);
 	void dash(const Vector2D& dir);

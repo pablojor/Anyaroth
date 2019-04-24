@@ -61,9 +61,9 @@ Player::Player(Game* game, int xPos, int yPos) : GameObject(game, "Player")
 	//Brazo
 	_playerArm = new PlayerArm(game, this, { 28, 15 });
 	addChild(_playerArm);
-
-	_currentGun = WeaponManager::getWeapon(game, ImprovedRifle_Weapon);
-	_otherGun = WeaponManager::getWeapon(game, ImprovedShotgun_Weapon);
+	
+	_currentGun = WeaponManager::getWeapon(game, BasicRifle_Weapon);
+	_otherGun = WeaponManager::getWeapon(game, BasicShotgun_Weapon);
 
 	_playerArm->setTexture(_currentGun->getArmTexture());
 	_playerArm->setAnimations(_currentGun->getAnimType());
@@ -124,10 +124,10 @@ void Player::beginCollision(GameObject * other, b2Contact* contact)
 
 			ammo->collect();
 
-			_currentGun->addAmmo(_currentGun->getClip()*value);
+			_currentGun->addAmmo(_currentGun->getMaxClip()*value);
 			_playerPanel->updateAmmoViewer(_currentGun->getClip(), _currentGun->getMagazine());
 
-			if (_otherGun != nullptr) _otherGun->addAmmo(_otherGun->getClip()*value);
+			if (_otherGun != nullptr) _otherGun->addAmmo(_otherGun->getMaxClip()*value);
 		}
 		contact->SetEnabled(false);
 	}
@@ -163,6 +163,8 @@ void Player::endCollision(GameObject * other, b2Contact* contact)
 
 void Player::die()
 {
+	_isShooting = false;
+
 	setDead(true);
 	_deathCD = 3000;
 	_playerArm->setActive(false);
@@ -172,6 +174,11 @@ void Player::die()
 
 	_money->restartWallet();
 	_playerPanel->updateCoinsCounter(_money->getWallet());
+
+	if (_game->random(0, 100) > 50)
+		_game->getSoundManager()->playSFX("die1");
+	else
+		_game->getSoundManager()->playSFX("die2");
 }
 
 void Player::revive()
@@ -208,6 +215,21 @@ void Player::subLife(int damage)
 				_anim->hurt();
 				_playerArm->hurt();
 				_spawnParticles = true;
+        
+				int rand = _game->random(0, 100);
+				if (rand > 80)
+					_game->getSoundManager()->playSFX("pain1");
+				else if (rand > 64)
+					_game->getSoundManager()->playSFX("pain2");
+				else if (rand > 48)
+					_game->getSoundManager()->playSFX("pain3");
+				else if (rand > 32)
+					_game->getSoundManager()->playSFX("pain4");
+				else if (rand > 16)
+					_game->getSoundManager()->playSFX("pain5");
+				else
+					_game->getSoundManager()->playSFX("pain6");
+
 			}
 		}
 		_playerPanel->updateLifeBar(_life.getLife(), _life.getMaxLife());
@@ -261,17 +283,14 @@ bool Player::handleEvent(const SDL_Event& event)
 			case SDL_CONTROLLER_BUTTON_A:
 				_jJump = true;
 				break;
-			case SDL_CONTROLLER_BUTTON_B:
+			case SDL_CONTROLLER_BUTTON_X:
 				_hasToReload = true;
 				break;
 			case SDL_CONTROLLER_BUTTON_Y:
 				swapGun();
 				break;
-			case SDL_CONTROLLER_BUTTON_LEFTSHOULDER:
+			case SDL_CONTROLLER_BUTTON_RIGHTSTICK:
 				_isMeleeing = true;
-				break;
-			case SDL_CONTROLLER_BUTTON_RIGHTSHOULDER:
-				_isDashing = true;
 				break;
 			default:
 				break;
@@ -284,14 +303,11 @@ bool Player::handleEvent(const SDL_Event& event)
 			case SDL_CONTROLLER_BUTTON_A:
 				_jJump = false;
 				break;
-			case SDL_CONTROLLER_BUTTON_B:
+			case SDL_CONTROLLER_BUTTON_X:
 				_hasToReload = false;
 				break;
-			case SDL_CONTROLLER_BUTTON_LEFTSHOULDER:
+			case SDL_CONTROLLER_BUTTON_RIGHTSTICK:
 				_isMeleeing = false;
-				break;
-			case SDL_CONTROLLER_BUTTON_RIGHTSHOULDER:
-				_isDashing = false;
 				break;
 			default:
 				break;
@@ -351,6 +367,16 @@ bool Player::handleEvent(const SDL_Event& event)
 				else
 					_isShooting = _jShoot = false;
 			}
+			//Left trigger
+			else if (event.caxis.axis == SDL_CONTROLLER_AXIS_TRIGGERLEFT)
+			{
+				if (event.caxis.value > JOYSTICK_DEADZONE)
+				{
+					_isDashing = true;
+				}
+				else
+					_isDashing = false;
+			}
 		}
 	}
 
@@ -368,7 +394,7 @@ void Player::update(const double& deltaTime)
 		else if (!_playerArm->isActive())
 			_playerArm->setActive(true);
 	}
-	else
+	else if(!_changeLevel)
 	{
 		_playerPanel->showDeathText(true);
 		_deathCD -= deltaTime;
@@ -615,6 +641,7 @@ void Player::reload()
 {
 	_playerArm->reload();
 	_currentGun->reload();
+	_game->getSoundManager()->playSFX("reload");
 }
 
 void Player::setPlayerPanel(PlayerPanel * p)
@@ -654,6 +681,7 @@ void Player::dash(const Vector2D& dir)
 		_dashDown = true;
 	}
 
+	_game->getSoundManager()->playSFX("dash");
 	_playerPanel->startAnimDashCD();
 }
 
@@ -671,9 +699,13 @@ void Player::jump()
 	_body->getBody()->ApplyLinearImpulse(b2Vec2(0, -_jumpForce), _body->getBody()->GetWorldCenter(), true);
 	setGrounded(false);
 	_timeToJump = 0.f;
+
 	_anim->playAnim(AnimatedSpriteComponent::BeforeJump); 
 	ParticleManager::GetParticleManager()->CreateSpray(_game->getTexture("Dust"), Vector2D((_body->getBody()->GetPosition().x+_body->getW()/2)*M_TO_PIXEL, (_body->getBody()->GetPosition().y + _body->getH())*M_TO_PIXEL), Vector2D(-1, 1), 10, 20, 20, 400, 10, 3);
 	ParticleManager::GetParticleManager()->CreateSpray(_game->getTexture("Dust"), Vector2D((_body->getBody()->GetPosition().x - _body->getW() / 2)*M_TO_PIXEL, (_body->getBody()->GetPosition().y + _body->getH())*M_TO_PIXEL), Vector2D(1, 1), 10, 20, 20, 400, 10, 3);
+  
+	_game->getSoundManager()->playSFX("jump");
+
 }
 
 void Player::cancelJump()
@@ -690,6 +722,8 @@ void Player::melee()
 	_anim->playAnim(AnimatedSpriteComponent::MeleeKnife);
 	_melee->meleeAttack(_body->getBody()->GetPosition().x* M_TO_PIXEL, _body->getBody()->GetPosition().y*M_TO_PIXEL, (_anim->isFlipped()) ? -1 : 1);
 	_isMeleeing = false;
+
+	_game->getSoundManager()->playSFX("melee");
 }
 
 void Player::shoot()

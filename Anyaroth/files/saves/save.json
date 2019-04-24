@@ -1,1 +1,15 @@
-{"Bank":9850,"BasicPistol":true,"BasicRifle":true,"BasicShotgun":false,"BounceOrbCanon":false,"GravityCannon":false,"ImproveRifle":true,"ImproveShotgun":true,"PlasmaSniper":false,"currentGun":3,"level":5,"otherGun":2}
+{
+    "Bank": 0,
+    "BasicPistol": true,
+    "BasicRifle": true,
+    "BasicShotgun": true,
+    "BounceOrbCanon": false,
+    "GravityCannon": false,
+    "ImproveRifle": false,
+    "ImproveShotgun": false,
+    "PlasmaSniper": false,
+    "currentGun": 3,
+    "level": 51,
+    "otherGun": 1
+}
+

@@ -3,10 +3,10 @@
 #include "AnimatedSpriteComponent.h"
 #include "Player.h"
 
-DistanceDynamicEnemy::DistanceDynamicEnemy(Game* g, Player* player, Vector2D pos, BulletPool* pool) : DistanceEnemy(g, player, pos, g->getTexture("EnemyMelee"), pool), GroundEnemy(g, player, pos, g->getTexture("EnemyMelee")), Enemy(g, player, pos, g->getTexture("EnemyMelee"))
+DistanceDynamicEnemy::DistanceDynamicEnemy(Game* g, Player* player, Vector2D pos, BulletPool* pool) : DistanceEnemy(g, player, pos, g->getTexture("EnemyMelee"), pool), GroundEnemy(g, player, pos, g->getTexture("EnemyMelee")), Enemy(g, player, pos, g->getTexture("EnemyMelee"), "meleeDeath", "meleeHit", "meleeEnemyHit")
 {
 	_vision = 300;
-	_life = 50;
+	_life = 10;
 	_speed = 8;
 	_attackRangeX = _attackRangeY = _vision / 2; //No se puede poner mas pequeño que la velocidad
 	_attackTime = 1300; //La animacion tarda unos 450
@@ -23,6 +23,11 @@ DistanceDynamicEnemy::DistanceDynamicEnemy(Game* g, Player* player, Vector2D pos
 	_body->addCricleShape(b2Vec2(0, _body->getH() + _body->getH() / 20), _body->getW() - _body->getW() / 20, ENEMIES, FLOOR | PLATFORMS);
 
 	addSensors();
+
+	//Ajustes del arma
+	_myGun->setDamage(2);
+	_myGun->setMaxCadence(700);
+	_myGun->setBulletSpeed(30);
 }
 
 void DistanceDynamicEnemy::update(const double& deltaTime)

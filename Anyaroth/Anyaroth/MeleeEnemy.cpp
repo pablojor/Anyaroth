@@ -3,11 +3,11 @@
 #include "AnimatedSpriteComponent.h"
 #include "Player.h"
 
-MeleeEnemy::MeleeEnemy(Game* g, Player* player, Vector2D pos) : GroundEnemy(g, player, pos, g->getTexture("EnemyMelee")), Enemy(g, player, pos, g->getTexture("EnemyMelee"))
+MeleeEnemy::MeleeEnemy(Game* g, Player* player, Vector2D pos) : GroundEnemy(g, player, pos, g->getTexture("EnemyMelee")), Enemy(g, player, pos, g->getTexture("EnemyMelee"), "meleeDeath", "meleeHit", "meleeEnemyHit")
 {
 	_vision = 300;
-	_life = 50;
-	_damage = 20;
+	_life = 10;
+	_damage = 15;
 	_speed = 8;
 	_attackRangeX = 40; //No se puede poner mas pequeño que la velocidad
 	_attackRangeY = 30;
@@ -23,7 +23,7 @@ MeleeEnemy::MeleeEnemy(Game* g, Player* player, Vector2D pos) : GroundEnemy(g, p
 
 	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 
-	_body->addCricleShape(b2Vec2(0, _body->getH() + _body->getH() / 20), _body->getW() - _body->getW() / 20, ENEMIES, FLOOR | PLATFORMS);
+	_body->addCricleShape(b2Vec2(0, _body->getH() - 0.5 +_body->getH() / 20), _body->getW() - _body->getW() / 20, ENEMIES, FLOOR | PLATFORMS);
 
 	addSensors();
 }
@@ -47,7 +47,10 @@ void MeleeEnemy::update(const double& deltaTime)
 				if (_playerDistance.getX() > _attackRangeX)
 					moving(_dir);
 				else if (sameFloor)
+				{
 					attack();
+					_game->getSoundManager()->playSFX("meleeEnemyAttack");
+				}
 				else
 					idle();
 			}
@@ -59,7 +62,10 @@ void MeleeEnemy::update(const double& deltaTime)
 				if (_playerDistance.getX() < -_attackRangeX)
 					moving(_dir);
 				else if (sameFloor)
+				{
 					attack();
+					_game->getSoundManager()->playSFX("meleeEnemyAttack");
+				}
 				else
 					idle();
 			}

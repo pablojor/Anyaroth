@@ -1,11 +1,10 @@
 #include "BouncingBulletEffect.h"
 #include "Bullet.h"
-
+#include "Game.h"
 
 BouncingBulletEffect::BouncingBulletEffect(int maxBounces) : _maxBounces(maxBounces)
 {
 }
-
 
 BouncingBulletEffect::~BouncingBulletEffect()
 {
@@ -13,10 +12,10 @@ BouncingBulletEffect::~BouncingBulletEffect()
 
 void BouncingBulletEffect::init(Bullet* bullet)
 {
-	bullet->getBulletBody()->getBody()->SetGravityScale(0);
-	bullet->getBulletBody()->getBody()->GetFixtureList()->SetRestitution(1.0f);
-	bullet->getBulletBody()->getBody()->SetLinearVelocity(b2Vec2(bullet->getSpeed() * cos((bullet->getTransform()->getRotation())* M_PI / 180.0), bullet->getSpeed() * sin((bullet->getTransform()->getRotation())* M_PI / 180.0)));
-	bullet->getBulletBody()->getBody()->SetLinearDamping(0.0f);
+	bullet->getBody()->getBody()->SetGravityScale(0);
+	bullet->getBody()->getBody()->GetFixtureList()->SetRestitution(1.0f);
+	bullet->getBody()->getBody()->SetLinearVelocity(b2Vec2(bullet->getSpeed() * cos((bullet->getTransform()->getRotation())* M_PI / 180.0), bullet->getSpeed() * sin((bullet->getTransform()->getRotation())* M_PI / 180.0)));
+	bullet->getBody()->getBody()->SetLinearDamping(0.0f);
 }
 
 void BouncingBulletEffect::beginCollision(Bullet* bullet, GameObject * other, b2Contact* contact)
@@ -25,13 +24,11 @@ void BouncingBulletEffect::beginCollision(Bullet* bullet, GameObject * other, b2
 	{
 		bullet->setIsColliding(true);
 		if (bullet->getNumBounces() >= _maxBounces)
-		{
 			BulletEffect::beginCollision(bullet, other, contact);
-		}
 
 		bullet->setNumBounces(bullet->getNumBounces() + 1);
+		bullet->getGame()->getSoundManager()->playSFX("orbBounce");
 	}
-	
 }
 
 void BouncingBulletEffect::endCollision(Bullet* bullet, GameObject * other, b2Contact* contact)
@@ -41,22 +38,17 @@ void BouncingBulletEffect::endCollision(Bullet* bullet, GameObject * other, b2Co
 
 void BouncingBulletEffect::update(Bullet* bullet, double time)
 {
-	if (bullet->isActive()) {
-
+	if (bullet->isActive())
+	{
 		double dist = bullet->getIniPos().distance(bullet->getTransform()->getPosition());
 		bullet->GameObject::update(time);
 		
 		if (dist < bullet->getRange() && !bullet->hasCollided() && bullet->getNumBounces() < _maxBounces)
-		{
-
 			bullet->setAliveTime(bullet->getAliveTime() + 1);
-		}
 		else
 		{
 			if (bullet->getComponent<AnimatedSpriteComponent>()->animationFinished() && bullet->getComponent<AnimatedSpriteComponent>()->getCurrentAnim() == AnimatedSpriteComponent::Destroy)
-			{
 				reset(bullet);
-			}
 			else
 			{
 				bullet->getComponent<BodyComponent>()->getBody()->SetActive(false);

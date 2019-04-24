@@ -6,7 +6,7 @@ void GroundEnemy::idle()
 {
 	if (!_stunned && _attacking == false)
 	{
-		_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
+		_body->getBody()->SetLinearVelocity({ 0, _body->getBody()->GetLinearVelocity().y });
 		_anim->playAnim(AnimatedSpriteComponent::Idle);
 	}
 }
@@ -21,19 +21,15 @@ void GroundEnemy::moving(Vector2D& dir)
 			_anim->playAnim(AnimatedSpriteComponent::EnemyWalk);
 		}
 		else
-		{
-			_body->getBody()->SetLinearVelocity({ 0, _body->getBody()->GetLinearVelocity().y });
-			_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
-		}
+			idle();
 	}
-
 }
 
 void GroundEnemy::attack()
 {
 	if (!_stunned && _attacking == false)
 	{
-		_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
+		_body->getBody()->SetLinearVelocity({ 0, _body->getBody()->GetLinearVelocity().y });
 		_anim->playAnim(AnimatedSpriteComponent::EnemyAttack); //Llamas a animacion de ataque
 		_time = 0;
 		_attacking = true;

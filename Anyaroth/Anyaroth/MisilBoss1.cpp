@@ -35,6 +35,8 @@ MisilBoss1::MisilBoss1(GameObject* target, Game* g, PlayState* play, Texture* te
 	_myPos = Vector2D(_body->getBody()->GetPosition().x  * M_TO_PIXEL, _body->getBody()->GetPosition().y  * M_TO_PIXEL);
 
 	_angle = atan2(_targetPos.getY() - _myPos.getY(), _targetPos.getX() - _myPos.getX()) * 180 / M_PI;
+
+	g->getSoundManager()->playSFX("rocketLaunch");
 }
 
 
@@ -54,6 +56,8 @@ void MisilBoss1::beginCollision(GameObject * other, b2Contact * contact)
 	_anim->playAnim(AnimatedSpriteComponent::Destroy);
 	contact->SetEnabled(false);
 	setActive(false);
+
+	_game->getSoundManager()->playSFX("martyrExplosion");
 }
 
 void MisilBoss1::update(const double& deltaTime)

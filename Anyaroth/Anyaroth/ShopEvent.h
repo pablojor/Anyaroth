@@ -9,8 +9,7 @@ class ShopEvent : public Event
 	public:
 		ShopEvent(ShopMenu* shop);
 
-		virtual void update(const double& time);
+	virtual void update(const double& time);
 
-		virtual void play();
+	virtual void play();
 };
-

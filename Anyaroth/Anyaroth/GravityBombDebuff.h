@@ -15,7 +15,7 @@ private:
 	Vector2D _dir = { 0,0 };
 
 	double _damageTime = 0;
-	double _damageTickTime = 25;
+	double _damageTickTime = 500;
 	int _ticks = 0;
 	double _minDistance = 20;
 

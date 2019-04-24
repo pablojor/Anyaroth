@@ -3,7 +3,7 @@
 
 FlyingEnemy::FlyingEnemy(Game* g, Player* player, Vector2D pos) : Enemy(g,  player, pos, g->getTexture("EnemyMelee"))
 {
-	_damage = 10;
+	_damage = 5;
 
 	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 13, true);
 	_anim->addAnim(AnimatedSpriteComponent::EnemyDie, 18, false);

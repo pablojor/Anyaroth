@@ -2,8 +2,9 @@
 #include <algorithm>
 
 
-Gun::Gun(Texture* armTexture, Texture* bulletTexture, double speed, double damage, double range, int maxClip, int maxMagazine, int maxCadence, EffectInterface* effect, GunType id, Texture* iconTexture, bool automatic, BulletAnimType bType) : _armTexture(armTexture), _bulletTexture(bulletTexture), _iconTexture(iconTexture)
+Gun::Gun(Game* game, Texture* armTexture, Texture* bulletTexture, string shotSoundTag, double speed, double damage, double range, int maxClip, int maxMagazine, int maxCadence, EffectInterface* effect, GunType id, Texture* iconTexture, bool automatic, BulletAnimType bType) : _armTexture(armTexture), _bulletTexture(bulletTexture), _shotSoundTag(shotSoundTag), _iconTexture(iconTexture)
 {
+	_game = game;
 	_maxCadence = maxCadence;
 	_maxClip = maxClip;
 	_maxMagazine = maxMagazine;
@@ -24,7 +25,8 @@ void Gun::shoot(BulletPool* bulletPool, const Vector2D& position, const double& 
 	{	
 		_clip--;
 		_cadence = _maxCadence;
-		
+
+		_game->getSoundManager()->playSFX(_shotSoundTag, _id); //Reproduce el sonido de disparo
 		//Disparar la bala aqui
 		Bullet* b = bulletPool->getUnusedObject();
 		Vector2D bulletPos = prepareBulletPosition(position, angle);
@@ -53,6 +55,8 @@ void Gun::enemyShoot(BulletPool* bulletPool, const Vector2D& position, const dou
 	if (_cadence <= 0)
 	{
 		_cadence = _maxCadence;
+
+		_game->getSoundManager()->playSFX(_shotSoundTag); //Reproduce el sonido de disparo
 
 		//Disparar la bala aqui
 		Bullet* b = bulletPool->getUnusedObject();

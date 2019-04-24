@@ -8,7 +8,7 @@ protected:
 	int _numBulletsPerShot;
 	BulletAnimType _bulletAnimType = ShotGunBullet;
 public:
-	Shotgun(Texture* armTexture, Texture* bulletTexture, double speed, double damage, double range, int maxClip, int maxMagazine, double maxCadence, BulletEffect* effect, GunType id, Texture* iconTexture, bool automatic = false, BulletAnimType bType = Default);
+	Shotgun(Game* game, Texture* armTexture, Texture* bulletTexture, string shotSoundTag, double speed, double damage, double range, int maxClip, int maxMagazine, double maxCadence, BulletEffect* effect, GunType id, Texture* iconTexture, bool automatic = false, BulletAnimType bType = Default);
 	virtual ~Shotgun();
 
 	virtual void shoot(BulletPool* bulletPool, const Vector2D& position, const double& angle, const string& tag);

@@ -330,12 +330,10 @@
     </ClCompile>
     <ClCompile Include="GravityBombDebuff.cpp">
       <Filter>Archivos de código fuente\Components</Filter>
-    </ClCompile> 
-    <ClCompile Include="Particle.cpp" />
+    </ClCompile>
     <ClCompile Include="ParticlePull.cpp">
       <Filter>Archivos de código fuente\Pools</Filter>
     </ClCompile>
-    <ClCompile Include="ParticleManager.cpp" />
     <ClCompile Include="StaticFlyingEnemy.cpp">
       <Filter>Archivos de código fuente\Objects\Enemies</Filter>
     </ClCompile>
@@ -381,9 +379,6 @@
     <ClCompile Include="ShopEvent.cpp">
       <Filter>Archivos de código fuente\Events</Filter>
     </ClCompile>
-    <ClCompile Include="waitEvent.cpp">
-      <Filter>Archivos de código fuente\Events</Filter>
-    </ClCompile>
     <ClCompile Include="PausePanel.cpp">
       <Filter>Archivos de código fuente\HUD\Panels</Filter>
     </ClCompile>
@@ -401,6 +396,15 @@
     </ClCompile>
     <ClCompile Include="Shop.cpp">
       <Filter>Archivos de código fuente\Objects\Interactables</Filter>
+    </ClCompile>
+    <ClCompile Include="WaitingEvent.cpp">
+      <Filter>Archivos de código fuente\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleManager.cpp">
+      <Filter>Archivos de código fuente\Others\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Particle.cpp">
+      <Filter>Archivos de código fuente\Objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -770,9 +774,6 @@
     <ClInclude Include="GravityBombDebuff.h">
       <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Particle.h" />
-    <ClInclude Include="ParticlePull.h" />
-    <ClInclude Include="ParticleManager.h" />
     <ClInclude Include="StaticFlyingEnemy.h">
       <Filter>Archivos de encabezado\Objects\Enemies</Filter>
     </ClInclude>
@@ -818,9 +819,6 @@
     <ClInclude Include="CamEffectType.h">
       <Filter>Archivos de encabezado\Events</Filter>
     </ClInclude>
-    <ClInclude Include="waitEvent.h">
-      <Filter>Archivos de encabezado\Events</Filter>
-    </ClInclude>
     <ClInclude Include="PauseStateHUD.h">
       <Filter>Archivos de encabezado\HUD</Filter>
     </ClInclude>
@@ -838,6 +836,18 @@
     </ClInclude>
     <ClInclude Include="Shop.h">
       <Filter>Archivos de encabezado\Objects\Interactables</Filter>
+    </ClInclude>
+    <ClInclude Include="WaitingEvent.h">
+      <Filter>Archivos de encabezado\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticlePull.h">
+      <Filter>Archivos de encabezado\Pools</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleManager.h">
+      <Filter>Archivos de encabezado\Others\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -36,8 +36,9 @@ bool ButtonUI::handleEvent(const SDL_Event& event)
 
 			if ((event.type == SDL_MOUSEBUTTONDOWN && event.button.state == SDL_PRESSED) || event.type == SDL_CONTROLLERBUTTONDOWN)
 			{
-				if (event.button.button == SDL_BUTTON_LEFT || event.cbutton.button == SDL_CONTROLLER_BUTTON_X)
+				if (event.button.button == SDL_BUTTON_LEFT || event.cbutton.button == SDL_CONTROLLER_BUTTON_A)
 				{
+					_game->getSoundManager()->playSFX("boton");
 					_pressState = Down;
 					if (_onDownCallback != nullptr) _onDownCallback(_game);
 					handle = true;
@@ -45,7 +46,7 @@ bool ButtonUI::handleEvent(const SDL_Event& event)
 			}
 			else if ((event.type == SDL_MOUSEBUTTONUP && _pressState == Down) || event.type == SDL_CONTROLLERBUTTONUP)
 			{
-				if (event.button.button == SDL_BUTTON_LEFT || event.cbutton.button == SDL_CONTROLLER_BUTTON_X)
+				if (event.button.button == SDL_BUTTON_LEFT || event.cbutton.button == SDL_CONTROLLER_BUTTON_A)
 				{
 					_pressState = Up;
 					if (_onUpCallback != nullptr) _onUpCallback(_game);

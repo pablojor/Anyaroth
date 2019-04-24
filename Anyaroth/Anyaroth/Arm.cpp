@@ -30,7 +30,7 @@ void Arm::setAnimations(ArmAnimType type)
 	{
 	case TurretArmType:
 		_anim->addAnim(AnimatedSpriteComponent::None, 12, true);
-		_anim->addAnim(AnimatedSpriteComponent::Shoot, 9, false);
+		_anim->addAnim(AnimatedSpriteComponent::Shoot, 8, false);
 		break;
 	case PlayerImprovedRifleArmType:
 		_anim->addAnim(AnimatedSpriteComponent::None, 1, true);

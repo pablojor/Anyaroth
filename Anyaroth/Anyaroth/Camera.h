@@ -3,6 +3,7 @@
 #include "BackGround.h"
 #include <utility>
 #include "Vector2D.h"
+#include <functional>
 
 //Valores predeterminados
 const int CAMERA_ASPECT_RATIO_X = 16;
@@ -35,6 +36,7 @@ private:
 	float _shakeIntensity = -1.f;
 	float _shakeTime = 0.f;
 
+	function<void(Game*)> _onFadeComplete = nullptr;
 	float _fadeTime = 0.f;
 	float _fadeMaxTime = 0.f;
 	bool _isFading = false;
@@ -56,7 +58,6 @@ public:
 	inline Vector2D getCameraSize() const { return Vector2D(_cameraRect.w, _cameraRect.h); }
 
 	inline bool inCamera(const Vector2D& pos) const { return (pos.getX() > _cameraRect.x && pos.getX() < _cameraRect.x + _cameraRect.w && pos.getY() > _cameraRect.y && pos.getY() < _cameraRect.y + _cameraRect.h); }
-	inline bool inCameraX(const Vector2D& pos) const { return (pos.getX() > _cameraRect.x && pos.getX() < _cameraRect.x + _cameraRect.w); }
 
 	void fixCameraToObject(GameObject* object) { _followedObject = object; };
 	void looseFixedObject();
@@ -67,14 +68,17 @@ public:
 	void setZoom(const int& zoom);
 	inline int getZoom() const { return _zoom; }
 	inline float getZoomRatio() const { return float(_zoom) / float(CAMERA_SCALE_FACTOR); };
+	void fitCamera(const Vector2D& rect, const bool& smoothFit = false);
 
-	inline void zoomOut() { _zoom++; _zoomGoal = _zoom; if (CAMERA_ASPECT_RATIO_X * _zoom < _xWorldBounds && CAMERA_ASPECT_RATIO_Y * _zoom < _yWorldBounds) setCameraSize(CAMERA_ASPECT_RATIO_X * _zoom, CAMERA_ASPECT_RATIO_Y * _zoom); }
-	inline void zoomIn() { _zoom - 1 < 0 ? _zoom = 0 : _zoom--; _zoomGoal = _zoom; if (CAMERA_ASPECT_RATIO_X * _zoom < _xWorldBounds && CAMERA_ASPECT_RATIO_Y * _zoom < _yWorldBounds) setCameraSize(CAMERA_ASPECT_RATIO_X * _zoom, CAMERA_ASPECT_RATIO_Y * _zoom); }
+	inline void zoomOut() { _zoom++; _zoomGoal = _zoom; if (CAMERA_ASPECT_RATIO_X * _zoom <= _xWorldBounds && CAMERA_ASPECT_RATIO_Y * _zoom <= _yWorldBounds) setCameraSize(CAMERA_ASPECT_RATIO_X * _zoom, CAMERA_ASPECT_RATIO_Y * _zoom); }
+	inline void zoomIn() { _zoom - 1 < 0 ? _zoom = 0 : _zoom--; _zoomGoal = _zoom; if (CAMERA_ASPECT_RATIO_X * _zoom <= _xWorldBounds && CAMERA_ASPECT_RATIO_Y * _zoom <= _yWorldBounds) setCameraSize(CAMERA_ASPECT_RATIO_X * _zoom, CAMERA_ASPECT_RATIO_Y * _zoom); }
 
 	void shake(const float& intensity, const float& time);
 
 	void fadeIn(const float& time);
 	void fadeOut(const float& time);
+	inline void onFadeComplete(function<void(Game*)> callback) { _onFadeComplete = callback; }
+	inline bool isFading() const { return _isFading; }
 
 	void update(const double& deltaTime);
 	void render() const;
