@@ -44,9 +44,6 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_parallaxZone1->addLayer(new ParallaxLayer(g->getTexture("BgZ1L2"), _mainCamera, 0.5));
 	_parallaxZone1->addLayer(new ParallaxLayer(g->getTexture("BgZ1L3"), _mainCamera, 0.75));
 
-	_stages.push_back(_level);
-	_stages.push_back(_player);
-
 	//Cursor
 	_cursor = new Cursor(g);
 	SDL_ShowCursor(false);
@@ -69,9 +66,8 @@ PlayState::PlayState(Game* g) : GameState(g)
 	g->getWorld()->SetContactListener(&_colManager);
 	g->getWorld()->SetDebugDraw(&_debugger);
 
+	//Particulas
 	_particles = new ParticlePull(g);
-
-
 	_particleManager = ParticleManager::GetParticleManager();
 	_particleManager->setParticlePull(_particles);
 
@@ -102,6 +98,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 
 	//----AÑADIR A LOS OBJETOS----//
 
+	_stages.push_back(_level);
 	_stages.push_back(_cursor);
 	_stages.push_back(_playerBulletPool);
 	_stages.push_back(enemyPool);
@@ -273,6 +270,6 @@ void PlayState::update(const double& deltaTime)
 		}
 	}
 
-  _particleManager->updateManager(deltaTime);
 	GameState::update(deltaTime);
+    _particleManager->updateManager(deltaTime);
 }

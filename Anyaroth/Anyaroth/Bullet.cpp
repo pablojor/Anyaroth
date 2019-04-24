@@ -5,8 +5,7 @@
 
 Bullet::Bullet(Game* game) : GameObject(game)
 {
-	_texture = game->getTexture("PistolBullet");
-	addComponent<Texture>(_texture);
+	addComponent<Texture>(game->getTexture("PistolBullet"));
 
 	_transform = addComponent<TransformComponent>();
 	_transform->setAnchor(0.5);
@@ -72,39 +71,9 @@ void Bullet::init(Texture* texture, const Vector2D& position, const double& spee
 
 void Bullet::update(const double& deltaTime)
 {
-	/*if (isActive())
-	{
-		double dist = _iniPos.distance(_transform->getPosition());
-		GameObject::update(deltaTime);
-
-		if (dist < _range && !_collided)
-		{
-			_body->getBody()->SetLinearVelocity(b2Vec2(_speed * cos(_transform->getRotation() * M_PI / 180.0), _speed * sin(_transform->getRotation() * M_PI / 180.0)));
-			_aliveTime++;
-		}
-		else
-		{
-
-			if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::Destroy)
-			{
-				reset();
-			}
-			else
-			{
-				_body->getBody()->SetActive(false);
-				_anim->playAnim(AnimatedSpriteComponent::Destroy);
-			}
-		}
-	}*/
 	if (isActive() && _effect != nullptr)
 		_effect->update(this, deltaTime);
 }
-
-/* reset()
-_anim->playAnim(AnimatedSpriteComponent::Default);
-setActive(false);
-_aliveTime = 0;
-_collided = false;*/
 
 void Bullet::changeFilter()
 {
@@ -153,5 +122,4 @@ void Bullet::reset()
 		_effect->reset(this);
 		_anim->reset();
 	}
-
 }

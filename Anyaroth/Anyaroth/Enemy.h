@@ -19,16 +19,12 @@ protected:
 	Vector2D _playerDistance;
 
 	Life _life;
-	bool _attacking = false, _drop = true, _dropMelee = false;
+	bool _attacking = false, _drop = true, _dropMelee = false, _stunned = false;
 	int _vision, _attackRangeX, _attackRangeY, _attackTime, _damage;
 	double _time;
 	float32 _speed;
 	
 	int _coinValue = 10;
-	int _ammoClips = 1;
-	int _aidKitValue = 30;
-
-	bool _stunned = false;
 
 public:
 	Enemy(Game* g, Player* player, Vector2D pos, Texture* texture);
