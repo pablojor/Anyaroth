@@ -39,7 +39,7 @@ private:
 	function<void(Game*)> _onFadeComplete = nullptr;
 	float _fadeTime = 0.f;
 	float _fadeMaxTime = 0.f;
-	bool _isFading = false;
+	bool _isFading = false, _fadeIsFinished = false;;
 
 public:
 	Camera(Game* game) : _game(game) {};
@@ -83,6 +83,7 @@ public:
 	void update(const double& deltaTime);
 	void render() const;
 	void last_render() const;
+	bool pre_handleEvent();
 
 	void setWorldBounds(const int& xBound, const int& yBound);
 };

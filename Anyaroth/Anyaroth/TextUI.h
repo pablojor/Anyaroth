@@ -29,6 +29,8 @@ public:
 
 	void setPosition(int x, int y);
 	void setSize(int w, int h);
+	void setScale(const float& ratio);
+
 	inline Vector2D getPosition() const { return Vector2D(_destRect.x, _destRect.y); }
 	inline Vector2D getSize() const { return Vector2D(_destRect.w, _destRect.h); }
 

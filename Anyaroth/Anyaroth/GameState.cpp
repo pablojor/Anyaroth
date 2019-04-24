@@ -77,6 +77,11 @@ bool GameState::handleEvent(const SDL_Event& event)
 	return handled;
 }
 
+bool GameState::pre_handleEvent()
+{
+	return _mainCamera->pre_handleEvent();
+}
+
 void GameState::addObject(GameObject* n)
 {
 	_stages.push_back(n);/*

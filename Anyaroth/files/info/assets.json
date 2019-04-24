@@ -94,7 +94,8 @@
     [ "CommonFrame", "commonweapon_frame.png", 1, 2 ],
     [ "RareFrame", "rareweapon_frame.png", 1, 2 ],
     [ "Shop", "shop_spritesheet.png", 1, 8 ],
-    [ "ShopDoor", "shopDoor_spritesheet.png", 2, 5 ]
+    [ "ShopDoor", "shopDoor_spritesheet.png", 2, 5 ],
+    ["ControlsBG", "controlsBG.png", 1, 1 ]
   ],
   "fonts": [
     [ "ARIAL12", "arial.ttf", 12 ]

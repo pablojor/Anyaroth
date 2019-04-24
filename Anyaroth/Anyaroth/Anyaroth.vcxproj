@@ -148,6 +148,8 @@
     <ClCompile Include="AmmoViewer.cpp" />
     <ClCompile Include="AnimatedImageUI.cpp" />
     <ClCompile Include="ButtonUI.cpp" />
+    <ClCompile Include="CreditsState.cpp" />
+    <ClCompile Include="CreditsStateHUD.cpp" />
     <ClCompile Include="CutScene.cpp" />
     <ClCompile Include="DepotPanel.cpp" />
     <ClCompile Include="BomberGun.cpp" />
@@ -284,6 +286,8 @@
     <ClInclude Include="AnimatedImageUI.h" />
     <ClInclude Include="ButtonUI.h" />
     <ClInclude Include="CamEffectType.h" />
+    <ClInclude Include="CreditsState.h" />
+    <ClInclude Include="CreditsStateHUD.h" />
     <ClInclude Include="CutScene.h" />
     <ClInclude Include="DepotPanel.h" />
     <ClInclude Include="BomberGun.h" />

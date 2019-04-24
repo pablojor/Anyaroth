@@ -39,6 +39,8 @@ private:
 
 	ParticleManager * _particleManager;
 
+	ParallaxLayer* _controls = nullptr;
+
 
 public:
 	PlayState(Game* g);

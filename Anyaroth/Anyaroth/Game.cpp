@@ -287,8 +287,10 @@ void Game::render() const
 
 void Game::handleEvents()
 {
+	bool handled = _stateMachine->currentState()->pre_handleEvent();
+
 	SDL_Event event;
-	while (SDL_PollEvent(&event) && !_exit)
+	while (SDL_PollEvent(&event) && !_exit && !handled)
 	{
 		if (event.type == SDL_QUIT)
 			_exit = true;
