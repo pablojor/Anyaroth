@@ -32,7 +32,7 @@ private:
 
 	//Variables
 	int _dashTime = 250,
-		_dashCD = 1000 + _dashTime,
+		_dashCD = 1000 + _dashTime,_dashParticleTime=50,
 		_floorCount = 0,
 		_deathCD = 3000;
 
@@ -48,7 +48,8 @@ private:
 		_jShoot = false,
 		_jMoveLeft = false,
 		_jMoveDown = false,
-		_jMoveRight = false;
+		_jMoveRight = false,
+		_spawnParticles = false;
 
 	double _speed = 15,
 		   _jPosX,
@@ -60,6 +61,8 @@ private:
 	Gun* _currentGun = nullptr;
 	Gun* _otherGun = nullptr;
 	BulletPool* _playerBulletPool = nullptr;
+	
+	b2Vec2 _contactPoint = b2Vec2_zero;
 
 	void checkMovement(const Uint8* keyboard);
 	inline void setGrounded(bool grounded) { grounded ? _timeToJump = 100.f : _floorCount = grounded; }

@@ -14,7 +14,7 @@ Particle::Particle(Game* game) : GameObject(game)
 	_anim = addComponent<AnimatedSpriteComponent>();
 
 	_body = addComponent<BodyComponent>();
-	_body->filterCollisions(PLAYER_BULLETS,MISIL);
+	_body->filterCollisions(PLAYER_BULLETS,FLOOR);
 	_body->getBody()->SetType(b2_dynamicBody);
 	_body->getBody()->SetFixedRotation(true);
 	_body->getBody()->SetGravityScale(0);
@@ -48,7 +48,6 @@ void Particle::init(Texture * texture, const Vector2D & position, const double &
 
 
 	_anim->setTexture(texture);
-	_anim->addAnim(AnimatedSpriteComponent::Main, 4, false);
 
 	setActive(true);
 }
