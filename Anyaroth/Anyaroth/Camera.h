@@ -68,6 +68,7 @@ public:
 	void setZoom(const int& zoom);
 	inline int getZoom() const { return _zoom; }
 	inline float getZoomRatio() const { return float(_zoom) / float(CAMERA_SCALE_FACTOR); };
+	void fitCamera(const Vector2D& rect, const bool& smoothFit = false);
 
 	inline void zoomOut() { _zoom++; _zoomGoal = _zoom; if (CAMERA_ASPECT_RATIO_X * _zoom <= _xWorldBounds && CAMERA_ASPECT_RATIO_Y * _zoom <= _yWorldBounds) setCameraSize(CAMERA_ASPECT_RATIO_X * _zoom, CAMERA_ASPECT_RATIO_Y * _zoom); }
 	inline void zoomIn() { _zoom - 1 < 0 ? _zoom = 0 : _zoom--; _zoomGoal = _zoom; if (CAMERA_ASPECT_RATIO_X * _zoom <= _xWorldBounds && CAMERA_ASPECT_RATIO_Y * _zoom <= _yWorldBounds) setCameraSize(CAMERA_ASPECT_RATIO_X * _zoom, CAMERA_ASPECT_RATIO_Y * _zoom); }

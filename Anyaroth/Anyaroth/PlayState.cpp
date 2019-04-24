@@ -32,7 +32,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	auto enemyPool = new BulletPool(g);
 
 	//Levels
-	GameManager::getInstance()->setCurrentLevel(LevelManager::Demo);
+	GameManager::getInstance()->setCurrentLevel(LevelManager::SafeBoss1);
 	_level = new GameObject(g);
 	_levelManager = LevelManager(g, _player, _level, _hud, enemyPool);
 	_levelManager.setLevel(GameManager::getInstance()->getCurrentLevel());
@@ -220,7 +220,7 @@ void PlayState::update(const double& deltaTime)
 				saveGame();
 
 			getMainCamera()->fadeOut(1000);
-			getMainCamera()->onFadeComplete([this, gManager](Game*) {
+			getMainCamera()->onFadeComplete([this, gManager](Game* game) {
 				_player->revive();
 				if (gManager->getCurrentLevel() == LevelManager::Demo)
 					_levelManager.resetLevel();
@@ -228,6 +228,17 @@ void PlayState::update(const double& deltaTime)
 				{
 					gManager->setCurrentLevel(gManager->getCurrentLevel() + 1);
 					_levelManager.changeLevel(gManager->getCurrentLevel());
+
+					int l = gManager->getCurrentLevel();
+					if (l == LevelManager::Boss1 || l == LevelManager::Boss2 || l == LevelManager::Boss3)
+					{
+						game->getCurrentState()->getMainCamera()->fadeIn(1000);
+						game->getCurrentState()->getMainCamera()->onFadeComplete([this, gManager, l](Game* game) {
+								game->getCurrentState()->getMainCamera()->fitCamera({ (float)_levelManager.getCurrentLevel(l)->getWidth(),
+																				(float)_levelManager.getCurrentLevel(l)->getHeight() }, true);
+						});	
+					}
+									
 				}
 			});
 		}
