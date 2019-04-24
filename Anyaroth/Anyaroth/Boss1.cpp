@@ -4,7 +4,7 @@
 #include "BasicRifle.h"
 #include "ImprovedRifle.h"
 
-Boss1::Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, player, pos, pool, g->getTexture("Spenta")), Enemy(g, player, pos, g->getTexture("Spenta"))
+Boss1::Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, player, pos, pool, g->getTexture("Spenta")), Enemy(g, player, pos, g->getTexture("Spenta"), "", "boss1Hit")
 {
 	_life = 100;
 	_life1 = _life2 = _life3 = _life;
@@ -283,6 +283,15 @@ void Boss1::manageLife(Life& l, int damage)
 		_actualState = BetweenFase;
 		_actualFase = BetweenFase;
 		_anim->playAnim(AnimatedSpriteComponent::SpentaStartShield);
+
+		int rand = _game->random(0, 100);
+
+		if (rand > 66)
+			_game->getSoundManager()->playSFX("boss1Interfase1");
+		else if (rand > 33)
+			_game->getSoundManager()->playSFX("boss1Interfase2");
+		else
+			_game->getSoundManager()->playSFX("boss1Interfase3");
 	}
 }
 

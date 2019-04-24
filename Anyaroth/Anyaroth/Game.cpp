@@ -97,6 +97,7 @@ void Game::createSounds()
 	_soundManager->addSFX("pain6", SOUNDS_PATH + "pain6.wav");
 
 	_soundManager->addSFX("pistolShot", SOUNDS_PATH + "pistolShot.wav");
+	_soundManager->addSFX("bulletGround", SOUNDS_PATH + "bulletGround.wav");
 	_soundManager->addSFX("melee", SOUNDS_PATH + "melee.wav");
 	_soundManager->addSFX("reload", SOUNDS_PATH + "reload.wav");
 	_soundManager->addSFX("shotgun1", SOUNDS_PATH + "shotgun1.wav");
@@ -111,9 +112,20 @@ void Game::createSounds()
 	_soundManager->addSFX("bombThrow", SOUNDS_PATH + "bombthrow.wav");
 	_soundManager->addSFX("bombExplosion", SOUNDS_PATH + "bombexplosion.wav");
 
+	_soundManager->addSFX("turretMeleeHit", SOUNDS_PATH + "turretMeleeHit.aif");
+	_soundManager->addSFX("turretHit", SOUNDS_PATH + "turretHit.aif");
 	_soundManager->addSFX("turretDeath", SOUNDS_PATH + "turretDeath.wav");
+	_soundManager->addSFX("martyrHit", SOUNDS_PATH + "martyrHit.wav");
+	_soundManager->addSFX("martyrMeleeHit", SOUNDS_PATH + "martyrMeleeHit.wav");
 	_soundManager->addSFX("martyrDie", SOUNDS_PATH + "martyrDie.wav");
+	_soundManager->addSFX("meleeEnemyHit", SOUNDS_PATH + "meleeEnemyHit.wav");
+	_soundManager->addSFX("meleeDeath", SOUNDS_PATH + "meleeDeath.wav");
+	_soundManager->addSFX("meleeHit", SOUNDS_PATH + "meleeHit.wav");
 	_soundManager->addSFX("martyrExplosion", SOUNDS_PATH + "martyrExplosion.wav");
+	_soundManager->addSFX("boss1Hit", SOUNDS_PATH + "boss1Hit.wav");
+	_soundManager->addSFX("boss1Interfase1", SOUNDS_PATH + "boss1Interfase1.wav");
+	_soundManager->addSFX("boss1Interfase2", SOUNDS_PATH + "boss1Interfase2.wav");
+	_soundManager->addSFX("boss1Interfase3", SOUNDS_PATH + "boss1Interfase3.wav");
 }
 
 void Game::createDialogues()
