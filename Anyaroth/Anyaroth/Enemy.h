@@ -21,11 +21,16 @@ protected:
 	Vector2D _playerDistance;
 
 	Life _life;
-	bool _attacking = false, _drop = true, _dropMelee = false, _stunned = false;
+
+	bool _attacking = false, _drop = true, _dropMelee = false,_stunned = false,
+		_spawnParticles = false;
 	int _vision, _attackRangeX, _attackRangeY, _attackTime, _damage;
 	double _time;
 	float32 _speed;
 	
+	Texture * _hurtParticle = nullptr;
+	b2Vec2 _contactPoint = b2Vec2_zero;
+
 	int _coinValue = 10;
 
 public:

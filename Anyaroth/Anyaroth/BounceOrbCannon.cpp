@@ -6,6 +6,7 @@ BounceOrbCannon::BounceOrbCannon(Game* game) : Gun(game, game->getTexture("ArmBo
 {
 	_offset = { 24, -1 };
 	_animType = PlayerBounceCannonArmType;
+	createParticles = false;
 }
 
 

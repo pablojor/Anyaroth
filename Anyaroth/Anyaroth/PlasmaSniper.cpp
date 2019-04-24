@@ -6,6 +6,7 @@ PlasmaSniper::PlasmaSniper(Game* game) : Gun(game, game->getTexture("ArmSniper")
 {
 	_offset = { 24, -1 };
 	_animType = PlayerSniperArmType;
+	createParticles = false;
 }
 
 PlasmaSniper::~PlasmaSniper()

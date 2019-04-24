@@ -64,7 +64,10 @@ void Game::createSounds()
 {
 
 	_soundManager->addMusic("bgMusic", SOUNDS_PATH + "bgMusic.wav");
-	_soundManager->addMusic("shop", SOUNDS_PATH + "shop.mp3");
+	_soundManager->addMusic("shop", SOUNDS_PATH + "shop.ogg");
+	_soundManager->addMusic("safe_zone", SOUNDS_PATH + "safe_zone.ogg");
+	_soundManager->addMusic("boss1Battle", SOUNDS_PATH + "boss1Battle.ogg");
+	_soundManager->addMusic("demoLevelMusic", SOUNDS_PATH + "demoLevelMusic.ogg");
 	_soundManager->addSFX("example1", SOUNDS_PATH + "example1.wav");
 
 	//UI SOUNDS
@@ -128,6 +131,7 @@ void Game::createSounds()
 	_soundManager->addSFX("rocketLuncherUp", SOUNDS_PATH + "rocketLuncherUp.wav");
 	_soundManager->addSFX("rocketLaunch", SOUNDS_PATH + "rocketLaunch.wav");
 	_soundManager->addSFX("boss1Hit", SOUNDS_PATH + "boss1Hit.wav");
+	_soundManager->addSFX("boss1Die", SOUNDS_PATH + "boss1Die.wav");
 	_soundManager->addSFX("boss1Interfase1", SOUNDS_PATH + "boss1Interfase1.wav");
 	_soundManager->addSFX("boss1Interfase2", SOUNDS_PATH + "boss1Interfase2.wav");
 	_soundManager->addSFX("boss1Interfase3", SOUNDS_PATH + "boss1Interfase3.wav");
