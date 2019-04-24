@@ -6,26 +6,27 @@
 
 Boss1::Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, player, pos, pool, g->getTexture("Spenta")), Enemy(g, player, pos, g->getTexture("Spenta"))
 {
-	_life = 100;
+	//_life = 100;
+	_life = 250; // Demo Guerrilla
 	_life1 = _life2 = _life3 = _life;
 
 	delete(_myGun);
 	_myGun = new ImprovedRifle(g);
 	_myGun->setMaxCadence(0);
 	_myGun->setBulletSpeed(8);
-	_myGun->setDamage(10);
+	_myGun->setDamage(3);
 
 	_bombGun = new BomberGun(g);
 	_bombGun->setMaxCadence(0);
 	_bombGun->setBulletAnimType(SpentaBomb);
 	_bombGun->setBulletTexture(g->getTexture("Bomb"));
-	_bombGun->setDamage(20);
+	_bombGun->setDamage(8);
 
 	_orbGun = new BossOrbCannon(g);
 	_orbGun->setMaxCadence(0);
 	_orbGun->setBulletAnimType(BulletAnimType::SpentaOrb);
 	_orbGun->setBulletTexture(g->getTexture("SpentaOrb"));
-	_orbGun->setDamage(20);
+	_orbGun->setDamage(10);
 
 	_attackRangeX = 120; //No se puede poner mas pequeño que la velocidad
 	_attackTime = 1300; //La animacion tarda unos 450
@@ -51,7 +52,7 @@ Boss1::Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, 
 	_body->getBody()->SetGravityScale(0);
 
 	_originalPos = Vector2D(pos.getX() + (_anim->getTexture()->getW() / 2) / _anim->getTexture()->getNumCols(), pos.getY() + (_anim->getTexture()->getW() / 2) / _anim->getTexture()->getNumCols());
-	_melee = new Axe(g, { 100, 0 }, PLAYER, 15, 50, 50, 270);
+	_melee = new Axe(g, { 100, 0 }, PLAYER, 5, 50, 50, 270);
 	addChild(_melee);
 
 	_armVision = true;

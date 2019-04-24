@@ -82,8 +82,8 @@ void ExplosiveBulletEffect::update(Bullet* bullet, double time)
 void ExplosiveBulletEffect::explosion(Bullet* bullet)
 {
 	bullet->setExploding(true);
-	b2PolygonShape *explosion=new b2PolygonShape();
-	explosion->SetAsBox(40 / M_TO_PIXEL, 20 / M_TO_PIXEL);
+	b2PolygonShape *explosion = new b2PolygonShape();
+	explosion->SetAsBox(25 / M_TO_PIXEL, 20 / M_TO_PIXEL);
 
 	bullet->getGame()->getCurrentState()->getMainCamera()->shake(3, 500);
 	bullet->getGame()->getSoundManager()->playSFX("bombExplosion");
