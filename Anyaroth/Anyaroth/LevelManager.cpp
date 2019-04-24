@@ -1,5 +1,7 @@
 #include "LevelManager.h"
 #include "Game.h"
+#include "GameManager.h"
+#include "CutScene.h"
 
 LevelManager::LevelManager(Game* game, Player* player, GameObject* level, PlayStateHUD* hud, BulletPool* enemyPool) : _game(game), _player(player), _level(level), _hud(hud)
 {
@@ -12,6 +14,8 @@ LevelManager::LevelManager(Game* game, Player* player, GameObject* level, PlaySt
 
 void LevelManager::setLevel(int l)
 {
+	CutScene* cutscene = new CutScene(_player);
+
 	switch (l)
 	{
 	case LevelManager::Tutorial:
@@ -71,10 +75,27 @@ void LevelManager::setLevel(int l)
 	case LevelManager::Boss3:
 		//_currentMap = ...
 		break;
-	case LevelManager::Demo:
+
+		//Demo Guerrilla Game Festival
+	case LevelManager::SafeDemo:
+		_currentSafeZone = new Map(TILEMAP_PATH + "SafeZoneDemo.json", _game, _player, _tilesetZone1, _enemyBulletPool, _hud);
+		break;
+	case LevelManager::LevelDemo:
 		_currentMap = new Map(TILEMAP_PATH + "NivelDemo.json", _game, _player, _tilesetZone1, _enemyBulletPool, _hud);
 		break;
-	default:
+	case LevelManager::SafeBossDemo:
+		_currentSafeZone = new Map(TILEMAP_PATH + "SafeZoneBossDemo.json", _game, _player, _tilesetZone1, _enemyBulletPool, _hud);
+
+		if (_player->getComponent<CustomAnimatedSpriteComponent>()->isFlipped())
+			cutscene->addFlipEvent();
+
+		cutscene->addMoveEvent(_player->getComponent<BodyComponent>(), 1, 15, 304 / M_TO_PIXEL);
+		cutscene->addShopEvent(_hud->getShop());
+		_game->getCurrentState()->addCutScene(cutscene);
+
+		break;
+	case LevelManager::BossDemo:
+		_currentMap = new Map(TILEMAP_PATH + "Nivel1-3.json", _game, _player, _tilesetBoss1, _enemyBulletPool, _hud);
 		break;
 	}
 
@@ -82,6 +103,7 @@ void LevelManager::setLevel(int l)
 		_level->addChild(_currentMap);
 	else
 		_level->addChild(_currentSafeZone);
+	_game->getCurrentState()->getMainCamera()->fadeIn(3000);
 }
 
 void LevelManager::changeLevel(int l)
@@ -97,6 +119,9 @@ void LevelManager::changeLevel(int l)
 		_level->destroyAllChildren();
 	}
 	setLevel(l);
+
+	_game->getCurrentState()->getMainCamera()->setWorldBounds(getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getWidth(), getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getHeight());
+	_game->getCurrentState()->getMainCamera()->setZoom(CAMERA_SCALE_FACTOR);
 }
 
 Map * LevelManager::getCurrentLevel(int l) const
@@ -105,4 +130,11 @@ Map * LevelManager::getCurrentLevel(int l) const
 		return _currentMap;
 	else
 		return _currentSafeZone;
+}
+
+void LevelManager::resetLevel()
+{
+	_currentMap->restartLevel(); 
+	_enemyBulletPool->stopBullets(); 
+	_game->getCurrentState()->getMainCamera()->fadeIn(3000);
 }

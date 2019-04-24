@@ -78,7 +78,7 @@
     [ "MissileTurret", "missileturret_spritesheet.png", 4, 12 ],
     [ "ShopBackground", "shop_background.png", 1, 6 ],
     [ "CatalogPanel", "shop_panel.png", 1, 1 ],
-    [ "InfoPanel", "info_panel.png", 3, 7 ],
+    [ "InfoPanel", "info_panel.png", 3, 6 ],
     [ "DepotPanel", "depot_panel.png", 1, 1 ],
     [ "EquipPanel", "equip_panel.png", 1, 1 ],
     [ "ShopButton", "shop_menubuttons.png", 3, 6 ],
@@ -92,7 +92,9 @@
     [ "MeleeFrame", "melee_frame.png", 1, 2 ],
     [ "BasicFrame", "basicweapon_frame.png", 1, 2 ],
     [ "CommonFrame", "commonweapon_frame.png", 1, 2 ],
-    [ "RareFrame", "rareweapon_frame.png", 1, 2 ]
+    [ "RareFrame", "rareweapon_frame.png", 1, 2 ],
+    [ "Shop", "shop_spritesheet.png", 1, 8 ],
+    [ "ShopDoor", "shopDoor_spritesheet.png", 2, 5 ]
   ],
   "fonts": [
     [ "ARIAL12", "arial.ttf", 12 ]

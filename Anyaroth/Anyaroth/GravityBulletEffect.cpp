@@ -88,6 +88,9 @@ void GravityBulletEffect::reset(Bullet* bullet)
 	_debuffs.clear();
 
 	bullet->destroyAllChildren(); //borra el sprite de área
+
+	bullet->getGame()->getSoundManager()->removeSFX("duringBH");
+	bullet->getGame()->getSoundManager()->addSFX("duringBH", SOUNDS_PATH + "duringBH.wav");
 	
 	BulletEffect::reset(bullet);
 }
@@ -121,6 +124,8 @@ void GravityBulletEffect::startAbsorbing(Bullet* bullet)
 		fixt->filter.categoryBits = ENEMY_BULLETS;
 		fixt->filter.maskBits = PLAYER;
 	}
+
+	bullet->getGame()->getSoundManager()->playSFX("duringBH");
 
 	bullet->getBody()->getBody()->CreateFixture(fixt);
 

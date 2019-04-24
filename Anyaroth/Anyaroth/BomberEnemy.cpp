@@ -1,7 +1,7 @@
 #include "BomberEnemy.h"
 #include "BulletEffect.h"
 
-BomberEnemy::BomberEnemy(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Enemy(g, player, pos, g->getTexture("EnemyMartyr")), _myBulletPool(pool)
+BomberEnemy::BomberEnemy(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Enemy(g, player, pos, g->getTexture("EnemyMartyr"), "turretDeath", "turretHit", "turretMeleeHit"), _myBulletPool(pool)
 {
 	_bulletTexture = g->getTexture("PistolBullet");
 	_damage = 25;

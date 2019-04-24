@@ -4,7 +4,7 @@
 #include "Player.h"
 #include"Game.h"
 
-DistanceStaticEnemy::DistanceStaticEnemy(Game* g, Player* player, Vector2D pos, BulletPool* pool) : DistanceEnemy(g, player, pos, g->getTexture("Turret"), pool), Enemy(g, player, pos, g->getTexture("Turret"))
+DistanceStaticEnemy::DistanceStaticEnemy(Game* g, Player* player, Vector2D pos, BulletPool* pool) : DistanceEnemy(g, player, pos, g->getTexture("Turret"), pool), Enemy(g, player, pos, g->getTexture("Turret"), "turretDeath", "turretHit", "turretMeleeHit")
 {
 	_vision = 500;
 	_life = 12;
@@ -28,6 +28,11 @@ DistanceStaticEnemy::DistanceStaticEnemy(Game* g, Player* player, Vector2D pos, 
 	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 
 	//_body->addCricleShape(b2Vec2(0, _body->getH() + _body->getH() / 20), _body->getW() - _body->getW() / 20, ENEMIES, FLOOR | PLATFORMS);
+
+	//_body->setW(_anim->getTexture()->getW());
+	//_body->setH(_anim->getTexture()->getH());
+	_body->moveShape(b2Vec2(0, -0.6));
+	_body->filterCollisions(ENEMIES, FLOOR | PLATFORMS | PLAYER_BULLETS);
 
 	//Ajustes del arma
 	_myGun->setDamage(2);

@@ -19,7 +19,7 @@ CatalogPanel::CatalogPanel(Game* game) : PanelUI(game)
 
 	addChild(_exitButton);
 
-	//----PANEL DE INFORMACIÓN----//
+	//----PANEL DE INFORMACIï¿½N----//
 
 	int infoPanelPosX = _frame->getX() + _frame->getW() + 1,
 		infoPanelPosY = _frame->getY() + 11;
@@ -82,8 +82,6 @@ void CatalogPanel::inicializeCallbacks(ShopMenu* menu)
 void CatalogPanel::setPlayer(Player* ply)
 {
 	_player = ply;
-
-	_playerMoney->updateCoinsCounter(_player->getBank());
 }
 
 void CatalogPanel::setItems(list<ShopItem*>* list) // Crear items
@@ -102,8 +100,8 @@ void CatalogPanel::removeItems()
 
 void CatalogPanel::openCatalog()
 {
-	_zone = GameManager::getInstance()->getCurrentLevel() % 6;
-
+	_playerMoney->updateCoinsCounter(_player->getBank());
+	_zone = GameManager::getInstance()->getCurrentLevel();
 	for (auto it : *_items)
 			it->onDown([this, it](Game* game) {	selectItem(game, it); });
 

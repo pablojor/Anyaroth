@@ -38,6 +38,10 @@ OptionsPanel::OptionsPanel(Game* g, bool mainMenu) : _menu(mainMenu), PanelUI(g)
 	_screenButton = new ButtonUI(g, g->getTexture("MenuFullScreenButton"), [this](Game* game) { fullScreen(game); }, { 0, 1, 2, 2, 2 }, 6);
 	_screenButton->setPosition(CAMERA_RESOLUTION_X / 2 - 150, _backButton->getY());
 
+	bool IsFullscreen = SDL_GetWindowFlags(g->getWindow()) & SDL_WINDOW_FULLSCREEN_DESKTOP;
+	if (IsFullscreen)
+		_screenButton->setFrames({ 3, 4, 5, 0, 5 });
+		
 	_lessVolume->setNextButtons({ _moreVolume, _screenButton, _moreVolume, _lessSFXVolume });
 	_moreVolume->setNextButtons({ _lessVolume, _backButton, _lessVolume, _moreSFXVolume });
 	_lessSFXVolume->setNextButtons({ _moreSFXVolume, _lessVolume, _moreSFXVolume, _lessBright });

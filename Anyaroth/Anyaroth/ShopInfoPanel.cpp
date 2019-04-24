@@ -10,8 +10,8 @@ ShopInfoPanel::ShopInfoPanel(Game* game, int xPos, int yPos) : PanelUI(game)
 
 	//Animaciones
 	_frame->addAnim(AnimatedImageUI::Default, 1, false);
-	_frame->addAnim(AnimatedImageUI::Start, 7, false);
-	_frame->addAnim(AnimatedImageUI::End, 7, false);
+	_frame->addAnim(AnimatedImageUI::Start, 6, false);
+	_frame->addAnim(AnimatedImageUI::End, 6, false);
 
 	_frame->playAnim(AnimatedImageUI::Default);
 
@@ -42,7 +42,7 @@ ShopInfoPanel::ShopInfoPanel(Game* game, int xPos, int yPos) : PanelUI(game)
 	_cadenceBar->setPosition(_damageBar->getX(),
 								_cadenceIcon->getY() + _cadenceIcon->getH() / 2 - _cadenceBar->getH() / 2);
 
-	//--Distance
+	//--Clip
 	_clipIcon = new ImageUI(game, game->getTexture("CadenceIcon"));
 	_clipIcon->setPosition(_cadenceIcon->getX(),
 								_cadenceIcon->getY() + _cadenceIcon->getH());

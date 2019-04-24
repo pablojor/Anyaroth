@@ -49,6 +49,12 @@ bool PanelUI::handleEvent(const SDL_Event & event)
 	bool handled = false;
 	if (_visible)
 	{
+		if (event.type == SDL_MOUSEMOTION && _selectedButton!= nullptr)
+		{
+			_selectedButton->setSelected(false);
+			SDL_Cursor* cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
+			SDL_SetCursor(cursor);
+		}
 		auto it = _children.begin();
 
 		while (!handled && it != _children.end())

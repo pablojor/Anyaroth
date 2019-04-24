@@ -98,6 +98,8 @@ public:
 	inline void setTimestep(float timestep) { _timestep = timestep; }
 	inline void setExit(bool quit) { _exit = quit; }
 
+	inline int random(int low, int high) const { return low + (rand() % abs(high - low)); }
+
 	void toggleFullscreen();
 
 	Game();

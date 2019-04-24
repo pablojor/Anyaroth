@@ -6,7 +6,7 @@
 #include "AmmoPackage.h"
 #include "AidKit.h"
 
-Enemy::Enemy(Game* g, Player* player, Vector2D pos, Texture* texture) : GameObject(g, "Enemy"), _player(player)
+Enemy::Enemy(Game* g, Player* player, Vector2D pos, Texture* texture, string death, string hit, string meleeHit) : GameObject(g, "Enemy"), _player(player), _deathSound(death), _hitSound(hit), _meleeHit(meleeHit)
 {
 	addComponent<Texture>(texture);
 
@@ -18,7 +18,8 @@ Enemy::Enemy(Game* g, Player* player, Vector2D pos, Texture* texture) : GameObje
 	_body->getBody()->SetBullet(true);
 	
 	_body->setW(20);
-	_body->setH(20);
+	_body->setH(30);
+	_body->moveShape(b2Vec2(0, 0.6));
 	_body->filterCollisions(ENEMIES, FLOOR | PLATFORMS | PLAYER_BULLETS | MELEE);
 	
 	_body->getBody()->SetFixedRotation(true);
@@ -37,9 +38,15 @@ void Enemy::beginCollision(GameObject * other, b2Contact* contact)
 		subLife(damage);
 
 		if (other->getTag() == "Melee")
+		{
 			_dropMelee = true;
+			_game->getSoundManager()->playSFX(_meleeHit);
+		}
 		else
+		{
 			_dropMelee = false;
+			_game->getSoundManager()->playSFX(_hitSound);
+		}
 	}
 }
 
@@ -63,11 +70,13 @@ void Enemy::die()
 	_anim->playAnim(AnimatedSpriteComponent::EnemyDie);
 	setDead(true);
 	_body->filterCollisions(DEAD_ENEMIES, FLOOR | PLATFORMS);
+
+	_game->getSoundManager()->playSFX(_deathSound);
 }
 
 void Enemy::drop()
 {
-	int rnd = random(0, 100);
+	int rnd = _game->random(0, 100);
 
 	if (rnd < 50 && _dropMelee)
 	{

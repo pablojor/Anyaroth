@@ -61,8 +61,8 @@ Player::Player(Game* game, int xPos, int yPos) : GameObject(game, "Player")
 	_playerArm = new PlayerArm(game, this, { 28, 15 });
 	addChild(_playerArm);
 	
-	_currentGun = WeaponManager::getWeapon(game, PlasmaSniper_Weapon);
-	_otherGun = WeaponManager::getWeapon(game, BounceOrbCannon_Weapon);
+	_currentGun = WeaponManager::getWeapon(game, BasicRifle_Weapon);
+	_otherGun = WeaponManager::getWeapon(game, BasicShotgun_Weapon);
 
 	_playerArm->setTexture(_currentGun->getArmTexture());
 	_playerArm->setAnimations(_currentGun->getAnimType());
@@ -160,6 +160,8 @@ void Player::endCollision(GameObject * other, b2Contact* contact)
 
 void Player::die()
 {
+	_isShooting = false;
+
 	setDead(true);
 	_deathCD = 3000;
 	_playerArm->setActive(false);
@@ -169,6 +171,11 @@ void Player::die()
 
 	_money->restartWallet();
 	_playerPanel->updateCoinsCounter(_money->getWallet());
+
+	if (_game->random(0, 100) > 50)
+		_game->getSoundManager()->playSFX("die1");
+	else
+		_game->getSoundManager()->playSFX("die2");
 }
 
 void Player::revive()
@@ -204,7 +211,19 @@ void Player::subLife(int damage)
 			{
 				_anim->hurt();
 				_playerArm->hurt();
-				_game->getSoundManager()->playSFX("hit");
+				int rand = _game->random(0, 100);
+				if (rand > 80)
+					_game->getSoundManager()->playSFX("pain1");
+				else if (rand > 64)
+					_game->getSoundManager()->playSFX("pain2");
+				else if (rand > 48)
+					_game->getSoundManager()->playSFX("pain3");
+				else if (rand > 32)
+					_game->getSoundManager()->playSFX("pain4");
+				else if (rand > 16)
+					_game->getSoundManager()->playSFX("pain5");
+				else
+					_game->getSoundManager()->playSFX("pain6");
 			}
 		}
 		_playerPanel->updateLifeBar(_life.getLife(), _life.getMaxLife());
@@ -351,7 +370,7 @@ void Player::update(const double& deltaTime)
 		else if (!_playerArm->isActive())
 			_playerArm->setActive(true);
 	}
-	else
+	else if(!_changeLevel)
 	{
 		_playerPanel->showDeathText(true);
 		_deathCD -= deltaTime;
@@ -620,6 +639,7 @@ void Player::dash(const Vector2D& dir)
 		_dashDown = true;
 	}
 
+	_game->getSoundManager()->playSFX("dash");
 	_playerPanel->startAnimDashCD();
 }
 
@@ -638,6 +658,8 @@ void Player::jump()
 	setGrounded(false);
 	_timeToJump = 0.f;
 	_anim->playAnim(AnimatedSpriteComponent::BeforeJump);
+
+	_game->getSoundManager()->playSFX("jump");
 }
 
 void Player::cancelJump()
@@ -654,6 +676,8 @@ void Player::melee()
 	_anim->playAnim(AnimatedSpriteComponent::MeleeKnife);
 	_melee->meleeAttack(_body->getBody()->GetPosition().x* M_TO_PIXEL, _body->getBody()->GetPosition().y*M_TO_PIXEL, (_anim->isFlipped()) ? -1 : 1);
 	_isMeleeing = false;
+
+	_game->getSoundManager()->playSFX("melee");
 }
 
 void Player::shoot()

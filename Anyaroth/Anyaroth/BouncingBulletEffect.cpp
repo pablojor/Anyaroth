@@ -1,5 +1,6 @@
 #include "BouncingBulletEffect.h"
 #include "Bullet.h"
+#include "Game.h"
 
 BouncingBulletEffect::BouncingBulletEffect(int maxBounces) : _maxBounces(maxBounces)
 {
@@ -26,6 +27,7 @@ void BouncingBulletEffect::beginCollision(Bullet* bullet, GameObject * other, b2
 			BulletEffect::beginCollision(bullet, other, contact);
 
 		bullet->setNumBounces(bullet->getNumBounces() + 1);
+		bullet->getGame()->getSoundManager()->playSFX("orbBounce");
 	}
 }
 

@@ -19,14 +19,14 @@ Gun::Gun(Game* game, Texture* armTexture, Texture* bulletTexture, string shotSou
 	_bulletAnimType = bType;
 }
 
-void Gun::shoot(PoolWrapper* bulletPool, const Vector2D& position, const double& angle, const string& tag)
+void Gun::shoot(BulletPool* bulletPool, const Vector2D& position, const double& angle, const string& tag)
 {
 	if (_clip > 0 && _cadence <= 0)
 	{	
 		_clip--;
 		_cadence = _maxCadence;
 
-		_game->getSoundManager()->playSFX(_shotSoundTag); //Reproduce el sonido de disparo
+		_game->getSoundManager()->playSFX(_shotSoundTag, _id); //Reproduce el sonido de disparo
 
 		//Disparar la bala aqui
 		Bullet* b = bulletPool->getUnusedObject();
@@ -38,7 +38,7 @@ void Gun::shoot(PoolWrapper* bulletPool, const Vector2D& position, const double&
 	}
 }
 
-void Gun::enemyShoot(PoolWrapper* bulletPool, const Vector2D& position, const double& angle, const string& tag)
+void Gun::enemyShoot(BulletPool* bulletPool, const Vector2D& position, const double& angle, const string& tag)
 {
 	if (_cadence <= 0)
 	{

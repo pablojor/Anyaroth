@@ -4,28 +4,29 @@
 #include "BasicRifle.h"
 #include "ImprovedRifle.h"
 
-Boss1::Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, player, pos, pool, g->getTexture("Spenta")), Enemy(g, player, pos, g->getTexture("Spenta"))
+Boss1::Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, player, pos, pool, g->getTexture("Spenta")), Enemy(g, player, pos, g->getTexture("Spenta"), "", "boss1Hit")
 {
-	_life = 100;
+	//_life = 100;
+	_life = 250; // Demo Guerrilla
 	_life1 = _life2 = _life3 = _life;
 
 	delete(_myGun);
 	_myGun = new ImprovedRifle(g);
 	_myGun->setMaxCadence(0);
 	_myGun->setBulletSpeed(8);
-	_myGun->setDamage(10);
+	_myGun->setDamage(3);
 
 	_bombGun = new BomberGun(g);
 	_bombGun->setMaxCadence(0);
 	_bombGun->setBulletAnimType(SpentaBomb);
 	_bombGun->setBulletTexture(g->getTexture("Bomb"));
-	_bombGun->setDamage(20);
+	_bombGun->setDamage(8);
 
 	_orbGun = new BossOrbCannon(g);
 	_orbGun->setMaxCadence(0);
 	_orbGun->setBulletAnimType(BulletAnimType::SpentaOrb);
 	_orbGun->setBulletTexture(g->getTexture("SpentaOrb"));
-	_orbGun->setDamage(20);
+	_orbGun->setDamage(10);
 
 	_attackRangeX = 120; //No se puede poner mas pequeño que la velocidad
 	_attackTime = 1300; //La animacion tarda unos 450
@@ -51,7 +52,7 @@ Boss1::Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, 
 	_body->getBody()->SetGravityScale(0);
 
 	_originalPos = Vector2D(pos.getX() + (_anim->getTexture()->getW() / 2) / _anim->getTexture()->getNumCols(), pos.getY() + (_anim->getTexture()->getW() / 2) / _anim->getTexture()->getNumCols());
-	_melee = new Axe(g, { 100, 0 }, PLAYER, 15, 50, 50, 270);
+	_melee = new Axe(g, { 100, 0 }, PLAYER, 5, 50, 50, 270);
 	addChild(_melee);
 
 	_armVision = true;
@@ -142,7 +143,7 @@ void Boss1::bomberAttack(const double& deltaTime, int t1, int t2)
 		_timeOnBomberAttack = 0;
 		_timeBeetwenBombs = 0;
 		_armVision = true;
-		_doSomething = random(800, 1200);
+		_doSomething = _game->random(800, 1200);
 
 		if (_actualFase != BetweenFase)
 		{
@@ -154,7 +155,7 @@ void Boss1::bomberAttack(const double& deltaTime, int t1, int t2)
 		if (_timeOnBomberAttack >= _timeBeetwenBombs)
 		{
 			throwBomb();
-			_timeBeetwenBombs += random(t1, t2);
+			_timeBeetwenBombs += _game->random(t1, t2);
 		}
 	}
 }
@@ -189,7 +190,7 @@ void Boss1::checkMelee(const double& deltaTime)
 			}
 
 			_armVision = true;;
-			_doSomething = random(900, 1300);
+			_doSomething = _game->random(900, 1300);
 			_timeOnMelee = 0;
 		}
 		else
@@ -211,7 +212,7 @@ void Boss1::armShoot(const double& deltaTime)
 		_armVision = true;
 		ida = true;
 		_timeBeetwenBullets = 50;
-		_doSomething = random(1200, 1600);
+		_doSomething = _game->random(1200, 1600);
 	}
 	else
 	{
@@ -245,7 +246,7 @@ void Boss1::orbAttack()
 			_actualNumOrbs = 0;
 			_actualState = Moving;
 			_anim->playAnim(AnimatedSpriteComponent::SpentaIdle);
-			_doSomething = random(1000, 2500);
+			_doSomething = _game->random(1000, 2500);
 		}
 		else
 		{
@@ -283,6 +284,15 @@ void Boss1::manageLife(Life& l, int damage)
 		_actualState = BetweenFase;
 		_actualFase = BetweenFase;
 		_anim->playAnim(AnimatedSpriteComponent::SpentaStartShield);
+
+		int rand = _game->random(0, 100);
+
+		if (rand > 66)
+			_game->getSoundManager()->playSFX("boss1Interfase1");
+		else if (rand > 33)
+			_game->getSoundManager()->playSFX("boss1Interfase2");
+		else
+			_game->getSoundManager()->playSFX("boss1Interfase3");
 	}
 }
 
@@ -294,7 +304,7 @@ void Boss1::fase1(const double& deltaTime)
 		{
 			if (_noAction > _doSomething)
 			{
-				int ra = random(0, 100);
+				int ra = _game->random(0, 100);
 				if (ra >= 40)
 				{
 					_actualState = Meleeing;
@@ -326,7 +336,7 @@ void Boss1::fase2(const double& deltaTime)
 		{
 			if (_actualState != Meleeing)
 			{
-				int ra = random(0, 100);
+				int ra = _game->random(0, 100);
 				if (ra >= 70)
 				{
 					if (_noAction > _doSomething)
@@ -367,7 +377,7 @@ void Boss1::fase3(const double& deltaTime)
 				{
 					if (_noAction > _doSomething)
 					{
-						int ra = random(0, 100);
+						int ra = _game->random(0, 100);
 						if (ra >= 70)
 						{
 							_anim->playAnim(AnimatedSpriteComponent::SpentaOrb);//Sera animacion de orbAttackd
@@ -414,14 +424,14 @@ void Boss1::changeFase(int nextFase)
 
 void Boss1::throwBomb()
 {
-	Vector2D helpPos = Vector2D(random(100, 700 /*Futuro tope por la derecha*/), 100);
+	Vector2D helpPos = Vector2D(_game->random(100, 700 /*Futuro tope por la derecha*/), 100);
 	_bombGun->enemyShoot(_myBulletPool, helpPos, 90, "EnemyBullet");
 }
 
 void Boss1::throwOrb()
 {
 	Vector2D helpPos = Vector2D(_body->getBody()->GetPosition().x * 8, _body->getBody()->GetPosition().y * 8);
-	_orbGun->enemyShoot(_myBulletPool, helpPos, random(80, 180), "EnemyBullet");
+	_orbGun->enemyShoot(_myBulletPool, helpPos, _game->random(80, 180), "EnemyBullet");
 }
 
 void Boss1::shootBullet()

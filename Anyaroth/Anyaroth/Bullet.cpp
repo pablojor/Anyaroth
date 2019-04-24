@@ -31,6 +31,9 @@ void Bullet::beginCollision(GameObject * other, b2Contact* contact)
 {
 	if (isActive() && _effect != nullptr)
 		_effect->beginCollision(this, other, contact);
+
+	if (other->getTag() == "Ground" || other->getTag() == "Platform" || other->getTag() == "Door")
+		_game->getSoundManager()->playSFX("bulletGround",1);
 }
 
 void Bullet::endCollision(GameObject * other, b2Contact* contact)
@@ -53,8 +56,8 @@ void Bullet::init(Texture* texture, const Vector2D& position, const double& spee
 	_transform->setRotation(angle);
 
 	_body->getBody()->SetActive(true);
-	_body->setW(((_texture->getW() / _texture->getNumCols()) / 2) / M_TO_PIXEL);
-	_body->setH(((_texture->getH() / _texture->getNumFils()) / 2) / M_TO_PIXEL);
+	_body->setW(((_texture->getW() / _texture->getNumCols()) / 2));
+	_body->setH(((_texture->getH() / _texture->getNumFils()) / 2));
 	_body->getBody()->SetTransform({ (float32)(position.getX() / M_TO_PIXEL), (float32)(position.getY() / M_TO_PIXEL) }, _body->getBody()->GetAngle());
 	_body->getBody()->SetLinearVelocity(b2Vec2(0, 0));
 

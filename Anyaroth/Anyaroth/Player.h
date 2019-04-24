@@ -62,7 +62,7 @@ private:
 
 	Gun* _currentGun = nullptr;
 	Gun* _otherGun = nullptr;
-	PoolWrapper* _playerBulletPool = nullptr;
+	BulletPool* _playerBulletPool = nullptr;
 
 	void checkMovement(const Uint8* keyboard);
 	inline void setGrounded(bool grounded) { grounded ? _timeToJump = 100.f : _floorCount = grounded; }
@@ -106,6 +106,7 @@ public:
 	inline bool spendMoney(int n) { return _money->spend(n); }
 	inline int getBank() const { return _money->getBank(); }
 	inline void setBank(int amount) { _money->setBank(amount); }
+	inline Money* getMoney() const { return _money; }
 
 	void move(const Vector2D& dir, const double& speed);
 	void dash(const Vector2D& dir);
@@ -122,8 +123,9 @@ public:
 	void setPlayerPanel(PlayerPanel* p);
 	inline PlayerPanel* getPlayerPanel() const { return _playerPanel; };
 
+
 	inline void setPlayerPosition(Vector2D pos) { _body->getBody()->SetTransform(b2Vec2(pos.getX(), pos.getY()), 0); }
-	inline void setPlayerBulletPool(PoolWrapper* pool) { _playerBulletPool = pool; }
+	inline void setPlayerBulletPool(BulletPool* pool) { _playerBulletPool = pool; }
 
 	inline bool changeLevel() const { return _changeLevel; }
 	inline void setChangeLevel(bool change) { _changeLevel = change; }
