@@ -74,8 +74,6 @@ void CatalogPanel::inicializeCallbacks(ShopMenu* menu)
 void CatalogPanel::setPlayer(Player* ply)
 {
 	_player = ply;
-
-	_playerMoney->updateCoinsCounter(_player->getBank());
 }
 
 void CatalogPanel::setItems(list<ShopItem*>* list) // Crear items
@@ -98,7 +96,8 @@ void CatalogPanel::removeItems()
 
 void CatalogPanel::openCatalog()
 {
-	_zone = GameManager::getInstance()->getCurrentLevel() % 6;
+	_playerMoney->updateCoinsCounter(_player->getBank());
+	_zone = GameManager::getInstance()->getCurrentLevel();
 	for (auto it : *_items)
 	{
 		it->onDown([this, it](Game* game) {	selectItem(game, it); });

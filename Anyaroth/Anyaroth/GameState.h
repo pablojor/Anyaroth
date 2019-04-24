@@ -9,6 +9,7 @@
 #include "PauseStateHUD.h"
 
 class Game;
+class CutScene;
 
 class GameState
 {
@@ -28,6 +29,7 @@ protected:
 	PlayStateHUD* _playHud = nullptr;
 	MenuStateHUD* _menuHud = nullptr;
 	PauseStateHUD* _pauseHud = nullptr;
+	CutScene* _cutScene = nullptr;
 
 public:
 	GameState(Game* g);
@@ -50,7 +52,7 @@ public:
 	inline virtual list<GameObject*>& getObjects() { return _stages; }
 	inline virtual void setCanvas(Canvas* canvas) { _canvas = canvas; }
 
-	inline virtual void addCutScene() {};
+	inline virtual void addCutScene(CutScene* cutScene) { _cutScene = cutScene; }
 
 	Vector2D getMousePositionInWorld() const;
 	Vector2D getMousePositionOnScreen() const;

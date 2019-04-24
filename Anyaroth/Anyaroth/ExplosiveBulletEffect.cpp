@@ -94,6 +94,8 @@ void ExplosiveBulletEffect::explosion(Bullet* bullet)
 	fixt->density = 1;
 	fixt->isSensor = true;
 
+	ParticleManager::GetParticleManager()->CreateExplosion(bullet->getGame()->getTexture("Smoke"), bullet->getTransform()->getPosition(), 20, 40, 400, 30, 2);
+
 	if (bullet->getTag() == "Bullet")
 	{
 		fixt->filter.categoryBits = PLAYER_BULLETS;

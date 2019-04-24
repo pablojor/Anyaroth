@@ -61,6 +61,8 @@ Boss1::Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, 
 	_arm->setActive(false); //poner invisible el brazo del boss
 
 	_playerBody = _player->getComponent<BodyComponent>();
+
+	_hurtParticle = _game->getTexture("Smoke");
 }
 
 Boss1::~Boss1()
@@ -82,6 +84,7 @@ void Boss1::update(const double& deltaTime)
 				game->popState();
 				game->changeState(new CreditsState(game));
 			});
+			_game->getSoundManager()->playSFX("boss1Die");
 		}
 	}
 
@@ -96,10 +99,8 @@ void Boss1::update(const double& deltaTime)
 	}
 	else
 	{
-		if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaEndShield)
-		{
-			_anim->playAnim(AnimatedSpriteComponent::SpentaDie);
-		}
+		if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaEndShield)		
+			_anim->playAnim(AnimatedSpriteComponent::SpentaDie);	
 	}
 
 	if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaEndShield)

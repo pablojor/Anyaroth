@@ -26,15 +26,27 @@ void Gun::shoot(BulletPool* bulletPool, const Vector2D& position, const double& 
 		_clip--;
 		_cadence = _maxCadence;
 
-		_game->getSoundManager()->playSFX(_shotSoundTag); //Reproduce el sonido de disparo
-
+		_game->getSoundManager()->playSFX(_shotSoundTag, _id); //Reproduce el sonido de disparo
 		//Disparar la bala aqui
 		Bullet* b = bulletPool->getUnusedObject();
 		Vector2D bulletPos = prepareBulletPosition(position, angle);
+		
 		if (b != nullptr)
 			b->init(_bulletTexture, bulletPos, _speed, _damage, angle, _range, tag, _effect, _bulletAnimType);
 		else
 			bulletPool->addNewBullet()->init(_bulletTexture, bulletPos, _speed, _damage, angle, _range, tag, _effect, _bulletAnimType);
+
+		if (createParticles)
+		{
+			double dir = 0;
+			double absAngle = abs(angle);
+			Vector2D particlePos = (position + _offset * 0.5).rotateAroundPoint(angle, position);
+			if (absAngle > 120)
+			{
+				dir = -1;
+			}
+			ParticleManager::GetParticleManager()->CreateSimpleParticle(_bulletTexture, 0.5, particlePos, 15, 135 + 90 * dir, 400, 4);
+		}
 	}
 }
 

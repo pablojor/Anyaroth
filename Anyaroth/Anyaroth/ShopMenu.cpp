@@ -194,6 +194,7 @@ void ShopMenu::setPlayer(Player* ply)
 
 void ShopMenu::openShop()
 {
+	_player->getPlayerPanel()->updateCoinsCounter(_player->getMoney()->getWallet());
 	_game->getCurrentState()->getMainCamera()->fadeIn(500);
 	SDL_ShowCursor(true);
 	_zone = GameManager::getInstance()->getCurrentLevel();
@@ -218,6 +219,8 @@ void ShopMenu::closeShop()
 	_game->getSoundManager()->stopMusic();
 	_player->setActive(true);
 	SDL_ShowCursor(false);
+
+	_game->getSoundManager()->playMusic("safe_zone", -1);
 }
 
 void ShopMenu::setDialoguePanel(DialoguePanel* dialoguePanel)

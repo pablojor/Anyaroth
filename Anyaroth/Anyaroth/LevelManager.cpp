@@ -1,6 +1,7 @@
 #include "LevelManager.h"
 #include "Game.h"
 #include "GameManager.h"
+#include "CutScene.h"
 
 LevelManager::LevelManager(Game* game, Player* player, GameObject* level, PlayStateHUD* hud, BulletPool* enemyPool) : _game(game), _player(player), _level(level), _hud(hud)
 {
@@ -13,6 +14,8 @@ LevelManager::LevelManager(Game* game, Player* player, GameObject* level, PlaySt
 
 void LevelManager::setLevel(int l)
 {
+	CutScene* cutscene = new CutScene(_player);
+
 	switch (l)
 	{
 	case LevelManager::Tutorial:
@@ -74,17 +77,32 @@ void LevelManager::setLevel(int l)
 		break;
 
 		//Demo Guerrilla Game Festival
-	case LevelManager::SafeDemo:
+	case LevelManager::SafeDemo:	
 		_currentSafeZone = new Map(TILEMAP_PATH + "SafeZoneDemo.json", _game, _player, _tilesetZone1, _enemyBulletPool, _hud);
+		_game->getSoundManager()->playMusic("safe_zone", -1);
+	
 		break;
 	case LevelManager::LevelDemo:
 		_currentMap = new Map(TILEMAP_PATH + "NivelDemo.json", _game, _player, _tilesetZone1, _enemyBulletPool, _hud);
+		_game->getSoundManager()->playMusic("demoLevelMusic", -1);
 		break;
 	case LevelManager::SafeBossDemo:
 		_currentSafeZone = new Map(TILEMAP_PATH + "SafeZoneBossDemo.json", _game, _player, _tilesetZone1, _enemyBulletPool, _hud);
+		_game->getSoundManager()->playMusic("safe_zone", -1);
+	
+
+		if (_player->getComponent<CustomAnimatedSpriteComponent>()->isFlipped())
+			cutscene->addFlipEvent();
+
+		cutscene->addMoveEvent(_player->getComponent<BodyComponent>(), 1, 15, 304 / M_TO_PIXEL);
+		cutscene->addShopEvent(_hud->getShop());
+		_game->getCurrentState()->addCutScene(cutscene);
+
 		break;
 	case LevelManager::BossDemo:
 		_currentMap = new Map(TILEMAP_PATH + "Nivel1-3.json", _game, _player, _tilesetBoss1, _enemyBulletPool, _hud);
+		_game->getSoundManager()->playMusic("boss1Battle", -1);
+	
 		break;
 	}
 
