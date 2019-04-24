@@ -2,7 +2,7 @@
 #include "Game.h"
 
 
-ButtonUI::ButtonUI(Game* game, Texture* image, const Callback& callback, Frames frames) : FramedImageUI(game, image)
+ButtonUI::ButtonUI(Game* game, Texture* image, const Callback& callback, Frames frames, int arrayPos) : FramedImageUI(game, image), _arrayPos(arrayPos)
 {
 	setFrames(frames);
 	_frame = _onOutFrame;

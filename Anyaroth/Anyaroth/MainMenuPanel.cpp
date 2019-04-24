@@ -12,22 +12,25 @@ MainMenuPanel::MainMenuPanel(Game* g) : PanelUI(g)
 	_playButton->setPosition(CAMERA_RESOLUTION_X / 2 - 4/3*buttonW, CAMERA_RESOLUTION_Y - 93);
 	_playButton->setSize(buttonW, buttonH);
 
-	_loadButton = new ButtonUI(g, g->getTexture("MenuButtons"), [this](Game * game) { loadGame(game); }, { 0, 1, 2, 2, 2 });
+	_loadButton = new ButtonUI(g, g->getTexture("MenuButtons"), [this](Game * game) { loadGame(game); }, { 0, 1, 2, 2, 2 }, 1);
 	_loadButton->setPosition(CAMERA_RESOLUTION_X / 2 + buttonW/3, _playButton->getY());
 	_loadButton->setSize(buttonW, buttonH);
 
-	_optionsButton = new ButtonUI(g, g->getTexture("MenuButtons"), [this](Game* game) { options(game); }, { 0, 1, 2, 2, 2 });
+	_optionsButton = new ButtonUI(g, g->getTexture("MenuButtons"), [this](Game* game) { options(game); }, { 0, 1, 2, 2, 2 }, 2);
 	_optionsButton->setPosition(_playButton->getX() , _playButton->getY() + buttonH + 10);
 	_optionsButton->setSize(buttonW, buttonH);
 
-	_exitButton = new ButtonUI(g, g->getTexture("MenuButtons"), [this](Game* game) { exitGame(game); }, { 0, 1, 2, 2, 2 });
+	_exitButton = new ButtonUI(g, g->getTexture("MenuButtons"), [this](Game* game) { exitGame(game); }, { 0, 1, 2, 2, 2 }, 3);
 	_exitButton->setPosition(_loadButton->getX() , _optionsButton->getY());
 	_exitButton->setSize(buttonW, buttonH);
 
-	_buttons.push_back(_playButton);
-	_buttons.push_back(_loadButton);
-	_buttons.push_back(_optionsButton);
-	_buttons.push_back(_exitButton);
+
+	_playButton->setNextButtons({ _loadButton, _optionsButton, _loadButton, _optionsButton });
+	_optionsButton->setNextButtons({ _exitButton, _playButton, _exitButton, _playButton });
+	_loadButton->setNextButtons({ _playButton, _exitButton, _playButton, _exitButton });
+	_exitButton->setNextButtons({ _optionsButton, _loadButton, _optionsButton, _loadButton });
+
+	_selectedButton = _playButton;
 	//----TEXTOS----//
 
 	_playText = new TextUI(g, "Play", g->getFont("ARIAL12"), 12);
@@ -56,7 +59,7 @@ MainMenuPanel::MainMenuPanel(Game* g) : PanelUI(g)
 	addChild(_exitText);
 
 	if (_game->isJoystick())
-		_buttons[_selectedButton]->setSelected(true);
+		_selectedButton->setSelected(true);
 }
 
 

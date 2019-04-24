@@ -49,29 +49,51 @@ bool PanelUI::handleEvent(const SDL_Event & event)
 	bool handled = false;
 	if (_visible)
 	{
-		if (event.type == SDL_CONTROLLERBUTTONDOWN && _buttons.size() > 0)
+		if (event.type == SDL_CONTROLLERBUTTONDOWN && (_selectedButton != nullptr))
 		{
-			if (event.cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_LEFT )
+			if (event.cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_LEFT && _selectedButton->getNextLeft() != nullptr)
 			{
-				_buttons[_selectedButton]->setSelected(false);
+				_selectedButton->setSelected(false);
 
-				_selectedButton = (_selectedButton - 1) % _buttons.size();
-				while (!_buttons[_selectedButton]->isVisible())
-					_selectedButton = (_selectedButton - 1) % _buttons.size();
+				_selectedButton = _selectedButton->getNextLeft();
+				while (!_selectedButton->isVisible() && _selectedButton->getNextLeft() != nullptr)
+					_selectedButton = _selectedButton->getNextLeft();
 
-				_buttons[_selectedButton]->setSelected(true);
+				if (_selectedButton->isVisible())
+					_selectedButton->setSelected(true);
 			}
-			else if (event.cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_RIGHT)
+			else if (event.cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_UP && _selectedButton->getNextUp() != nullptr)
 			{
-				_buttons[_selectedButton]->setSelected(false);
+				_selectedButton->setSelected(false);
 
-				_selectedButton = (_selectedButton + 1) % _buttons.size();
-				while (!_buttons[_selectedButton]->isVisible())
-				{
-					_selectedButton = (_selectedButton + 1) % _buttons.size();
-				}
+				_selectedButton = _selectedButton->getNextUp();
+				while (!_selectedButton->isVisible() && _selectedButton->getNextUp() != nullptr)
+					_selectedButton = _selectedButton->getNextUp();
 
-				_buttons[_selectedButton]->setSelected(true);
+				if (_selectedButton->isVisible())
+					_selectedButton->setSelected(true);
+			}
+			if (event.cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_RIGHT && _selectedButton->getNextRight() != nullptr)
+			{
+				_selectedButton->setSelected(false);
+
+				_selectedButton = _selectedButton->getNextRight();
+				while (!_selectedButton->isVisible() && _selectedButton->getNextRight() != nullptr)
+					_selectedButton = _selectedButton->getNextRight();
+
+				if (_selectedButton->isVisible())
+					_selectedButton->setSelected(true);
+			}
+			else if (event.cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_DOWN && _selectedButton->getNextDown() != nullptr)
+			{
+				_selectedButton->setSelected(false);
+
+				_selectedButton = _selectedButton->getNextDown();
+				while (!_selectedButton->isVisible() && _selectedButton->getNextDown() != nullptr)
+					_selectedButton = _selectedButton->getNextDown();
+
+				if (_selectedButton->isVisible())
+					_selectedButton->setSelected(true);
 			}
 		}
 		auto it = _children.begin();

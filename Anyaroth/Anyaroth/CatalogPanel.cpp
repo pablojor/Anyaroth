@@ -36,7 +36,6 @@ CatalogPanel::CatalogPanel(Game* game) : PanelUI(game)
 	_buyButton->onDown([this](Game* game) { buyItem(game); });
 	_buyButton->setVisible(false);
 
-	_buttons.push_back(_buyButton);
 
 	_buyText = new TextUI(game, "Buy", game->getFont("ARIAL12"), 12, 0, 0, { 255, 255, 255, 255 });
 	_buyText->setPosition(_buyButton->getX() + _buyButton->getW() / 2 - _buyText->getW() / 2,
@@ -81,13 +80,19 @@ void CatalogPanel::setPlayer(Player* ply)
 void CatalogPanel::setItems(list<ShopItem*>* list) // Crear items
 {
 	_items = list;
-
-	for (auto it : *_items)
+	_selectedButton = *_items->begin();
+	for (auto it = _items->begin(); it != _items->end(); it++)
 	{
-		addChild(it);
-		_buttons.push_back(it);
+		if (*it)
+		{
+			addChild(*it);
+			ButtonUI* nL = (it != _items->begin()) ? *prev(it) : _exitButton;
+			ButtonUI* nR = (it != prev(_items->end())) ? *next(it) : _exitButton;
+			(*it)->setNextButtons({ nL, nullptr, nR, nullptr });
+		}
 	}
-	_buttons.push_back(_exitButton);
+	_exitButton->setNextButtons({ *prev(_items->end()), nullptr, *(_items->begin()), nullptr });
+
 }
 
 void CatalogPanel::removeItems()
@@ -112,7 +117,7 @@ void CatalogPanel::openCatalog()
 	_buyText->setVisible(false);
 
 	if (_game->isJoystick())
-		_buttons[_selectedButton]->setSelected(true);
+		_selectedButton->setSelected(true);
 }
 
 void CatalogPanel::closeCatalog()
@@ -178,8 +183,8 @@ void CatalogPanel::selectItem(Game * game, ShopItem* item)
 	_selectedItem = item;
 	_selectedItem->select(true);
 
-	_buttons[0]->setSelected(true);
-	_buttons[_selectedButton]->setSelected(false);
+	_selectedButton->setSelected(false);
+	_buyButton->setSelected(true);
 
 	showSelectedItemInfo();
 }
@@ -247,6 +252,10 @@ void CatalogPanel::buyItem(Game * game)
 
 		_selectedItem->select(false);
 		_selectedItem = nullptr;
+
+		_buyButton->setSelected(false);
+		_selectedButton = _selectedButton->getNextLeft();
+		_selectedButton->setSelected(true);
 
 		reorderCatalog();
 	}
