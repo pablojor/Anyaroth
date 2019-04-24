@@ -71,10 +71,19 @@ void LevelManager::setLevel(int l)
 	case LevelManager::Boss3:
 		//_currentMap = ...
 		break;
-	case LevelManager::Demo:
+
+		//Demo Guerrilla Game Festival
+	case LevelManager::SafeDemo:
+		_currentSafeZone = new Map(TILEMAP_PATH + "SafeZoneDemo.json", _game, _player, _tilesetZone1, _enemyBulletPool, _hud);
+		break;
+	case LevelManager::LevelDemo:
 		_currentMap = new Map(TILEMAP_PATH + "NivelDemo.json", _game, _player, _tilesetZone1, _enemyBulletPool, _hud);
 		break;
-	default:
+	case LevelManager::SafeBossDemo:
+		_currentSafeZone = new Map(TILEMAP_PATH + "SafeZoneBossDemo.json", _game, _player, _tilesetZone1, _enemyBulletPool, _hud);
+		break;
+	case LevelManager::BossDemo:
+		_currentMap = new Map(TILEMAP_PATH + "Nivel1-3.json", _game, _player, _tilesetBoss1, _enemyBulletPool, _hud);
 		break;
 	}
 

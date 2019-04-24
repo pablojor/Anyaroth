@@ -32,7 +32,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	auto enemyPool = new BulletPool(g);
 
 	//Levels
-	GameManager::getInstance()->setCurrentLevel(LevelManager::Demo);
+	GameManager::getInstance()->setCurrentLevel(LevelManager::SafeDemo);
 	_level = new GameObject(g);
 	_levelManager = LevelManager(g, _player, _level, _hud, enemyPool);
 	_levelManager.setLevel(GameManager::getInstance()->getCurrentLevel());
@@ -134,22 +134,21 @@ bool PlayState::handleEvent(const SDL_Event& event)
 	{
 		_player->getCurrentGun()->resetAmmo();
 		_hud->getPlayerPanel()->updateAmmoViewer(_player->getCurrentGun()->getClip(), _player->getCurrentGun()->getMagazine());
-
 	}
-	else if (event.type == SDL_KEYDOWN && (event.key.keysym.sym == SDLK_KP_MINUS || event.key.keysym.sym == SDLK_MINUS)) //Para probar el Zoom y sus distintan opciones
-		_mainCamera->zoomOut();
-	else if (event.type == SDL_KEYDOWN && (event.key.keysym.sym == SDLK_KP_PLUS || event.key.keysym.sym == SDLK_PLUS))
-		_mainCamera->zoomIn();
-	else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_n)
-		_mainCamera->setZoom(_mainCamera->getZoomRatio() + 1, true);
-	else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_m)
-		_mainCamera->setZoom(_mainCamera->getZoomRatio() - 1, true);
-	else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_KP_ENTER && !event.key.repeat)
-		_mainCamera->shake(10, 750);
-	else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_p && !event.key.repeat)
-		_mainCamera->fadeIn(5000);
-	else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_o && !event.key.repeat)
-		_mainCamera->fadeOut(5000);
+	//else if (event.type == SDL_KEYDOWN && (event.key.keysym.sym == SDLK_KP_MINUS || event.key.keysym.sym == SDLK_MINUS)) //Para probar el Zoom y sus distintan opciones
+	//	_mainCamera->zoomOut();
+	//else if (event.type == SDL_KEYDOWN && (event.key.keysym.sym == SDLK_KP_PLUS || event.key.keysym.sym == SDLK_PLUS))
+	//	_mainCamera->zoomIn();
+	//else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_n)
+	//	_mainCamera->setZoom(_mainCamera->getZoomRatio() + 1, true);
+	//else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_m)
+	//	_mainCamera->setZoom(_mainCamera->getZoomRatio() - 1, true);
+	//else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_KP_ENTER && !event.key.repeat)
+	//	_mainCamera->shake(10, 750);
+	//else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_p && !event.key.repeat)
+	//	_mainCamera->fadeIn(5000);
+	//else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_o && !event.key.repeat)
+	//	_mainCamera->fadeOut(5000);
 
 	return handled;
 }
@@ -169,10 +168,7 @@ void PlayState::saveGame()
 
 		auto items = _hud->getShop()->getItems();
 		for (ShopItem* i : items)
-		{
-			cout << i->getItemInfo()._name << " " << i->getItemInfo()._sold;
 			j[i->getItemInfo()._name] = i->getItemInfo()._sold;
-		}
 		output << j;
 	}
 }
@@ -186,7 +182,6 @@ void PlayState::loadGame()
 	{
 		json j;
 		input >> j;
-		cout << j;
 		_player->setBank(j["Bank"]);
 		_levelManager.changeLevel(j["level"]);
 		_player->changeCurrentGun(WeaponManager::getWeapon(_gameptr, j["currentGun"]));
@@ -217,13 +212,8 @@ void PlayState::update(const double& deltaTime)
 			if ((gManager->getCurrentLevel() + 1) % 2 == 0) //Si el proximo nivel no es una safe zone guarda el juego
 				saveGame();
 
-			if (gManager->getCurrentLevel() == LevelManager::Demo)
-				_levelManager.resetLevel();
-			else
-			{
-				gManager->setCurrentLevel(gManager->getCurrentLevel() + 1);
-				_levelManager.changeLevel(gManager->getCurrentLevel());
-			}
+			gManager->setCurrentLevel(gManager->getCurrentLevel() + 1);
+			_levelManager.changeLevel(gManager->getCurrentLevel());
 
 			_mainCamera->setWorldBounds(_levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getWidth(), _levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getHeight());
 			_mainCamera->setZoom(CAMERA_SCALE_FACTOR);
@@ -233,13 +223,8 @@ void PlayState::update(const double& deltaTime)
 			_playerBulletPool->stopBullets();
 			_player->revive();
 
-			if (gManager->getCurrentLevel() == LevelManager::Demo)
-				_levelManager.resetLevel();
-			else
-			{
-				gManager->setCurrentLevel(gManager->getCurrentLevel() - 1);
-				_levelManager.changeLevel(gManager->getCurrentLevel());
-			}
+			gManager->setCurrentLevel(gManager->getCurrentLevel() - 1);
+			_levelManager.changeLevel(gManager->getCurrentLevel());
 
 			_mainCamera->setWorldBounds(_levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getWidth(), _levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getHeight());
 			_mainCamera->setZoom(CAMERA_SCALE_FACTOR);

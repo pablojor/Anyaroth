@@ -235,7 +235,6 @@ void Game::run()
 
 		while (lag >= FRAME_RATE)
 		{
-			cout << "Actualizado con tiempo: " << lag << endl;
 			_world->Step((float)FRAME_RATE / 1000.0f, 8, 3);
 			update(FRAME_RATE);
 			lag -= FRAME_RATE;

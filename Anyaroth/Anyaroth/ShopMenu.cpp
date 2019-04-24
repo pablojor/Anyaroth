@@ -2,10 +2,10 @@
 #include "Game.h"
 #include "Player.h"
 #include "PlayStateHUD.h"
-#include <json.hpp>
+#include "GameManager.h"
 #include "WeaponManager.h"
 #include "SoundManager.h"
-#include "GameManager.h"
+#include <json.hpp>
 
 ShopMenu::ShopMenu(Game* game) : PanelUI(game)
 {
@@ -93,9 +93,7 @@ ShopMenu::~ShopMenu()
 	_catalogPanel->removeItems();
 	if (_dialoguePanel != nullptr) removeChild(_dialoguePanel);
 	for (auto it = _items.begin(); it != _items.end(); it++)
-	{
 		delete *it;
-	}
 }
 
 
@@ -131,6 +129,7 @@ bool ShopMenu::handleEvent(const SDL_Event& event)
 						_buttons[_selectedButton]->setSelected(false);
 
 						_selectedButton = (_selectedButton - 1) % _buttons.size();
+
 						while (!_buttons[_selectedButton]->isVisible())
 							_selectedButton = (_selectedButton - 1) % _buttons.size();
 
@@ -141,10 +140,9 @@ bool ShopMenu::handleEvent(const SDL_Event& event)
 						_buttons[_selectedButton]->setSelected(false);
 
 						_selectedButton = (_selectedButton + 1) % _buttons.size();
+
 						while (!_buttons[_selectedButton]->isVisible())
-						{
 							_selectedButton = (_selectedButton + 1) % _buttons.size();
-						}
 
 						_buttons[_selectedButton]->setSelected(true);
 					}
@@ -205,17 +203,15 @@ void ShopMenu::openShop()
 	_game->getSoundManager()->playMusic("shop", true);
 
 	_dialoguePanel->stopAtLastLineShown(true);
-	_dialoguePanel->startDialogue(_game->getDialogue("Olivander 1"));
+	_dialoguePanel->startDialogue(_game->getDialogue("Shop 1 " + to_string(GameManager::getInstance()->getCurrentLevel())));
 
 	_mainMenuAbled = true;
-
 	_buttons[_selectedButton]->setSelected(false);
 }
 
 void ShopMenu::closeShop()
 {
 	_dialoguePanel->endDialogue();
-	//_dialoguePanel->stopAtLastLineShown(false);
 
 	_game->getSoundManager()->stopMusic();
 
@@ -240,7 +236,7 @@ void ShopMenu::ableMainMenu(Game * game)
 	_depotText->setVisible(true);
 	_exitButton->setVisible(true);
 
-	_dialoguePanel->startDialogue(_game->getDialogue("Olivander 2"));
+	_dialoguePanel->startDialogue(_game->getDialogue("Shop 2 " + to_string(GameManager::getInstance()->getCurrentLevel())));
 	_mainMenuAbled = true;
 }
 
@@ -263,8 +259,7 @@ void ShopMenu::openCatalogPanel(Game* game)
 	disableMainMenu(game);
 
 	_catalogPanel->openCatalog();
-
-	_dialoguePanel->startDialogue(_game->getDialogue("Olivander Catalog 1"));
+	_dialoguePanel->startDialogue(_game->getDialogue("Shop Catalog " + to_string(GameManager::getInstance()->getCurrentLevel())));
 }
 
 void ShopMenu::closeCatalogPanel(Game * game)
@@ -280,7 +275,7 @@ void ShopMenu::startTalking(Game* game)
 	disableMainMenu(game);
 
 	_talking = true;
-	_dialoguePanel->startDialogue(_game->getDialogue("Olivander Talk 1"));
+	_dialoguePanel->startDialogue(_game->getDialogue("Shop Talk " + to_string(GameManager::getInstance()->getCurrentLevel())));
 }
 
 void ShopMenu::stopTalking()
@@ -293,8 +288,7 @@ void ShopMenu::openDepotPanel(Game* game)
 	disableMainMenu(game);
 
 	_depotPanel->openDepotPanel();
-
-	_dialoguePanel->startDialogue(_game->getDialogue("Olivander Depot 1"));
+	_dialoguePanel->startDialogue(_game->getDialogue("Shop Depot " + to_string(GameManager::getInstance()->getCurrentLevel())));
 }
 
 void ShopMenu::closeDepotPanel(Game * game)
