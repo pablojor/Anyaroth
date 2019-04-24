@@ -13,7 +13,7 @@ using namespace nlohmann;
 PlayState::PlayState(Game* g) : GameState(g)
 {
 	GameManager::init();
-	WeaponManager::init();
+	WeaponManager::init();	
 
 	//HUD
 	_hud = new PlayStateHUD(g);
@@ -99,11 +99,13 @@ PlayState::PlayState(Game* g) : GameState(g)
 	//----AÑADIR A LOS OBJETOS----//
 
 	_stages.push_back(_level);
-	_stages.push_back(_cursor);
 	_stages.push_back(_player);
+	_stages.push_back(_cursor);
 	_stages.push_back(_playerBulletPool);
 	_stages.push_back(enemyPool);
-    _stages.push_back(_particles);
+	_stages.push_back(_particles);
+
+	getMainCamera()->fadeIn(3000);
 }
 
 PlayState::~PlayState()
@@ -207,27 +209,39 @@ void PlayState::update(const double& deltaTime)
 
 		if (!_player->isDead())
 		{
-			_player->revive();
-
 			if ((gManager->getCurrentLevel() + 1) % 2 == 0) //Si el proximo nivel no es una safe zone guarda el juego
 				saveGame();
 
-			gManager->setCurrentLevel(gManager->getCurrentLevel() + 1);
-			_levelManager.changeLevel(gManager->getCurrentLevel());
+			getMainCamera()->fadeOut(1000);
+			getMainCamera()->onFadeComplete([this, gManager](Game* game)
+			{
+				_player->revive();
+				gManager->setCurrentLevel(gManager->getCurrentLevel() + 1);
+				_levelManager.changeLevel(gManager->getCurrentLevel());
 
-			_mainCamera->setWorldBounds(_levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getWidth(), _levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getHeight());
-			_mainCamera->setZoom(CAMERA_SCALE_FACTOR);
+				int l = gManager->getCurrentLevel();
+				if (l == LevelManager::Boss1 || l == LevelManager::Boss2 || l == LevelManager::Boss3)
+				{
+					game->getCurrentState()->getMainCamera()->fadeIn(1000);
+					game->getCurrentState()->getMainCamera()->onFadeComplete([this, gManager, l](Game* game)
+					{
+						game->getCurrentState()->getMainCamera()->fitCamera({ (float)_levelManager.getCurrentLevel(l)->getWidth(), (float)_levelManager.getCurrentLevel(l)->getHeight() }, true);
+					});
+				}
+			});
 		}
-		else
+		else if (!getMainCamera()->isFading())
 		{
 			_playerBulletPool->stopBullets();
-			_player->revive();
 
-			gManager->setCurrentLevel(gManager->getCurrentLevel() - 1);
-			_levelManager.changeLevel(gManager->getCurrentLevel());
+			getMainCamera()->fadeOut(1000);
+			getMainCamera()->onFadeComplete([this, gManager](Game*)
+			{
+				_player->revive();
 
-			_mainCamera->setWorldBounds(_levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getWidth(), _levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getHeight());
-			_mainCamera->setZoom(CAMERA_SCALE_FACTOR);
+				gManager->setCurrentLevel(gManager->getCurrentLevel() - 1);
+				_levelManager.changeLevel(gManager->getCurrentLevel());
+			});
 		}
 	}
 	else

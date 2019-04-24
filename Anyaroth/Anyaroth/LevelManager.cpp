@@ -1,5 +1,6 @@
 #include "LevelManager.h"
 #include "Game.h"
+#include "GameManager.h"
 
 LevelManager::LevelManager(Game* game, Player* player, GameObject* level, PlayStateHUD* hud, BulletPool* enemyPool) : _game(game), _player(player), _level(level), _hud(hud)
 {
@@ -91,6 +92,7 @@ void LevelManager::setLevel(int l)
 		_level->addChild(_currentMap);
 	else
 		_level->addChild(_currentSafeZone);
+	_game->getCurrentState()->getMainCamera()->fadeIn(3000);
 }
 
 void LevelManager::changeLevel(int l)
@@ -106,6 +108,9 @@ void LevelManager::changeLevel(int l)
 		_level->destroyAllChildren();
 	}
 	setLevel(l);
+
+	_game->getCurrentState()->getMainCamera()->setWorldBounds(getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getWidth(), getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getHeight());
+	_game->getCurrentState()->getMainCamera()->setZoom(CAMERA_SCALE_FACTOR);
 }
 
 Map * LevelManager::getCurrentLevel(int l) const
@@ -114,4 +119,11 @@ Map * LevelManager::getCurrentLevel(int l) const
 		return _currentMap;
 	else
 		return _currentSafeZone;
+}
+
+void LevelManager::resetLevel()
+{
+	_currentMap->restartLevel(); 
+	_enemyBulletPool->stopBullets(); 
+	_game->getCurrentState()->getMainCamera()->fadeIn(3000);
 }
