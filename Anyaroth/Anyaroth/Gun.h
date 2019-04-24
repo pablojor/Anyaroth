@@ -26,6 +26,7 @@ protected:
 	string _shotSoundTag = "";
 	Game* _game = nullptr;
 
+	bool createParticles = true;
 
 public:
 	Gun(Game* game, Texture* armTexture, Texture* bulletTexture, string shotSoundTag, double speed, double damage, double range, int maxClip, int maxMagazine, int maxCadence, EffectInterface* effect, GunType id, Texture* iconTexture, bool automatic = false, BulletAnimType bType = BulletAnimType::Default);

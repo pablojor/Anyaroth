@@ -94,7 +94,16 @@
     [ "CommonFrame", "commonweapon_frame.png", 1, 2 ],
     [ "RareFrame", "rareweapon_frame.png", 1, 2 ],
     [ "Shop", "shop_spritesheet.png", 1, 8 ],
-    [ "ShopDoor", "shopDoor_spritesheet.png", 2, 5 ]
+    [ "ShopDoor", "shopDoor_spritesheet.png", 2, 5 ],
+    [ "Dust", "dust.png", 1, 1 ],
+    [ "Blood", "blood.png", 1, 1 ],
+    [ "Smoke", "smoke.png", 1, 1 ],
+    [ "DashTrail", "dashtrail.png", 1, 1 ],
+    [ "DashTrailFlip", "dashtrailflip.png", 1, 1 ],
+    [ "DashBackTrail", "dashbacktrail.png", 1, 1 ],
+    [ "DashBackTrailFlip", "dashbacktrailflip.png", 1, 1 ],
+    [ "DashDownTrail", "dashdowntrail.png", 1, 1 ],
+    [ "DashDownTrailFlip", "dashdowntrailflip.png", 1, 1 ]
   ],
   "fonts": [
     [ "ARIAL12", "arial.ttf", 12 ]
