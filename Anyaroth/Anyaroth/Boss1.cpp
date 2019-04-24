@@ -76,6 +76,7 @@ void Boss1::update(const double& deltaTime)
 		if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaEndShield)
 		{
 			_anim->playAnim(AnimatedSpriteComponent::SpentaDie);
+			_game->getSoundManager()->playSFX("boss1Die");
 		}
 	}
 
@@ -90,10 +91,8 @@ void Boss1::update(const double& deltaTime)
 	}
 	else
 	{
-		if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaEndShield)
-		{
-			_anim->playAnim(AnimatedSpriteComponent::SpentaDie);
-		}
+		if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaEndShield)		
+			_anim->playAnim(AnimatedSpriteComponent::SpentaDie);	
 	}
 
 	if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaEndShield)

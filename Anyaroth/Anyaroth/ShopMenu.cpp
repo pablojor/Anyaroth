@@ -219,6 +219,8 @@ void ShopMenu::closeShop()
 	_game->getSoundManager()->stopMusic();
 	_player->setActive(true);
 	SDL_ShowCursor(false);
+
+	_game->getSoundManager()->playMusic("safe_zone", -1);
 }
 
 void ShopMenu::setDialoguePanel(DialoguePanel* dialoguePanel)
