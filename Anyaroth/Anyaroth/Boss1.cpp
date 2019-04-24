@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "BasicRifle.h"
 #include "ImprovedRifle.h"
+#include "CreditsState.h"
 
 Boss1::Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, player, pos, pool, g->getTexture("Spenta")), Enemy(g, player, pos, g->getTexture("Spenta"), "", "boss1Hit")
 {
@@ -78,6 +79,11 @@ void Boss1::update(const double& deltaTime)
 		if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaEndShield)
 		{
 			_anim->playAnim(AnimatedSpriteComponent::SpentaDie);
+			_game->getCurrentState()->getMainCamera()->fadeOut(3000);
+			_game->getCurrentState()->getMainCamera()->onFadeComplete([this](Game* game) {
+				game->popState();
+				game->changeState(new CreditsState(game));
+			});
 			_game->getSoundManager()->playSFX("boss1Die");
 		}
 	}

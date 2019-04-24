@@ -43,6 +43,8 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_parallaxZone1->addLayer(new ParallaxLayer(g->getTexture("BgZ1L1"), _mainCamera, 0.25));
 	_parallaxZone1->addLayer(new ParallaxLayer(g->getTexture("BgZ1L2"), _mainCamera, 0.5));
 	_parallaxZone1->addLayer(new ParallaxLayer(g->getTexture("BgZ1L3"), _mainCamera, 0.75));
+	_controls = new ParallaxLayer(g->getTexture("ControlsBG"), _mainCamera, 0);
+	_parallaxZone1->addLayer(_controls);
 
 	//Cursor
 	_cursor = new Cursor(g);
@@ -81,6 +83,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_stages.push_back(_particles);
 
 	getMainCamera()->fadeIn(3000);
+	getMainCamera()->fitCamera({ (double)_levelManager.getCurrentLevel(1)->getWidth(), (double)_levelManager.getCurrentLevel(1)->getHeight() }, false);
 }
 
 PlayState::~PlayState()
@@ -201,6 +204,12 @@ void PlayState::update(const double& deltaTime)
 				if (_cutScene != nullptr)
 					_cutScene->play();
 
+				if (_controls != nullptr) {
+					_parallaxZone1->removeLayer(_controls);
+					delete _controls;
+					_controls = nullptr;
+				}
+
 				int l = gManager->getCurrentLevel();
 				if (l == LevelManager::Boss1 || l == LevelManager::Boss2 || l == LevelManager::Boss3 || l == LevelManager::BossDemo)
 				{
@@ -224,6 +233,8 @@ void PlayState::update(const double& deltaTime)
 
 				gManager->setCurrentLevel(gManager->getCurrentLevel() - 1);
 				_levelManager.changeLevel(gManager->getCurrentLevel());
+
+				_player->setChangeLevel(false);
 				_player->setInputFreezed(false);
 			});
 		}

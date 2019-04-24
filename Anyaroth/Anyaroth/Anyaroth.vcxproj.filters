@@ -406,6 +406,8 @@
     <ClCompile Include="Particle.cpp">
       <Filter>Archivos de código fuente\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="CreditsState.cpp" />
+    <ClCompile Include="CreditsStateHUD.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -849,6 +851,8 @@
     <ClInclude Include="Particle.h">
       <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
+    <ClInclude Include="CreditsState.h" />
+    <ClInclude Include="CreditsStateHUD.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de código fuente">
