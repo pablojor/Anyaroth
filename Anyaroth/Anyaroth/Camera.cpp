@@ -39,7 +39,7 @@ void Camera::smoothMovement(const double & deltaTime)
 
 		//Aqui se lleva a cabo todo el movimiento
 		float smoothSpeed = 7.0f;	// Velocidad del smooth
-		float offsetX = 40;			// Offset del objeto al centro de la pantalla
+		float offsetX = 15;			// Offset del objeto al centro de la pantalla
 
 		Vector2D desiredPos;
 		if (!s->isFlipped())

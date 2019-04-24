@@ -211,16 +211,16 @@ void Player::subLife(int damage)
 			{
 				_anim->hurt();
 				_playerArm->hurt();
-
-				if (_game->random(0, 100) > 80)
+				int rand = _game->random(0, 100);
+				if (rand > 80)
 					_game->getSoundManager()->playSFX("pain1");
-				else if (_game->random(0, 100) > 64)
+				else if (rand > 64)
 					_game->getSoundManager()->playSFX("pain2");
-				else if (_game->random(0, 100) > 48)
+				else if (rand > 48)
 					_game->getSoundManager()->playSFX("pain3");
-				else if (_game->random(0, 100) > 32)
+				else if (rand > 32)
 					_game->getSoundManager()->playSFX("pain4");
-				else if (_game->random(0, 100) > 16)
+				else if (rand > 16)
 					_game->getSoundManager()->playSFX("pain5");
 				else
 					_game->getSoundManager()->playSFX("pain6");
