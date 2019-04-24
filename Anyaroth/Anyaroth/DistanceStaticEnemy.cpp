@@ -29,6 +29,11 @@ DistanceStaticEnemy::DistanceStaticEnemy(Game* g, Player* player, Vector2D pos, 
 
 	//_body->addCricleShape(b2Vec2(0, _body->getH() + _body->getH() / 20), _body->getW() - _body->getW() / 20, ENEMIES, FLOOR | PLATFORMS);
 
+	//_body->setW(_anim->getTexture()->getW());
+	//_body->setH(_anim->getTexture()->getH());
+	_body->moveShape(b2Vec2(0, -0.6));
+	_body->filterCollisions(ENEMIES, FLOOR | PLATFORMS | PLAYER_BULLETS);
+
 	//Ajustes del arma
 	_myGun->setDamage(2);
 	_myGun->setMaxCadence(700);

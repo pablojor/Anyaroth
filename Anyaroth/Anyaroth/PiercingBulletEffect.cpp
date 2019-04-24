@@ -40,5 +40,8 @@ void PiercingBulletEffect::update(Bullet* bullet, double time)
 			bullet->getBody()->getBody()->SetLinearVelocity(b2Vec2(bullet->getSpeed() * cos(bullet->getTransform()->getRotation() * M_PI / 180.0), bullet->getSpeed() * sin(bullet->getTransform()->getRotation() * M_PI / 180.0)));
 			bullet->setAliveTime(bullet->getAliveTime() + 1);
 		}
+		else
+			BulletEffect::reset(bullet);
+
 	}
 }
