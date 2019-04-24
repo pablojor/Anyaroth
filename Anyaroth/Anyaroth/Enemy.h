@@ -9,6 +9,8 @@
 
 class Enemy : public GameObject
 {
+private:
+	string _deathSound = "";
 protected:
 	TransformComponent* _transform = nullptr;
 	BodyComponent* _body = nullptr;
@@ -27,14 +29,13 @@ protected:
 	int _coinValue = 10;
 
 public:
-	Enemy(Game* g, Player* player, Vector2D pos, Texture* texture);
+	Enemy(Game* g, Player* player, Vector2D pos, Texture* texture, string death = "");
 	virtual ~Enemy() {}
 
 	virtual void beginCollision(GameObject* other, b2Contact* contact);
 	virtual void update(const double& deltaTime);
 
 	inline void stopAttacking() { _attacking = false; }
-	inline int random(int low, int high) const { return low + (rand() % abs(high - low)); }
 
 	virtual void die();
 	virtual void drop();

@@ -4,7 +4,7 @@
 #include "Player.h"
 #include"Game.h"
 
-DistanceStaticEnemy::DistanceStaticEnemy(Game* g, Player* player, Vector2D pos, BulletPool* pool) : DistanceEnemy(g, player, pos, g->getTexture("Turret"), pool), Enemy(g, player, pos, g->getTexture("Turret"))
+DistanceStaticEnemy::DistanceStaticEnemy(Game* g, Player* player, Vector2D pos, BulletPool* pool) : DistanceEnemy(g, player, pos, g->getTexture("Turret"), pool), Enemy(g, player, pos, g->getTexture("Turret"), "turretDeath")
 {
 	_vision = 500;
 	_life = 12;

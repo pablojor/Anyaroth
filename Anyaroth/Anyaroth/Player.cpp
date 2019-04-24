@@ -61,7 +61,7 @@ Player::Player(Game* game, int xPos, int yPos) : GameObject(game, "Player")
 	_playerArm = new PlayerArm(game, this, { 28, 15 });
 	addChild(_playerArm);
 	
-	_currentGun = WeaponManager::getWeapon(game, PlasmaSniper_Weapon);
+	_currentGun = WeaponManager::getWeapon(game, BHCannon_Weapon);
 	_otherGun = WeaponManager::getWeapon(game, BounceOrbCannon_Weapon);
 
 	_playerArm->setTexture(_currentGun->getArmTexture());
@@ -169,6 +169,11 @@ void Player::die()
 
 	_money->restartWallet();
 	_playerPanel->updateCoinsCounter(_money->getWallet());
+
+	if (_game->random(0, 100) > 50)
+		_game->getSoundManager()->playSFX("die1");
+	else
+		_game->getSoundManager()->playSFX("die2");
 }
 
 void Player::revive()
@@ -204,7 +209,19 @@ void Player::subLife(int damage)
 			{
 				_anim->hurt();
 				_playerArm->hurt();
-				_game->getSoundManager()->playSFX("hit");
+
+				if (_game->random(0, 100) > 80)
+					_game->getSoundManager()->playSFX("pain1");
+				else if (_game->random(0, 100) > 64)
+					_game->getSoundManager()->playSFX("pain2");
+				else if (_game->random(0, 100) > 48)
+					_game->getSoundManager()->playSFX("pain3");
+				else if (_game->random(0, 100) > 32)
+					_game->getSoundManager()->playSFX("pain4");
+				else if (_game->random(0, 100) > 16)
+					_game->getSoundManager()->playSFX("pain5");
+				else
+					_game->getSoundManager()->playSFX("pain6");
 			}
 		}
 		_playerPanel->updateLifeBar(_life.getLife(), _life.getMaxLife());
@@ -613,6 +630,7 @@ void Player::dash(const Vector2D& dir)
 		_dashDown = true;
 	}
 
+	_game->getSoundManager()->playSFX("dash");
 	_playerPanel->startAnimDashCD();
 }
 
@@ -647,6 +665,8 @@ void Player::melee()
 	_anim->playAnim(AnimatedSpriteComponent::MeleeKnife);
 	_melee->meleeAttack(_body->getBody()->GetPosition().x* M_TO_PIXEL, _body->getBody()->GetPosition().y*M_TO_PIXEL, (_anim->isFlipped()) ? -1 : 1);
 	_isMeleeing = false;
+
+	_game->getSoundManager()->playSFX("melee");
 }
 
 void Player::shoot()

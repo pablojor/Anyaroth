@@ -4,7 +4,7 @@
 #include "Player.h"
 #include "BodyComponent.h"
 
-MartyrEnemy::MartyrEnemy(Game* g, Player* player, Vector2D pos) : GroundEnemy(g, player, pos, g->getTexture("EnemyMartyr")), Enemy(g, player, pos, g->getTexture("EnemyMartyr"))
+MartyrEnemy::MartyrEnemy(Game* g, Player* player, Vector2D pos) : GroundEnemy(g, player, pos, g->getTexture("EnemyMartyr")), Enemy(g, player, pos, g->getTexture("EnemyMartyr"), "martyrDie")
 {
 	_vision = 300;
 	_life = 30;
@@ -81,6 +81,8 @@ void MartyrEnemy::explosionDie()
 	_anim->die();
 	setDead(true);
 	_body->filterCollisions(DEAD_ENEMIES, FLOOR | PLATFORMS);
+
+	_game->getSoundManager()->playSFX("martyrExplosion");
 }
 
 void MartyrEnemy::attacking(const double& deltaTime)
@@ -105,7 +107,7 @@ void MartyrEnemy::attacking(const double& deltaTime)
 			_game->getCurrentState()->getMainCamera()->shake(2, 500);
 			explosionDie();
 		}
-		else if (_anim->animationFinished())
+		else if (_time > _attackTime)
 		{
 			_attacking = false;
 			explosionDie();

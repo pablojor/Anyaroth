@@ -3,7 +3,7 @@
 #include "SpriteComponent.h"
 #include "Game.h"
 
-Collectable::Collectable(Game* game, Texture* texture, Vector2D pos, int value, string tag) : GameObject(game, tag), _value(value)
+Collectable::Collectable(Game* game, Texture* texture, Vector2D pos, int value, string tag, string sound) : GameObject(game, tag), _value(value), _pickSound(sound)
 {
 	addComponent<Texture>(texture);
 
@@ -27,4 +27,5 @@ void Collectable::collect()
 {
 	_body->filterCollisions(COLLECTED_OBJECTS, COLLECTED_OBJECTS);
 	destroy();
+	_game->getSoundManager()->playSFX(_pickSound);
 }

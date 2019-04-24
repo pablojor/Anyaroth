@@ -142,7 +142,7 @@ void Boss1::bomberAttack(const double& deltaTime, int t1, int t2)
 		_timeOnBomberAttack = 0;
 		_timeBeetwenBombs = 0;
 		_armVision = true;
-		_doSomething = random(800, 1200);
+		_doSomething = _game->random(800, 1200);
 
 		if (_actualFase != BetweenFase)
 		{
@@ -154,7 +154,7 @@ void Boss1::bomberAttack(const double& deltaTime, int t1, int t2)
 		if (_timeOnBomberAttack >= _timeBeetwenBombs)
 		{
 			throwBomb();
-			_timeBeetwenBombs += random(t1, t2);
+			_timeBeetwenBombs += _game->random(t1, t2);
 		}
 	}
 }
@@ -189,7 +189,7 @@ void Boss1::checkMelee(const double& deltaTime)
 			}
 
 			_armVision = true;;
-			_doSomething = random(900, 1300);
+			_doSomething = _game->random(900, 1300);
 			_timeOnMelee = 0;
 		}
 		else
@@ -211,7 +211,7 @@ void Boss1::armShoot(const double& deltaTime)
 		_armVision = true;
 		ida = true;
 		_timeBeetwenBullets = 50;
-		_doSomething = random(1200, 1600);
+		_doSomething = _game->random(1200, 1600);
 	}
 	else
 	{
@@ -245,7 +245,7 @@ void Boss1::orbAttack()
 			_actualNumOrbs = 0;
 			_actualState = Moving;
 			_anim->playAnim(AnimatedSpriteComponent::SpentaIdle);
-			_doSomething = random(1000, 2500);
+			_doSomething = _game->random(1000, 2500);
 		}
 		else
 		{
@@ -294,7 +294,7 @@ void Boss1::fase1(const double& deltaTime)
 		{
 			if (_noAction > _doSomething)
 			{
-				int ra = random(0, 100);
+				int ra = _game->random(0, 100);
 				if (ra >= 40)
 				{
 					_actualState = Meleeing;
@@ -326,7 +326,7 @@ void Boss1::fase2(const double& deltaTime)
 		{
 			if (_actualState != Meleeing)
 			{
-				int ra = random(0, 100);
+				int ra = _game->random(0, 100);
 				if (ra >= 70)
 				{
 					if (_noAction > _doSomething)
@@ -367,7 +367,7 @@ void Boss1::fase3(const double& deltaTime)
 				{
 					if (_noAction > _doSomething)
 					{
-						int ra = random(0, 100);
+						int ra = _game->random(0, 100);
 						if (ra >= 70)
 						{
 							_anim->playAnim(AnimatedSpriteComponent::SpentaOrb);//Sera animacion de orbAttackd
@@ -414,14 +414,14 @@ void Boss1::changeFase(int nextFase)
 
 void Boss1::throwBomb()
 {
-	Vector2D helpPos = Vector2D(random(100, 700 /*Futuro tope por la derecha*/), 100);
+	Vector2D helpPos = Vector2D(_game->random(100, 700 /*Futuro tope por la derecha*/), 100);
 	_bombGun->enemyShoot(_myBulletPool, helpPos, 90, "EnemyBullet");
 }
 
 void Boss1::throwOrb()
 {
 	Vector2D helpPos = Vector2D(_body->getBody()->GetPosition().x * 8, _body->getBody()->GetPosition().y * 8);
-	_orbGun->enemyShoot(_myBulletPool, helpPos, random(80, 180), "EnemyBullet");
+	_orbGun->enemyShoot(_myBulletPool, helpPos, _game->random(80, 180), "EnemyBullet");
 }
 
 void Boss1::shootBullet()
