@@ -110,16 +110,13 @@ void DepotPanel::setPlayer(Player * ply)
 	addChild(_firstWeaponFrame);
 	addChild(_secondWeaponFrame);
 
-	_firstWeaponFrame->setNextButtons({ *prev(_items->end()), nullptr, _changeButton, nullptr });
 	_changeButton->setNextButtons({ _firstWeaponFrame, nullptr, _secondWeaponFrame, nullptr });
 	_secondWeaponFrame->setNextButtons({ _changeButton, nullptr, _exitButton, nullptr });
-	_exitButton->setNextButtons({ _secondWeaponFrame, nullptr, *(_items->begin()), nullptr });
 }
 
 void DepotPanel::setItems(list<ShopItem*>* list)
 {
 	_items = list;
-	_selectedButton = *_items->begin();
 	for (auto it : *_items)
 		addChild(it);
 }
@@ -132,14 +129,9 @@ void DepotPanel::removeItems()
 
 void DepotPanel::openDepotPanel()
 {
-	for (auto it = _items->begin(); it != _items->end(); it++)
-	{
-		auto object = (*it);
-		object->onDown([this, object](Game* game) {	selectItem(game, object); });
-		ButtonUI* nL = (it != _items->begin()) ? *prev(it) : _exitButton;
-		ButtonUI* nR = (it != prev(_items->end())) ? *next(it) : _firstWeaponFrame;
-		(*it)->setNextButtons({ nL, nullptr, nR, nullptr });
-	}
+	for (auto it : *_items)
+		it->onDown([this, it](Game* game) {	selectItem(game, it); });
+
 	reorderDepot();
 	setVisible(true);
 
@@ -166,6 +158,7 @@ void DepotPanel::reorderDepot()
 		distY = 4;
 
 	ShopItem* primItem = nullptr;
+	vector<ShopItem*> visibleItems;
 
 	auto it = (*_items).begin();
 	int fil = 0;
@@ -182,6 +175,7 @@ void DepotPanel::reorderDepot()
 			if (info._sold && !info._equiped)
 			{
 				item->setVisible(true);
+				visibleItems.push_back(item);
 
 				if (primItem == nullptr)
 				{
@@ -199,6 +193,27 @@ void DepotPanel::reorderDepot()
 			it++;
 		}
 		fil++;
+	}
+
+	for (int i=0; i < visibleItems.size(); i++)
+	{
+		ButtonUI* nL = (i > 0) ? visibleItems[i - 1] : _exitButton;
+		ButtonUI* nU = (i > 3) ? visibleItems[i - 4] : _exitButton;
+		ButtonUI* nR = (i + 1 < visibleItems.size()) ? visibleItems[i + 1] : _firstWeaponFrame;
+		ButtonUI* nD = (i + 4 < visibleItems.size()) ? visibleItems[i + 4] : _firstWeaponFrame;
+		visibleItems[i]->setNextButtons({ nL, nU, nR, nD });
+	}
+	if (visibleItems.size() > 0)
+	{
+		_selectedButton = *(visibleItems.begin());
+		_exitButton->setNextButtons({ _secondWeaponFrame, nullptr, *(visibleItems.begin()), nullptr });
+		_firstWeaponFrame->setNextButtons({ *prev(visibleItems.end()), nullptr, _changeButton, nullptr });
+	}
+	else
+	{
+		_selectedButton = _firstWeaponFrame;
+		_exitButton->setNextButtons({ _secondWeaponFrame, nullptr, _firstWeaponFrame, nullptr });
+		_firstWeaponFrame->setNextButtons({ _exitButton, nullptr, _changeButton, nullptr });
 	}
 }
 

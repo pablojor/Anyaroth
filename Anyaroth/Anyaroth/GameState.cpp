@@ -188,8 +188,8 @@ void GameState::setMousePositionInWorld(Vector2D coord)
 	xMousePos -= getMainCamera()->getCameraPosition().getX();
 	yMousePos -= getMainCamera()->getCameraPosition().getY();
 
-	xMousePos = xMousePos * winWidth / getMainCamera()->getCameraSize().getX();
-	yMousePos = yMousePos * winHeight / getMainCamera()->getCameraSize().getY();
+	xMousePos = xMousePos * gameWidth / getMainCamera()->getCameraSize().getX();
+	yMousePos = yMousePos * gameHeight / getMainCamera()->getCameraSize().getY();
 
 	xMousePos += xBorder/2;
 	yMousePos += yBorder/2;

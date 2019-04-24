@@ -58,7 +58,16 @@ bool CatalogPanel::handleEvent(const SDL_Event& event)
 	{
 		if (event.type == SDL_CONTROLLERBUTTONDOWN && event.cbutton.button == SDL_CONTROLLER_BUTTON_B)
 		{
-			_exitButton->callDown();
+			if (_buyButton->isVisible())
+			{
+				_infoPanel->closeInfoPanel();
+				_buyButton->setVisible(false);
+				_buyText->setVisible(false);
+				_selectedButton = _selectedItem;
+				_selectedButton->setSelected(true);
+			}
+			else
+				_exitButton->callDown();
 			return true;
 		}
 	}
@@ -80,7 +89,6 @@ void CatalogPanel::setPlayer(Player* ply)
 void CatalogPanel::setItems(list<ShopItem*>* list) // Crear items
 {
 	_items = list;
-	_selectedButton = *_items->begin();
 	for (auto it : *_items)
 		addChild(it);
 
@@ -96,15 +104,8 @@ void CatalogPanel::openCatalog()
 {
 	_zone = GameManager::getInstance()->getCurrentLevel() % 6;
 
-	for (auto it = _items->begin(); it != _items->end(); it++)
-	{
-		auto object = (*it);
-		object->onDown([this, object](Game* game) {	selectItem(game, object); });
-		ButtonUI* nL = (it != _items->begin()) ? *prev(it) : _exitButton;
-		ButtonUI* nR = (it != prev(_items->end())) ? *next(it) : _exitButton;
-		(*it)->setNextButtons({ nL, nullptr, nR, nullptr });
-	}
-	_exitButton->setNextButtons({ *prev(_items->end()), nullptr, *(_items->begin()), nullptr });
+	for (auto it : *_items)
+			it->onDown([this, it](Game* game) {	selectItem(game, it); });
 
 	reorderCatalog();
 
@@ -113,9 +114,6 @@ void CatalogPanel::openCatalog()
 	_infoPanel->setVisible(false);
 	_buyButton->setVisible(false);
 	_buyText->setVisible(false);
-
-	if (_game->isJoystick())
-		_selectedButton->setSelected(true);
 }
 
 void CatalogPanel::closeCatalog()
@@ -141,6 +139,7 @@ void CatalogPanel::reorderCatalog()
 		distY = 4;
 
 	ShopItem* primItem = nullptr;
+	vector<ShopItem*> visibleItems;
 
 	auto it = (*_items).begin();
 	int fil = 0;
@@ -155,6 +154,8 @@ void CatalogPanel::reorderCatalog()
 			if (!info._sold && info._zone <= _zone && info._zone != -1)
 			{
 				item->setVisible(true);
+				visibleItems.push_back(item);
+
 				if (primItem == nullptr)
 				{
 					item->setPosition(_frame->getX() + posIniX, _frame->getY() + posIniY);
@@ -171,6 +172,28 @@ void CatalogPanel::reorderCatalog()
 		}
 		fil++;
 	}
+
+	for (int i = 0; i < visibleItems.size(); i++)
+	{
+		ButtonUI* nL = (i > 0) ? visibleItems[i - 1] : _exitButton;
+		ButtonUI* nU = (i > 1) ? visibleItems[i - 2] : _exitButton;
+		ButtonUI* nR = (i + 1 < visibleItems.size()) ? visibleItems[i + 1] : _exitButton;
+		ButtonUI* nD = (i + 2 < visibleItems.size()) ? visibleItems[i + 2] : _exitButton;
+		visibleItems[i]->setNextButtons({ nL, nU, nR, nD });
+	}
+	
+	if (visibleItems.size() > 0)
+	{
+		_selectedButton = *(visibleItems.begin());
+		_selectedButton->setSelected(true);
+		_exitButton->setNextButtons({ *prev(visibleItems.end()), *prev(visibleItems.end()), *(visibleItems.begin()), *(visibleItems.begin()) });
+	}
+	else
+	{
+		_selectedButton = _exitButton;
+		_selectedButton->setSelected(true);
+		_exitButton->setNextButtons({ nullptr, nullptr, nullptr, nullptr });
+	}
 }
 
 void CatalogPanel::selectItem(Game * game, ShopItem* item)
@@ -178,11 +201,13 @@ void CatalogPanel::selectItem(Game * game, ShopItem* item)
 	if (_selectedItem != nullptr)
 		_selectedItem->select(false);
 
+	if (_game->isJoystick())
+	{
+		item->setSelected(false);
+		_selectedButton = _buyButton;
+		_selectedButton->setSelected(true);
+	}
 	_selectedItem = item;
-	_selectedItem->select(true);
-
-	_selectedButton->setSelected(false);
-	_buyButton->setSelected(true);
 
 	showSelectedItemInfo();
 }
@@ -248,12 +273,11 @@ void CatalogPanel::buyItem(Game * game)
 
 		_playerMoney->updateCoinsCounter(_player->getBank());
 
-		_selectedItem->select(false);
-		_selectedItem = nullptr;
-
-		_buyButton->setSelected(false);
-		_selectedButton = _selectedButton->getNextLeft();
-		_selectedButton->setSelected(true);
+		if(!_game->isJoystick())
+		{
+			_selectedItem->select(false);
+			_selectedItem = nullptr;
+		}
 
 		reorderCatalog();
 	}

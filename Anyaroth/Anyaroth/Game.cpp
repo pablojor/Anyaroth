@@ -246,6 +246,8 @@ void Game::update(const double& deltaTime)
 {
 	_stateMachine->currentState()->update(deltaTime);
 	_stateMachine->currentState()->post_update();
+	if (!isJoystick())
+		initialiseJoysticks();
 }
 
 void Game::render() const

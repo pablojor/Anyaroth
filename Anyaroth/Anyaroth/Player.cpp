@@ -447,7 +447,7 @@ void Player::checkMovement(const Uint8* keyboard)
 		{
 			_jPosX = (SDL_GameControllerGetAxis(_game->getJoystick(), SDL_CONTROLLER_AXIS_RIGHTX));
 			_jPosY = (SDL_GameControllerGetAxis(_game->getJoystick(), SDL_CONTROLLER_AXIS_RIGHTY));
-			if (_jPosX < -JOYSTICK_DEADZONE / 2 || _jPosX > JOYSTICK_DEADZONE / 2 || _jPosY < -JOYSTICK_DEADZONE / 2 || _jPosY > JOYSTICK_DEADZONE / 2)
+			if (_jPosX < -JOYSTICK_DEADZONE * 2 || _jPosX > JOYSTICK_DEADZONE * 2 || _jPosY < -JOYSTICK_DEADZONE * 2 || _jPosY > JOYSTICK_DEADZONE * 2)
 			{
 				if (_jReleased)
 					_jReleased = (_prevAxisX < 0 && _prevAxisX < _jPosX || _prevAxisX > 0 && _prevAxisX > _jPosX) || (_prevAxisY < 0 && _prevAxisY < _jPosY || _prevAxisY > 0 && _prevAxisY > _jPosY);
@@ -457,8 +457,8 @@ void Player::checkMovement(const Uint8* keyboard)
 				double radius = 250 * _game->getCurrentState()->getMainCamera()->getCameraSize().distance({}) / Vector2D(winWidth, winHeight).distance({});
 
 				double angle = atan2(_jPosY, _jPosX);
-				double mouseX = (_body->getBody()->GetPosition().x - _body->getW() / 2) * M_TO_PIXEL + cos(angle) * radius;
-				double mouseY = (_body->getBody()->GetPosition().y - _body->getH() / 2) * M_TO_PIXEL + sin(angle) * radius;
+				double mouseX = (_body->getBody()->GetPosition().x + _body->getW() / 2) * M_TO_PIXEL + cos(angle) * radius;
+				double mouseY = (_body->getBody()->GetPosition().y + _body->getH() / 2) * M_TO_PIXEL + sin(angle) * radius;
 
 				if((abs(_jPosX - _prevAxisX) < JOYSTICK_DEADZONE * 2 && abs(_jPosY - _prevAxisY) < JOYSTICK_DEADZONE * 2) && !_jReleased)
 					_game->getCurrentState()->setMousePositionInWorld({ mouseX,mouseY });
