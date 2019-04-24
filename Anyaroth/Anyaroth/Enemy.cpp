@@ -27,6 +27,8 @@ Enemy::Enemy(Game* g, Player* player, Vector2D pos, Texture* texture) : GameObje
 	_anim = addComponent<CustomAnimatedSpriteComponent>();
 
 	_life = Life(50);
+
+	_hurtParticle = _game->getTexture("Blood");
 }
 
 void Enemy::beginCollision(GameObject * other, b2Contact* contact)
@@ -63,7 +65,7 @@ void Enemy::update(const double& deltaTime)
 		_spawnParticles = false;
 		double center_x = _body->getBody()->GetPosition().x + _body->getW() / 2, center_y = _body->getBody()->GetPosition().y + _body->getH() / 2;
 		Vector2D direction = Vector2D((_contactPoint.x - center_x), (center_y - _contactPoint.y));
-		ParticleManager::GetParticleManager()->CreateSpray(_game->getTexture("Blood"), Vector2D(center_x*M_TO_PIXEL, center_y*M_TO_PIXEL), direction, 10, 20, 30, 1000, 15, 2);
+		ParticleManager::GetParticleManager()->CreateSpray(_hurtParticle, Vector2D(center_x*M_TO_PIXEL, center_y*M_TO_PIXEL), direction, 10, 20, 30, 1000, 5, 2);
 	}
 }
 

@@ -31,6 +31,15 @@ void Shotgun::shoot(BulletPool * bulletPool, const Vector2D & position, const do
 				b->init(_bulletTexture, bulletPos, _speed, _damage, angle + i * _angleBetweenBullet, _range, tag, _effect, _bulletAnimType);
 			else
 				bulletPool->addNewBullet()->init(_bulletTexture, bulletPos, _speed, _damage, angle + i * _angleBetweenBullet, _range, tag, _effect, _bulletAnimType);
+
+			double dir = 0;
+			double absAngle = abs(angle);
+			Vector2D particlePos = (position + _offset * 0.5).rotateAroundPoint(angle, position);
+			if (absAngle > 120)
+			{
+				dir = -1;
+			}
+			ParticleManager::GetParticleManager()->CreateSimpleParticle(_bulletTexture, 0.5, particlePos, 15, 135 + 90 * dir, 400, 4);
 		}
 	}
 }

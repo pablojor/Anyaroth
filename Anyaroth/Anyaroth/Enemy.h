@@ -25,6 +25,7 @@ protected:
 	double _time;
 	float32 _speed;
 	
+	Texture * _hurtParticle = nullptr;
 	b2Vec2 _contactPoint = b2Vec2_zero;
 
 	int _coinValue = 10;
