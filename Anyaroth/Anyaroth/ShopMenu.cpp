@@ -196,6 +196,7 @@ void ShopMenu::setPlayer(Player* ply)
 
 void ShopMenu::openShop()
 {
+	_game->getCurrentState()->getMainCamera()->fadeIn(500);
 	SDL_ShowCursor(true);
 	_zone = GameManager::getInstance()->getCurrentLevel();
 	_visible = true;
@@ -210,18 +211,16 @@ void ShopMenu::openShop()
 	_mainMenuAbled = true;
 
 	_buttons[_selectedButton]->setSelected(false);
+	_exitButton->setVisible(true);
 }
 
 void ShopMenu::closeShop()
 {
+	_closed = true;
 	_dialoguePanel->endDialogue();
-	//_dialoguePanel->stopAtLastLineShown(false);
-
 	_game->getSoundManager()->stopMusic();
-
 	_player->setActive(true);
 	SDL_ShowCursor(false);
-	_closed = true;
 }
 
 void ShopMenu::setDialoguePanel(DialoguePanel* dialoguePanel)
@@ -307,6 +306,13 @@ void ShopMenu::closeDepotPanel(Game * game)
 
 void ShopMenu::exit(Game* game)
 {
-	closeShop();
-	setVisible(false);
+	_exitButton->setVisible(false);
+	_game->getCurrentState()->getMainCamera()->fadeOut(500);
+
+	_game->getCurrentState()->getMainCamera()->onFadeComplete([this](Game* game) {
+		closeShop();
+		setVisible(false); 
+
+		_game->getCurrentState()->getMainCamera()->fadeIn(500);
+	});
 }

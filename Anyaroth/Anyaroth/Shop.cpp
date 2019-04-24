@@ -57,6 +57,7 @@ void Shop::interact()
 {
 	if (!_shop->isVisible())
 	{
+		_game->getCurrentState()->getMainCamera()->fadeOut(500);
 		goIn = true;
 		_shopDoorAnim->playAnim(AnimatedSpriteComponent::Opened);
 	}

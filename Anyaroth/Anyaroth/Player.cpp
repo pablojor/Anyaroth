@@ -369,7 +369,7 @@ void Player::update(const double& deltaTime)
 		else if (!_playerArm->isActive())
 			_playerArm->setActive(true);
 	}
-	else
+	else if(!_changeLevel)
 	{
 		_playerPanel->showDeathText(true);
 		_deathCD -= deltaTime;
