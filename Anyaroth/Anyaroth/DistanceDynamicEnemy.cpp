@@ -3,7 +3,7 @@
 #include "AnimatedSpriteComponent.h"
 #include "Player.h"
 
-DistanceDynamicEnemy::DistanceDynamicEnemy(Game* g, Player* player, Vector2D pos, BulletPool* pool) : DistanceEnemy(g, player, pos, g->getTexture("Trooper"), pool), GroundEnemy(g, player, pos, g->getTexture("Trooper")), Enemy(g, player, pos, g->getTexture("Trooper"), "meleeDeath", "meleeHit", "meleeEnemyHit")
+DistanceDynamicEnemy::DistanceDynamicEnemy(Game* g, Player* player, Vector2D pos, BulletPool* pool) : DistanceEnemy(g, player, pos, g->getTexture("Trooper"), pool, {27,16}), GroundEnemy(g, player, pos, g->getTexture("Trooper")), Enemy(g, player, pos, g->getTexture("Trooper"), "meleeDeath", "meleeHit", "meleeEnemyHit")
 {
 	_vision = 300;
 	_life = 10;
@@ -27,7 +27,8 @@ DistanceDynamicEnemy::DistanceDynamicEnemy(Game* g, Player* player, Vector2D pos
 
 	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 
-	_body->addCricleShape(b2Vec2(0, _body->getH() + _body->getH() / 20), _body->getW() - _body->getW() / 20, ENEMIES, FLOOR | PLATFORMS);
+	_body->addCricleShape(b2Vec2(0, _body->getH() - 0.5 + _body->getH() / 20), _body->getW() - _body->getW() / 20, ENEMIES, FLOOR | PLATFORMS);
+	//_body->moveShape(b2Vec2(0, 0.1));
 
 	addSensors();
 
