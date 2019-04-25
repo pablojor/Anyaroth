@@ -106,7 +106,9 @@
     [ "DashBackTrail", "dashbacktrail.png", 1, 1 ],
     [ "DashBackTrailFlip", "dashbacktrailflip.png", 1, 1 ],
     [ "DashDownTrail", "dashdowntrail.png", 1, 1 ],
-    [ "DashDownTrailFlip", "dashdowntrailflip.png", 1, 1 ]
+    [ "DashDownTrailFlip", "dashdowntrailflip.png", 1, 1 ],
+    [ "DemoCredits", "demo_credits.png", 1, 1 ],
+    [ "DemoTwitter", "demo_twitter.png", 1, 1 ]
   ],
   "fonts": [
     [ "ARIAL12", "arial.ttf", 12 ]
