@@ -4,6 +4,8 @@
     [ "EnemyMelee", "enemymelee_spritesheet.png", 4, 18 ],
     [ "EnemyMartyr", "enemymartyr_spritesheet.png", 4, 23 ],
 	[ "Bomber", "bomber_spritesheet.png", 4, 21 ],
+	[ "Trooper", "trooper_spritesheet.png", 4, 35 ],
+	[ "TrooperArm", "trooperarm.png", 3, 2 ],
     [ "Arm", "mk_arm.png", 1, 1 ],
     [ "ArmUp", "mk_arm_up.png", 1, 1 ],
     [ "ArmPistol", "mk_pistol_spritesheet.png", 4, 13 ],

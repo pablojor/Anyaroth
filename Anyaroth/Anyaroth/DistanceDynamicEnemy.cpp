@@ -3,7 +3,7 @@
 #include "AnimatedSpriteComponent.h"
 #include "Player.h"
 
-DistanceDynamicEnemy::DistanceDynamicEnemy(Game* g, Player* player, Vector2D pos, BulletPool* pool) : DistanceEnemy(g, player, pos, g->getTexture("EnemyMelee"), pool), GroundEnemy(g, player, pos, g->getTexture("EnemyMelee")), Enemy(g, player, pos, g->getTexture("EnemyMelee"), "meleeDeath", "meleeHit", "meleeEnemyHit")
+DistanceDynamicEnemy::DistanceDynamicEnemy(Game* g, Player* player, Vector2D pos, BulletPool* pool) : DistanceEnemy(g, player, pos, g->getTexture("Trooper"), pool), GroundEnemy(g, player, pos, g->getTexture("Trooper")), Enemy(g, player, pos, g->getTexture("Trooper"), "meleeDeath", "meleeHit", "meleeEnemyHit")
 {
 	_vision = 300;
 	_life = 10;
@@ -14,9 +14,16 @@ DistanceDynamicEnemy::DistanceDynamicEnemy(Game* g, Player* player, Vector2D pos
 	if (_attackRangeX < _speed)
 		_attackRangeX += _speed;
 
-	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 13, true);
-	_anim->addAnim(AnimatedSpriteComponent::EnemyWalk, 8, true);
-	_anim->addAnim(AnimatedSpriteComponent::EnemyAttack, 11, false);
+	//_myGun->setBulletAnimType(TurretBullet);
+	//_myGun->setBulletTexture(g->getTexture("PistolBullet"));
+
+	_arm->setTexture(g->getTexture("TrooperArm"));
+	_arm->setAnimations(TrooperArmType);
+
+	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 16, true);
+	_anim->addAnim(AnimatedSpriteComponent::EnemyWalk, 10, true);
+	_anim->addAnim(AnimatedSpriteComponent::EnemyAttack, 16, false);
+	_anim->addAnim(AnimatedSpriteComponent::EnemyDie, 35, false);
 
 	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 

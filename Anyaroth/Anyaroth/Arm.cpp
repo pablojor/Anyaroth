@@ -71,6 +71,7 @@ void Arm::setAnimations(ArmAnimType type)
 		_anim->addAnim(AnimatedSpriteComponent::Reload, 14, false);
 		break;
 	case DefaultArmType:
+	case TrooperArmType:
 	default:
 		_anim->addAnim(AnimatedSpriteComponent::None, 1, false);
 		_anim->addAnim(AnimatedSpriteComponent::Shoot, 2, false);
