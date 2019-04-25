@@ -263,7 +263,7 @@ bool Player::handleEvent(const SDL_Event& event)
 		{
 			if (event.button.button == SDL_BUTTON_LEFT )
 				_isShooting = true;
-			else if (event.button.button == SDL_BUTTON_RIGHT)
+			else if (event.button.button == SDL_BUTTON_RIGHT && !isMeleeing())
 				_isMeleeing = true;
 		}
 		else if (event.type == SDL_MOUSEBUTTONUP)
@@ -288,7 +288,8 @@ bool Player::handleEvent(const SDL_Event& event)
 				swapGun();
 				break;
 			case SDL_CONTROLLER_BUTTON_RIGHTSTICK:
-				_isMeleeing = true;
+				if(!isMeleeing())
+					_isMeleeing = true;
 				break;
 			default:
 				break;
@@ -367,14 +368,7 @@ void Player::update(const double& deltaTime)
 {
 	const Uint8* keyboard = SDL_GetKeyboardState(NULL);
 
-	if (!isDead())
-	{
-		if (isDashing() || isMeleeing())
-			_playerArm->setActive(false);
-		else if (!_playerArm->isActive())
-			_playerArm->setActive(true);
-	}
-	else if(!_changeLevel)
+	if(isDead() && !_changeLevel)
 	{
 		_playerPanel->showDeathText(true);
 		_deathCD -= deltaTime;
@@ -555,6 +549,14 @@ void Player::handleAnimations()
 				_anim->playAnim(AnimatedSpriteComponent::Jump);
 
 			setGrounded(false);
+		}
+
+		if (isDashing() || isMeleeing())
+			_playerArm->setActive(false);
+		else if (!_playerArm->isActive() && !isDashing() && !isMeleeing())
+		{
+			_playerArm->setActive(true);
+			_anim->playAnim(AnimatedSpriteComponent::Idle);
 		}
 
 		if ((isGrounded() || _body->getBody()->GetLinearVelocity().y == 0) && isDashing() && _dashDown)

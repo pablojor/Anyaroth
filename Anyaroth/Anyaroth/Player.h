@@ -143,7 +143,7 @@ public:
 	inline bool isDashing() const { return _onDash; }
 	inline bool isReloading() const { return _playerArm->isReloading(); }
 	inline void setIsReloading(const bool& b) { _hasToReload = b; }
-	inline bool isMeleeing() const { return (_anim->getCurrentAnim() == AnimatedSpriteComponent::MeleeKnife || _anim->getCurrentAnim() == AnimatedSpriteComponent::MeleeKnife) && !_anim->animationFinished(); }
+	inline bool isMeleeing() const { return _anim->getCurrentAnim() == AnimatedSpriteComponent::MeleeKnife && !_anim->animationFinished(); }
 	inline bool isJumping() const { return (_anim->getCurrentAnim() == AnimatedSpriteComponent::BeforeJump || _anim->getCurrentAnim() == AnimatedSpriteComponent::Jump) && !_anim->animationFinished(); }
 	inline bool isFalling() const { return (_anim->getCurrentAnim() == AnimatedSpriteComponent::Falling || _anim->getCurrentAnim() == AnimatedSpriteComponent::StartFalling) && !_anim->animationFinished(); }
 };
