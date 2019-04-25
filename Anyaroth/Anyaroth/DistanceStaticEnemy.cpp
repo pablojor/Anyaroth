@@ -29,9 +29,9 @@ DistanceStaticEnemy::DistanceStaticEnemy(Game* g, Player* player, Vector2D pos, 
 
 	//_body->addCricleShape(b2Vec2(0, _body->getH() + _body->getH() / 20), _body->getW() - _body->getW() / 20, ENEMIES, FLOOR | PLATFORMS);
 
-	//_body->setW(_anim->getTexture()->getW());
-	//_body->setH(_anim->getTexture()->getH());
-	_body->moveShape(b2Vec2(0, -0.6));
+	_body->setW(20);
+	_body->setH(21);
+	_body->moveShape(b2Vec2(0, 0.1));
 	_body->filterCollisions(ENEMIES, FLOOR | PLATFORMS | PLAYER_BULLETS | MELEE);
 
 	//Ajustes del arma
