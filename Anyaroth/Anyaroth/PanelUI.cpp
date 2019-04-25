@@ -8,8 +8,11 @@ PanelUI::PanelUI(Game* game) : UIElement(game)
 
 PanelUI::~PanelUI()
 {
-	for (UIElement* e : _children)
+	for (UIElement* e : _children) {
 		delete e;
+		e = nullptr;
+	}
+	_children.clear();
 }
 
 void PanelUI::addChild(UIElement* child)
