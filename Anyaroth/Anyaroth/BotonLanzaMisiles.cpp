@@ -44,17 +44,15 @@ void BotonLanzaMisiles::update(const double & deltaTime)
 	else
 		_anim->unFlip();
 
-	if (_canInteract)
+	if (usable && ready)
 	{
-		if (usable && ready)
-		{
-			if (!_interactIndicator->isActive())
-				_interactIndicator->setActive(true);
-		}
-		else
-			_interactIndicator->setActive(false);
+		if (!_interactIndicator->isActive())
+			_interactIndicator->setActive(true);
 	}
-	else if (usable)
+	else
+		_interactIndicator->setActive(false);
+
+	if (usable)
 	{
 		ready = _boss->isbeetweenFases() && _boss->getLastFase() >= _activeFase;
 
