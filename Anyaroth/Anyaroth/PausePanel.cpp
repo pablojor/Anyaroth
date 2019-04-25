@@ -66,6 +66,7 @@ bool PausePanel::handleEvent(const SDL_Event& event)
 
 void PausePanel::continueGame(Game * g)
 {
+	SDL_ShowCursor(false);
 	g->getSoundManager()->resumeMusic();
 	g->setTimestep(FRAME_RATE / 1000.0f);
 	g->popState();

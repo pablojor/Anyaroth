@@ -248,6 +248,12 @@ void DepotPanel::selectItem(Game * game, ShopItem* item)
 		{
 			_selectedItem = item;
 			_selectedItem->select(true);
+			if (_game->isJoystick())
+			{
+				_selectedItem->setSelected(false);
+				_selectedButton = _firstWeaponFrame;
+				_selectedButton->setSelected(true);
+			}
 		}
 		else
 			_selectedItem = nullptr;
@@ -256,6 +262,12 @@ void DepotPanel::selectItem(Game * game, ShopItem* item)
 	{
 		_selectedItem = item;
 		_selectedItem->select(true);
+		if (_game->isJoystick())
+		{
+			_selectedItem->setSelected(false);
+			_selectedButton = _firstWeaponFrame;
+			_selectedButton->setSelected(true);
+		}
 	}
 }
 
@@ -290,6 +302,8 @@ void DepotPanel::swapDistanceItems(ShopItem* _equiped)
 	auto infoEquiped = _equiped->getItemInfo();
 	infoSelected._equiped = true;
 	infoEquiped._equiped = false;
+
+	_equiped->setSelected(false);
 
 	if (infoEquiped._name == _firstWeaponFrame->getItemInfo()._name)
 		_firstWeaponItem->setItemInfo(infoSelected);
