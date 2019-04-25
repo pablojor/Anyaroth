@@ -55,6 +55,7 @@ class ButtonUI : public FramedImageUI
 		virtual void setVisible(bool a);
 
 		virtual void setSelected(bool selected) { _positionState = (selected) ? Over : Out; _selected = selected; }
+		inline bool isSelected() { return _selected; }
 
 		void setNextButtons(vector<ButtonUI*> nextButtons) { _nextButtons = nextButtons; }
 		inline  vector<ButtonUI*> const getNextButtons() { return _nextButtons; }

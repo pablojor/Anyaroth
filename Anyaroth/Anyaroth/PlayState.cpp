@@ -32,7 +32,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	auto enemyPool = new BulletPool(g);
 
 	//Levels
-	GameManager::getInstance()->setCurrentLevel(LevelManager::SafeDemo);
+	GameManager::getInstance()->setCurrentLevel(LevelManager::SafeBossDemo);
 	_level = new GameObject(g);
 	_levelManager = LevelManager(g, _player, _level, _playHud, enemyPool);
 	_levelManager.setLevel(GameManager::getInstance()->getCurrentLevel());
@@ -229,12 +229,20 @@ void PlayState::update(const double& deltaTime)
 
 			_player->setInputFreezed(true);
 			getMainCamera()->fadeOut(1000);
-			getMainCamera()->onFadeComplete([this, gManager](Game*)
+			getMainCamera()->onFadeComplete([this, gManager](Game* game)
 			{
 				_player->revive();
 
 				gManager->setCurrentLevel(gManager->getCurrentLevel() - 1);
 				_levelManager.changeLevel(gManager->getCurrentLevel());
+
+				if (gManager->getCurrentLevel() == LevelManager::SafeDemo)
+				{
+					_controls = new ParallaxLayer(game->getTexture("ControlsBG"), _mainCamera, 0);
+					_parallaxZone1->addLayer(_controls);
+					getMainCamera()->fitCamera({ (double)_levelManager.getCurrentLevel(1)->getWidth(), (double)_levelManager.getCurrentLevel(1)->getHeight() }, false);
+
+				}
 
 				_player->setChangeLevel(false);
 				_player->setInputFreezed(false);

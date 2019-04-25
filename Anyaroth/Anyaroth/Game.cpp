@@ -286,15 +286,13 @@ void Game::update(const double& deltaTime)
 {
 	_stateMachine->currentState()->update(deltaTime);
 	_stateMachine->currentState()->post_update();
-	if (!isJoystick())
-		initialiseJoysticks();
 }
 
 void Game::render() const
 {
 	SDL_RenderClear(_renderer);
 	_stateMachine->currentState()->render();
-	_world->DrawDebugData();
+	//_world->DrawDebugData();
 	SDL_RenderPresent(_renderer);
 }
 
@@ -316,6 +314,9 @@ void Game::handleEvents()
 			else if (event.key.keysym.sym == SDLK_2)
 				_soundManager->playSFX("example1");
 		}
+		else if(event.type == SDL_CONTROLLERDEVICEADDED)
+			if (!isJoystick())
+				initialiseJoysticks();
 
 		_stateMachine->currentState()->handleEvent(event);
 	}

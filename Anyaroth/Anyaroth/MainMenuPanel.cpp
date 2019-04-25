@@ -30,7 +30,6 @@ MainMenuPanel::MainMenuPanel(Game* g) : PanelUI(g)
 	_loadButton->setNextButtons({ _playButton, _exitButton, _playButton, _exitButton });
 	_exitButton->setNextButtons({ _optionsButton, _loadButton, _optionsButton, _loadButton });
 
-	_selectedButton = _playButton;
 	//----TEXTOS----//
 
 	_playText = new TextUI(g, "Play", g->getFont("ARIAL12"), 12);
@@ -58,6 +57,7 @@ MainMenuPanel::MainMenuPanel(Game* g) : PanelUI(g)
 	addChild(_optionsText);
 	addChild(_exitText);
 
+	_selectedButton = _playButton;
 	if (_game->isJoystick())
 		_selectedButton->setSelected(true);
 }

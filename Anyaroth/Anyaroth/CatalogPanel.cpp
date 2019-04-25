@@ -127,6 +127,9 @@ void CatalogPanel::closeCatalog()
 		_selectedItem->select(false);
 		_selectedItem = nullptr;
 	}
+
+	_selectedButton->setSelected(false);
+	_selectedButton = nullptr;
 }
 
 void CatalogPanel::reorderCatalog()
