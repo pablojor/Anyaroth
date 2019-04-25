@@ -148,6 +148,9 @@ void DepotPanel::closeDepotPanel()
 		_selectedItem->select(false);
 		_selectedItem = nullptr;
 	}
+
+	_selectedButton->setSelected(false);
+	_selectedButton = nullptr;
 }
 
 void DepotPanel::reorderDepot()
@@ -206,12 +209,16 @@ void DepotPanel::reorderDepot()
 	if (visibleItems.size() > 0)
 	{
 		_selectedButton = *(visibleItems.begin());
+		_selectedButton->setSelected(true);
+
 		_exitButton->setNextButtons({ _secondWeaponFrame, nullptr, *(visibleItems.begin()), nullptr });
 		_firstWeaponFrame->setNextButtons({ *prev(visibleItems.end()), nullptr, _changeButton, nullptr });
 	}
 	else
 	{
 		_selectedButton = _firstWeaponFrame;
+		_selectedButton->setSelected(true);
+
 		_exitButton->setNextButtons({ _secondWeaponFrame, nullptr, _firstWeaponFrame, nullptr });
 		_firstWeaponFrame->setNextButtons({ _exitButton, nullptr, _changeButton, nullptr });
 	}

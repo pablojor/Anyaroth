@@ -124,15 +124,7 @@ bool ShopMenu::handleEvent(const SDL_Event& event)
 				}
 			}
 		}
-		auto it = _children.begin();
-
-		while (!handled && it != _children.end())
-		{
-			if ((*it)->handleEvent(event))
-				handled = true;
-			else
-				it++;
-		}
+		PanelUI::handleEvent(event);
 	}
 	
 	return handled;
@@ -187,15 +179,6 @@ void ShopMenu::openShop()
 
 	_mainMenuAbled = true;
 	ableMainMenu(_game);
-
-	if (_game->isJoystick())
-	{
-		_selectedButton = _shopButton;
-		_selectedButton->setSelected(true);
-		_talkButton->setSelected(false);
-		_depotButton->setSelected(false);
-		_exitButton->setSelected(false);
-	}
 }
 
 void ShopMenu::closeShop()
@@ -206,7 +189,9 @@ void ShopMenu::closeShop()
 	_game->getSoundManager()->stopMusic();
 	_player->setActive(true);
 	SDL_ShowCursor(false);
-	_selectedButton->setSelected(false);
+
+	if (_game->isJoystick())
+		_selectedButton->setSelected(false);
 
 	_game->getSoundManager()->playMusic("safe_zone", -1);
 }
@@ -226,6 +211,15 @@ void ShopMenu::ableMainMenu(Game * game)
 	_depotButton->setVisible(true);
 	_depotText->setVisible(true);
 	_exitButton->setVisible(true);
+
+	if (_game->isJoystick())
+	{
+		_selectedButton = _shopButton;
+		_selectedButton->setSelected(true);
+		_talkButton->setSelected(false);
+		_depotButton->setSelected(false);
+		_exitButton->setSelected(false);
+	}
 
 	_dialoguePanel->startDialogue(_game->getDialogue("Shop 2 " + to_string(GameManager::getInstance()->getCurrentLevel())));
 	_mainMenuAbled = true;
