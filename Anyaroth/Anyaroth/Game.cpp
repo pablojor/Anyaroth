@@ -87,6 +87,8 @@ void Game::createSounds()
 	//SOUND EFFECTS
 	_soundManager->addSFX("pick1", SOUNDS_PATH + "itempick1.wav");
 
+	_soundManager->addSFX("doorOpen", SOUNDS_PATH + "doorOpen.wav");
+	_soundManager->addSFX("doorClose", SOUNDS_PATH + "doorClose.wav");
 	_soundManager->addSFX("turretShot", SOUNDS_PATH + "turretShot.wav");
 	_soundManager->addSFX("spentaSword", SOUNDS_PATH + "spentaSword.wav");
 	_soundManager->addSFX("step", SOUNDS_PATH + "step.wav");
