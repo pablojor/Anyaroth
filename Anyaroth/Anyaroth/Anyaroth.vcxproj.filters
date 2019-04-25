@@ -408,6 +408,7 @@
     </ClCompile>
     <ClCompile Include="CreditsState.cpp" />
     <ClCompile Include="CreditsStateHUD.cpp" />
+    <ClCompile Include="CreditsPanel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -853,6 +854,7 @@
     </ClInclude>
     <ClInclude Include="CreditsState.h" />
     <ClInclude Include="CreditsStateHUD.h" />
+    <ClInclude Include="CreditsPanel.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de código fuente">
