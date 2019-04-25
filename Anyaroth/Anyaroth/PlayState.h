@@ -27,7 +27,6 @@ private:
 	DebugDraw _debugger;
 
 	ParallaxBackGround* _parallaxZone1 = nullptr;
-
 	ParallaxLayer* _controls = nullptr;
 
 public:

@@ -34,7 +34,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	//Levels
 	GameManager::getInstance()->setCurrentLevel(LevelManager::SafeDemo);
 	_level = new GameObject(g);
-	_levelManager = LevelManager(g, _player, _level, _playHud, enemyPool);
+	_levelManager = LevelManager(g, _player, _level, _mainCamera, _playHud, enemyPool);
 	_levelManager.setLevel(GameManager::getInstance()->getCurrentLevel());
 	_mainCamera->setWorldBounds(_levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getWidth(), _levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getHeight());
 
@@ -117,20 +117,6 @@ bool PlayState::handleEvent(const SDL_Event& event)
 		_player->getCurrentGun()->resetAmmo();
 		_playHud->getPlayerPanel()->updateAmmoViewer(_player->getCurrentGun()->getClip(), _player->getCurrentGun()->getMagazine());
 	}
-	//else if (event.type == SDL_KEYDOWN && (event.key.keysym.sym == SDLK_KP_MINUS || event.key.keysym.sym == SDLK_MINUS)) //Para probar el Zoom y sus distintan opciones
-	//	_mainCamera->zoomOut();
-	//else if (event.type == SDL_KEYDOWN && (event.key.keysym.sym == SDLK_KP_PLUS || event.key.keysym.sym == SDLK_PLUS))
-	//	_mainCamera->zoomIn();
-	//else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_n)
-	//	_mainCamera->setZoom(_mainCamera->getZoomRatio() + 1, true);
-	//else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_m)
-	//	_mainCamera->setZoom(_mainCamera->getZoomRatio() - 1, true);
-	//else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_KP_ENTER && !event.key.repeat)
-	//	_mainCamera->shake(10, 750);
-	//else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_p && !event.key.repeat)
-	//	_mainCamera->fadeIn(5000);
-	//else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_o && !event.key.repeat)
-	//	_mainCamera->fadeOut(5000);
 
 	return handled;
 }

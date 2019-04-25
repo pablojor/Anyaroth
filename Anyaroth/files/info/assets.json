@@ -29,6 +29,7 @@
     [ "BgZ1L1", "bg_z1_l1.png", 1, 1 ],
     [ "BgZ1L2", "bg_z1_l2.png", 1, 1 ],
     [ "BgZ1L3", "bg_z1_l3.png", 1, 1 ],
+    [ "BgBoss1", "bg_boss1.png", 1, 1 ],
     [ "CurrentWeapon", "current_weapon.png", 1, 1 ],
     [ "Weapon1", "weapon1.png", 1, 1 ],
     [ "Weapon2", "weapon2.png", 1, 1 ],

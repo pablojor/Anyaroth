@@ -1,5 +1,7 @@
 #pragma once
 #include "Map.h"
+#include "ParallaxBackGround.h"
+#include "BackGround.h"
 
 class LevelManager
 {
@@ -7,6 +9,7 @@ private:
 	Game* _game = nullptr;
 	Player* _player = nullptr;
 	PlayStateHUD* _hud = nullptr;
+	Camera* _cam = nullptr;
 
 	GameObject* _level = nullptr;
 	Map* _currentMap = nullptr;
@@ -17,9 +20,12 @@ private:
 	Texture* _tilesetBoss1 = nullptr;
 	Texture* _tilesetZone2 = nullptr;
 
+	ParallaxBackGround* _parallaxZone1 = nullptr;
+	BackGround* _backgroundBoss1 = nullptr;
+
 public:
 	LevelManager() {}
-	LevelManager(Game* game, Player* player, GameObject* level, PlayStateHUD* hud, BulletPool* bulletPool);
+	LevelManager(Game* game, Player* player, GameObject* level, Camera* camera, PlayStateHUD* hud, BulletPool* bulletPool);
 	~LevelManager() {}
 
 	enum Level

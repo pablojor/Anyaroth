@@ -310,10 +310,6 @@ void Game::handleEvents()
 		{
 			if (event.key.keysym.sym == SDLK_F11)
 				toggleFullscreen();
-			else if (event.key.keysym.sym == SDLK_1)
-				_soundManager->playSFX("example");
-			else if (event.key.keysym.sym == SDLK_2)
-				_soundManager->playSFX("example1");
 		}
 		else if(event.type == SDL_CONTROLLERDEVICEADDED)
 			if (!isJoystick())

@@ -2,11 +2,10 @@
 #include "Game.h"
 #include "GameManager.h"
 #include "CutScene.h"
+#include "ParallaxLayer.h"
 
-LevelManager::LevelManager(Game* game, Player* player, GameObject* level, PlayStateHUD* hud, BulletPool* enemyPool) : _game(game), _player(player), _level(level), _hud(hud)
+LevelManager::LevelManager(Game* game, Player* player, GameObject* level, Camera* camera, PlayStateHUD* hud, BulletPool* enemyPool) : _game(game), _player(player), _level(level), _cam(camera), _hud(hud), _enemyBulletPool(enemyPool)
 {
-	_enemyBulletPool = enemyPool;
-
 	_tilesetZone1 = game->getTexture("Tileset1");
 	_tilesetBoss1 = game->getTexture("TilesetBoss1");
 	_tilesetZone2 = game->getTexture("Tileset2");
@@ -88,6 +87,11 @@ void LevelManager::setLevel(int l)
 	case LevelManager::SafeBossDemo:
 		_currentSafeZone = new Map(TILEMAP_PATH + "SafeZoneBossDemo.json", _game, _player, _tilesetZone1, _enemyBulletPool, _hud);
 		_game->getSoundManager()->playMusic("safe_zone", -1);
+		_parallaxZone1 = new ParallaxBackGround(_cam);
+		_parallaxZone1->addLayer(new ParallaxLayer(_game->getTexture("BgZ1L1"), _cam, 0.25));
+		_parallaxZone1->addLayer(new ParallaxLayer(_game->getTexture("BgZ1L2"), _cam, 0.5));
+		_parallaxZone1->addLayer(new ParallaxLayer(_game->getTexture("BgZ1L3"), _cam, 0.75));
+		_cam->setBackGround(_parallaxZone1);
 
 		cutscene = new CutScene(_player);
 
@@ -114,6 +118,8 @@ void LevelManager::setLevel(int l)
 	case LevelManager::BossDemo:
 		_currentMap = new Map(TILEMAP_PATH + "Nivel1-3.json", _game, _player, _tilesetBoss1, _enemyBulletPool, _hud);
 		_game->getSoundManager()->playMusic("boss1Battle", -1);
+		_backgroundBoss1 = new BackGround(_game->getTexture("BgBoss1"), _cam);
+		_cam->setBackGround(_backgroundBoss1);
 		break;
 	}
 
