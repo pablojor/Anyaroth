@@ -251,14 +251,12 @@ bool Player::handleEvent(const SDL_Event& event)
 				_hasToReload = true;
 				_isShooting = false;
 			}
-			else if (event.key.keysym.sym == SDLK_LSHIFT)
+			else if (event.key.keysym.sym == SDLK_LSHIFT && !isDashing() && !_onDash && _dashEnabled)
 				_isDashing = true;
 		}
 		else if (event.type == SDL_KEYUP && !event.key.repeat)
 		{
-			if (event.key.keysym.sym == SDLK_LSHIFT)
-				_isDashing = false;
-			else if (isJumping() && event.key.keysym.sym == SDLK_SPACE)
+			if (isJumping() && event.key.keysym.sym == SDLK_SPACE)
 				cancelJump();
 		}
 		else if ((event.type == SDL_MOUSEBUTTONDOWN && event.button.state == SDL_PRESSED))
@@ -352,14 +350,12 @@ bool Player::handleEvent(const SDL_Event& event)
 					_isShooting = _jShoot = false;
 			}
 			//Left trigger
-			else if (event.caxis.axis == SDL_CONTROLLER_AXIS_TRIGGERLEFT)
+			else if (event.caxis.axis == SDL_CONTROLLER_AXIS_TRIGGERLEFT && !isDashing() && !_onDash && _dashEnabled)
 			{
 				if (event.caxis.value > JOYSTICK_DEADZONE)
 				{
 					_isDashing = true;
 				}
-				else
-					_isDashing = false;
 			}
 		}
 	}
@@ -396,18 +392,20 @@ void Player::update(const double& deltaTime)
 		ParticleManager::GetParticleManager()->CreateSpray(_game->getTexture("Blood"), Vector2D(center_x*M_TO_PIXEL, center_y*M_TO_PIXEL), direction, 10, 20, 30, 1000, 15, 2);
 	}
 
+	checkMelee();
+	handleAnimations();
+
 	GameObject::update(deltaTime);
 
-	refreshCooldowns(deltaTime);
-	dashTimer(deltaTime);
 
 	if (_hasToReload && _playerArm->isReloading())
 		_hasToReload = false;
 
 	checkMovement(keyboard);
-	checkMelee();
 
-	handleAnimations();
+	refreshCooldowns(deltaTime);
+	dashTimer(deltaTime);
+
 }
 
 void Player::swapGun()
@@ -462,20 +460,26 @@ void Player::checkMovement(const Uint8* keyboard)
 		{
 			if (_isDashing && _dashEnabled && !isReloading())
 				dash(Vector2D(-1, 0));
-			else
+			else {
 				move(Vector2D(-1, 0), _speed);
+				_isDashing = false;
+			}
 		}
 		else if ((keyboard[SDL_SCANCODE_D] || _jMoveRight) && !isMeleeing() && !isDashing())
 		{
 			if (_isDashing && _dashEnabled && !isReloading())
 				dash(Vector2D(1, 0));
-			else
+			else {
 				move(Vector2D(1, 0), _speed);
+				_isDashing = false;
+			}
 		}
-		else if ((keyboard[SDL_SCANCODE_S] || _jMoveDown) && _isDashing && _dashEnabled && !isGrounded() && !isMeleeing() && !isReloading())
+		else if ((keyboard[SDL_SCANCODE_S] || _jMoveDown) && _isDashing && !isDashing() && _dashEnabled && !isGrounded() && !isMeleeing() && !isReloading())
 			dash(Vector2D(0, 1));
-		else
+		else {
 			move(Vector2D(0, 0), _speed);
+			_isDashing = false;
+		}
 
 		if ((keyboard[SDL_SCANCODE_SPACE] || _jJump) && !isMeleeing() && !isJumping() && !isReloading())
 			if ((isGrounded() && !isFalling() && !isDashing()) || (!isGrounded() && isFalling() && _timeToJump > 0 && !isDashing()))
@@ -513,7 +517,7 @@ void Player::checkMovement(const Uint8* keyboard)
 		if (_isShooting && !isMeleeing() && !isDashing() && !_hasToReload && !isReloading())
 			shoot();
 		//Melee
-		if (_isMeleeing && !isMeleeing() && isGrounded() && !isDashing())
+		if (_isMeleeing && !isMeleeing() && isGrounded() && !isDashing() && !_melee->isActive())
 			melee();
 	}
 }
@@ -558,6 +562,7 @@ void Player::handleAnimations()
 			_anim->playAnim(AnimatedSpriteComponent::Idle);
 			_onDash = false;
 			_dashDown = false;
+			_isDashing = false;
 			dashOff();
 		}
 
@@ -577,11 +582,15 @@ void Player::refreshCooldowns(const double& deltaTime)
 
 void Player::refreshDashCoolDown(const double& deltaTime)
 {
-	_dashCD -= deltaTime;
-	if (_dashCD <= 0)
+	if (!_dashEnabled) 
 	{
-		_dashCD = 1000 + _dashTime;
-		_dashEnabled = true;
+		_dashCD -= deltaTime;
+		if (_dashCD <= 0)
+		{
+			_dashTime = 250;
+			_dashCD = 1000 + _dashTime;
+			_dashEnabled = true;
+		}
 	}
 }
 
@@ -597,6 +606,7 @@ void Player::dashTimer(const double & deltaTime)
 			_dashParticleTime = 40;
 			_dashTime = 250;
 			_onDash = false;
+			_isDashing = false;
 		}
 		if (_dashParticleTime <= 0)
 		{
@@ -746,7 +756,7 @@ void Player::cancelJump()
 
 void Player::melee()
 {
-	if (_melee->isActive())
+	if(_melee->isActive())
 		_melee->endMelee();
 
 	_anim->playAnim(AnimatedSpriteComponent::MeleeKnife);
