@@ -27,9 +27,6 @@ Player::Player(Game* game, int xPos, int yPos) : GameObject(game, "Player")
 	_body->addCricleShape(b2Vec2(0, 1.1), 0.7, PLAYER, FLOOR | PLATFORMS);
 	_body->getBody()->SetFixedRotation(true);
 
-	double _gravScale = 3.5, _damping = 3.0;
-	_body->getBody()->SetLinearDamping(_damping);
-	_body->getBody()->SetGravityScale(_gravScale);
 
 	//Sensor del suelo
 	b2PolygonShape shape;
@@ -74,6 +71,11 @@ Player::Player(Game* game, int xPos, int yPos) : GameObject(game, "Player")
 	//Melee
 	_melee = new Melee(game, { 15, 0 }, ENEMIES, 5, 20, 10);
 	addChild(_melee);
+
+
+	
+	_body->getBody()->SetLinearDamping(_damping);
+	_body->getBody()->SetGravityScale(_gravScale);
 }
 
 Player::~Player()
@@ -258,7 +260,7 @@ bool Player::handleEvent(const SDL_Event& event)
 		{
 			if (event.key.keysym.sym == SDLK_LSHIFT)
 				_isDashing = false;
-			else if (isJumping())
+			else if (isJumping() && event.key.keysym.sym == SDLK_SPACE)
 				cancelJump();
 		}
 		else if ((event.type == SDL_MOUSEBUTTONDOWN && event.button.state == SDL_PRESSED))
@@ -302,6 +304,8 @@ bool Player::handleEvent(const SDL_Event& event)
 			{
 			case SDL_CONTROLLER_BUTTON_A:
 				_jJump = false;
+				 if (isJumping())
+					cancelJump();
 				break;
 			case SDL_CONTROLLER_BUTTON_X:
 				_hasToReload = false;
@@ -713,14 +717,13 @@ void Player::dash(const Vector2D& dir)
 
 void Player::dashOff()
 {
-	double _gravScale = 4, _damping = 3.0;
 	_body->getBody()->SetLinearDamping(_damping);
 	_body->getBody()->SetGravityScale(_gravScale);
 }
 
 void Player::jump()
 {
-	double _jumpForce = 360;
+	double _jumpForce = 420;
 	_body->getBody()->SetLinearVelocity(b2Vec2(_body->getBody()->GetLinearVelocity().x, 0));
 	_body->getBody()->ApplyLinearImpulse(b2Vec2(0, -_jumpForce), _body->getBody()->GetWorldCenter(), true);
 	setGrounded(false);
@@ -736,7 +739,7 @@ void Player::jump()
 
 void Player::cancelJump()
 {
-	float penalization = 0.3f;
+	float penalization = 0.4f;
 	_body->getBody()->SetLinearVelocity(b2Vec2(_body->getBody()->GetLinearVelocity().x, _body->getBody()->GetLinearVelocity().y * (1 - penalization)));
 }
 

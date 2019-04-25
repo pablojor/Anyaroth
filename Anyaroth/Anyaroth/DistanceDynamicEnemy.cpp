@@ -26,10 +26,13 @@ DistanceDynamicEnemy::DistanceDynamicEnemy(Game* g, Player* player, Vector2D pos
 	_anim->addAnim(AnimatedSpriteComponent::EnemyDie, 35, false);
 
 	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
-
-	_body->addCricleShape(b2Vec2(0, _body->getH() - 0.5 + _body->getH() / 20), _body->getW() - _body->getW() / 20, ENEMIES, FLOOR | PLATFORMS);
-	//_body->moveShape(b2Vec2(0, 0.1));
-
+	_body->setH(26);
+	_body->moveShape(b2Vec2(0, -1));
+	_body->addCricleShape(b2Vec2(0, _body->getH() - 0.5 + _body->getH() / 20 - 0.5), _body->getW() - _body->getW() / 20, ENEMIES, FLOOR | PLATFORMS);
+	//_body->addCricleShape(b2Vec2(0, _body->getH() - 0.5 + _body->getH() / 20), _body->getW() - _body->getW() / 20, ENEMIES, FLOOR | PLATFORMS);
+	_body->filterCollisions(ENEMIES, FLOOR | PLATFORMS | PLAYER_BULLETS | MELEE);
+	
+	//_body->moveShape(b2Vec2(0, 0));
 	addSensors();
 
 	//Ajustes del arma
@@ -90,4 +93,33 @@ void DistanceDynamicEnemy::attacking(const double& deltaTime)
 		if(!_armVision && !isStunned())
 			_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
 	}
+}
+
+void DistanceDynamicEnemy::die()
+{
+	Enemy::die();
+	_arm->setActive(false);
+}
+
+void DistanceDynamicEnemy::addSensors()
+{
+	b2PolygonShape shape;
+	shape.SetAsBox(5 / M_TO_PIXEL, 2 / M_TO_PIXEL, b2Vec2(-2, 0), 0);
+	b2FixtureDef fDef;
+	fDef.shape = &shape;
+	fDef.filter.categoryBits = ENEMIES;
+	fDef.filter.maskBits = FLOOR | PLATFORMS;
+	fDef.isSensor = true;
+	fDef.friction = -26;
+	_body->addFixture(&fDef, this);
+
+	shape;
+	shape.SetAsBox(5 / M_TO_PIXEL, 2 / M_TO_PIXEL, b2Vec2(2, 0), 0);
+	fDef;
+	fDef.shape = &shape;
+	fDef.filter.categoryBits = ENEMIES;
+	fDef.filter.maskBits = FLOOR | PLATFORMS;
+	fDef.isSensor = true;
+	fDef.friction = 26;
+	_body->addFixture(&fDef, this);
 }

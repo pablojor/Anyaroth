@@ -35,6 +35,7 @@ private:
 		_dashCD = 1000 + _dashTime,_dashParticleTime=40,
 		_floorCount = 0,
 		_deathCD = 3000;
+	double _gravScale = 8.5, _damping = 3;
 
 	bool _hasToReload = false,
 		_isShooting = false,
