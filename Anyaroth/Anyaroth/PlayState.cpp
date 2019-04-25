@@ -83,7 +83,8 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_stages.push_back(_particles);
 
 	getMainCamera()->fadeIn(3000);
-	getMainCamera()->fitCamera({ (double)_levelManager.getCurrentLevel(1)->getWidth(), (double)_levelManager.getCurrentLevel(1)->getHeight() }, false);
+	getMainCamera()->fitCamera({ (double)_levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getWidth(),
+		(double)_levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getHeight() }, false);
 }
 
 PlayState::~PlayState()

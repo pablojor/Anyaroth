@@ -1,7 +1,6 @@
 #include "PausePanel.h"
 #include "Game.h"
 
-
 PausePanel::PausePanel(Game* g) : PanelUI(g)
 {
 	//----BOTONES----//
@@ -48,7 +47,6 @@ PausePanel::PausePanel(Game* g) : PanelUI(g)
 		_selectedButton->setSelected(true);
 }
 
-
 PausePanel::~PausePanel()
 {
 }
@@ -68,6 +66,7 @@ bool PausePanel::handleEvent(const SDL_Event& event)
 
 void PausePanel::continueGame(Game * g)
 {
+	g->getSoundManager()->resumeMusic();
 	g->setTimestep(FRAME_RATE / 1000.0f);
 	g->popState();
 }
@@ -81,6 +80,7 @@ void PausePanel::options(Game * g)
 
 void PausePanel::returnMenu(Game * g)
 {
+	g->getSoundManager()->stopMusic();
 	g->setTimestep(FRAME_RATE / 1000.0f);
 	g->popState();
 	g->changeState(new MenuState(g));

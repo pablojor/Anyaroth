@@ -3,6 +3,8 @@
 
 PauseState::PauseState(Game* g) : GameState(g)
 {
+	g->getSoundManager()->pauseMusic();
+
 	//Show cursor
 	SDL_ShowCursor(true);
 

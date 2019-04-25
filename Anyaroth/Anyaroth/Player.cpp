@@ -214,7 +214,7 @@ void Player::subLife(int damage)
 			{
 				_anim->hurt();
 				_playerArm->hurt();
-				_spawnParticles = true;
+				//_spawnParticles = true;
         
 				int rand = _game->random(0, 100);
 				if (rand > 80)
