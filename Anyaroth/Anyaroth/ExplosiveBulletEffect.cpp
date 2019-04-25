@@ -15,7 +15,7 @@ void ExplosiveBulletEffect::init(Bullet* bullet)
 {
 	bullet->getBody()->filterCollisions(PLAYER_BULLETS, FLOOR | PLATFORMS | ENEMIES);
 	bullet->getBody()->getBody()->SetType(b2_dynamicBody);
-	bullet->getBody()->moveShape(b2Vec2(0, bullet->getBody()->getH() + 2.7));
+	bullet->getBody()->moveShape(b2Vec2(0, bullet->getBody()->getH() + 1));
 	bullet->getBody()->getBody()->SetBullet(true);
 	bullet->getBody()->getBody()->SetFixedRotation(true);
 	bullet->getBody()->getBody()->SetGravityScale(6);
