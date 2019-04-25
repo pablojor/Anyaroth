@@ -172,6 +172,7 @@ void ShopMenu::openShop()
 	_closed = false;
 	_player->setActive(false);
 
+	_game->getSoundManager()->playSFX("doorOpen");
 	_game->getSoundManager()->playMusic("shop", true);
 
 	_dialoguePanel->stopAtLastLineShown(true);
@@ -193,6 +194,7 @@ void ShopMenu::closeShop()
 	if (_game->isJoystick())
 		_selectedButton->setSelected(false);
 
+	_game->getSoundManager()->playSFX("doorClose");
 	_game->getSoundManager()->playMusic("safe_zone", -1);
 }
 
