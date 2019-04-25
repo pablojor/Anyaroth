@@ -122,6 +122,7 @@ void Game::createSounds()
 	_soundManager->addSFX("turretMeleeHit", SOUNDS_PATH + "turretMeleeHit.wav");
 	_soundManager->addSFX("turretHit", SOUNDS_PATH + "turretHit.wav");
 	_soundManager->addSFX("turretDeath", SOUNDS_PATH + "turretDeath.wav");
+	_soundManager->addSFX("bomberDeath", SOUNDS_PATH + "bomberDeath.wav");
 	_soundManager->addSFX("martyrHit", SOUNDS_PATH + "martyrHit.wav");
 	_soundManager->addSFX("martyrMeleeHit", SOUNDS_PATH + "martyrMeleeHit.wav");
 	_soundManager->addSFX("martyrDie", SOUNDS_PATH + "martyrDie.wav");

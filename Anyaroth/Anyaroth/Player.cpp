@@ -663,6 +663,25 @@ void Player::setPlayerPanel(PlayerPanel * p)
 	if (_currentGun->getIconTexture() != nullptr) _playerPanel->updateWeaponryViewer(_currentGun->getIconTexture());
 }
 
+void Player::stopPlayer()
+{
+	_body->getBody()->SetLinearVelocity(b2Vec2(0.0, 0.0));
+	_body->getBody()->SetAngularVelocity(0);
+	_hasToReload = false,
+	_isShooting = false,
+	_isMeleeing = false,
+	_isDashing = false,
+	_onDash = false,
+	_dashDown = false,
+	_jJump = false,
+	_jShoot = false,
+	_jMoveLeft = false,
+	_jMoveDown = false,
+	_jMoveRight = false,
+	_jReleased = false;
+
+}
+
 void Player::dash(const Vector2D& dir)
 {
 	double force = 40;

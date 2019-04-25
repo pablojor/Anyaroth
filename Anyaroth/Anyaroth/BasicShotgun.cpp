@@ -1,7 +1,7 @@
 #include "BasicShotgun.h"
 
 
-BasicShotgun::BasicShotgun(Game * game) : Shotgun(game, game->getTexture("ArmShotgun"), game->getTexture("ShotgunBullet"), "shotgun1", 40, 4/*da�o por bala*/, 90, 3, 48, 800, &_effect, BasicShotgun_Weapon, game->getTexture("ShotgunIcon"), false, ShotGunBullet)
+BasicShotgun::BasicShotgun(Game * game) : Shotgun(game, game->getTexture("ArmShotgun"), game->getTexture("ShotgunBullet"), "shotgun1", 40, 5/*da�o por bala*/, 90, 3, 54, 800, &_effect, BasicShotgun_Weapon, game->getTexture("ShotgunIcon"), false, ShotGunBullet)
 {
 	_angleBetweenBullet = 13;
 	_numBulletsPerShot = 2;

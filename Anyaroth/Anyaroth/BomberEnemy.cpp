@@ -1,7 +1,7 @@
 #include "BomberEnemy.h"
 #include "BulletEffect.h"
 
-BomberEnemy::BomberEnemy(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Enemy(g, player, pos, g->getTexture("Bomber"), "turretDeath", "turretHit", "turretMeleeHit"), _myBulletPool(pool)
+BomberEnemy::BomberEnemy(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Enemy(g, player, pos, g->getTexture("Bomber"), "bomberDeath", "turretHit", "turretMeleeHit"), _myBulletPool(pool)
 {
 	_bulletTexture = g->getTexture("PistolBullet");
 	_damage = 25;
@@ -20,8 +20,10 @@ BomberEnemy::BomberEnemy(Game* g, Player* player, Vector2D pos, BulletPool* pool
 
 	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 
-	_body->addCricleShape(b2Vec2(0, _body->getH() + _body->getH() / 20), _body->getW() - _body->getW() / 20, ENEMIES, FLOOR | PLATFORMS | PLAYER_BULLETS | MELEE);
+	_body->setW(30);
+	_body->setH(20);
 	_body->getBody()->SetGravityScale(0);
+	_body->filterCollisions(ENEMIES, FLOOR | PLATFORMS | PLAYER_BULLETS | MELEE);
 }
 
 BomberEnemy::~BomberEnemy()
@@ -34,7 +36,7 @@ void BomberEnemy::shoot(const double& deltaTime)
 {
 	if (_time >= _shootTime)
 	{
-		throwBomb(Vector2D(_body->getBody()->GetPosition().x*M_TO_PIXEL, _body->getBody()->GetPosition().y*M_TO_PIXEL));
+		throwBomb(Vector2D(_body->getBody()->GetPosition().x*M_TO_PIXEL, (_body->getBody()->GetPosition().y+_body->getH())*M_TO_PIXEL));
 		_time = 0;
 	}
 	else
@@ -61,6 +63,11 @@ void BomberEnemy::update(const double& deltaTime)
 			_dir = Vector2D(-1, 0);
 		else if (_playerDistance.getX() < _attackRangeX && _playerDistance.getX() > -_attackRangeX)
 			_dir = Vector2D(0, 0);
+
+		if (_anim->getCurrentAnim() == AnimatedSpriteComponent::EnemyAttack &&_anim->animationFinished())
+		{
+			_anim->playAnim(AnimatedSpriteComponent::Idle);
+		}
 
 		move();
 		shoot(deltaTime);
