@@ -27,6 +27,8 @@ Player::Player(Game* game, int xPos, int yPos) : GameObject(game, "Player")
 	_body->addCricleShape(b2Vec2(0, 1.1), 0.7, PLAYER, FLOOR | PLATFORMS);
 	_body->getBody()->SetFixedRotation(true);
 
+	_body->getBody()->SetLinearDamping(_damping);
+	_body->getBody()->SetGravityScale(_gravScale);
 
 	//Sensor del suelo
 	b2PolygonShape shape;
@@ -71,11 +73,6 @@ Player::Player(Game* game, int xPos, int yPos) : GameObject(game, "Player")
 	//Melee
 	_melee = new Melee(game, { 15, 0 }, ENEMIES, 5, 20, 10);
 	addChild(_melee);
-
-
-	
-	_body->getBody()->SetLinearDamping(_damping);
-	_body->getBody()->SetGravityScale(_gravScale);
 }
 
 Player::~Player()
@@ -100,6 +97,7 @@ void Player::beginCollision(GameObject * other, b2Contact* contact)
 	{
 		int damage = other->getDamage();
 		subLife(damage);
+
 		BodyComponent* otherBody = other->getComponent<BodyComponent>();
 		_contactPoint = otherBody->getBody()->GetPosition()+ b2Vec2(otherBody->getW()/2,otherBody->getH()/2);
 	}
@@ -393,6 +391,7 @@ void Player::update(const double& deltaTime)
 	{
 		_spawnParticles = false;
 		double center_x = _body->getBody()->GetPosition().x + _body->getW() / 2, center_y = _body->getBody()->GetPosition().y + _body->getH() / 2;
+
 		Vector2D direction = Vector2D((_contactPoint.x - center_x), (center_y - _contactPoint.y));
 		ParticleManager::GetParticleManager()->CreateSpray(_game->getTexture("Blood"), Vector2D(center_x*M_TO_PIXEL, center_y*M_TO_PIXEL), direction, 10, 20, 30, 1000, 15, 2);
 	}
@@ -418,9 +417,9 @@ void Player::swapGun()
 		Gun* auxGun = _currentGun;
 		_currentGun = _otherGun;
 		_otherGun = auxGun;
+
 		_playerArm->setTexture(_currentGun->getArmTexture());
 		_playerPanel->updateAmmoViewer(_currentGun->getClip(), _currentGun->getMagazine());
-
 		_playerArm->setAnimations(_currentGun->getAnimType());
 
 		if (_currentGun->getIconTexture() != nullptr) _playerPanel->updateWeaponryViewer(_currentGun->getIconTexture());
@@ -433,6 +432,7 @@ void Player::changeCurrentGun(Gun * gun)
 	{
 		delete _currentGun;
 		_currentGun = gun;
+
 		_playerArm->setTexture(_currentGun->getArmTexture());
 		_playerPanel->updateAmmoViewer(_currentGun->getClip(), _currentGun->getMagazine());
 		_playerPanel->updateWeaponryViewer(_currentGun->getIconTexture());
@@ -587,10 +587,10 @@ void Player::refreshDashCoolDown(const double& deltaTime)
 
 void Player::dashTimer(const double & deltaTime)
 {
-	if (_onDash )
+	if (_onDash)
 	{
-		if(!_dashDown)
-		_dashTime -= deltaTime;
+		if (!_dashDown)
+			_dashTime -= deltaTime;
 		_dashParticleTime -= deltaTime;
 		if (_dashTime <= 0 && !_dashDown)
 		{
@@ -600,7 +600,7 @@ void Player::dashTimer(const double & deltaTime)
 		}
 		if (_dashParticleTime <= 0)
 		{
-			if(_anim->getCurrentAnim()== AnimatedSpriteComponent::Dash)
+			if (_anim->getCurrentAnim() == AnimatedSpriteComponent::Dash)
 			{
 				if (!_anim->isFlipped())
 					ParticleManager::GetParticleManager()->CreateSimpleParticle(_game->getTexture("DashTrail"), 1, Vector2D((_body->getBody()->GetPosition().x)*M_TO_PIXEL, (_body->getBody()->GetPosition().y)*M_TO_PIXEL), 0, 0, 120);
@@ -608,7 +608,7 @@ void Player::dashTimer(const double & deltaTime)
 					ParticleManager::GetParticleManager()->CreateSimpleParticle(_game->getTexture("DashTrailFlip"), 1, Vector2D((_body->getBody()->GetPosition().x)*M_TO_PIXEL, (_body->getBody()->GetPosition().y)*M_TO_PIXEL), 0, 0, 120);
 
 			}
-			else if(_anim->getCurrentAnim() == AnimatedSpriteComponent::DashBack)
+			else if (_anim->getCurrentAnim() == AnimatedSpriteComponent::DashBack)
 			{
 				if (!_anim->isFlipped())
 					ParticleManager::GetParticleManager()->CreateSimpleParticle(_game->getTexture("DashBackTrail"), 1, Vector2D((_body->getBody()->GetPosition().x)*M_TO_PIXEL, (_body->getBody()->GetPosition().y)*M_TO_PIXEL), 0, 0, 120);
@@ -617,7 +617,7 @@ void Player::dashTimer(const double & deltaTime)
 			}
 			else
 			{
-				if(!_anim->isFlipped())
+				if (!_anim->isFlipped())
 					ParticleManager::GetParticleManager()->CreateSimpleParticle(_game->getTexture("DashDownTrail"), 1, Vector2D((_body->getBody()->GetPosition().x)*M_TO_PIXEL, (_body->getBody()->GetPosition().y)*M_TO_PIXEL), 0, 0, 120);
 				else
 					ParticleManager::GetParticleManager()->CreateSimpleParticle(_game->getTexture("DashDownTrailFlip"), 1, Vector2D((_body->getBody()->GetPosition().x)*M_TO_PIXEL, (_body->getBody()->GetPosition().y)*M_TO_PIXEL), 0, 0, 120);
@@ -625,7 +625,7 @@ void Player::dashTimer(const double & deltaTime)
 
 			}
 			_dashParticleTime = 40;
-			}
+		}
 	}
 }
 
@@ -642,6 +642,7 @@ void Player::move(const Vector2D& dir, const double& speed)
 		_body->getBody()->ApplyLinearImpulseToCenter(b2Vec2(dir.getX() * speed, 0), true);
 	else
 		_body->getBody()->SetLinearVelocity(b2Vec2(dir.getX() * speed, _body->getBody()->GetLinearVelocity().y));
+
 	if (_floorCount > 0 && dir.getX()!=0)
 	{
 		ParticleManager::GetParticleManager()->CreateFountain(_game->getTexture("Dust"), Vector2D((_body->getBody()->GetPosition().x)*M_TO_PIXEL, (_body->getBody()->GetPosition().y+_body->getH())*M_TO_PIXEL),Vector2D(-dir.getX(),1),0,speed,15,300,10, 100,3);
@@ -664,6 +665,7 @@ void Player::setPlayerPanel(PlayerPanel * p)
 	_playerPanel->updateDashViewer(_dashCD);
 	_playerPanel->updateCoinsCounter(_money->getWallet());
 	_playerPanel->updateLifeBar(_life.getLife(), _life.getMaxLife());
+
 	if (_currentGun->getIconTexture() != nullptr) _playerPanel->updateWeaponryViewer(_currentGun->getIconTexture());
 }
 
@@ -671,6 +673,7 @@ void Player::stopPlayer()
 {
 	_body->getBody()->SetLinearVelocity(b2Vec2(0.0, 0.0));
 	_body->getBody()->SetAngularVelocity(0);
+
 	_hasToReload = false,
 	_isShooting = false,
 	_isMeleeing = false,
@@ -683,7 +686,6 @@ void Player::stopPlayer()
 	_jMoveDown = false,
 	_jMoveRight = false,
 	_jReleased = false;
-
 }
 
 void Player::dash(const Vector2D& dir)
@@ -723,9 +725,9 @@ void Player::dashOff()
 
 void Player::jump()
 {
-	double _jumpForce = 420;
 	_body->getBody()->SetLinearVelocity(b2Vec2(_body->getBody()->GetLinearVelocity().x, 0));
 	_body->getBody()->ApplyLinearImpulse(b2Vec2(0, -_jumpForce), _body->getBody()->GetWorldCenter(), true);
+
 	setGrounded(false);
 	_timeToJump = 0.f;
 
@@ -734,7 +736,6 @@ void Player::jump()
 	ParticleManager::GetParticleManager()->CreateSpray(_game->getTexture("Dust"), Vector2D((_body->getBody()->GetPosition().x - _body->getW() / 2)*M_TO_PIXEL, (_body->getBody()->GetPosition().y + _body->getH())*M_TO_PIXEL), Vector2D(1, 1), 10, 20, 20, 400, 10, 3);
   
 	_game->getSoundManager()->playSFX("jump");
-
 }
 
 void Player::cancelJump()

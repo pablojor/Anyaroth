@@ -32,10 +32,21 @@ private:
 
 	//Variables
 	int _dashTime = 250,
-		_dashCD = 1000 + _dashTime,_dashParticleTime=40,
+		_dashCD = 1000 + _dashTime,
+		_dashParticleTime = 40,
 		_floorCount = 0,
 		_deathCD = 3000;
-	double _gravScale = 8.5, _damping = 3;
+
+	double _speed = 15,
+		_gravScale = 8,
+		_damping = 3,
+		_jumpForce = 480,
+		_jPosX,
+		_jPosY,
+		_prevAxisX = 0,
+		_prevAxisY = 0;
+
+	float _timeToJump = 100.f;
 
 	bool _hasToReload = false,
 		_isShooting = false,
@@ -53,14 +64,6 @@ private:
 		_jMoveRight = false,
 		_jReleased = false,
 		_spawnParticles = false;
-
-	double _speed = 15,
-		_jPosX,
-		_jPosY,
-		_prevAxisX = 0,
-		_prevAxisY = 0;
-
-	float _timeToJump = 100.f;
 
 	Gun* _currentGun = nullptr;
 	Gun* _otherGun = nullptr;
@@ -127,7 +130,6 @@ public:
 	void setPlayerPanel(PlayerPanel* p);
 	inline PlayerPanel* getPlayerPanel() const { return _playerPanel; };
 
-
 	inline void setPlayerPosition(Vector2D pos) { _body->getBody()->SetTransform(b2Vec2(pos.getX(), pos.getY()), 0); }
 	inline void setPlayerBulletPool(BulletPool* pool) { _playerBulletPool = pool; }
 
@@ -141,13 +143,7 @@ public:
 	inline bool isDashing() const { return _onDash; }
 	inline bool isReloading() const { return _playerArm->isReloading(); }
 	inline void setIsReloading(const bool& b) { _hasToReload = b; }
-	inline bool isMeleeing() const {
-		return (_anim->getCurrentAnim() == AnimatedSpriteComponent::MeleeKnife || _anim->getCurrentAnim() == AnimatedSpriteComponent::MeleeKnife) && !_anim->animationFinished();
-	}
-	inline bool isJumping() const {
-		return (_anim->getCurrentAnim() == AnimatedSpriteComponent::BeforeJump || _anim->getCurrentAnim() == AnimatedSpriteComponent::Jump) && !_anim->animationFinished();
-	}
-	inline bool isFalling() const {
-		return (_anim->getCurrentAnim() == AnimatedSpriteComponent::Falling || _anim->getCurrentAnim() == AnimatedSpriteComponent::StartFalling) && !_anim->animationFinished();
-	}
+	inline bool isMeleeing() const { return (_anim->getCurrentAnim() == AnimatedSpriteComponent::MeleeKnife || _anim->getCurrentAnim() == AnimatedSpriteComponent::MeleeKnife) && !_anim->animationFinished(); }
+	inline bool isJumping() const { return (_anim->getCurrentAnim() == AnimatedSpriteComponent::BeforeJump || _anim->getCurrentAnim() == AnimatedSpriteComponent::Jump) && !_anim->animationFinished(); }
+	inline bool isFalling() const { return (_anim->getCurrentAnim() == AnimatedSpriteComponent::Falling || _anim->getCurrentAnim() == AnimatedSpriteComponent::StartFalling) && !_anim->animationFinished(); }
 };

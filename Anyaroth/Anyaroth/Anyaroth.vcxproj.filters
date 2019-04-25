@@ -406,12 +406,14 @@
     <ClCompile Include="Particle.cpp">
       <Filter>Archivos de código fuente\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="CreditsPanel.cpp" />
     <ClCompile Include="CreditsState.cpp">
       <Filter>Archivos de código fuente\States</Filter>
     </ClCompile>
     <ClCompile Include="CreditsStateHUD.cpp">
       <Filter>Archivos de código fuente\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="CreditsPanel.cpp">
+      <Filter>Archivos de código fuente\HUD\Panels</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -856,12 +858,14 @@
     <ClInclude Include="Particle.h">
       <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="CreditsPanel.h" />
     <ClInclude Include="CreditsState.h">
       <Filter>Archivos de encabezado\States</Filter>
     </ClInclude>
     <ClInclude Include="CreditsStateHUD.h">
       <Filter>Archivos de encabezado\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="CreditsPanel.h">
+      <Filter>Archivos de encabezado\HUD\Panels</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
