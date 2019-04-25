@@ -115,7 +115,7 @@ void Enemy::subLife(int damage)
 		else
 		{
 			_anim->hurt();
-			_spawnParticles = true;
+			//_spawnParticles = true;
 		}
 	}
 }

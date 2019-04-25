@@ -45,7 +45,7 @@ ShopMenu::ShopMenu(Game* game) : PanelUI(game)
 	_depotButton->setPosition(middleOfTheButtonPanelX / 2 - _depotButton->getW() / 2,
 		middleOfTheButtonPanelY + (distanceBetweenButtons / 2));
 
-	_depotText = new TextUI(game, "Depot", game->getFont("ARIAL12"), 12, 0, 0, { 145, 255, 255, 255 });
+	_depotText = new TextUI(game, "Equipment", game->getFont("ARIAL12"), 12, 0, 0, { 145, 255, 255, 255 });
 	_depotText->setPosition(_depotButton->getX() + _depotButton->getW() / 2 - _depotText->getW() / 2,
 		_depotButton->getY() + _depotButton->getH() / 2 - _depotText->getH() / 2);
 

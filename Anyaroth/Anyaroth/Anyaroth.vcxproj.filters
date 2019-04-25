@@ -406,9 +406,13 @@
     <ClCompile Include="Particle.cpp">
       <Filter>Archivos de código fuente\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="CreditsState.cpp" />
-    <ClCompile Include="CreditsStateHUD.cpp" />
     <ClCompile Include="CreditsPanel.cpp" />
+    <ClCompile Include="CreditsState.cpp">
+      <Filter>Archivos de código fuente\States</Filter>
+    </ClCompile>
+    <ClCompile Include="CreditsStateHUD.cpp">
+      <Filter>Archivos de código fuente\HUD</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -852,9 +856,13 @@
     <ClInclude Include="Particle.h">
       <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="CreditsState.h" />
-    <ClInclude Include="CreditsStateHUD.h" />
     <ClInclude Include="CreditsPanel.h" />
+    <ClInclude Include="CreditsState.h">
+      <Filter>Archivos de encabezado\States</Filter>
+    </ClInclude>
+    <ClInclude Include="CreditsStateHUD.h">
+      <Filter>Archivos de encabezado\HUD</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de código fuente">

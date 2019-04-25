@@ -27,9 +27,30 @@
             "name": "Insurgent",
             "voice": "exampleVoice",
             "dialogue": [
-                "Oh! A new comrade, and looks like a good one.",
+                "Oh! A new comrade, and it looks like a good one.",
                 "Listen carefully... if you continue this path you'll find the general Spenta.",
                 "I hope you'll win and secure the cuartel. For the cause!"
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "First safezone": {
+            "face": "nullptr",
+            "name": "Player",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Pff... I reached a safe zone.",
+                "It seems there's a shop there...",
+                "Maybe I can buy something interesting."
             ],
             "faces": [
                 0,
@@ -82,7 +103,7 @@
             "name": "Smuggler",
             "voice": "exampleVoice",
             "dialogue": [
-                "Do you like my amazing toys? Hahahaha!!"
+                "Do you like my sweet guns? Hahahaha!"
             ],
             "faces": [
                 0
@@ -100,7 +121,7 @@
             "voice": "exampleVoice",
             "dialogue": [
                 "Be carefull out there, there're a lot of dangerous crap.",
-                "You should buy one of my sweet guns to survive.",
+                "You should buy my stuff to survive.",
                 "I mean... I don't care about your condition but...",
                 "I really like money! Hahahaha!"
             ],

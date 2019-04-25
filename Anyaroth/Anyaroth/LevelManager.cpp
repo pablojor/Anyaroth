@@ -80,7 +80,6 @@ void LevelManager::setLevel(int l)
 	case LevelManager::SafeDemo:	
 		_currentSafeZone = new Map(TILEMAP_PATH + "SafeZoneDemo.json", _game, _player, _tilesetZone1, _enemyBulletPool, _hud);
 		_game->getSoundManager()->playMusic("safe_zone", -1);
-	
 		break;
 	case LevelManager::LevelDemo:
 		_currentMap = new Map(TILEMAP_PATH + "NivelDemo.json", _game, _player, _tilesetZone1, _enemyBulletPool, _hud);
@@ -89,13 +88,24 @@ void LevelManager::setLevel(int l)
 	case LevelManager::SafeBossDemo:
 		_currentSafeZone = new Map(TILEMAP_PATH + "SafeZoneBossDemo.json", _game, _player, _tilesetZone1, _enemyBulletPool, _hud);
 		_game->getSoundManager()->playMusic("safe_zone", -1);
-	
 
 		cutscene = new CutScene(_player);
 
 		if (_player->getComponent<CustomAnimatedSpriteComponent>()->isFlipped())
 			cutscene->addFlipEvent();
 
+		cutscene->addMoveEvent(_player->getComponent<BodyComponent>(), 1, 15, (304 / 2) / M_TO_PIXEL);
+		cutscene->addWaitEvent(1000);
+		cutscene->addFlipEvent();
+		cutscene->addWaitEvent(1000);
+		cutscene->addFlipEvent();
+		cutscene->addWaitEvent(1000);
+		cutscene->addDialogueEvent(_hud->getDialoguePanel(), _game->getDialogue("First safezone"));
+		cutscene->addWaitEvent(1000);
+		cutscene->addFlipEvent();
+		cutscene->addWaitEvent(1000);
+		cutscene->addFlipEvent();
+		cutscene->addWaitEvent(1000);
 		cutscene->addMoveEvent(_player->getComponent<BodyComponent>(), 1, 15, 304 / M_TO_PIXEL);
 		cutscene->addShopEvent(_hud->getShop());
 		_game->getCurrentState()->addCutScene(cutscene);
@@ -104,7 +114,6 @@ void LevelManager::setLevel(int l)
 	case LevelManager::BossDemo:
 		_currentMap = new Map(TILEMAP_PATH + "Nivel1-3.json", _game, _player, _tilesetBoss1, _enemyBulletPool, _hud);
 		_game->getSoundManager()->playMusic("boss1Battle", -1);
-	
 		break;
 	}
 
@@ -112,6 +121,7 @@ void LevelManager::setLevel(int l)
 		_level->addChild(_currentMap);
 	else
 		_level->addChild(_currentSafeZone);
+
 	_game->getCurrentState()->getMainCamera()->fadeIn(3000);
 }
 

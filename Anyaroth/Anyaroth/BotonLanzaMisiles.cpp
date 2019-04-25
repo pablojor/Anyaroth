@@ -36,7 +36,14 @@ void BotonLanzaMisiles::update(const double & deltaTime)
 {
 	Interactable::update(deltaTime);
 
-  
+	b2Vec2 bossPos = _boss->getComponent<BodyComponent>()->getBody()->GetPosition(), turretPos = _body->getBody()->GetPosition();
+	Vector2D distancePos = Vector2D((bossPos.x - turretPos.x)*M_TO_PIXEL, (bossPos.y - turretPos.y)*M_TO_PIXEL);
+
+	if (distancePos.getX() > 0)
+		_anim->flip();
+	else
+		_anim->unFlip();
+
 	if (_canInteract)
 	{
 		if (usable && ready)
@@ -50,6 +57,7 @@ void BotonLanzaMisiles::update(const double & deltaTime)
 	else if (usable)
 	{
 		ready = _boss->isbeetweenFases() && _boss->getLastFase() >= _activeFase;
+
 		if (ready)
 		{
 			if (_anim->getCurrentAnim() != AnimatedSpriteComponent::Activating
