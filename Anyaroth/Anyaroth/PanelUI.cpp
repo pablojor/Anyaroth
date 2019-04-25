@@ -55,13 +55,18 @@ bool PanelUI::handleEvent(const SDL_Event & event)
 		if (event.type == SDL_MOUSEMOTION && _selectedButton!= nullptr && _selectedButton->isSelected())
 		{
 			_selectedButton->setSelected(false);
+			SDL_ShowCursor(true);
 		}
 		else if (event.type == SDL_CONTROLLERBUTTONDOWN)
 		{
 			if (_selectedButton != nullptr)
 			{
 				if (!_selectedButton->isSelected())
+				{
+					SDL_WarpMouseGlobal(0, 0);
 					_selectedButton->setSelected(true);
+				}
+				SDL_ShowCursor(false);
 
 				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_LEFT && _selectedButton->getNextLeft() != nullptr)
 					_selectedButton = _selectedButton->getNextLeft();
