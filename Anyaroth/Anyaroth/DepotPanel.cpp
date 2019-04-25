@@ -71,7 +71,15 @@ bool DepotPanel::handleEvent(const SDL_Event& event)
 	{
 		if (event.type == SDL_CONTROLLERBUTTONDOWN && event.cbutton.button == SDL_CONTROLLER_BUTTON_B)
 		{
-			_exitButton->callDown();
+			if (_firstWeaponFrame->isSelected() || _secondWeaponFrame->isSelected())
+			{
+				_selectedButton->setSelected(false);
+				_selectedButton = _exitButton->getNextRight();
+				_selectedButton->setSelected(false);
+			}
+			else
+				_exitButton->callDown();
+
 			return true;
 		}
 	}
@@ -109,9 +117,6 @@ void DepotPanel::setPlayer(Player * ply)
 
 	addChild(_firstWeaponFrame);
 	addChild(_secondWeaponFrame);
-
-	_changeButton->setNextButtons({ _firstWeaponFrame, nullptr, _secondWeaponFrame, nullptr });
-	_secondWeaponFrame->setNextButtons({ _changeButton, nullptr, _exitButton, nullptr });
 }
 
 void DepotPanel::setItems(list<ShopItem*>* list)
@@ -202,8 +207,8 @@ void DepotPanel::reorderDepot()
 	{
 		ButtonUI* nL = (i > 0) ? visibleItems[i - 1] : _exitButton;
 		ButtonUI* nU = (i > 3) ? visibleItems[i - 4] : _exitButton;
-		ButtonUI* nR = (i + 1 < visibleItems.size()) ? visibleItems[i + 1] : _firstWeaponFrame;
-		ButtonUI* nD = (i + 4 < visibleItems.size()) ? visibleItems[i + 4] : _firstWeaponFrame;
+		ButtonUI* nR = (i + 1 < visibleItems.size()) ? visibleItems[i + 1] : _changeButton;
+		ButtonUI* nD = (i + 4 < visibleItems.size()) ? visibleItems[i + 4] : _changeButton;
 		visibleItems[i]->setNextButtons({ nL, nU, nR, nD });
 	}
 	if (visibleItems.size() > 0)
@@ -211,16 +216,20 @@ void DepotPanel::reorderDepot()
 		_selectedButton = *(visibleItems.begin());
 		_selectedButton->setSelected(true);
 
-		_exitButton->setNextButtons({ _secondWeaponFrame, nullptr, *(visibleItems.begin()), nullptr });
-		_firstWeaponFrame->setNextButtons({ *prev(visibleItems.end()), nullptr, _changeButton, nullptr });
+		_exitButton->setNextButtons({ _changeButton, nullptr, *(visibleItems.begin()), nullptr });
+		_firstWeaponFrame->setNextButtons({ _secondWeaponFrame, nullptr, _secondWeaponFrame, nullptr });
+		_changeButton->setNextButtons({ *prev(visibleItems.end()), nullptr, _exitButton, nullptr });
+		_secondWeaponFrame->setNextButtons({ _firstWeaponFrame, nullptr, _firstWeaponFrame, nullptr });
 	}
 	else
 	{
-		_selectedButton = _firstWeaponFrame;
+		_selectedButton = _changeButton;
 		_selectedButton->setSelected(true);
 
-		_exitButton->setNextButtons({ _secondWeaponFrame, nullptr, _firstWeaponFrame, nullptr });
-		_firstWeaponFrame->setNextButtons({ _exitButton, nullptr, _changeButton, nullptr });
+		_exitButton->setNextButtons({ _changeButton, nullptr, _changeButton, nullptr });
+		_firstWeaponFrame->setNextButtons({ nullptr, nullptr, nullptr, nullptr });
+		_changeButton->setNextButtons({ _exitButton, nullptr, _exitButton, nullptr });
+		_secondWeaponFrame->setNextButtons({ nullptr, nullptr, nullptr, nullptr });
 	}
 }
 
