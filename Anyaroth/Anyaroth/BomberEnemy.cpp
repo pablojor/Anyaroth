@@ -34,7 +34,7 @@ void BomberEnemy::shoot(const double& deltaTime)
 {
 	if (_time >= _shootTime)
 	{
-		throwBomb(Vector2D(_body->getBody()->GetPosition().x*M_TO_PIXEL, _body->getBody()->GetPosition().y*M_TO_PIXEL));
+		throwBomb(Vector2D(_body->getBody()->GetPosition().x*M_TO_PIXEL, (_body->getBody()->GetPosition().y+_body->getH())*M_TO_PIXEL));
 		_time = 0;
 	}
 	else
@@ -61,6 +61,11 @@ void BomberEnemy::update(const double& deltaTime)
 			_dir = Vector2D(-1, 0);
 		else if (_playerDistance.getX() < _attackRangeX && _playerDistance.getX() > -_attackRangeX)
 			_dir = Vector2D(0, 0);
+
+		if (_anim->getCurrentAnim() == AnimatedSpriteComponent::EnemyAttack &&_anim->animationFinished())
+		{
+			_anim->playAnim(AnimatedSpriteComponent::Idle);
+		}
 
 		move();
 		shoot(deltaTime);
