@@ -27,9 +27,9 @@
             "name": "Insurgent",
             "voice": "exampleVoice",
             "dialogue": [
-                "Oh! A new comrade, and it looks like a good one.",
-                "Listen carefully... if you continue this path you'll find the general Spenta.",
-                "I hope you'll win and secure the cuartel. For the cause!"
+                "Oh! A new comrade, and it looks like a tough one.",
+                "Listen carefully... if you go through this cave you'll find general Spenta's base.",
+                "Someone must defeat him and take control over his cuartel. For the rebellion!"
             ],
             "faces": [
                 0,
@@ -48,7 +48,7 @@
             "name": "Player",
             "voice": "exampleVoice",
             "dialogue": [
-                "Pff... I reached a safe zone.",
+                "Finally... I reached a rebel base.",
                 "It seems there's a shop there...",
                 "Maybe I can buy something interesting."
             ],
@@ -66,7 +66,7 @@
         },
         "Shop 1 53": {
             "face": "nullptr",
-            "name": "Smuggler",
+            "name": "One-eyed Gronn",
             "voice": "exampleVoice",
             "dialogue": [
                 "Oh! Welcome to my shop."
@@ -83,10 +83,10 @@
         },
         "Shop 2 53": {
             "face": "nullptr",
-            "name": "Smuggler",
+            "name": "One-eyed Gronn",
             "voice": "exampleVoice",
             "dialogue": [
-                "It's that everything you want?"
+                "Do you want anything else?"
             ],
             "faces": [
                 2
@@ -100,10 +100,10 @@
         },
         "Shop Catalog 53": {
             "face": "nullptr",
-            "name": "Smuggler",
+            "name": "One-eyed Gronn",
             "voice": "exampleVoice",
             "dialogue": [
-                "Do you like my sweet guns? Hahahaha!"
+                "Have you seen my beautiful guns yet? In this shop we only have killer prices! Hehehe."
             ],
             "faces": [
                 0
@@ -117,13 +117,13 @@
         },
         "Shop Talk 53": {
             "face": "nullptr",
-            "name": "Smuggler",
+            "name": "One-eyed Gronn",
             "voice": "exampleVoice",
             "dialogue": [
-                "Be carefull out there, there're a lot of dangerous crap.",
+                "Be carefull out there, there is a lot of dangerous crap.",
                 "You should buy my stuff to survive.",
-                "I mean... I don't care about your condition but...",
-                "I really like money! Hahahaha!"
+                "I mean... It's not like I worry about you but...",
+                "I worry about your money! Hahahaha!"
             ],
             "faces": [
                 2,
@@ -140,10 +140,10 @@
         },
         "Shop Depot 53": {
             "face": "nullptr",
-            "name": "Smuggler",
+            "name": "One-eyed Gronn",
             "voice": "exampleVoice",
             "dialogue": [
-                "Take a second, choose your weapon and enjoy the music."
+                "Take a second, choose your preferred weapon and enjoy the music."
             ],
             "faces": [
                 0

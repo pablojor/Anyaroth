@@ -47,48 +47,48 @@
 
     "Common":
     {
-      "ImproveRifle": {
+      "Gamma Blaster": {
         "zone": 53,
         "frame": "CommonFrame",
         "icon": "ImprovedRifleIcon",
         "price": 120,
         "speed": 100,
-        "damage": 20,
+        "damage": 3,
         "range": 1000,
-        "clip": 36,
+        "clip": 6,
         "magazine": 160,
-        "cadence": 100,
+        "cadence": 6,
         "id": 4
       },
 
-      "ImproveShotgun": {
+      "A4X Shotgun": {
         "zone": 53,
         "frame": "CommonFrame",
         "icon": "ImprovedShotgunIcon",
         "price": 120,
         "speed": 100,
-        "damage": 7,
+        "damage": 4,
         "range": 60,
-        "clip": 2,
+        "clip": 3,
         "magazine": 50,
-        "cadence": 800,
+        "cadence": 2,
         "id": 2
       }
     },
 
     "Rare" :
     {
-      "PlasmaSniper": {
+      "Plasma Sniper": {
         "zone": 53,
         "frame": "RareFrame",
         "icon": "SniperIcon",
         "price": 180,
         "speed": 100,
-        "damage": 60,
+        "damage": 6,
         "range": 1000,
         "clip": 1,
         "magazine": 30,
-        "cadence": 1500,
+        "cadence": 1,
         "id": 5
       },
 

@@ -6,7 +6,7 @@ BomberEnemy::BomberEnemy(Game* g, Player* player, Vector2D pos, BulletPool* pool
 	_bulletTexture = g->getTexture("PistolBullet");
 	_damage = 25;
 
-	_vision = 800;
+	_vision = 300;
 	_life = 24;
 	_gun = new BomberGun(g);
 	_attackRangeX = 2;
@@ -55,7 +55,7 @@ void BomberEnemy::update(const double& deltaTime)
 
 	bool inVision = _playerDistance.getX() < _vision && _playerDistance.getX() > -_vision && _playerDistance.getY() < _vision && _playerDistance.getY() > -_vision;
 
-	if (!isDead() && inCamera() && inVision)
+	if (!isDead() && /*inCamera()* &&*/ inVision)
 	{
 		if (_playerDistance.getX() > _attackRangeX)
 			_dir = Vector2D(1, 0);

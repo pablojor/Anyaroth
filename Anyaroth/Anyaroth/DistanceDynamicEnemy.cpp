@@ -6,7 +6,7 @@
 DistanceDynamicEnemy::DistanceDynamicEnemy(Game* g, Player* player, Vector2D pos, BulletPool* pool) : DistanceEnemy(g, player, pos, g->getTexture("Trooper"), pool, {27,16}), GroundEnemy(g, player, pos, g->getTexture("Trooper")), Enemy(g, player, pos, g->getTexture("Trooper"), "meleeDeath", "meleeHit", "meleeEnemyHit")
 {
 	_vision = 300;
-	_life = 10;
+	_life = 12;
 	_speed = 8;
 	_attackRangeX = _attackRangeY = _vision / 2; //No se puede poner mas pequeño que la velocidad
 	_attackTime = 1300; //La animacion tarda unos 450

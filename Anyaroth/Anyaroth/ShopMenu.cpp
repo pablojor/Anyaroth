@@ -117,9 +117,8 @@ bool ShopMenu::handleEvent(const SDL_Event& event)
 		{
 			if (event.type == SDL_CONTROLLERBUTTONDOWN)
 			{
-				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_B && !_closing)
+				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_B)
 				{
-					_closing = true;
 					exit(_game);
 					return true;
 				}
@@ -296,7 +295,6 @@ void ShopMenu::exit(Game* game)
 	{
 		closeShop();
 		setVisible(false); 
-		_closing = false;
 
 		_game->getCurrentState()->getMainCamera()->fadeIn(500);
 	});
