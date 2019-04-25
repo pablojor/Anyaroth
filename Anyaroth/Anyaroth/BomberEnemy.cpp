@@ -20,8 +20,10 @@ BomberEnemy::BomberEnemy(Game* g, Player* player, Vector2D pos, BulletPool* pool
 
 	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 
-	_body->addCricleShape(b2Vec2(0, _body->getH() + _body->getH() / 20), _body->getW() - _body->getW() / 20, ENEMIES, FLOOR | PLATFORMS | PLAYER_BULLETS | MELEE);
+	_body->setW(30);
+	_body->setH(20);
 	_body->getBody()->SetGravityScale(0);
+	_body->filterCollisions(ENEMIES, FLOOR | PLATFORMS | PLAYER_BULLETS | MELEE);
 }
 
 BomberEnemy::~BomberEnemy()

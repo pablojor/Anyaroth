@@ -35,6 +35,7 @@ class ShopMenu : public PanelUI
 		bool _talking = false;
 		bool _closed = true;
 		bool _mainMenuAbled = false;
+		bool _closing = false;
 
 		void loadWeaponInfo();
 

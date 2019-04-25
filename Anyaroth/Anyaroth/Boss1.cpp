@@ -5,7 +5,7 @@
 #include "ImprovedRifle.h"
 #include "CreditsState.h"
 
-Boss1::Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, player, pos, pool, g->getTexture("Spenta")), Enemy(g, player, pos, g->getTexture("Spenta"), "", "boss1Hit")
+Boss1::Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, player, pos, pool, g->getTexture("Spenta")), Enemy(g, player, pos, g->getTexture("Spenta"), "boss1Die", "boss1Hit")
 {
 	//_life = 100;
 	_life = 250; // Demo Guerrilla
@@ -84,7 +84,6 @@ void Boss1::update(const double& deltaTime)
 				game->popState();
 				game->changeState(new CreditsState(game));
 			});
-			_game->getSoundManager()->playSFX("boss1Die");
 		}
 	}
 
