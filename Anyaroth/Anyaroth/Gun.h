@@ -38,6 +38,7 @@ public:
 	virtual void reload();
 
 	inline bool canShoot() const { return _clip > 0 && _cadence <= 0; }
+	inline bool hasBullets() const { return _clip == 0 && _magazine == 0; }
 	inline bool canReload() const { return _magazine > 0 && _clip < _maxClip; }
 
 	void addAmmo(int ammoAdded);
