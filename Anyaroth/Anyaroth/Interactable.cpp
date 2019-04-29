@@ -11,7 +11,7 @@ Interactable::Interactable(Game* g, Vector2D posIni) : GameObject(g, "Interactab
 	_transform->setPosition(posIni.getX(), posIni.getY());
 
 	_interactIndicator = new GameObject(g);
-	if (g->isJoystick())
+	if (g->usingJoystick())
 		_interactIndicator->addComponent<Texture>(g->getTexture("InteractIndicatorController"));
 	else
 		_interactIndicator->addComponent<Texture>(g->getTexture("InteractIndicator"));

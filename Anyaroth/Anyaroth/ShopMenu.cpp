@@ -191,7 +191,7 @@ void ShopMenu::closeShop()
 	_player->setActive(true);
 	SDL_ShowCursor(false);
 
-	if (_game->isJoystick())
+	if (_game->usingJoystick())
 		_selectedButton->setSelected(false);
 
 	_game->getSoundManager()->playSFX("doorClose");
@@ -214,7 +214,7 @@ void ShopMenu::ableMainMenu(Game * game)
 	_depotText->setVisible(true);
 	_exitButton->setVisible(true);
 
-	if (_game->isJoystick())
+	if (_game->usingJoystick())
 	{
 		_selectedButton = _shopButton;
 		_selectedButton->setSelected(true);

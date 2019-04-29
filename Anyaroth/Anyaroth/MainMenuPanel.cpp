@@ -58,7 +58,7 @@ MainMenuPanel::MainMenuPanel(Game* g) : PanelUI(g)
 	addChild(_exitText);
 
 	_selectedButton = _playButton;
-	if (_game->isJoystick())
+	if (_game->usingJoystick())
 		_selectedButton->setSelected(true);
 }
 

@@ -140,7 +140,7 @@ void DepotPanel::openDepotPanel()
 	reorderDepot();
 	setVisible(true);
 
-	if (_game->isJoystick())
+	if (_game->usingJoystick())
 		_selectedButton->setSelected(true);
 }
 
@@ -257,7 +257,7 @@ void DepotPanel::selectItem(Game * game, ShopItem* item)
 		{
 			_selectedItem = item;
 			_selectedItem->select(true);
-			if (_game->isJoystick())
+			if (_game->usingJoystick())
 			{
 				_selectedItem->setSelected(false);
 				_selectedButton = _firstWeaponFrame;
@@ -271,7 +271,7 @@ void DepotPanel::selectItem(Game * game, ShopItem* item)
 	{
 		_selectedItem = item;
 		_selectedItem->select(true);
-		if (_game->isJoystick())
+		if (_game->usingJoystick())
 		{
 			_selectedItem->setSelected(false);
 			_selectedButton = _firstWeaponFrame;
