@@ -72,7 +72,7 @@ void Enemy::update(const double& deltaTime)
 		_spawnParticles = false;
 		double center_x = _body->getBody()->GetPosition().x + _body->getW() / 2, center_y = _body->getBody()->GetPosition().y + _body->getH() / 2;
 		Vector2D direction = Vector2D((_contactPoint.x - center_x), (center_y - _contactPoint.y));
-		ParticleManager::GetParticleManager()->CreateSpray(_hurtParticle, Vector2D(center_x*M_TO_PIXEL, center_y*M_TO_PIXEL), direction, 10, 20, 30, 1000, 5, 2);
+		ParticleManager::GetParticleManager()->CreateSpray(_hurtParticle, Vector2D(_contactPoint.x*M_TO_PIXEL, _contactPoint.y*M_TO_PIXEL), direction, 4, 10, 30, 700, 5, 2);
 	}
 }
 
@@ -115,7 +115,7 @@ void Enemy::subLife(int damage)
 		else
 		{
 			_anim->hurt();
-			//_spawnParticles = true;
+			_spawnParticles = true;
 		}
 	}
 }

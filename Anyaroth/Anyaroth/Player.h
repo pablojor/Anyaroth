@@ -46,7 +46,8 @@ private:
 		_prevAxisX = 0,
 		_prevAxisY = 0;
 
-	float _timeToJump = 100.f;
+	float _timeToJump = 100.f,
+		_runningSpawnParticle = 40.0f;
 
 	bool _hasToReload = false,
 		_isShooting = false,

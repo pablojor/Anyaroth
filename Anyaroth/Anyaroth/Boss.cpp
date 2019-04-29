@@ -67,7 +67,7 @@ void Boss::subLife(int damage)
 			else
 				_bossPanel->updateLifeBar(_life1.getLife(), _life2.getLife(), _life3.getLife(), _life.getLife());
 		}
-		//_spawnParticles = true;
+		_spawnParticles = true;
 		_anim->hurt();
 	}
 }

@@ -214,7 +214,7 @@ void Player::subLife(int damage)
 			{
 				_anim->hurt();
 				_playerArm->hurt();
-				//_spawnParticles = true;
+				_spawnParticles = true;
         
 				int rand = _game->random(0, 100);
 				if (rand > 80)
@@ -383,7 +383,7 @@ void Player::update(const double& deltaTime)
 		double center_x = _body->getBody()->GetPosition().x + _body->getW() / 2, center_y = _body->getBody()->GetPosition().y + _body->getH() / 2;
 
 		Vector2D direction = Vector2D((_contactPoint.x - center_x), (center_y - _contactPoint.y));
-		ParticleManager::GetParticleManager()->CreateSpray(_game->getTexture("Blood"), Vector2D(center_x*M_TO_PIXEL, center_y*M_TO_PIXEL), direction, 10, 20, 30, 1000, 15, 2);
+		ParticleManager::GetParticleManager()->CreateSpray(_game->getTexture("Blood"), Vector2D(_contactPoint.x*M_TO_PIXEL, _contactPoint.y*M_TO_PIXEL), direction, 4, 10, 30, 700, 5, 2);
 	}
 
 	checkMelee();
@@ -580,6 +580,7 @@ void Player::refreshCooldowns(const double& deltaTime)
 
 	if (!isGrounded() && _timeToJump > 0)
 		_timeToJump -= deltaTime;
+	_runningSpawnParticle -= deltaTime;
 }
 
 void Player::refreshDashCoolDown(const double& deltaTime)
@@ -655,9 +656,10 @@ void Player::move(const Vector2D& dir, const double& speed)
 	else
 		_body->getBody()->SetLinearVelocity(b2Vec2(dir.getX() * speed, _body->getBody()->GetLinearVelocity().y));
 
-	if (_floorCount > 0 && dir.getX()!=0)
+	if (_floorCount > 0 && dir.getX()!=0 && _runningSpawnParticle<=0)
 	{
-		ParticleManager::GetParticleManager()->CreateFountain(_game->getTexture("Dust"), Vector2D((_body->getBody()->GetPosition().x)*M_TO_PIXEL, (_body->getBody()->GetPosition().y+_body->getH())*M_TO_PIXEL),Vector2D(-dir.getX(),1),0,speed,15,300,10, 100,3);
+		_runningSpawnParticle = 40;
+		ParticleManager::GetParticleManager()->CreateFountain(_game->getTexture("Smoke"), Vector2D((_body->getBody()->GetPosition().x+_body->getW() *-dir.getX())*M_TO_PIXEL, (_body->getBody()->GetPosition().y+_body->getH()*1.2)*M_TO_PIXEL),Vector2D(-dir.getX(),1),0,10/*spped*/,15,100,10, 100,3);
 	}
 }
 
