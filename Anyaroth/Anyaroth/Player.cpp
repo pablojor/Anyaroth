@@ -781,17 +781,22 @@ void Player::shoot()
 		if (!_currentGun->isAutomatic())
 			_isShooting = false;
 	}
+	else if (_currentGun->hasBullets())
+	{
+		_playerArm->shoot();
+		_game->getSoundManager()->playSFX("emptyGun");
+		_isShooting = false;
+	}
 	else if (!_currentGun->canShoot() && !_currentGun->isAutomatic())
 	{
 		_playerArm->shoot();
 		_isShooting = false;
 	}
 
-	if (_currentGun->hasToBeReloaded())
-	{
+
+	if (_currentGun->hasToBeReloaded())	
 		_hasToReload = true;
-		_isShooting = false;
-	}
+	
 }
 
 bool Player::canReload()

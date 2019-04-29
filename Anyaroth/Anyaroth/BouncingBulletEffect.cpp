@@ -23,7 +23,7 @@ void BouncingBulletEffect::beginCollision(Bullet* bullet, GameObject * other, b2
 	if (!bullet->isColliding())
 	{
 		bullet->setIsColliding(true);
-		if (bullet->getNumBounces() >= _maxBounces)
+		if (bullet->getNumBounces() >= _maxBounces || other->getTag() == "Player")
 			BulletEffect::beginCollision(bullet, other, contact);
 
 		bullet->setNumBounces(bullet->getNumBounces() + 1);
