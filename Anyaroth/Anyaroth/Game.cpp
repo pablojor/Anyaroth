@@ -272,6 +272,7 @@ void Game::run()
 		startTime = current;
 		lag += elapsed;
 
+		start();
 		handleEvents();
 
 		while (lag >= FRAME_RATE)
@@ -281,6 +282,15 @@ void Game::run()
 			lag -= FRAME_RATE;
 		}
 		render();
+	}
+}
+
+void Game::start()
+{
+	if (_stateMachine->hasToInit())
+	{
+		_stateMachine->currentState()->start();
+		_stateMachine->setInitialited();
 	}
 }
 

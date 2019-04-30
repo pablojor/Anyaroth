@@ -64,7 +64,6 @@ private:
 	SDL_GameController* _joystick = nullptr;
 	bool _joystickAttached;
 
-
 	b2World* _world = nullptr;
 	float _timestep = FRAME_RATE / 1000.0f;
 	bool _exit = false;
@@ -105,6 +104,7 @@ public:
 	Game();
 	~Game();
 	void run();
+	void start();
 	void update(const double& deltaTime);
 	void render() const;
 	void handleEvents();

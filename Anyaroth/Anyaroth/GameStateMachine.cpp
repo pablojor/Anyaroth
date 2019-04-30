@@ -14,6 +14,7 @@ GameState* GameStateMachine::currentState()
 
 void GameStateMachine::pushState(GameState* newState)
 {
+	_hasToInit = true;
 	_states.push(newState);
 }
 

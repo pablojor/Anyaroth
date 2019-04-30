@@ -20,7 +20,7 @@ private:
 
 protected:
 	Game* _gameptr = nullptr;
-	b2World * _world = nullptr;
+	b2World* _world = nullptr;
 
 	list<GameObject*> _stages;
 
@@ -35,6 +35,7 @@ public:
 	GameState(Game* g);
 	virtual ~GameState();
 
+	virtual void start() = 0;
 	virtual void render() const;
 	virtual void update(const double& deltaTime);
 	virtual void post_update();

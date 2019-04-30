@@ -6,4 +6,6 @@ class PauseState : public GameState
 public:
 	PauseState(Game* g);
 	~PauseState() {}
+
+	virtual void start() {}
 };
