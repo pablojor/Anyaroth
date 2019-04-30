@@ -17,6 +17,12 @@ class DepotPanel : public PanelUI
 		ImageUI* _depotFrame = nullptr;
 		ImageUI* _equipmentFrame = nullptr;
 
+		FramedImageUI* _depotFrameName = nullptr;
+		FramedImageUI* _equipmentFrameName = nullptr;
+
+		TextUI* _depotName;
+		TextUI* _equipName;
+
 		ButtonUI* _exitButton = nullptr;
 		ButtonUI* _changeButton = nullptr;
 

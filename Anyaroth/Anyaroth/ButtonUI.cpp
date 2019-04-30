@@ -2,7 +2,7 @@
 #include "Game.h"
 
 
-ButtonUI::ButtonUI(Game* game, Texture* image, const Callback& callback, Frames frames, int arrayPos) : FramedImageUI(game, image), _arrayPos(arrayPos)
+ButtonUI::ButtonUI(Game* game, Texture* image, const Callback& callback, Frames frames) : FramedImageUI(game, image)
 {
 	setFrames(frames);
 	_frame = _onOutFrame;
@@ -27,7 +27,7 @@ bool ButtonUI::handleEvent(const SDL_Event& event)
 	bool handle = false;
 	if (_visible && _inputEnable)
 	{
-		if (mouseIsOver() || _selected)
+		if ((!_game->usingJoystick() && mouseIsOver()) || (_game->usingJoystick() && _selected))
 		{
 			SDL_Cursor* cursor;
 			cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_HAND);
@@ -44,9 +44,18 @@ bool ButtonUI::handleEvent(const SDL_Event& event)
 					handle = true;
 				}
 			}
-			else if ((event.type == SDL_MOUSEBUTTONUP && _pressState == Down) || event.type == SDL_CONTROLLERBUTTONUP)
+			else if (event.type == SDL_MOUSEBUTTONUP && _pressState == Down)
 			{
-				if (event.button.button == SDL_BUTTON_LEFT || event.cbutton.button == SDL_CONTROLLER_BUTTON_A)
+				if (event.button.button == SDL_BUTTON_LEFT)
+				{
+					_pressState = Up;
+					if (_onUpCallback != nullptr) _onUpCallback(_game);
+					handle = true;
+				}
+			}
+			else if (event.type == SDL_CONTROLLERBUTTONUP && _pressState == Down)
+			{
+				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_A)
 				{
 					_pressState = Up;
 					if (_onUpCallback != nullptr) _onUpCallback(_game);
@@ -55,38 +64,35 @@ bool ButtonUI::handleEvent(const SDL_Event& event)
 			}
 			else if (event.type == SDL_CONTROLLERBUTTONDOWN)
 			{
-				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_LEFT && getNextLeft() != nullptr)
+				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_A)
+				{
+					_game->getSoundManager()->playSFX("boton");
+					_pressState = Down;
+					if (_onDownCallback != nullptr) _onDownCallback(_game);
+					handle = true;
+				}
+				else if (event.cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_LEFT && getNextLeft() != nullptr)
 				{
 					setSelected(false);
-
 					getNextLeft()->setSelected(true);
 					handle = true;
 				}
 				else if (event.cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_UP && getNextUp() != nullptr)
 				{
 					setSelected(false);
-
 					getNextUp()->setSelected(true);
 					handle = true;
 				}
 				else if (event.cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_RIGHT && getNextRight() != nullptr)
 				{
 					setSelected(false);
-
 					getNextRight()->setSelected(true);
 					handle = true;
 				}
 				else if (event.cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_DOWN && getNextDown() != nullptr)
 				{
 					setSelected(false);
-
 					getNextDown()->setSelected(true);
-					handle = true;
-				}
-				else if (event.cbutton.button == SDL_CONTROLLER_BUTTON_A)
-				{
-					_pressState = Down;
-					if (_onDownCallback != nullptr) _onDownCallback(_game);
 					handle = true;
 				}
 			}
@@ -154,6 +160,16 @@ void ButtonUI::setVisible(bool a)
 	_pressState = None;
 
 	FramedImageUI::setVisible(a);
+}
+
+void ButtonUI::setSelected(bool selected)
+{
+	if (selected)
+		_positionState = Over;
+	else
+		_positionState = Out;
+
+	_selected = selected;
 }
 
 void ButtonUI::setInputEnable(bool b)
