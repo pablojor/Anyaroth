@@ -186,9 +186,19 @@ void Game::initialiseJoysticks()
 			_joystick = SDL_GameControllerOpen(i);
 		}
 	}
-	_joystickAttached = _joystick != nullptr;
+	_joystickAttached = _usingJoystick = _joystick != nullptr;
 }
 
+
+void Game::setSensitivity(double sensitiviy)
+{
+	if (sensitiviy > 10)
+		_controllerSensitivity = 10;
+	else if (sensitiviy < 1)
+		_controllerSensitivity = 1;
+	else
+		_controllerSensitivity = sensitiviy;
+}
 
 void Game::toggleFullscreen()
 {
@@ -312,9 +322,27 @@ void Game::handleEvents()
 			if (event.key.keysym.sym == SDLK_F11)
 				toggleFullscreen();
 		}
-		else if(event.type == SDL_CONTROLLERDEVICEADDED)
+		else if (event.type == SDL_CONTROLLERDEVICEADDED)
+		{
 			if (!isJoystick())
 				initialiseJoysticks();
+		}
+		else if (event.type == SDL_CONTROLLERDEVICEREMOVED)
+		{
+			_joystickAttached = false;
+			_usingJoystick = false;
+			_joystick = nullptr;
+		}
+			
+		else if (!_usingJoystick)
+		{
+			if (event.type == SDL_CONTROLLERAXISMOTION && abs(event.caxis.value) > JOYSTICK_DEADZONE) 
+				changeControlMode();
+			else if (event.type == SDL_CONTROLLERBUTTONDOWN)
+				changeControlMode();
+		}
+		else if (_usingJoystick && (event.type == SDL_MOUSEBUTTONDOWN || event.type == SDL_KEYDOWN))
+			changeControlMode();
 
 		_stateMachine->currentState()->handleEvent(event);
 	}

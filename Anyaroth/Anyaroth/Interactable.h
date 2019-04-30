@@ -12,7 +12,7 @@ protected:
 	TransformComponent* _transform = nullptr;
 	AnimatedSpriteComponent* _anim = nullptr;
 	BodyComponent* _body = nullptr;
-	Player* _other = nullptr;
+	GameObject* _other = nullptr;
 
 	bool _canInteract = false;
 	GameObject* _interactIndicator = nullptr;
