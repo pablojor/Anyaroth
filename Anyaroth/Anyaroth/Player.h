@@ -44,7 +44,8 @@ private:
 		_jPosX,
 		_jPosY,
 		_prevAxisX = 0,
-		_prevAxisY = 0;
+		_prevAxisY = 0,
+		_jAngle = 0;
 
 	float _timeToJump = 100.f;
 

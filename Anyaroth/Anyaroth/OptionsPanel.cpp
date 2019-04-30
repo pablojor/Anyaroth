@@ -8,34 +8,34 @@ OptionsPanel::OptionsPanel(Game* g, bool mainMenu) : _menu(mainMenu), PanelUI(g)
 
 	//Cambiar valores
 		//Volumen
-	_moreVolume = new ButtonUI(g, g->getTexture("MenuPlusButton"), [this](Game* game) { moreVolume(game); }, { 0, 1, 2, 2, 2 }, 1);
+	_moreVolume = new ButtonUI(g, g->getTexture("MenuPlusButton"), [this](Game* game) { moreVolume(game); }, { 0, 1, 2, 2, 2 });
 	buttonW = _moreVolume->getW();
 	buttonH = _moreVolume->getH();
 	_moreVolume->setPosition(CAMERA_RESOLUTION_X / 2 + buttonW, CAMERA_RESOLUTION_Y - 212);
 
-	_lessVolume = new ButtonUI(g, g->getTexture("MenuLessButton"), [this](Game* game) { lessVolume(game); }, { 0, 1, 2, 2, 2 }, 0);
+	_lessVolume = new ButtonUI(g, g->getTexture("MenuLessButton"), [this](Game* game) { lessVolume(game); }, { 0, 1, 2, 2, 2 });
 	_lessVolume->setPosition(CAMERA_RESOLUTION_X / 2 - buttonW * 2, CAMERA_RESOLUTION_Y - 212);
 		
 		//Efectos
-	_moreSFXVolume = new ButtonUI(g, g->getTexture("MenuPlusButton"), [this](Game* game) { moreSFXVolume(game); }, { 0, 1, 2, 2, 2 }, 3);
+	_moreSFXVolume = new ButtonUI(g, g->getTexture("MenuPlusButton"), [this](Game* game) { moreSFXVolume(game); }, { 0, 1, 2, 2, 2 });
 	_moreSFXVolume->setPosition(_moreVolume->getX(), CAMERA_RESOLUTION_Y - 137);
 
-	_lessSFXVolume = new ButtonUI(g, g->getTexture("MenuLessButton"), [this](Game* game) { lessSFXVolume(game); }, { 0, 1, 2, 2, 2 }, 2);
+	_lessSFXVolume = new ButtonUI(g, g->getTexture("MenuLessButton"), [this](Game* game) { lessSFXVolume(game); }, { 0, 1, 2, 2, 2 });
 	_lessSFXVolume->setPosition(_lessVolume->getX(), CAMERA_RESOLUTION_Y - 137);
 	
 		//Brillo
-	_moreBright = new ButtonUI(g, g->getTexture("MenuPlusButton"), [this](Game* game) { moreBright(game); }, { 0, 1, 2, 2, 2 }, 5);
+	_moreBright = new ButtonUI(g, g->getTexture("MenuPlusButton"), [this](Game* game) { moreBright(game); }, { 0, 1, 2, 2, 2 });
 	_moreBright->setPosition(CAMERA_RESOLUTION_X / 2 + buttonW / 4, CAMERA_RESOLUTION_Y - 61);
 
-	_lessBright = new ButtonUI(g, g->getTexture("MenuLessButton"), [this](Game* game) { lessBright(game); }, { 0, 1, 2, 2, 2 }, 4);
+	_lessBright = new ButtonUI(g, g->getTexture("MenuLessButton"), [this](Game* game) { lessBright(game); }, { 0, 1, 2, 2, 2 });
 	_lessBright->setPosition(CAMERA_RESOLUTION_X / 2 - buttonW / 4 - buttonW, CAMERA_RESOLUTION_Y - 61);
 
 	//Volver menu
-	_backButton = new ButtonUI(g, g->getTexture("MenuReturnButton"), [this](Game* game) { back(game); }, { 0, 1, 2, 2, 2 }, 7);
+	_backButton = new ButtonUI(g, g->getTexture("MenuReturnButton"), [this](Game* game) { back(game); }, { 0, 1, 2, 2, 2 });
 	_backButton->setPosition(CAMERA_RESOLUTION_X / 2 + 150 - _backButton->getW(), CAMERA_RESOLUTION_Y - 34);
 
 	//Pantalla completa
-	_screenButton = new ButtonUI(g, g->getTexture("MenuFullScreenButton"), [this](Game* game) { fullScreen(game); }, { 0, 1, 2, 2, 2 }, 6);
+	_screenButton = new ButtonUI(g, g->getTexture("MenuFullScreenButton"), [this](Game* game) { fullScreen(game); }, { 0, 1, 2, 2, 2 });
 	_screenButton->setPosition(CAMERA_RESOLUTION_X / 2 - 150, _backButton->getY());
 
 	bool IsFullscreen = SDL_GetWindowFlags(g->getWindow()) & SDL_WINDOW_FULLSCREEN_DESKTOP;
@@ -51,7 +51,6 @@ OptionsPanel::OptionsPanel(Game* g, bool mainMenu) : _menu(mainMenu), PanelUI(g)
 	_screenButton->setNextButtons({ _backButton, _lessBright, _backButton, _lessVolume });
 	_backButton->setNextButtons({ _screenButton, _moreBright, _screenButton, _moreVolume });
 
-	_selectedButton = _lessVolume;
 	//----TEXTOS----//
 
 	//Valores
@@ -99,8 +98,13 @@ OptionsPanel::OptionsPanel(Game* g, bool mainMenu) : _menu(mainMenu), PanelUI(g)
 
 	_visible = false;
 
+	_selectedButton = _lessVolume;
 	if (_game->usingJoystick())
+	{
 		_selectedButton->setSelected(true);
+		SDL_ShowCursor(false);
+		SDL_WarpMouseGlobal(0, 0);
+	}
 }
 
 

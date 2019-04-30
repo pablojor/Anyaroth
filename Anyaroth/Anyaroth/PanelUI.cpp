@@ -52,21 +52,22 @@ bool PanelUI::handleEvent(const SDL_Event & event)
 	bool handled = false;
 	if (_visible)
 	{
-		if (event.type == SDL_MOUSEMOTION && _selectedButton!= nullptr && _selectedButton->isSelected())
+		if (_game->usingJoystick() && _selectedButton != nullptr)
 		{
-			_selectedButton->setSelected(false);
-			SDL_ShowCursor(true);
-		}
-		else if (event.type == SDL_CONTROLLERBUTTONDOWN)
-		{
-			if (_selectedButton != nullptr)
+			if (event.type == SDL_MOUSEMOTION)
+			{
+				_selectedButton->setSelected(false);
+				SDL_ShowCursor(true);
+				_game->changeControlMode();
+			}
+			else if (event.type == SDL_CONTROLLERBUTTONDOWN)
 			{
 				if (!_selectedButton->isSelected())
 				{
 					SDL_WarpMouseGlobal(0, 0);
 					_selectedButton->setSelected(true);
+					SDL_ShowCursor(false);
 				}
-				SDL_ShowCursor(false);
 
 				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_LEFT && _selectedButton->getNextLeft() != nullptr)
 					_selectedButton = _selectedButton->getNextLeft();

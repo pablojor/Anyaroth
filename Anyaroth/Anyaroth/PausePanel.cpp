@@ -10,10 +10,10 @@ PausePanel::PausePanel(Game* g) : PanelUI(g)
 		buttonW = _playButton->getW();
 	_playButton->setPosition(CAMERA_RESOLUTION_X / 2 - buttonW / 2, CAMERA_RESOLUTION_Y / 3 - buttonH + 50);
 
-	_optionsButton = new ButtonUI(g, g->getTexture("MenuButtons"), [this](Game* game) { options(game); }, { 0, 1, 2, 2, 2 }, 1);
+	_optionsButton = new ButtonUI(g, g->getTexture("MenuButtons"), [this](Game* game) { options(game); }, { 0, 1, 2, 2, 2 });
 	_optionsButton->setPosition(CAMERA_RESOLUTION_X / 2 - buttonW / 2, CAMERA_RESOLUTION_Y / 3 + buttonH + 50);
 
-	_menuButton = new ButtonUI(g, g->getTexture("MenuButtons"), [this](Game* game) { returnMenu(game); }, { 0, 1, 2, 2, 2 }, 2);
+	_menuButton = new ButtonUI(g, g->getTexture("MenuButtons"), [this](Game* game) { returnMenu(game); }, { 0, 1, 2, 2, 2 });
 	_menuButton->setPosition(CAMERA_RESOLUTION_X / 2 - buttonW / 2, CAMERA_RESOLUTION_Y / 3 + buttonH + 100);
 
 	//----TEXTOS----//
@@ -34,8 +34,6 @@ PausePanel::PausePanel(Game* g) : PanelUI(g)
 	_optionsButton->setNextButtons({ _playButton, _playButton, _menuButton, _menuButton });
 	_menuButton->setNextButtons({ _optionsButton, _optionsButton, _playButton, _playButton });
 
-	_selectedButton = _playButton;
-
 	addChild(_playButton);
 	addChild(_optionsButton);
 	addChild(_menuButton);
@@ -43,8 +41,14 @@ PausePanel::PausePanel(Game* g) : PanelUI(g)
 	addChild(_optionsText);
 	addChild(_menuText);
 
+	_selectedButton = _playButton;
+
 	if (_game->usingJoystick())
+	{
 		_selectedButton->setSelected(true);
+		SDL_ShowCursor(false);
+		SDL_WarpMouseGlobal(0, 0);
+	}
 }
 
 PausePanel::~PausePanel()

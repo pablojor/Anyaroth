@@ -12,15 +12,15 @@ MainMenuPanel::MainMenuPanel(Game* g) : PanelUI(g)
 	_playButton->setPosition(CAMERA_RESOLUTION_X / 2 - 4/3*buttonW, CAMERA_RESOLUTION_Y - 93);
 	_playButton->setSize(buttonW, buttonH);
 
-	_loadButton = new ButtonUI(g, g->getTexture("MenuButtons"), [this](Game * game) { loadGame(game); }, { 0, 1, 2, 2, 2 }, 1);
+	_loadButton = new ButtonUI(g, g->getTexture("MenuButtons"), [this](Game * game) { loadGame(game); }, { 0, 1, 2, 2, 2 });
 	_loadButton->setPosition(CAMERA_RESOLUTION_X / 2 + buttonW/3, _playButton->getY());
 	_loadButton->setSize(buttonW, buttonH);
 
-	_optionsButton = new ButtonUI(g, g->getTexture("MenuButtons"), [this](Game* game) { options(game); }, { 0, 1, 2, 2, 2 }, 2);
+	_optionsButton = new ButtonUI(g, g->getTexture("MenuButtons"), [this](Game* game) { options(game); }, { 0, 1, 2, 2, 2 });
 	_optionsButton->setPosition(_playButton->getX() , _playButton->getY() + buttonH + 10);
 	_optionsButton->setSize(buttonW, buttonH);
 
-	_exitButton = new ButtonUI(g, g->getTexture("MenuButtons"), [this](Game* game) { exitGame(game); }, { 0, 1, 2, 2, 2 }, 3);
+	_exitButton = new ButtonUI(g, g->getTexture("MenuButtons"), [this](Game* game) { exitGame(game); }, { 0, 1, 2, 2, 2 });
 	_exitButton->setPosition(_loadButton->getX() , _optionsButton->getY());
 	_exitButton->setSize(buttonW, buttonH);
 
@@ -58,8 +58,13 @@ MainMenuPanel::MainMenuPanel(Game* g) : PanelUI(g)
 	addChild(_exitText);
 
 	_selectedButton = _playButton;
+
 	if (_game->usingJoystick())
+	{
 		_selectedButton->setSelected(true);
+		SDL_ShowCursor(false);
+		SDL_WarpMouseGlobal(0, 0);
+	}
 }
 
 

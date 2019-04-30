@@ -124,7 +124,7 @@ void CatalogPanel::closeCatalog()
 
 	if (_selectedItem != nullptr)
 	{
-		_selectedItem->select(false);
+		_selectedItem->setChosen(false);
 		_selectedItem = nullptr;
 	}
 
@@ -200,7 +200,7 @@ void CatalogPanel::reorderCatalog()
 void CatalogPanel::selectItem(Game * game, ShopItem* item)
 {
 	if (_selectedItem != nullptr)
-		_selectedItem->select(false);
+		_selectedItem->setChosen(false);
 
 	if (_game->usingJoystick())
 	{
@@ -209,6 +209,7 @@ void CatalogPanel::selectItem(Game * game, ShopItem* item)
 		_selectedButton->setSelected(true);
 	}
 	_selectedItem = item;
+	_selectedItem->setChosen(true);
 
 	showSelectedItemInfo();
 }
@@ -276,7 +277,7 @@ void CatalogPanel::buyItem(Game * game)
 
 		if(!_game->usingJoystick())
 		{
-			_selectedItem->select(false);
+			_selectedItem->setChosen(false);
 			_selectedItem = nullptr;
 		}
 

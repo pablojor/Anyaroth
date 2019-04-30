@@ -326,8 +326,20 @@ void Game::handleEvents()
 			if (!isJoystick())
 				initialiseJoysticks();
 		}
-		else if (!_usingJoystick && (event.type == SDL_CONTROLLERAXISMOTION || event.type == SDL_CONTROLLERBUTTONDOWN))
-			changeControlMode();
+		else if (event.type == SDL_CONTROLLERDEVICEREMOVED)
+		{
+			_joystickAttached = false;
+			_usingJoystick = false;
+			_joystick = nullptr;
+		}
+			
+		else if (!_usingJoystick)
+		{
+			if (event.type == SDL_CONTROLLERAXISMOTION && abs(event.caxis.value) > JOYSTICK_DEADZONE) 
+				changeControlMode();
+			else if (event.type == SDL_CONTROLLERBUTTONDOWN)
+				changeControlMode();
+		}
 		else if (_usingJoystick && (event.type == SDL_MOUSEBUTTONDOWN || event.type == SDL_KEYDOWN))
 			changeControlMode();
 

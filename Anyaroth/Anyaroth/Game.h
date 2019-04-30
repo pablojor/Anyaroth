@@ -70,7 +70,7 @@ private:
 	bool _exit = false;
 
 	//valor entre 1 y 10
-	double _controllerSensitivity = 5;
+	double _controllerSensitivity = 10;
 
 public:
 	//Metodos

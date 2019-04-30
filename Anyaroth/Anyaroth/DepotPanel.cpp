@@ -141,7 +141,11 @@ void DepotPanel::openDepotPanel()
 	setVisible(true);
 
 	if (_game->usingJoystick())
+	{
 		_selectedButton->setSelected(true);
+		SDL_ShowCursor(false);
+		SDL_WarpMouseGlobal(0, 0);
+	}
 }
 
 void DepotPanel::closeDepotPanel()
@@ -150,7 +154,7 @@ void DepotPanel::closeDepotPanel()
 
 	if (_selectedItem != nullptr)
 	{
-		_selectedItem->select(false);
+		_selectedItem->setSelected(false);
 		_selectedItem = nullptr;
 	}
 
@@ -249,33 +253,30 @@ void DepotPanel::changeEquipedGuns(Game* game)
 
 void DepotPanel::selectItem(Game * game, ShopItem* item)
 {
-	if (_selectedItem != nullptr) 
-	{
-		_selectedItem->select(false);
-
-		if (_selectedItem != item)
-		{
-			_selectedItem = item;
-			_selectedItem->select(true);
-			if (_game->usingJoystick())
-			{
-				_selectedItem->setSelected(false);
-				_selectedButton = _firstWeaponFrame;
-				_selectedButton->setSelected(true);
-			}
-		}
-		else
-			_selectedItem = nullptr;
-	}
-	else if (item != _firstWeaponFrame && item != _secondWeaponFrame)
+	if (_game->usingJoystick())
 	{
 		_selectedItem = item;
-		_selectedItem->select(true);
-		if (_game->usingJoystick())
+		_selectedItem->setSelected(false);
+		_selectedButton = _firstWeaponFrame;
+		_selectedButton->setSelected(true);
+	}
+	else {
+		if (_selectedItem != nullptr)
 		{
 			_selectedItem->setSelected(false);
-			_selectedButton = _firstWeaponFrame;
-			_selectedButton->setSelected(true);
+
+			if (_selectedItem != item)
+			{
+				_selectedItem = item;
+				_selectedItem->setSelected(true);
+			}
+			else
+				_selectedItem = nullptr;
+		}
+		else if (item != _firstWeaponFrame && item != _secondWeaponFrame)
+		{
+			_selectedItem = item;
+			_selectedItem->setSelected(true);
 		}
 	}
 }
@@ -287,7 +288,7 @@ void DepotPanel::setDistanceWeapon(Game* game, ShopItem* item)
 		swapDistanceItems(item);
 		reorderDepot();
 
-		_selectedItem->select(false);
+		_selectedItem->setSelected(false);
 		_selectedItem = nullptr;
 	}
 }
@@ -299,7 +300,7 @@ void DepotPanel::setMeleeWeapon(Game* game, ShopItem* item)
 		swapMeleeItems(item);
 		reorderDepot();
 
-		_selectedItem->select(false);
+		_selectedItem->setSelected(false);
 		_selectedItem = nullptr;
 	}
 }
