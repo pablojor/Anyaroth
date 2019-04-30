@@ -5,7 +5,6 @@
 
 Melee::Melee(Game * g, Vector2D offset, Uint16 collidesWith, double damage, double w, double h, MeleeType id) : GameObject(g, "Melee") , _offset(offset), _collidesWith(collidesWith), _damage(damage), _w(w), _h(h), _id(id) {}
 
-
 void Melee::meleeAttack(double x, double y, int dir)
 {
 	_dir = dir;
@@ -25,6 +24,8 @@ void Melee::meleeAttack(double x, double y, int dir)
 	_body->setW(_w);
 	_body->setH(_h);
 	_body->getBody()->GetFixtureList()->SetSensor(true);
+	_body->filterCollisions(MELEE, _collidesWith);
+
 	_body->filterCollisions(MELEE, _collidesWith);
 
 	_center = Vector2D(x, y);

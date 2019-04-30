@@ -3,25 +3,15 @@
 
 PauseState::PauseState(Game* g) : GameState(g)
 {
+	g->getSoundManager()->pauseMusic();
+
 	//Show cursor
 	SDL_ShowCursor(true);
 
-	int buttonH = g->getTexture("Continue")->getH()*BUTTON_SCALE;
-	int buttonW = g->getTexture("Continue")->getW()*BUTTON_SCALE;
+	//HUD
+	_pauseHud = new PauseStateHUD(g);
+	setCanvas(_pauseHud);
 
-	_stages.push_back(new MenuButton(Vector2D(CAMERA_RESOLUTION_X / 2 - buttonW / 2, CAMERA_RESOLUTION_Y / 2 - buttonH), g->getTexture("Continue"), g, Continue));
-	_stages.push_back(new MenuButton(Vector2D(CAMERA_RESOLUTION_X / 2 - buttonW / 2, CAMERA_RESOLUTION_Y / 2 + buttonH), g->getTexture("Menu"), g, MainMenu));
-}
-
-void PauseState::Continue(Game * g)
-{
-	g->setTimestep(1 / 60.0);
-	g->popState();
-}
-
-void PauseState::MainMenu(Game * g)
-{
-	g->setTimestep(1 / 60.0);
-	g->popState();
-	g->changeState(new MenuState(g));
+	//Fondo
+	_mainCamera->setBackGround(new BackGround(g->getTexture("BgPauseMenu"), _mainCamera));
 }

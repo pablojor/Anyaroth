@@ -29,16 +29,17 @@ protected:
 	bool _animationFinished = false;
 
 public:
-	enum Player { Idle, Walk, WalkBack, MeleeKnife, ReloadPistol, BeforeJump, Jump, StartFalling, Falling, Hurt, Dash, DashDown, DashBack, ReloadShotgun, PlayerDie };
-	enum Gun { None, Shoot, NoAmmo };
+	enum Player { Idle, Walk, WalkBack, MeleeKnife, MeleeSword, BeforeJump, Jump, StartFalling, Falling, Hurt, Dash, DashDown, DashBack, MeleeHalberd, PlayerDie };
 	enum Enemy { EnemyIdle, EnemyWalk, EnemyAttack, EnemyDie };
-	enum Coin { Main };
+	enum Gun { None, Shoot, NoAmmo, Reload };
 	enum Bullet { Default, Destroy };
+	enum MissileTurret { Deactivated, Activating, Active, Used };
+	enum SingleAnim { Main };
+	enum DoorAnim { Closed, Opened };
 	enum Spenta {
 		SpentaIdle, SpentaSwordLeft, SpentaSwordRight, SpentaStartShield, SpentaLoopShield, SpentaEndShield,
 		SpentaDie, SpentaStartBomb, SpentaLoopBomb, SpentaEndBomb, SpentaOrb, SpentaWing
 	};
-	enum MissileTurret { Deactivated, Activating, Active, Used };
 
 	AnimatedSpriteComponent(GameObject* obj) : SpriteComponent(obj), PhysicsComponent(obj), RenderComponent(obj), Component(), _obj(obj) {}
 	virtual ~AnimatedSpriteComponent() {}

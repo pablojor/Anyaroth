@@ -10,8 +10,8 @@ ShopInfoPanel::ShopInfoPanel(Game* game, int xPos, int yPos) : PanelUI(game)
 
 	//Animaciones
 	_frame->addAnim(AnimatedImageUI::Default, 1, false);
-	_frame->addAnim(AnimatedImageUI::Start, 7, false);
-	_frame->addAnim(AnimatedImageUI::End, 7, false);
+	_frame->addAnim(AnimatedImageUI::Start, 6, false);
+	_frame->addAnim(AnimatedImageUI::End, 6, false);
 
 	_frame->playAnim(AnimatedImageUI::Default);
 
@@ -25,9 +25,12 @@ ShopInfoPanel::ShopInfoPanel(Game* game, int xPos, int yPos) : PanelUI(game)
 	addChild(_nameText);
 
 		// Propiedades
+	int size = 12, offsetY = 5;
+
 	//--Damage
-	_damageIcon = new ImageUI(game, game->getTexture("CadenceIcon"));
+	_damageIcon = new ImageUI(game, game->getTexture("PowerIcon"));
 	_damageIcon->setPosition(_frame->getX() + 7, _frame->getY() + 30);
+	_damageIcon->setSize(size, size);
 
 	_damageBar = new ImageUI(game, game->getTexture("PropertiesBar"));
 	_damageBar->setPosition(_damageIcon->getX() + _damageIcon->getW() + 5, 
@@ -36,16 +39,18 @@ ShopInfoPanel::ShopInfoPanel(Game* game, int xPos, int yPos) : PanelUI(game)
 	//--Cadence
 	_cadenceIcon = new ImageUI(game, game->getTexture("CadenceIcon"));
 	_cadenceIcon->setPosition(_damageIcon->getX(),
-								_damageIcon->getY() + _damageIcon->getH());
+								_damageIcon->getY() + _damageIcon->getH() + offsetY);
+	_cadenceIcon->setSize(size, size);
 
 	_cadenceBar = new ImageUI(game, game->getTexture("PropertiesBar"));
 	_cadenceBar->setPosition(_damageBar->getX(),
 								_cadenceIcon->getY() + _cadenceIcon->getH() / 2 - _cadenceBar->getH() / 2);
 
-	//--Distance
-	_clipIcon = new ImageUI(game, game->getTexture("CadenceIcon"));
+	//--Clip
+	_clipIcon = new ImageUI(game, game->getTexture("ClipIcon"));
 	_clipIcon->setPosition(_cadenceIcon->getX(),
-								_cadenceIcon->getY() + _cadenceIcon->getH());
+								_cadenceIcon->getY() + _cadenceIcon->getH() + offsetY);
+	_clipIcon->setSize(size, size);
 
 	_clipBar = new ImageUI(game, game->getTexture("PropertiesBar"));
 	_clipBar->setPosition(_cadenceBar->getX(),

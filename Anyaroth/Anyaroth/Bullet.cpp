@@ -5,8 +5,7 @@
 
 Bullet::Bullet(Game* game) : GameObject(game)
 {
-	_texture = game->getTexture("PistolBullet");
-	addComponent<Texture>(_texture);
+	addComponent<Texture>(game->getTexture("PistolBullet"));
 
 	_transform = addComponent<TransformComponent>();
 	_transform->setAnchor(0.5);
@@ -32,6 +31,9 @@ void Bullet::beginCollision(GameObject * other, b2Contact* contact)
 {
 	if (isActive() && _effect != nullptr)
 		_effect->beginCollision(this, other, contact);
+
+	if (other->getTag() == "Ground" || other->getTag() == "Platform" || other->getTag() == "Door")
+		_game->getSoundManager()->playSFX("bulletGround",1);
 }
 
 void Bullet::endCollision(GameObject * other, b2Contact* contact)
@@ -43,22 +45,23 @@ void Bullet::endCollision(GameObject * other, b2Contact* contact)
 void Bullet::init(Texture* texture, const Vector2D& position, const double& speed, const double& damage, const double& angle, const double& range, const string& tag, EffectInterface* effect, BulletAnimType type)
 {
 	setTag(tag);
+
 	_iniPos = position;
 	_transform->setPosition(position);
 	_speed = speed;
 	_damage = damage;
 	_range = range;
 
-
 	_texture = texture;
 	_transform->setRotation(angle);
 
 	_body->getBody()->SetActive(true);
+	_body->setW(((_texture->getW() / _texture->getNumCols()) / 2));
+	_body->setH(((_texture->getH() / _texture->getNumFils()) / 2));
 	_body->getBody()->SetTransform({ (float32)(position.getX() / M_TO_PIXEL), (float32)(position.getY() / M_TO_PIXEL) }, _body->getBody()->GetAngle());
 	_body->getBody()->SetLinearVelocity(b2Vec2(0, 0));
 
-
-
+	_body->filterCollisions(PLAYER_BULLETS, FLOOR | PLATFORMS | ENEMIES);
 
 	_effect = effect;
 	_effect->init(this);
@@ -71,41 +74,11 @@ void Bullet::init(Texture* texture, const Vector2D& position, const double& spee
 
 void Bullet::update(const double& deltaTime)
 {
-	/*if (isActive())
-	{
-		double dist = _iniPos.distance(_transform->getPosition());
-		GameObject::update(deltaTime);
-
-		if (dist < _range && !_collided)
-		{
-			_body->getBody()->SetLinearVelocity(b2Vec2(_speed * cos(_transform->getRotation() * M_PI / 180.0), _speed * sin(_transform->getRotation() * M_PI / 180.0)));
-			_aliveTime++;
-		}
-		else
-		{
-
-			if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::Destroy)
-			{
-				reset();
-			}
-			else
-			{
-				_body->getBody()->SetActive(false);
-				_anim->playAnim(AnimatedSpriteComponent::Destroy);
-			}
-		}
-	}*/
 	if (isActive() && _effect != nullptr)
 		_effect->update(this, deltaTime);
 }
 
-/* reset()
-_anim->playAnim(AnimatedSpriteComponent::Default);
-setActive(false);
-_aliveTime = 0;
-_collided = false;*/
-
-void Bullet::changeFilter(bool enemy) 
+void Bullet::changeFilter()
 {
 	if(enemy)
 	_body->filterCollisions(ENEMY_BULLETS, FLOOR | PLATFORMS | PLAYER);
@@ -138,6 +111,10 @@ void Bullet::setAnimations(BulletAnimType type)
 		_anim->addAnim(AnimatedSpriteComponent::Default, 2, true);
 		_anim->addAnim(AnimatedSpriteComponent::Destroy, 5, false);
 		break;
+	case SniperBullet:
+		_anim->addAnim(AnimatedSpriteComponent::Default, 2, true);
+		_anim->addAnim(AnimatedSpriteComponent::Destroy, 3, false);
+		break;
 	case Default:
 	default:
 		_anim->addAnim(AnimatedSpriteComponent::Default, 4, true);
@@ -152,5 +129,4 @@ void Bullet::reset()
 		_effect->reset(this);
 		_anim->reset();
 	}
-
 }

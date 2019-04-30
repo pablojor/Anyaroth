@@ -1,6 +1,8 @@
 #pragma once
 #include "UIElement.h"
+#include "ButtonUI.h"
 #include <list>
+#include <vector>
 
 class PanelUI : public UIElement
 {
@@ -10,6 +12,7 @@ protected:
 	void removeChild(UIElement* child);
 	void removeAllChildren();
 
+	ButtonUI* _selectedButton = nullptr;
 public:
 	PanelUI() : UIElement(nullptr) {}
 	PanelUI(Game* game);
@@ -17,5 +20,5 @@ public:
 
 	virtual void render() const;
 	virtual void update(const double& deltaTime);
-	virtual void handleEvent(const SDL_Event& event);
+	virtual bool handleEvent(const SDL_Event& event);
 };

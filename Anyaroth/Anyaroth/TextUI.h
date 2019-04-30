@@ -22,13 +22,15 @@ public:
 
 	virtual void render() const;
 	virtual void update(const double& deltaTime) {}
-	virtual void handleEvent(const SDL_Event& event) {}
+	virtual bool handleEvent(const SDL_Event& event) { return false; }
 
 	inline string getText() const { return _text; }
 	void setText(string text);
 
 	void setPosition(int x, int y);
 	void setSize(int w, int h);
+	void setScale(const float& ratio);
+
 	inline Vector2D getPosition() const { return Vector2D(_destRect.x, _destRect.y); }
 	inline Vector2D getSize() const { return Vector2D(_destRect.w, _destRect.h); }
 

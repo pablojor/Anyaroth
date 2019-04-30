@@ -3,46 +3,40 @@
 #include "DebugDraw.h"
 #include "LevelManager.h"
 #include "CollisionManager.h"
+#include "ParticleManager.h"
 #include "ParallaxBackGround.h"
 #include "Player.h"
 #include "BulletPool.h"
-#include "Cursor.h"
+#include "ParticlePull.h"
 #include "PlayStateHUD.h"
-#include "Shop.h"
+#include "Cursor.h"
 
 class PlayState : public GameState
 {
 private:
 	Player* _player = nullptr;
+	BulletPool* _playerBulletPool = nullptr;
+	ParticlePull * _particles = nullptr;
+
+	GameObject* _level = nullptr;
 	Cursor* _cursor = nullptr;
-
-	//Bullet Pools
-	BulletPool* _playerBulletPool = nullptr; //Balas del jugador
-
-	PlayStateHUD* _hud = nullptr;
 
 	LevelManager _levelManager;
 	CollisionManager _colManager;
+	ParticleManager * _particleManager = nullptr;
 	DebugDraw _debugger;
 
 	ParallaxBackGround* _parallaxZone1 = nullptr;
-
-	int _currentLevel;
-
-	double deathTime = 3000, deathTimer = 0;
-	bool _killed = false;
-	TextUI* deathText;
-
-	Shop* _shop = nullptr;
-	
+	ParallaxLayer* _controls = nullptr;
 
 public:
 	PlayState(Game* g);
+	virtual ~PlayState();
 
 	virtual void render() const;
 	virtual void update(const double& deltaTime);
 	virtual bool handleEvent(const SDL_Event& event);
 
-	inline Cursor* getCursor() const { return _cursor; }
-	inline int getCurrentLevel() const { return _currentLevel; }
+	void saveGame();
+	void loadGame();
 };

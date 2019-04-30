@@ -53,10 +53,11 @@ public:
 	~DialoguePanel();
 
 	virtual void update(const double& deltaTime);
-	virtual void handleEvent(const SDL_Event& event);
+	virtual bool handleEvent(const SDL_Event& event);
 
 	inline bool isConversating() const { return _isConversating; }
 	inline bool conversationEnd() const { return _currentText == _dialogue.conversation.size() - 1; }
+	inline bool conversationRealEnd() const { return _currentText == _dialogue.conversation.size(); }
 
 	inline void stopAtLastLineShown(bool b) { _keepLastLine = b; }
 

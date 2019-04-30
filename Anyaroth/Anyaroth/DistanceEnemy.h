@@ -14,7 +14,7 @@ protected:
 	double _fail = 7.5;
 
 public:
-	DistanceEnemy(Game* g, Player* player, Vector2D pos, Texture* texture, BulletPool* pool);
+	DistanceEnemy(Game* g, Player* player, Vector2D pos, Texture* texture, BulletPool* pool, Vector2D offset = { 10, 12 });
 	virtual ~DistanceEnemy() { delete _myGun; }
 
 	inline bool ArmVision() const { return _armVision; }

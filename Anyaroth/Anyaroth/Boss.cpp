@@ -2,8 +2,6 @@
 
 Boss::Boss(Game * g, Player * player, Vector2D pos, BulletPool* pool, Texture* text) : DistanceEnemy(g, player, pos, text, pool), Enemy(g, player, pos, text)
 {
-	_life = 200;
-	_life1 = _life2 = _life3 = _life;
 }
 
 Boss::~Boss()
@@ -17,6 +15,7 @@ void Boss::setBossPanel(BossPanel * b)
 	//Actualizamos de primeras el aspecto del Panel del Jugador
 	_bossPanel->updateBossName("Spenta Manyu");
 	_bossPanel->updateLifeBar(_life1.getLife(), _life2.getLife(), _life3.getLife(), _life.getLife());
+	_bossPanel->setVisible(true);
 }
 
 void Boss::update(const double & deltaTime)
@@ -36,6 +35,9 @@ void Boss::update(const double & deltaTime)
 		else
 			beetwenFases(deltaTime);
 	}
+	
+	if (isDead() || _player->isDead())
+		_bossPanel->setVisible(false);
 }
 
 void Boss::subLife(int damage)
@@ -44,16 +46,31 @@ void Boss::subLife(int damage)
 	{
 
 		if (_life1.getLife() > 0)
+		{
 			manageLife(_life1, damage);
+			if (_life1.getLife() == 0)
+				_bossPanel->updateLifeBar(2, _life2.getLife(), _life3.getLife(), _life.getLife());
+			else
+				_bossPanel->updateLifeBar(_life1.getLife(), _life2.getLife(), _life3.getLife(), _life.getLife());
+		}
 		else if (_life2.getLife() > 0)
-			manageLife(_life2, damage);
+		{
+			manageLife(_life2, damage); 
+			if (_life2.getLife() == 0)
+				_bossPanel->updateLifeBar(_life1.getLife(), 2, _life3.getLife(), _life.getLife());
+			else
+				_bossPanel->updateLifeBar(_life1.getLife(), _life2.getLife(), _life3.getLife(), _life.getLife());
+		}
 		else if (_life3.getLife() > 0)
+		{
 			manageLife(_life3, damage);
-
+			if (_life3.getLife() == 0)
+				_bossPanel->updateLifeBar(_life1.getLife(), _life2.getLife(), 2, _life.getLife());
+			else
+				_bossPanel->updateLifeBar(_life1.getLife(), _life2.getLife(), _life3.getLife(), _life.getLife());
+		}
+		_spawnParticles = true;
 		_anim->hurt();
-
-		if (!isbeetweenFases())
-			_bossPanel->updateLifeBar(_life1.getLife(), _life2.getLife(), _life3.getLife(), _life.getLife());
 	}
 }
 
@@ -86,31 +103,4 @@ void Boss::changeFase(int fase)
 {
 	_actualFase = fase;
 	_armVision = true;
-}
-
-void Boss::meleeAttack()
-{
-	//_melee->endMelee();
-	_bodyPos = Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL);
-	int dir = (_bodyPos.getX() >= _playerPos.getX()) ? -1 : 1;
-	_melee->meleeAttack(_bodyPos.getX(), _bodyPos.getY(), dir);
-	_anim->playAnim(AnimatedSpriteComponent::EnemyAttack);
-	_armVision = false;
-}
-
-void Boss::checkMelee()
-{
-	if (!isMeleeing() && _melee != nullptr && _melee->isActive())
-	{
-		_melee->endMelee();
-		//Provisional
-		if (_actualFase != BetweenFase)
-		{
-			_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
-			_actualState = Moving;
-			_armVision = true;;
-
-			_doSomething = _game->random(900, 1300);
-		}
-	}
 }

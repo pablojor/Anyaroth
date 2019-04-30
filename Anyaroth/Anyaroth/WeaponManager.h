@@ -53,6 +53,8 @@ private:
 
 	WeaponManager() {}
 
+	WeaponManager() {}
+
 public:
 	~WeaponManager() {};
 

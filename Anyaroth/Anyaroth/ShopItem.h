@@ -53,7 +53,7 @@ class ShopItem : public ButtonUI
 
 
 	public:
-		ShopItem(Game* game, Texture* image = nullptr, int xPos = 0, int yPos = 0);
+		ShopItem(Game* game, Texture* image = nullptr, int xPos = 0, int yPos = 0, int arrayPos = 0);
 		~ShopItem();
 
 		virtual void render() const;
@@ -74,5 +74,7 @@ class ShopItem : public ButtonUI
 
 		void setItemSell(const bool& b) { _info._sold = b; }
 		void setItemEquiped(const bool& b) { _info._equiped = b; }
+
+		void setSelected(bool selected) { ButtonUI::setSelected(selected); select(selected); }
 };
 

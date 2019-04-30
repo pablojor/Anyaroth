@@ -26,9 +26,9 @@ class ShopInfoPanel : public PanelUI
 		ImageUI* _priceIcon = nullptr;
 		TextUI* _priceText = nullptr;
 
-		int maxDamage = 50,
-			maxClip = 50, //Cambiar
-			maxCadence = 1000;
+		int maxDamage = 6,
+			maxClip = 6, //Cambiar
+			maxCadence = 6;
 
 	public:
 		ShopInfoPanel(Game* game, int xPos, int yPos);

@@ -2,7 +2,7 @@
 #include "Game.h"
 
 
-ButtonUI::ButtonUI(Game* game, Texture* image, const Callback& callback, Frames frames) : FramedImageUI(game, image)
+ButtonUI::ButtonUI(Game* game, Texture* image, const Callback& callback, Frames frames, int arrayPos) : FramedImageUI(game, image), _arrayPos(arrayPos)
 {
 	setFrames(frames);
 	_frame = _onOutFrame;
@@ -22,36 +22,78 @@ bool ButtonUI::mouseIsOver()
 }
 
 
-void ButtonUI::handleEvent(const SDL_Event& event)
+bool ButtonUI::handleEvent(const SDL_Event& event)
 {
+	bool handle = false;
 	if (_visible && _inputEnable)
 	{
-		if (mouseIsOver())
+		if (mouseIsOver() || _selected)
 		{
 			SDL_Cursor* cursor;
 			cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_HAND);
 			SDL_SetCursor(cursor);
 
 
-			if (event.type == SDL_MOUSEBUTTONDOWN && event.button.state == SDL_PRESSED)
+			if ((event.type == SDL_MOUSEBUTTONDOWN && event.button.state == SDL_PRESSED))
 			{
 				if (event.button.button == SDL_BUTTON_LEFT)
 				{
+					_game->getSoundManager()->playSFX("boton");
 					_pressState = Down;
 					if (_onDownCallback != nullptr) _onDownCallback(_game);
+					handle = true;
 				}
 			}
-			else if (event.type == SDL_MOUSEBUTTONUP && _pressState == Down)
+			else if ((event.type == SDL_MOUSEBUTTONUP && _pressState == Down) || event.type == SDL_CONTROLLERBUTTONUP)
 			{
-				if (event.button.button == SDL_BUTTON_LEFT)
+				if (event.button.button == SDL_BUTTON_LEFT || event.cbutton.button == SDL_CONTROLLER_BUTTON_A)
 				{
 					_pressState = Up;
 					if (_onUpCallback != nullptr) _onUpCallback(_game);
+					handle = true;
+				}
+			}
+			else if (event.type == SDL_CONTROLLERBUTTONDOWN)
+			{
+				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_LEFT && getNextLeft() != nullptr)
+				{
+					setSelected(false);
+
+					getNextLeft()->setSelected(true);
+					handle = true;
+				}
+				else if (event.cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_UP && getNextUp() != nullptr)
+				{
+					setSelected(false);
+
+					getNextUp()->setSelected(true);
+					handle = true;
+				}
+				else if (event.cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_RIGHT && getNextRight() != nullptr)
+				{
+					setSelected(false);
+
+					getNextRight()->setSelected(true);
+					handle = true;
+				}
+				else if (event.cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_DOWN && getNextDown() != nullptr)
+				{
+					setSelected(false);
+
+					getNextDown()->setSelected(true);
+					handle = true;
+				}
+				else if (event.cbutton.button == SDL_CONTROLLER_BUTTON_A)
+				{
+					_pressState = Down;
+					if (_onDownCallback != nullptr) _onDownCallback(_game);
+					handle = true;
 				}
 			}
 			else if (_positionState != Over)
 			{
 				if (_onOverCallback != nullptr) _onOverCallback(_game);
+				handle = true;
 			}
 			_positionState = Over;
 		}
@@ -63,11 +105,14 @@ void ButtonUI::handleEvent(const SDL_Event& event)
 				SDL_Cursor* cursor;
 				cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
 				SDL_SetCursor(cursor);
+				handle = true;
 			}
 			_positionState = Out;
 			_pressState = None;
 		}
+
 	}
+	return handle;
 }
 
 void ButtonUI::update(const double& deltaTime)

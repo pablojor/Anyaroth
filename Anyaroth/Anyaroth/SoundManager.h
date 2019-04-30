@@ -21,7 +21,7 @@ public:
 	void addMusic(const string& name, const string& fileName);
 	void removeMusic(const string& name);
 
-	void playSFX(const string& name);
+	void playSFX(const string& name, int channel = -1);
 
 	/*void resumeSFX(const string& name);
 	void pauseSFX(const string& name);
@@ -39,6 +39,7 @@ public:
 	void pauseAll();
 
 	int getGeneralVolume() const;
+	int getMusicVolume() const;
 	int getChannelVolume(const int& channel) const;
 	void setGeneralVolume(const float& volumeRatio);
 	void setChannelVolume(const int& channel, const float& volumeRatio);

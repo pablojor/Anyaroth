@@ -1,9 +1,10 @@
 {
-  "Guns": {
-    "Basic": {
-      "BasicPistol": {
-        "zona": -1,
-        "frame": "BasicFrame",
+    "Basic":
+    {
+      "BasicPistol": 
+      {
+        "zone": -1,
+	      "frame": "BasicFrame",
         "icon": "PistolIcon",
         "price": 0,
         "speed": 100,
@@ -15,7 +16,7 @@
         "id": 0
       },
       "BasicRifle": {
-        "zona": 1,
+        "zone": -1,
         "frame": "BasicFrame",
         "icon": "RifleIcon",
         "price": 150,
@@ -28,7 +29,7 @@
         "id": 3
       },
       "BasicShotgun": {
-        "zona": 1,
+        "zone": -1,
         "frame": "BasicFrame",
         "icon": "ShotgunIcon",
         "price": 150,
@@ -41,52 +42,57 @@
         "id": 1
       }
     },
-    "Common": {
-      "ImproveRifle": {
-        "zona": 1,
+
+    "Common":
+    {
+      "Gamma Blaster": {
+        "zone": 53,
         "frame": "CommonFrame",
-        "icon": "Weapon1",
-        "price": 300,
+        "icon": "ImprovedRifleIcon",
+        "price": 120,
         "speed": 100,
-        "damage": 20,
+        "damage": 3,
         "range": 1000,
-        "clip": 36,
+        "clip": 6,
         "magazine": 160,
-        "cadence": 100,
+        "cadence": 6,
         "id": 4
       },
-      "ImproveShotgun": {
-        "zona": 1,
+
+      "A4X Shotgun": {
+        "zone": 53,
         "frame": "CommonFrame",
-        "icon": "Weapon1",
-        "price": 300,
+        "icon": "ImprovedShotgunIcon",
+        "price": 120,
         "speed": 100,
-        "damage": 7,
+        "damage": 4,
         "range": 60,
-        "clip": 2,
+        "clip": 3,
         "magazine": 50,
-        "cadence": 800,
+        "cadence": 2,
         "id": 2
       }
     },
-    "Rare": {
-      "PlasmaSniper": {
-        "zona": 3,
+
+    "Rare" :
+    {
+      "Plasma Sniper": {
+        "zone": 53,
         "frame": "RareFrame",
-        "icon": "Weapon1",
-        "price": 1250,
+        "icon": "SniperIcon",
+        "price": 180,
         "speed": 100,
-        "damage": 60,
+        "damage": 6,
         "range": 1000,
         "clip": 1,
         "magazine": 30,
-        "cadence": 1500,
+        "cadence": 1,
         "id": 5
       },
       "BounceOrbCanon": {
-        "zona": 2,
+        "zone": 100,
         "frame": "RareFrame",
-        "icon": "Weapon1",
+        "icon": "BounceCannonIcon",
         "price": 1000,
         "speed": 30,
         "damage": 15,
@@ -97,9 +103,9 @@
         "id": 6
       },
       "GravityCannon": {
-        "zona": 2,
+        "zone": 100,
         "frame": "RareFrame",
-        "icon": "Weapon1",
+        "icon": "BHCannonIcon",
         "price": 1000,
         "speed": 45,
         "damage": 5,

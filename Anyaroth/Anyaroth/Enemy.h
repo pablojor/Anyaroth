@@ -9,6 +9,8 @@
 
 class Enemy : public GameObject
 {
+private:
+	string _deathSound = "", _hitSound = "", _meleeHit = "";
 protected:
 	TransformComponent* _transform = nullptr;
 	BodyComponent* _body = nullptr;
@@ -19,17 +21,20 @@ protected:
 	Vector2D _playerDistance;
 
 	Life _life;
-	bool _attacking = false, _drop = true, extraDrop = false;
+
+	bool _attacking = false, _drop = true, _dropMelee = false,_stunned = false,
+		_spawnParticles = false;
 	int _vision, _attackRangeX, _attackRangeY, _attackTime, _damage;
 	double _time;
 	float32 _speed;
 	
+	Texture * _hurtParticle = nullptr;
+	b2Vec2 _contactPoint = b2Vec2_zero;
+
 	int _coinValue = 10;
 
-	bool _stunned = false;
-
 public:
-	Enemy(Game* g, Player* player, Vector2D pos, Texture* texture);
+	Enemy(Game* g, Player* player, Vector2D pos, Texture* texture, string death = "", string hit = "", string meleeHit = "");
 	virtual ~Enemy() {}
 
 	virtual void beginCollision(GameObject* other, b2Contact* contact);
@@ -37,8 +42,9 @@ public:
 
 	inline void stopAttacking() { _attacking = false; }
 
-	void die();
-	void spawnDrop();
+	virtual void die();
+	virtual void drop();
+
 	virtual void subLife(int damage);
 	inline Life getLife() const { return _life; }
 
@@ -46,5 +52,4 @@ public:
 	inline void setStunned(bool value) { _stunned = value; }
 
 	bool inCamera();
-	bool inCameraX();
 };

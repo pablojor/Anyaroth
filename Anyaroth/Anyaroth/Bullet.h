@@ -11,8 +11,8 @@ class Bullet : public GameObject
 protected:
 	int _range = 200; //rango del arma (en pixeles)
 	int _aliveTime = 0; //tiempo que lleva vivo (usado en el rango)
-	double _speed = 0;
 	int _damage = 0;
+	double _speed = 0;
 
 	bool _collided = false;
 	bool _isColliding = false;
@@ -23,8 +23,8 @@ protected:
 	TransformComponent* _transform = nullptr;
 	BodyComponent* _body = nullptr;
 	AnimatedSpriteComponent* _anim = nullptr;
-
 	EffectInterface* _effect = nullptr;
+
 	//Bounces
 	int _numBounces = 0;
 
@@ -36,24 +36,28 @@ protected:
 	bool _explode = false;
 	double _explosionTime = 0;
 
-
 public:
 	Bullet(Game* game);
 	virtual ~Bullet();
 
-	
 	inline void setSpeed(const double& speed) { _speed = speed; }
 	inline double getSpeed() const { return _speed; }
+
 	inline void setDamage(const double& damage) { _damage = damage; }
 	inline int getDamage() const { return _damage; }
-	inline BodyComponent* getBulletBody() { return _body; }
+
+	inline BodyComponent* getBody() { return _body; }
 	inline TransformComponent* getTransform() { return _transform; }
+
 	inline Vector2D getIniPos() const { return _iniPos; }
 	inline int getRange() const { return _range; }
+
 	inline bool hasCollided() const { return _collided; }
 	inline void setCollided(bool b) { _collided = b; }
+
 	inline bool isColliding() const { return _isColliding; }
 	inline void setIsColliding(bool b) { _isColliding = b; }
+
 	inline int getAliveTime() const { return _aliveTime; }
 	inline void setAliveTime(int time) { _aliveTime = time; }
 
@@ -64,12 +68,14 @@ public:
 	//Gravity
 	inline int isAbsorbing() const { return _absorbing; }
 	inline void setAbsorbing(bool value) { _absorbing = value; }
+
 	inline int getAbsorbingTime() const { return _absorbingTime; }
 	inline void setAbsorbingTime(int value) { _absorbingTime = value; }
 
 	//Explosive
 	inline bool isExploding() const { return _explode; }
 	inline void setExploding(bool value) { _explode = value; }
+
 	inline int getExplosionTime() const { return _explosionTime; }
 	inline void setExplosionTime(int value) { _explosionTime = value; }
 

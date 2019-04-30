@@ -40,7 +40,7 @@ void WeaponManager::init()
 
 			for (nlohmann::json::iterator typeWeapon = weapon.begin(); typeWeapon != weapon.end(); ++typeWeapon)
 			{
-				_weaponInfo[typeWeapon.value()["id"]] = { typeWeapon.value()["zona"], typeWeapon.key(), typeWeapon.value()["price"] ,
+				_weaponInfo[typeWeapon.value()["id"]] = { typeWeapon.value()["zone"], typeWeapon.key(), typeWeapon.value()["price"] ,
 														typeWeapon.value()["damage"], typeWeapon.value()["cadence"], typeWeapon.value()["range"],
 														typeWeapon.value()["clip"], typeWeapon.value()["icon"].get<string>(), typeWeapon.value()["frame"].get<string>() };
 			}
@@ -90,7 +90,7 @@ Gun* WeaponManager::getWeapon(Game* _game, GunType type)
 	case BounceOrbCannon_Weapon:
 		w = new BounceOrbCannon(_game);
 		break;
-	case GravityBombCannon_Weapon:
+	case BHCannon_Weapon:
 		w = new GravityBombCannon(_game);
 		break;
 	default:

@@ -10,6 +10,8 @@ void Life::addLife(int amount)
 {
 	if (_life + amount < _maxLife)
 		_life += amount;
+	else
+		_life = _maxLife;
 }
 
 void Life::subLife(int amount)

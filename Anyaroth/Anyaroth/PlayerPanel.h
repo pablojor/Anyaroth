@@ -10,7 +10,8 @@
 class PlayerPanel : public PanelUI
 {
 	private:
-		ImageUI* _marco = nullptr;
+		ImageUI* _lifeFrame = nullptr;
+		TextUI* _deathText = nullptr;
 
 		LifeBar* _lifeBar = nullptr;
 		AmmoViewer* _ammoViewer = nullptr;
@@ -31,4 +32,6 @@ class PlayerPanel : public PanelUI
 
 		inline void startAnimDashCD() { _dashViewer->startAnimCD(); }
 		inline void resetDashViewer() { _dashViewer->reset(); }
+
+		inline void showDeathText(const bool& show) { _deathText->setVisible(show); }
 };

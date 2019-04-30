@@ -5,6 +5,7 @@
 #include "DialoguePanel.h"
 #include "ImageUI.h"
 #include "DepotPanel.h"
+#include "AnimatedImageUI.h"
 
 class Player;
 
@@ -25,13 +26,16 @@ class ShopMenu : public PanelUI
 		CatalogPanel* _catalogPanel;
 		DepotPanel* _depotPanel;
 
-		ImageUI* _imageBG = nullptr;
+		AnimatedImageUI* _imageBG = nullptr;
 
 		list<ShopItem*> _items;
 
 		int _zone = 1;
 
 		bool _talking = false;
+		bool _closed = true;
+		bool _mainMenuAbled = false;
+		bool _closing = false;
 
 		void loadWeaponInfo();
 
@@ -40,10 +44,11 @@ class ShopMenu : public PanelUI
 		~ShopMenu();
 
 		virtual void update(const double& deltaTime);
+		virtual bool handleEvent(const SDL_Event& event);
 
 		void setPlayer(Player* ply);
 
-		void openShop(int zona);
+		void openShop();
 		void closeShop();
 
 		void setDialoguePanel(DialoguePanel* dialoguePanel);
@@ -60,6 +65,10 @@ class ShopMenu : public PanelUI
 
 		void openDepotPanel(Game* game);
 		void closeDepotPanel(Game* game);
+
+		inline list<ShopItem*> getItems() const { return _items; }
+		
+		inline bool isClosed() { return _closed; }
 
 		void exit(Game* game);
 };

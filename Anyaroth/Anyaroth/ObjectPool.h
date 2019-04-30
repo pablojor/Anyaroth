@@ -31,7 +31,7 @@ public:
 	virtual void addObject(T* object) {	_objects.push_back(object); }
 
 	//const int MAX_SIZE = SIZE;
-	T* getUnusedObject() 
+	virtual T* getUnusedObject() 
 	{
 		for (int i = 0; i < _objects.size(); i++)
 			if (!_objects[i]->isActive())
@@ -40,7 +40,7 @@ public:
 	}
 
 	//Coge el objeto _objects[i]
-	T* getObject(int i)
+	virtual T* getObject(int i)
 	{
 		return _objects[i];
 	}

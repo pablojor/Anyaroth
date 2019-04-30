@@ -43,9 +43,30 @@ void NPC::update(const double& time)
 	if (_canInteract)
 	{
 		if (_dialoguePanel->isConversating())
+		{
 			_interactIndicator->setActive(false);
+			if (_other != nullptr)
+			{
+				_other->setInputFreezed(true);
+
+				if (_other->getComponent<TransformComponent>()->getPosition().getX() > _transform->getPosition().getX())
+				{
+					_anim->flip();
+					_other->getComponent<CustomAnimatedSpriteComponent>()->flip();
+				}
+				else
+				{
+					_anim->unFlip();
+					_other->getComponent<CustomAnimatedSpriteComponent>()->unFlip();
+				}
+			}
+		}
 		else
+		{
 			_interactIndicator->setActive(true);
+			if (_other != nullptr)
+				_other->setInputFreezed(false);
+		}
 	}
 }
 
