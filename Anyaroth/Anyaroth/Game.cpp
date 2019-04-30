@@ -107,6 +107,7 @@ void Game::createSounds()
 	_soundManager->addSFX("bulletGround", SOUNDS_PATH + "bulletGround.wav");
 	_soundManager->addSFX("melee", SOUNDS_PATH + "melee.wav");
 	_soundManager->addSFX("reload", SOUNDS_PATH + "reload.wav");
+	_soundManager->addSFX("emptyGun", SOUNDS_PATH + "emptyGun.wav");
 	_soundManager->addSFX("shotgun1", SOUNDS_PATH + "shotgun1.wav");
 	_soundManager->addSFX("shotgun2", SOUNDS_PATH + "shotgun2.wav");
 	_soundManager->addSFX("rifle1", SOUNDS_PATH + "rifle1.wav");

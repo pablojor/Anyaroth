@@ -89,7 +89,7 @@ void MisilBoss1::update(const double& deltaTime)
 		//_body->getBody()->SetTransform(b2Vec2(myX / M_TO_PIXEL, myY / M_TO_PIXEL), 0);
 
 		//ParticleManager::GetParticleManager()->CreateSimpleParticle(_game->getTexture("Coin"), 1,Vector2D( _transform->getPosition().getX()+(_body->getW()/2)*M_TO_PIXEL, _transform->getPosition().getY() + (_body->getH() / 2)*M_TO_PIXEL), 0, 0, 120);
-		ParticleManager::GetParticleManager()->CreateFountain(_game->getTexture("Smoke"), Vector2D(_transform->getPosition().getX()+_body->getW()*M_TO_PIXEL *-sin(_transform->getRotation()), _transform->getPosition().getY() + _body->getH()* M_TO_PIXEL *cos(_transform->getRotation())), Vector2D(0, 0), 0,1, 15, 300, 10, 100,0.5);
+		ParticleManager::GetParticleManager()->CreateFountain(_game->getTexture("Smoke"), Vector2D(_transform->getPosition().getX()+_body->getW()*M_TO_PIXEL *-sin(_transform->getRotation()), _transform->getPosition().getY() + _body->getH()* M_TO_PIXEL *cos(_transform->getRotation())), Vector2D(0, 0), 0,1, 15, 600, 10, 100,0.5);
 
 		//Forma con el angulo peta a veces
 		_angle = atan2(_targetPos.getY() - _myPos.getY(), _targetPos.getX() - _myPos.getX()) * 180 / M_PI;

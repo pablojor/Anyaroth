@@ -47,8 +47,6 @@ void NPC::update(const double& time)
 			_interactIndicator->setActive(false);
 			if (_other != nullptr)
 			{
-				_other->setInputFreezed(true);
-
 				if (_other->getComponent<TransformComponent>()->getPosition().getX() > _transform->getPosition().getX())
 				{
 					_anim->flip();
@@ -73,6 +71,7 @@ void NPC::update(const double& time)
 void NPC::interact()
 {
 	_dialoguePanel->startDialogue(_dialogue);
+	_other->setInputFreezed(true);
 }
 
 void NPC::setDialoguePanel(DialoguePanel* dialoguePanel)

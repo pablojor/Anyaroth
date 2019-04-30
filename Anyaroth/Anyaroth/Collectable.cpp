@@ -21,6 +21,9 @@ void Collectable::beginCollision(GameObject* other, b2Contact* contact)
 {
 	_body->getBody()->SetLinearVelocity(b2Vec2(0.0, 0.0));
 	_body->getBody()->SetAngularVelocity(0);
+
+	if(other->getTag() == "Player")
+		collect();
 }
 
 void Collectable::collect()
