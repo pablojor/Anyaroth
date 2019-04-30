@@ -230,8 +230,6 @@ Game::Game()
 	createDialogues();
 	//---Initialise Joysticks
 	initialiseJoysticks();
-	//---Create world
-	_world = new b2World(b2Vec2(0.0, 9.8));
 	//---Create states
 	_stateMachine->pushState(new MenuState(this));
 }
@@ -252,7 +250,6 @@ Game::~Game()
 
 	delete _stateMachine;
 	ParticleManager::deleteManager();
-	delete _world;
 	delete _soundManager;
 	SDL_DestroyRenderer(_renderer);
 	SDL_DestroyWindow(_window);
@@ -277,7 +274,7 @@ void Game::run()
 
 		while (lag >= FRAME_RATE)
 		{
-			_world->Step(_timestep, 8, 3);
+			updateWorld(_timestep, 8, 3);
 			update(FRAME_RATE);
 			lag -= FRAME_RATE;
 		}
@@ -294,6 +291,11 @@ void Game::start()
 	}
 }
 
+void Game::updateWorld(const float & timeStep, const int & velocityIterations, const int & positionIterations)
+{
+	_stateMachine->currentState()->updateWorld(timeStep, velocityIterations, positionIterations);
+}
+
 void Game::update(const double& deltaTime)
 {
 	_stateMachine->currentState()->update(deltaTime);
@@ -304,7 +306,7 @@ void Game::render() const
 {
 	SDL_RenderClear(_renderer);
 	_stateMachine->currentState()->render();
-	//_world->DrawDebugData();
+	_stateMachine->currentState()->getWorld()->DrawDebugData();
 	SDL_RenderPresent(_renderer);
 }
 

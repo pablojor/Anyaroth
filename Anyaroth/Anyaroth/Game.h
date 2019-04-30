@@ -64,7 +64,6 @@ private:
 	SDL_GameController* _joystick = nullptr;
 	bool _joystickAttached;
 
-	b2World* _world = nullptr;
 	float _timestep = FRAME_RATE / 1000.0f;
 	bool _exit = false;
 
@@ -93,7 +92,6 @@ public:
 
 	inline SoundManager* getSoundManager() const { return _soundManager; }
 
-	inline b2World* getWorld() const { return _world; }
 	inline void setTimestep(float timestep) { _timestep = timestep; }
 	inline void setExit(bool quit) { _exit = quit; }
 
@@ -105,6 +103,7 @@ public:
 	~Game();
 	void run();
 	void start();
+	void updateWorld(const float& timeStep, const int& velocityIterations, const int& positionIterations);
 	void update(const double& deltaTime);
 	void render() const;
 	void handleEvents();

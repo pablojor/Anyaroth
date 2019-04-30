@@ -1,10 +1,13 @@
 #include "GameState.h"
 #include "Game.h"
 
-GameState::GameState(Game* g) : _gameptr(g), _world(g->getWorld())
+GameState::GameState(Game* g) : _gameptr(g)
 {
 	_hasToStart = true;
 	initializeCamera();
+
+	//---Create world
+	_world = new b2World(b2Vec2(0.0, 9.8));
 }
 
 GameState::~GameState()
@@ -19,6 +22,8 @@ GameState::~GameState()
 
 	for (GameObject* o : _stages)
 		delete o;
+
+	delete _world;
 }
 
 void GameState::render() const
@@ -81,6 +86,12 @@ bool GameState::handleEvent(const SDL_Event& event)
 bool GameState::pre_handleEvent()
 {
 	return _mainCamera->pre_handleEvent();
+}
+
+void GameState::updateWorld(const float & timestep, const int & velocityIterations, const int & positionIterations)
+{
+	if(_world != nullptr)
+		_world->Step(timestep, velocityIterations, positionIterations);
 }
 
 void GameState::addObject(GameObject* n)

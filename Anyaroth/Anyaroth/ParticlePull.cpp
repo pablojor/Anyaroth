@@ -16,7 +16,7 @@ Particle * ParticlePull::addNewParticle()
 		b = new Particle(getGame());
 
 		_objects.push_back(b);
-		b->setWorld(_game->getWorld());
+		b->setWorld(getWorld());
 	}
 	return b;
 }

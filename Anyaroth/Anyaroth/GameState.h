@@ -46,6 +46,9 @@ public:
 	virtual bool handleEvent(const SDL_Event& event);
 	virtual bool pre_handleEvent();
 
+	virtual void updateWorld(const float& timestep, const int& p_iterations, const int& V_iterations);
+	inline b2World* getWorld() const { return _world; }
+
 	virtual void addObject(GameObject* obj);
 	virtual void destroyObject(GameObject* obj);
 

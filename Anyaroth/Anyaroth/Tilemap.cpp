@@ -14,7 +14,7 @@ Tilemap::Tilemap(Game* game, Texture* tileSet) : GameObject(game)
 Tilemap::~Tilemap()
 {
 	for (b2Body* b : _colliders)
-		_game->getWorld()->DestroyBody(b);
+		getWorld()->DestroyBody(b);
 
 	_colliders.clear();
 }
@@ -123,7 +123,7 @@ void Tilemap::loadTileMap(const string & filename)
 							bodydef.type = b2_staticBody;
 							bodydef.position = b2Vec2(x*_tileSize / M_TO_PIXEL + 1, y*_tileSize / M_TO_PIXEL + 1);
 							bodydef.angle = 0.0;
-							b2Body* body = _game->getWorld()->CreateBody(&bodydef);
+							b2Body* body = getWorld()->CreateBody(&bodydef);
 
 							b2PolygonShape shape;
 							shape.SetAsBox(_tileSize / (M_TO_PIXEL*2), _tileSize / (M_TO_PIXEL*2));

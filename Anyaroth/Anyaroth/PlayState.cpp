@@ -65,8 +65,8 @@ void PlayState::start()
 	_mainCamera->setBackGround(_parallaxZone1);
 
 	//Collisions and debugger
-	_gameptr->getWorld()->SetContactListener(&_colManager);
-	_gameptr->getWorld()->SetDebugDraw(&_debugger);
+	getWorld()->SetContactListener(&_colManager);
+	getWorld()->SetDebugDraw(&_debugger);
 
 	//World
 	_debugger.getRenderer(_gameptr->getRenderer());
@@ -75,8 +75,8 @@ void PlayState::start()
 	_debugger.getCamera(_mainCamera);
 
 	//Gestion de colisiones
-	_gameptr->getWorld()->SetContactListener(&_colManager);
-	_gameptr->getWorld()->SetDebugDraw(&_debugger);
+	getWorld()->SetContactListener(&_colManager);
+	getWorld()->SetDebugDraw(&_debugger);
 
 	//Particulas
 	_particles = new ParticlePull(_gameptr);
