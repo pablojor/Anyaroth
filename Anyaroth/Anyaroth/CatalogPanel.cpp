@@ -70,6 +70,12 @@ bool CatalogPanel::handleEvent(const SDL_Event& event)
 				_exitButton->callDown();
 			return true;
 		}
+		else if (_game->usingJoystick() && event.type == SDL_MOUSEMOTION)
+		{
+			_selectedButton->setSelected(false);
+			SDL_ShowCursor(true);
+			_game->changeControlMode();
+		}
 	}
 	return PanelUI::handleEvent(event);;
 }
@@ -186,15 +192,16 @@ void CatalogPanel::reorderCatalog()
 	if (visibleItems.size() > 0)
 	{
 		_selectedButton = *(visibleItems.begin());
-		_selectedButton->setSelected(true);
 		_exitButton->setNextButtons({ *prev(visibleItems.end()), *prev(visibleItems.end()), *(visibleItems.begin()), *(visibleItems.begin()) });
 	}
 	else
 	{
 		_selectedButton = _exitButton;
-		_selectedButton->setSelected(true);
 		_exitButton->setNextButtons({ nullptr, nullptr, nullptr, nullptr });
 	}
+
+	if (_game->usingJoystick())
+		_selectedButton->setSelected(true);
 }
 
 void CatalogPanel::selectItem(Game * game, ShopItem* item)
@@ -275,11 +282,11 @@ void CatalogPanel::buyItem(Game * game)
 
 		_playerMoney->updateCoinsCounter(_player->getBank());
 
-		if(!_game->usingJoystick())
-		{
-			_selectedItem->setChosen(false);
-			_selectedItem = nullptr;
-		}
+
+
+		_selectedItem->setChosen(false);
+		_selectedItem = nullptr;
+
 
 		reorderCatalog();
 	}

@@ -115,6 +115,7 @@ bool ShopMenu::handleEvent(const SDL_Event& event)
 	{
 		if (_mainMenuAbled)
 		{
+			PanelUI::checkControlMode(event);
 			if (event.type == SDL_CONTROLLERBUTTONDOWN)
 			{
 				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_B)
@@ -124,7 +125,16 @@ bool ShopMenu::handleEvent(const SDL_Event& event)
 				}
 			}
 		}
-		PanelUI::handleEvent(event);
+		
+		auto it = _children.begin();
+
+		while (!handled && it != _children.end())
+		{
+			if ((*it)->handleEvent(event))
+				handled = true;
+			else
+				it++;
+		}
 	}
 	
 	return handled;
@@ -178,17 +188,6 @@ void ShopMenu::openShop()
 	_dialoguePanel->stopAtLastLineShown(true);
 	_dialoguePanel->startDialogue(_game->getDialogue("Shop 1 " + to_string(GameManager::getInstance()->getCurrentLevel())));
 
-	if (_game->usingJoystick())
-	{
-		_selectedButton = _shopButton;
-		_selectedButton->setSelected(true);
-		_talkButton->setSelected(false);
-		_depotButton->setSelected(false);
-		_exitButton->setSelected(false);
-		SDL_ShowCursor(false);
-		SDL_WarpMouseGlobal(0, 0);
-	}
-
 	ableMainMenu(_game);
 }
 
@@ -223,6 +222,19 @@ void ShopMenu::ableMainMenu(Game * game)
 	_depotButton->setVisible(true);
 	_depotText->setVisible(true);
 	_exitButton->setVisible(true);
+
+	if (_game->usingJoystick())
+	{
+		SDL_WarpMouseGlobal(0, 0);
+		_shopButton->setSelected(false);
+		_talkButton->setSelected(false);
+		_depotButton->setSelected(false);
+		_exitButton->setSelected(false);
+
+		_selectedButton = _shopButton;
+		_selectedButton->setSelected(true);
+		SDL_ShowCursor(false);
+	}
 
 	_dialoguePanel->startDialogue(_game->getDialogue("Shop 2 " + to_string(GameManager::getInstance()->getCurrentLevel())));
 	_mainMenuAbled = true;

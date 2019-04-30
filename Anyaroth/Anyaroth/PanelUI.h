@@ -21,4 +21,6 @@ public:
 	virtual void render() const;
 	virtual void update(const double& deltaTime);
 	virtual bool handleEvent(const SDL_Event& event);
+
+	virtual void checkControlMode(const SDL_Event& event);
 };
