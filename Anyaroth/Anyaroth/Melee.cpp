@@ -5,7 +5,6 @@
 
 Melee::Melee(Game * g, Vector2D offset, Uint16 collidesWith, double damage, double w, double h) : GameObject(g, "Melee") , _offset(offset), _collidesWith(collidesWith), _damage(damage), _w(w), _h(h) {}
 
-
 void Melee::meleeAttack(double x, double y, int dir)
 {
 	_dir = dir;
@@ -21,11 +20,13 @@ void Melee::meleeAttack(double x, double y, int dir)
 		_body->getBody()->SetTransform(b2Vec2((x + _offset.getX() * _dir) / M_TO_PIXEL, (y + _offset.getY() * _dir) / M_TO_PIXEL), 0);
 	}
 
-	_body->filterCollisions(MELEE, _collidesWith);
+
 	_body->getBody()->SetType(b2_kinematicBody);
 	_body->setW(_w);
 	_body->setH(_h);
 	_body->getBody()->GetFixtureList()->SetSensor(true);
+
+	_body->filterCollisions(MELEE, _collidesWith);
 
 	_center = Vector2D(x, y);
 	_r = Vector2D(x + _offset.getX(), y + _offset.getY()).distance(_center);

@@ -66,7 +66,7 @@ private:
 
 
 	b2World* _world = nullptr;
-	float _timestep = 1 / 60.0;
+	float _timestep = FRAME_RATE / 1000.0f;
 	bool _exit = false;
 
 public:
@@ -97,6 +97,8 @@ public:
 	inline b2World* getWorld() const { return _world; }
 	inline void setTimestep(float timestep) { _timestep = timestep; }
 	inline void setExit(bool quit) { _exit = quit; }
+
+	inline int random(int low, int high) const { return low + (rand() % abs(high - low)); }
 
 	void toggleFullscreen();
 

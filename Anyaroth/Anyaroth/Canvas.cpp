@@ -3,8 +3,11 @@
 
 Canvas::~Canvas()
 {
-	for (UIElement* e : _elements)
+	for (UIElement* e : _elements) {
 		delete e;
+		e = nullptr;
+	}
+	_elements.clear();
 }
 
 void Canvas::render() const
@@ -31,8 +34,7 @@ bool Canvas::handleEvent(const SDL_Event& event)
 			handled = true;
 		else
 			it++;
-	}
-	
+	}	
 
 	return handled;
 }

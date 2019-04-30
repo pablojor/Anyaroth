@@ -1,30 +1,32 @@
 #include "BomberEnemy.h"
 #include "BulletEffect.h"
 
-BomberEnemy::BomberEnemy(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Enemy(g, player, pos, g->getTexture("EnemyMartyr")), _myBulletPool(pool)
+BomberEnemy::BomberEnemy(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Enemy(g, player, pos, g->getTexture("Bomber"), "bomberDeath", "turretHit", "turretMeleeHit"), _myBulletPool(pool)
 {
 	_bulletTexture = g->getTexture("PistolBullet");
-	_damage = 10;
+	_damage = 25;
 
-	_vision = 800;
-	_life = 300;
+	_vision = 300;
+	_life = 24;
 	_gun = new BomberGun(g);
 	_attackRangeX = 2;
 	_speed = 8;
 	_time = 0;
 
-	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 13, true);
-	_anim->addAnim(AnimatedSpriteComponent::EnemyWalk, 8, true);
-	_anim->addAnim(AnimatedSpriteComponent::EnemyAttack, 11, false);
-	_anim->addAnim(AnimatedSpriteComponent::EnemyDie, 18, false);
+	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 6, true);
+	_anim->addAnim(AnimatedSpriteComponent::EnemyWalk, 1, true);
+	_anim->addAnim(AnimatedSpriteComponent::EnemyAttack, 6, false);
+	_anim->addAnim(AnimatedSpriteComponent::EnemyDie, 21, false);
 
 	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 
-	_body->addCricleShape(b2Vec2(0, _body->getH() + _body->getH() / 20), _body->getW() - _body->getW() / 20, ENEMIES, FLOOR | PLATFORMS | PLAYER_BULLETS | MELEE);
+	_body->setW(30);
+	_body->setH(20);
 	_body->getBody()->SetGravityScale(0);
+	_body->filterCollisions(ENEMIES, FLOOR | PLATFORMS | PLAYER_BULLETS | MELEE);
 }
 
-BomberEnemy::~BomberEnemy() 
+BomberEnemy::~BomberEnemy()
 {
 	delete _gun;
 	_gun = nullptr;
@@ -34,7 +36,7 @@ void BomberEnemy::shoot(const double& deltaTime)
 {
 	if (_time >= _shootTime)
 	{
-		throwBomb(Vector2D(_body->getBody()->GetPosition().x*M_TO_PIXEL, _body->getBody()->GetPosition().y*M_TO_PIXEL));
+		throwBomb(Vector2D(_body->getBody()->GetPosition().x*M_TO_PIXEL, (_body->getBody()->GetPosition().y+_body->getH())*M_TO_PIXEL));
 		_time = 0;
 	}
 	else
@@ -53,7 +55,7 @@ void BomberEnemy::update(const double& deltaTime)
 
 	bool inVision = _playerDistance.getX() < _vision && _playerDistance.getX() > -_vision && _playerDistance.getY() < _vision && _playerDistance.getY() > -_vision;
 
-	if (!isDead() && inCamera() && inVision)
+	if (!isDead() && /*inCamera()* &&*/ inVision)
 	{
 		if (_playerDistance.getX() > _attackRangeX)
 			_dir = Vector2D(1, 0);
@@ -61,6 +63,11 @@ void BomberEnemy::update(const double& deltaTime)
 			_dir = Vector2D(-1, 0);
 		else if (_playerDistance.getX() < _attackRangeX && _playerDistance.getX() > -_attackRangeX)
 			_dir = Vector2D(0, 0);
+
+		if (_anim->getCurrentAnim() == AnimatedSpriteComponent::EnemyAttack &&_anim->animationFinished())
+		{
+			_anim->playAnim(AnimatedSpriteComponent::Idle);
+		}
 
 		move();
 		shoot(deltaTime);
@@ -82,7 +89,7 @@ void BomberEnemy::throwBomb(const Vector2D& position)
 	Vector2D bulletPos = helpPos.rotateAroundPoint(angle, position);*/
 	//b->init();
 	_gun->enemyShoot(_myBulletPool, position, _angle, "EnemyBullet");
-
+	_anim->playAnim(AnimatedSpriteComponent::EnemyAttack);
 	/*if (b != nullptr)
 	{
 		b->init(_bulletTexture, position, 0, 10, angle, _range, tag, &_effect);
@@ -95,7 +102,7 @@ void BomberEnemy::throwBomb(const Vector2D& position)
 
 		b2->init(_bulletTexture, position, 0, 10, angle, _range, tag, &_effect);
 		Bullet* b2 = _bulletPool->addNewBullet();
-		
+
 		b2->init(_bulletTexture, position, 0, _damage, _angle, _range, "EnemyBullet");
 		b2->changeFilter();
 	}*/

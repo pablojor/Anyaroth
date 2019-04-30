@@ -2,10 +2,10 @@
 #include "Game.h"
 #include "Player.h"
 #include "PlayStateHUD.h"
-#include <json.hpp>
+#include "GameManager.h"
 #include "WeaponManager.h"
 #include "SoundManager.h"
-#include "GameManager.h"
+#include <json.hpp>
 
 ShopMenu::ShopMenu(Game* game) : PanelUI(game)
 {
@@ -23,7 +23,7 @@ ShopMenu::ShopMenu(Game* game) : PanelUI(game)
 		middleOfTheButtonPanelY = 100;
 
 	//BOTON DE HABLAR
-	_talkButton = new ButtonUI(game, game->getTexture("ShopButton"), [this](Game* game) { startTalking(game); }, { 0, 1, 1, 1, 1 });
+	_talkButton = new ButtonUI(game, game->getTexture("ShopButton"), [this](Game* game) { startTalking(game); }, { 0, 1, 1, 1, 1 }, 1);
 	_talkButton->setPosition(middleOfTheButtonPanelX / 2 - _talkButton->getW() / 2,
 		middleOfTheButtonPanelY - (distanceBetweenButtons / 2) - _talkButton->getH());
 
@@ -41,24 +41,24 @@ ShopMenu::ShopMenu(Game* game) : PanelUI(game)
 		_shopButton->getY() + _shopButton->getH() / 2 - _shopText->getH() / 2);
 
 	//BOTON DE ALMACEN
-	_depotButton = new ButtonUI(game, game->getTexture("ShopButton"), [this](Game* game) { openDepotPanel(game); }, { 0, 1, 1, 1, 1 });
+	_depotButton = new ButtonUI(game, game->getTexture("ShopButton"), [this](Game* game) { openDepotPanel(game); }, { 0, 1, 1, 1, 1 }, 2);
 	_depotButton->setPosition(middleOfTheButtonPanelX / 2 - _depotButton->getW() / 2,
 		middleOfTheButtonPanelY + (distanceBetweenButtons / 2));
 
-	_depotText = new TextUI(game, "Depot", game->getFont("ARIAL12"), 12, 0, 0, { 145, 255, 255, 255 });
+	_depotText = new TextUI(game, "Equipment", game->getFont("ARIAL12"), 12, 0, 0, { 145, 255, 255, 255 });
 	_depotText->setPosition(_depotButton->getX() + _depotButton->getW() / 2 - _depotText->getW() / 2,
 		_depotButton->getY() + _depotButton->getH() / 2 - _depotText->getH() / 2);
 
 	//BOTON DE SALIR
-	_exitButton = new ButtonUI(game, game->getTexture("ExitButton"), nullptr, { 0, 1, 1, 1 });
+	_exitButton = new ButtonUI(game, game->getTexture("ExitButton"), nullptr, { 0, 1, 1, 1 }, 3);
 	_exitButton->setPosition(CAMERA_RESOLUTION_X - _exitButton->getW() - 12, 188 - 1 - _exitButton->getH());
 
 	_exitButton->onUp([this](Game* game) { exit(game); });
 
-	_buttons.push_back(_shopButton);
-	_buttons.push_back(_talkButton);
-	_buttons.push_back(_depotButton);
-	_buttons.push_back(_exitButton);
+	_shopButton->setNextButtons({ _exitButton, _exitButton, _talkButton, _talkButton });
+	_talkButton->setNextButtons({ _shopButton, _shopButton, _depotButton, _depotButton });
+	_depotButton->setNextButtons({ _talkButton, _talkButton, _exitButton, _exitButton });
+	_exitButton->setNextButtons({ _depotButton, _depotButton, _shopButton, _shopButton });
 
 	addChild(_shopButton);
 	addChild(_shopText);
@@ -93,9 +93,7 @@ ShopMenu::~ShopMenu()
 	_catalogPanel->removeItems();
 	if (_dialoguePanel != nullptr) removeChild(_dialoguePanel);
 	for (auto it = _items.begin(); it != _items.end(); it++)
-	{
 		delete *it;
-	}
 }
 
 
@@ -124,42 +122,9 @@ bool ShopMenu::handleEvent(const SDL_Event& event)
 					exit(_game);
 					return true;
 				}
-				else if (_buttons.size() > 0)
-				{
-					if (event.cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_LEFT)
-					{
-						_buttons[_selectedButton]->setSelected(false);
-
-						_selectedButton = (_selectedButton - 1) % _buttons.size();
-						while (!_buttons[_selectedButton]->isVisible())
-							_selectedButton = (_selectedButton - 1) % _buttons.size();
-
-						_buttons[_selectedButton]->setSelected(true);
-					}
-					else if (event.cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_RIGHT)
-					{
-						_buttons[_selectedButton]->setSelected(false);
-
-						_selectedButton = (_selectedButton + 1) % _buttons.size();
-						while (!_buttons[_selectedButton]->isVisible())
-						{
-							_selectedButton = (_selectedButton + 1) % _buttons.size();
-						}
-
-						_buttons[_selectedButton]->setSelected(true);
-					}
-				}
 			}
 		}
-		auto it = _children.begin();
-
-		while (!handled && it != _children.end())
-		{
-			if ((*it)->handleEvent(event))
-				handled = true;
-			else
-				it++;
-		}
+		PanelUI::handleEvent(event);
 	}
 	
 	return handled;
@@ -168,9 +133,10 @@ bool ShopMenu::handleEvent(const SDL_Event& event)
 void ShopMenu::loadWeaponInfo()
 {
 	auto weaponInfo = WeaponManager::getAllWeaponInfo();
+	int i = 0;
 	for (auto it = weaponInfo.begin(); it != weaponInfo.end(); it++)
 	{
-		auto item = new ShopItem(_game, _game->getTexture((*it).second._iconName));
+		auto item = new ShopItem(_game, _game->getTexture((*it).second._iconName), 0, 0, i);
 
 		bool sold = false;
 		bool equiped = false;
@@ -183,6 +149,7 @@ void ShopMenu::loadWeaponInfo()
 		
 		item->setItemInfo({ (*it).second._zone, (*it).second._name, (*it).second._price ,(*it).second._damage, (*it).second._cadence, (*it).second._clip, (*it).first, (*it).second._iconName, (*it).second._rarityFrame, sold, equiped });
 		_items.push_back(item);
+		i++;
 	}
 }
 
@@ -196,32 +163,39 @@ void ShopMenu::setPlayer(Player* ply)
 
 void ShopMenu::openShop()
 {
+	GameManager::getInstance()->setOnShop(true);
+	_player->getPlayerPanel()->updateCoinsCounter(_player->getMoney()->getWallet());
+	_game->getCurrentState()->getMainCamera()->fadeIn(500);
 	SDL_ShowCursor(true);
 	_zone = GameManager::getInstance()->getCurrentLevel();
 	_visible = true;
 	_closed = false;
 	_player->setActive(false);
 
+	_game->getSoundManager()->playSFX("doorOpen");
 	_game->getSoundManager()->playMusic("shop", true);
 
 	_dialoguePanel->stopAtLastLineShown(true);
-	_dialoguePanel->startDialogue(_game->getDialogue("Olivander 1"));
+	_dialoguePanel->startDialogue(_game->getDialogue("Shop 1 " + to_string(GameManager::getInstance()->getCurrentLevel())));
 
 	_mainMenuAbled = true;
-
-	_buttons[_selectedButton]->setSelected(false);
+	ableMainMenu(_game);
 }
 
 void ShopMenu::closeShop()
 {
+	GameManager::getInstance()->setOnShop(false);
+	_closed = true;
 	_dialoguePanel->endDialogue();
-	//_dialoguePanel->stopAtLastLineShown(false);
-
 	_game->getSoundManager()->stopMusic();
-
 	_player->setActive(true);
 	SDL_ShowCursor(false);
-	_closed = true;
+
+	if (_game->isJoystick())
+		_selectedButton->setSelected(false);
+
+	_game->getSoundManager()->playSFX("doorClose");
+	_game->getSoundManager()->playMusic("safe_zone", -1);
 }
 
 void ShopMenu::setDialoguePanel(DialoguePanel* dialoguePanel)
@@ -240,7 +214,16 @@ void ShopMenu::ableMainMenu(Game * game)
 	_depotText->setVisible(true);
 	_exitButton->setVisible(true);
 
-	_dialoguePanel->startDialogue(_game->getDialogue("Olivander 2"));
+	if (_game->isJoystick())
+	{
+		_selectedButton = _shopButton;
+		_selectedButton->setSelected(true);
+		_talkButton->setSelected(false);
+		_depotButton->setSelected(false);
+		_exitButton->setSelected(false);
+	}
+
+	_dialoguePanel->startDialogue(_game->getDialogue("Shop 2 " + to_string(GameManager::getInstance()->getCurrentLevel())));
 	_mainMenuAbled = true;
 }
 
@@ -263,8 +246,7 @@ void ShopMenu::openCatalogPanel(Game* game)
 	disableMainMenu(game);
 
 	_catalogPanel->openCatalog();
-
-	_dialoguePanel->startDialogue(_game->getDialogue("Olivander Catalog 1"));
+	_dialoguePanel->startDialogue(_game->getDialogue("Shop Catalog " + to_string(GameManager::getInstance()->getCurrentLevel())));
 }
 
 void ShopMenu::closeCatalogPanel(Game * game)
@@ -280,7 +262,7 @@ void ShopMenu::startTalking(Game* game)
 	disableMainMenu(game);
 
 	_talking = true;
-	_dialoguePanel->startDialogue(_game->getDialogue("Olivander Talk 1"));
+	_dialoguePanel->startDialogue(_game->getDialogue("Shop Talk " + to_string(GameManager::getInstance()->getCurrentLevel())));
 }
 
 void ShopMenu::stopTalking()
@@ -293,8 +275,7 @@ void ShopMenu::openDepotPanel(Game* game)
 	disableMainMenu(game);
 
 	_depotPanel->openDepotPanel();
-
-	_dialoguePanel->startDialogue(_game->getDialogue("Olivander Depot 1"));
+	_dialoguePanel->startDialogue(_game->getDialogue("Shop Depot " + to_string(GameManager::getInstance()->getCurrentLevel())));
 }
 
 void ShopMenu::closeDepotPanel(Game * game)
@@ -307,6 +288,14 @@ void ShopMenu::closeDepotPanel(Game * game)
 
 void ShopMenu::exit(Game* game)
 {
-	closeShop();
-	setVisible(false);
+	_exitButton->setVisible(false);
+	_game->getCurrentState()->getMainCamera()->fadeOut(500);
+
+	_game->getCurrentState()->getMainCamera()->onFadeComplete([this](Game* game)
+	{
+		closeShop();
+		setVisible(false); 
+
+		_game->getCurrentState()->getMainCamera()->fadeIn(500);
+	});
 }

@@ -3,7 +3,7 @@
 SpawnerEnemy::SpawnerEnemy(Game* g, Player* player, Vector2D pos) : Enemy(g, player, pos, g->getTexture("EnemyMartyr"))
 {
 	_vision = 800;
-	_life = 300;
+	_life = 40;
 	_attackRangeX = 2;
 	_speed = 8;
 	_time = 0;
@@ -34,7 +34,7 @@ void SpawnerEnemy::update(const double& deltaTime)
 	{
 		_currentEnemies = deadEnemies();
 
-		if (!inCameraX() || _move)
+		if (!inCamera() || _move)
 		{
 			if (_bloqueDer && _playerDistance.getX() < 0)
 			{
@@ -88,7 +88,7 @@ void SpawnerEnemy::beginCollision(GameObject * other, b2Contact* contact)
 
 	if (otherTag == "Ground" || otherTag == "Platform")
 	{
-		double x = other->getComponent<BodyComponent>()->getBody()->GetPosition().x;
+		double x = contact->GetFixtureA()->GetBody()->GetPosition().x;
 		double y = _body->getBody()->GetPosition().x;
 
 		if (x > y)

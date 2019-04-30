@@ -35,7 +35,7 @@ class ShopItem : public ButtonUI
 
 
 	public:
-		ShopItem(Game* game, Texture* image = nullptr, int xPos = 0, int yPos = 0);
+		ShopItem(Game* game, Texture* image = nullptr, int xPos = 0, int yPos = 0, int arrayPos = 0);
 		~ShopItem();
 
 		virtual void render() const;

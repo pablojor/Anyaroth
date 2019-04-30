@@ -36,25 +36,34 @@ void BotonLanzaMisiles::update(const double & deltaTime)
 {
 	Interactable::update(deltaTime);
 
-  
-	if (_canInteract)
+	b2Vec2 bossPos = _boss->getComponent<BodyComponent>()->getBody()->GetPosition(), turretPos = _body->getBody()->GetPosition();
+	Vector2D distancePos = Vector2D((bossPos.x - turretPos.x)*M_TO_PIXEL, (bossPos.y - turretPos.y)*M_TO_PIXEL);
+
+	if (distancePos.getX() > 0)
+		_anim->flip();
+	else
+		_anim->unFlip();
+
+	if (usable && ready)
 	{
-		if (usable && ready)
-		{
-			if (!_interactIndicator->isActive())
-				_interactIndicator->setActive(true);
-		}
-		else
-			_interactIndicator->setActive(false);
+		if (!_interactIndicator->isActive())
+			_interactIndicator->setActive(true);
 	}
-	else if (usable)
+	else
+		_interactIndicator->setActive(false);
+
+	if (usable)
 	{
 		ready = _boss->isbeetweenFases() && _boss->getLastFase() >= _activeFase;
+
 		if (ready)
 		{
-			if(_anim->getCurrentAnim() != AnimatedSpriteComponent::Activating 
+			if (_anim->getCurrentAnim() != AnimatedSpriteComponent::Activating
 				&& _anim->getCurrentAnim() != AnimatedSpriteComponent::Active)
-			_anim->playAnim(AnimatedSpriteComponent::Activating);
+			{
+				_anim->playAnim(AnimatedSpriteComponent::Activating);
+				_game->getSoundManager()->playSFX("rocketLuncherUp");
+			}
 			else if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::Activating)
 				_anim->playAnim(AnimatedSpriteComponent::Active);
 		}

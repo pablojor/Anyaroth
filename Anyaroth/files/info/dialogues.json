@@ -1,61 +1,159 @@
 {
     "dialogues": {
         "Jose Maria 1": {
-            "face" : "DialogueFace",
+            "face": "DialogueFace",
             "name": "Jose Maria",
             "voice": "exampleVoice",
             "dialogue": [
-                "*Bzzt..Bip, bip..* Hey, �qu� tal?",
-                "Aj�, con que programando... ya veo...",
-                "�Pues sigue con eso, chaval! Deja de jugar tanto al Sekiro y ponte a estudiar de una maldita vez, escoria infrahumana (...) �Adew! *Bip*"
+                "*Bzzt... Bip, bip...* Hey, que tal?",
+                "Hmm, con que programando... ya veo...",
+                "Pues sigue en ello, chaval! Deja de jugar tanto al Sekiro y ponte a estudiar de una maldita vez, escoria!",
+                "Adios! *Bip*"
             ],
-            "faces" : [ 0, 0, 0],
-            "sounds": [ " ", " ", " ", " "]
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
         },
-            "Olivander 1": {
-            "face": "nullptr",
-            "name":"Ollivander",
-            "voice":"exampleVoice",
-            "dialogue": ["Espero que encuentres algo de tu agrado"],
-            "faces": [2],
-            "sounds":[ " ", " ", " ", " " ]
+        "Demo dude": {
+            "face": "DialogueFace",
+            "name": "Insurgent",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Oh! A new comrade, and it looks like a tough one.",
+                "Listen carefully... if you go through this cave you'll find general Spenta's base.",
+                "Someone must defeat him and take control over his cuartel. For the rebellion!"
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
         },
-            "Olivander 2": {
+        "First safezone": {
             "face": "nullptr",
-            "name":"Ollivander",
-            "voice":"exampleVoice",
-            "dialogue": ["Quieres algo mas"],
-            "faces": [2],
-            "sounds":[ " ", " ", " ", " " ]
+            "name": "Player",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Finally... I reached a rebel base.",
+                "It seems there's a shop there...",
+                "Maybe I can buy something interesting."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
         },
-            "Olivander Catalog 1": {
+        "Shop 1 53": {
             "face": "nullptr",
-            "name":"Ollivander",
-            "voice":"exampleVoice",
-            "dialogue": ["Te gusta algo de lo que tengo"],
-            "faces": [0],
-            "sounds":[ " ", " ", " ", " " ]
+            "name": "One-eyed Gronn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Oh! Welcome to my shop."
+            ],
+            "faces": [
+                2
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
         },
-            "Olivander Talk 1": {
+        "Shop 2 53": {
             "face": "nullptr",
-            "name":"Ollivander",
-            "voice":"exampleVoice",
-            "dialogue": ["He oido que la colmena esta experimentando con sustancias mutagenicas para crear super-anyas.",
-                "Si esto es verdad... estamos jodidos.",
-                "Pero bueno...",
-                "Esperemos que solo sea un rumor."],
-            "faces": [2, 1, 2, 0],
-            "sounds":[ " ", " ", " ", " " ]
+            "name": "One-eyed Gronn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Do you want anything else?"
+            ],
+            "faces": [
+                2
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
         },
-            "Olivander Depot 1": {
+        "Shop Catalog 53": {
             "face": "nullptr",
-            "name":"Ollivander",
-            "voice":"exampleVoice",
-            "dialogue": ["¡Equipate bien antes de salir ahi fuera!"],
-            "faces": [0],
-            "sounds":[ " ", " ", " ", " " ]
-    }
-        
-        
+            "name": "One-eyed Gronn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Have you seen my beautiful guns yet? In this shop we only have killer prices! Hehehe."
+            ],
+            "faces": [
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Shop Talk 53": {
+            "face": "nullptr",
+            "name": "One-eyed Gronn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Be carefull out there, there is a lot of dangerous crap.",
+                "You should buy my stuff to survive.",
+                "I mean... It's not like I worry about you but...",
+                "I worry about your money! Hahahaha!"
+            ],
+            "faces": [
+                2,
+                1,
+                2,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Shop Depot 53": {
+            "face": "nullptr",
+            "name": "One-eyed Gronn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Take a second, choose your prefered weapon and enjoy the music."
+            ],
+            "faces": [
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        }
     }
 }

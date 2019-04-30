@@ -2,9 +2,9 @@
 #include "Game.h"
 #include "BasicPistol.h"
 
-DistanceEnemy::DistanceEnemy(Game* g, Player* player, Vector2D pos, Texture* texture, BulletPool* pool) : Enemy(g, player, pos, texture)
+DistanceEnemy::DistanceEnemy(Game* g, Player* player, Vector2D pos, Texture* texture, BulletPool* pool, Vector2D offset) : Enemy(g, player, pos, texture)
 {
-	_arm = new EnemyArm(g, this, player, this, { 10, 12 });
+	_arm = new EnemyArm(g, this, player, this, offset);
 	_arm->setTexture(g->getTexture("ArmPistol"));
 	_arm->setAnimations(DefaultArmType);
 	addChild(_arm);
@@ -44,7 +44,7 @@ void DistanceEnemy::shoot()
 			_anim->flip();
 
 		_arm->shoot();
-		_myGun->enemyShoot(_myBulletPool, _arm->getPosition(), !_anim->isFlipped() ? _arm->getAngle() + random(-_fail, _fail) : _arm->getAngle() + 180 + random(-_fail, _fail), "EnemyBullet");
+		_myGun->enemyShoot(_myBulletPool, _arm->getPosition(), !_anim->isFlipped() ? _arm->getAngle() + _game->random(-_fail, _fail) : _arm->getAngle() + 180 + _game->random(-_fail, _fail), "EnemyBullet");
 	}
 }
 
