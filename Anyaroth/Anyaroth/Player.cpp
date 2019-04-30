@@ -105,10 +105,7 @@ void Player::beginCollision(GameObject * other, b2Contact* contact)
 	{
 		if (other->isActive())
 		{
-			auto coin = dynamic_cast<Coin*>(other);
-			auto value = coin->getValue();
-
-			coin->collect();
+			auto value = other->getValue();
 
 			_money->store(value);
 			_playerPanel->updateCoinsCounter(_money->getWallet());
@@ -119,10 +116,7 @@ void Player::beginCollision(GameObject * other, b2Contact* contact)
 	{
 		if (other->isActive())
 		{
-			auto ammo = dynamic_cast<AmmoPackage*>(other);
-			auto value = ammo->getValue();
-
-			ammo->collect();
+			auto value = other->getValue();
 
 			_currentGun->addAmmo(_currentGun->getMaxClip()*value);
 			_playerPanel->updateAmmoViewer(_currentGun->getClip(), _currentGun->getMagazine());
@@ -135,10 +129,7 @@ void Player::beginCollision(GameObject * other, b2Contact* contact)
 	{
 		if (other->isActive())
 		{
-			auto aidKit = dynamic_cast<AidKit*>(other);
-			auto value = aidKit->getValue();
-
-			aidKit->collect();
+			auto value = other->getValue();
 
 			_life.addLife(value);
 			_playerPanel->updateLifeBar(_life.getLife(), _life.getMaxLife());

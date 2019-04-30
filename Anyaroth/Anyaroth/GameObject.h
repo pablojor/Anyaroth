@@ -122,6 +122,8 @@ public:
 	virtual int getDamage() const { return 0; }
 	virtual void subLife(int damage) {}
 
+	inline virtual int getValue() const { return -1; }
+
 	void destroy();
 	
 	template<class ComponentType>
