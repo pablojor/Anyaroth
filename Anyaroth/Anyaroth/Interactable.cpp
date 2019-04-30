@@ -71,8 +71,11 @@ void Interactable::beginCollision(GameObject * other, b2Contact* contact)
 
 void Interactable::endCollision(GameObject * other, b2Contact* contact)
 {
+	auto fA = contact->GetFixtureA();
+	auto fB = contact->GetFixtureB();
+
 	//Deteccion de player
-	if (other->getTag() == "Player")
+	if (other->getTag() == "Player" && !(fA->IsSensor() && fB->IsSensor()))
 	{
 		_canInteract = false;
 		_interactIndicator->setActive(false);

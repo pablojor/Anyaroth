@@ -79,5 +79,6 @@ void BotonLanzaMisiles::interact()
 		addChild(misil);
 		ready = false;
 		usable = false;
+		_body->getBody()->SetActive(false);
 	}
 }
