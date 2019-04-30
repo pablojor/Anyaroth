@@ -34,7 +34,6 @@ public:
 	virtual ~PlayState();
 
 	virtual void start();
-	virtual void render() const;
 	virtual void update(const double& deltaTime);
 	virtual bool handleEvent(const SDL_Event& event);
 

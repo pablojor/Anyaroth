@@ -15,6 +15,7 @@ class GameState
 {
 private:
 	vector<GameObject*> items_ToDelete;
+	bool _hasToStart;
 
 	void initializeCamera();
 
@@ -34,6 +35,9 @@ protected:
 public:
 	GameState(Game* g);
 	virtual ~GameState();
+
+	bool hasToStart() const { return _hasToStart; }
+	void setStarted(const bool& b) { _hasToStart = !b; }
 
 	virtual void start() = 0;
 	virtual void render() const;

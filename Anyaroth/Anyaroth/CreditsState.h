@@ -7,6 +7,6 @@ public:
 	CreditsState(Game* game);
 	~CreditsState();
 
-	virtual void start() {};
+	virtual void start();
 };
 

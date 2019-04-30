@@ -9,5 +9,5 @@ public:
 	MenuState(Game* g);
 	~MenuState() {}
 
-	virtual void start() {}
+	virtual void start();
 };

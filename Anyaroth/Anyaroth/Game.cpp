@@ -287,10 +287,10 @@ void Game::run()
 
 void Game::start()
 {
-	if (_stateMachine->hasToInit())
+	if (_stateMachine->currentState()->hasToStart())
 	{
 		_stateMachine->currentState()->start();
-		_stateMachine->setInitialited();
+		_stateMachine->currentState()->setStarted(true);
 	}
 }
 

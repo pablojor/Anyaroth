@@ -7,5 +7,5 @@ public:
 	PauseState(Game* g);
 	~PauseState() {}
 
-	virtual void start() {}
+	virtual void start();
 };

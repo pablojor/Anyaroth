@@ -3,6 +3,7 @@
 
 GameState::GameState(Game* g) : _gameptr(g), _world(g->getWorld())
 {
+	_hasToStart = true;
 	initializeCamera();
 }
 

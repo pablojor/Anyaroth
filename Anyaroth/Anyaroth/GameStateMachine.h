@@ -6,7 +6,6 @@ class GameStateMachine
 {
 private:
 	stack <GameState*> _states;
-	bool _hasToInit = true;
 
 public:
 	GameStateMachine() {};
@@ -16,6 +15,4 @@ public:
 	void pushState(GameState* newState);
 	void changeState(GameState* newState);
 	void popState();
-	inline bool hasToInit() const { return _hasToInit; }
-	inline void setInitialited() { _hasToInit = false; }
 };

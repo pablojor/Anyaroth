@@ -22,7 +22,6 @@ PlayState::~PlayState()
 
 void PlayState::start()
 {
-
 	GameManager::init();
 	WeaponManager::init();
 
@@ -96,11 +95,6 @@ void PlayState::start()
 	getMainCamera()->fadeIn(3000);
 	getMainCamera()->fitCamera({ (double)_levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getWidth(),
 		(double)_levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getHeight() }, false);
-}
-
-void PlayState::render() const
-{
-	GameState::render();
 }
 
 bool PlayState::handleEvent(const SDL_Event& event)
