@@ -78,7 +78,7 @@ void Bullet::update(const double& deltaTime)
 		_effect->update(this, deltaTime);
 }
 
-void Bullet::changeFilter()
+void Bullet::changeFilter(bool enemy)
 {
 	if(enemy)
 	_body->filterCollisions(ENEMY_BULLETS, FLOOR | PLATFORMS | PLAYER);

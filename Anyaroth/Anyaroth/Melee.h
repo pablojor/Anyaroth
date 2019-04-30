@@ -13,7 +13,7 @@ protected:
 	MeleeType _id;
 
 public:
-	Melee(Game* g, Vector2D offset, Uint16 collidesWith, double damage, double w, double h);
+	Melee(Game* g, Vector2D offset, Uint16 collidesWith, double damage, double w, double h, MeleeType id);
 	virtual ~Melee() {}
 
 	virtual void update(const double& deltaTime) {}

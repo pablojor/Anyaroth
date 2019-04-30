@@ -23,7 +23,6 @@ void Boss::update(const double & deltaTime)
 	DistanceEnemy::update(deltaTime);
 	if (!isDead())
 	{
-		checkMelee();
 		movement(deltaTime);
 
 		if (_actualFase == Fase1)
@@ -87,16 +86,7 @@ void Boss::manageLife(Life& l, int damage)
 
 void Boss::beginCollision(GameObject * other, b2Contact * contact)
 {
-	string otherTag = other->getTag();
-	if (otherTag == "Bullet" || other->getTag() == "Melee")
-	{
-		int damage = other->getDamage();
-		subLife(damage);
-		if (otherTag == "Melee")
-			extraDrop = true;
-		else
-			extraDrop = false;
-	}
+	DistanceEnemy::beginCollision(other, contact);
 }
 
 void Boss::changeFase(int fase)

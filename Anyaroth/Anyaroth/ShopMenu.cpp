@@ -153,6 +153,7 @@ void ShopMenu::loadWeaponInfo()
 	}
 
 	auto meleeInfo = WeaponManager::getAllMeleeInfo();
+
 	for (auto it = meleeInfo.begin(); it != meleeInfo.end(); it++)
 	{
 		auto item = new ShopItem(_game, _game->getTexture((*it).second._iconName));

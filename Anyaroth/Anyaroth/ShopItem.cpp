@@ -59,7 +59,6 @@ void ShopItem::setItemInfo(const ItemInfo & info)
 void ShopItem::setMeleeInfo(const MeleeItemInfo & info)
 {
 	_meleeInfo = info;
-
 	//Frame (cambio al frame del color por rareza)
 	setImage(_game->getTexture(_meleeInfo._rarityFrame));
 	//Cambio del icono del arma

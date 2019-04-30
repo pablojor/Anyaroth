@@ -38,11 +38,11 @@ DepotPanel::DepotPanel(Game* game) : PanelUI(game)
 	_secondWeaponFrame->setFrames({ 0, 0, 0, 0, 0 });
 	//----EQUIPAMIENTO----//
 
-	//_meleeWeaponFrame = new ShopItem(game, game->getTexture("ItemFrame"));
-	//_meleeWeaponFrame->setPosition(_equipmentFrame->getX() + _equipmentFrame->getW() / 2 - _meleeWeaponFrame->getW() / 2,
-	//						_firstWeaponFrame->getY() + _firstWeaponFrame->getH() + distanceBetweenEquipmentSlots);
-	//_meleeWeaponFrame->setItemInfo({ -1, "melee1", 0, 14, 25, 10, GunType::Pistol_Weapon, "Weapon1","CommonFrame",true, true });
-	//_meleeWeaponFrame->setFrames({ 0, 0, 0, 0, 0 });
+	_meleeWeaponFrame = new ShopItem(game, game->getTexture("ItemFrame"));
+	_meleeWeaponFrame->setPosition(_equipmentFrame->getX() + _equipmentFrame->getW() / 2 - _meleeWeaponFrame->getW() / 2,
+							_firstWeaponFrame->getY() + _firstWeaponFrame->getH() + distanceBetweenEquipmentSlots);
+	_meleeWeaponFrame->setItemInfo({ -1, "melee1", 0, 14, 25, 10, GunType::Pistol_Weapon, "Weapon1","CommonFrame",true, true });
+	_meleeWeaponFrame->setFrames({ 0, 0, 0, 0, 0 });
 
 		//Callbacks
 	_firstWeaponFrame->onDown([this](Game* game) { setDistanceWeapon(game, _firstWeaponFrame); });
@@ -117,6 +117,7 @@ void DepotPanel::setPlayer(Player * ply)
 
 	_firstWeaponFrame->setItemInfo(*fInfo);
 	_secondWeaponFrame->setItemInfo(*sInfo);
+	_meleeWeaponFrame->setMeleeInfo(*mInfo);
 
 	addChild(_firstWeaponFrame);
 	addChild(_secondWeaponFrame);
@@ -341,8 +342,8 @@ void DepotPanel::swapMeleeItems(ShopItem* _equiped)
 	infoSelected._equiped = true;
 	otherInfo._equiped = false;
 
-	_selectedItem->setItemInfo(otherInfo);
-	_equiped->setItemInfo(infoSelected);
-
-	//_player->changeMelee();
+	_selectedItem->setMeleeInfo(otherInfo);
+	_equiped->setMeleeInfo(infoSelected);
+	Melee* newMelee = nullptr; //= WeaponManager::getMelee(_game, _equiped->getMeleeInfo()._type, _player);
+	_player->changeMelee(newMelee);
 }

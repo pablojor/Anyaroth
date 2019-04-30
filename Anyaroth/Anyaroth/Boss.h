@@ -52,9 +52,7 @@ public:
 
 	virtual void beginCollision(GameObject* other, b2Contact* contact);
 
-	virtual void meleeAttack();
 	bool inline const isMeleeing() { return ((_anim->getCurrentAnim() == AnimatedSpriteComponent::EnemyAttack) && !_anim->animationFinished()); }
-	virtual void checkMelee();
 
 	virtual void fase1(const double& deltaTime) {};
 	virtual void fase2(const double& deltaTime) {};

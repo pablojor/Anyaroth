@@ -139,9 +139,9 @@ void Map::createObjects()
 			}
 			else if (name == "Boss2")
 			{
-				_boss2 = new Boss2(_game, _player, Vector2D(pos.getX() - TILES_SIZE * 2, pos.getY() - TILES_SIZE * 2), _bulletPool);
-				_objects->addChild(_boss2);
-				_boss2->setBossPanel(_hud->getBossPanel());
+				_azura = new Boss2(_game, _player, Vector2D(pos.getX() - TILES_SIZE * 2, pos.getY() - TILES_SIZE * 2), _bulletPool);
+				_objects->addChild(_azura);
+				_azura->setBossPanel(_hud->getBossPanel());
 			}
 			else if (name == "NPC")
 			{

@@ -22,6 +22,7 @@ private:
 	vector <ObjectLayer*> _objectLayers;
 
 	Boss1* _spenta = nullptr;
+	Boss2* _azura = nullptr;
 	int _misilFase = 0, _height = 0, _width = 0;
 
 public:

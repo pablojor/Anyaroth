@@ -134,7 +134,10 @@ void Boss2::endCollision(GameObject * other, b2Contact* contact)
 
 void Boss2::meleeAttack()
 {
-	Boss::meleeAttack();
+	_bodyPos = Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL);
+	int dir = (_bodyPos.getX() >= _playerPos.getX()) ? -1 : 1;
+	_melee->meleeAttack(_bodyPos.getX(), _bodyPos.getY(), dir);
+
 	_velocity = { _velocity.getX() + 20, _velocity.getY() };
 }
 

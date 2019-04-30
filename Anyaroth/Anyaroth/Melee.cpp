@@ -26,8 +26,6 @@ void Melee::meleeAttack(double x, double y, int dir)
 	_body->getBody()->GetFixtureList()->SetSensor(true);
 	_body->filterCollisions(MELEE, _collidesWith);
 
-	_body->filterCollisions(MELEE, _collidesWith);
-
 	_center = Vector2D(x, y);
 	_r = Vector2D(x + _offset.getX(), y + _offset.getY()).distance(_center);
 }

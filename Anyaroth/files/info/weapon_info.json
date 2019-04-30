@@ -1,10 +1,9 @@
 {
-    "Basic":
-    {
-      "BasicPistol": 
-      {
+  "Guns": {
+    "Basic": {
+      "BasicPistol": {
         "zone": -1,
-	      "frame": "BasicFrame",
+        "frame": "BasicFrame",
         "icon": "PistolIcon",
         "price": 0,
         "speed": 100,
@@ -42,9 +41,7 @@
         "id": 1
       }
     },
-
-    "Common":
-    {
+    "Common": {
       "Gamma Blaster": {
         "zone": 53,
         "frame": "CommonFrame",
@@ -58,7 +55,6 @@
         "cadence": 6,
         "id": 4
       },
-
       "A4X Shotgun": {
         "zone": 53,
         "frame": "CommonFrame",
@@ -73,9 +69,7 @@
         "id": 2
       }
     },
-
-    "Rare" :
-    {
+    "Rare": {
       "Plasma Sniper": {
         "zone": 53,
         "frame": "RareFrame",
