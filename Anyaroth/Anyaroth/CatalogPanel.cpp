@@ -65,6 +65,7 @@ bool CatalogPanel::handleEvent(const SDL_Event& event)
 				_buyText->setVisible(false);
 				_selectedButton = _selectedItem;
 				_selectedButton->setSelected(true);
+				_selectedItem->setChosen(false);
 			}
 			else
 				_exitButton->callDown();
@@ -209,12 +210,6 @@ void CatalogPanel::selectItem(Game * game, ShopItem* item)
 	if (_selectedItem != nullptr)
 		_selectedItem->setChosen(false);
 
-	if (_game->usingJoystick())
-	{
-		item->setSelected(false);
-		_selectedButton = _buyButton;
-		_selectedButton->setSelected(true);
-	}
 	_selectedItem = item;
 	_selectedItem->setChosen(true);
 
@@ -232,16 +227,6 @@ void CatalogPanel::showItemInfo(ShopItem* item)
 
 	_infoPanel->openInfoPanel();
 
-	if (item == _selectedItem)
-	{
-		_buyButton->setVisible(true);
-		_buyText->setVisible(true);
-	}
-	else
-	{
-		_buyButton->setVisible(false);
-		_buyText->setVisible(false);
-	}
 }
 
 void CatalogPanel::showSelectedItemInfo() 
@@ -259,11 +244,22 @@ void CatalogPanel::showSelectedItemInfo()
 		{
 			_buyButton->setInputEnable(false);
 			_buyText->setColor({ 55, 55, 55, 255 });
+			_buyButton->setVisible(false);
+			_buyText->setVisible(false);
 		}
 		else
 		{
 			_buyButton->setInputEnable(true);
 			_buyText->setColor({ 255, 255, 255, 255 });
+			_buyButton->setVisible(true);
+			_buyText->setVisible(true);
+			if (_game->usingJoystick())
+			{
+				_selectedButton->setSelected(false);
+				_selectedItem->setChosen(true);
+				_selectedButton = _buyButton;
+				_selectedButton->setSelected(true);
+			}
 		}
 	}
 	else

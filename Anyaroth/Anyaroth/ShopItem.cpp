@@ -2,7 +2,7 @@
 #include "Game.h"
 
 
-ShopItem::ShopItem(Game* game, Texture* image, int xPos, int yPos) : ButtonUI(game, image, 0, {0, 0, 1, 1, 1})
+ShopItem::ShopItem(Game* game, Texture* image, int xPos, int yPos) : ButtonUI(game, image, 0, {0, 2, 2, 2, 2})
 {
 	_weaponIcon = new ImageUI(game, image, xPos, yPos);
 	setPosition(xPos, yPos);
@@ -47,9 +47,11 @@ void ShopItem::setItemInfo(const ItemInfo & info)
 
 void ShopItem::setChosen(bool selected)
 {
-	if (selected)
-		setFrames({ 1, 1, 1, 1, 1 });
+	if (selected && !_game->usingJoystick())
+		setFrames({ 1, 2, 1, 1, 1 });
+	else if(selected && _game->usingJoystick())
+		setFrames({ 1, 2, 1, 1, 1 });
 	else
-		setFrames({ 0, 0, 1, 1, 1 });
+		setFrames({ 0, 2, 2, 2, 2 });
 }
 

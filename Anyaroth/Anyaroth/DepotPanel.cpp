@@ -13,9 +13,26 @@ DepotPanel::DepotPanel(Game* game) : PanelUI(game)
 	_depotFrame = new ImageUI(game, game->getTexture("DepotPanel"), 21, 29);
 	_equipmentFrame = new ImageUI(game, game->getTexture("EquipPanel"), _depotFrame->getX() + _depotFrame->getW() + 5, _depotFrame->getY() + 14);
 
-		//Añadir como hijo
+	_depotFrameName = new FramedImageUI(game, game->getTexture("Equip/Depot_PanelName"));
+	_depotFrameName->setPosition(_depotFrame->getX() + _depotFrame->getW() / 2 - _depotFrameName->getW() / 2, _depotFrame->getY() - 20);
+	_equipmentFrameName = new FramedImageUI(game, game->getTexture("Equip/Depot_PanelName"));
+	_equipmentFrameName->setPosition(_equipmentFrame->getX() + _equipmentFrame->getW() / 2 - _equipmentFrameName->getW() / 2, _equipmentFrame->getY() - 20);
+
+	_depotName = new TextUI(game, "Storage", game->getFont("ARIAL12"), 12, 0, 0, { 145, 255, 255, 255 });
+	_depotName->setPosition(_depotFrameName->getX() + _depotFrameName->getW() / 2 - _depotName->getW() / 2, _depotFrameName->getY() + _depotFrameName->getH() / 2 - _depotName->getH() / 2);
+	
+	_equipName = new TextUI(game, "Equipped", game->getFont("ARIAL12"), 12, 0, 0, { 145, 255, 255, 255 });
+	_equipName->setPosition(_equipmentFrameName->getX() + _equipmentFrameName->getW() / 2 - _equipName->getW() / 2, _equipmentFrameName->getY() + _equipmentFrameName->getH() / 2 - _equipName->getH() / 2);
+
+	//Añadir como hijo
 	addChild(_depotFrame);
 	addChild(_equipmentFrame);
+
+	addChild(_depotFrameName);
+	addChild(_equipmentFrameName);
+
+	addChild(_equipName);
+	addChild(_depotName);
 
 	//----BOTON DE SALIR----//
 
@@ -73,9 +90,10 @@ bool DepotPanel::handleEvent(const SDL_Event& event)
 		{
 			if (_firstWeaponFrame->isSelected() || _secondWeaponFrame->isSelected())
 			{
+				_selectedItem->setChosen(false);
 				_selectedButton->setSelected(false);
 				_selectedButton = _exitButton->getNextRight();
-				_selectedButton->setSelected(false);
+				_selectedButton->setSelected(true);
 			}
 			else
 				_exitButton->callDown();
