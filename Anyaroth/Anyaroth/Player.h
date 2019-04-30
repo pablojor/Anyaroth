@@ -138,7 +138,7 @@ public:
 	inline void setChangeLevel(bool change) { _changeLevel = change; }
 
 	void stopPlayer();
-	inline void setInputFreezed(bool b) { _inputFreezed = b; if (b) stopPlayer(); }
+	virtual inline void setInputFreezed(bool b) { _inputFreezed = b; if (b) stopPlayer(); }
 	inline bool isInputFreezed() { return _inputFreezed; }
 
 	inline bool isDashing() const { return _onDash; }
