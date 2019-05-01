@@ -7,7 +7,7 @@ class Boss3 : public Boss
 		Vector2D _velocity = { 8,0 };
 
 		//Cosas del disparo circular
-		int _num = 0, _timeOnShooting = 0, _timeBeetwenBullets = 5;
+		int _num = 0, _timeOnShooting = 0, _timeBeetwenBullets = 0, _timeBeetwenCircularShoot = 1000;
 		int _numBullets = 40, _actualBullet = 0;
 		double _angleIncrease = 360/ _numBullets, _angle = -90;
 		bool stop = false;

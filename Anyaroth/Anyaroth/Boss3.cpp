@@ -79,38 +79,30 @@ void Boss3::circularShoot(const double& deltaTime)
 	{
 		_actualState = Moving;
 		_armVision = true;
-		_timeBeetwenBullets = 50;
+		_timeBeetwenBullets = 0;
 		_doSomething = _game->random(1200, 1600);
 		stop = true;
+		_num = 0;
 	}
 	else
-	{
-		if (_actualBullet == 0)
-		{
-			_angle = -90;
-			shootBullet();
-		}
-		else if (_timeOnShooting >= _timeBeetwenBullets)
-		{
-			shootBullet();
-			_timeBeetwenBullets += 50;
-		}
+	{	
+		if (_timeOnShooting >= _timeBeetwenBullets)		
+			shootBullet();		
 	}
 }
 
 void Boss3::shootBullet()
 {
-	shoot();
-	_angle += _angleIncrease;
-	_actualBullet++;
-
-	if (_actualBullet == _numBullets)
+	for (int i = 0; i < _numBullets; i++)
 	{
-		_timeBeetwenBullets += 300;
-		_num++;
-		_actualBullet = 0;
+		shoot();
+		_angle += _angleIncrease;
+		_actualBullet++;
 	}
-	
+
+	_timeBeetwenBullets += _timeBeetwenCircularShoot;
+	_num++;
+	_actualBullet = 0;	
 }
 
 void Boss3::shoot()
