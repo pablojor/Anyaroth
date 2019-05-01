@@ -39,7 +39,7 @@ void Camera::smoothMovement(const double & deltaTime)
 
 		//Aqui se lleva a cabo todo el movimiento
 		float smoothSpeed = 7.0f;	// Velocidad del smooth
-		float offsetX = 40;			// Offset del objeto al centro de la pantalla
+		float offsetX = 15;			// Offset del objeto al centro de la pantalla
 
 		Vector2D desiredPos;
 		if (!s->isFlipped())
@@ -69,7 +69,7 @@ void Camera::smoothCameraZoom()
 		if ((_isMinor && _zoom >= _zoomGoal) || (!_isMinor && _zoom <= _zoomGoal))
 			_zoom = _zoomGoal;
 
-		if (CAMERA_ASPECT_RATIO_X * _zoom < _xWorldBounds && CAMERA_ASPECT_RATIO_Y * _zoom < _yWorldBounds)
+		if (CAMERA_ASPECT_RATIO_X * _zoom <= _xWorldBounds && CAMERA_ASPECT_RATIO_Y * _zoom <= _yWorldBounds)
 			setCameraSize(CAMERA_ASPECT_RATIO_X * _zoom, CAMERA_ASPECT_RATIO_Y * _zoom);
 	}
 }
@@ -96,18 +96,23 @@ void Camera::shakeCamera(const double& deltaTime)
 
 void Camera::fadingControl(const double & deltaTime)
 {
-	if (_isFading)
+	if (_isFading && !_fadeIsFinished)
 	{
 		if (_fadeMaxTime < 0)
 			_fadeTime -= deltaTime;
 		else
 			_fadeTime += deltaTime;
 
-		if (_fadeTime / _fadeMaxTime >= 1)
+		if (_fadeTime / _fadeMaxTime >= 1) {
 			_isFading = false;
+			_fadeIsFinished = true;
+			_fadeTime = _fadeMaxTime;
+		}
 	}
-	else if (_fadeTime != 0)
+	else if (!_isFading && _fadeTime != 0 && _onFadeComplete == nullptr)
+	{
 		_fadeTime = 0;
+	}
 }
 
 Camera::Camera(Game* game, GameObject * followObject)
@@ -152,7 +157,7 @@ void Camera::setZoom(const float& zoomRatio, const bool& smoothZoom)
 	{
 		_zoom = _zoomGoal;
 
-		if (CAMERA_ASPECT_RATIO_X * _zoom < _xWorldBounds && CAMERA_ASPECT_RATIO_Y * _zoom < _yWorldBounds)
+		if (CAMERA_ASPECT_RATIO_X * _zoom <= _xWorldBounds && CAMERA_ASPECT_RATIO_Y * _zoom <= _yWorldBounds)
 			setCameraSize(CAMERA_ASPECT_RATIO_X * _zoom, CAMERA_ASPECT_RATIO_Y * _zoom);
 	}
 }
@@ -162,8 +167,20 @@ void Camera::setZoom(const int& zoom)
 	_zoom = zoom;
 	_zoomGoal = _zoom;
 
-	if (CAMERA_ASPECT_RATIO_X * _zoom < _xWorldBounds && CAMERA_ASPECT_RATIO_Y * _zoom < _yWorldBounds)
+	if (CAMERA_ASPECT_RATIO_X * _zoom <= _xWorldBounds && CAMERA_ASPECT_RATIO_Y * _zoom <= _yWorldBounds)
 		setCameraSize(CAMERA_ASPECT_RATIO_X * _zoom, CAMERA_ASPECT_RATIO_Y * _zoom);
+}
+
+void Camera::fitCamera(const Vector2D & rect, const bool & smoothFit)
+{
+	float relX = rect.getX() / _cameraRect.w;
+	float relY = rect.getY() / _cameraRect.h;
+
+	float zoomRatio;
+	if (relX > relY) zoomRatio = getZoomRatio() * relX;
+	else zoomRatio = getZoomRatio() * relY;
+
+	setZoom(zoomRatio, smoothFit);
 }
 
 void Camera::shake(const float& intensity, const float& time)
@@ -174,6 +191,8 @@ void Camera::shake(const float& intensity, const float& time)
 
 void Camera::fadeIn(const float & time)
 {
+	_onFadeComplete = nullptr;
+	_fadeIsFinished = false;
 	_fadeTime = 0;
 	_fadeMaxTime = time;
 	_isFading = true;
@@ -181,6 +200,8 @@ void Camera::fadeIn(const float & time)
 
 void Camera::fadeOut(const float & time)
 {
+	_onFadeComplete = nullptr;
+	_fadeIsFinished = false;
 	_fadeTime = 0;
 	_fadeMaxTime = -time;
 	_isFading = true;
@@ -207,12 +228,39 @@ void Camera::render() const
 
 void Camera::last_render() const 
 {
-	if (_isFading) {
+	if (_isFading || (_fadeIsFinished && _onFadeComplete != nullptr)) {
 		Texture tex = Texture(_game->getRenderer());
 		Uint8 alpha = (_fadeTime / _fadeMaxTime) * 255;
+		if (alpha > 255) alpha = 255;
 		tex.load(_cameraRect.w, _cameraRect.h, 0, 0, 0, _fadeMaxTime < 0 ? alpha : 255 - alpha);
 		tex.render({ 0, 0, GAME_RESOLUTION_X, GAME_RESOLUTION_Y });
 	}
+}
+
+bool Camera::pre_handleEvent()
+{
+	if (_fadeIsFinished)
+	{
+		if (_onFadeComplete != nullptr)
+		{
+			auto t = _onFadeComplete;
+			_onFadeComplete = nullptr;
+			_fadeIsFinished = false;
+			_isFading = false;
+			_fadeTime = 0;
+
+			t(_game);
+			return true;
+		}
+		else
+		{
+			_fadeIsFinished = false;
+			_isFading = false;
+			_fadeTime = 0;
+		}
+	}
+
+	return false;
 }
 
 void Camera::setWorldBounds(const int & xBound, const int & yBound)

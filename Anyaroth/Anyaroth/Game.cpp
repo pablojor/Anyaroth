@@ -64,10 +64,14 @@ void Game::createSounds()
 {
 
 	_soundManager->addMusic("bgMusic", SOUNDS_PATH + "bgMusic.wav");
-	_soundManager->addMusic("shop", SOUNDS_PATH + "shop.mp3");
+	_soundManager->addMusic("shop", SOUNDS_PATH + "shop.ogg");
+	_soundManager->addMusic("safe_zone", SOUNDS_PATH + "safe_zone.ogg");
+	_soundManager->addMusic("boss1Battle", SOUNDS_PATH + "boss1Battle.ogg");
+	_soundManager->addMusic("demoLevelMusic", SOUNDS_PATH + "demoLevelMusic.ogg");
 	_soundManager->addSFX("example1", SOUNDS_PATH + "example1.wav");
 
 	//UI SOUNDS
+	_soundManager->addSFX("boton", SOUNDS_PATH + "boton.wav");
 		//Next Text (CAMBIAR)
 	_soundManager->addSFX("example", SOUNDS_PATH + "example.wav");
 		//Dialogue
@@ -79,6 +83,62 @@ void Game::createSounds()
 	_soundManager->addSFX("exampleVoice", SOUNDS_PATH + "exampleVoice.wav");
 		//Boss
 	_soundManager->addSFX("bossVoice", SOUNDS_PATH + "bossVoice.wav");
+
+	//SOUND EFFECTS
+	_soundManager->addSFX("pick1", SOUNDS_PATH + "itempick1.wav");
+
+	_soundManager->addSFX("doorOpen", SOUNDS_PATH + "doorOpen.wav");
+	_soundManager->addSFX("doorClose", SOUNDS_PATH + "doorClose.wav");
+	_soundManager->addSFX("turretShot", SOUNDS_PATH + "turretShot.wav");
+	_soundManager->addSFX("spentaSword", SOUNDS_PATH + "spentaSword.wav");
+	_soundManager->addSFX("step", SOUNDS_PATH + "step.wav");
+	_soundManager->addSFX("jump", SOUNDS_PATH + "jump.wav");
+	_soundManager->addSFX("dash", SOUNDS_PATH + "dash.wav");
+	_soundManager->addSFX("die1", SOUNDS_PATH + "die1.wav");
+	_soundManager->addSFX("die2", SOUNDS_PATH + "die2.wav");
+	_soundManager->addSFX("pain1", SOUNDS_PATH + "pain1.wav");
+	_soundManager->addSFX("pain2", SOUNDS_PATH + "pain2.wav");
+	_soundManager->addSFX("pain3", SOUNDS_PATH + "pain3.wav");
+	_soundManager->addSFX("pain4", SOUNDS_PATH + "pain4.wav");
+	_soundManager->addSFX("pain5", SOUNDS_PATH + "pain5.wav");
+	_soundManager->addSFX("pain6", SOUNDS_PATH + "pain6.wav");
+
+	_soundManager->addSFX("pistolShot", SOUNDS_PATH + "pistolShot.wav");
+	_soundManager->addSFX("bulletGround", SOUNDS_PATH + "bulletGround.wav");
+	_soundManager->addSFX("melee", SOUNDS_PATH + "melee.wav");
+	_soundManager->addSFX("reload", SOUNDS_PATH + "reload.wav");
+	_soundManager->addSFX("emptyGun", SOUNDS_PATH + "emptyGun.wav");
+	_soundManager->addSFX("shotgun1", SOUNDS_PATH + "shotgun1.wav");
+	_soundManager->addSFX("shotgun2", SOUNDS_PATH + "shotgun2.wav");
+	_soundManager->addSFX("rifle1", SOUNDS_PATH + "rifle1.wav");
+	_soundManager->addSFX("rifle2", SOUNDS_PATH + "rifle2.wav");
+	_soundManager->addSFX("plasmaSniper", SOUNDS_PATH + "plasmaSniper.wav");
+	_soundManager->addSFX("blackHole", SOUNDS_PATH + "blackHole.wav");
+	_soundManager->addSFX("duringBH", SOUNDS_PATH + "duringBH.wav");
+	_soundManager->addSFX("orb", SOUNDS_PATH + "orb.wav");
+	_soundManager->addSFX("orbBounce", SOUNDS_PATH + "orbBounce.wav");
+	_soundManager->addSFX("bombThrow", SOUNDS_PATH + "bombthrow.wav");
+	_soundManager->addSFX("bombExplosion", SOUNDS_PATH + "bombexplosion.wav");
+
+	_soundManager->addSFX("turretMeleeHit", SOUNDS_PATH + "turretMeleeHit.wav");
+	_soundManager->addSFX("turretHit", SOUNDS_PATH + "turretHit.wav");
+	_soundManager->addSFX("turretDeath", SOUNDS_PATH + "turretDeath.wav");
+	_soundManager->addSFX("bomberDeath", SOUNDS_PATH + "bomberDeath.wav");
+	_soundManager->addSFX("martyrHit", SOUNDS_PATH + "martyrHit.wav");
+	_soundManager->addSFX("martyrMeleeHit", SOUNDS_PATH + "martyrMeleeHit.wav");
+	_soundManager->addSFX("martyrDie", SOUNDS_PATH + "martyrDie.wav");
+	_soundManager->addSFX("martyrExplosion", SOUNDS_PATH + "martyrExplosion.wav");
+	_soundManager->addSFX("meleeEnemyHit", SOUNDS_PATH + "meleeEnemyHit.wav");
+	_soundManager->addSFX("meleeDeath", SOUNDS_PATH + "meleeDeath.wav");
+	_soundManager->addSFX("meleeHit", SOUNDS_PATH + "meleeHit.wav");
+	_soundManager->addSFX("meleeEnemyAttack", SOUNDS_PATH + "meleeEnemyAttack.wav");
+	_soundManager->addSFX("rocketLuncherUp", SOUNDS_PATH + "rocketLuncherUp.wav");
+	_soundManager->addSFX("rocketLaunch", SOUNDS_PATH + "rocketLaunch.wav");
+	_soundManager->addSFX("boss1Hit", SOUNDS_PATH + "boss1Hit.wav");
+	_soundManager->addSFX("boss1Die", SOUNDS_PATH + "boss1Die.wav");
+	_soundManager->addSFX("boss1Interfase1", SOUNDS_PATH + "boss1Interfase1.wav");
+	_soundManager->addSFX("boss1Interfase2", SOUNDS_PATH + "boss1Interfase2.wav");
+	_soundManager->addSFX("boss1Interfase3", SOUNDS_PATH + "boss1Interfase3.wav");
 }
 
 void Game::createDialogues()
@@ -126,9 +186,19 @@ void Game::initialiseJoysticks()
 			_joystick = SDL_GameControllerOpen(i);
 		}
 	}
-	_joystickAttached = _joystick != nullptr;
+	_joystickAttached = _usingJoystick = _joystick != nullptr;
 }
 
+
+void Game::setSensitivity(double sensitiviy)
+{
+	if (sensitiviy > 10)
+		_controllerSensitivity = 10;
+	else if (sensitiviy < 1)
+		_controllerSensitivity = 1;
+	else
+		_controllerSensitivity = sensitiviy;
+}
 
 void Game::toggleFullscreen()
 {
@@ -216,8 +286,7 @@ void Game::run()
 
 		while (lag >= FRAME_RATE)
 		{
-			cout << "Actualizado con tiempo: " << lag << endl;
-			_world->Step((float)FRAME_RATE / 1000.0f, 8, 3);
+			_world->Step(_timestep, 8, 3);
 			update(FRAME_RATE);
 			lag -= FRAME_RATE;
 		}
@@ -241,8 +310,10 @@ void Game::render() const
 
 void Game::handleEvents()
 {
+	bool handled = _stateMachine->currentState()->pre_handleEvent();
+
 	SDL_Event event;
-	while (SDL_PollEvent(&event) && !_exit)
+	while (SDL_PollEvent(&event) && !_exit && !handled)
 	{
 		if (event.type == SDL_QUIT)
 			_exit = true;
@@ -250,11 +321,28 @@ void Game::handleEvents()
 		{
 			if (event.key.keysym.sym == SDLK_F11)
 				toggleFullscreen();
-			else if (event.key.keysym.sym == SDLK_1)
-				_soundManager->playSFX("example");
-			else if (event.key.keysym.sym == SDLK_2)
-				_soundManager->playSFX("example1");
 		}
+		else if (event.type == SDL_CONTROLLERDEVICEADDED)
+		{
+			if (!isJoystick())
+				initialiseJoysticks();
+		}
+		else if (event.type == SDL_CONTROLLERDEVICEREMOVED)
+		{
+			_joystickAttached = false;
+			_usingJoystick = false;
+			_joystick = nullptr;
+		}
+			
+		else if (!_usingJoystick)
+		{
+			if (event.type == SDL_CONTROLLERAXISMOTION && abs(event.caxis.value) > JOYSTICK_DEADZONE) 
+				changeControlMode();
+			else if (event.type == SDL_CONTROLLERBUTTONDOWN)
+				changeControlMode();
+		}
+		else if (_usingJoystick && (event.type == SDL_MOUSEBUTTONDOWN || event.type == SDL_KEYDOWN))
+			changeControlMode();
 
 		_stateMachine->currentState()->handleEvent(event);
 	}

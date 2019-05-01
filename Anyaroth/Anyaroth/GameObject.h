@@ -114,12 +114,15 @@ public:
 	inline void setActive(bool active) { _active = active; }
 	virtual inline void setStopped(bool value) {}
 	virtual inline void setStunned(bool value) {}
+	virtual inline void setInputFreezed(bool b) {}
 
 	inline bool isDead() const { return _dead; }
 	inline void setDead(bool dead) { _dead = dead; }
 
 	virtual int getDamage() const { return 0; }
 	virtual void subLife(int damage) {}
+
+	inline virtual int getValue() const { return -1; }
 
 	void destroy();
 	

@@ -12,4 +12,6 @@ public:
 
 	virtual void update(const double& deltaTime);
 	virtual void attacking(const double& deltaTime);
+	virtual void die();
+	void addSensors();
 };

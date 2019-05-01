@@ -1,7 +1,6 @@
 #include "PausePanel.h"
 #include "Game.h"
 
-
 PausePanel::PausePanel(Game* g) : PanelUI(g)
 {
 	//----BOTONES----//
@@ -31,9 +30,9 @@ PausePanel::PausePanel(Game* g) : PanelUI(g)
 	_menuText->setPosition(_menuButton->getX() + buttonW / 2 - _menuText->getW() / 2,
 							_menuButton->getY() + buttonH / 2 - _menuText->getH() / 2);
 
-	_buttons.push_back(_playButton);
-	_buttons.push_back(_optionsButton);
-	_buttons.push_back(_menuButton);
+	_playButton->setNextButtons({ _menuButton, _menuButton, _optionsButton, _optionsButton });
+	_optionsButton->setNextButtons({ _playButton, _playButton, _menuButton, _menuButton });
+	_menuButton->setNextButtons({ _optionsButton, _optionsButton, _playButton, _playButton });
 
 	addChild(_playButton);
 	addChild(_optionsButton);
@@ -42,10 +41,15 @@ PausePanel::PausePanel(Game* g) : PanelUI(g)
 	addChild(_optionsText);
 	addChild(_menuText);
 
-	if (_game->isJoystick())
-		_buttons[_selectedButton]->setSelected(true);
-}
+	_selectedButton = _playButton;
 
+	if (_game->usingJoystick())
+	{
+		_selectedButton->setSelected(true);
+		SDL_ShowCursor(false);
+		SDL_WarpMouseGlobal(0, 0);
+	}
+}
 
 PausePanel::~PausePanel()
 {
@@ -66,7 +70,9 @@ bool PausePanel::handleEvent(const SDL_Event& event)
 
 void PausePanel::continueGame(Game * g)
 {
-	g->setTimestep(1 / 60.0);
+	SDL_ShowCursor(false);
+	g->getSoundManager()->resumeMusic();
+	g->setTimestep(FRAME_RATE / 1000.0f);
 	g->popState();
 }
 
@@ -79,7 +85,8 @@ void PausePanel::options(Game * g)
 
 void PausePanel::returnMenu(Game * g)
 {
-	g->setTimestep(1 / 60.0);
+	g->getSoundManager()->stopMusic();
+	g->setTimestep(FRAME_RATE / 1000.0f);
 	g->popState();
 	g->changeState(new MenuState(g));
 }

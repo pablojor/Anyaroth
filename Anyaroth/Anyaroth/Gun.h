@@ -23,10 +23,13 @@ protected:
 	Vector2D _offset = { 0, 0 };
 
 	Texture* _armTexture = nullptr, *_bulletTexture = nullptr, *_iconTexture = nullptr;
+	string _shotSoundTag = "";
+	Game* _game = nullptr;
 
+	bool createParticles = true;
 
 public:
-	Gun(Texture* armTexture, Texture* bulletTexture, double speed, double damage, double range, int maxClip, int maxMagazine, int maxCadence, EffectInterface* effect, GunType id, Texture* iconTexture, bool automatic = false, BulletAnimType bType = BulletAnimType::Default);
+	Gun(Game* game, Texture* armTexture, Texture* bulletTexture, string shotSoundTag, double speed, double damage, double range, int maxClip, int maxMagazine, int maxCadence, EffectInterface* effect, GunType id, Texture* iconTexture, bool automatic = false, BulletAnimType bType = BulletAnimType::Default);
 	virtual ~Gun() {}
 
 	virtual void shoot(BulletPool* bulletPool, const Vector2D& position, const double& angle, const string& tag);
@@ -35,6 +38,7 @@ public:
 	virtual void reload();
 
 	inline bool canShoot() const { return _clip > 0 && _cadence <= 0; }
+	inline bool hasBullets() const { return _clip == 0 && _magazine == 0; }
 	inline bool canReload() const { return _magazine > 0 && _clip < _maxClip; }
 
 	void addAmmo(int ammoAdded);
@@ -42,6 +46,7 @@ public:
 
 	inline int getMagazine() const { return _magazine; }
 	inline int getClip() const { return _clip; }
+	inline int getMaxClip() const { return _maxClip; }
 
 	inline const GunType& getGunID() const { return _id; }
 	inline const ArmAnimType& getAnimType() const { return _animType; }
@@ -66,6 +71,7 @@ public:
 	inline void setBulletSpeed(double value) { _speed = value; }
 	inline void setDamage(double value) { _damage = value; }
 	inline void setBulletAnimType(BulletAnimType bType) { _bulletAnimType = bType; }
+	inline void setShotSound(string soundTag) { _shotSoundTag = soundTag; }
 	inline BulletAnimType getBulletAnimType() const { return _bulletAnimType; }
 
 };

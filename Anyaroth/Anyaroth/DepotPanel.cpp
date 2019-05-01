@@ -13,9 +13,26 @@ DepotPanel::DepotPanel(Game* game) : PanelUI(game)
 	_depotFrame = new ImageUI(game, game->getTexture("DepotPanel"), 21, 29);
 	_equipmentFrame = new ImageUI(game, game->getTexture("EquipPanel"), _depotFrame->getX() + _depotFrame->getW() + 5, _depotFrame->getY() + 14);
 
-		//Añadir como hijo
+	_depotFrameName = new FramedImageUI(game, game->getTexture("Equip/Depot_PanelName"));
+	_depotFrameName->setPosition(_depotFrame->getX() + _depotFrame->getW() / 2 - _depotFrameName->getW() / 2, _depotFrame->getY() - 20);
+	_equipmentFrameName = new FramedImageUI(game, game->getTexture("Equip/Depot_PanelName"));
+	_equipmentFrameName->setPosition(_equipmentFrame->getX() + _equipmentFrame->getW() / 2 - _equipmentFrameName->getW() / 2, _equipmentFrame->getY() - 20);
+
+	_depotName = new TextUI(game, "Storage", game->getFont("ARIAL12"), 12, 0, 0, { 145, 255, 255, 255 });
+	_depotName->setPosition(_depotFrameName->getX() + _depotFrameName->getW() / 2 - _depotName->getW() / 2, _depotFrameName->getY() + _depotFrameName->getH() / 2 - _depotName->getH() / 2);
+	
+	_equipName = new TextUI(game, "Equipped", game->getFont("ARIAL12"), 12, 0, 0, { 145, 255, 255, 255 });
+	_equipName->setPosition(_equipmentFrameName->getX() + _equipmentFrameName->getW() / 2 - _equipName->getW() / 2, _equipmentFrameName->getY() + _equipmentFrameName->getH() / 2 - _equipName->getH() / 2);
+
+	//Añadir como hijo
 	addChild(_depotFrame);
 	addChild(_equipmentFrame);
+
+	addChild(_depotFrameName);
+	addChild(_equipmentFrameName);
+
+	addChild(_equipName);
+	addChild(_depotName);
 
 	//----BOTON DE SALIR----//
 
@@ -25,6 +42,17 @@ DepotPanel::DepotPanel(Game* game) : PanelUI(game)
 		//Añadir como hijo
 	addChild(_exitButton);
 
+	_firstWeaponFrame = new ShopItem(game, game->getTexture("ItemFrame"));
+	_firstWeaponFrame->setPosition(_equipmentFrame->getX() + 8,
+		_equipmentFrame->getY() + 8);
+	_firstWeaponFrame->setItemInfo({ -1, "arma1", 0, 14, 25, 10, GunType::Pistol_Weapon, "Weapon1","CommonFrame",true, true });
+	_firstWeaponFrame->setFrames({ 0, 0, 0, 0, 0 });
+
+	_secondWeaponFrame = new ShopItem(game, game->getTexture("ItemFrame"));
+	_secondWeaponFrame->setPosition(_firstWeaponFrame->getX() + _firstWeaponFrame->getW() + 26,
+		_firstWeaponFrame->getY());
+	_secondWeaponFrame->setItemInfo({ -1, "arma2", 0, 14, 25, 10, GunType::Pistol_Weapon, "Weapon1","CommonFrame",true, true });
+	_secondWeaponFrame->setFrames({ 0, 0, 0, 0, 0 });
 	//----EQUIPAMIENTO----//
 
 	//_meleeWeaponFrame = new ShopItem(game, game->getTexture("ItemFrame"));
@@ -34,7 +62,8 @@ DepotPanel::DepotPanel(Game* game) : PanelUI(game)
 	//_meleeWeaponFrame->setFrames({ 0, 0, 0, 0, 0 });
 
 		//Callbacks
-
+	_firstWeaponFrame->onDown([this](Game* game) { setDistanceWeapon(game, _firstWeaponFrame); });
+	_secondWeaponFrame->onDown([this](Game* game) { setDistanceWeapon(game, _secondWeaponFrame); });
 	//_meleeWeaponFrame->onDown([this](Game* game) { setMeleeWeapon(game, _meleeWeaponFrame); });
 
 		//Añadir como hijo
@@ -59,8 +88,23 @@ bool DepotPanel::handleEvent(const SDL_Event& event)
 	{
 		if (event.type == SDL_CONTROLLERBUTTONDOWN && event.cbutton.button == SDL_CONTROLLER_BUTTON_B)
 		{
-			_exitButton->callDown();
+			if (_firstWeaponFrame->isSelected() || _secondWeaponFrame->isSelected())
+			{
+				_selectedItem->setChosen(false);
+				_selectedButton->setSelected(false);
+				_selectedButton = _exitButton->getNextRight();
+				_selectedButton->setSelected(true);
+			}
+			else
+				_exitButton->callDown();
+
 			return true;
+		}
+		else if (_game->usingJoystick() && event.type == SDL_MOUSEMOTION)
+		{
+			_selectedButton->setSelected(false);
+			SDL_ShowCursor(true);
+			_game->changeControlMode();
 		}
 	}
 	return PanelUI::handleEvent(event);;
@@ -83,33 +127,25 @@ void DepotPanel::setPlayer(Player * ply)
 			fItem = (*i);
 		else if ((*i)->getItemInfo()._type == _player->getOtherGun()->getGunID())
 			sItem = (*i);
-		else
-			_buttons.push_back(*i);
 	}
 
 	auto* fInfo = &fItem->getItemInfo(); fInfo->_sold = true; fInfo->_equiped = true;
 	auto* sInfo = &sItem->getItemInfo(); sInfo->_sold = true; sInfo->_equiped = true;
 
 	//FALTA HACERLO PARA EL ARMA A MELEE
-	_firstWeaponFrame = fItem;
-	_secondWeaponFrame = sItem;
+	_firstWeaponItem = fItem;
+	_secondWeaponItem = sItem;
+
+	_firstWeaponFrame->setItemInfo(*fInfo);
+	_secondWeaponFrame->setItemInfo(*sInfo);
 
 	addChild(_firstWeaponFrame);
 	addChild(_secondWeaponFrame);
-
-	_buttons.push_back(_firstWeaponFrame);
-	_buttons.push_back(_changeButton);
-	_buttons.push_back(_secondWeaponFrame);
-
-	//_buttons.push_back(_meleeWeaponFrame);
-	_buttons.push_back(_exitButton);
-
 }
 
 void DepotPanel::setItems(list<ShopItem*>* list)
 {
 	_items = list;
-
 	for (auto it : *_items)
 		addChild(it);
 }
@@ -128,8 +164,12 @@ void DepotPanel::openDepotPanel()
 	reorderDepot();
 	setVisible(true);
 
-	if (_game->isJoystick())
-		_buttons[_selectedButton]->setSelected(true);
+	if (_game->usingJoystick())
+	{
+		_selectedButton->setSelected(true);
+		SDL_ShowCursor(false);
+		SDL_WarpMouseGlobal(0, 0);
+	}
 }
 
 void DepotPanel::closeDepotPanel()
@@ -138,9 +178,12 @@ void DepotPanel::closeDepotPanel()
 
 	if (_selectedItem != nullptr)
 	{
-		_selectedItem->select(false);
+		_selectedItem->setSelected(false);
 		_selectedItem = nullptr;
 	}
+
+	_selectedButton->setSelected(false);
+	_selectedButton = nullptr;
 }
 
 void DepotPanel::reorderDepot()
@@ -151,6 +194,7 @@ void DepotPanel::reorderDepot()
 		distY = 4;
 
 	ShopItem* primItem = nullptr;
+	vector<ShopItem*> visibleItems;
 
 	auto it = (*_items).begin();
 	int fil = 0;
@@ -167,6 +211,7 @@ void DepotPanel::reorderDepot()
 			if (info._sold && !info._equiped)
 			{
 				item->setVisible(true);
+				visibleItems.push_back(item);
 
 				if (primItem == nullptr)
 				{
@@ -186,15 +231,34 @@ void DepotPanel::reorderDepot()
 		fil++;
 	}
 
-	_firstWeaponFrame->setPosition(_equipmentFrame->getX() + 8,  _equipmentFrame->getY() + 8);
-	_firstWeaponFrame->setVisible(true);
+	for (int i=0; i < visibleItems.size(); i++)
+	{
+		ButtonUI* nL = (i > 0) ? visibleItems[i - 1] : _exitButton;
+		ButtonUI* nU = (i > 3) ? visibleItems[i - 4] : _exitButton;
+		ButtonUI* nR = (i + 1 < visibleItems.size()) ? visibleItems[i + 1] : _changeButton;
+		ButtonUI* nD = (i + 4 < visibleItems.size()) ? visibleItems[i + 4] : _changeButton;
+		visibleItems[i]->setNextButtons({ nL, nU, nR, nD });
+	}
+	if (visibleItems.size() > 0)
+	{
+		_selectedButton = *(visibleItems.begin());
 
-	_firstWeaponFrame->onDown([this](Game * game) { setDistanceWeapon(game, _firstWeaponFrame); });
+		_exitButton->setNextButtons({ _changeButton, nullptr, *(visibleItems.begin()), nullptr });
+		_firstWeaponFrame->setNextButtons({ _secondWeaponFrame, nullptr, _secondWeaponFrame, nullptr });
+		_changeButton->setNextButtons({ *prev(visibleItems.end()), nullptr, _exitButton, nullptr });
+		_secondWeaponFrame->setNextButtons({ _firstWeaponFrame, nullptr, _firstWeaponFrame, nullptr });
+	}
+	else
+	{
+		_selectedButton = _changeButton;
 
-	_secondWeaponFrame->setPosition(_firstWeaponFrame->getX() + _firstWeaponFrame->getW() + 26, _firstWeaponFrame->getY());
-	_secondWeaponFrame->setVisible(true);
-
-	_secondWeaponFrame->onDown([this](Game * game) { setDistanceWeapon(game, _secondWeaponFrame); });
+		_exitButton->setNextButtons({ _changeButton, nullptr, _changeButton, nullptr });
+		_firstWeaponFrame->setNextButtons({ nullptr, nullptr, nullptr, nullptr });
+		_changeButton->setNextButtons({ _exitButton, nullptr, _exitButton, nullptr });
+		_secondWeaponFrame->setNextButtons({ nullptr, nullptr, nullptr, nullptr });
+	}
+	if (_game->usingJoystick())
+		_selectedButton->setSelected(true);
 }
 
 void DepotPanel::changeEquipedGuns(Game* game)
@@ -202,31 +266,45 @@ void DepotPanel::changeEquipedGuns(Game* game)
 	_player->swapGun();
 
 	auto firstWeaponInfo = _firstWeaponFrame->getItemInfo();
-	auto firstWeaponImage = _firstWeaponFrame->getItemImage();
-
 	_firstWeaponFrame->setItemInfo(_secondWeaponFrame->getItemInfo());
 
 	_secondWeaponFrame->setItemInfo(firstWeaponInfo);
+
+	auto aux = _firstWeaponItem;
+	_firstWeaponItem = _secondWeaponItem;
+	_secondWeaponItem = aux;
 }
 
 void DepotPanel::selectItem(Game * game, ShopItem* item)
 {
-	if (_selectedItem != nullptr) 
+	if (_selectedItem != nullptr)
 	{
-		_selectedItem->select(false);
+		_selectedItem->setChosen(false);
 
 		if (_selectedItem != item)
 		{
+			if (_game->usingJoystick())
+			{
+				_selectedButton->setSelected(false);
+				_selectedButton = _firstWeaponFrame;
+				_selectedButton->setSelected(true);
+			}
 			_selectedItem = item;
-			_selectedItem->select(true);
+			_selectedItem->setChosen(true);
 		}
 		else
 			_selectedItem = nullptr;
 	}
 	else if (item != _firstWeaponFrame && item != _secondWeaponFrame)
 	{
+		if (_game->usingJoystick())
+		{
+			_selectedButton->setSelected(false);
+			_selectedButton = _firstWeaponFrame;
+			_selectedButton->setSelected(true);
+		}
 		_selectedItem = item;
-		_selectedItem->select(true);
+		_selectedItem->setChosen(true);
 	}
 }
 
@@ -237,7 +315,7 @@ void DepotPanel::setDistanceWeapon(Game* game, ShopItem* item)
 		swapDistanceItems(item);
 		reorderDepot();
 
-		_selectedItem->select(false);
+		_selectedItem->setChosen(false);
 		_selectedItem = nullptr;
 	}
 }
@@ -249,7 +327,7 @@ void DepotPanel::setMeleeWeapon(Game* game, ShopItem* item)
 		swapMeleeItems(item);
 		reorderDepot();
 
-		_selectedItem->select(false);
+		_selectedItem->setChosen(false);
 		_selectedItem = nullptr;
 	}
 }
@@ -261,6 +339,14 @@ void DepotPanel::swapDistanceItems(ShopItem* _equiped)
 	auto infoEquiped = _equiped->getItemInfo();
 	infoSelected._equiped = true;
 	infoEquiped._equiped = false;
+
+	_equiped->setSelected(false);
+
+	if (infoEquiped._name == _firstWeaponFrame->getItemInfo()._name)
+		_firstWeaponItem->setItemInfo(infoSelected);
+	else
+		_secondWeaponItem->setItemInfo(infoSelected);
+
 	_selectedItem->setItemInfo(infoEquiped);
 	_equiped->setItemInfo(infoSelected);
 

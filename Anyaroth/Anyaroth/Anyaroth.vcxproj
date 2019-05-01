@@ -148,6 +148,9 @@
     <ClCompile Include="AmmoViewer.cpp" />
     <ClCompile Include="AnimatedImageUI.cpp" />
     <ClCompile Include="ButtonUI.cpp" />
+    <ClCompile Include="CreditsPanel.cpp" />
+    <ClCompile Include="CreditsState.cpp" />
+    <ClCompile Include="CreditsStateHUD.cpp" />
     <ClCompile Include="CutScene.cpp" />
     <ClCompile Include="DepotPanel.cpp" />
     <ClCompile Include="BomberGun.cpp" />
@@ -272,7 +275,7 @@
     <ClCompile Include="TTFclass.cpp" />
     <ClCompile Include="UIElement.cpp" />
     <ClCompile Include="Vector2D.cpp" />
-    <ClCompile Include="waitEvent.cpp" />
+    <ClCompile Include="WaitingEvent.cpp" />
     <ClCompile Include="WeaponManager.cpp" />
     <ClCompile Include="WeaponryViewer.cpp" />
     <ClCompile Include="ZoomInOutEvent.cpp" />
@@ -284,6 +287,9 @@
     <ClInclude Include="AnimatedImageUI.h" />
     <ClInclude Include="ButtonUI.h" />
     <ClInclude Include="CamEffectType.h" />
+    <ClInclude Include="CreditsPanel.h" />
+    <ClInclude Include="CreditsState.h" />
+    <ClInclude Include="CreditsStateHUD.h" />
     <ClInclude Include="CutScene.h" />
     <ClInclude Include="DepotPanel.h" />
     <ClInclude Include="BomberGun.h" />
@@ -419,7 +425,7 @@
     <ClInclude Include="TTFclass.h" />
     <ClInclude Include="UIElement.h" />
     <ClInclude Include="Vector2D.h" />
-    <ClInclude Include="waitEvent.h" />
+    <ClInclude Include="WaitingEvent.h" />
     <ClInclude Include="WeaponManager.h" />
     <ClInclude Include="WeaponryViewer.h" />
     <ClInclude Include="ZoomInOutEvent.h" />

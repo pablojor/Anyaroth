@@ -18,7 +18,6 @@ public:
 
 	virtual void interact();
 
-
 	void setDialoguePanel(DialoguePanel* dialoguePanel);
 };
 

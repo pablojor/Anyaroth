@@ -4,11 +4,11 @@
 #include "Player.h"
 #include "BodyComponent.h"
 
-MartyrEnemy::MartyrEnemy(Game* g, Player* player, Vector2D pos) : GroundEnemy(g, player, pos, g->getTexture("EnemyMartyr")), Enemy(g, player, pos, g->getTexture("EnemyMartyr"))
+MartyrEnemy::MartyrEnemy(Game* g, Player* player, Vector2D pos) : GroundEnemy(g, player, pos, g->getTexture("EnemyMartyr")), Enemy(g, player, pos, g->getTexture("EnemyMartyr"), "martyrDie","martyrHit", "martyrMeleeHit")
 {
 	_vision = 300;
-	_life = 50;
-	_damage = 80;
+	_life = 30;
+	_damage = 35;
 	_speed = 20;
 	_attackRangeX = 25; //No se puede poner mas pequeño que la velocidad
 	_attackRangeY = 20;
@@ -24,7 +24,7 @@ MartyrEnemy::MartyrEnemy(Game* g, Player* player, Vector2D pos) : GroundEnemy(g,
 
 	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 
-	_body->setW(22);
+	_body->setW(25);
 	_body->setH(15);
 	_body->moveShape(b2Vec2(0.3, _body->getH() + 0.1));
 	_body->filterCollisions(ENEMIES, FLOOR | PLATFORMS | PLAYER_BULLETS | MELEE);
@@ -81,6 +81,8 @@ void MartyrEnemy::explosionDie()
 	_anim->die();
 	setDead(true);
 	_body->filterCollisions(DEAD_ENEMIES, FLOOR | PLATFORMS);
+
+	_game->getSoundManager()->playSFX("martyrExplosion");
 }
 
 void MartyrEnemy::attacking(const double& deltaTime)
@@ -102,9 +104,10 @@ void MartyrEnemy::attacking(const double& deltaTime)
 
 			_player->subLife(_damage);
 			_attacking = false;
+			_game->getCurrentState()->getMainCamera()->shake(2, 500);
 			explosionDie();
 		}
-		else if (_anim->animationFinished())
+		else if (_time > _attackTime)
 		{
 			_attacking = false;
 			explosionDie();

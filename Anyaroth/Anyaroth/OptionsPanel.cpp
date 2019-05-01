@@ -41,16 +41,16 @@ OptionsPanel::OptionsPanel(Game* g, bool mainMenu) : _menu(mainMenu), PanelUI(g)
 	bool IsFullscreen = SDL_GetWindowFlags(g->getWindow()) & SDL_WINDOW_FULLSCREEN_DESKTOP;
 	if (IsFullscreen)
 		_screenButton->setFrames({ 3, 4, 5, 0, 5 });
+		
+	_lessVolume->setNextButtons({ _moreVolume, _screenButton, _moreVolume, _lessSFXVolume });
+	_moreVolume->setNextButtons({ _lessVolume, _backButton, _lessVolume, _moreSFXVolume });
+	_lessSFXVolume->setNextButtons({ _moreSFXVolume, _lessVolume, _moreSFXVolume, _lessBright });
+	_moreSFXVolume->setNextButtons({ _lessSFXVolume, _moreVolume, _lessSFXVolume, _moreBright });
+	_lessBright->setNextButtons({ _moreBright, _lessSFXVolume, _moreBright, _screenButton });
+	_moreBright->setNextButtons({ _lessBright, _moreSFXVolume, _lessBright, _backButton });
+	_screenButton->setNextButtons({ _backButton, _lessBright, _backButton, _lessVolume });
+	_backButton->setNextButtons({ _screenButton, _moreBright, _screenButton, _moreVolume });
 
-
-	_buttons.push_back(_lessVolume);
-	_buttons.push_back(_moreVolume);
-	_buttons.push_back(_lessSFXVolume);
-	_buttons.push_back(_moreSFXVolume);
-	_buttons.push_back(_lessBright);
-	_buttons.push_back(_moreBright);
-	_buttons.push_back(_screenButton);
-	_buttons.push_back(_backButton);
 	//----TEXTOS----//
 
 	//Valores
@@ -98,8 +98,13 @@ OptionsPanel::OptionsPanel(Game* g, bool mainMenu) : _menu(mainMenu), PanelUI(g)
 
 	_visible = false;
 
-	if (_game->isJoystick())
-		_buttons[_selectedButton]->setSelected(true);
+	_selectedButton = _lessVolume;
+	if (_game->usingJoystick())
+	{
+		_selectedButton->setSelected(true);
+		SDL_ShowCursor(false);
+		SDL_WarpMouseGlobal(0, 0);
+	}
 }
 
 

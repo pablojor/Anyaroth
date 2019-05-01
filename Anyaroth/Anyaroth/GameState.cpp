@@ -77,6 +77,11 @@ bool GameState::handleEvent(const SDL_Event& event)
 	return handled;
 }
 
+bool GameState::pre_handleEvent()
+{
+	return _mainCamera->pre_handleEvent();
+}
+
 void GameState::addObject(GameObject* n)
 {
 	_stages.push_back(n);/*
@@ -188,8 +193,8 @@ void GameState::setMousePositionInWorld(Vector2D coord)
 	xMousePos -= getMainCamera()->getCameraPosition().getX();
 	yMousePos -= getMainCamera()->getCameraPosition().getY();
 
-	xMousePos = xMousePos * winWidth / getMainCamera()->getCameraSize().getX();
-	yMousePos = yMousePos * winHeight / getMainCamera()->getCameraSize().getY();
+	xMousePos = xMousePos * gameWidth / getMainCamera()->getCameraSize().getX();
+	yMousePos = yMousePos * gameHeight / getMainCamera()->getCameraSize().getY();
 
 	xMousePos += xBorder/2;
 	yMousePos += yBorder/2;

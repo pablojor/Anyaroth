@@ -12,7 +12,7 @@ class DashViewer : public AnimatedImageUI
 
 		inline void reset() { playAnim(DashAnimations::Icon); }
 
-		inline void startAnimCD() { playAnim(DashAnimations::Cooldown); }
+		inline void startAnimCD() { reset();  playAnim(DashAnimations::Cooldown); }
 
 		virtual void update(const double& deltaTime);
 };

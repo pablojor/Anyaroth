@@ -11,7 +11,7 @@ Interactable::Interactable(Game* g, Vector2D posIni) : GameObject(g, "Interactab
 	_transform->setPosition(posIni.getX(), posIni.getY());
 
 	_interactIndicator = new GameObject(g);
-	if (g->isJoystick())
+	if (g->usingJoystick())
 		_interactIndicator->addComponent<Texture>(g->getTexture("InteractIndicatorController"));
 	else
 		_interactIndicator->addComponent<Texture>(g->getTexture("InteractIndicator"));
@@ -25,8 +25,6 @@ Interactable::Interactable(Game* g, Vector2D posIni) : GameObject(g, "Interactab
 
 	_interactIndicator->setActive(false);
 	addChild(_interactIndicator);
-
-	auto _indicatorTexture = _interactIndicator->getComponent<Texture>();
 }
 
 
@@ -41,9 +39,16 @@ void Interactable::update(const double& time)
 
 bool Interactable::handleEvent(const SDL_Event& event)
 {
-	if ((event.type == SDL_KEYDOWN && !event.key.repeat) || event.type == SDL_CONTROLLERBUTTONDOWN) // Captura solo el primer frame que se pulsa
+	if (event.type == SDL_KEYDOWN && !event.key.repeat) // Captura solo el primer frame que se pulsa
 	{
-		if ((event.key.keysym.sym == SDLK_e || event.cbutton.button == SDL_CONTROLLER_BUTTON_X) && _canInteract) { //TECLA PARA PASAR DE TEXTO EN EL DIALOGO
+		if (event.key.keysym.sym == SDLK_e && _canInteract) { //TECLA PARA PASAR DE TEXTO EN EL DIALOGO
+			interact();//realiza accion
+		}
+	}
+	else if (event.type == SDL_CONTROLLERBUTTONDOWN)
+	{
+		if (event.cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_UP && _canInteract)
+		{
 			interact();//realiza accion
 		}
 	}
@@ -56,17 +61,44 @@ void Interactable::beginCollision(GameObject * other, b2Contact* contact)
 	//Deteccion de player
 	if (other->getTag() == "Player")
 	{
+		if (_game->usingJoystick())
+		{
+			_interactIndicator->deleteComponent<Texture>(_interactIndicator->getComponent<Texture>());
+			_interactIndicator->addComponent<Texture>(_game->getTexture("InteractIndicatorController"));
+
+			_interactIndicator->deleteComponent<AnimatedSpriteComponent>(_interactIndicator->getComponent<AnimatedSpriteComponent>());
+
+			_interactIndicator->addComponent<AnimatedSpriteComponent>();
+			_interactIndicator->getComponent<AnimatedSpriteComponent>()->addAnim(AnimatedSpriteComponent::Idle, 5, true);
+			_interactIndicator->getComponent<AnimatedSpriteComponent>()->playAnim(AnimatedSpriteComponent::Idle);
+		}
+		else
+		{
+			_interactIndicator->deleteComponent<Texture>(_interactIndicator->getComponent<Texture>());
+			_interactIndicator->addComponent<Texture>(_game->getTexture("InteractIndicator"));
+
+			_interactIndicator->deleteComponent<AnimatedSpriteComponent>(_interactIndicator->getComponent<AnimatedSpriteComponent>());
+
+			_interactIndicator->addComponent<AnimatedSpriteComponent>();
+			_interactIndicator->getComponent<AnimatedSpriteComponent>()->addAnim(AnimatedSpriteComponent::Idle, 5, true);
+			_interactIndicator->getComponent<AnimatedSpriteComponent>()->playAnim(AnimatedSpriteComponent::Idle);
+		}
 		_canInteract = true;
 		_interactIndicator->setActive(true);
+		_other = other;
 	}
 }
 
 void Interactable::endCollision(GameObject * other, b2Contact* contact)
 {
+	auto fA = contact->GetFixtureA();
+	auto fB = contact->GetFixtureB();
+
 	//Deteccion de player
-	if (other->getTag() == "Player")
+	if (other->getTag() == "Player" && !(fA->IsSensor() && fB->IsSensor()))
 	{
 		_canInteract = false;
 		_interactIndicator->setActive(false);
+		_other = nullptr;
 	}
 }

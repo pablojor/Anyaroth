@@ -1,12 +1,11 @@
 #pragma once
-
 #include <queue>
 #include "Event.h"
 #include "Player.h"
 
 #include "DialogueEvent.h"
 #include "MoveEvent.h"
-#include "waitEvent.h"
+#include "WaitingEvent.h"
 #include "ZoomInOutEvent.h"
 #include "FadeInOutEvent.h"
 #include "ShakeEvent.h"
@@ -19,10 +18,9 @@ class CutScene
 {
 private:
 	queue<Event*> _events;
-
 	Player* _player;
-
 	bool _isPlaying = false;
+
 public:
 	CutScene(Player* player);
 	virtual ~CutScene();
@@ -39,7 +37,5 @@ public:
 	void addFlipEvent();
 	void addShopEvent(ShopMenu* shop);
 
-
 	inline bool isPlaying() { return _isPlaying; }
 };
-

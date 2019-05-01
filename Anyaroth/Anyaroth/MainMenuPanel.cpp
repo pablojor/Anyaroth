@@ -24,10 +24,12 @@ MainMenuPanel::MainMenuPanel(Game* g) : PanelUI(g)
 	_exitButton->setPosition(_loadButton->getX() , _optionsButton->getY());
 	_exitButton->setSize(buttonW, buttonH);
 
-	_buttons.push_back(_playButton);
-	_buttons.push_back(_loadButton);
-	_buttons.push_back(_optionsButton);
-	_buttons.push_back(_exitButton);
+
+	_playButton->setNextButtons({ _loadButton, _optionsButton, _loadButton, _optionsButton });
+	_optionsButton->setNextButtons({ _exitButton, _playButton, _exitButton, _playButton });
+	_loadButton->setNextButtons({ _playButton, _exitButton, _playButton, _exitButton });
+	_exitButton->setNextButtons({ _optionsButton, _loadButton, _optionsButton, _loadButton });
+
 	//----TEXTOS----//
 
 	_playText = new TextUI(g, "Play", g->getFont("ARIAL12"), 12);
@@ -55,8 +57,14 @@ MainMenuPanel::MainMenuPanel(Game* g) : PanelUI(g)
 	addChild(_optionsText);
 	addChild(_exitText);
 
-	if (_game->isJoystick())
-		_buttons[_selectedButton]->setSelected(true);
+	_selectedButton = _playButton;
+
+	if (_game->usingJoystick())
+	{
+		_selectedButton->setSelected(true);
+		SDL_ShowCursor(false);
+		SDL_WarpMouseGlobal(0, 0);
+	}
 }
 
 

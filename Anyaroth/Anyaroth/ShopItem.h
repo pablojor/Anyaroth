@@ -31,16 +31,11 @@ class ShopItem : public ButtonUI
 
 		ImageUI* _weaponIcon = nullptr;
 
-		bool _selected = false;
-
-
 	public:
 		ShopItem(Game* game, Texture* image = nullptr, int xPos = 0, int yPos = 0);
 		~ShopItem();
 
 		virtual void render() const;
-
-		void select(bool b);
 
 		inline Texture* getItemImage() const { return getImage(); }
 		inline ItemInfo& getItemInfo() { return _info; }
@@ -55,6 +50,7 @@ class ShopItem : public ButtonUI
 		void setItemSell(const bool& b) { _info._sold = b; }
 		void setItemEquiped(const bool& b) { _info._equiped = b; }
 
-		void setSelected(bool selected) { ButtonUI::setSelected(selected); select(selected); }
+		void setChosen(bool chosen);
+		void setSelected(bool selected) { ButtonUI::setSelected(selected); setChosen(selected); }
 };
 

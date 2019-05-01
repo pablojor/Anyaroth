@@ -3,10 +3,10 @@
 #include "AnimatedSpriteComponent.h"
 #include "Player.h"
 
-DistanceDynamicEnemy::DistanceDynamicEnemy(Game* g, Player* player, Vector2D pos, BulletPool* pool) : DistanceEnemy(g, player, pos, g->getTexture("EnemyMelee"), pool), GroundEnemy(g, player, pos, g->getTexture("EnemyMelee")), Enemy(g, player, pos, g->getTexture("EnemyMelee"))
+DistanceDynamicEnemy::DistanceDynamicEnemy(Game* g, Player* player, Vector2D pos, BulletPool* pool) : DistanceEnemy(g, player, pos, g->getTexture("Trooper"), pool, {27,16}), GroundEnemy(g, player, pos, g->getTexture("Trooper")), Enemy(g, player, pos, g->getTexture("Trooper"), "meleeDeath", "meleeHit", "meleeEnemyHit")
 {
 	_vision = 300;
-	_life = 50;
+	_life = 12;
 	_speed = 8;
 	_attackRangeX = _attackRangeY = _vision / 2; //No se puede poner mas pequeño que la velocidad
 	_attackTime = 1300; //La animacion tarda unos 450
@@ -14,15 +14,31 @@ DistanceDynamicEnemy::DistanceDynamicEnemy(Game* g, Player* player, Vector2D pos
 	if (_attackRangeX < _speed)
 		_attackRangeX += _speed;
 
-	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 13, true);
-	_anim->addAnim(AnimatedSpriteComponent::EnemyWalk, 8, true);
-	_anim->addAnim(AnimatedSpriteComponent::EnemyAttack, 11, false);
+	//_myGun->setBulletAnimType(TurretBullet);
+	//_myGun->setBulletTexture(g->getTexture("PistolBullet"));
+
+	_arm->setTexture(g->getTexture("TrooperArm"));
+	_arm->setAnimations(TrooperArmType);
+
+	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 16, true);
+	_anim->addAnim(AnimatedSpriteComponent::EnemyWalk, 10, true);
+	_anim->addAnim(AnimatedSpriteComponent::EnemyAttack, 16, false);
+	_anim->addAnim(AnimatedSpriteComponent::EnemyDie, 35, false);
 
 	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
-
-	_body->addCricleShape(b2Vec2(0, _body->getH() + _body->getH() / 20), _body->getW() - _body->getW() / 20, ENEMIES, FLOOR | PLATFORMS);
-
+	_body->setH(26);
+	_body->moveShape(b2Vec2(0, -1));
+	_body->addCricleShape(b2Vec2(0, _body->getH() - 0.5 + _body->getH() / 20 - 0.5), _body->getW() - _body->getW() / 20, ENEMIES, FLOOR | PLATFORMS);
+	//_body->addCricleShape(b2Vec2(0, _body->getH() - 0.5 + _body->getH() / 20), _body->getW() - _body->getW() / 20, ENEMIES, FLOOR | PLATFORMS);
+	_body->filterCollisions(ENEMIES, FLOOR | PLATFORMS | PLAYER_BULLETS | MELEE);
+	
+	//_body->moveShape(b2Vec2(0, 0));
 	addSensors();
+
+	//Ajustes del arma
+	_myGun->setDamage(2);
+	_myGun->setMaxCadence(700);
+	_myGun->setBulletSpeed(30);
 }
 
 void DistanceDynamicEnemy::update(const double& deltaTime)
@@ -77,4 +93,33 @@ void DistanceDynamicEnemy::attacking(const double& deltaTime)
 		if(!_armVision && !isStunned())
 			_body->getBody()->SetLinearVelocity({ 0,_body->getBody()->GetLinearVelocity().y });
 	}
+}
+
+void DistanceDynamicEnemy::die()
+{
+	Enemy::die();
+	_arm->setActive(false);
+}
+
+void DistanceDynamicEnemy::addSensors()
+{
+	b2PolygonShape shape;
+	shape.SetAsBox(5 / M_TO_PIXEL, 2 / M_TO_PIXEL, b2Vec2(-2, 0), 0);
+	b2FixtureDef fDef;
+	fDef.shape = &shape;
+	fDef.filter.categoryBits = ENEMIES;
+	fDef.filter.maskBits = FLOOR | PLATFORMS;
+	fDef.isSensor = true;
+	fDef.friction = -26;
+	_body->addFixture(&fDef, this);
+
+	shape;
+	shape.SetAsBox(5 / M_TO_PIXEL, 2 / M_TO_PIXEL, b2Vec2(2, 0), 0);
+	fDef;
+	fDef.shape = &shape;
+	fDef.filter.categoryBits = ENEMIES;
+	fDef.filter.maskBits = FLOOR | PLATFORMS;
+	fDef.isSensor = true;
+	fDef.friction = 26;
+	_body->addFixture(&fDef, this);
 }

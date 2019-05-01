@@ -6,7 +6,7 @@
 #include "AmmoPackage.h"
 #include "AidKit.h"
 
-Enemy::Enemy(Game* g, Player* player, Vector2D pos, Texture* texture) : GameObject(g, "Enemy"), _player(player)
+Enemy::Enemy(Game* g, Player* player, Vector2D pos, Texture* texture, string death, string hit, string meleeHit) : GameObject(g, "Enemy"), _player(player), _deathSound(death), _hitSound(hit), _meleeHit(meleeHit)
 {
 	addComponent<Texture>(texture);
 
@@ -18,7 +18,8 @@ Enemy::Enemy(Game* g, Player* player, Vector2D pos, Texture* texture) : GameObje
 	_body->getBody()->SetBullet(true);
 	
 	_body->setW(20);
-	_body->setH(20);
+	_body->setH(30);
+	_body->moveShape(b2Vec2(0, 0.6));
 	_body->filterCollisions(ENEMIES, FLOOR | PLATFORMS | PLAYER_BULLETS | MELEE);
 	
 	_body->getBody()->SetFixedRotation(true);
@@ -27,6 +28,8 @@ Enemy::Enemy(Game* g, Player* player, Vector2D pos, Texture* texture) : GameObje
 	_anim = addComponent<CustomAnimatedSpriteComponent>();
 
 	_life = Life(50);
+
+	_hurtParticle = _game->getTexture("Blood");
 }
 
 void Enemy::beginCollision(GameObject * other, b2Contact* contact)
@@ -36,10 +39,19 @@ void Enemy::beginCollision(GameObject * other, b2Contact* contact)
 		int damage = other->getDamage();
 		subLife(damage);
 
+		BodyComponent* otherBody = other->getComponent<BodyComponent>();
+		_contactPoint = otherBody->getBody()->GetPosition() + b2Vec2(otherBody->getW() / 2, otherBody->getH() / 2);
+
 		if (other->getTag() == "Melee")
+		{
 			_dropMelee = true;
+			_game->getSoundManager()->playSFX(_meleeHit);
+		}
 		else
+		{
 			_dropMelee = false;
+			_game->getSoundManager()->playSFX(_hitSound);
+		}
 	}
 }
 
@@ -55,6 +67,13 @@ void Enemy::update(const double& deltaTime)
 		_drop = false;
 		drop();
 	}
+	if (_spawnParticles)
+	{
+		_spawnParticles = false;
+		double center_x = _body->getBody()->GetPosition().x + _body->getW() / 2, center_y = _body->getBody()->GetPosition().y + _body->getH() / 2;
+		Vector2D direction = Vector2D((_contactPoint.x - center_x), (center_y - _contactPoint.y));
+		ParticleManager::GetParticleManager()->CreateSpray(_hurtParticle, Vector2D(_contactPoint.x*M_TO_PIXEL, _contactPoint.y*M_TO_PIXEL), direction, 4, 10, 30, 700, 5, 2);
+	}
 }
 
 void Enemy::die()
@@ -63,24 +82,25 @@ void Enemy::die()
 	_anim->playAnim(AnimatedSpriteComponent::EnemyDie);
 	setDead(true);
 	_body->filterCollisions(DEAD_ENEMIES, FLOOR | PLATFORMS);
+
+	_game->getSoundManager()->playSFX(_deathSound);
 }
 
 void Enemy::drop()
 {
-	int rnd = random(0, 100);
+	int rnd = _game->random(0, 100);
 
-	
-	if (rnd <= 30 && _dropMelee)
+	if (rnd < 50 && _dropMelee)
 	{
-		_game->getCurrentState()->addObject(new AmmoPackage(_game, Vector2D(_body->getBody()->GetPosition().x*M_TO_PIXEL, _body->getBody()->GetPosition().y*M_TO_PIXEL), _ammoClips));
+		addChild(new AidKit(_game, Vector2D(_body->getBody()->GetPosition().x*M_TO_PIXEL, _body->getBody()->GetPosition().y*M_TO_PIXEL), _player->getLife().getMaxLife() / 4));
 	}
-	else if (rnd >= 85 || (rnd >= 70 && _dropMelee))
+	else if (rnd < 15)
 	{
-		_game->getCurrentState()->addObject(new AidKit(_game, Vector2D(_body->getBody()->GetPosition().x*M_TO_PIXEL, _body->getBody()->GetPosition().y*M_TO_PIXEL), _aidKitValue));
+		addChild(new AmmoPackage(_game, Vector2D(_body->getBody()->GetPosition().x*M_TO_PIXEL, _body->getBody()->GetPosition().y*M_TO_PIXEL), 1));
 	}
-	else if (rnd <= 80)
+	else if (rnd > 15)
 	{
-		_game->getCurrentState()->addObject(new Coin(_game, Vector2D(_body->getBody()->GetPosition().x*M_TO_PIXEL, _body->getBody()->GetPosition().y*M_TO_PIXEL), _coinValue));
+		addChild(new Coin(_game, Vector2D(_body->getBody()->GetPosition().x*M_TO_PIXEL, _body->getBody()->GetPosition().y*M_TO_PIXEL), _coinValue));
 	}
 }
 
@@ -93,16 +113,14 @@ void Enemy::subLife(int damage)
 		if (_life.getLife() == 0)
 			die();
 		else
+		{
 			_anim->hurt();
+			_spawnParticles = true;
+		}
 	}
 }
 
 bool Enemy::inCamera()
 {
 	return _game->getCurrentState()->getMainCamera()->inCamera(Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL));
-}
-
-bool Enemy::inCameraX()
-{
-	return _game->getCurrentState()->getMainCamera()->inCameraX(Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, 0));
 }
