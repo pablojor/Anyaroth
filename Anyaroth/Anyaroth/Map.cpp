@@ -18,7 +18,7 @@
 
 using namespace nlohmann;
 
-Map::Map(string filename, Game* game, Player* player, Texture* tileset, BulletPool* bulletPool, PlayStateHUD* hud) : GameObject(game), _player(player), _bulletPool(bulletPool),  _hud(hud)
+Map::Map(string filename, Game* game, Player* player, Texture* tileset, BulletPool* bulletPool, PlayStateHUD* hud) : GameObject(game), _player(player), _bulletPool(bulletPool), _hud(hud)
 {
 	_tilemap = new Tilemap(game, tileset);
 	_tilemap->loadTileMap(filename);
@@ -41,7 +41,7 @@ Map::Map(string filename, Game* game, Player* player, Texture* tileset, BulletPo
 			auto it = j[i].find("name");
 			if (it != j[i].end())
 			{
-				if (*it != "Map" && *it != "Ground" && *it != "Platform" && *it != "Door")
+				if (*it != "Map" && *it != "Ground" && *it != "Platform" && *it != "Door" && *it != "Death")
 					_objectLayers.push_back(new ObjectLayer(filename, *it));
 				else if (*it == "Map")
 				{

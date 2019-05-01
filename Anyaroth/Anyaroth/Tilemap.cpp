@@ -115,7 +115,7 @@ void Tilemap::loadTileMap(const string & filename)
 
 						_grid[i + 1] = Tile(layer[i], x ,y);
 
-						if (name == "Ground" || name == "Platform" || name == "Door")
+						if (name == "Ground" || name == "Platform" || name == "Door" || name == "Death")
 						{
 							_grid[i + 1].setTag(name);
 
@@ -126,13 +126,15 @@ void Tilemap::loadTileMap(const string & filename)
 							b2Body* body = _game->getWorld()->CreateBody(&bodydef);
 
 							b2PolygonShape shape;
-							shape.SetAsBox(_tileSize / (M_TO_PIXEL*2), _tileSize / (M_TO_PIXEL*2));
+							shape.SetAsBox(_tileSize / (M_TO_PIXEL * 2), _tileSize / (M_TO_PIXEL * 2));
 
 							b2FixtureDef fixture;
 							fixture.shape = &shape;
 							fixture.density = 1;
 							fixture.restitution = 0;
 							fixture.friction = 0.001;
+							if (name == "Death")
+								fixture.isSensor = true;
 
 							body->CreateFixture(&fixture);
 							body->SetUserData(&_grid[i + 1]);

@@ -140,6 +140,10 @@ void Player::beginCollision(GameObject * other, b2Contact* contact)
 	{
 		_changeLevel = true;
 	}
+	else if (other->getTag() == "Death")
+	{
+		die();
+	}
 }
 
 void Player::endCollision(GameObject * other, b2Contact* contact)
