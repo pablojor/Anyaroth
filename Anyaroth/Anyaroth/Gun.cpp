@@ -66,13 +66,13 @@ void Gun::enemyShoot(BulletPool* bulletPool, const Vector2D& position, const dou
 		if (b != nullptr)
 		{
 			b->init(_bulletTexture, bulletPos, _speed, _damage, angle, _range, tag, _effect, _bulletAnimType);
-			b->changeFilter();
+			b->changeFilter(true);
 		}
 		else
 		{
 			Bullet* b2 = bulletPool->addNewBullet();
 			b2->init(_bulletTexture, bulletPos, _speed, _damage, angle, _range, tag, _effect, _bulletAnimType);
-			b2->changeFilter();
+			b2->changeFilter(true);
 		}
 	}
 }

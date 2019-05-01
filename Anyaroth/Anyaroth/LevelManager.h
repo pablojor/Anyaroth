@@ -18,6 +18,7 @@ private:
 
 	Texture* _tilesetZone1 = nullptr;
 	Texture* _tilesetBoss1 = nullptr;
+	Texture* _tilesetBoss2 = nullptr;
 	Texture* _tilesetZone2 = nullptr;
 
 	ParallaxBackGround* _parallaxZone1 = nullptr;

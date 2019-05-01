@@ -8,6 +8,7 @@
 
 class Player;
 class Boss1;
+class Boss2;
 
 class Map : public GameObject
 {
@@ -21,6 +22,7 @@ private:
 	vector <ObjectLayer*> _objectLayers;
 
 	Boss1* _spenta = nullptr;
+	Boss2* _azura = nullptr;
 	int _misilFase = 0, _height = 0, _width = 0;
 
 public:

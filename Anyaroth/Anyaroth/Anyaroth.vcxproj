@@ -159,6 +159,7 @@
     <ClCompile Include="DialogueEvent.cpp" />
     <ClCompile Include="EffectInterface.cpp" />
     <ClCompile Include="Boss.cpp" />
+    <ClCompile Include="Boss2.cpp" />
     <ClCompile Include="Capsule.cpp" />
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="FadeInOutEvent.cpp" />
@@ -189,6 +190,9 @@
     <ClCompile Include="GravityBombDebuff.cpp" />
     <ClCompile Include="GravityBulletEffect.cpp" />
     <ClCompile Include="Interactable.cpp" />
+    <ClCompile Include="Laser.cpp" />
+    <ClCompile Include="LaserContainer.cpp" />
+    <ClCompile Include="LaserHandler.cpp" />
     <ClCompile Include="MainMenuPanel.cpp" />
     <ClCompile Include="MenuStateHUD.cpp" />
     <ClCompile Include="MoveEvent.cpp" />
@@ -251,6 +255,7 @@
     <ClCompile Include="PlayerPanel.cpp" />
     <ClCompile Include="PlayState.cpp" />
     <ClCompile Include="PlayStateHUD.cpp" />
+    <ClCompile Include="Poleaxe.cpp" />
     <ClCompile Include="PoolWrapper.cpp" />
     <ClCompile Include="RenderComponent.cpp" />
     <ClCompile Include="ShakeEvent.cpp" />
@@ -298,6 +303,7 @@
     <ClInclude Include="DialogueEvent.h" />
     <ClInclude Include="EffectInterface.h" />
     <ClInclude Include="Boss.h" />
+    <ClInclude Include="Boss2.h" />
     <ClInclude Include="CapsuleDistance.h" />
     <ClInclude Include="CapsuleNormal.h" />
     <ClInclude Include="DistanceSpawner.h" />
@@ -335,6 +341,9 @@
     <ClInclude Include="ImprovedRifle.h" />
     <ClInclude Include="ImprovedShotgun.h" />
     <ClInclude Include="GroundEnemy.h" />
+    <ClInclude Include="Laser.h" />
+    <ClInclude Include="LaserContainer.h" />
+    <ClInclude Include="LaserHandler.h" />
     <ClInclude Include="LevelManager.h" />
     <ClInclude Include="MainMenuPanel.h" />
     <ClInclude Include="Map.h" />
@@ -400,6 +409,7 @@
     <ClInclude Include="PlayerPanel.h" />
     <ClInclude Include="PlayState.h" />
     <ClInclude Include="PlayStateHUD.h" />
+    <ClInclude Include="Poleaxe.h" />
     <ClInclude Include="PoolWrapper.h" />
     <ClInclude Include="RenderComponent.h" />
     <ClInclude Include="SDLError.h" />

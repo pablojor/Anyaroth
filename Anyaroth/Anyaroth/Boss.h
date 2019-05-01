@@ -1,6 +1,7 @@
 #pragma once
 #include "DistanceEnemy.h"
 #include "BossPanel.h"
+#include "Melee.h"
 
 enum Fase
 {
@@ -9,7 +10,7 @@ enum Fase
 
 enum State
 {
-	Moving, Shooting, Bombing, Meleeing, OrbAttacking
+	Moving, Shooting, Bombing, Meleeing, OrbAttacking,Jumping
 };
 
 class Boss : public DistanceEnemy
@@ -29,6 +30,9 @@ protected:
 	//Tiempo entre acciones
 	int _doSomething = 1000, _noAction = 0;
 
+	//Melee
+	Melee* _melee = nullptr;
+
 public:
 	Boss(Game* g, Player* player, Vector2D pos, BulletPool* pool, Texture* text);
 	virtual ~Boss();
@@ -47,6 +51,8 @@ public:
 	virtual void movement(const double& deltaTime) {}
 
 	virtual void beginCollision(GameObject* other, b2Contact* contact);
+
+	bool inline const isMeleeing() { return ((_anim->getCurrentAnim() == AnimatedSpriteComponent::EnemyAttack) && !_anim->animationFinished()); }
 
 	virtual void fase1(const double& deltaTime) {};
 	virtual void fase2(const double& deltaTime) {};

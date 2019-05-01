@@ -34,6 +34,7 @@ private:
 	int _dashTime = 250,
 		_dashCD = 1000 + _dashTime,
 		_dashParticleTime = 40,
+		_stunTime = 1000,
 		_floorCount = 0,
 		_deathCD = 3000;
 
@@ -65,7 +66,8 @@ private:
 		_inputFreezed = false,
 		_jMoveRight = false,
 		_jReleased = false,
-		_spawnParticles = false;
+		_spawnParticles = false,
+		_stunned = false;
 
 	Gun* _currentGun = nullptr;
 	Gun* _otherGun = nullptr;
@@ -82,6 +84,8 @@ private:
 	void refreshDashCoolDown(const double& deltaTime);
 
 	void dashTimer(const double& deltaTime);
+	
+	void refreshStunTime(const double& deltaTime);
 
 	void refreshGunCadence(const double& deltaTime);
 	bool canReload();
@@ -111,6 +115,7 @@ public:
 
 	inline Gun* getCurrentGun() const { return _currentGun; }
 	inline Gun* getOtherGun() const { return _otherGun; }
+	inline Melee* getMelee() const { return _melee; }
 
 	inline bool spendMoney(int n) { return _money->spend(n); }
 	inline int getBank() const { return _money->getBank(); }
@@ -123,6 +128,7 @@ public:
 	void dashOff();
 	void jump();
 	void cancelJump();
+	void stunPlayer();
 	inline bool isGrounded() const { return _floorCount; }
 
 	void melee();

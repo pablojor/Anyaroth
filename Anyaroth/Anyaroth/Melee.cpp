@@ -3,7 +3,7 @@
 #include "Game.h"
 #include <math.h>
 
-Melee::Melee(Game * g, Vector2D offset, Uint16 collidesWith, double damage, double w, double h) : GameObject(g, "Melee") , _offset(offset), _collidesWith(collidesWith), _damage(damage), _w(w), _h(h) {}
+Melee::Melee(Game * g, Vector2D offset, Uint16 collidesWith, double damage, double w, double h, MeleeType id) : GameObject(g, "Melee") , _offset(offset), _collidesWith(collidesWith), _damage(damage), _w(w), _h(h), _id(id) {}
 
 void Melee::meleeAttack(double x, double y, int dir)
 {
@@ -25,6 +25,7 @@ void Melee::meleeAttack(double x, double y, int dir)
 	_body->setW(_w);
 	_body->setH(_h);
 	_body->getBody()->GetFixtureList()->SetSensor(true);
+	_body->filterCollisions(MELEE, _collidesWith);
 
 	_body->filterCollisions(MELEE, _collidesWith);
 
@@ -34,7 +35,7 @@ void Melee::meleeAttack(double x, double y, int dir)
 
 void Melee::endMelee()
 {
-	if (_body->getBody() != nullptr && _body->getBody()->IsActive())
+	if (_body!= nullptr && _body->getBody() != nullptr && _body->getBody()->IsActive())
 	{
 		if (!_body->getBody()->GetWorld()->IsLocked())
 			_body->getBody()->SetActive(false);

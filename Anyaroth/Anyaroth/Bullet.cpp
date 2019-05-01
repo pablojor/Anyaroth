@@ -82,7 +82,6 @@ void Bullet::changeFilter()
 {
 	_body->filterCollisions(ENEMY_BULLETS, FLOOR | PLATFORMS | PLAYER);
 }
-
 void Bullet::setAnimations(BulletAnimType type)
 {
 	switch (type)

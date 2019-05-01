@@ -13,7 +13,6 @@ void Boss::setBossPanel(BossPanel * b)
 	_bossPanel = b;
 
 	//Actualizamos de primeras el aspecto del Panel del Jugador
-	_bossPanel->updateBossName("Spenta Manyu");
 	_bossPanel->updateLifeBar(_life1.getLife(), _life2.getLife(), _life3.getLife(), _life.getLife());
 	_bossPanel->setVisible(true);
 }
@@ -43,6 +42,7 @@ void Boss::subLife(int damage)
 {
 	if (!isDead() && !isbeetweenFases())
 	{
+
 		if (_life1.getLife() > 0)
 		{
 			manageLife(_life1, damage);
