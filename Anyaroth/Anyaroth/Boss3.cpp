@@ -66,29 +66,102 @@ void Boss3::movement(const double& deltaTime)
 }
 
 
-void Boss3::fase1(const double& deltaTime)
+void Boss3::fase2(const double& deltaTime)
 {
 	if (_actualState == Shooting)
 			circularShoot(deltaTime);
-	else
+	else if (_actualState == GravAttack)
 	{
 		if (_noAction > _doSomething)
 		{
-			if (_game->random(0, 100) > 30)
-			{
-				circularShoot(deltaTime);
-				_noAction = 0;
+			if (_game->random(0, 100) > 70)			
 				_actualState = Shooting;
-			}
 			else
 			{
-				shootGrav();
-				_noAction = 0;
+				_body->getBody()->SetActive(false);
+				_arm->setActive(false);
+				_anim->setVisible(false);
+				_actualState = PortalAttack;
 			}
+			_noAction = 0;
 		}
 		else
 			_noAction += deltaTime;
 	}
+	else if (_actualState == PortalAttack)
+	{
+		portalAttack(deltaTime);
+	}
+	else
+	{
+		if (_noAction > _doSomething)
+		{
+			int rand = _game->random(0, 100);
+			if ( rand > 70)			
+				_actualState = Shooting;			
+			else if (rand > 45)
+			{
+				_body->getBody()->SetActive(false);
+				_arm->setActive(false);
+				_anim->setVisible(false);
+				_actualState = PortalAttack;
+			}
+			else
+			{
+				shootGrav();
+				_actualState = GravAttack;
+			}
+			_noAction = 0;
+		}
+		else
+			_noAction += deltaTime;
+	}
+}
+
+void Boss3::portalAttack(const double& deltaTime)
+{
+	if (_timeOut > timeToReapear)
+	{
+		_body->getBody()->SetActive(true);
+		_arm->setActive(true);
+		_doSomething = _game->random(2000, 3000);
+		_actualState = Moving;
+		portalVisible = false;
+		_timeOut = 0;
+
+		b2Vec2 playerPos = _player->getComponent<BodyComponent>()->getBody()->GetPosition(), enemyPos = _body->getBody()->GetPosition();
+		Vector2D playerDistance = Vector2D((playerPos.x - enemyPos.x)*M_TO_PIXEL, (playerPos.y - enemyPos.y)*M_TO_PIXEL);
+
+		bool maxRange = _playerDistance.getX() < _explosionRange && _playerDistance.getX() > -_explosionRange && _playerDistance.getY() < _explosionRange && _playerDistance.getY() > -_explosionRange;
+
+		if (maxRange)
+		{
+			bool midleRange = _playerDistance.getX() < _explosionRange / 2 && _playerDistance.getX() > -_explosionRange / 2 && _playerDistance.getY() < _explosionRange / 2 && _playerDistance.getY() > -_explosionRange / 2;
+
+			if (playerDistance.getX() == 0)
+			{
+				_playerBody->getBody()->ApplyLinearImpulseToCenter(b2Vec2(_impulse * 10 * 3, _impulse * 10 * 2), true);
+			}
+			else if (midleRange)
+				_playerBody->getBody()->ApplyLinearImpulseToCenter(b2Vec2(_impulse * _playerDistance.getX() * 3, _impulse * _playerDistance.getY() * 2), true);
+			else
+				_playerBody->getBody()->ApplyLinearImpulseToCenter(b2Vec2(_impulse * _playerDistance.getX(), _impulse * _playerDistance.getY()), true);
+
+			_player->subLife(_explosionDamage);
+		}
+		_game->getCurrentState()->getMainCamera()->shake(2, 500);
+	}
+	else if (_timeOut > timeToShowPortal && !portalVisible)
+	{
+		_body->getBody()->SetTransform(b2Vec2((_playerBody->getBody()->GetPosition().x), _playerBody->getBody()->GetPosition().y), 0);
+		_transform->setPosition(Vector2D(_playerBody->getBody()->GetPosition().x / M_TO_PIXEL, _playerBody->getBody()->GetPosition().y / M_TO_PIXEL));
+		portalVisible = true;
+
+		_anim->setVisible(true);
+		//Se pone animacion del portal
+	}
+	else
+		_timeOut += deltaTime;
 }
 
 void Boss3::circularShoot(const double& deltaTime)
@@ -136,5 +209,5 @@ void Boss3::shootGrav()
 {
 	_arm->shoot();
 	_gravGun->enemyShoot(_myBulletPool, _arm->getPosition(), !_anim->isFlipped() ? _arm->getAngle() + _game->random(-_fail, _fail) : _arm->getAngle() + 180 + _game->random(-_fail, _fail), "EnemyBullet");
-	_doSomething = _game->random(1500, 3000);
+	_doSomething = _game->random(800, 1500);
 }
