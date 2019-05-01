@@ -41,9 +41,6 @@ Boss2::Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, 
 
 	_playerBody = _player->getComponent<BodyComponent>();
 
-	_lasers = new LaserHandler(g, g->getTexture("Arm"), g->getTexture("ArmUp"), player, 8);
-	addChild(_lasers);
-
 	_melee = new Poleaxe(getGame(), { 50,0 }, PLAYER, 5, 15, 5, this);
 	addChild(_melee);
 }

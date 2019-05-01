@@ -15,7 +15,7 @@ private:
 	bool isShooting = false, shootStareted = false;
 
 public:
-	LaserHandler(Game* g, Texture* container, Texture* laser, Player* player, int numLasers);
+	LaserHandler(Game* g, Texture* container, Texture* laser, Player* player, Vector2D posIni, int numLasers, int span);
 	virtual ~LaserHandler() {}
 
 	virtual void update(const double& deltaTime);

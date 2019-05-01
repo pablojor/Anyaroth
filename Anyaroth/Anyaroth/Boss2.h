@@ -22,6 +22,8 @@ public:
 	virtual void beginCollision(GameObject* other, b2Contact* contact);
 	virtual void endCollision(GameObject * other, b2Contact* contact);
 
+	inline void setLasers(LaserHandler* lasers) { _lasers = lasers; }
+
 	virtual void meleeAttack();
 	void endJump();
 	virtual void checkMelee(const double& deltaTime);

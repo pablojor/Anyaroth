@@ -1,14 +1,13 @@
 #include "LaserHandler.h"
 #include "Game.h"
 
-LaserHandler::LaserHandler(Game* g, Texture* container, Texture* laser, Player* player, int numLasers) : _numLasers(numLasers), GameObject(g)
+LaserHandler::LaserHandler(Game* g, Texture* container, Texture* laser, Player* player, Vector2D posIni, int numLasers, int span) : _numLasers(numLasers), GameObject(g)
 {
-	int pos1 = 65;
-	int spaceBetween = (800 - pos1) / numLasers;
+	int spaceBetween = span / numLasers;
 
 	for (int i = 0; i < numLasers; i++)
 	{
-		LaserContainer* temp = new LaserContainer(g, Vector2D(pos1 + i * spaceBetween, 75), container, laser, player);
+		LaserContainer* temp = new LaserContainer(g, Vector2D(posIni.getX() + i * spaceBetween, posIni.getY()), container, laser, player);
 
 		_lasers.push_back(temp);
 		addChild(temp);

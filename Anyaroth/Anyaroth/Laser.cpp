@@ -43,7 +43,7 @@ void Laser::Shoot(double angle)
 		_body->filterCollisions(LASER, PLAYER);
 		_body->getBody()->SetType(b2_kinematicBody);
 		//Provisional
-		_body->setH(400);
+		_body->setH(600);
 		_body->setW(3);
 
 		_body->getBody()->GetFixtureList()->SetSensor(true);

@@ -14,6 +14,7 @@
 #include "Shop.h"
 #include "GunType_def.h"
 #include "BotonLanzaMisiles.h"
+#include "LaserHandler.h"
 #include "Boss2.h"
 #include <json.hpp>
 
@@ -130,6 +131,12 @@ void Map::createObjects()
 			{
 				_objects->addChild(new BotonLanzaMisiles(_game, _spenta, _game->getTexture("MissileTurret"), Vector2D(pos.getX() - TILES_SIZE, pos.getY() - TILES_SIZE * 2.8), _misilFase));
 				_misilFase++;
+			}
+			else if (name == "Lasers")
+			{
+				auto lasers = new LaserHandler(_game, _game->getTexture("Arm"), _game->getTexture("ArmUp"), _player, Vector2D(pos.getX() - TILES_SIZE, pos.getY() - TILES_SIZE * 2), 8, stoi(data));
+				_objects->addChild(lasers);
+				_azura->setLasers(lasers);
 			}
 			else if (name == "Boss1")
 			{
