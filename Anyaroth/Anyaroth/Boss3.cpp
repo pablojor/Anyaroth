@@ -1,7 +1,7 @@
 #include "Boss3.h"
 #include "ImprovedRifle.h"
 
-Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(g, player, Vector2D(pos.getX(), 200), pool, g->getTexture("EnemyMartyr")), Enemy(g, player, Vector2D(pos.getX(), 200), g->getTexture("EnemyMartyr"))
+Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(g, player, pos, pool, g->getTexture("EnemyMartyr")), Enemy(g, player, pos, g->getTexture("EnemyMartyr"))
 {
 	_life = 250; // Demo Guerrilla
 	_life1 = _life2 = _life3 = _life;
@@ -10,7 +10,11 @@ Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(
 	_myGun = new ImprovedRifle(g);
 	_myGun->setMaxCadence(0);
 	_myGun->setBulletSpeed(8);
-	_myGun->setDamage(3);
+	_myGun->setDamage(1);
+
+
+	_gravGun = new GravityBombCannon(g);
+	_gravGun->setMaxCadence(0);
 
 	_body->setW(12);
 	_body->setH(26);
@@ -19,7 +23,6 @@ Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(
 
 	_body->addCricleShape(b2Vec2(0, 1.1), 0.7, PLAYER, FLOOR | PLATFORMS);
 	_body->getBody()->SetFixedRotation(true);
-	_body->getBody()->SetGravityScale(0);
 
 
 	b2PolygonShape shape;
@@ -33,7 +36,7 @@ Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(
 
 	_playerBody = _player->getComponent<BodyComponent>();
 
-	_actualState = Shooting;
+	_actualState = Moving;
 }
 
 Boss3::~Boss3()
@@ -58,15 +61,34 @@ void Boss3::movement(const double& deltaTime)
 			_anim->flip();
 
 		if (range <= -_stopRange || range >= _stopRange)
-			_body->getBody()->SetLinearVelocity(b2Vec2(_velocity.getX() * _dir / M_TO_PIXEL, _body->getBody()->GetLinearVelocity().y));
+			_body->getBody()->SetLinearVelocity(b2Vec2(_velocity * _dir / M_TO_PIXEL, _body->getBody()->GetLinearVelocity().y));
 	}
 }
 
 
 void Boss3::fase1(const double& deltaTime)
 {
-	if (!stop)
-		circularShoot(deltaTime);
+	if (_actualState == Shooting)
+			circularShoot(deltaTime);
+	else
+	{
+		if (_noAction > _doSomething)
+		{
+			if (_game->random(0, 100) > 30)
+			{
+				circularShoot(deltaTime);
+				_noAction = 0;
+				_actualState = Shooting;
+			}
+			else
+			{
+				shootGrav();
+				_noAction = 0;
+			}
+		}
+		else
+			_noAction += deltaTime;
+	}
 }
 
 void Boss3::circularShoot(const double& deltaTime)
@@ -80,9 +102,9 @@ void Boss3::circularShoot(const double& deltaTime)
 		_actualState = Moving;
 		_armVision = true;
 		_timeBeetwenBullets = 0;
-		_doSomething = _game->random(1200, 1600);
-		stop = true;
+		_doSomething = _game->random(1500, 3000);
 		_num = 0;
+		_timeOnShooting = 0;
 	}
 	else
 	{	
@@ -108,4 +130,11 @@ void Boss3::shootBullet()
 void Boss3::shoot()
 {
 	_myGun->enemyShoot(_myBulletPool, _bodyPos, _angle, "EnemyBullet");
+}
+
+void Boss3::shootGrav()
+{
+	_arm->shoot();
+	_gravGun->enemyShoot(_myBulletPool, _arm->getPosition(), !_anim->isFlipped() ? _arm->getAngle() + _game->random(-_fail, _fail) : _arm->getAngle() + 180 + _game->random(-_fail, _fail), "EnemyBullet");
+	_doSomething = _game->random(1500, 3000);
 }
