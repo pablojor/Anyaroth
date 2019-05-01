@@ -7,9 +7,10 @@
 LevelManager::LevelManager(Game* game, Player* player, GameObject* level, Camera* camera, PlayStateHUD* hud, BulletPool* enemyPool) : _game(game), _player(player), _level(level), _cam(camera), _hud(hud), _enemyBulletPool(enemyPool)
 {
 	_tilesetZone1 = game->getTexture("Tileset1");
+	_tilesetZone2 = game->getTexture("Tileset2");
 	_tilesetBoss1 = game->getTexture("TilesetBoss1");
 	_tilesetBoss2 = game->getTexture("TilesetBoss2");
-	_tilesetZone2 = game->getTexture("Tileset2");
+	_tilesetBoss3 = game->getTexture("TilesetBoss3");
 }
 
 void LevelManager::setLevel(int l)
@@ -73,7 +74,7 @@ void LevelManager::setLevel(int l)
 		//_currentSafeZone = ...
 		break;
 	case LevelManager::Boss3:
-		//_currentMap = ...
+		_currentMap = new Map(TILEMAP_PATH + "Nivel3-3.json", _game, _player, _tilesetBoss3, _enemyBulletPool, _hud);
 		break;
 
 		//Demo Guerrilla Game Festival

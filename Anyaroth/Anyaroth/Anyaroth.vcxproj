@@ -147,6 +147,7 @@
     <ClCompile Include="AmmoPackage.cpp" />
     <ClCompile Include="AmmoViewer.cpp" />
     <ClCompile Include="AnimatedImageUI.cpp" />
+    <ClCompile Include="Boss3.cpp" />
     <ClCompile Include="ButtonUI.cpp" />
     <ClCompile Include="CreditsPanel.cpp" />
     <ClCompile Include="CreditsState.cpp" />
@@ -290,6 +291,7 @@
     <ClInclude Include="AmmoPackage.h" />
     <ClInclude Include="AmmoViewer.h" />
     <ClInclude Include="AnimatedImageUI.h" />
+    <ClInclude Include="Boss3.h" />
     <ClInclude Include="ButtonUI.h" />
     <ClInclude Include="CamEffectType.h" />
     <ClInclude Include="CreditsPanel.h" />

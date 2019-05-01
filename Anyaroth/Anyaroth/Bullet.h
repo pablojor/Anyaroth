@@ -87,6 +87,6 @@ public:
 
 	void reset();
 
-	void changeFilter(bool enemy);
+	void changeFilter();
 	void setAnimations(BulletAnimType type);
 };

@@ -15,6 +15,7 @@
 #include "GunType_def.h"
 #include "BotonLanzaMisiles.h"
 #include "Boss2.h"
+#include "Boss3.h"
 #include <json.hpp>
 
 using namespace nlohmann;
@@ -144,6 +145,13 @@ void Map::createObjects()
 				_objects->addChild(_azura);
 				_hud->getBossPanel()->updateBossName("Azura Mainyu");
 				_azura->setBossPanel(_hud->getBossPanel());
+			}
+			else if (name == "Boss3")
+			{
+				_angra = new Boss3(_game, _player, Vector2D(pos.getX() - TILES_SIZE * 2, pos.getY() - TILES_SIZE * 2), _bulletPool);
+				_objects->addChild(_angra);
+				_hud->getBossPanel()->updateBossName("Angra Mainyu");
+				_angra->setBossPanel(_hud->getBossPanel());
 			}
 			else if (name == "NPC")
 			{

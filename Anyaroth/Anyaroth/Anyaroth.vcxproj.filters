@@ -424,6 +424,9 @@
     <ClCompile Include="Poleaxe.cpp">
       <Filter>Archivos de código fuente\Objects\Melee</Filter>
     </ClCompile>
+    <ClCompile Include="Boss3.cpp">
+      <Filter>Archivos de código fuente\Objects\Enemies\Bosses</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -884,6 +887,9 @@
     </ClInclude>
     <ClInclude Include="Poleaxe.h">
       <Filter>Archivos de encabezado\Objects\Melee</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss3.h">
+      <Filter>Archivos de encabezado\Objects\Enemies\Bosses</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
