@@ -7,7 +7,7 @@
 #include "ParallaxBackGround.h"
 #include "Player.h"
 #include "BulletPool.h"
-#include "ParticlePull.h"
+#include "ParticlePool.h"
 #include "PlayStateHUD.h"
 #include "Cursor.h"
 
@@ -16,7 +16,7 @@ class PlayState : public GameState
 private:
 	Player* _player = nullptr;
 	BulletPool* _playerBulletPool = nullptr;
-	ParticlePull * _particles = nullptr;
+	ParticlePool * _particles = nullptr;
 
 	GameObject* _level = nullptr;
 	Cursor* _cursor = nullptr;

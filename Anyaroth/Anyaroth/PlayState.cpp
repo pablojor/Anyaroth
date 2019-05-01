@@ -42,7 +42,7 @@ void PlayState::start()
 	auto enemyPool = new BulletPool(_gameptr);
 
 	//Levels
-	GameManager::getInstance()->setCurrentLevel(LevelManager::BossDemo);
+	GameManager::getInstance()->setCurrentLevel(LevelManager::SafeDemo);
 	_level = new GameObject(_gameptr);
 	_levelManager = LevelManager(_gameptr, _player, _level, _mainCamera, _playHud, enemyPool);
 	_levelManager.setLevel(GameManager::getInstance()->getCurrentLevel());
@@ -79,9 +79,9 @@ void PlayState::start()
 	getWorld()->SetDebugDraw(&_debugger);
 
 	//Particulas
-	_particles = new ParticlePull(_gameptr);
+	_particles = new ParticlePool(_gameptr);
 	_particleManager = ParticleManager::GetParticleManager();
-	_particleManager->setParticlePull(_particles);
+	_particleManager->setParticlePool(_particles);
 
 	//----AÑADIR A LOS OBJETOS----//
 
