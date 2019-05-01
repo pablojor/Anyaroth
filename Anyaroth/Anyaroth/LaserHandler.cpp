@@ -4,11 +4,11 @@
 LaserHandler::LaserHandler(Game* g, Texture* container, Texture* laser, Player* player, int numLasers) : _numLasers(numLasers), GameObject(g)
 {
 	int pos1 = 65;
-	int spaceBetween = (400 - pos1) / numLasers;
+	int spaceBetween = (800 - pos1) / numLasers;
 
 	for (int i = 0; i < numLasers; i++)
 	{
-		LaserContainer* temp = new LaserContainer(g, Vector2D(pos1 + i * spaceBetween, 200), container, laser, player);
+		LaserContainer* temp = new LaserContainer(g, Vector2D(pos1 + i * spaceBetween, 75), container, laser, player);
 
 		_lasers.push_back(temp);
 		addChild(temp);

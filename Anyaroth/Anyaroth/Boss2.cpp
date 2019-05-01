@@ -4,6 +4,9 @@
 
 Boss2::Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, player, pos, pool, g->getTexture("EnemyMelee")), Enemy(g, player, pos, g->getTexture("EnemyMelee"))
 {
+	_life = 250; // Demo Guerrilla
+	_life1 = _life2 = _life3 = _life;
+
 	_myGun = new BasicShotgun(g);
 
 	_arm->setOffSet(Vector2D(20, 20));
@@ -38,7 +41,7 @@ Boss2::Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, 
 
 	_playerBody = _player->getComponent<BodyComponent>();
 
-	_lasers = new LaserHandler(g, g->getTexture("Arm"), g->getTexture("ArmUp"), player, 4);
+	_lasers = new LaserHandler(g, g->getTexture("Arm"), g->getTexture("ArmUp"), player, 8);
 	addChild(_lasers);
 
 	_melee = new Poleaxe(getGame(), { 50,0 }, PLAYER, 5, 15, 5, this);
@@ -138,7 +141,9 @@ void Boss2::meleeAttack()
 	int dir = (_bodyPos.getX() >= _playerPos.getX()) ? -1 : 1;
 	_melee->meleeAttack(_bodyPos.getX(), _bodyPos.getY(), dir);
 
-	_velocity = { _velocity.getX() + 20, _velocity.getY() };
+	_anim->playAnim(AnimatedSpriteComponent::EnemyAttack);
+
+	_velocity = { _velocity.getX() + _speedIncrement, _velocity.getY() };
 }
 
 void Boss2::endJump()
@@ -250,6 +255,8 @@ void Boss2::beetwenFases(const double& deltaTime)
 {
 	if (_anim->animationFinished())
 	{
+		_originalVelocity = _originalVelocity + Vector2D(_speedIncrement, 0);
+		_velocity = _originalVelocity;
 		if (_lastFase == Fase1)
 		{
 			_lasers->Activate();

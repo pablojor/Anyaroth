@@ -160,7 +160,7 @@ void CatalogPanel::reorderCatalog()
 			auto info = item->getItemInfo();
 			auto meleeInfo = item->getMeleeInfo();
 
-			if ((!info._sold && info._zone <= _zone && info._zone != -1) || (!meleeInfo._sold && meleeInfo._zone <= _zone && meleeInfo._zone != -1))
+			if ((info._name != "" && !info._sold && info._zone <= _zone && info._zone != -1) || (meleeInfo._name!= "" && !meleeInfo._sold && meleeInfo._zone <= _zone && meleeInfo._zone != -1))
 			{
 				item->setVisible(true);
 				visibleItems.push_back(item);

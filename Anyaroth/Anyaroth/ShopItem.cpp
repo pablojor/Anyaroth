@@ -54,6 +54,8 @@ void ShopItem::setMeleeInfo(const MeleeItemInfo & info)
 	_weaponIcon->setImage(_game->getTexture(_meleeInfo._iconName));
 	//Ajustamos tama�os
 	setSize(getImage()->getW(), getImage()->getH());
+}
+
 void ShopItem::setChosen(bool selected)
 {
 	if (selected && !_game->usingJoystick())
