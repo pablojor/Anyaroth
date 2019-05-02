@@ -4,30 +4,25 @@
 #include "LevelManager.h"
 #include "CollisionManager.h"
 #include "ParticleManager.h"
-#include "ParallaxBackGround.h"
 #include "Player.h"
 #include "BulletPool.h"
 #include "ParticlePool.h"
-#include "PlayStateHUD.h"
 #include "Cursor.h"
 
 class PlayState : public GameState
 {
 private:
 	Player* _player = nullptr;
-	BulletPool* _playerBulletPool = nullptr;
-	ParticlePool * _particles = nullptr;
-
 	GameObject* _level = nullptr;
 	Cursor* _cursor = nullptr;
 
-	LevelManager _levelManager;
-	CollisionManager _colManager;
-	ParticleManager * _particleManager = nullptr;
-	DebugDraw _debugger;
+	BulletPool* _playerBulletPool = nullptr;
+	ParticlePool * _particlePool = nullptr;
 
-	ParallaxBackGround* _parallaxZone1 = nullptr;
-	ParallaxLayer* _controls = nullptr;
+	DebugDraw _debugger;
+	CollisionManager _colManager;
+	LevelManager _levelManager;
+	ParticleManager* _particleManager = nullptr;
 
 public:
 	PlayState(Game* g);

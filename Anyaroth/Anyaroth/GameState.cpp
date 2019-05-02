@@ -96,9 +96,7 @@ void GameState::updateWorld(const float & timestep, const int & velocityIteratio
 
 void GameState::addObject(GameObject* n)
 {
-	_stages.push_back(n);/*
-	auto itFR = --(_stages.end());
-	n->setItList(itFR);*/
+	_stages.push_back(n);
 }
 
 void GameState::destroyObject(GameObject* obj)
