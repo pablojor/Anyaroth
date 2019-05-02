@@ -427,6 +427,7 @@
     <ClCompile Include="Boss3.cpp">
       <Filter>Archivos de código fuente\Objects\Enemies\Bosses</Filter>
     </ClCompile>
+    <ClCompile Include="BossSensor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -891,6 +892,7 @@
     <ClInclude Include="Boss3.h">
       <Filter>Archivos de encabezado\Objects\Enemies\Bosses</Filter>
     </ClInclude>
+    <ClInclude Include="BossSensor.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de código fuente">

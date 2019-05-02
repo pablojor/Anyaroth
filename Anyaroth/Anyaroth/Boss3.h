@@ -1,6 +1,7 @@
 #include "Boss.h"
 #include "GravityBombCannon.h"
 #include "BounceOrbCannon.h"
+#include "BossSensor.h"
 
 class Boss3 : public Boss
 {
@@ -31,8 +32,11 @@ class Boss3 : public Boss
 		void dash();
 		void checkDash(double deltaTime);
 
+
+		bool _bulletApproaching = false;
+		BossSensor* _sensor = nullptr;
 		//Cosas del salto
-		double _jumpForce = 250;
+		double _jumpForce = 300;
 		int _onFloor = 0;
 		void jump();
 
@@ -54,10 +58,10 @@ class Boss3 : public Boss
 		virtual void beginCollision(GameObject* other, b2Contact* contact);
 		virtual void endCollision(GameObject * other, b2Contact* contact);
 
+		inline void setBulletApproaching(bool bA) { _bulletApproaching = bA; }
 		virtual void fase1(const double& deltaTime);
 		virtual void fase2(const double& deltaTime);
 		//virtual void fase3(const double& deltaTime);
 		//virtual void beetwenFases(const double& deltaTime);
-		virtual void manageLife(Life& l, int damage);
-
+		void subLife(int damage);
 };

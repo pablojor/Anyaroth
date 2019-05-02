@@ -49,6 +49,10 @@ Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(
 	_armVision = true;
 
 	_actualState = Moving;
+
+	//activar al pasar a la fase 3
+	_sensor = new BossSensor(g, this, { 100, 100 }, { 30, 30 });
+	addChild(_sensor);
 }
 
 Boss3::~Boss3()
@@ -97,16 +101,6 @@ void Boss3::fase1(const double & deltaTime)
 					_actualState = Shooting;
 					_numBulletsRifle = _game->random(4, 8);
 				}
-				else if (rand > 20)
-				{
-					_actualState = Dashing;
-					dash();
-				}
-				else if (_actualState != Jumping)
-				{
-					_actualState = Jumping;
-					jump();
-				}
 				_noAction = 0;
 			}
 			else
@@ -115,6 +109,22 @@ void Boss3::fase1(const double & deltaTime)
 		else
 		{
 			rifleShoot();
+		}
+
+		if (_bulletApproaching)
+		{
+			int rand = _game->random(0, 100);
+			if (rand > 90)
+			{
+				_actualState = Dashing;
+				dash();
+			}
+			else if (rand > 85 && _actualState != Jumping)
+			{
+				_actualState = Jumping;
+				jump();
+			}
+			_bulletApproaching = false;
 		}
 	}
 }
@@ -171,10 +181,10 @@ void Boss3::fase2(const double& deltaTime)
 	}
 }
 
-void Boss3::manageLife(Life & l, int damage)
+void Boss3::subLife(int damage)
 {
 	if (!_invulnerable)
-		Boss::manageLife(l, damage);
+		Boss::subLife(damage);
 }
 
 void Boss3::portalAttack(const double& deltaTime)
@@ -290,7 +300,7 @@ void Boss3::checkDash(double deltaTime)
 
 void Boss3::jump()
 {
-	_body->getBody()->SetLinearVelocity(b2Vec2(_body->getBody()->GetLinearVelocity().x + _game->random(-50, 50), 0));
+	_body->getBody()->SetLinearVelocity(b2Vec2(_body->getBody()->GetLinearVelocity().x + _game->random(-75, 75), 0));
 	_body->getBody()->ApplyLinearImpulse(b2Vec2(0 , -_jumpForce), _body->getBody()->GetWorldCenter(), true);
 }
 
