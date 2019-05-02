@@ -64,7 +64,7 @@ DepotPanel::DepotPanel(Game* game) : PanelUI(game)
 		//Callbacks
 	_firstWeaponFrame->onDown([this](Game* game) { setDistanceWeapon(game, _firstWeaponFrame); });
 	_secondWeaponFrame->onDown([this](Game* game) { setDistanceWeapon(game, _secondWeaponFrame); });
-	//_meleeWeaponFrame->onDown([this](Game* game) { setMeleeWeapon(game, _meleeWeaponFrame); });
+	_meleeWeaponFrame->onDown([this](Game* game) { setMeleeWeapon(game, _meleeWeaponFrame); });
 
 		//A�adir como hijo
 
@@ -145,6 +145,7 @@ void DepotPanel::setPlayer(Player * ply)
 
 	addChild(_firstWeaponFrame);
 	addChild(_secondWeaponFrame);
+	addChild(_meleeWeaponFrame);
 }
 
 void DepotPanel::setItems(list<ShopItem*>* list)

@@ -61,7 +61,7 @@ class Boss3 : public Boss
 		inline void setBulletApproaching(bool bA) { _bulletApproaching = bA; }
 		virtual void fase1(const double& deltaTime);
 		virtual void fase2(const double& deltaTime);
-		//virtual void fase3(const double& deltaTime);
-		//virtual void beetwenFases(const double& deltaTime);
+		virtual void fase3(const double& deltaTime);
+		virtual void beetwenFases(const double& deltaTime);
 		void subLife(int damage);
 };

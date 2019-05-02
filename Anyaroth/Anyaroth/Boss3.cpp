@@ -52,6 +52,7 @@ Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(
 
 	//activar al pasar a la fase 3
 	_sensor = new BossSensor(g, this, { 100, 100 }, { 30, 30 });
+	_sensor->setActive(false);
 	addChild(_sensor);
 }
 
@@ -83,50 +84,8 @@ void Boss3::movement(const double& deltaTime)
 	}
 }
 
-
 void Boss3::fase1(const double & deltaTime)
 {
-	checkDash(deltaTime);
-	if (_actualState != Dashing)
-	{
-		if (_actualState != Shooting)
-		{
-			if (_noAction > _doSomething)
-			{
-				int rand = _game->random(0, 100);
-				if (rand > 80 && _actualState != Jumping)
-					changeGun();
-				else if (rand > 40)
-				{
-					_actualState = Shooting;
-					_numBulletsRifle = _game->random(4, 8);
-				}
-				_noAction = 0;
-			}
-			else
-				_noAction += deltaTime;
-		}
-		else
-		{
-			rifleShoot();
-		}
-
-		if (_bulletApproaching)
-		{
-			int rand = _game->random(0, 100);
-			if (rand > 90)
-			{
-				_actualState = Dashing;
-				dash();
-			}
-			else if (rand > 85 && _actualState != Jumping)
-			{
-				_actualState = Jumping;
-				jump();
-			}
-			_bulletApproaching = false;
-		}
-	}
 }
 
 void Boss3::fase2(const double& deltaTime)
@@ -179,6 +138,76 @@ void Boss3::fase2(const double& deltaTime)
 		else
 			_noAction += deltaTime;
 	}
+}
+
+void Boss3::fase3(const double & deltaTime)
+{
+	checkDash(deltaTime);
+	if (_actualState != Dashing)
+	{
+		if (_actualState != Shooting)
+		{
+			if (_noAction > _doSomething)
+			{
+				int rand = _game->random(0, 100);
+				if (rand > 80 && _actualState != Jumping)
+				{
+					changeGun();
+					_doSomething = _game->random(800, 1300);
+				}
+				else if (rand > 60)
+				{
+					_actualState = Shooting;
+					_numBulletsRifle = _game->random(4, 8);
+				}
+				_noAction = 0;
+			}
+			else
+				_noAction += deltaTime;
+		}
+		else
+		{
+			rifleShoot();
+		}
+
+		if (_bulletApproaching)
+		{
+			int rand = _game->random(0, 100);
+			if (rand > 90)
+			{
+				_actualState = Dashing;
+				dash();
+			}
+			else if (rand > 85 && _actualState != Jumping)
+			{
+				_actualState = Jumping;
+				jump();
+			}
+			_bulletApproaching = false;
+		}
+	}
+}
+
+void Boss3::beetwenFases(const double& deltaTime)
+{
+	//if (_anim->animationFinished())
+	//{
+		if (_lastFase == Fase1)
+			changeFase(Fase2);
+		else if (_lastFase == Fase2)
+		{
+			changeFase(Fase3);
+			_sensor->setActive(true);
+			_velocity = 100;
+		}
+		else
+		{
+			die();
+		}
+		_bossPanel->updateLifeBar(_life1.getLife(), _life2.getLife(), _life3.getLife(), _life.getLife());
+		_actualState = Moving;
+		_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
+	//}
 }
 
 void Boss3::subLife(int damage)
@@ -263,7 +292,7 @@ void Boss3::changeGun()
 	_myGun = _otherGun;
 	_otherGun = aux;
 
-	int numShots = _game->random(8, 16);
+	int numShots = _game->random(5, 10);
 	double incrAngle = 180 / (numShots-1);
 	shootBullet(numShots, incrAngle);
 
@@ -337,6 +366,7 @@ void Boss3::rifleShoot()
 	{
 		_actualState = Moving;
 		_rifleBulletsCount = 0;
+		_doSomething = _game->random(1000, 1500);
 	}
 	else
 	{
@@ -362,7 +392,7 @@ void Boss3::beginCollision(GameObject * other, b2Contact* contact)
 		if (_onFloor <= 1 && _actualState == Jumping)
 		{
 			_actualState = Moving;
-			_body->getBody()->SetLinearVelocity(b2Vec2(_velocity / M_TO_PIXEL, 0));
+			_body->getBody()->SetLinearVelocity(b2Vec2(_velocity * _dir.getX() / M_TO_PIXEL, 0));
 		}
 	}
 }
