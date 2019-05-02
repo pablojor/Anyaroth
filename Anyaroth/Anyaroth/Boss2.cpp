@@ -120,8 +120,6 @@ void Boss2::beginCollision(GameObject * other, b2Contact* contact)
 			}
 		
 	}
-	
-	
 }
 
 

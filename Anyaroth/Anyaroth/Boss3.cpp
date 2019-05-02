@@ -8,16 +8,25 @@ Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(
 
 	delete(_myGun);
 	_myGun = new ImprovedRifle(g);
-	_myGun->setMaxCadence(0);
+	_myGun->setMaxCadence(_rifleCadence);
 	_myGun->setBulletSpeed(8);
-	_myGun->setDamage(1);
+	_myGun->setDamage(5);
 
 
 	_gravGun = new GravityBombCannon(g);
 	_gravGun->setMaxCadence(0);
 
+	_otherGun = new BounceOrbCannon(g);
+	_otherGun->setMaxCadence(0);
+	_otherGun->setBulletSpeed(8);
+	_otherGun->setDamage(10);
+
+
 	_body->setW(12);
 	_body->setH(26);
+
+	_body->getBody()->SetGravityScale(_gravity);
+	_body->getBody()->SetLinearDamping(_damping);
 
 	_body->filterCollisions(ENEMIES, FLOOR | PLAYER_BULLETS | MELEE);
 
@@ -36,11 +45,16 @@ Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(
 
 	_playerBody = _player->getComponent<BodyComponent>();
 
+	_arm->setOffSet(Vector2D(30, 30));
+	_armVision = true;
+
 	_actualState = Moving;
 }
 
 Boss3::~Boss3()
-{
+{ 
+	delete _gravGun;
+	delete _otherGun;
 }
 
 void Boss3::movement(const double& deltaTime)
@@ -51,20 +65,59 @@ void Boss3::movement(const double& deltaTime)
 		_playerPos = Vector2D(_playerBody->getBody()->GetPosition().x * M_TO_PIXEL, _playerBody->getBody()->GetPosition().y * M_TO_PIXEL);
 
 		double pos = _body->getBody()->GetPosition().x* M_TO_PIXEL;
-		_dir = (pos >= _playerPos.getX()) ? -1 : 1;
+		_dir = Vector2D((pos >= _playerPos.getX()) ? -1 : 1, _dir.getY());
 
 		double range = _playerPos.getX() + _playerBody->getW() / 2 - _bodyPos.getX() + _body->getW() / 2;
 
-		if (_dir == 1)
+		if (_dir.getX() == 1)
 			_anim->unFlip();
 		else
 			_anim->flip();
 
 		if (range <= -_stopRange || range >= _stopRange)
-			_body->getBody()->SetLinearVelocity(b2Vec2(_velocity * _dir / M_TO_PIXEL, _body->getBody()->GetLinearVelocity().y));
+			_body->getBody()->SetLinearVelocity(b2Vec2(_velocity * _dir.getX() / M_TO_PIXEL, _body->getBody()->GetLinearVelocity().y));
 	}
 }
 
+
+void Boss3::fase1(const double & deltaTime)
+{
+	checkDash(deltaTime);
+	if (_actualState != Dashing)
+	{
+		if (_actualState != Shooting)
+		{
+			if (_noAction > _doSomething)
+			{
+				int rand = _game->random(0, 100);
+				if (rand > 80 && _actualState != Jumping)
+					changeGun();
+				else if (rand > 40)
+				{
+					_actualState = Shooting;
+					_numBulletsRifle = _game->random(4, 8);
+				}
+				else if (rand > 20)
+				{
+					_actualState = Dashing;
+					dash();
+				}
+				else if (_actualState != Jumping)
+				{
+					_actualState = Jumping;
+					jump();
+				}
+				_noAction = 0;
+			}
+			else
+				_noAction += deltaTime;
+		}
+		else
+		{
+			rifleShoot();
+		}
+	}
+}
 
 void Boss3::fase2(const double& deltaTime)
 {
@@ -118,6 +171,12 @@ void Boss3::fase2(const double& deltaTime)
 	}
 }
 
+void Boss3::manageLife(Life & l, int damage)
+{
+	if (!_invulnerable)
+		Boss::manageLife(l, damage);
+}
+
 void Boss3::portalAttack(const double& deltaTime)
 {
 	if (_timeOut > timeToReapear)
@@ -169,6 +228,7 @@ void Boss3::circularShoot(const double& deltaTime)
 	_bodyPos = Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL);
 	_timeOnShooting += deltaTime;
 	_armVision = false;
+	_myGun->setMaxCadence(0);
 
 	if (_actualBullet == 0 && _num == 3)
 	{
@@ -178,26 +238,75 @@ void Boss3::circularShoot(const double& deltaTime)
 		_doSomething = _game->random(1500, 3000);
 		_num = 0;
 		_timeOnShooting = 0;
+		_myGun->setMaxCadence(_rifleCadence);
 	}
 	else
 	{	
 		if (_timeOnShooting >= _timeBeetwenBullets)		
-			shootBullet();		
+			shootBullet(_numBullets, _angleIncrease);		
 	}
 }
 
-void Boss3::shootBullet()
+void Boss3::changeGun()
 {
-	for (int i = 0; i < _numBullets; i++)
+	auto aux = _myGun;
+	_myGun = _otherGun;
+	_otherGun = aux;
+
+	int numShots = _game->random(8, 16);
+	double incrAngle = 180 / (numShots-1);
+	shootBullet(numShots, incrAngle);
+
+	_otherGun = _myGun;
+	_myGun = aux;
+}
+
+void Boss3::dash()
+{
+	int dir = (_game->random(0, 2) == 0) ? -1 : 1;
+	_body->getBody()->SetLinearVelocity(b2Vec2(-dir * _force, 0));
+
+	_invulnerable = true;
+
+	_body->getBody()->SetLinearDamping(0);
+	_body->getBody()->SetGravityScale(0);
+}
+
+void Boss3::checkDash(double deltaTime)
+{
+	if (_actualState == Dashing)
+	{
+		_dashTimer -= deltaTime;
+		if (_dashTimer <= 0)
+		{
+			_invulnerable = false;
+			_dashTimer = _dashTime;
+			_actualState = Moving;
+			_body->getBody()->SetGravityScale(_gravity);
+			_body->getBody()->SetLinearDamping(_damping);
+		}
+	}
+}
+
+void Boss3::jump()
+{
+	_body->getBody()->SetLinearVelocity(b2Vec2(_body->getBody()->GetLinearVelocity().x + _game->random(-50, 50), 0));
+	_body->getBody()->ApplyLinearImpulse(b2Vec2(0 , -_jumpForce), _body->getBody()->GetWorldCenter(), true);
+}
+
+void Boss3::shootBullet(int numBullets, double angleIncrease)
+{
+	for (int i = 0; i < numBullets; i++)
 	{
 		shoot();
-		_angle += _angleIncrease;
+		_angle += angleIncrease;
 		_actualBullet++;
 	}
 
 	_timeBeetwenBullets += _timeBeetwenCircularShoot;
 	_num++;
 	_actualBullet = 0;	
+	_angle = 180;
 }
 
 void Boss3::shoot()
@@ -210,4 +319,49 @@ void Boss3::shootGrav()
 	_arm->shoot();
 	_gravGun->enemyShoot(_myBulletPool, _arm->getPosition(), !_anim->isFlipped() ? _arm->getAngle() + _game->random(-_fail, _fail) : _arm->getAngle() + 180 + _game->random(-_fail, _fail), "EnemyBullet");
 	_doSomething = _game->random(800, 1500);
+}
+
+void Boss3::rifleShoot()
+{
+	if (_rifleBulletsCount >= _numBulletsRifle)
+	{
+		_actualState = Moving;
+		_rifleBulletsCount = 0;
+	}
+	else
+	{
+		if (_myGun->canShoot())
+		{
+			_arm->shoot();
+			_myGun->enemyShoot(_myBulletPool, _arm->getPosition(), !_anim->isFlipped() ? _arm->getAngle() + _game->random(-_fail, _fail) : _arm->getAngle() + 180 + _game->random(-_fail, _fail), "EnemyBullet");
+			_rifleBulletsCount++;
+		}
+	}
+}
+
+void Boss3::beginCollision(GameObject * other, b2Contact* contact)
+{
+	auto fA = contact->GetFixtureA();
+	auto fB = contact->GetFixtureB();
+
+	Boss::beginCollision(other, contact);
+	//Deteccion del suelo
+	if ((fA->IsSensor() || fB->IsSensor()) && (other->getTag() == "Ground" || other->getTag() == "Platform"))
+	{
+		_onFloor++;
+		if (_onFloor <= 1 && _actualState == Jumping)
+		{
+			_actualState = Moving;
+			_body->getBody()->SetLinearVelocity(b2Vec2(_velocity / M_TO_PIXEL, 0));
+		}
+	}
+}
+void Boss3::endCollision(GameObject * other, b2Contact* contact)
+{
+	auto fA = contact->GetFixtureA();
+	auto fB = contact->GetFixtureB();
+
+	//Deteccion del suelo
+	if ((fA->IsSensor() || fB->IsSensor()) && (other->getTag() == "Ground" || other->getTag() == "Platform"))
+		_onFloor--;
 }
