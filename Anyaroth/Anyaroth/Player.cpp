@@ -9,12 +9,11 @@
 #include "ParticleManager.h"
 
 
-Player::Player(Game* game, int xPos, int yPos) : GameObject(game, "Player")
+Player::Player(Game* game) : GameObject(game, "Player")
 {
 	addComponent<Texture>(game->getTexture("Mk"));
 
 	_transform = addComponent<TransformComponent>();
-	_transform->setPosition(xPos, yPos);
 
 	_body = addComponent<BodyComponent>();
 	_body->getBody()->SetType(b2_dynamicBody);

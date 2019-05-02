@@ -31,7 +31,7 @@ void PlayState::start()
 	SDL_ShowCursor(false);
 
 	//Player
-	_player = new Player(_gameptr, 100, 200);
+	_player = new Player(_gameptr);
 	_player->setPlayerPanel(_playHud->getPlayerPanel());
 
 	_playerBulletPool = new BulletPool(_gameptr);
@@ -50,10 +50,7 @@ void PlayState::start()
 
 	_level = new GameObject(_gameptr);
 	_levelManager = LevelManager(_gameptr, _player, _level, enemyPool);
-
 	_levelManager.setLevel(GameManager::getInstance()->getCurrentLevel());
-	_mainCamera->setWorldBounds(_levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getWidth(),
-		_levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getHeight());
 
 	//Collisions and debugger
 	getWorld()->SetContactListener(&_colManager);
@@ -82,10 +79,6 @@ void PlayState::start()
 	_stages.push_back(_playerBulletPool);
 	_stages.push_back(enemyPool);
 	_stages.push_back(_particlePool);
-
-	getMainCamera()->fadeIn(3000);
-	getMainCamera()->fitCamera({ (double)_levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getWidth(),
-		(double)_levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getHeight() }, false);
 }
 
 bool PlayState::handleEvent(const SDL_Event& event)
@@ -178,60 +171,44 @@ void PlayState::update(const double& deltaTime)
 			getMainCamera()->fadeOut(1000);
 			getMainCamera()->onFadeComplete([this, gameManager](Game* game)
 			{
-				_player->revive();
-				gameManager->setCurrentLevel(gameManager->getCurrentLevel() + 1);
+				gameManager->nextLevel();
 				_levelManager.changeLevel(gameManager->getCurrentLevel());
+
+				_player->revive();
 				_player->setInputFreezed(false);
 
 				if (_cutScene != nullptr)
 					_cutScene->play();
-
-				int l = gameManager->getCurrentLevel();
-				if (l == LevelManager::Boss1 || l == LevelManager::Boss2 || l == LevelManager::Boss3 || l == LevelManager::BossDemo)
-				{
-					game->getCurrentState()->getMainCamera()->fadeIn(1000);
-					game->getCurrentState()->getMainCamera()->onFadeComplete([this, gameManager, l](Game* game)
-					{
-						game->getCurrentState()->getMainCamera()->fitCamera({ (float)_levelManager.getCurrentLevel(l)->getWidth(), (float)_levelManager.getCurrentLevel(l)->getHeight() }, true);
-					});
-				}
 			});
 		}
 		else if (!getMainCamera()->isFading())
 		{
-			_playerBulletPool->stopBullets();
-
 			_player->setInputFreezed(true);
 			getMainCamera()->fadeOut(1000);
 			getMainCamera()->onFadeComplete([this, gameManager](Game* game)
 			{
-				_player->revive();
+				_player->setChangeLevel(false);
 
-				gameManager->setCurrentLevel(gameManager->getCurrentLevel() - 1);
+				gameManager->previousLevel();
 				_levelManager.changeLevel(gameManager->getCurrentLevel());
 
-				if (gameManager->getCurrentLevel() == LevelManager::SafeDemo)
-					getMainCamera()->fitCamera({ (double)_levelManager.getCurrentLevel(1)->getWidth(), (double)_levelManager.getCurrentLevel(1)->getHeight() }, false);
-
-				_player->setChangeLevel(false);
+				_player->revive();
 				_player->setInputFreezed(false);
 			});
 		}
 	}
-	else
+
+	if (_cutScene != nullptr)
 	{
-		if (_cutScene != nullptr)
+		if (_cutScene->isPlaying())
+			_cutScene->update(deltaTime);
+		else
 		{
-			if (_cutScene->isPlaying())
-				_cutScene->update(deltaTime);
-			else
-			{
-				delete _cutScene;
-				_cutScene = nullptr;
-			}
+			delete _cutScene;
+			_cutScene = nullptr;
 		}
 	}
 
 	GameState::update(deltaTime);
-    _particleManager->updateManager(deltaTime);
+	_particleManager->updateManager(deltaTime);
 }

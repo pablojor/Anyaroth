@@ -79,7 +79,7 @@ void LevelManager::setLevel(int l)
 		break;
 
 		//Demo Guerrilla Game Festival
-	case LevelManager::SafeDemo:	
+	case LevelManager::SafeDemo:
 		_currentSafeZone = new Map(TILEMAP_PATH + "SafeZoneDemo.json", _game, _player, _tilesetZone1, _enemyBulletPool);
 		_game->getSoundManager()->playMusic("safe_zone", -1);
 		setParallaxZone1();
@@ -123,12 +123,28 @@ void LevelManager::setLevel(int l)
 		break;
 	}
 
-	if (l % 2 == 0)
-		_level->addChild(_currentMap);
-	else
-		_level->addChild(_currentSafeZone);
+	double xBound, yBound;
+	xBound = getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getWidth();
+	yBound = getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getHeight();
 
-	_game->getCurrentState()->getMainCamera()->fadeIn(3000);
+	_camera->setWorldBounds(xBound, yBound);
+
+	if (l % 2 == 0)
+	{
+		_level->addChild(_currentMap);
+
+		if (l == Boss1 || l == Boss2 || l == Boss3 || l == BossDemo)
+			_camera->fitCamera({ xBound, yBound }, true);
+		else
+			_camera->setZoom(CAMERA_SCALE_FACTOR);
+	}
+	else
+	{
+		_level->addChild(_currentSafeZone);
+		_camera->setZoom(CAMERA_SCALE_FACTOR);
+	}
+
+	_camera->fadeIn(3000);
 }
 
 void LevelManager::changeLevel(int l)
@@ -136,11 +152,6 @@ void LevelManager::changeLevel(int l)
 	_enemyBulletPool->stopBullets();
 	_level->destroyAllChildren();
 	setLevel(l);
-
-	_game->getCurrentState()->getMainCamera()->setWorldBounds(getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getWidth(),
-		getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getHeight());
-
-	_game->getCurrentState()->getMainCamera()->setZoom(CAMERA_SCALE_FACTOR);
 }
 
 Map * LevelManager::getCurrentLevel(int l) const

@@ -18,7 +18,8 @@ private:
 	GameObject* _objects = nullptr;
 	vector <ObjectLayer*> _objectLayers;
 
-	int _misilFase = 0, _height = 0, _width = 0;
+	int _misilFase = 0;
+	double _height = 0, _width = 0;
 
 public:
 	Map(string filename, Game* game, Player* player, Texture* tileset, BulletPool* bulletPool);
@@ -31,6 +32,6 @@ public:
 	virtual void update(const double& deltaTime);
 	virtual void render(Camera* c) const;
 
-	inline int getHeight() const { return _height; }
-	inline int getWidth() const { return _width; }
+	inline double getHeight() const { return _height; }
+	inline double getWidth() const { return _width; }
 };

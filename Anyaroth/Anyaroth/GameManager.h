@@ -23,6 +23,8 @@ public:
 
 	int getCurrentLevel() const { return _currentLevel; }
 	void setCurrentLevel(const int& a) { _currentLevel = a; }
+	void nextLevel();
+	void previousLevel();
 
 	bool getOnDialogue() const { return _onDialogue; }
 	void setOnDialogue(const bool& b) { _onDialogue = b; }
