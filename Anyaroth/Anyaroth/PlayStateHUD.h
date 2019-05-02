@@ -4,6 +4,7 @@
 #include "BossPanel.h"
 #include "ShopMenu.h"
 #include "DialoguePanel.h"
+#include "PopUpPanel.h"
 
 class Game;
 
@@ -14,6 +15,8 @@ private:
 	BossPanel* _bossPanel = nullptr;
 	ShopMenu* _shopMenu;
 	DialoguePanel* _dialoguePanel = nullptr;
+	PopUpPanel* _popUpPanel = nullptr;
+
 
 public:
 	PlayStateHUD() {}
