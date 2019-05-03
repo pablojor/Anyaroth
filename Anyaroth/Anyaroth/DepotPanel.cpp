@@ -86,11 +86,11 @@ bool DepotPanel::handleEvent(const SDL_Event& event)
 	{
 		if (event.type == SDL_CONTROLLERBUTTONDOWN && event.cbutton.button == SDL_CONTROLLER_BUTTON_B)
 		{
-			if (_firstWeaponFrame->isSelected() || _secondWeaponFrame->isSelected())
+			if (_firstWeaponFrame->isSelected() || _secondWeaponFrame->isSelected() || _meleeWeaponFrame->isSelected())
 			{
 				_selectedItem->setChosen(false);
 				_selectedButton->setSelected(false);
-				_selectedButton = _exitButton->getNextRight();
+				_selectedButton = _selectedItem;
 				_selectedButton->setSelected(true);
 			}
 			else
@@ -218,7 +218,8 @@ void DepotPanel::reorderDepot()
 		distY = 4;
 
 	ShopItem* primItem = nullptr;
-	vector<ShopItem*> visibleItems;
+	vector<ShopItem*> visibleWeapons;
+	vector<ShopItem*> visibleMelee;
 
 	auto it = (*_weaponItems).begin();
 	int fil = 0;
@@ -235,7 +236,7 @@ void DepotPanel::reorderDepot()
 			if (info._sold && !info._equiped)
 			{
 				item->setVisible(true);
-				visibleItems.push_back(item);
+				visibleWeapons.push_back(item);
 
 				if (primItem == nullptr)
 				{
@@ -271,7 +272,7 @@ void DepotPanel::reorderDepot()
 			if (/*info._sold &&*/ !info._equiped)
 			{
 				item->setVisible(true);
-				visibleItems.push_back(item);
+				visibleMelee.push_back(item);
 
 				if (primItem == nullptr)
 				{
@@ -291,32 +292,48 @@ void DepotPanel::reorderDepot()
 		fil++;
 	}
 
-	for (int i=0; i < visibleItems.size(); i++)
+	for (int i=0; i < visibleWeapons.size(); i++)
 	{
-		ButtonUI* nL = (i > 0) ? visibleItems[i - 1] : _exitButton;
-		ButtonUI* nU = (i > 3) ? visibleItems[i - 4] : _exitButton;
-		ButtonUI* nR = (i + 1 < visibleItems.size()) ? visibleItems[i + 1] : _changeButton;
-		ButtonUI* nD = (i + 4 < visibleItems.size()) ? visibleItems[i + 4] : _changeButton;
-		visibleItems[i]->setNextButtons({ nL, nU, nR, nD });
+		ButtonUI* nL = (i > 0) ? visibleWeapons[i - 1] : _exitButton;
+		ButtonUI* nU = (i > 3) ? visibleWeapons[i - 4] : ((visibleMelee.begin() != visibleMelee.end()) ? *prev(visibleMelee.end()) : nullptr);
+		ButtonUI* nR = (i + 1 < visibleWeapons.size()) ? visibleWeapons[i + 1] : _changeButton;
+		ButtonUI* nD = (i + 4 < visibleWeapons.size()) ? visibleWeapons[i + 4] :((visibleMelee.begin() != visibleMelee.end()) ? *visibleMelee.begin() : nullptr);
+		visibleWeapons[i]->setNextButtons({ nL, nU, nR, nD });
 	}
-	if (visibleItems.size() > 0)
+	for (int i = 0; i < visibleMelee.size(); i++)
 	{
-		_selectedButton = *(visibleItems.begin());
+		ButtonUI* nL = (i > 0) ? visibleMelee[i - 1] : _exitButton;
+		ButtonUI* nU = (i > 3) ? visibleMelee[i - 4] : ((visibleWeapons.begin() != visibleWeapons.end()) ? *prev(visibleWeapons.end()) : nullptr);
+		ButtonUI* nR = (i + 1 < visibleMelee.size()) ? visibleMelee[i + 1] : _changeButton;
+		ButtonUI* nD = (i + 4 < visibleMelee.size()) ? visibleMelee[i + 4] : ((visibleWeapons.begin() != visibleWeapons.end()) ? *visibleWeapons.begin() : nullptr);
+		visibleMelee[i]->setNextButtons({ nL, nU, nR, nD });
+	}
+	if (visibleWeapons.size() > 0)
+	{
+		_selectedButton = *(visibleWeapons.begin());
 
-		_exitButton->setNextButtons({ _changeButton, nullptr, *(visibleItems.begin()), nullptr });
-		_firstWeaponFrame->setNextButtons({ _secondWeaponFrame, nullptr, _secondWeaponFrame, nullptr });
-		_changeButton->setNextButtons({ *prev(visibleItems.end()), nullptr, _exitButton, nullptr });
-		_secondWeaponFrame->setNextButtons({ _firstWeaponFrame, nullptr, _firstWeaponFrame, nullptr });
+		_exitButton->setNextButtons({ _changeButton, nullptr, *(visibleWeapons.begin()), nullptr });
+		_changeButton->setNextButtons({ *prev(visibleWeapons.end()), nullptr, _exitButton, nullptr });
+	}
+	else if (visibleMelee.size() > 0)
+	{
+		_selectedButton = *(visibleMelee.begin());
+
+		_exitButton->setNextButtons({ _changeButton, nullptr, *(visibleMelee.begin()), nullptr });
+		_changeButton->setNextButtons({ *prev(visibleMelee.end()), nullptr, _exitButton, nullptr });
 	}
 	else
 	{
-		_selectedButton = _changeButton;
+		_selectedButton =  _changeButton;
 
 		_exitButton->setNextButtons({ _changeButton, nullptr, _changeButton, nullptr });
-		_firstWeaponFrame->setNextButtons({ nullptr, nullptr, nullptr, nullptr });
 		_changeButton->setNextButtons({ _exitButton, nullptr, _exitButton, nullptr });
-		_secondWeaponFrame->setNextButtons({ nullptr, nullptr, nullptr, nullptr });
 	}
+
+	_meleeWeaponFrame->setNextButtons({ nullptr, nullptr, nullptr, nullptr });
+	_firstWeaponFrame->setNextButtons({ _secondWeaponFrame, nullptr, _secondWeaponFrame, nullptr });
+	_secondWeaponFrame->setNextButtons({ _firstWeaponFrame, nullptr, _firstWeaponFrame, nullptr });
+
 	if (_game->usingJoystick())
 		_selectedButton->setSelected(true);
 }
@@ -345,8 +362,8 @@ void DepotPanel::selectItem(Game * game, ShopItem* item)
 		{
 			if (_game->usingJoystick())
 			{
-				_selectedButton->setSelected(false);
-				_selectedButton = _firstWeaponFrame;
+				_selectedButton->setSelected(false);				
+				_selectedButton = (item->getItemInfo()._isMelee) ? _meleeWeaponFrame : _firstWeaponFrame;
 				_selectedButton->setSelected(true);
 			}
 			_selectedItem = item;
@@ -355,12 +372,12 @@ void DepotPanel::selectItem(Game * game, ShopItem* item)
 		else
 			_selectedItem = nullptr;
 	}
-	else if (item != _firstWeaponFrame && item != _secondWeaponFrame)
+	else if (item != _firstWeaponFrame && item != _secondWeaponFrame && item != _meleeWeaponFrame)
 	{
 		if (_game->usingJoystick())
 		{
 			_selectedButton->setSelected(false);
-			_selectedButton = _firstWeaponFrame;
+			_selectedButton = (item->getItemInfo()._isMelee) ? _meleeWeaponFrame : _firstWeaponFrame;
 			_selectedButton->setSelected(true);
 		}
 		_selectedItem = item;
@@ -385,6 +402,7 @@ void DepotPanel::setMeleeWeapon(Game* game, ShopItem* item)
 	if (_selectedItem != nullptr && _selectedItem->getItemInfo()._isMelee) //COMPROBAR QUE NO ES A DISTANCIA
 	{
 		swapMeleeItems(item);
+		_meleeWeaponFrame->setSelected(false);
 		reorderDepot();
 
 		_selectedItem->setChosen(false);
