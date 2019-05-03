@@ -19,12 +19,14 @@ class ShopItem : public ButtonUI
 			int _clip;
 
 			//ID del arma
-			GunType _type;
+			uint _type;
 			string _iconName;
 			string _rarityFrame;
 
 			bool _sold;
 			bool _equiped;
+
+			bool _isMelee = false;
 		};
 
 		ItemInfo _info;

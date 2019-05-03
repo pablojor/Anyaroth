@@ -32,7 +32,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	auto enemyPool = new BulletPool(g);
 
 	//Levels
-	GameManager::getInstance()->setCurrentLevel(LevelManager::Level2_2);
+	GameManager::getInstance()->setCurrentLevel(LevelManager::SafeBossDemo);
 	_level = new GameObject(g);
 	_levelManager = LevelManager(g, _player, _level, _mainCamera, _playHud, enemyPool);
 	_levelManager.setLevel(GameManager::getInstance()->getCurrentLevel());
@@ -150,8 +150,8 @@ void PlayState::loadGame()
 		input >> j;
 		_player->setBank(j["Bank"]);
 		_levelManager.changeLevel(j["level"]);
-		_player->changeCurrentGun(WeaponManager::getWeapon(_gameptr, j["currentGun"]));
-		_player->changeOtherGun(WeaponManager::getWeapon(_gameptr, j["otherGun"]));
+		_player->changeCurrentGun(WeaponManager::getInstance()->getWeapon(_gameptr, j["currentGun"]));
+		_player->changeOtherGun(WeaponManager::getInstance()->getWeapon(_gameptr, j["otherGun"]));
 
 		auto items = _playHud->getShop()->getItems();
 		for (ShopItem* i : items)

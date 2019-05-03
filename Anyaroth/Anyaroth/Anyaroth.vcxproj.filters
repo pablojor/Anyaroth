@@ -415,7 +415,9 @@
     <ClCompile Include="CreditsPanel.cpp">
       <Filter>Archivos de código fuente\HUD\Panels</Filter>
     </ClCompile>
-    <ClCompile Include="PopUpPanel.cpp" />
+    <ClCompile Include="PopUpPanel.cpp">
+      <Filter>Archivos de código fuente\HUD\Panels</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -868,7 +870,9 @@
     <ClInclude Include="CreditsPanel.h">
       <Filter>Archivos de encabezado\HUD\Panels</Filter>
     </ClInclude>
-    <ClInclude Include="PopUpPanel.h" />
+    <ClInclude Include="PopUpPanel.h">
+      <Filter>Archivos de encabezado\HUD\Panels</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de código fuente">
