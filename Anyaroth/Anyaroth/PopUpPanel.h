@@ -21,7 +21,7 @@ private:
 	TextUI* _title = nullptr;
 	std::vector<TextUI*> _textBlock;
 	ButtonUI* _nextButton = nullptr;
-	ButtonUI* _exitButton = nullptr;
+	TextUI* _nextButtonText = nullptr;
 
 	queue<PUMessage> _messages;
 
