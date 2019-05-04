@@ -418,12 +418,18 @@
     <ClCompile Include="Sword.cpp">
       <Filter>Archivos de código fuente\Objects\Melee</Filter>
     </ClCompile>
-    <ClCompile Include="Knife.cpp" />
     <ClCompile Include="BossPoleAxe.cpp">
       <Filter>Archivos de código fuente\Objects\Melee</Filter>
     </ClCompile>
-    <ClCompile Include="PoleAxe.cpp" />
-    <ClCompile Include="BossSword.cpp" />
+    <ClCompile Include="BossSword.cpp">
+      <Filter>Archivos de código fuente\Objects\Melee</Filter>
+    </ClCompile>
+    <ClCompile Include="Knife.cpp">
+      <Filter>Archivos de código fuente\Objects\Melee</Filter>
+    </ClCompile>
+    <ClCompile Include="PoleAxe.cpp">
+      <Filter>Archivos de código fuente\Objects\Melee</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -879,12 +885,18 @@
     <ClInclude Include="Sword.h">
       <Filter>Archivos de encabezado\Objects\Melee</Filter>
     </ClInclude>
-    <ClInclude Include="Knife.h" />
     <ClInclude Include="BossPoleAxe.h">
       <Filter>Archivos de encabezado\Objects\Melee</Filter>
     </ClInclude>
-    <ClInclude Include="PoleAxe.h" />
-    <ClInclude Include="BossSword.h" />
+    <ClInclude Include="PoleAxe.h">
+      <Filter>Archivos de encabezado\Objects\Melee</Filter>
+    </ClInclude>
+    <ClInclude Include="Knife.h">
+      <Filter>Archivos de encabezado\Objects\Melee</Filter>
+    </ClInclude>
+    <ClInclude Include="BossSword.h">
+      <Filter>Archivos de encabezado\Objects\Melee</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de código fuente">
