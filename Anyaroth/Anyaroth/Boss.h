@@ -37,7 +37,7 @@ public:
 	Boss(Game* g, Player* player, Vector2D pos, BulletPool* pool, Texture* text);
 	virtual ~Boss();
 
-	void setBossPanel(BossPanel* b);
+	virtual void setBossPanel(BossPanel* b);
 	void drop() {}
 
 	bool inline const isbeetweenFases() { return _actualFase==BetweenFase; }

@@ -10,8 +10,10 @@ EnemyLifePanel::EnemyLifePanel(Game* game,Enemy* enemy) : PanelUI(game),_enemy(e
 	cout << _frame->getX() << " " << enemy->getComponent<TransformComponent>()->getPosition().getX() << endl;
 	_lifeBar = new LifeBar(game, "HeadLifeBarMask");
 
-	int maskPosY = _frame->getY() + _frame->getH() / 2 -4;
-	_lifeBar->setPosition(_frame->getX()+3 , maskPosY);
+	int maskPosY = _frame->getY() + _frame->getH() / 2 - _lifeBar->getH() / 2;
+	int maskPosX = _frame->getX() + _frame->getW() / 2 - _lifeBar->getW() / 2;
+
+	_lifeBar->setPosition(maskPosX, maskPosY);
 
 	addChild(_frame);
 	addChild(_lifeBar);

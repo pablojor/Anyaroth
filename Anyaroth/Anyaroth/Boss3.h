@@ -2,6 +2,7 @@
 #include "GravityBombCannon.h"
 #include "BounceOrbCannon.h"
 #include "BossSensor.h"
+#include "Boss3Panel.h"
 
 class FloatingHead;
 class SpawnerBoss;
@@ -13,6 +14,8 @@ class Boss3 : public Boss
 		int _velocity = 8;
 		bool _invulnerable = false;
 		Vector2D _dir = Vector2D(1, 0);
+
+		Boss3Panel* _boss3Panel = nullptr;
 
 		//Cosas del disparo circular
 		int _num = 0, _timeOnShooting = 0, _timeBeetwenBullets = 0, _timeBeetwenCircularShoot = 1000;
@@ -63,11 +66,13 @@ class Boss3 : public Boss
 		Boss3(Game* g, Player* player, Vector2D pos, BulletPool* pool);
 		virtual ~Boss3();
 
+		void setBoss3Panel(Boss3Panel* b);
 		virtual void movement(const double& deltaTime);
 		virtual void beginCollision(GameObject* other, b2Contact* contact);
 		virtual void endCollision(GameObject * other, b2Contact* contact);
 
 		inline void setBulletApproaching(bool bA) { _bulletApproaching = bA; }
+		virtual void update(const double& deltaTime);
 		virtual void fase1(const double& deltaTime);
 		virtual void fase2(const double& deltaTime);
 		virtual void fase3(const double& deltaTime);

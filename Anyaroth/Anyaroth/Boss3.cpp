@@ -4,8 +4,8 @@
 #include "FloatingHead.h"
 Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(g, player, pos, pool, g->getTexture("EnemyMartyr")), Enemy(g, player, pos, g->getTexture("EnemyMartyr"))
 {
-	_life = 250; // Demo Guerrilla
-	_life1 = _life2 = _life3 = _life;
+	_life = 300; // Demo Guerrilla
+	_life1 = _life;
 
 	delete(_myGun);
 	_myGun = new ImprovedRifle(g);
@@ -56,12 +56,45 @@ Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(
 	_sensor->setActive(false);
 	addChild(_sensor);
 	_invulnerable = true;
+
+	_body->getBody()->SetActive(false);
+	_armVision = false;
+}
+
+void Boss3::setBoss3Panel(Boss3Panel * b)
+{
+	_boss3Panel = b;
+
+	//Actualizamos de primeras el aspecto del Panel del Jugador
+	_boss3Panel->updateLifeBar(_life1.getLife(), _life.getLife());
+	_boss3Panel->setVisible(false);
 }
 
 Boss3::~Boss3()
 { 
 	delete _gravGun;
 	delete _otherGun;
+}
+
+void Boss3::update(const double & deltaTime)
+{
+	DistanceEnemy::update(deltaTime);
+	if (!isDead())
+	{
+		movement(deltaTime);
+
+		if (_actualFase == Fase1)
+			fase1(deltaTime);
+		else if (_actualFase == Fase2)
+			fase2(deltaTime);
+		else if (_actualFase == Fase3)
+			fase3(deltaTime);
+		else
+			beetwenFases(deltaTime);
+	}
+
+	if (isDead() || _player->isDead())
+		_boss3Panel->setVisible(false);
 }
 
 void Boss3::movement(const double& deltaTime)
@@ -131,7 +164,6 @@ void Boss3::fase1(const double & deltaTime)
 				if (HeadsDead)
 				{
 					_invulnerable = false;
-					subLife(_life1.getLife());
 					beetwenFases(deltaTime);
 				}
 			}
@@ -246,19 +278,34 @@ void Boss3::beetwenFases(const double& deltaTime)
 	if (_lastFase == Fase1)
 	{
 		changeFase(Fase2);
+		_boss3Panel->setVisible(true);
+		_body->getBody()->SetActive(true);
+		_armVision = false;
+
+		_actualState = PortalAttack;
+		portalAttack(deltaTime);
 	}
 	else if (_lastFase == Fase2)
 	{
 		changeFase(Fase3);
 		_sensor->setActive(true);
 		_velocity = 100;
+		_myGun->setMaxCadence(_rifleCadence);
+
+		_life.setMaxLife(350);
+		_life.resetLife();
+		_life1.setMaxLife(350);
+		_life1.resetLife();
+
+		_boss3Panel->resetLifeBar(_life1.getLife(), _life.getLife());
+		_boss3Panel->updateBossName("Angra Soldier");//Provisional
+		_actualState = Moving;
 	}
 	else
 	{
 		die();
 	}
-	_bossPanel->updateLifeBar(_life1.getLife(), _life2.getLife(), _life3.getLife(), _life.getLife());
-	_actualState = Moving;
+	_boss3Panel->updateLifeBar(_life1.getLife(), _life.getLife());
 	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 	//}
 }
@@ -266,7 +313,18 @@ void Boss3::beetwenFases(const double& deltaTime)
 void Boss3::subLife(int damage)
 {
 	if (!_invulnerable)
-		Boss::subLife(damage);
+	{
+		if (!isDead() && !isbeetweenFases())
+		{
+			if (_life1.getLife() > 0)
+			{
+				manageLife(_life1, damage);
+				_boss3Panel->updateLifeBar(_life1.getLife(), _life.getLife());
+			}
+		}
+		_spawnParticles = true;
+		_anim->hurt();
+	}
 }
 
 void Boss3::portalAttack(const double& deltaTime)

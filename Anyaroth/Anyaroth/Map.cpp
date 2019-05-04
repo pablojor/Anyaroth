@@ -152,8 +152,8 @@ void Map::createObjects()
 			{
 				_angra = new Boss3(_game, _player, Vector2D(pos.getX() - TILES_SIZE * 2, pos.getY() - TILES_SIZE * 2), _bulletPool);
 				_objects->addChild(_angra);
-				_hud->getBossPanel()->updateBossName("Angra Mainyu");
-				_angra->setBossPanel(_hud->getBossPanel());
+				_hud->getBoss3Panel()->updateBossName("Angra Mainyu");
+				_angra->setBoss3Panel(_hud->getBoss3Panel());
 			}
 			else if (name == "NPC")
 			{

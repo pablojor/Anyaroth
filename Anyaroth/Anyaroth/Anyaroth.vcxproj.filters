@@ -431,6 +431,7 @@
     <ClCompile Include="FloatingHead.cpp" />
     <ClCompile Include="SpawnerBoss.cpp" />
     <ClCompile Include="EnemyLifePanel.cpp" />
+    <ClCompile Include="Boss3Panel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -899,6 +900,7 @@
     <ClInclude Include="FloatingHead.h" />
     <ClInclude Include="SpawnerBoss.h" />
     <ClInclude Include="EnemyLifePanel.h" />
+    <ClInclude Include="Boss3Panel.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de código fuente">
