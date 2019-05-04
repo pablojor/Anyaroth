@@ -10,7 +10,7 @@ private:
 
 	EnemyLifePanel * _lifePanel;
 
-	bool _invecibility = true,
+	bool _invincibility = true,
 		_changeAngle = false;
 	double
 		_timeBetweenShoots = 1000,
@@ -27,8 +27,8 @@ public:
 	void setLifePanel(EnemyLifePanel* lifePanel);
 	void subLife(int damage);
 
-	void turnInvencibilityOff();
-	bool isInvecible();
+	void turnInvincibilityOff();
+	bool isInvincible();
 		
 };
 

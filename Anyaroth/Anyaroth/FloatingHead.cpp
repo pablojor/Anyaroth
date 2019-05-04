@@ -50,7 +50,7 @@ void FloatingHead::update( const double & deltaTime)
 	{
 		
 
-		if (!_invecibility && _timeShooting<=6000) 
+		if (!_invincibility && _timeShooting<=6000)
 		{
 			shooting(deltaTime);
 			_timeShooting += deltaTime;
@@ -58,14 +58,14 @@ void FloatingHead::update( const double & deltaTime)
 		else
 		{
 			_timeShooting = 0;
-			_invecibility = true;
+			_invincibility = true;
 		}
 	}
 }
 
 void FloatingHead::subLife(int damage)
 {
-	if (!isDead()&& !_invecibility)
+	if (!isDead()&& !_invincibility)
 	{
 		_life.subLife(damage);
 
@@ -83,16 +83,16 @@ void FloatingHead::subLife(int damage)
 	}
 }
 
-void FloatingHead::turnInvencibilityOff()
+void FloatingHead::turnInvincibilityOff()
 {
-	_invecibility = false;
+	_invincibility = false;
 }
 
-bool FloatingHead::isInvecible()
+bool FloatingHead::isInvincible()
 {
 	if (!isDead())
 	{
-		return _invecibility;
+		return _invincibility;
 	}
 	else return true;
 }

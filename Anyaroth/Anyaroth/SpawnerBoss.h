@@ -16,7 +16,7 @@ private:
 
 	int _typeSpawn, _amountSpawned=0;
 
-	double _spawnTime = 300, timer = 0;
+	double _spawnTime = 5000, timer = 0;
 
 	bool _startSpawn = false, _lastTurn = false;
 	static bool _spawnTurn, _spawnDone;
@@ -49,6 +49,6 @@ public:
 			_lastTurn = false;
 		}
 	}
-	int aliveEnemys();
+	int aliveEnemies();
 };
 

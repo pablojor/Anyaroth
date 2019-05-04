@@ -146,7 +146,7 @@ void SpawnerBoss::spawnType3(double deltaTime)
 		timer += deltaTime;
 }
 
-int SpawnerBoss::aliveEnemys()
+int SpawnerBoss::aliveEnemies()
 {
 	int count = 0;
 	if (!_startSpawn)

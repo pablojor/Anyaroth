@@ -55,6 +55,7 @@ Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(
 	_sensor = new BossSensor(g, this, { 100, 100 }, { 30, 30 });
 	_sensor->setActive(false);
 	addChild(_sensor);
+	_invulnerable = true;
 }
 
 Boss3::~Boss3()
@@ -88,7 +89,7 @@ void Boss3::movement(const double& deltaTime)
 void Boss3::fase1(const double & deltaTime)
 {
 	_actualState = Idle;
-	int aliveEnemys = 0;
+	int aliveEnemies = 0;
 	bool ok = true, HeadsDead = true;
 	if (_initSpawn)
 	{
@@ -104,14 +105,14 @@ void Boss3::fase1(const double & deltaTime)
 		{
 			for (int j = 0; j < _spawners.size(); j++)
 			{
-				aliveEnemys += _spawners.at(j)->aliveEnemys();
+				aliveEnemies += _spawners.at(j)->aliveEnemies();
 			}
-			if (aliveEnemys == 0)
+			if (aliveEnemies == 0)
 			{
 				_headTurn = true;
 				for (int x = 0; x < _heads.size(); x++)
 				{
-					_heads.at(x)->turnInvencibilityOff();
+					_heads.at(x)->turnInvincibilityOff();
 				}
 			}
 		}
@@ -120,7 +121,7 @@ void Boss3::fase1(const double & deltaTime)
 			for (int x = 0; x < _heads.size(); x++)
 			{
 
-				ok = (_heads.at(x)->isInvecible() && ok);
+				ok = (_heads.at(x)->isInvincible() && ok);
 				HeadsDead = (_heads.at(x)->isDead() && HeadsDead);
 			}
 			if (ok)
@@ -129,6 +130,8 @@ void Boss3::fase1(const double & deltaTime)
 				_initSpawn = true;
 				if (HeadsDead)
 				{
+					_invulnerable = false;
+					subLife(_life1.getLife());
 					beetwenFases(deltaTime);
 				}
 			}
@@ -240,21 +243,23 @@ void Boss3::beetwenFases(const double& deltaTime)
 {
 	//if (_anim->animationFinished())
 	//{
-		if (_lastFase == Fase1)
-			changeFase(Fase2);
-		else if (_lastFase == Fase2)
-		{
-			changeFase(Fase3);
-			_sensor->setActive(true);
-			_velocity = 100;
-		}
-		else
-		{
-			die();
-		}
-		_bossPanel->updateLifeBar(_life1.getLife(), _life2.getLife(), _life3.getLife(), _life.getLife());
-		_actualState = Moving;
-		_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
+	if (_lastFase == Fase1)
+	{
+		changeFase(Fase2);
+	}
+	else if (_lastFase == Fase2)
+	{
+		changeFase(Fase3);
+		_sensor->setActive(true);
+		_velocity = 100;
+	}
+	else
+	{
+		die();
+	}
+	_bossPanel->updateLifeBar(_life1.getLife(), _life2.getLife(), _life3.getLife(), _life.getLife());
+	_actualState = Moving;
+	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 	//}
 }
 
