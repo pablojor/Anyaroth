@@ -4,7 +4,7 @@
 #include "BodyComponent.h"
 #include "AnimatedSpriteComponent.h"
 
-class MisilBoss1 : public GameObject
+class Missile : public GameObject
 {
 private:
 	TransformComponent* _transform = nullptr;
@@ -18,8 +18,8 @@ private:
 	double _angle = 0;
 
 public:
-	MisilBoss1(Game* g, Vector2D pos, GameObject* target);
-	virtual ~MisilBoss1() {}
+	Missile(Game* g, Vector2D pos, GameObject* target);
+	virtual ~Missile() {}
 
 	virtual void beginCollision(GameObject* other, b2Contact* contact);
 	virtual void update(const double& deltaTime);

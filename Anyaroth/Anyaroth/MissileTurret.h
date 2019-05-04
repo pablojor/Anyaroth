@@ -3,10 +3,10 @@
 #include "TransformComponent.h"
 #include "BodyComponent.h"
 #include "AnimatedSpriteComponent.h"
-#include "MisilBoss1.h"
+#include "Missile.h"
 #include "Boss1.h"
 
-class BotonLanzaMisiles : public Interactable
+class MissileTurret : public Interactable
 {
 private:
 	Boss1 * _boss = nullptr;
@@ -15,8 +15,8 @@ private:
 	int _activeFase;
 
 public:
-	BotonLanzaMisiles(Game* g, Boss1* Boss, Vector2D pos, int activeFase);
-	virtual ~BotonLanzaMisiles() {}
+	MissileTurret(Game* g, Boss1* Boss, Vector2D pos, int activeFase);
+	virtual ~MissileTurret() {}
 
 	virtual void update(const double& deltaTime);
 	void interact();

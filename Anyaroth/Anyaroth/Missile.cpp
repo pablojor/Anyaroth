@@ -1,11 +1,11 @@
-#include "MisilBoss1.h"
+#include "Missile.h"
 #include "Game.h"
 #include "TransformComponent.h"
 #include "BodyComponent.h"
 #include "AnimatedSpriteComponent.h"
 #include "ParticleManager.h"
 
-MisilBoss1::MisilBoss1(Game* g, Vector2D pos, GameObject* target) : GameObject(g, "Misil"), _target(target)
+Missile::Missile(Game* g, Vector2D pos, GameObject* target) : GameObject(g, "Misil"), _target(target)
 {
 	addComponent<Texture>(g->getTexture("Missile"));
 
@@ -38,7 +38,7 @@ MisilBoss1::MisilBoss1(Game* g, Vector2D pos, GameObject* target) : GameObject(g
 	g->getSoundManager()->playSFX("rocketLaunch");
 }
 
-void MisilBoss1::beginCollision(GameObject * other, b2Contact * contact)
+void Missile::beginCollision(GameObject * other, b2Contact * contact)
 {
 	_body->getBody()->SetLinearVelocity(b2Vec2(0, 0));
 	_anim->playAnim(AnimatedSpriteComponent::Destroy);
@@ -49,7 +49,7 @@ void MisilBoss1::beginCollision(GameObject * other, b2Contact * contact)
 	_game->getSoundManager()->playSFX("martyrExplosion");
 }
 
-void MisilBoss1::update(const double& deltaTime)
+void Missile::update(const double& deltaTime)
 {
 	GameObject::update(deltaTime);
 

@@ -78,7 +78,7 @@ void LevelManager::setLevel(int l)
 	case LevelManager::SafeDemo:
 		_currentSafeZone = new Map(TILEMAP_PATH + "SafeZoneDemo.json", _game, _player, _game->getTexture("Tileset1"), _enemyBulletPool);
 		_game->getSoundManager()->playMusic("safe_zone", -1);
-		setParallaxZone1();
+		setControlsBackground();
 		break;
 	case LevelManager::LevelDemo:
 		_currentMap = new Map(TILEMAP_PATH + "NivelDemo.json", _game, _player, _game->getTexture("Tileset1"), _enemyBulletPool);
@@ -126,19 +126,14 @@ void LevelManager::setLevel(int l)
 	_camera->setWorldBounds(xBound, yBound);
 
 	if (l % 2 == 0)
-	{
 		_level->addChild(_currentMap);
-
-		if (l == Boss1 || l == Boss2 || l == Boss3 || l == BossDemo)
-			_camera->fitCamera({ xBound, yBound }, true);
-		else
-			_camera->setZoom(CAMERA_SCALE_FACTOR);
-	}
 	else
-	{
 		_level->addChild(_currentSafeZone);
+
+	if (l == Boss1 || l == Boss2 || l == Boss3 || l == SafeDemo || l == BossDemo)
+		_camera->fitCamera({ xBound, yBound }, true);
+	else
 		_camera->setZoom(CAMERA_SCALE_FACTOR);
-	}
 
 	_camera->fadeIn(3000);
 }
@@ -163,6 +158,18 @@ void LevelManager::resetLevel()
 	_currentMap->restartLevel(); 
 	_enemyBulletPool->stopBullets(); 
 	_game->getCurrentState()->getMainCamera()->fadeIn(3000);
+}
+
+void LevelManager::setControlsBackground()
+{
+	ParallaxBackGround* parallaxZone1 = new ParallaxBackGround(_camera);
+
+	parallaxZone1->addLayer(new ParallaxLayer(_game->getTexture("BgZ1L1"), _camera, 0.25));
+	parallaxZone1->addLayer(new ParallaxLayer(_game->getTexture("BgZ1L2"), _camera, 0.5));
+	parallaxZone1->addLayer(new ParallaxLayer(_game->getTexture("BgZ1L3"), _camera, 0.75));
+	parallaxZone1->addLayer(new ParallaxLayer(_game->getTexture("BgControls"), _camera, 0));
+
+	_camera->setBackGround(parallaxZone1);
 }
 
 void LevelManager::setParallaxZone1()

@@ -259,17 +259,11 @@
     <ClCompile Include="Boss1.cpp">
       <Filter>Archivos de código fuente\Objects\Enemies\Bosses</Filter>
     </ClCompile>
-    <ClCompile Include="BotonLanzaMisiles.cpp">
-      <Filter>Archivos de código fuente\Objects\Interactables</Filter>
-    </ClCompile>
     <ClCompile Include="Interactable.cpp">
       <Filter>Archivos de código fuente\Objects\Interactables</Filter>
     </ClCompile>
     <ClCompile Include="NPC.cpp">
       <Filter>Archivos de código fuente\Objects\Interactables</Filter>
-    </ClCompile>
-    <ClCompile Include="MisilBoss1.cpp">
-      <Filter>Archivos de código fuente\Objects</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>Archivos de código fuente</Filter>
@@ -414,6 +408,12 @@
     </ClCompile>
     <ClCompile Include="ParticlePool.cpp">
       <Filter>Archivos de código fuente\Pools</Filter>
+    </ClCompile>
+    <ClCompile Include="Missile.cpp">
+      <Filter>Archivos de código fuente\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="MissileTurret.cpp">
+      <Filter>Archivos de código fuente\Objects\Interactables</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -720,12 +720,6 @@
     <ClInclude Include="Boss1.h">
       <Filter>Archivos de encabezado\Objects\Enemies\Bosses</Filter>
     </ClInclude>
-    <ClInclude Include="BotonLanzaMisiles.h">
-      <Filter>Archivos de encabezado\Objects\Interactables</Filter>
-    </ClInclude>
-    <ClInclude Include="MisilBoss1.h">
-      <Filter>Archivos de encabezado\Objects</Filter>
-    </ClInclude>
     <ClInclude Include="Boss.h">
       <Filter>Archivos de encabezado\Objects\Enemies\Bosses</Filter>
     </ClInclude>
@@ -866,6 +860,12 @@
     </ClInclude>
     <ClInclude Include="ParticlePool.h">
       <Filter>Archivos de encabezado\Pools</Filter>
+    </ClInclude>
+    <ClInclude Include="Missile.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="MissileTurret.h">
+      <Filter>Archivos de encabezado\Objects\Interactables</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -14,6 +14,8 @@ PlayState::PlayState(Game* g) : GameState(g) {}
 
 PlayState::~PlayState()
 {
+	_playerBulletPool->stopBullets();
+
 	if (_cutScene != nullptr)
 		delete _cutScene;
 }

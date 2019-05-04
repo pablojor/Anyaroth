@@ -15,6 +15,7 @@ private:
 	Map* _currentMap = nullptr;
 	Map* _currentSafeZone = nullptr;
 
+	void setControlsBackground();
 	void setParallaxZone1();
 	void setBackgroundBoss1();
 

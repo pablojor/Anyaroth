@@ -13,7 +13,7 @@
 #include "Player.h"
 #include "NPC.h"
 #include "Shop.h"
-#include "BotonLanzaMisiles.h"
+#include "MissileTurret.h"
 #include <json.hpp>
 
 using namespace nlohmann;
@@ -133,7 +133,7 @@ void Map::createObjects()
 			}
 			else if (name == "Misil")
 			{
-				_objects->addChild(new BotonLanzaMisiles(_game, spenta, Vector2D(pos.getX() - TILES_SIZE, pos.getY() - TILES_SIZE * 2.8), stoi(data)));
+				_objects->addChild(new MissileTurret(_game, spenta, Vector2D(pos.getX() - TILES_SIZE, pos.getY() - TILES_SIZE * 2.8), stoi(data)));
 			}
 			else if (name == "NPC")
 			{
