@@ -45,7 +45,7 @@ private:
 	int _deathCD = 3000;
 
 	//Controller
-	double _jPosX, _jPosY, _prevAxisX = 0, _prevAxisY = 0;
+	double _jPosX, _jPosY, _prevAxisX = 0, _prevAxisY = 0, _jAngle = 0;
 	bool _jJump = false, _jShoot = false, _jMoveLeft = false, _jMoveDown = false, _jMoveRight = false, _jReleased = false;
 
 	//Particles

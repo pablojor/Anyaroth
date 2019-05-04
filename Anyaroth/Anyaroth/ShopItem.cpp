@@ -1,7 +1,6 @@
 #include "ShopItem.h"
 #include "Game.h"
 
-
 ShopItem::ShopItem(Game* game, Texture* image, int xPos, int yPos) : ButtonUI(game, image, 0, {0, 2, 2, 2, 2})
 {
 	_weaponIcon = new ImageUI(game, image, xPos, yPos);
@@ -54,4 +53,3 @@ void ShopItem::setChosen(bool selected)
 	else
 		setFrames({ 0, 2, 2, 2, 2 });
 }
-

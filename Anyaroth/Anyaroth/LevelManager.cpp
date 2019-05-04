@@ -143,9 +143,6 @@ void LevelManager::changeLevel(int l)
 	_enemyBulletPool->stopBullets();
 	_level->destroyAllChildren();
 	setLevel(l);
-
-	_game->getCurrentState()->getMainCamera()->setWorldBounds(getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getWidth(), getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getHeight());
-	_game->getCurrentState()->getMainCamera()->setZoom(CAMERA_SCALE_FACTOR);
 }
 
 Map * LevelManager::getCurrentLevel(int l) const
