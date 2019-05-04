@@ -21,21 +21,27 @@ void LevelManager::setLevel(int l)
 		break;
 	case LevelManager::Safe1_1:
 		_currentSafeZone = new Map(TILEMAP_PATH + "SafeZonePrueba.json", _game, _player, _game->getTexture("Tileset1"), _enemyBulletPool);
+		setParallaxZone1();
 		break;
 	case LevelManager::Level1_1:
 		_currentMap = new Map(TILEMAP_PATH + "Nivel1-1.json", _game, _player, _game->getTexture("Tileset1"), _enemyBulletPool);
+		setParallaxZone1();
 		break;
 	case LevelManager::Safe1_2:
 		_currentSafeZone = new Map(TILEMAP_PATH + "SafeZonePrueba.json", _game, _player, _game->getTexture("Tileset1"), _enemyBulletPool);
+		setParallaxZone1();
 		break;
 	case LevelManager::Level1_2:
 		_currentMap = new Map(TILEMAP_PATH + "Nivel1-2.json", _game, _player, _game->getTexture("Tileset1"), _enemyBulletPool);
+		setParallaxZone1();
 		break;
 	case LevelManager::SafeBoss1:
 		_currentSafeZone = new Map(TILEMAP_PATH + "SafeZonePrueba.json", _game, _player, _game->getTexture("Tileset1"), _enemyBulletPool);
+		setParallaxZone1();
 		break;
 	case LevelManager::Boss1:
 		_currentMap = new Map(TILEMAP_PATH + "Nivel1-3.json", _game, _player, _game->getTexture("TilesetBoss1"), _enemyBulletPool);
+		setBackgroundBoss1();
 		break;
 	case LevelManager::Safe2_1:
 		_currentSafeZone = new Map(TILEMAP_PATH + "SafeZonePrueba.json", _game, _player, _game->getTexture("Tileset1"), _enemyBulletPool);
