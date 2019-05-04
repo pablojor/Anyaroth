@@ -37,7 +37,8 @@ void PlayState::start()
 	_playerBulletPool = new BulletPool(_gameptr);
 	_player->setPlayerBulletPool(_playerBulletPool);
 
-	_playHud->getShop()->setPlayer(_player);
+	if (!_gameptr->getCurrentState()->gameLoaded())
+		_playHud->getShop()->setPlayer(_player);
 	_playHud->getShop()->setVisible(false);
 
 	_mainCamera->fixCameraToObject(_player);
@@ -50,7 +51,8 @@ void PlayState::start()
 
 	_level = new GameObject(_gameptr);
 	_levelManager = LevelManager(_gameptr, _player, _level, enemyPool);
-	_levelManager.setLevel(GameManager::getInstance()->getCurrentLevel());
+	if (!_gameptr->getCurrentState()->gameLoaded())
+		_levelManager.setLevel(GameManager::getInstance()->getCurrentLevel());
 
 	//Collisions and debugger
 	getWorld()->SetContactListener(&_colManager);
@@ -136,7 +138,8 @@ void PlayState::loadGame()
 		json j;
 		input >> j;
 		_player->setBank(j["Bank"]);
-		_levelManager.changeLevel(j["level"]);
+		_levelManager.setLevel(j["level"]);
+		GameManager::getInstance()->setCurrentLevel(j["level"]);
 		_player->changeCurrentGun(WeaponManager::getWeapon(_gameptr, j["currentGun"]));
 		_player->changeOtherGun(WeaponManager::getWeapon(_gameptr, j["otherGun"]));
 

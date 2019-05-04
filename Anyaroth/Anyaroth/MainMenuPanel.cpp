@@ -76,8 +76,11 @@ void MainMenuPanel::startGame(Game * g)
 void MainMenuPanel::loadGame(Game* g)
 {
 	auto p = new PlayState(g);
-	p->loadGame();
 	g->changeState(p);
+	p->setLoaded(true);
+	p->start();
+	p->setStarted(true);
+	p->loadGame();
 }
 
 void MainMenuPanel::options(Game * g)

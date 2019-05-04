@@ -4,6 +4,7 @@
 GameState::GameState(Game* g) : _gameptr(g)
 {
 	_hasToStart = true;
+	_gameLoaded = false;
 	initializeCamera();
 
 	//---Create world
