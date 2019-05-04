@@ -3,22 +3,22 @@
 #include "MeleeEnemy.h"
 #include "MartyrEnemy.h"
 #include "DistanceStaticEnemy.h"
-#include "DistanceDynamicEnemy.h"
 #include "StaticFlyingEnemy.h"
+#include "DistanceDynamicEnemy.h"
 #include "BomberEnemy.h"
 #include "NormalSpawner.h"
 #include "DistanceSpawner.h"
 #include "StaticSpawnerEnemy.h"
+#include "Boss1.h"
 #include "Player.h"
 #include "NPC.h"
 #include "Shop.h"
-#include "GunType_def.h"
-#include "BotonLanzaMisiles.h"
+#include "MissileTurret.h"
 #include <json.hpp>
 
 using namespace nlohmann;
 
-Map::Map(string filename, Game* game, Player* player, Texture* tileset, BulletPool* bulletPool, PlayStateHUD* hud) : GameObject(game), _player(player), _bulletPool(bulletPool), _hud(hud)
+Map::Map(string filename, Game* game, Player* player, Texture* tileset, BulletPool* bulletPool) : GameObject(game), _player(player), _bulletPool(bulletPool)
 {
 	_tilemap = new Tilemap(game, tileset);
 	_tilemap->loadTileMap(filename);
@@ -73,7 +73,7 @@ Map::~Map()
 
 void Map::createObjects()
 {
-	_misilFase = 0;
+	Boss1* spenta = nullptr;
 
 	for (int i = 0; i < _objectLayers.size(); i++)
 	{
@@ -125,26 +125,25 @@ void Map::createObjects()
 			{
 				_objects->addChild(new BomberEnemy(_game, _player, Vector2D(pos.getX(), pos.getY() - TILES_SIZE * 2), _bulletPool));
 			}
-			else if (name == "Misil")
-			{
-				_objects->addChild(new BotonLanzaMisiles(_game, _spenta, _game->getTexture("MissileTurret"), Vector2D(pos.getX() - TILES_SIZE, pos.getY() - TILES_SIZE * 2.8), _misilFase));
-				_misilFase++;
-			}
 			else if (name == "Boss1")
 			{
-				_spenta = (new Boss1(_game, _player, Vector2D(pos.getX(), pos.getY() - TILES_SIZE * 2), _bulletPool));
-				_objects->addChild(_spenta);
-				_spenta->setBossPanel(_hud->getBossPanel());
+				spenta = (new Boss1(_game, _player, Vector2D(pos.getX(), pos.getY() - TILES_SIZE * 2), _bulletPool));
+				_objects->addChild(spenta);
+				spenta->setBossPanel(_game->getCurrentState()->getPlayHUD()->getBossPanel());
+			}
+			else if (name == "Misil")
+			{
+				_objects->addChild(new MissileTurret(_game, spenta, Vector2D(pos.getX() - TILES_SIZE, pos.getY() - TILES_SIZE * 2.8), stoi(data)));
 			}
 			else if (name == "NPC")
 			{
-				auto npc = new NPC(_game, Vector2D(pos.getX() - TILES_SIZE, pos.getY() - TILES_SIZE * 2), _game->getDialogue(data));
-				npc->setDialoguePanel(_hud->getDialoguePanel());
+				NPC* npc = new NPC(_game, Vector2D(pos.getX() - TILES_SIZE, pos.getY() - TILES_SIZE * 2), _game->getDialogue(data));
+				npc->setDialoguePanel(_game->getCurrentState()->getPlayHUD()->getDialoguePanel());
 				_objects->addChild(npc);
 			}
 			else if (name == "Shop")
 			{
-				auto tienda = new Shop(_game, Vector2D(pos.getX(), pos.getY() - TILES_SIZE * 2.6), _hud->getShop());
+				Shop* tienda = new Shop(_game, Vector2D(pos.getX(), pos.getY() - TILES_SIZE * 2.6), _game->getCurrentState()->getPlayHUD()->getShop());
 				_objects->addChild(tienda);
 			}
 		}

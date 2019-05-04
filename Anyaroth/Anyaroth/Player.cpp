@@ -9,12 +9,11 @@
 #include "ParticleManager.h"
 
 
-Player::Player(Game* game, int xPos, int yPos) : GameObject(game, "Player")
+Player::Player(Game* game) : GameObject(game, "Player")
 {
 	addComponent<Texture>(game->getTexture("Mk"));
 
 	_transform = addComponent<TransformComponent>();
-	_transform->setPosition(xPos, yPos);
 
 	_body = addComponent<BodyComponent>();
 	_body->getBody()->SetType(b2_dynamicBody);
@@ -437,10 +436,8 @@ void Player::changeOtherGun(Gun * gun)
 	}
 }
 
-
 void Player::checkMovement(const Uint8* keyboard)
 {
-
 	if (!isDead() && !_inputFreezed)
 	{
 		if (keyboard[SDL_SCANCODE_A] && keyboard[SDL_SCANCODE_D] && !isMeleeing() && !isDashing())
@@ -449,7 +446,8 @@ void Player::checkMovement(const Uint8* keyboard)
 		{
 			if (_isDashing && _dashEnabled && !isReloading())
 				dash(Vector2D(-1, 0));
-			else {
+			else
+			{
 				move(Vector2D(-1, 0), _speed);
 				_isDashing = false;
 			}
@@ -458,14 +456,16 @@ void Player::checkMovement(const Uint8* keyboard)
 		{
 			if (_isDashing && _dashEnabled && !isReloading())
 				dash(Vector2D(1, 0));
-			else {
+			else
+			{
 				move(Vector2D(1, 0), _speed);
 				_isDashing = false;
 			}
 		}
 		else if ((keyboard[SDL_SCANCODE_S] || _jMoveDown) && _isDashing && !isDashing() && _dashEnabled && !isGrounded() && !isMeleeing() && !isReloading())
 			dash(Vector2D(0, 1));
-		else {
+		else
+		{
 			move(Vector2D(0, 0), _speed);
 			_isDashing = false;
 		}
@@ -486,9 +486,9 @@ void Player::checkMovement(const Uint8* keyboard)
 			SDL_GetWindowSize(_game->getWindow(), &winWidth, &winHeight);
 			double radius = 250 * _game->getCurrentState()->getMainCamera()->getCameraSize().distance({}) / Vector2D(winWidth, winHeight).distance({});
 
-			if (_jPosX < -JOYSTICK_DEADZONE * 2 || _jPosX > JOYSTICK_DEADZONE * 2 || _jPosY < -JOYSTICK_DEADZONE * 2 || _jPosY > JOYSTICK_DEADZONE * 2)			
-					_jAngle = atan2(_jPosY, _jPosX);
-			
+			if (_jPosX < -JOYSTICK_DEADZONE * 2 || _jPosX > JOYSTICK_DEADZONE * 2 || _jPosY < -JOYSTICK_DEADZONE * 2 || _jPosY > JOYSTICK_DEADZONE * 2)
+				_jAngle = atan2(_jPosY, _jPosX);
+
 			double mouseX = (_body->getBody()->GetPosition().x + _body->getW() / 2) * M_TO_PIXEL + cos(_jAngle) * radius;
 			double mouseY = (_body->getBody()->GetPosition().y + _body->getH() / 2) * M_TO_PIXEL + sin(_jAngle) * radius;
 
@@ -500,6 +500,7 @@ void Player::checkMovement(const Uint8* keyboard)
 			_prevAxisX = _jPosX;
 			_prevAxisY = _jPosY;
 		}
+
 		//Recarga
 		if (canReload() && !isMeleeing() && !isDashing())
 			reload();

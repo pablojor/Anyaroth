@@ -1,9 +1,25 @@
 #include "GameState.h"
 #include "Game.h"
+#include "CutScene.h"
 
-GameState::GameState(Game* g) : _gameptr(g), _world(g->getWorld())
+GameState::GameState(Game* g) : _gameptr(g)
 {
+	_hasToStart = true;
+	_gameLoaded = false;
 	initializeCamera();
+
+	//---Create world
+	_world = new b2World(b2Vec2(0.0, 9.8));
+
+	//Debugger
+	_debugger.getRenderer(_gameptr->getRenderer());
+	_debugger.getTexture(_gameptr->getTexture("Box"));
+	_debugger.SetFlags(b2Draw::e_shapeBit);
+	_debugger.getCamera(_mainCamera);
+
+	//Collisions and debugger
+	_world->SetContactListener(&_colManager);
+	_world->SetDebugDraw(&_debugger);
 }
 
 GameState::~GameState()
@@ -18,6 +34,8 @@ GameState::~GameState()
 
 	for (GameObject* o : _stages)
 		delete o;
+
+	delete _world;
 }
 
 void GameState::render() const
@@ -44,6 +62,17 @@ void GameState::update(const double& deltaTime)
 
 	if (_canvas != nullptr)
 		_canvas->update(deltaTime);
+
+	if (_cutScene != nullptr)
+	{
+		if (_cutScene->isPlaying())
+			_cutScene->update(deltaTime);
+		else
+		{
+			delete _cutScene;
+			_cutScene = nullptr;
+		}
+	}
 }
 
 void GameState::post_update()
@@ -82,11 +111,15 @@ bool GameState::pre_handleEvent()
 	return _mainCamera->pre_handleEvent();
 }
 
+void GameState::updateWorld(const float & timestep, const int & velocityIterations, const int & positionIterations)
+{
+	if(_world != nullptr)
+		_world->Step(timestep, velocityIterations, positionIterations);
+}
+
 void GameState::addObject(GameObject* n)
 {
-	_stages.push_back(n);/*
-	auto itFR = --(_stages.end());
-	n->setItList(itFR);*/
+	_stages.push_back(n);
 }
 
 void GameState::destroyObject(GameObject* obj)

@@ -14,7 +14,7 @@ public:
 		{
 			_objects.push_back(new T(g));
 			_objects[i]->setActive(false);
-			_objects[i]->setWorld(g->getWorld());
+			_objects[i]->setWorld(getWorld());
 		}
 	};
 

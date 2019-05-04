@@ -24,7 +24,7 @@ DepotPanel::DepotPanel(Game* game) : PanelUI(game)
 	_equipName = new TextUI(game, "Equipped", game->getFont("ARIAL12"), 12, 0, 0, { 145, 255, 255, 255 });
 	_equipName->setPosition(_equipmentFrameName->getX() + _equipmentFrameName->getW() / 2 - _equipName->getW() / 2, _equipmentFrameName->getY() + _equipmentFrameName->getH() / 2 - _equipName->getH() / 2);
 
-	//Añadir como hijo
+	//Aï¿½adir como hijo
 	addChild(_depotFrame);
 	addChild(_equipmentFrame);
 
@@ -39,7 +39,7 @@ DepotPanel::DepotPanel(Game* game) : PanelUI(game)
 	_exitButton = new ButtonUI(game, game->getTexture("ReturnButton"), nullptr, { 0,1,1,1 });
 	_exitButton->setPosition(CAMERA_RESOLUTION_X - _exitButton->getW() - 12, 188 - 1 - _exitButton->getH());
 
-		//Añadir como hijo
+		//Aï¿½adir como hijo
 	addChild(_exitButton);
 
 	_firstWeaponFrame = new ShopItem(game, game->getTexture("ItemFrame"));
@@ -66,7 +66,7 @@ DepotPanel::DepotPanel(Game* game) : PanelUI(game)
 	_secondWeaponFrame->onDown([this](Game* game) { setDistanceWeapon(game, _secondWeaponFrame); });
 	//_meleeWeaponFrame->onDown([this](Game* game) { setMeleeWeapon(game, _meleeWeaponFrame); });
 
-		//Añadir como hijo
+		//Aï¿½adir como hijo
 
 //	addChild(_meleeWeaponFrame);
 
@@ -76,7 +76,7 @@ DepotPanel::DepotPanel(Game* game) : PanelUI(game)
 	_changeButton->setPosition(_equipmentFrame->getX() + 45,
 								_equipmentFrame->getY() + 17);
 
-		//Añadir como hijo
+		//Aï¿½adir como hijo
 	addChild(_changeButton);
 
 	//----ALMACEN----//
