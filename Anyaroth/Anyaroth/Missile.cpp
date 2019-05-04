@@ -12,6 +12,7 @@ Missile::Missile(Game* g, Vector2D pos, GameObject* target) : GameObject(g, "Mis
 	_transform = addComponent<TransformComponent>();
 	_transform->setPosition(pos.getX(), pos.getY());
 
+
 	_body = addComponent<BodyComponent>();
 	_body->getBody()->SetType(b2_kinematicBody);
 	_body->getBody()->SetBullet(true);

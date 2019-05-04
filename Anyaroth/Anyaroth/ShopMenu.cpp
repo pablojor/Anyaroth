@@ -115,6 +115,7 @@ bool ShopMenu::handleEvent(const SDL_Event& event)
 	{
 		if (_mainMenuAbled)
 		{
+			PanelUI::checkControlMode(event);
 			if (event.type == SDL_CONTROLLERBUTTONDOWN)
 			{
 				if (event.cbutton.button == SDL_CONTROLLER_BUTTON_B)
@@ -124,7 +125,16 @@ bool ShopMenu::handleEvent(const SDL_Event& event)
 				}
 			}
 		}
-		PanelUI::handleEvent(event);
+		
+		auto it = _children.begin();
+
+		while (!handled && it != _children.end())
+		{
+			if ((*it)->handleEvent(event))
+				handled = true;
+			else
+				it++;
+		}
 	}
 	
 	return handled;
@@ -136,7 +146,7 @@ void ShopMenu::loadWeaponInfo()
 	int i = 0;
 	for (auto it = weaponInfo.begin(); it != weaponInfo.end(); it++)
 	{
-		auto item = new ShopItem(_game, _game->getTexture((*it).second._iconName), 0, 0, i);
+		auto item = new ShopItem(_game, _game->getTexture((*it).second._iconName), 0, 0);
 
 		bool sold = false;
 		bool equiped = false;
@@ -178,7 +188,6 @@ void ShopMenu::openShop()
 	_dialoguePanel->stopAtLastLineShown(true);
 	_dialoguePanel->startDialogue(_game->getDialogue("Shop 1 " + to_string(GameManager::getInstance()->getCurrentLevel())));
 
-	_mainMenuAbled = true;
 	ableMainMenu(_game);
 }
 
@@ -191,7 +200,7 @@ void ShopMenu::closeShop()
 	_player->setActive(true);
 	SDL_ShowCursor(false);
 
-	if (_game->isJoystick())
+	if (_game->usingJoystick())
 		_selectedButton->setSelected(false);
 
 	_game->getSoundManager()->playSFX("doorClose");
@@ -214,13 +223,17 @@ void ShopMenu::ableMainMenu(Game * game)
 	_depotText->setVisible(true);
 	_exitButton->setVisible(true);
 
-	if (_game->isJoystick())
+	if (_game->usingJoystick())
 	{
-		_selectedButton = _shopButton;
-		_selectedButton->setSelected(true);
+		SDL_WarpMouseGlobal(0, 0);
+		_shopButton->setSelected(false);
 		_talkButton->setSelected(false);
 		_depotButton->setSelected(false);
 		_exitButton->setSelected(false);
+
+		_selectedButton = _shopButton;
+		_selectedButton->setSelected(true);
+		SDL_ShowCursor(false);
 	}
 
 	_dialoguePanel->startDialogue(_game->getDialogue("Shop 2 " + to_string(GameManager::getInstance()->getCurrentLevel())));

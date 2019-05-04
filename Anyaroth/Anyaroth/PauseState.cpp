@@ -3,7 +3,6 @@
 
 PauseState::PauseState(Game* g) : GameState(g)
 {
-
 }
 
 void PauseState::start()

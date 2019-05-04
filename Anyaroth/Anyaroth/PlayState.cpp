@@ -136,13 +136,11 @@ void PlayState::loadGame()
 		_player->changeOtherGun(WeaponManager::getWeapon(_gameptr, j["otherGun"]));
 
 		auto items = _playHud->getShop()->getItems();
-
 		for (ShopItem* i : items)
 		{
 			i->setItemSell(j[i->getItemInfo()._name]);
 			i->setItemEquiped(false);
 		}
-
 		_playHud->getShop()->setPlayer(_player);
 	}
 }

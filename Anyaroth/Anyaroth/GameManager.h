@@ -11,7 +11,7 @@ private:
 
 	GameManager() {};
 
-	//Aqui irán todas la varibles que se necesite en el juego
+	//Aqui irï¿½n todas la varibles que se necesite en el juego
 	int _currentLevel = 1;
 	bool _onDialogue = false, _onShop = false;
 

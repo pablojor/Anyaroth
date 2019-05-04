@@ -60,6 +60,7 @@
     [ "BgMenu", "bg_menu.png", 1, 1 ],
     [ "BgPauseMenu", "bg_pausemenu.png", 1, 1 ],
     [ "BgOptionsMenu", "bg_optionsmenu.png", 1, 1 ],
+
     [ "BgShop", "shop_background.png", 1, 6 ],
     [ "BgZ1L1", "bg_z1_l1.png", 1, 1 ],
     [ "BgZ1L2", "bg_z1_l2.png", 1, 1 ],
@@ -92,7 +93,6 @@
     [ "NameBg", "nameBg.png", 3, 7 ],
     [ "DialogueFace", "dialogueFaces_npc.png", 1, 1 ],
     [ "DialogueIndicator", "dialogueIndicator.png", 1, 7 ],
-
     [ "InteractIndicator", "interactIndicator.png", 1, 5 ],
     [ "InteractIndicatorController", "interactIndicatorController.png", 1, 5 ],
 
@@ -103,7 +103,7 @@
     [ "InfoPanel", "info_panel.png", 3, 6 ],
     [ "DepotPanel", "depot_panel.png", 1, 1 ],
     [ "EquipPanel", "equip_panel.png", 1, 1 ],
-
+    [ "Equip/Depot_PanelName", "equip_depot_namePanel.png", 2, 1],
     [ "ShopButton", "shop_menubuttons.png", 3, 6 ],
     [ "BuyButton", "buy_button.png", 1, 2 ],
     [ "ChangeButton", "changeweapons_button.png", 1, 2 ],
@@ -113,7 +113,6 @@
     [ "PowerIcon", "power_icon.png", 1, 1 ],
     [ "CadenceIcon", "_cadence_icon.png", 1, 1 ],
     [ "ClipIcon", "clip_icon.png", 1, 1 ],
-
     [ "PropertiesBar", "properties_bar.png", 1, 1 ],
 
     [ "ItemFrame", "item_frame.png", 1, 2 ],
@@ -132,7 +131,6 @@
     [ "DashBackTrailFlip", "dashbacktrailflip.png", 1, 1 ],
     [ "DashDownTrail", "dashdowntrail.png", 1, 1 ],
     [ "DashDownTrailFlip", "dashdowntrailflip.png", 1, 1 ],
-
     [ "DemoCredits", "demo_credits.png", 1, 1 ],
     [ "DemoTwitter", "demo_twitter.png", 1, 1 ]
   ],

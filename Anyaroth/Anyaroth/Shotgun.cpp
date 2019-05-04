@@ -24,6 +24,9 @@ void Shotgun::shoot(BulletPool * bulletPool, const Vector2D & position, const do
 
 		if (_numBulletsPerShot % 2 == 0)	auxAngle = angle + _angleBetweenBullet / 2;
 
+		double auxAngle = angle;
+		if (_numBulletsPerShot % 2 == 0)	auxAngle = angle + _angleBetweenBullet / 2;
+
 		for (int i = iniAngleMult; i < _numBulletsPerShot + iniAngleMult; i++)
 		{
 			Bullet* b = bulletPool->getUnusedObject();

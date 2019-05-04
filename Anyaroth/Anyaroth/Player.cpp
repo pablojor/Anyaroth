@@ -104,10 +104,7 @@ void Player::beginCollision(GameObject * other, b2Contact* contact)
 	{
 		if (other->isActive())
 		{
-			auto coin = dynamic_cast<Coin*>(other);
-			auto value = coin->getValue();
-
-			coin->collect();
+			auto value = other->getValue();
 
 			_money->store(value);
 			_playerPanel->updateCoinsCounter(_money->getWallet());
@@ -118,10 +115,7 @@ void Player::beginCollision(GameObject * other, b2Contact* contact)
 	{
 		if (other->isActive())
 		{
-			auto ammo = dynamic_cast<AmmoPackage*>(other);
-			auto value = ammo->getValue();
-
-			ammo->collect();
+			auto value = other->getValue();
 
 			_currentGun->addAmmo(_currentGun->getMaxClip()*value);
 			_playerPanel->updateAmmoViewer(_currentGun->getClip(), _currentGun->getMagazine());
@@ -134,10 +128,7 @@ void Player::beginCollision(GameObject * other, b2Contact* contact)
 	{
 		if (other->isActive())
 		{
-			auto aidKit = dynamic_cast<AidKit*>(other);
-			auto value = aidKit->getValue();
-
-			aidKit->collect();
+			auto value = other->getValue();
 
 			_life.addLife(value);
 			_playerPanel->updateLifeBar(_life.getLife(), _life.getMaxLife());
@@ -147,6 +138,10 @@ void Player::beginCollision(GameObject * other, b2Contact* contact)
 	else if (other->getTag() == "Door")
 	{
 		_changeLevel = true;
+	}
+	else if (other->getTag() == "Death")
+	{
+		die();
 	}
 }
 
@@ -499,9 +494,31 @@ void Player::checkMovement(const Uint8* keyboard)
 				else
 					_jReleased = true;
 
-				_prevAxisX = _jPosX;
-				_prevAxisY = _jPosY;
-			}
+		if (_game->usingJoystick())
+		{
+			_jPosX = (SDL_GameControllerGetAxis(_game->getJoystick(), SDL_CONTROLLER_AXIS_RIGHTX));
+			_jPosY = (SDL_GameControllerGetAxis(_game->getJoystick(), SDL_CONTROLLER_AXIS_RIGHTY));
+
+			if (_jReleased)
+				_jReleased = (_prevAxisX < 0 && _prevAxisX < _jPosX || _prevAxisX > 0 && _prevAxisX > _jPosX) || (_prevAxisY < 0 && _prevAxisY < _jPosY || _prevAxisY > 0 && _prevAxisY > _jPosY);
+
+			int winWidth = 0;	int winHeight = 0;
+			SDL_GetWindowSize(_game->getWindow(), &winWidth, &winHeight);
+			double radius = 250 * _game->getCurrentState()->getMainCamera()->getCameraSize().distance({}) / Vector2D(winWidth, winHeight).distance({});
+
+			if (_jPosX < -JOYSTICK_DEADZONE * 2 || _jPosX > JOYSTICK_DEADZONE * 2 || _jPosY < -JOYSTICK_DEADZONE * 2 || _jPosY > JOYSTICK_DEADZONE * 2)			
+					_jAngle = atan2(_jPosY, _jPosX);
+			
+			double mouseX = (_body->getBody()->GetPosition().x + _body->getW() / 2) * M_TO_PIXEL + cos(_jAngle) * radius;
+			double mouseY = (_body->getBody()->GetPosition().y + _body->getH() / 2) * M_TO_PIXEL + sin(_jAngle) * radius;
+
+			if ((abs(_jPosX - _prevAxisX) < JOYSTICK_DEADZONE * 2 && abs(_jPosY - _prevAxisY) < JOYSTICK_DEADZONE * 2) && !_jReleased)
+				_game->getCurrentState()->setMousePositionInWorld({ mouseX,mouseY });
+			else
+				_jReleased = true;
+
+			_prevAxisX = _jPosX;
+			_prevAxisY = _jPosY;
 		}
 		//Recarga
 		if (canReload() && !isMeleeing() && !isDashing())

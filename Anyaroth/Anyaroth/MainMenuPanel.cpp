@@ -58,15 +58,18 @@ MainMenuPanel::MainMenuPanel(Game* g) : PanelUI(g)
 	addChild(_exitText);
 
 	_selectedButton = _playButton;
-	if (_game->isJoystick())
-		_selectedButton->setSelected(true);
-}
 
+	if (_game->usingJoystick())
+	{
+		_selectedButton->setSelected(true);
+		SDL_ShowCursor(false);
+		SDL_WarpMouseGlobal(0, 0);
+	}
+}
 
 MainMenuPanel::~MainMenuPanel()
 {
 }
-
 
 void MainMenuPanel::startGame(Game * g)
 {

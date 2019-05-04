@@ -12,6 +12,7 @@ private:
 	GameObject* _level = nullptr;
 	BulletPool* _enemyBulletPool = nullptr;
 
+	GameObject* _level = nullptr;
 	Map* _currentMap = nullptr;
 	Map* _currentSafeZone = nullptr;
 

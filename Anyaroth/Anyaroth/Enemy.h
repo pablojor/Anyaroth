@@ -11,7 +11,7 @@ class Enemy : public GameObject
 {
 private:
 	string _deathSound = "", _hitSound = "", _meleeHit = "";
-
+	
 protected:
 	TransformComponent* _transform = nullptr;
 	BodyComponent* _body = nullptr;

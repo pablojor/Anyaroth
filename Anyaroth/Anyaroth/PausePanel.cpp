@@ -34,8 +34,6 @@ PausePanel::PausePanel(Game* g) : PanelUI(g)
 	_optionsButton->setNextButtons({ _playButton, _playButton, _menuButton, _menuButton });
 	_menuButton->setNextButtons({ _optionsButton, _optionsButton, _playButton, _playButton });
 
-	_selectedButton = _playButton;
-
 	addChild(_playButton);
 	addChild(_optionsButton);
 	addChild(_menuButton);
@@ -43,8 +41,14 @@ PausePanel::PausePanel(Game* g) : PanelUI(g)
 	addChild(_optionsText);
 	addChild(_menuText);
 
-	if (_game->isJoystick())
+	_selectedButton = _playButton;
+
+	if (_game->usingJoystick())
+	{
 		_selectedButton->setSelected(true);
+		SDL_ShowCursor(false);
+		SDL_WarpMouseGlobal(0, 0);
+	}
 }
 
 PausePanel::~PausePanel()
