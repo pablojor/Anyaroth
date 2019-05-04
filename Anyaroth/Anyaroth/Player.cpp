@@ -3,7 +3,7 @@
 #include "Coin.h"
 #include "AmmoPackage.h"
 #include "AidKit.h"
-#include "Axe.h"
+#include "Sword.h"
 #include "GunType_def.h"
 #include "WeaponManager.h"
 #include "ParticleManager.h"
@@ -71,7 +71,7 @@ Player::Player(Game* game, int xPos, int yPos) : GameObject(game, "Player")
 	_money = new Money();
 
 	//Melee
-	_melee = new Melee(game, { 15, 0 }, ENEMIES, 5, 20, 10);
+	_melee = WeaponManager::getInstance()->getMelee(game, Knife_Weapon);
 	addChild(_melee);
 }
 

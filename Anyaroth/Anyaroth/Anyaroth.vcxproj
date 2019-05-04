@@ -147,6 +147,7 @@
     <ClCompile Include="AmmoPackage.cpp" />
     <ClCompile Include="AmmoViewer.cpp" />
     <ClCompile Include="AnimatedImageUI.cpp" />
+    <ClCompile Include="BossSword.cpp" />
     <ClCompile Include="ButtonUI.cpp" />
     <ClCompile Include="CreditsPanel.cpp" />
     <ClCompile Include="CreditsState.cpp" />
@@ -166,7 +167,9 @@
     <ClCompile Include="FramedImageUI.cpp" />
     <ClCompile Include="AnimatedSpriteComponent.cpp" />
     <ClCompile Include="Arm.cpp" />
-    <ClCompile Include="Axe.cpp" />
+    <ClCompile Include="Knife.cpp" />
+    <ClCompile Include="PoleAxe.cpp" />
+    <ClCompile Include="Sword.cpp" />
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="BasicPistol.cpp" />
     <ClCompile Include="BasicRifle.cpp" />
@@ -251,6 +254,7 @@
     <ClCompile Include="PlayerPanel.cpp" />
     <ClCompile Include="PlayState.cpp" />
     <ClCompile Include="PlayStateHUD.cpp" />
+    <ClCompile Include="BossPoleAxe.cpp" />
     <ClCompile Include="PoolWrapper.cpp" />
     <ClCompile Include="PopUpPanel.cpp" />
     <ClCompile Include="RenderComponent.cpp" />
@@ -286,6 +290,7 @@
     <ClInclude Include="AmmoPackage.h" />
     <ClInclude Include="AmmoViewer.h" />
     <ClInclude Include="AnimatedImageUI.h" />
+    <ClInclude Include="BossSword.h" />
     <ClInclude Include="ButtonUI.h" />
     <ClInclude Include="CamEffectType.h" />
     <ClInclude Include="CreditsPanel.h" />
@@ -309,7 +314,9 @@
     <ClInclude Include="AnimatedSpriteComponent.h" />
     <ClInclude Include="AnyarothError.h" />
     <ClInclude Include="Arm.h" />
-    <ClInclude Include="Axe.h" />
+    <ClInclude Include="Knife.h" />
+    <ClInclude Include="PoleAxe.h" />
+    <ClInclude Include="Sword.h" />
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="BasicPistol.h" />
     <ClInclude Include="BasicRifle.h" />
@@ -401,6 +408,7 @@
     <ClInclude Include="PlayerPanel.h" />
     <ClInclude Include="PlayState.h" />
     <ClInclude Include="PlayStateHUD.h" />
+    <ClInclude Include="BossPoleAxe.h" />
     <ClInclude Include="PoolWrapper.h" />
     <ClInclude Include="PopUpPanel.h" />
     <ClInclude Include="RenderComponent.h" />

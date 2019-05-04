@@ -10,7 +10,9 @@
 #include "PlasmaSniper.h"
 
 #include "Melee.h"
-#include "Axe.h"
+#include "Knife.h"
+#include "Sword.h"
+#include "PoleAxe.h"
 
 #include <json.hpp>
 #include <map>
@@ -101,16 +103,16 @@ Melee * WeaponManager::getMelee(Game * game, MeleeType type)
 	switch (type)
 	{
 	case Knife_Weapon:
-		//m = new Knife(game);
+		m = new Knife(game);
 		break;
 	case Sword_Weapon:
-		//m = new Sword(game);
+		m = new Sword(game);
 		break;
 	case PoleAxe_Weapon:
-		//m = new PoleAxe(game);
+		m = new PoleAxe(game);
 		break;
 	default:
 		break;
 	}
-	return nullptr;
+	return m;
 }
