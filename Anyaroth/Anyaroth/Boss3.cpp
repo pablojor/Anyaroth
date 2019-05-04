@@ -1,6 +1,7 @@
 #include "Boss3.h"
 #include "ImprovedRifle.h"
-
+#include "SpawnerBoss.h"
+#include "FloatingHead.h"
 Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(g, player, pos, pool, g->getTexture("EnemyMartyr")), Enemy(g, player, pos, g->getTexture("EnemyMartyr"))
 {
 	_life = 250; // Demo Guerrilla
@@ -86,6 +87,53 @@ void Boss3::movement(const double& deltaTime)
 
 void Boss3::fase1(const double & deltaTime)
 {
+	_actualState = Idle;
+	int aliveEnemys = 0;
+	bool ok = true, HeadsDead = true;
+	if (_initSpawn)
+	{
+		for(int i=0;i<_spawners.size();i++)
+		{
+			_spawners.at(i)->spawnEnemy();
+		}
+		_initSpawn = false;
+	}
+	else
+	{
+		if (!_headTurn)
+		{
+			for (int j = 0; j < _spawners.size(); j++)
+			{
+				aliveEnemys += _spawners.at(j)->aliveEnemys();
+			}
+			if (aliveEnemys == 0)
+			{
+				_headTurn = true;
+				for (int x = 0; x < _heads.size(); x++)
+				{
+					_heads.at(x)->turnInvencibilityOff();
+				}
+			}
+		}
+		else
+		{
+			for (int x = 0; x < _heads.size(); x++)
+			{
+
+				ok = (_heads.at(x)->isInvecible() && ok);
+				HeadsDead = (_heads.at(x)->isDead() && HeadsDead);
+			}
+			if (ok)
+			{
+				_headTurn = false;
+				_initSpawn = true;
+				if (HeadsDead)
+				{
+					beetwenFases(deltaTime);
+				}
+			}
+		}
+	}
 }
 
 void Boss3::fase2(const double& deltaTime)

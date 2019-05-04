@@ -25,7 +25,7 @@ private:
 	Boss1* _spenta = nullptr;
 	Boss2* _azura = nullptr;
 	Boss3* _angra = nullptr;
-	int _misilFase = 0, _height = 0, _width = 0;
+	int _misilFase = 0, _height = 0, _width = 0, _spawnType=0;
 
 public:
 	Map(string filename, Game* game, Player* player, Texture* tileset, BulletPool* bulletPool, PlayStateHUD* hud);

@@ -3,6 +3,9 @@
 #include "BounceOrbCannon.h"
 #include "BossSensor.h"
 
+class FloatingHead;
+class SpawnerBoss;
+
 class Boss3 : public Boss
 {
 	private:
@@ -50,6 +53,12 @@ class Boss3 : public Boss
 		void portalAttack(const double& deltaTime);
 		bool portalVisible = false;
 
+		// Cosas de la primera fase
+		vector<SpawnerBoss*> _spawners;
+		vector<FloatingHead*>_heads;
+
+		bool _headTurn = false, _initSpawn = true;
+
 	public:
 		Boss3(Game* g, Player* player, Vector2D pos, BulletPool* pool);
 		virtual ~Boss3();
@@ -64,4 +73,7 @@ class Boss3 : public Boss
 		virtual void fase3(const double& deltaTime);
 		virtual void beetwenFases(const double& deltaTime);
 		void subLife(int damage);
+
+		void push_backSpawner(SpawnerBoss* spawner) { _spawners.push_back(spawner); }
+		void push_backHead(FloatingHead* head) { _heads.push_back(head); }
 };

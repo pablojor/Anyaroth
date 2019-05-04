@@ -428,6 +428,9 @@
       <Filter>Archivos de código fuente\Objects\Enemies\Bosses</Filter>
     </ClCompile>
     <ClCompile Include="BossSensor.cpp" />
+    <ClCompile Include="FloatingHead.cpp" />
+    <ClCompile Include="SpawnerBoss.cpp" />
+    <ClCompile Include="EnemyLifePanel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -893,6 +896,9 @@
       <Filter>Archivos de encabezado\Objects\Enemies\Bosses</Filter>
     </ClInclude>
     <ClInclude Include="BossSensor.h" />
+    <ClInclude Include="FloatingHead.h" />
+    <ClInclude Include="SpawnerBoss.h" />
+    <ClInclude Include="EnemyLifePanel.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de código fuente">

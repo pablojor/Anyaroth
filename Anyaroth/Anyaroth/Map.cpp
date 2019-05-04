@@ -16,6 +16,8 @@
 #include "BotonLanzaMisiles.h"
 #include "Boss2.h"
 #include "Boss3.h"
+#include "SpawnerBoss.h"
+#include "FloatingHead.h"
 #include <json.hpp>
 
 using namespace nlohmann;
@@ -76,7 +78,7 @@ Map::~Map()
 void Map::createObjects()
 {
 	_misilFase = 0;
-
+	_spawnType = 0;
 	for (int i = 0; i < _objectLayers.size(); i++)
 	{
 		string name = _objectLayers[i]->getName();
@@ -163,6 +165,23 @@ void Map::createObjects()
 			{
 				auto tienda = new Shop(_game, Vector2D(pos.getX(), pos.getY() - TILES_SIZE * 2.6), _hud->getShop());
 				_objects->addChild(tienda);
+			}
+			else if (name == "FloatingHead")
+			{
+				auto head = new FloatingHead(_game, _player, Vector2D(pos.getX() - TILES_SIZE * 2, pos.getY() - TILES_SIZE * 2), _bulletPool, _angra);
+				auto life=new EnemyLifePanel(_game, head);
+				_hud->addUIElement(life);
+				head->setLifePanel(life);
+				_angra->addChild(head);
+				_angra->push_backHead(head);
+			}
+			else if (name == "SpawnerBoss")
+			{
+				auto spawner= new SpawnerBoss(_game, _player, _game->getTexture("MissileTurret"), Vector2D(pos.getX() - TILES_SIZE * 2, pos.getY() - TILES_SIZE * 2), _spawnType, _bulletPool);
+
+				_angra->addChild(spawner);
+				_angra->push_backSpawner(spawner);
+				_spawnType++;
 			}
 		}
 	}
