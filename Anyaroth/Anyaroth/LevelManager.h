@@ -1,8 +1,6 @@
 #pragma once
 #include "Map.h"
 #include "Camera.h"
-#include "ParallaxBackGround.h"
-#include "BackGround.h"
 
 class LevelManager
 {
@@ -16,14 +14,6 @@ private:
 
 	Map* _currentMap = nullptr;
 	Map* _currentSafeZone = nullptr;
-
-	Texture* _tilesetZone1 = nullptr;
-	ParallaxBackGround* _parallaxZone1 = nullptr;
-
-	Texture* _tilesetBoss1 = nullptr;
-	BackGround* _backgroundBoss1 = nullptr;
-
-	Texture* _tilesetZone2 = nullptr;
 
 	void setParallaxZone1();
 	void setBackgroundBoss1();

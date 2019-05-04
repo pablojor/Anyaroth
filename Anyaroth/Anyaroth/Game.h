@@ -45,7 +45,7 @@ enum _Category
 	DEAD_ENEMIES = 128,
 	COLLECTED_OBJECTS = 256,
 	MELEE = 512,
-	MISIL=1024,
+	MISIL = 1024,
 };
 
 class Game
@@ -68,6 +68,16 @@ private:
 	bool _exit = false;
 
 public:
+	Game();
+	~Game();
+
+	void run();
+	void start();
+	void updateWorld(const float& timeStep, const int& velocityIterations, const int& positionIterations);
+	void update(const double& deltaTime);
+	void render() const;
+	void handleEvents();
+
 	//Metodos
 	void createTextures();
 	void createFonts();
@@ -80,7 +90,6 @@ public:
 	inline void changeState(GameState* state) { _stateMachine->changeState(state); }
 	inline void popState() { _stateMachine->popState(); }
 
-	//Texture* newTexture(string id, string nameText);
 	inline Texture* getTexture(string nameText) { return _textures[nameText]; }
 	inline Font* getFont(string nameFont) { return _fonts[nameFont]; }
 	inline Dialogue getDialogue(string nameDialogue) { return _dialogues[nameDialogue]; }
@@ -98,13 +107,4 @@ public:
 	inline int random(int low, int high) const { return low + (rand() % abs(high - low)); }
 
 	void toggleFullscreen();
-
-	Game();
-	~Game();
-	void run();
-	void start();
-	void updateWorld(const float& timeStep, const int& velocityIterations, const int& positionIterations);
-	void update(const double& deltaTime);
-	void render() const;
-	void handleEvents();
 };

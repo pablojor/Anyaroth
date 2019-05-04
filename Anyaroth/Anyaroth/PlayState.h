@@ -1,9 +1,6 @@
 #pragma once
 #include "GameState.h"
-#include "DebugDraw.h"
 #include "LevelManager.h"
-#include "CollisionManager.h"
-#include "ParticleManager.h"
 #include "Player.h"
 #include "BulletPool.h"
 #include "ParticlePool.h"
@@ -17,12 +14,9 @@ private:
 	Cursor* _cursor = nullptr;
 
 	BulletPool* _playerBulletPool = nullptr;
-	ParticlePool * _particlePool = nullptr;
+	ParticlePool* _particlePool = nullptr;
 
-	DebugDraw _debugger;
-	CollisionManager _colManager;
 	LevelManager _levelManager;
-	ParticleManager* _particleManager = nullptr;
 
 public:
 	PlayState(Game* g);

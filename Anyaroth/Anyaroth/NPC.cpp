@@ -6,7 +6,7 @@ NPC::NPC(Game* g, Vector2D posIni, Dialogue dialogue) : Interactable(g, posIni)
 {
 	_dialogue = dialogue;
 
-	addComponent<Texture>(g->getTexture("Npc"));
+	addComponent<Texture>(g->getTexture("NPC"));
 
 	auto _texture = getComponent<Texture>();
 	auto _indicatorTexture = _interactIndicator->getComponent<Texture>();

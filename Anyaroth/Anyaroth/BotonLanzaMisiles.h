@@ -1,26 +1,23 @@
 #pragma once
 #include "Interactable.h"
-#include "Boss1.h"
+#include "TransformComponent.h"
+#include "BodyComponent.h"
+#include "AnimatedSpriteComponent.h"
 #include "MisilBoss1.h"
-
-class PlayState;
-class AnimatedSpriteComponent;
-class TransformComponent;
-class BodyComponent;
+#include "Boss1.h"
 
 class BotonLanzaMisiles : public Interactable
 {
 private:
 	Boss1 * _boss = nullptr;
 
-	PlayState* _play = nullptr;
-
 	bool ready = false, usable = true;
 	int _activeFase;
-public:
-	BotonLanzaMisiles(Game* g, Boss1* Boss, Texture* texture, Vector2D pos, int activeFase);
-	virtual void update(const double& deltaTime);
-	virtual ~BotonLanzaMisiles();
 
+public:
+	BotonLanzaMisiles(Game* g, Boss1* Boss, Vector2D pos, int activeFase);
+	virtual ~BotonLanzaMisiles() {}
+
+	virtual void update(const double& deltaTime);
 	void interact();
 };

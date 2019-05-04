@@ -1,5 +1,6 @@
 #include "GameState.h"
 #include "Game.h"
+#include "CutScene.h"
 
 GameState::GameState(Game* g) : _gameptr(g)
 {
@@ -9,6 +10,16 @@ GameState::GameState(Game* g) : _gameptr(g)
 
 	//---Create world
 	_world = new b2World(b2Vec2(0.0, 9.8));
+
+	//Debugger
+	_debugger.getRenderer(_gameptr->getRenderer());
+	_debugger.getTexture(_gameptr->getTexture("Box"));
+	_debugger.SetFlags(b2Draw::e_shapeBit);
+	_debugger.getCamera(_mainCamera);
+
+	//Collisions and debugger
+	_world->SetContactListener(&_colManager);
+	_world->SetDebugDraw(&_debugger);
 }
 
 GameState::~GameState()
@@ -51,6 +62,17 @@ void GameState::update(const double& deltaTime)
 
 	if (_canvas != nullptr)
 		_canvas->update(deltaTime);
+
+	if (_cutScene != nullptr)
+	{
+		if (_cutScene->isPlaying())
+			_cutScene->update(deltaTime);
+		else
+		{
+			delete _cutScene;
+			_cutScene = nullptr;
+		}
+	}
 }
 
 void GameState::post_update()

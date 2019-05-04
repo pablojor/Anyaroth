@@ -133,8 +133,7 @@ void Map::createObjects()
 			}
 			else if (name == "Misil")
 			{
-				_objects->addChild(new BotonLanzaMisiles(_game, spenta, _game->getTexture("MissileTurret"), Vector2D(pos.getX() - TILES_SIZE, pos.getY() - TILES_SIZE * 2.8), _misilFase));
-				_misilFase++;
+				_objects->addChild(new BotonLanzaMisiles(_game, spenta, Vector2D(pos.getX() - TILES_SIZE, pos.getY() - TILES_SIZE * 2.8), stoi(data)));
 			}
 			else if (name == "NPC")
 			{

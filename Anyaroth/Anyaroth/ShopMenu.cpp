@@ -11,7 +11,7 @@ ShopMenu::ShopMenu(Game* game) : PanelUI(game)
 {
 	//----FONDO----//
 
-	_imageBG = new AnimatedImageUI(game, game->getTexture("ShopBackground"));
+	_imageBG = new AnimatedImageUI(game, game->getTexture("BgShop"));
 	_imageBG->addAnim(AnimatedImageUI::Idle, 6, true);
 	addChild(_imageBG);
 

@@ -7,6 +7,8 @@
 #include "PlayStateHUD.h"
 #include "MenuStateHUD.h"
 #include "PauseStateHUD.h"
+#include "DebugDraw.h"
+#include "CollisionManager.h"
 
 class Game;
 class CutScene;
@@ -32,6 +34,9 @@ protected:
 	MenuStateHUD* _menuHud = nullptr;
 	PauseStateHUD* _pauseHud = nullptr;
 	CutScene* _cutScene = nullptr;
+
+	DebugDraw _debugger;
+	CollisionManager _colManager;
 
 public:
 	GameState(Game* g);

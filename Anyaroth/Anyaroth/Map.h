@@ -18,7 +18,6 @@ private:
 	GameObject* _objects = nullptr;
 	vector <ObjectLayer*> _objectLayers;
 
-	int _misilFase = 0;
 	double _height = 0, _width = 0;
 
 public:

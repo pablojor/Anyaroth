@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "PauseState.h"
 #include "GameManager.h"
+#include "ParticleManager.h"
 #include "WeaponManager.h"
 #include "CutScene.h"
 #include "checkML.h"
@@ -22,7 +23,7 @@ void PlayState::start()
 	GameManager::init();
 	WeaponManager::init();
 
-	//HUD
+	//PlayState HUD
 	_playHud = new PlayStateHUD(_gameptr);
 	setCanvas(_playHud);
 
@@ -34,44 +35,33 @@ void PlayState::start()
 	_player = new Player(_gameptr);
 	_player->setPlayerPanel(_playHud->getPlayerPanel());
 
+	//Player Bulletpool
 	_playerBulletPool = new BulletPool(_gameptr);
 	_player->setPlayerBulletPool(_playerBulletPool);
 
+	//Shop Items
 	if (!_gameptr->getCurrentState()->gameLoaded())
 		_playHud->getShop()->setPlayer(_player);
 	_playHud->getShop()->setVisible(false);
 
+	//Camera
 	_mainCamera->fixCameraToObject(_player);
 
 	//Enemy Pool
 	BulletPool* enemyPool = new BulletPool(_gameptr);
 
-	//Levels
+	//Level
 	GameManager::getInstance()->setCurrentLevel(LevelManager::SafeDemo);
 
 	_level = new GameObject(_gameptr);
 	_levelManager = LevelManager(_gameptr, _player, _level, enemyPool);
+
 	if (!_gameptr->getCurrentState()->gameLoaded())
 		_levelManager.setLevel(GameManager::getInstance()->getCurrentLevel());
 
-	//Collisions and debugger
-	getWorld()->SetContactListener(&_colManager);
-	getWorld()->SetDebugDraw(&_debugger);
-
-	//World
-	_debugger.getRenderer(_gameptr->getRenderer());
-	_debugger.getTexture(_gameptr->getTexture("Box"));
-	_debugger.SetFlags(b2Draw::e_shapeBit);
-	_debugger.getCamera(_mainCamera);
-
-	//Gestion de colisiones
-	getWorld()->SetContactListener(&_colManager);
-	getWorld()->SetDebugDraw(&_debugger);
-
-	//Particulas
+	//Particles
 	_particlePool = new ParticlePool(_gameptr);
-	_particleManager = ParticleManager::GetParticleManager();
-	_particleManager->setParticlePool(_particlePool);
+	ParticleManager::GetParticleManager()->setParticlePool(_particlePool);
 
 	//----AÑADIR A LOS OBJETOS----//
 
@@ -200,18 +190,6 @@ void PlayState::update(const double& deltaTime)
 			});
 		}
 	}
-
-	if (_cutScene != nullptr)
-	{
-		if (_cutScene->isPlaying())
-			_cutScene->update(deltaTime);
-		else
-		{
-			delete _cutScene;
-			_cutScene = nullptr;
-		}
-	}
-
 	GameState::update(deltaTime);
-	_particleManager->updateManager(deltaTime);
+	ParticleManager::GetParticleManager()->updateManager(deltaTime);
 }

@@ -1,6 +1,7 @@
 #include "Game.h"
-#include <ctime>
 #include "AnyarothError.h"
+#include "ParticleManager.h"
+#include <ctime>
 #include <json.hpp>
 
 using namespace nlohmann;
@@ -62,7 +63,7 @@ void Game::createFonts()
 
 void Game::createSounds()
 {
-
+	//Music
 	_soundManager->addMusic("bgMusic", SOUNDS_PATH + "bgMusic.wav");
 	_soundManager->addMusic("shop", SOUNDS_PATH + "shop.ogg");
 	_soundManager->addMusic("safe_zone", SOUNDS_PATH + "safe_zone.ogg");
@@ -70,21 +71,16 @@ void Game::createSounds()
 	_soundManager->addMusic("demoLevelMusic", SOUNDS_PATH + "demoLevelMusic.ogg");
 	_soundManager->addSFX("example1", SOUNDS_PATH + "example1.wav");
 
-	//UI SOUNDS
+	//UI Sounds
 	_soundManager->addSFX("boton", SOUNDS_PATH + "boton.wav");
-		//Next Text (CAMBIAR)
-	_soundManager->addSFX("example", SOUNDS_PATH + "example.wav");
-		//Dialogue
 	_soundManager->addSFX("openDialogue", SOUNDS_PATH + "openDialogue.wav");
 	_soundManager->addSFX("closeDialogue", SOUNDS_PATH + "closeDialogue.wav");
 
-	//VOICES
-		//Example
+	//Voices
 	_soundManager->addSFX("exampleVoice", SOUNDS_PATH + "exampleVoice.wav");
-		//Boss
 	_soundManager->addSFX("bossVoice", SOUNDS_PATH + "bossVoice.wav");
 
-	//SOUND EFFECTS
+	//Sounds
 	_soundManager->addSFX("pick1", SOUNDS_PATH + "itempick1.wav");
 
 	_soundManager->addSFX("doorOpen", SOUNDS_PATH + "doorOpen.wav");
@@ -249,8 +245,8 @@ Game::~Game()
 
 
 	delete _stateMachine;
-	ParticleManager::deleteManager();
 	delete _soundManager;
+	ParticleManager::deleteManager();
 	SDL_DestroyRenderer(_renderer);
 	SDL_DestroyWindow(_window);
 	SDL_Quit();
@@ -324,10 +320,11 @@ void Game::handleEvents()
 			if (event.key.keysym.sym == SDLK_F11)
 				toggleFullscreen();
 		}
-		else if(event.type == SDL_CONTROLLERDEVICEADDED)
+		else if (event.type == SDL_CONTROLLERDEVICEADDED)
+		{
 			if (!isJoystick())
 				initialiseJoysticks();
-
+		}
 		_stateMachine->currentState()->handleEvent(event);
 	}
 }
