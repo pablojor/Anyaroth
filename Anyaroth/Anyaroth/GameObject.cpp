@@ -17,11 +17,13 @@ GameObject::~GameObject()
 			it->second = nullptr;
 		}
 	}
-	
+	_components.clear();
 
 	//Llama a la destructora de los hijos
 	for (GameObject* child : _children)
 		delete child;
+
+	_children.clear();
 }
 
 bool GameObject::handleEvent(const SDL_Event& event)
