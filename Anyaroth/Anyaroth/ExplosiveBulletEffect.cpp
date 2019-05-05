@@ -1,7 +1,8 @@
 #include "ExplosiveBulletEffect.h"
 #include "Game.h"
-#include <math.h>
 #include "Bullet.h"
+#include "ParticleManager.h"
+#include <math.h>
 
 ExplosiveBulletEffect::ExplosiveBulletEffect(int explodeTime) : _explodeTime(explodeTime)
 {

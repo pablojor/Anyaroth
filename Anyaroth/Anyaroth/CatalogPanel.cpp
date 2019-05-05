@@ -210,6 +210,12 @@ void CatalogPanel::selectItem(Game * game, ShopItem* item)
 	if (_selectedItem != nullptr)
 		_selectedItem->setChosen(false);
 
+	if (_game->isJoystick())
+	{
+		item->setSelected(false);
+		_selectedButton = _buyButton;
+		_selectedButton->setSelected(true);
+	}
 	_selectedItem = item;
 	_selectedItem->setChosen(true);
 
@@ -287,4 +293,3 @@ void CatalogPanel::buyItem(Game * game)
 		reorderCatalog();
 	}
 }
-

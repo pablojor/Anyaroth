@@ -256,17 +256,11 @@
     <ClCompile Include="Boss1.cpp">
       <Filter>Archivos de código fuente\Objects\Enemies\Bosses</Filter>
     </ClCompile>
-    <ClCompile Include="BotonLanzaMisiles.cpp">
-      <Filter>Archivos de código fuente\Objects\Interactables</Filter>
-    </ClCompile>
     <ClCompile Include="Interactable.cpp">
       <Filter>Archivos de código fuente\Objects\Interactables</Filter>
     </ClCompile>
     <ClCompile Include="NPC.cpp">
       <Filter>Archivos de código fuente\Objects\Interactables</Filter>
-    </ClCompile>
-    <ClCompile Include="MisilBoss1.cpp">
-      <Filter>Archivos de código fuente\Objects</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>Archivos de código fuente</Filter>
@@ -327,9 +321,6 @@
     </ClCompile>
     <ClCompile Include="GravityBombDebuff.cpp">
       <Filter>Archivos de código fuente\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="ParticlePull.cpp">
-      <Filter>Archivos de código fuente\Pools</Filter>
     </ClCompile>
     <ClCompile Include="StaticFlyingEnemy.cpp">
       <Filter>Archivos de código fuente\Objects\Enemies</Filter>
@@ -429,6 +420,14 @@
     </ClCompile>
     <ClCompile Include="PoleAxe.cpp">
       <Filter>Archivos de código fuente\Objects\Melee</Filter>
+    <ClCompile Include="ParticlePool.cpp">
+      <Filter>Archivos de código fuente\Pools</Filter>
+    </ClCompile>
+    <ClCompile Include="Missile.cpp">
+      <Filter>Archivos de código fuente\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="MissileTurret.cpp">
+      <Filter>Archivos de código fuente\Objects\Interactables</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -732,12 +731,6 @@
     <ClInclude Include="Boss1.h">
       <Filter>Archivos de encabezado\Objects\Enemies\Bosses</Filter>
     </ClInclude>
-    <ClInclude Include="BotonLanzaMisiles.h">
-      <Filter>Archivos de encabezado\Objects\Interactables</Filter>
-    </ClInclude>
-    <ClInclude Include="MisilBoss1.h">
-      <Filter>Archivos de encabezado\Objects</Filter>
-    </ClInclude>
     <ClInclude Include="Boss.h">
       <Filter>Archivos de encabezado\Objects\Enemies\Bosses</Filter>
     </ClInclude>
@@ -861,9 +854,6 @@
     <ClInclude Include="WaitingEvent.h">
       <Filter>Archivos de encabezado\Events</Filter>
     </ClInclude>
-    <ClInclude Include="ParticlePull.h">
-      <Filter>Archivos de encabezado\Pools</Filter>
-    </ClInclude>
     <ClInclude Include="ParticleManager.h">
       <Filter>Archivos de encabezado\Others\Managers</Filter>
     </ClInclude>
@@ -896,6 +886,14 @@
     </ClInclude>
     <ClInclude Include="BossSword.h">
       <Filter>Archivos de encabezado\Objects\Melee</Filter>
+    <ClInclude Include="ParticlePool.h">
+      <Filter>Archivos de encabezado\Pools</Filter>
+    </ClInclude>
+    <ClInclude Include="Missile.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="MissileTurret.h">
+      <Filter>Archivos de encabezado\Objects\Interactables</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

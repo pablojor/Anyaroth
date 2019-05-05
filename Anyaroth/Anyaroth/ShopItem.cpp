@@ -1,7 +1,6 @@
 #include "ShopItem.h"
 #include "Game.h"
 
-
 ShopItem::ShopItem(Game* game, Texture* image, int xPos, int yPos) : ButtonUI(game, image, 0, {0, 2, 2, 2, 2})
 {
 	_weaponIcon = new ImageUI(game, image, xPos, yPos);
@@ -41,7 +40,7 @@ void ShopItem::setItemInfo(const ItemInfo & info)
 	setImage(_game->getTexture(_info._rarityFrame));
 	//Cambio del icono del arma
 	_weaponIcon->setImage(_game->getTexture(_info._iconName));
-	//Ajustamos tamaños
+	//Ajustamos tamaï¿½os
 	setSize(getImage()->getW(), getImage()->getH());
 }
 
@@ -54,4 +53,3 @@ void ShopItem::setChosen(bool selected)
 	else
 		setFrames({ 0, 2, 2, 2, 2 });
 }
-

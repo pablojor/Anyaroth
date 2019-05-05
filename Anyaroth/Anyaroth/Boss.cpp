@@ -5,10 +5,6 @@ Boss::Boss(Game * g, Player * player, Vector2D pos, BulletPool* pool, Texture* t
 	_affectedByExternalForces = false;
 }
 
-Boss::~Boss()
-{
-}
-
 void Boss::setBossPanel(BossPanel * b)
 {
 	_bossPanel = b;
@@ -48,6 +44,7 @@ void Boss::subLife(int damage)
 		if (_life1.getLife() > 0)
 		{
 			manageLife(_life1, damage);
+
 			if (_life1.getLife() == 0)
 				_bossPanel->updateLifeBar(2, _life2.getLife(), _life3.getLife(), _life.getLife());
 			else
@@ -56,6 +53,7 @@ void Boss::subLife(int damage)
 		else if (_life2.getLife() > 0)
 		{
 			manageLife(_life2, damage); 
+
 			if (_life2.getLife() == 0)
 				_bossPanel->updateLifeBar(_life1.getLife(), 2, _life3.getLife(), _life.getLife());
 			else
@@ -64,6 +62,7 @@ void Boss::subLife(int damage)
 		else if (_life3.getLife() > 0)
 		{
 			manageLife(_life3, damage);
+
 			if (_life3.getLife() == 0)
 				_bossPanel->updateLifeBar(_life1.getLife(), _life2.getLife(), 2, _life.getLife());
 			else
@@ -77,6 +76,7 @@ void Boss::subLife(int damage)
 void Boss::manageLife(Life& l, int damage)
 {
 	l.subLife(damage);
+
 	if (l.getLife() == 0)
 	{
 		_doSomething = 0;

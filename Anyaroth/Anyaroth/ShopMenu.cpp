@@ -11,7 +11,7 @@ ShopMenu::ShopMenu(Game* game) : PanelUI(game)
 {
 	//----FONDO----//
 
-	_imageBG = new AnimatedImageUI(game, game->getTexture("ShopBackground"));
+	_imageBG = new AnimatedImageUI(game, game->getTexture("BgShop"));
 	_imageBG->addAnim(AnimatedImageUI::Idle, 6, true);
 	addChild(_imageBG);
 
@@ -23,7 +23,7 @@ ShopMenu::ShopMenu(Game* game) : PanelUI(game)
 		middleOfTheButtonPanelY = 100;
 
 	//BOTON DE HABLAR
-	_talkButton = new ButtonUI(game, game->getTexture("ShopButton"), [this](Game* game) { startTalking(game); }, { 0, 1, 1, 1, 1 });
+	_talkButton = new ButtonUI(game, game->getTexture("ShopButton"), [this](Game* game) { startTalking(game); }, { 0, 1, 1, 1, 1 }, 1);
 	_talkButton->setPosition(middleOfTheButtonPanelX / 2 - _talkButton->getW() / 2,
 		middleOfTheButtonPanelY - (distanceBetweenButtons / 2) - _talkButton->getH());
 
@@ -41,7 +41,7 @@ ShopMenu::ShopMenu(Game* game) : PanelUI(game)
 		_shopButton->getY() + _shopButton->getH() / 2 - _shopText->getH() / 2);
 
 	//BOTON DE ALMACEN
-	_depotButton = new ButtonUI(game, game->getTexture("ShopButton"), [this](Game* game) { openDepotPanel(game); }, { 0, 1, 1, 1, 1 });
+	_depotButton = new ButtonUI(game, game->getTexture("ShopButton"), [this](Game* game) { openDepotPanel(game); }, { 0, 1, 1, 1, 1 }, 2);
 	_depotButton->setPosition(middleOfTheButtonPanelX / 2 - _depotButton->getW() / 2,
 		middleOfTheButtonPanelY + (distanceBetweenButtons / 2));
 
@@ -50,7 +50,7 @@ ShopMenu::ShopMenu(Game* game) : PanelUI(game)
 		_depotButton->getY() + _depotButton->getH() / 2 - _depotText->getH() / 2);
 
 	//BOTON DE SALIR
-	_exitButton = new ButtonUI(game, game->getTexture("ExitButton"), nullptr, { 0, 1, 1, 1 });
+	_exitButton = new ButtonUI(game, game->getTexture("ExitButton"), nullptr, { 0, 1, 1, 1 }, 3);
 	_exitButton->setPosition(CAMERA_RESOLUTION_X - _exitButton->getW() - 12, 188 - 1 - _exitButton->getH());
 
 	_exitButton->onUp([this](Game* game) { exit(game); });
