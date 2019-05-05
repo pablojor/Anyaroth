@@ -403,11 +403,17 @@
     <ClCompile Include="CreditsPanel.cpp">
       <Filter>Archivos de código fuente\HUD\Panels</Filter>
     </ClCompile>
-    <ClCompile Include="PopUpPanel.cpp">
-      <Filter>Archivos de código fuente\HUD\Panels</Filter>
+    <ClCompile Include="ParticlePool.cpp">
+      <Filter>Archivos de código fuente\Pools</Filter>
     </ClCompile>
-    <ClCompile Include="Sword.cpp">
-      <Filter>Archivos de código fuente\Objects\Melee</Filter>
+    <ClCompile Include="Missile.cpp">
+      <Filter>Archivos de código fuente\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="MissileTurret.cpp">
+      <Filter>Archivos de código fuente\Objects\Interactables</Filter>
+    </ClCompile>
+    <ClCompile Include="PopUpPanel.cpp">
+      <Filter>Archivos de encabezado\HUD\Panels</Filter>
     </ClCompile>
     <ClCompile Include="BossPoleAxe.cpp">
       <Filter>Archivos de código fuente\Objects\Melee</Filter>
@@ -420,14 +426,9 @@
     </ClCompile>
     <ClCompile Include="PoleAxe.cpp">
       <Filter>Archivos de código fuente\Objects\Melee</Filter>
-    <ClCompile Include="ParticlePool.cpp">
-      <Filter>Archivos de código fuente\Pools</Filter>
     </ClCompile>
-    <ClCompile Include="Missile.cpp">
-      <Filter>Archivos de código fuente\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="MissileTurret.cpp">
-      <Filter>Archivos de código fuente\Objects\Interactables</Filter>
+    <ClCompile Include="Sword.cpp">
+      <Filter>Archivos de código fuente\Objects\Melee</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -869,23 +870,6 @@
     <ClInclude Include="CreditsPanel.h">
       <Filter>Archivos de encabezado\HUD\Panels</Filter>
     </ClInclude>
-    <ClInclude Include="PopUpPanel.h">
-      <Filter>Archivos de encabezado\HUD\Panels</Filter>
-    </ClInclude>
-    <ClInclude Include="Sword.h">
-      <Filter>Archivos de encabezado\Objects\Melee</Filter>
-    </ClInclude>
-    <ClInclude Include="BossPoleAxe.h">
-      <Filter>Archivos de encabezado\Objects\Melee</Filter>
-    </ClInclude>
-    <ClInclude Include="PoleAxe.h">
-      <Filter>Archivos de encabezado\Objects\Melee</Filter>
-    </ClInclude>
-    <ClInclude Include="Knife.h">
-      <Filter>Archivos de encabezado\Objects\Melee</Filter>
-    </ClInclude>
-    <ClInclude Include="BossSword.h">
-      <Filter>Archivos de encabezado\Objects\Melee</Filter>
     <ClInclude Include="ParticlePool.h">
       <Filter>Archivos de encabezado\Pools</Filter>
     </ClInclude>
@@ -894,6 +878,24 @@
     </ClInclude>
     <ClInclude Include="MissileTurret.h">
       <Filter>Archivos de encabezado\Objects\Interactables</Filter>
+    </ClInclude>
+    <ClInclude Include="PopUpPanel.h">
+      <Filter>Archivos de encabezado\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="BossPoleAxe.h">
+      <Filter>Archivos de encabezado\Objects\Melee</Filter>
+    </ClInclude>
+    <ClInclude Include="BossSword.h">
+      <Filter>Archivos de encabezado\Objects\Melee</Filter>
+    </ClInclude>
+    <ClInclude Include="Knife.h">
+      <Filter>Archivos de encabezado\Objects\Melee</Filter>
+    </ClInclude>
+    <ClInclude Include="PoleAxe.h">
+      <Filter>Archivos de encabezado\Objects\Melee</Filter>
+    </ClInclude>
+    <ClInclude Include="Sword.h">
+      <Filter>Archivos de encabezado\Objects\Melee</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
