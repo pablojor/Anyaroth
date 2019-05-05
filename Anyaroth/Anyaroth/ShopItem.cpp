@@ -44,6 +44,17 @@ void ShopItem::setItemInfo(const ItemInfo & info)
 	setSize(getImage()->getW(), getImage()->getH());
 }
 
+void ShopItem::setMeleeInfo(const MeleeItemInfo & info)
+{
+	_meleeInfo = info;
+	//Frame (cambio al frame del color por rareza)
+	setImage(_game->getTexture(_meleeInfo._rarityFrame));
+	//Cambio del icono del arma
+	_weaponIcon->setImage(_game->getTexture(_meleeInfo._iconName));
+	//Ajustamos tama�os
+	setSize(getImage()->getW(), getImage()->getH());
+}
+
 void ShopItem::setChosen(bool selected)
 {
 	if (selected && !_game->usingJoystick())

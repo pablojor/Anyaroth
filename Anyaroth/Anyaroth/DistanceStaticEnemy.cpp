@@ -2,7 +2,8 @@
 #include "GameObject.h"
 #include "AnimatedSpriteComponent.h"
 #include "Player.h"
-#include"Game.h"
+#include "Game.h"
+#include "BasicPistol.h"
 
 DistanceStaticEnemy::DistanceStaticEnemy(Game* g, Player* player, Vector2D pos, BulletPool* pool) : DistanceEnemy(g, player, pos, g->getTexture("Turret"), pool), Enemy(g, player, pos, g->getTexture("Turret"), "turretDeath", "turretHit", "turretMeleeHit")
 {
@@ -10,6 +11,8 @@ DistanceStaticEnemy::DistanceStaticEnemy(Game* g, Player* player, Vector2D pos, 
 	_life = 12;
 	_attackRangeX = _attackRangeY = _vision; //No se puede poner mas pequeño que la velocidad
 	_attackTime = 2000; //La animacion tarda unos 450
+
+	_myGun = new BasicPistol(g);
 
 	if (_attackRangeX < _speed)
 		_attackRangeX += _speed;

@@ -97,7 +97,11 @@ void MartyrEnemy::attacking(const double& deltaTime)
 		{
 			auto body = _player->getComponent<BodyComponent>()->getBody();
 
-			if (midleRange)
+			if (_playerDistance.getX() == 0)
+			{
+				body->ApplyLinearImpulseToCenter(b2Vec2(_impulse * 10 * 3, _impulse * 10 * 2), true);
+			}
+			else if (midleRange)
 				body->ApplyLinearImpulseToCenter(b2Vec2(_impulse * _playerDistance.getX() * 3, _impulse * _playerDistance.getY() * 2), true);
 			else
 				body->ApplyLinearImpulseToCenter(b2Vec2(_impulse * _playerDistance.getX(), _impulse * _playerDistance.getY()), true);

@@ -4,9 +4,7 @@
 #include "ImageUI.h"
 #include "GunType_def.h"
 
-class ShopItem : public ButtonUI
-{
-private:
+
 	struct ItemInfo
 	{
 		int _zone;
@@ -27,9 +25,30 @@ private:
 		bool _equiped;
 	};
 
-	ItemInfo _info;
-	ImageUI* _weaponIcon = nullptr;
+struct MeleeItemInfo
+{
+	int _zone;
 
+	string _name;
+
+	int _damage;
+
+	MeleeType _type;
+	string _iconName;
+	string _rarityFrame;
+
+	bool _sold;
+	bool _equiped;
+};
+
+class ShopItem : public ButtonUI
+{
+	private:
+  
+  ItemInfo _info;
+  MeleeItemInfo _meleeInfo = {};
+	ImageUI* _weaponIcon = nullptr;
+  
 public:
 	ShopItem(Game* game, Texture* image = nullptr, int xPos = 0, int yPos = 0);
 	~ShopItem();
@@ -39,16 +58,22 @@ public:
 	inline Texture* getItemImage() const { return getImage(); }
 	inline ItemInfo& getItemInfo() { return _info; }
 	inline void getItem(Game* game) {  }
-
+  
 	virtual void setPosition(int x, int y);
 	virtual void setSize(int w, int h);
+  
+		inline Texture* getItemImage() const { return getImage(); }
+		inline ItemInfo& getItemInfo() { return _info; }
+		inline MeleeItemInfo& getMeleeInfo() { return _meleeInfo; }
+		inline void getItem(Game* game) {  }
+    
+		void setItemImage(Texture* image) { setImage(image); }
+		void setItemInfo(const ItemInfo& info);
+		void setMeleeInfo(const MeleeItemInfo & info);
 
-	void setItemImage(Texture* image) { setImage(image); }
-	void setItemInfo(const ItemInfo& info);
+		void setItemSell(const bool& b) { _info._sold = b; }
+		void setItemEquiped(const bool& b) { _info._equiped = b; }
 
-	void setItemSell(const bool& b) { _info._sold = b; }
-	void setItemEquiped(const bool& b) { _info._equiped = b; }
-
-	void setChosen(bool chosen);
-	void setSelected(bool selected) { ButtonUI::setSelected(selected); setChosen(selected); }
+		void setChosen(bool chosen);
+		void setSelected(bool selected) { ButtonUI::setSelected(selected); setChosen(selected); }
 };

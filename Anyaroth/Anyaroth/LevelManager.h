@@ -11,9 +11,15 @@ private:
 	Player* _player = nullptr;
 	GameObject* _level = nullptr;
 	BulletPool* _enemyBulletPool = nullptr;
-
+  
 	Map* _currentMap = nullptr;
 	Map* _currentSafeZone = nullptr;
+  
+	Texture* _tilesetZone1 = nullptr;
+	Texture* _tilesetZone2 = nullptr;
+	Texture* _tilesetBoss1 = nullptr;
+	Texture* _tilesetBoss2 = nullptr;
+	Texture* _tilesetBoss3 = nullptr;
 
 	void setControlsBackground();
 	void setParallaxZone1();

@@ -9,24 +9,30 @@
 #include "GravityBombCannon.h"
 #include "PlasmaSniper.h"
 
+#include "Melee.h"
+#include "Axe.h"
+#include "Poleaxe.h"
+
 #include <json.hpp>
 #include <map>
 
 WeaponManager WeaponManager::_instance;
 bool WeaponManager::_initilized = false;
 map<GunType, GunInfo> WeaponManager::_weaponInfo;
+map<MeleeType, MeleeInfo> WeaponManager::_meleeInfo;
 
 void WeaponManager::init()
 {
 	_initilized = true;
 
 	ifstream file;
-	nlohmann::json j;
+	nlohmann::json a;
 
 	file.open(INFO_PATH + "weapon_info.json");
 	if (file.is_open())
 	{
-		file >> j;
+		file >> a;
+		nlohmann::json j = a["Guns"];
 
 		for (nlohmann::json::iterator it = j.begin(); it != j.end(); ++it)
 		{
@@ -38,6 +44,11 @@ void WeaponManager::init()
 														typeWeapon.value()["damage"], typeWeapon.value()["cadence"], typeWeapon.value()["range"],
 														typeWeapon.value()["clip"], typeWeapon.value()["icon"].get<string>(), typeWeapon.value()["frame"].get<string>() };
 			}
+		}
+		j = a["Melee"];
+		for (nlohmann::json::iterator typeMelee = j.begin(); typeMelee != j.end(); ++typeMelee)
+		{
+			_meleeInfo[typeMelee.value()["id"]] = { typeMelee.value()["zone"], typeMelee.key(), typeMelee.value()["damage"], typeMelee.value()["icon"].get<string>(), typeMelee.value()["frame"].get<string>() };
 		}
 		file.close();
 	}
@@ -86,4 +97,24 @@ Gun* WeaponManager::getWeapon(Game* _game, GunType type)
 		break;
 	}
 	return w;
+}
+
+Melee * WeaponManager::getMelee(Game * game, MeleeType type, Player* p)
+{
+	Melee* m = nullptr;
+	switch (type)
+	{
+	case Knife_Weapon:
+		m = new Melee(game, { 15, 0 }, ENEMIES, 25, 10, 5, Knife_Weapon);
+		break;
+	case Sword_Weapon:
+		m = new Axe(game, { 150, 0 }, ENEMIES, 20, 40, 40, 270);
+		break;
+	case Poleaxe_Weapon:
+		m = new Poleaxe(game, { 50,0 }, ENEMIES, 50, 15, 5, p);
+		break;
+	default:
+		break;
+	}
+	return m;
 }

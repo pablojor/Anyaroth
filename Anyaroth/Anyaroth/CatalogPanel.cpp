@@ -158,8 +158,9 @@ void CatalogPanel::reorderCatalog()
 		{
 			auto item = *it;
 			auto info = item->getItemInfo();
+			auto meleeInfo = item->getMeleeInfo();
 
-			if (!info._sold && info._zone <= _zone && info._zone != -1)
+			if ((info._name != "" && !info._sold && info._zone <= _zone && info._zone != -1) || (meleeInfo._name!= "" && !meleeInfo._sold && meleeInfo._zone <= _zone && meleeInfo._zone != -1))
 			{
 				item->setVisible(true);
 				visibleItems.push_back(item);
@@ -225,11 +226,23 @@ void CatalogPanel::selectItem(Game * game, ShopItem* item)
 void CatalogPanel::showItemInfo(ShopItem* item)
 {
 	auto info = item->getItemInfo();
-	_infoPanel->setName(info._name);
-	_infoPanel->setCadence(info._cadence);
-	_infoPanel->setDamage(info._damage);
-	_infoPanel->setClip(info._clip);
-	_infoPanel->setPrice(info._price);
+	if (info._name != "")
+	{
+		_infoPanel->setName(info._name);
+		_infoPanel->setCadence(info._cadence);
+		_infoPanel->setDamage(info._damage);
+		_infoPanel->setClip(info._clip);
+		_infoPanel->setPrice(info._price);
+	}
+	else
+	{
+		auto meleeInfo = item->getMeleeInfo();
+		_infoPanel->setName(meleeInfo._name);
+		_infoPanel->setCadence(0);
+		_infoPanel->setDamage(meleeInfo._damage);
+		_infoPanel->setClip(0);
+		_infoPanel->setPrice(0);
+	}
 
 	_infoPanel->openInfoPanel();
 

@@ -55,16 +55,16 @@ DepotPanel::DepotPanel(Game* game) : PanelUI(game)
 	_secondWeaponFrame->setFrames({ 0, 0, 0, 0, 0 });
 	//----EQUIPAMIENTO----//
 
-	//_meleeWeaponFrame = new ShopItem(game, game->getTexture("ItemFrame"));
-	//_meleeWeaponFrame->setPosition(_equipmentFrame->getX() + _equipmentFrame->getW() / 2 - _meleeWeaponFrame->getW() / 2,
-	//						_firstWeaponFrame->getY() + _firstWeaponFrame->getH() + distanceBetweenEquipmentSlots);
-	//_meleeWeaponFrame->setItemInfo({ -1, "melee1", 0, 14, 25, 10, GunType::Pistol_Weapon, "Weapon1","CommonFrame",true, true });
-	//_meleeWeaponFrame->setFrames({ 0, 0, 0, 0, 0 });
+	_meleeWeaponFrame = new ShopItem(game, game->getTexture("ItemFrame"));
+	_meleeWeaponFrame->setPosition(_equipmentFrame->getX() + _equipmentFrame->getW() / 2 - _meleeWeaponFrame->getW() / 2,
+							_firstWeaponFrame->getY() + _firstWeaponFrame->getH() + distanceBetweenEquipmentSlots);
+	_meleeWeaponFrame->setItemInfo({ -1, "melee1", 0, 14, 25, 10, GunType::Pistol_Weapon, "Weapon1","CommonFrame",true, true });
+	_meleeWeaponFrame->setFrames({ 0, 0, 0, 0, 0 });
 
 		//Callbacks
 	_firstWeaponFrame->onDown([this](Game* game) { setDistanceWeapon(game, _firstWeaponFrame); });
 	_secondWeaponFrame->onDown([this](Game* game) { setDistanceWeapon(game, _secondWeaponFrame); });
-	//_meleeWeaponFrame->onDown([this](Game* game) { setMeleeWeapon(game, _meleeWeaponFrame); });
+	_meleeWeaponFrame->onDown([this](Game* game) { setMeleeWeapon(game, _meleeWeaponFrame); });
 
 		//A�adir como hijo
 
@@ -119,18 +119,21 @@ void DepotPanel::setPlayer(Player * ply)
 {
 	_player = ply;
 
-	ShopItem* fItem = nullptr, * sItem = nullptr;
+	ShopItem* fItem = nullptr, * sItem = nullptr, *mItem = nullptr;
 
 	for (auto i = _items->begin(); i != _items->end(); i++)
 	{
-		if ((*i)->getItemInfo()._type == _player->getCurrentGun()->getGunID())
+		if ((*i)->getItemInfo()._name != "" && (*i)->getItemInfo()._type == _player->getCurrentGun()->getGunID())
 			fItem = (*i);
-		else if ((*i)->getItemInfo()._type == _player->getOtherGun()->getGunID())
+		else if ((*i)->getItemInfo()._name != "" && (*i)->getItemInfo()._type == _player->getOtherGun()->getGunID())
 			sItem = (*i);
+		else if ((*i)->getMeleeInfo()._name != "" && (*i)->getMeleeInfo()._type == _player->getMelee()->getId())
+			mItem = (*i);
 	}
 
 	auto* fInfo = &fItem->getItemInfo(); fInfo->_sold = true; fInfo->_equiped = true;
 	auto* sInfo = &sItem->getItemInfo(); sInfo->_sold = true; sInfo->_equiped = true;
+	auto* mInfo = &mItem->getMeleeInfo(); mInfo->_sold = true; mInfo->_equiped = true;
 
 	//FALTA HACERLO PARA EL ARMA A MELEE
 	_firstWeaponItem = fItem;
@@ -138,9 +141,11 @@ void DepotPanel::setPlayer(Player * ply)
 
 	_firstWeaponFrame->setItemInfo(*fInfo);
 	_secondWeaponFrame->setItemInfo(*sInfo);
+	_meleeWeaponFrame->setMeleeInfo(*mInfo);
 
 	addChild(_firstWeaponFrame);
 	addChild(_secondWeaponFrame);
+	addChild(_meleeWeaponFrame);
 }
 
 void DepotPanel::setItems(list<ShopItem*>* list)
@@ -310,7 +315,7 @@ void DepotPanel::selectItem(Game * game, ShopItem* item)
 
 void DepotPanel::setDistanceWeapon(Game* game, ShopItem* item)
 {
-	if (_selectedItem != nullptr) //COMPROBAR QUE NO ES MELEE
+	if (_selectedItem != nullptr && _selectedItem->getItemInfo()._name != "") //COMPROBAR QUE NO ES MELEE
 	{
 		swapDistanceItems(item);
 		reorderDepot();
@@ -322,7 +327,7 @@ void DepotPanel::setDistanceWeapon(Game* game, ShopItem* item)
 
 void DepotPanel::setMeleeWeapon(Game* game, ShopItem* item)
 {
-	if (_selectedItem != nullptr) //COMPROBAR QUE NO ES A DISTANCIA
+	if (_selectedItem != nullptr && _selectedItem->getMeleeInfo()._name != "") //COMPROBAR QUE NO ES A DISTANCIA
 	{
 		swapMeleeItems(item);
 		reorderDepot();
@@ -361,13 +366,13 @@ void DepotPanel::swapDistanceItems(ShopItem* _equiped)
 void DepotPanel::swapMeleeItems(ShopItem* _equiped)
 {
 	//Cambiamos la info
-	auto infoSelected = _selectedItem->getItemInfo();
-	auto otherInfo = _equiped->getItemInfo();
+	auto infoSelected = _selectedItem->getMeleeInfo();
+	auto otherInfo = _equiped->getMeleeInfo();
 	infoSelected._equiped = true;
 	otherInfo._equiped = false;
 
-	_selectedItem->setItemInfo(otherInfo);
-	_equiped->setItemInfo(infoSelected);
-
-	//_player->changeMelee();
+	_selectedItem->setMeleeInfo(otherInfo);
+	_equiped->setMeleeInfo(infoSelected);
+	Melee* newMelee = nullptr; //= WeaponManager::getMelee(_game, _equiped->getMeleeInfo()._type, _player);
+	_player->changeMelee(newMelee);
 }

@@ -147,6 +147,9 @@
     <ClCompile Include="AmmoPackage.cpp" />
     <ClCompile Include="AmmoViewer.cpp" />
     <ClCompile Include="AnimatedImageUI.cpp" />
+    <ClCompile Include="Boss3.cpp" />
+    <ClCompile Include="Boss3Panel.cpp" />
+    <ClCompile Include="BossSensor.cpp" />
     <ClCompile Include="ButtonUI.cpp" />
     <ClCompile Include="CreditsPanel.cpp" />
     <ClCompile Include="CreditsState.cpp" />
@@ -159,10 +162,13 @@
     <ClCompile Include="DialogueEvent.cpp" />
     <ClCompile Include="EffectInterface.cpp" />
     <ClCompile Include="Boss.cpp" />
+    <ClCompile Include="Boss2.cpp" />
     <ClCompile Include="Capsule.cpp" />
+    <ClCompile Include="EnemyLifePanel.cpp" />
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="FadeInOutEvent.cpp" />
     <ClCompile Include="FlipEvent.cpp" />
+    <ClCompile Include="FloatingHead.cpp" />
     <ClCompile Include="FramedImageUI.cpp" />
     <ClCompile Include="AnimatedSpriteComponent.cpp" />
     <ClCompile Include="Arm.cpp" />
@@ -189,6 +195,9 @@
     <ClCompile Include="GravityBombDebuff.cpp" />
     <ClCompile Include="GravityBulletEffect.cpp" />
     <ClCompile Include="Interactable.cpp" />
+    <ClCompile Include="Laser.cpp" />
+    <ClCompile Include="LaserContainer.cpp" />
+    <ClCompile Include="LaserHandler.cpp" />
     <ClCompile Include="MainMenuPanel.cpp" />
     <ClCompile Include="MenuStateHUD.cpp" />
     <ClCompile Include="MoveEvent.cpp" />
@@ -251,6 +260,7 @@
     <ClCompile Include="PlayerPanel.cpp" />
     <ClCompile Include="PlayState.cpp" />
     <ClCompile Include="PlayStateHUD.cpp" />
+    <ClCompile Include="Poleaxe.cpp" />
     <ClCompile Include="PoolWrapper.cpp" />
     <ClCompile Include="RenderComponent.cpp" />
     <ClCompile Include="ShakeEvent.cpp" />
@@ -262,6 +272,7 @@
     <ClCompile Include="CatalogPanel.cpp" />
     <ClCompile Include="Shotgun.cpp" />
     <ClCompile Include="SoundManager.cpp" />
+    <ClCompile Include="SpawnerBoss.cpp" />
     <ClCompile Include="SpawnerEnemy.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
     <ClCompile Include="Money.cpp" />
@@ -285,6 +296,9 @@
     <ClInclude Include="AmmoPackage.h" />
     <ClInclude Include="AmmoViewer.h" />
     <ClInclude Include="AnimatedImageUI.h" />
+    <ClInclude Include="Boss3.h" />
+    <ClInclude Include="Boss3Panel.h" />
+    <ClInclude Include="BossSensor.h" />
     <ClInclude Include="ButtonUI.h" />
     <ClInclude Include="CamEffectType.h" />
     <ClInclude Include="CreditsPanel.h" />
@@ -298,12 +312,15 @@
     <ClInclude Include="DialogueEvent.h" />
     <ClInclude Include="EffectInterface.h" />
     <ClInclude Include="Boss.h" />
+    <ClInclude Include="Boss2.h" />
     <ClInclude Include="CapsuleDistance.h" />
     <ClInclude Include="CapsuleNormal.h" />
     <ClInclude Include="DistanceSpawner.h" />
+    <ClInclude Include="EnemyLifePanel.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="FadeInOutEvent.h" />
     <ClInclude Include="FlipEvent.h" />
+    <ClInclude Include="FloatingHead.h" />
     <ClInclude Include="FramedImageUI.h" />
     <ClInclude Include="AnimatedSpriteComponent.h" />
     <ClInclude Include="AnyarothError.h" />
@@ -335,6 +352,9 @@
     <ClInclude Include="ImprovedRifle.h" />
     <ClInclude Include="ImprovedShotgun.h" />
     <ClInclude Include="GroundEnemy.h" />
+    <ClInclude Include="Laser.h" />
+    <ClInclude Include="LaserContainer.h" />
+    <ClInclude Include="LaserHandler.h" />
     <ClInclude Include="LevelManager.h" />
     <ClInclude Include="MainMenuPanel.h" />
     <ClInclude Include="Map.h" />
@@ -400,6 +420,7 @@
     <ClInclude Include="PlayerPanel.h" />
     <ClInclude Include="PlayState.h" />
     <ClInclude Include="PlayStateHUD.h" />
+    <ClInclude Include="Poleaxe.h" />
     <ClInclude Include="PoolWrapper.h" />
     <ClInclude Include="RenderComponent.h" />
     <ClInclude Include="SDLError.h" />
@@ -411,6 +432,7 @@
     <ClInclude Include="ShopItem.h" />
     <ClInclude Include="CatalogPanel.h" />
     <ClInclude Include="Shotgun.h" />
+    <ClInclude Include="SpawnerBoss.h" />
     <ClInclude Include="SpawnerEnemy.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="SpriteComponent.h" />

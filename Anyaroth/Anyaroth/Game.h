@@ -45,7 +45,8 @@ enum _Category
 	DEAD_ENEMIES = 128,
 	COLLECTED_OBJECTS = 256,
 	MELEE = 512,
-	MISIL = 1024,
+	MISIL=1024,
+	LASER = 2048
 };
 
 class Game

@@ -54,9 +54,45 @@ private:
 
 	//Actions
 	bool _hasToReload = false, _isShooting = false, _isMeleeing = false;
+  
+	//Variables
+	int _dashTime = 250,
+		_dashCD = 1000 + _dashTime,
+		_dashParticleTime = 40,
+		_stunTime = 1000,
+		_floorCount = 0,
+		_deathCD = 3000;
 
-	//Others
-	bool _changeLevel = false, _inputFreezed = false;
+	double _speed = 15,
+		_gravScale = 8,
+		_damping = 3,
+		_jumpForce = 480,
+		_jPosX,
+		_jPosY,
+		_prevAxisX = 0,
+		_prevAxisY = 0,
+		_jAngle = 0;
+
+	float _timeToJump = 100.f,
+		_runningSpawnParticle = 40.0f;
+
+	bool _hasToReload = false,
+		_isShooting = false,
+		_isMeleeing = false,
+		_isDashing = false,
+		_onDash = false,
+		_dashDown = false,
+		_dashEnabled = true,
+		_changeLevel = false,
+		_jJump = false,
+		_jShoot = false,
+		_jMoveLeft = false,
+		_jMoveDown = false,
+		_inputFreezed = false,
+		_jMoveRight = false,
+		_jReleased = false,
+		_spawnParticles = false,
+		_stunned = false;
 
 	//Guns
 	Gun* _currentGun = nullptr;
@@ -74,6 +110,8 @@ private:
 	void refreshDashCoolDown(const double& deltaTime);
 
 	void dashTimer(const double& deltaTime);
+	
+	void refreshStunTime(const double& deltaTime);
 
 	void refreshGunCadence(const double& deltaTime);
 	bool canReload();
@@ -103,6 +141,7 @@ public:
 
 	inline Gun* getCurrentGun() const { return _currentGun; }
 	inline Gun* getOtherGun() const { return _otherGun; }
+	inline Melee* getMelee() const { return _melee; }
 
 	inline bool spendMoney(int n) { return _money->spend(n); }
 	inline int getBank() const { return _money->getBank(); }
@@ -115,6 +154,7 @@ public:
 	void dashOff();
 	void jump();
 	void cancelJump();
+	void stunPlayer();
 	inline bool isGrounded() const { return _floorCount; }
 
 	void melee();
