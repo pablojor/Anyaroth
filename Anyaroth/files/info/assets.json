@@ -33,6 +33,7 @@
     [ "BgZ1L3", "bg_z1_l3.png", 1, 1 ],
     [ "BgBoss1", "bg_boss1.png", 1, 1 ],
     [ "CurrentWeapon", "current_weapon.png", 1, 1 ],
+	[ "Azura", "azura_spritesheet.png", 23, 16 ],
     [ "Weapon1", "weapon1.png", 1, 1 ],
     [ "Weapon2", "weapon2.png", 1, 1 ],
     [ "Ammo", "ammo.png", 1, 8 ],

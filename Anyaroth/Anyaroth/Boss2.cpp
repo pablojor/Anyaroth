@@ -11,11 +11,24 @@ Boss2::Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, 
 
 	_arm->setOffSet(Vector2D(20, 20));
 
-	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 13, true);
-	_anim->addAnim(AnimatedSpriteComponent::EnemyWalk, 8, true);
-	_anim->addAnim(AnimatedSpriteComponent::EnemyAttack, 11, true);
-	_anim->addAnim(AnimatedSpriteComponent::EnemyDie, 18, false);
-	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
+	_anim->addAnim(AnimatedSpriteComponent::AzuraIdle1, 13, true);
+	_anim->addAnim(AnimatedSpriteComponent::AzuraIdle2, 13, true);
+	_anim->addAnim(AnimatedSpriteComponent::AzuraIdle3, 13, true);
+	_anim->addAnim(AnimatedSpriteComponent::AzuraWalk1, 10, true);
+	_anim->addAnim(AnimatedSpriteComponent::AzuraWalk2, 10, true);
+	_anim->addAnim(AnimatedSpriteComponent::AzuraWalk3, 10, true);
+	_anim->addAnim(AnimatedSpriteComponent::AzuraCannon1, 23, false);
+	_anim->addAnim(AnimatedSpriteComponent::AzuraCannon2, 23, false);
+	_anim->addAnim(AnimatedSpriteComponent::AzuraCannon3, 23, false);
+	_anim->addAnim(AnimatedSpriteComponent::AzuraJump, 20, false);
+	_anim->addAnim(AnimatedSpriteComponent::AzuraSpin1, 18, false);
+	_anim->addAnim(AnimatedSpriteComponent::AzuraSpin2, 18, false);
+	_anim->addAnim(AnimatedSpriteComponent::AzuraSpin3, 18, false);
+	_anim->addAnim(AnimatedSpriteComponent::AzuraScream1to2, 17, false);
+	_anim->addAnim(AnimatedSpriteComponent::AzuraScream2to3, 17, false);
+	_anim->addAnim(AnimatedSpriteComponent::AzuraDie, 20, false);
+
+	_anim->playAnim(AnimatedSpriteComponent::AzuraIdle1);
 	
 	_body->setW(12);
 	_body->setH(26);

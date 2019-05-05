@@ -40,6 +40,11 @@ public:
 		SpentaIdle, SpentaSwordLeft, SpentaSwordRight, SpentaStartShield, SpentaLoopShield, SpentaEndShield,
 		SpentaDie, SpentaStartBomb, SpentaLoopBomb, SpentaEndBomb, SpentaOrb, SpentaWing
 	};
+	enum Azura {
+		AzuraIdle1, AzuraIdle2, AzuraIdle3, AzuraWalk1, AzuraWalk2, AzuraWalk3, 
+		AzuraCannon1, AzuraCannon2, AzuraCannon3, AzuraJump, AzuraSpin1, AzuraSpin2, AzuraSpin3,
+		AzuraScream1to2, AzuraScream2to3, AzuraDie
+	};
 
 	AnimatedSpriteComponent(GameObject* obj) : SpriteComponent(obj), PhysicsComponent(obj), RenderComponent(obj), Component(), _obj(obj) {}
 	virtual ~AnimatedSpriteComponent() {}
