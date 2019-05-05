@@ -93,7 +93,7 @@
       },
 
       "BounceOrbCanon": {
-        "zone": 100,
+        "zone": 53,
         "frame": "RareFrame",
         "icon": "BounceCannonIcon",
         "price": 1000,
@@ -107,7 +107,7 @@
       },
 
       "GravityCannon": {
-        "zone": 100,
+        "zone": 53,
         "frame": "RareFrame",
         "icon": "BHCannonIcon",
         "price": 1000,
@@ -118,6 +118,29 @@
         "magazine": 30,
         "cadence": 400,
         "id": 7
+      }
+    },
+    "Melee":
+    {
+      "BasicKnife": {
+        "zone": -1,
+        "frame": "BasicFrame",
+        "icon": "SniperIcon",
+        "id": 0
+      },
+
+      "Sword": {
+        "zone": 53,
+        "frame": "CommonFrame",
+        "icon": "SniperIcon",
+        "id": 1
+      },
+
+      "PoleAxe": {
+        "zone": 53,
+        "frame": "RareFrame",
+        "icon": "SniperIcon",
+        "id": 2
       }
     }
 }

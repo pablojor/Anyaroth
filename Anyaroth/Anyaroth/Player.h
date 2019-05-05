@@ -100,6 +100,7 @@ public:
 	void changeCurrentGun(Gun* gun);
 	void changeOtherGun(Gun* gun);
 	void changeMelee(Melee* newMelee);
+	inline Melee* getMelee() const { return _melee; }
 
 	inline Gun* getCurrentGun() const { return _currentGun; }
 	inline Gun* getOtherGun() const { return _otherGun; }

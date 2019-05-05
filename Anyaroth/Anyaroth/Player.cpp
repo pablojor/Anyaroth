@@ -3,7 +3,7 @@
 #include "Coin.h"
 #include "AmmoPackage.h"
 #include "AidKit.h"
-#include "Axe.h"
+#include "Sword.h"
 #include "GunType_def.h"
 #include "WeaponManager.h"
 #include "ParticleManager.h"
@@ -60,8 +60,8 @@ Player::Player(Game* game) : GameObject(game, "Player")
 	_playerArm = new PlayerArm(game, this, { 28, 15 });
 	addChild(_playerArm);
 	
-	_currentGun = WeaponManager::getWeapon(game, BasicRifle_Weapon);
-	_otherGun = WeaponManager::getWeapon(game, BasicShotgun_Weapon);
+	_currentGun = WeaponManager::getInstance()->getWeapon(game, PlasmaSniper_Weapon);
+	_otherGun = WeaponManager::getInstance()->getWeapon(game, BHCannon_Weapon);
 
 	_playerArm->setTexture(_currentGun->getArmTexture());
 	_playerArm->setAnimations(_currentGun->getAnimType());
@@ -70,7 +70,7 @@ Player::Player(Game* game) : GameObject(game, "Player")
 	_money = new Money();
 
 	//Melee
-	_melee = new Melee(game, { 15, 0 }, ENEMIES, 5, 20, 10);
+	_melee = WeaponManager::getInstance()->getMelee(game, Knife_Weapon);
 	addChild(_melee);
 }
 

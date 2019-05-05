@@ -18,14 +18,16 @@ private:
 		int _cadence;
 		int _clip;
 
-		//ID del arma
-		GunType _type;
-		string _iconName;
-		string _rarityFrame;
+			//ID del arma
+			uint _type;
+			string _iconName;
+			string _rarityFrame;
 
-		bool _sold;
-		bool _equiped;
-	};
+			bool _sold;
+			bool _equiped;
+
+			bool _isMelee = false;
+		};
 
 	ItemInfo _info;
 	ImageUI* _weaponIcon = nullptr;

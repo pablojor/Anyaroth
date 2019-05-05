@@ -60,6 +60,9 @@ void Enemy::update(const double& deltaTime)
 {
 	GameObject::update(deltaTime);
 
+	if (!isDead() && inCamera())
+		_body->getBody()->SetAwake(true);
+
 	b2Vec2 playerPos = _player->getComponent<BodyComponent>()->getBody()->GetPosition(), enemyPos = _body->getBody()->GetPosition();
 	_playerDistance = Vector2D((playerPos.x - enemyPos.x)*M_TO_PIXEL, (playerPos.y - enemyPos.y)*M_TO_PIXEL);
 

@@ -1,5 +1,10 @@
 #include "Boss.h"
 
+Boss::Boss(Game * g, Player * player, Vector2D pos, BulletPool* pool, Texture* text) : DistanceEnemy(g, player, pos, text, pool), Enemy(g, player, pos, text)
+{
+	_affectedByExternalForces = false;
+}
+
 void Boss::setBossPanel(BossPanel * b)
 {
 	_bossPanel = b;

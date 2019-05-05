@@ -1,7 +1,6 @@
 #include "PlayStateHUD.h"
 #include "Game.h"
 
-
 PlayStateHUD::PlayStateHUD(Game * g)
 {
 	//Panel del jugador
@@ -16,13 +15,16 @@ PlayStateHUD::PlayStateHUD(Game * g)
 	//Panel de dialogos
 	_dialoguePanel = new DialoguePanel(g);
 
+	//Panel emergente
+	_popUpPanel = new PopUpPanel(g);
+
 	//Anyadir a elementos
 	addUIElement(_playerPanel);
 	addUIElement(_bossPanel);
 	addUIElement(_shopMenu);
 	addUIElement(_dialoguePanel);
+	addUIElement(_popUpPanel);
 
 	//Asignaciones
 	_shopMenu->setDialoguePanel(_dialoguePanel);
 }
-

@@ -54,7 +54,7 @@
 
     [ "Tileset1", "zona1_tileset.png", 22, 10 ],
     [ "TilesetBoss1", "boss1_tileset.png", 13, 16 ],
-    [ "Tileset2", "zona2_tileset.png", 8, 6 ],
+    [ "Tileset2", "zona2_tileset.png", 17, 6 ],
 
     [ "BgControls", "controlsBG.png", 1, 1 ],
     [ "BgMenu", "bg_menu.png", 1, 1 ],

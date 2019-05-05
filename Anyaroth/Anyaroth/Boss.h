@@ -1,6 +1,7 @@
 #pragma once
 #include "DistanceEnemy.h"
 #include "BossPanel.h"
+#include "PopUpPanel.h"
 
 enum Fase
 {
@@ -20,6 +21,7 @@ protected:
 
 	//Panel del HUD
 	BossPanel* _bossPanel = nullptr;
+	PopUpPanel* _message = nullptr;
 
 	//Tiempo entre acciones
 	int _doSomething = 1000, _noAction = 0;
@@ -28,9 +30,10 @@ protected:
 	BodyComponent* _playerBody;
 
 	int _actualFase = Fase1, _lastFase = Fase1, _actualState = Moving;
+	bool _finishLevel = false;
 
 public:
-	Boss(Game* g, Player* player, Vector2D pos, BulletPool* pool, Texture* text) : DistanceEnemy(g, player, pos, text, pool), Enemy(g, player, pos, text) {}
+	Boss(Game* g, Player* player, Vector2D pos, BulletPool* pool, Texture* text);
 	virtual ~Boss() {}
 
 	void setBossPanel(BossPanel* b);
@@ -43,6 +46,7 @@ public:
 	void drop() {}
 
 	virtual void movement(const double& deltaTime) {}
+	virtual void popUpMessage() {}
 
 	virtual void fase1(const double& deltaTime) {}
 	virtual void fase2(const double& deltaTime) {}

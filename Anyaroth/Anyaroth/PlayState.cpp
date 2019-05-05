@@ -131,9 +131,8 @@ void PlayState::loadGame()
 		input >> j;
 		_player->setBank(j["Bank"]);
 		_levelManager.setLevel(j["level"]);
-		GameManager::getInstance()->setCurrentLevel(j["level"]);
-		_player->changeCurrentGun(WeaponManager::getWeapon(_gameptr, j["currentGun"]));
-		_player->changeOtherGun(WeaponManager::getWeapon(_gameptr, j["otherGun"]));
+		_player->changeCurrentGun(WeaponManager::getInstance()->getWeapon(_gameptr, j["currentGun"]));
+		_player->changeOtherGun(WeaponManager::getInstance()->getWeapon(_gameptr, j["otherGun"]));
 
 		auto items = _playHud->getShop()->getItems();
 		for (ShopItem* i : items)

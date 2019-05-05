@@ -39,29 +39,15 @@ void MeleeEnemy::update(const double& deltaTime)
 
 		if (inVision)
 		{
-			if (_playerDistance.getX() > 0) //Derecha
+			if (abs(_playerDistance.getX()) > 0)
 			{
-				_anim->unFlip();
-				_dir = Vector2D(1, 0);
+				_playerDistance.getX() > 0 ? _dir = Vector2D(1, 0) : _dir = Vector2D(-1, 0);
+				_dir.getX() > 0 ? _anim->unFlip() : _anim->flip();
 
-				if (_playerDistance.getX() > _attackRangeX)
+				if (abs(_playerDistance.getX()) > _attackRangeX)
 					moving(_dir);
 				else if (sameFloor)
 					attack();
-				else
-					idle();
-			}
-			else if (_playerDistance.getX() < 0) //Izquierda
-			{
-				_anim->flip();
-				_dir = Vector2D(-1, 0);
-
-				if (_playerDistance.getX() < -_attackRangeX)
-					moving(_dir);
-				else if (sameFloor)
-					attack();
-				else
-					idle();
 			}
 			attacking(deltaTime);
 		}

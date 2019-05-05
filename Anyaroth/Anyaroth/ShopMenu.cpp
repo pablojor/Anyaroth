@@ -83,16 +83,22 @@ ShopMenu::ShopMenu(Game* game) : PanelUI(game)
 
 	loadWeaponInfo();
 
-	_catalogPanel->setItems(&_items);
-	_depotPanel->setItems(&_items);
+	_catalogPanel->setItems(&_weaponItems);
+	_depotPanel->setWeaponItems(&_weaponItems);
+	_depotPanel->setMeleeItems(&_meleeItems);
 }
 
 ShopMenu::~ShopMenu()
 {
-	_depotPanel->removeItems();
+	_depotPanel->removeWeaponItems();
+	_depotPanel->removeMeleeItems();
+
 	_catalogPanel->removeItems();
 	if (_dialoguePanel != nullptr) removeChild(_dialoguePanel);
-	for (auto it = _items.begin(); it != _items.end(); it++)
+
+	for (auto it = _weaponItems.begin(); it != _weaponItems.end(); it++)
+		delete *it;
+	for (auto it = _meleeItems.begin(); it != _meleeItems.end(); it++)
 		delete *it;
 }
 
@@ -142,8 +148,8 @@ bool ShopMenu::handleEvent(const SDL_Event& event)
 
 void ShopMenu::loadWeaponInfo()
 {
-	auto weaponInfo = WeaponManager::getAllWeaponInfo();
-	int i = 0;
+	//Armas de fuego
+	auto weaponInfo = WeaponManager::getInstance()->getAllWeaponInfo();
 	for (auto it = weaponInfo.begin(); it != weaponInfo.end(); it++)
 	{
 		auto item = new ShopItem(_game, _game->getTexture((*it).second._iconName), 0, 0);
@@ -157,9 +163,27 @@ void ShopMenu::loadWeaponInfo()
 			sold = true;
 		}
 		
-		item->setItemInfo({ (*it).second._zone, (*it).second._name, (*it).second._price ,(*it).second._damage, (*it).second._cadence, (*it).second._clip, (*it).first, (*it).second._iconName, (*it).second._rarityFrame, sold, equiped });
-		_items.push_back(item);
-		i++;
+		item->setItemInfo({ (*it).second._zone, (*it).second._name, (*it).second._price ,(*it).second._damage, (*it).second._cadence, (*it).second._clip, (uint)(*it).first, (*it).second._iconName, (*it).second._rarityFrame, sold, equiped, false });
+		_weaponItems.push_back(item);
+	}
+
+	//Armas melee
+	auto meleeInfo = WeaponManager::getInstance()->getAllMeleeInfo();
+	for (auto it = meleeInfo.begin(); it != meleeInfo.end(); it++)
+	{
+		auto item = new ShopItem(_game, _game->getTexture((*it).second._iconName), 0, 0);
+
+		bool sold = false;
+		bool equiped = false;
+
+		if ((*it).second._zone == -1)
+		{
+			equiped = true;
+			sold = true;
+		}
+
+		item->setItemInfo({ (*it).second._zone, (*it).second._name, 0, 0, 0, 0, (uint)(*it).first, (*it).second._iconName, (*it).second._rarityFrame, sold, equiped, true });
+		_meleeItems.push_back(item);
 	}
 }
 
