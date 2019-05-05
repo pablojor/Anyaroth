@@ -2,14 +2,14 @@
 #include "Poleaxe.h"
 #include "BasicShotgun.h"
 
-Boss2::Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, player, pos, pool, g->getTexture("EnemyMelee")), Enemy(g, player, pos, g->getTexture("EnemyMelee"))
+Boss2::Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, player, pos, pool, g->getTexture("Azura")), Enemy(g, player, pos, g->getTexture("Azura"))
 {
 	_life = 250; // Demo Guerrilla
 	_life1 = _life2 = _life3 = _life;
 
 	_myGun = new BasicShotgun(g);
 
-	_arm->setOffSet(Vector2D(20, 20));
+	_arm->setOffSet(Vector2D(140, 105));
 
 	_anim->addAnim(AnimatedSpriteComponent::AzuraIdle1, 13, true);
 	_anim->addAnim(AnimatedSpriteComponent::AzuraIdle2, 13, true);
@@ -30,19 +30,21 @@ Boss2::Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, 
 
 	_anim->playAnim(AnimatedSpriteComponent::AzuraIdle1);
 	
-	_body->setW(12);
-	_body->setH(26);
+	_body->setW(40);
+	_body->setH(100);
+
+	_body->moveShape(b2Vec2(0, 2.2));
 
 	_body->filterCollisions(ENEMIES, FLOOR | PLAYER_BULLETS | MELEE);
 
-	_body->addCricleShape(b2Vec2(0, 1.1), 0.7, PLAYER, FLOOR | PLATFORMS);
+	_body->addCricleShape(b2Vec2(0, 6.5), 2, PLAYER, FLOOR | PLATFORMS);
 	_body->getBody()->SetFixedRotation(true);
 	_body->getBody()->SetGravityScale(3.5);
 
 	_originalPos = Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL);
 	
 	b2PolygonShape shape;
-	shape.SetAsBox(5 / M_TO_PIXEL, 3 / M_TO_PIXEL, b2Vec2(0, 3), 0);
+	shape.SetAsBox(5 / M_TO_PIXEL, 3 / M_TO_PIXEL, b2Vec2(0, 9.5), 0);
 	b2FixtureDef fDef;
 	fDef.shape = &shape;
 	fDef.filter.categoryBits = ENEMIES;
@@ -57,7 +59,7 @@ Boss2::Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, 
 	_lasers = new LaserHandler(g, g->getTexture("Arm"), g->getTexture("ArmUp"), player, 8);
 	addChild(_lasers);
 
-	_melee = new Poleaxe(getGame(), { 50,0 }, PLAYER, 5, 15, 5, this);
+	_melee = new Poleaxe(getGame(), { 115,15 }, PLAYER, 2, 40, 75, this);
 	addChild(_melee);
 }
 
@@ -108,8 +110,36 @@ void Boss2::movement(const double& deltaTime)
 		else
 			_anim->flip();
 
-		if (_actualState != Jumping && (range <= -_stopRange || range >= _stopRange))
+		if (_actualState != Jumping && (range <= -_stopRange || range >= _stopRange) && _actualState == Moving || _actualState == Meleeing)
+		{
 			_body->getBody()->SetLinearVelocity(b2Vec2(_velocity.getX() * _dir / M_TO_PIXEL, _body->getBody()->GetLinearVelocity().y));
+			
+			auto anim = _anim->getCurrentAnim();
+			if (anim != AnimatedSpriteComponent::AzuraCannon1 && anim != AnimatedSpriteComponent::AzuraCannon2 && anim != AnimatedSpriteComponent::AzuraCannon3 && _actualState == Moving)
+			{
+				if (_life1.getLife() > 0)
+					_anim->playAnim(AnimatedSpriteComponent::AzuraWalk1);
+				else if (_life2.getLife() > 0)
+					_anim->playAnim(AnimatedSpriteComponent::AzuraWalk2);
+				else
+					_anim->playAnim(AnimatedSpriteComponent::AzuraWalk3);
+			}
+		}
+		else
+		{
+			_body->getBody()->SetLinearVelocity(b2Vec2(0, _body->getBody()->GetLinearVelocity().y));
+
+			auto anim = _anim->getCurrentAnim();
+			if (anim != AnimatedSpriteComponent::AzuraCannon1 && anim != AnimatedSpriteComponent::AzuraCannon2 && anim != AnimatedSpriteComponent::AzuraCannon3)
+			{
+				if (_life1.getLife() > 0)
+					_anim->playAnim(AnimatedSpriteComponent::AzuraIdle1);
+				else if (_life2.getLife() > 0)
+					_anim->playAnim(AnimatedSpriteComponent::AzuraIdle2);
+				else
+					_anim->playAnim(AnimatedSpriteComponent::AzuraIdle3);
+			}
+		}
 	}
 }
 
@@ -152,7 +182,12 @@ void Boss2::meleeAttack()
 	int dir = (_bodyPos.getX() >= _playerPos.getX()) ? -1 : 1;
 	_melee->meleeAttack(_bodyPos.getX(), _bodyPos.getY(), dir);
 
-	_anim->playAnim(AnimatedSpriteComponent::EnemyAttack);
+	if (_life1.getLife() > 0)
+		_anim->playAnim(AnimatedSpriteComponent::AzuraSpin1);
+	else if (_life2.getLife() > 0)
+		_anim->playAnim(AnimatedSpriteComponent::AzuraSpin2);
+	else
+		_anim->playAnim(AnimatedSpriteComponent::AzuraSpin3);
 
 	_velocity = { _velocity.getX() + _speedIncrement, _velocity.getY() };
 }
@@ -218,8 +253,35 @@ void Boss2::fase1(const double& deltaTime)
 	}
 	else
 	{
-		shoot();
-		_actualState = Moving;
+		auto anim = _anim->getCurrentAnim();
+		if ((anim == AnimatedSpriteComponent::AzuraCannon1 || anim != AnimatedSpriteComponent::AzuraCannon2 || anim != AnimatedSpriteComponent::AzuraCannon3) && _anim->animationFinished())
+		{
+			_actualState = Moving;
+			if (_life1.getLife() > 0)
+				_anim->playAnim(AnimatedSpriteComponent::AzuraIdle1);
+			else if (_life2.getLife() > 0)
+				_anim->playAnim(AnimatedSpriteComponent::AzuraIdle2);
+			else
+				_anim->playAnim(AnimatedSpriteComponent::AzuraIdle3);
+			_timeWaiting = 0;
+		}
+		else
+		{
+			if (_life1.getLife() > 0)
+				_anim->playAnim(AnimatedSpriteComponent::AzuraCannon1);
+			else if (_life2.getLife() > 0)
+				_anim->playAnim(AnimatedSpriteComponent::AzuraCannon2);
+			else
+				_anim->playAnim(AnimatedSpriteComponent::AzuraCannon3);
+		}
+		if (_timeWaiting > _timeToShoot)
+		{
+			shoot();
+			_timeWaiting = 0;
+		}
+		else
+			_timeWaiting += deltaTime;
+
 	}
 }
 
@@ -256,8 +318,35 @@ void Boss2::fase3(const double& deltaTime)
 		}
 		else
 		{
-			shoot();
-			_actualState = Moving;
+			auto anim = _anim->getCurrentAnim();
+			if ((anim == AnimatedSpriteComponent::AzuraCannon1 || anim != AnimatedSpriteComponent::AzuraCannon2 || anim != AnimatedSpriteComponent::AzuraCannon3) && _anim->animationFinished())
+			{
+				_actualState = Moving;
+				if (_life1.getLife() > 0)
+					_anim->playAnim(AnimatedSpriteComponent::AzuraIdle1);
+				else if (_life2.getLife() > 0)
+					_anim->playAnim(AnimatedSpriteComponent::AzuraIdle2);
+				else
+					_anim->playAnim(AnimatedSpriteComponent::AzuraIdle3);
+				_timeWaiting = 0;
+			}
+			else
+			{
+				if (_life1.getLife() > 0)
+					_anim->playAnim(AnimatedSpriteComponent::AzuraCannon1);
+				else if (_life2.getLife() > 0)
+					_anim->playAnim(AnimatedSpriteComponent::AzuraCannon2);
+				else
+					_anim->playAnim(AnimatedSpriteComponent::AzuraCannon3);
+			}
+			if (_timeWaiting > _timeToShoot)
+			{
+				shoot();
+				_timeWaiting = 0;
+			}
+			else
+				_timeWaiting += deltaTime;
+
 		}
 	}
 }
@@ -282,7 +371,12 @@ void Boss2::beetwenFases(const double& deltaTime)
 		}
 		_bossPanel->updateLifeBar(_life1.getLife(), _life2.getLife(), _life3.getLife(), _life.getLife());
 		_actualState = Moving;
-		_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
+		if (_life1.getLife() > 0)
+			_anim->playAnim(AnimatedSpriteComponent::AzuraIdle1);
+		else if (_life2.getLife() > 0)
+			_anim->playAnim(AnimatedSpriteComponent::AzuraIdle2);
+		else
+			_anim->playAnim(AnimatedSpriteComponent::AzuraIdle3);
 	}
 }
 
@@ -295,6 +389,6 @@ void Boss2::manageLife(Life& l, int damage)
 		_lastFase = _actualFase;
 		_actualFase = BetweenFase;
 		_melee->endMelee();
-		_anim->playAnim(AnimatedSpriteComponent::EnemyDie);
+		_anim->playAnim(AnimatedSpriteComponent::AzuraDie);
 	}
 }

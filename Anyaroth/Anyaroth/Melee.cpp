@@ -17,7 +17,7 @@ void Melee::meleeAttack(double x, double y, int dir)
 	else if (!_body->getBody()->IsActive())
 	{
 		_body->getBody()->SetActive(true);
-		_body->getBody()->SetTransform(b2Vec2((x + _offset.getX() * _dir) / M_TO_PIXEL, (y + _offset.getY() * _dir) / M_TO_PIXEL), 0);
+		_body->getBody()->SetTransform(b2Vec2((x + _offset.getX() * _dir) / M_TO_PIXEL, (y + _offset.getY()) / M_TO_PIXEL), 0);
 	}
 
 

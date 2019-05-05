@@ -4,7 +4,7 @@ class Poleaxe : public Melee
 {
 private:
 	BodyComponent* _owner = nullptr;
-	Vector2D _pos, _nextPos,_velocity = { 5,0 };
+	Vector2D _pos, _nextPos,_velocity = { 15,0 };
 public:
 	Poleaxe(Game * g, Vector2D offset, Uint16 collidesWith, double damage, double w, double h, GameObject* owner);
 	virtual ~Poleaxe();
