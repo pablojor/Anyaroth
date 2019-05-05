@@ -51,13 +51,12 @@ void GravityBombDebuff::update(const double& deltaTime)
 			body->getBody()->SetLinearVelocity(b2Vec2(_dir.getX() * _absorbSpeed, _dir.getY() * _absorbSpeed));
 		}
 
-		_damageTime++;// = deltaTime;
+		_damageTime += deltaTime;
 
 		if (_damageTime >= _damageTickTime)
 		{
 			_obj->subLife(_gravityZone->getDamage());
 			_damageTime = 0;
-			_ticks++;
 		}
 	}
 }
