@@ -39,6 +39,8 @@ DistanceDynamicEnemy::DistanceDynamicEnemy(Game* g, Player* player, Vector2D pos
 	_myGun->setDamage(2);
 	_myGun->setMaxCadence(700);
 	_myGun->setBulletSpeed(30);
+
+	_affectedByExternalForces = true;
 }
 
 void DistanceDynamicEnemy::update(const double& deltaTime)

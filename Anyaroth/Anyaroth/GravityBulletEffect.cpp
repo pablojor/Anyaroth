@@ -10,6 +10,7 @@ GravityBulletEffect::GravityBulletEffect(int maxAbsorbTime) : _maxAbsorbingTime(
 
 GravityBulletEffect::~GravityBulletEffect()
 {
+	_debuffs.clear();
 }
 
 void GravityBulletEffect::init(Bullet* bullet)
@@ -62,8 +63,8 @@ void GravityBulletEffect::update(Bullet* bullet, double time)
 				bullet->getComponent<AnimatedSpriteComponent>()->playAnim(AnimatedSpriteComponent::Destroy);
 
 				SpriteObject* sprite = new SpriteObject(bullet->getGame(), bullet->getGame()->getTexture("BHArea"),
-					{ bullet->getComponent<TransformComponent>()->getPosition().getX()- 115,
-					bullet->getComponent<TransformComponent>()->getPosition().getY()- 95 });
+					{ bullet->getComponent<TransformComponent>()->getPosition().getX() - 115,
+					bullet->getComponent<TransformComponent>()->getPosition().getY() - 95 });
 
 				bullet->addChild(sprite);
 			}

@@ -76,6 +76,7 @@ private:
 	}
 protected:
 	Game* _game = nullptr; //puntero a game
+	bool _affectedByExternalForces = false;
 
 public:
 	GameObject(Game* game, string tag = "");
@@ -123,6 +124,8 @@ public:
 	virtual void subLife(int damage) {}
 
 	inline virtual int getValue() const { return -1; }
+
+	inline bool isAffectedByExternalForces() const { return _affectedByExternalForces; }
 
 	void destroy();
 	

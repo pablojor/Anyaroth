@@ -2,6 +2,7 @@
 
 Boss::Boss(Game * g, Player * player, Vector2D pos, BulletPool* pool, Texture* text) : DistanceEnemy(g, player, pos, text, pool), Enemy(g, player, pos, text)
 {
+	_affectedByExternalForces = false;
 }
 
 Boss::~Boss()

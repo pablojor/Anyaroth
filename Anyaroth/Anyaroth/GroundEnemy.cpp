@@ -1,13 +1,12 @@
 #include "GroundEnemy.h"
 
-GroundEnemy::GroundEnemy(Game* g, Player* player, Vector2D pos, Texture* texture) : Enemy(g, player, pos, texture) {}
+GroundEnemy::GroundEnemy(Game* g, Player* player, Vector2D pos, Texture* texture) : Enemy(g, player, pos, texture) { _affectedByExternalForces = true; }
 
 void GroundEnemy::idle()
 {
 	if (!_stunned && !_attacking)
 	{
 		_body->getBody()->SetLinearVelocity({ 0, _body->getBody()->GetLinearVelocity().y });
-		_body->getBody()->SetAwake(true);
 		_anim->playAnim(AnimatedSpriteComponent::Idle);
 	}
 }
