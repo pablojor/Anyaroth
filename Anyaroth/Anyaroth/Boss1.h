@@ -37,6 +37,8 @@ public:
 
 	virtual void update(const double& deltaTime);
 
+	void popUpMessage();
+
 	void movement(const double& deltaTime);
 	void bomberAttack(const double& deltaTime, int t1, int t2);
 	void meleeAttack();

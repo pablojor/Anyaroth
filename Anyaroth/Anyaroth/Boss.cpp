@@ -22,6 +22,7 @@ void Boss::setBossPanel(BossPanel * b)
 void Boss::update(const double & deltaTime)
 {
 	DistanceEnemy::update(deltaTime);
+
 	if (!isDead())
 	{
 		movement(deltaTime);

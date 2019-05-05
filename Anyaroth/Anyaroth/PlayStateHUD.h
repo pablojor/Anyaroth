@@ -27,4 +27,5 @@ public:
 	inline BossPanel* getBossPanel() const { return _bossPanel; }
 	inline ShopMenu* getShop() const { return _shopMenu; }
 	inline DialoguePanel* getDialoguePanel() const { return _dialoguePanel; }
+	inline PopUpPanel* getPopUpPanel() const { return _popUpPanel; }
 };

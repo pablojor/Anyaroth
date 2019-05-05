@@ -19,7 +19,7 @@ PopUpPanel::PopUpPanel(Game* game) : PanelUI(game)
 	addChild(_nextButton);
 	addChild(_nextButtonText);
 
-	_textBlock = std::vector<TextUI*>(6);
+	_textBlock = vector<TextUI*>(6);
 	for (int i = 0; i < _textBlock.size(); i++)
 	{
 		_textBlock[i] = new TextUI(game, "Line", game->getFont("ARIAL12"), 12, 0, 0, { 255, 255, 255, 255 });
@@ -28,30 +28,8 @@ PopUpPanel::PopUpPanel(Game* game) : PanelUI(game)
 	}
 
 	reorder();
-
-	//Para las pruebas
-	addMessage({ "AAAAAAAAA", "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled" });
-	addMessage({ "BBBBBBBBB", "bbbbbbbb bbb bbbbbbbbbbb bbbb bbbb bbbbbbbb bbbbbbbbbbbb bbbb bbbb bbbbbbbbbbbbb b bbb bbbbbbbbb bbbbbbb bbbbbbb bbbbbb bbbbbb bb bbbbbb" });
-	addMessage({ "CCCCCCCCC", "cccccccc ccc ccccccccccc cccc cccc cccccccc cccccccccccc cccc cccc ccccccccccccc c ccc ccccccccc ccccccc ccccccc cccccc cccccc cc cccccc" });
-	addMessage({ "DDDDDDDDD", "dddddddd ddd ddddddddddd dddd dddd dddddddd dddddddddddd dddd dddd ddddddddddddd d ddd ddddddddd ddddddd ddddddd dddddd dddddd dd dddddd" });
-
-	open();
+	setVisible(false);
 }
-
-
-PopUpPanel::~PopUpPanel()
-{
-	/*delete _frame; _frame = nullptr;
-	delete _title; __title = nullptr;
-	delete _nextButton; _nextButton = nullptr;
-	delete _exitButton; _exitButton = nullptr;
-
-	for (auto t : _textBlock)
-	{
-		delete t; t = nullptr;
-	}*/
-}
-
 
 void PopUpPanel::showMessage(PUMessage s)
 {
@@ -62,7 +40,7 @@ void PopUpPanel::showMessage(PUMessage s)
 	_title->setScale(1.2);
 
 	//Ponemos el mensaje
-	std::vector<string> segments;
+	vector<string> segments;
 	chopText(s._message, segments);
 	for (int i = 0; i < segments.size(); i++)
 	{
@@ -86,7 +64,7 @@ void PopUpPanel::showMessage(PUMessage s)
 	reorder();
 }
 
-void PopUpPanel::chopText(string s, std::vector<string>& segments)
+void PopUpPanel::chopText(string s, vector<string>& segments)
 {
 	string temp = s.c_str();
 	int width = 0, maxWidth = 175;
@@ -150,7 +128,6 @@ void PopUpPanel::omitAllMessages(Game * game)
 	close();
 }
 
-
 void PopUpPanel::reorder()
 {
 	_frame->setPosition(CAMERA_RESOLUTION_X / 2 - _frame->getW() / 2, CAMERA_RESOLUTION_Y / 2 - _frame->getH() / 2);
@@ -159,7 +136,7 @@ void PopUpPanel::reorder()
 	for (int i = 0; i < _textBlock.size(); i++)
 	{
 		if(i - 1 < 0)
-			_textBlock[i]->setPosition(_frame->getX() + 5, _title->getY() + _title->getH() /*+  _textBlock[i]->getH()*/ + 2);
+			_textBlock[i]->setPosition(_frame->getX() + 5, _title->getY() + _title->getH() + 2);
 		else
 			_textBlock[i]->setPosition(_frame->getX() + 5, _textBlock[i - 1]->getY() + _textBlock[i]->getH());
 	}
@@ -168,7 +145,6 @@ void PopUpPanel::reorder()
 	_nextButtonText->setPosition(_nextButton->getX() + _nextButton->getW() / 2 - _nextButtonText->getW() / 2, _nextButton->getY() + _nextButton->getH() / 2 - _nextButtonText->getH() / 2);
 }
 
-
 void PopUpPanel::reset()
 {
 	for (auto a : _textBlock)
@@ -176,9 +152,10 @@ void PopUpPanel::reset()
 	_title->setText(" ");
 }
 
-
 void PopUpPanel::open()
 {
+	setVisible(true);
+
 	for (auto c : _children)
 		c->setVisible(true);
 
@@ -186,9 +163,11 @@ void PopUpPanel::open()
 		showMessage(_messages.front());
 }
 
-
 void PopUpPanel::close()
 {
+	setVisible(false);
+	_isFinished = true;
+
 	for (auto c : _children)
 		c->setVisible(false);
 }
