@@ -72,7 +72,7 @@ void Boss2::Jump()
 {
 	
 		
-	_body->getBody()->ApplyLinearImpulseToCenter(b2Vec2(_dir * 300, -300), true);
+	_body->getBody()->ApplyLinearImpulseToCenter(b2Vec2(_dir * 300, -10000), true);
 
 	b2PolygonShape shape;
 	shape.SetAsBox(15 / M_TO_PIXEL, 22 / M_TO_PIXEL, b2Vec2(0, 0), 0);
@@ -207,16 +207,11 @@ void Boss2::checkMelee(const double& deltaTime)
 		if (_timeOnMelee > _timeMelee)
 		{
 			_melee->endMelee();
-			//Provisional
-			if (_actualFase != BetweenFase)
-			{
-				_anim->playAnim(AnimatedSpriteComponent::SpentaIdle);
-				_actualState = Moving;
-			}
 			_armVision = true;;
 			_velocity = { _originalVelocity.getX(), _originalVelocity.getY() };
 			_doSomething = _game->random(400, 800);
 			_timeOnMelee = 0;
+			_actualState = Moving;
 		}
 		else
 			_timeOnMelee += deltaTime;
@@ -378,6 +373,15 @@ void Boss2::beetwenFases(const double& deltaTime)
 		else
 			_anim->playAnim(AnimatedSpriteComponent::AzuraIdle3);
 	}
+	else
+	{
+		if (_melee != nullptr && _melee->isActive())
+		{
+			_melee->endMelee();
+			_velocity = { _originalVelocity.getX(), _originalVelocity.getY() };
+			_timeOnMelee = 0;
+		}
+	}
 }
 
 void Boss2::manageLife(Life& l, int damage)
@@ -388,7 +392,6 @@ void Boss2::manageLife(Life& l, int damage)
 		_doSomething = 0;
 		_lastFase = _actualFase;
 		_actualFase = BetweenFase;
-		_melee->endMelee();
 		_anim->playAnim(AnimatedSpriteComponent::AzuraDie);
 	}
 }
