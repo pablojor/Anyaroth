@@ -182,10 +182,10 @@
       <Filter>Archivos de código fuente\Objects\Level</Filter>
     </ClCompile>
     <ClCompile Include="Axe.cpp">
-      <Filter>Archivos de código fuente\Objects\Melee</Filter>
+      <Filter>Archivos de código fuente\Objects\Player\Melee</Filter>
     </ClCompile>
     <ClCompile Include="Melee.cpp">
-      <Filter>Archivos de código fuente\Objects\Melee</Filter>
+      <Filter>Archivos de código fuente\Objects\Player\Melee</Filter>
     </ClCompile>
     <ClCompile Include="Life.cpp">
       <Filter>Archivos de código fuente\Objects\Player</Filter>
@@ -415,23 +415,6 @@
     <ClCompile Include="MissileTurret.cpp">
       <Filter>Archivos de código fuente\Objects\Interactables</Filter>
     </ClCompile>
-    <ClCompile Include="Laser.cpp" />
-    <ClCompile Include="LaserContainer.cpp" />
-    <ClCompile Include="LaserHandler.cpp" />
-    <ClCompile Include="Boss2.cpp">
-      <Filter>Archivos de código fuente\Objects\Enemies\Bosses</Filter>
-    </ClCompile>
-    <ClCompile Include="Poleaxe.cpp">
-      <Filter>Archivos de código fuente\Objects\Melee</Filter>
-    </ClCompile>
-    <ClCompile Include="Boss3.cpp">
-      <Filter>Archivos de código fuente\Objects\Enemies\Bosses</Filter>
-    </ClCompile>
-    <ClCompile Include="BossSensor.cpp" />
-    <ClCompile Include="FloatingHead.cpp" />
-    <ClCompile Include="SpawnerBoss.cpp" />
-    <ClCompile Include="EnemyLifePanel.cpp" />
-    <ClCompile Include="Boss3Panel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -884,23 +867,6 @@
     <ClInclude Include="MissileTurret.h">
       <Filter>Archivos de encabezado\Objects\Interactables</Filter>
     </ClInclude>
-    <ClInclude Include="Laser.h" />
-    <ClInclude Include="LaserContainer.h" />
-    <ClInclude Include="LaserHandler.h" />
-    <ClInclude Include="Boss2.h">
-      <Filter>Archivos de encabezado\Objects\Enemies\Bosses</Filter>
-    </ClInclude>
-    <ClInclude Include="Poleaxe.h">
-      <Filter>Archivos de encabezado\Objects\Melee</Filter>
-    </ClInclude>
-    <ClInclude Include="Boss3.h">
-      <Filter>Archivos de encabezado\Objects\Enemies\Bosses</Filter>
-    </ClInclude>
-    <ClInclude Include="BossSensor.h" />
-    <ClInclude Include="FloatingHead.h" />
-    <ClInclude Include="SpawnerBoss.h" />
-    <ClInclude Include="EnemyLifePanel.h" />
-    <ClInclude Include="Boss3Panel.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de código fuente">
@@ -1044,6 +1010,9 @@
     <Filter Include="Archivos de código fuente\Objects\Interactables">
       <UniqueIdentifier>{a2aab5e8-1f03-438e-ad1c-94a98250433c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de código fuente\Objects\Player\Melee">
+      <UniqueIdentifier>{91c2fb3e-33b4-42c8-b741-0a0b383c9988}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Archivos de código fuente\HUD\Shop">
       <UniqueIdentifier>{82374948-29e9-45e7-a3a0-fd573588350b}</UniqueIdentifier>
     </Filter>
@@ -1058,9 +1027,6 @@
     </Filter>
     <Filter Include="Archivos de código fuente\Events">
       <UniqueIdentifier>{c0c20e7b-ff95-4a2d-8b6f-2b0da7fa47a6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de código fuente\Objects\Melee">
-      <UniqueIdentifier>{91c2fb3e-33b4-42c8-b741-0a0b383c9988}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

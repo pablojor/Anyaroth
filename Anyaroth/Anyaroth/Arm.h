@@ -21,7 +21,6 @@ public:
 
 	void setTexture(Texture* armTex);
 	void setAnimations(ArmAnimType type);
-	void setOffSet(Vector2D newOff) { _followC->setInitialOffset(newOff); }
 
 	void lookAtTarget(const Vector2D& target) const;
 

@@ -4,7 +4,7 @@
 
 void AnimatedSpriteComponent::render(Camera* c) const
 {
-	if (_obj->isActive() && _renderActive)
+	if (_obj->isActive())
 	{
 		SDL_Rect destRect;
 		destRect.w = (_texture->getW() / _texture->getNumCols()) * _transform->getScale().getX();

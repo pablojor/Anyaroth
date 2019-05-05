@@ -75,7 +75,7 @@ void DialoguePanel::startDialogue(const Dialogue& dialogue)
 		GameManager::getInstance()->setOnDialogue(true);
 
 		//inicializamos cada elemento
-		if (_dialogue.name != "")
+		if (_dialogue.name != " ")
 		{
 			_nameText->setText(_dialogue.name);
 			_nameBackground->setVisible(true);

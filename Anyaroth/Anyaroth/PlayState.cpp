@@ -36,31 +36,10 @@ void PlayState::start()
 	//Player
 	_player = new Player(_gameptr);
 	_player->setPlayerPanel(_playHud->getPlayerPanel());
-  
+
 	//Player Bulletpool
 	_playerBulletPool = new BulletPool(_gameptr);
 	_player->setPlayerBulletPool(_playerBulletPool);
-  
-	_playHud->getShop()->setPlayer(_player);
-	_playHud->getShop()->setVisible(false);
-
-	//Enemy Pool
-	auto enemyPool = new BulletPool(g);
-
-	//Levels
-	GameManager::getInstance()->setCurrentLevel(LevelManager::Boss3);
-	_level = new GameObject(g);
-	_levelManager = LevelManager(g, _player, _level, _mainCamera, _playHud, enemyPool);
-	_levelManager.setLevel(GameManager::getInstance()->getCurrentLevel());
-	_mainCamera->setWorldBounds(_levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getWidth(), _levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getHeight());
-
-	//Background
-	_parallaxZone1 = new ParallaxBackGround(_mainCamera);
-	_parallaxZone1->addLayer(new ParallaxLayer(g->getTexture("BgZ1L1"), _mainCamera, 0.25));
-	_parallaxZone1->addLayer(new ParallaxLayer(g->getTexture("BgZ1L2"), _mainCamera, 0.5));
-	_parallaxZone1->addLayer(new ParallaxLayer(g->getTexture("BgZ1L3"), _mainCamera, 0.75));
-	_controls = new ParallaxLayer(g->getTexture("ControlsBG"), _mainCamera, 0);
-	_parallaxZone1->addLayer(_controls);
 
 	//Shop Items
 	if (!_gameptr->getCurrentState()->gameLoaded())

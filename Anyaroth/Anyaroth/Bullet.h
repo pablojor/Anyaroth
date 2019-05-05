@@ -81,7 +81,6 @@ public:
 
 	virtual void init(Texture* texture, const Vector2D& position, const double& speed, const double& damage, const double& angle, const double& range, const string& tag, EffectInterface* effect, BulletAnimType type);
 	virtual void update(const double& deltaTime);
-
 	virtual void beginCollision(GameObject* other, b2Contact* contact);
 	virtual void endCollision(GameObject * other, b2Contact* contact);
 

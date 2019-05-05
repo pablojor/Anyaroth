@@ -10,9 +10,6 @@ PlayStateHUD::PlayStateHUD(Game * g)
 	//Panel del Boss
 	_bossPanel = new BossPanel(g);
 
-	//Panel del Boss
-	_boss3Panel = new Boss3Panel(g);
-
 	//Panel de Tienda
 	_shopMenu = new ShopMenu(g);
 
@@ -22,7 +19,6 @@ PlayStateHUD::PlayStateHUD(Game * g)
 	//Anyadir a elementos
 	addUIElement(_playerPanel);
 	addUIElement(_bossPanel);
-	addUIElement(_boss3Panel);
 	addUIElement(_shopMenu);
 	addUIElement(_dialoguePanel);
 

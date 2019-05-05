@@ -11,7 +11,6 @@ public:
 	virtual ~Life() {}
 
 	void setLife(int amount);
-	inline void setMaxLife(int newLife) { _maxLife = newLife; }
 	inline void resetLife() { _life = _maxLife; }
 
 	void addLife(int amount);

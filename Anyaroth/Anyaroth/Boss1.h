@@ -1,5 +1,6 @@
 #pragma once
 #include "Boss.h"
+#include "BossPanel.h"
 #include "Axe.h"
 #include "BossOrbCannon.h"
 #include "BomberGun.h"

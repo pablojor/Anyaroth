@@ -94,7 +94,7 @@ void BomberEnemy::throwBomb(const Vector2D& position)
 	{
 		b->init(_bulletTexture, position, 0, 10, angle, _range, tag, &_effect);
 		b->init(_bulletTexture, position, 0, _damage, _angle, _range, "EnemyBullet");
-		b->changeFilter(true);
+		b->changeFilter();
 	}
 	else
 	{

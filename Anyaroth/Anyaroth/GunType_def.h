@@ -20,8 +20,9 @@ enum GunType
 enum MeleeType
 {
 	Knife_Weapon,
-	Sword_Weapon,
-	Poleaxe_Weapon
+	Axe_Weapon,
+	Lightsaber_Weapon,
+	Chainsaw_Weapon
 };
 
 enum BulletAnimType

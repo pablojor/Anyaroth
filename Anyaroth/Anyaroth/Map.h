@@ -7,9 +7,6 @@
 #include <vector>
 
 class Player;
-class Boss1;
-class Boss2;
-class Boss3;
 
 class Map : public GameObject
 {
@@ -20,11 +17,8 @@ private:
 	Tilemap* _tilemap = nullptr;
 	GameObject* _objects = nullptr;
 	vector <ObjectLayer*> _objectLayers;
-  
-	Boss1* _spenta = nullptr;
-	Boss2* _azura = nullptr;
-	Boss3* _angra = nullptr;
-	int _misilFase = 0, _height = 0, _width = 0, _spawnType=0;
+
+	double _height = 0, _width = 0;
 
 public:
 	Map(string filename, Game* game, Player* player, Texture* tileset, BulletPool* bulletPool);
