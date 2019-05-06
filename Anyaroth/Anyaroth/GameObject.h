@@ -76,6 +76,7 @@ private:
 	}
 protected:
 	Game* _game = nullptr; //puntero a game
+	bool _affectedByExternalForces = false;
 
 public:
 	GameObject(Game* game, string tag = "");
@@ -114,12 +115,17 @@ public:
 	inline void setActive(bool active) { _active = active; }
 	virtual inline void setStopped(bool value) {}
 	virtual inline void setStunned(bool value) {}
+	virtual inline void setInputFreezed(bool b) {}
 
 	inline bool isDead() const { return _dead; }
 	inline void setDead(bool dead) { _dead = dead; }
 
 	virtual int getDamage() const { return 0; }
 	virtual void subLife(int damage) {}
+
+	inline virtual int getValue() const { return -1; }
+
+	inline bool isAffectedByExternalForces() const { return _affectedByExternalForces; }
 
 	void destroy();
 	

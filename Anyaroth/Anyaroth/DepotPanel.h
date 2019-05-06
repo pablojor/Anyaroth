@@ -15,7 +15,14 @@ class DepotPanel : public PanelUI
 		Player* _player;
 
 		ImageUI* _depotFrame = nullptr;
+		ImageUI* _depotMeleeFrame = nullptr;
 		ImageUI* _equipmentFrame = nullptr;
+
+		FramedImageUI* _depotFrameName = nullptr;
+		FramedImageUI* _equipmentFrameName = nullptr;
+
+		TextUI* _depotName;
+		TextUI* _equipName;
 
 		ButtonUI* _exitButton = nullptr;
 		ButtonUI* _changeButton = nullptr;
@@ -29,7 +36,8 @@ class DepotPanel : public PanelUI
 		ShopItem* _secondWeaponItem;
 		ShopItem* _meleeWeaponItem;
 
-		list<ShopItem*>* _items;
+		list<ShopItem*>* _weaponItems;
+		list<ShopItem*>* _meleeItems;
 
 		ShopItem* _selectedItem = nullptr;
 
@@ -47,8 +55,11 @@ class DepotPanel : public PanelUI
 
 		void setPlayer(Player* ply);
 
-		void setItems(list<ShopItem*>* list);
-		void removeItems();
+		void setWeaponItems(list<ShopItem*>* list);
+		void removeWeaponItems();
+
+		void setMeleeItems(list<ShopItem*>* list);
+		void removeMeleeItems();
 
 		void openDepotPanel();
 		void closeDepotPanel();

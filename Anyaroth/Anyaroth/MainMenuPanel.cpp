@@ -58,15 +58,18 @@ MainMenuPanel::MainMenuPanel(Game* g) : PanelUI(g)
 	addChild(_exitText);
 
 	_selectedButton = _playButton;
-	if (_game->isJoystick())
-		_selectedButton->setSelected(true);
-}
 
+	if (_game->usingJoystick())
+	{
+		_selectedButton->setSelected(true);
+		SDL_ShowCursor(false);
+		SDL_WarpMouseGlobal(0, 0);
+	}
+}
 
 MainMenuPanel::~MainMenuPanel()
 {
 }
-
 
 void MainMenuPanel::startGame(Game * g)
 {
@@ -76,8 +79,11 @@ void MainMenuPanel::startGame(Game * g)
 void MainMenuPanel::loadGame(Game* g)
 {
 	auto p = new PlayState(g);
-	p->loadGame();
 	g->changeState(p);
+	p->setLoaded(true);
+	p->start();
+	p->setStarted(true);
+	p->loadGame();
 }
 
 void MainMenuPanel::options(Game * g)

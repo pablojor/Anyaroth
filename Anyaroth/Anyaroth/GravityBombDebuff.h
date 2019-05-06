@@ -15,13 +15,11 @@ private:
 	Vector2D _dir = { 0,0 };
 
 	double _damageTime = 0;
-	double _damageTickTime = 500;
-	int _ticks = 0;
+	double _damageTickTime = 750;
 	double _minDistance = 20;
 
-
-
 	void changeDir();
+
 public:
 	GravityBombDebuff(GameObject* obj, GameObject* gravityZone);
 	virtual ~GravityBombDebuff();

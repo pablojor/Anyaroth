@@ -6,8 +6,11 @@ typedef unsigned int uint;
 
 void Texture::free()
 {
-	SDL_DestroyTexture(_texture);
-	_texture = nullptr;
+	if (_texture != nullptr)
+	{
+		SDL_DestroyTexture(_texture);
+		_texture = nullptr;
+	}
 	_w = _h = 0;
 }
 
@@ -79,6 +82,7 @@ void Texture::renderFrame(const SDL_Rect& destRect, int row, int col, double ang
 
 void Texture::loadFromText(string text, const Font* font, SDL_Color color)
 {
+	if (text == "") text = " ";
 	SDL_Surface* textSurface = font->generateSurface(text, color);
 	if (textSurface == nullptr) throw SDLError();
 	free();

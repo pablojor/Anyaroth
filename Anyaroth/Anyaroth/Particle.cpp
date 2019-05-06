@@ -39,6 +39,12 @@ void Particle::init(Texture * texture, const Vector2D & position, const double &
 
 	_texture = texture;
 	_transform->setRotation(angle);
+
+	_body->setH(texture->getH());
+	_body->setW(texture->getW());
+	
+	_body->moveShape(b2Vec2(0, -0.5));
+	_body->filterCollisions(PLAYER_BULLETS, FLOOR);
 	
 	_body->getBody()->SetActive(true);
 	_body->getBody()->SetTransform({ (float32)(position.getX() / M_TO_PIXEL), (float32)(position.getY() / M_TO_PIXEL) }, _body->getBody()->GetAngle());

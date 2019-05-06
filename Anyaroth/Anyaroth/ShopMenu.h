@@ -28,7 +28,8 @@ class ShopMenu : public PanelUI
 
 		AnimatedImageUI* _imageBG = nullptr;
 
-		list<ShopItem*> _items;
+		list<ShopItem*> _weaponItems;
+		list<ShopItem*> _meleeItems;
 
 		int _zone = 1;
 
@@ -66,7 +67,7 @@ class ShopMenu : public PanelUI
 		void openDepotPanel(Game* game);
 		void closeDepotPanel(Game* game);
 
-		inline list<ShopItem*> getItems() const { return _items; }
+		inline list<ShopItem*> getItems() const { return _weaponItems; }
 		
 		inline bool isClosed() { return _closed; }
 

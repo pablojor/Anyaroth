@@ -3,18 +3,17 @@
 #include "Coin.h"
 #include "AmmoPackage.h"
 #include "AidKit.h"
-#include "Axe.h"
+#include "Sword.h"
 #include "GunType_def.h"
 #include "WeaponManager.h"
 #include "ParticleManager.h"
 
 
-Player::Player(Game* game, int xPos, int yPos) : GameObject(game, "Player")
+Player::Player(Game* game) : GameObject(game, "Player")
 {
 	addComponent<Texture>(game->getTexture("Mk"));
 
 	_transform = addComponent<TransformComponent>();
-	_transform->setPosition(xPos, yPos);
 
 	_body = addComponent<BodyComponent>();
 	_body->getBody()->SetType(b2_dynamicBody);
@@ -61,8 +60,8 @@ Player::Player(Game* game, int xPos, int yPos) : GameObject(game, "Player")
 	_playerArm = new PlayerArm(game, this, { 28, 15 });
 	addChild(_playerArm);
 	
-	_currentGun = WeaponManager::getWeapon(game, BasicRifle_Weapon);
-	_otherGun = WeaponManager::getWeapon(game, BasicShotgun_Weapon);
+	_currentGun = WeaponManager::getInstance()->getWeapon(game, PlasmaSniper_Weapon);
+	_otherGun = WeaponManager::getInstance()->getWeapon(game, BHCannon_Weapon);
 
 	_playerArm->setTexture(_currentGun->getArmTexture());
 	_playerArm->setAnimations(_currentGun->getAnimType());
@@ -71,7 +70,7 @@ Player::Player(Game* game, int xPos, int yPos) : GameObject(game, "Player")
 	_money = new Money();
 
 	//Melee
-	_melee = new Melee(game, { 15, 0 }, ENEMIES, 5, 20, 10);
+	_melee = WeaponManager::getInstance()->getMelee(game, Knife_Weapon);
 	addChild(_melee);
 }
 
@@ -105,10 +104,7 @@ void Player::beginCollision(GameObject * other, b2Contact* contact)
 	{
 		if (other->isActive())
 		{
-			auto coin = dynamic_cast<Coin*>(other);
-			auto value = coin->getValue();
-
-			coin->collect();
+			auto value = other->getValue();
 
 			_money->store(value);
 			_playerPanel->updateCoinsCounter(_money->getWallet());
@@ -119,10 +115,7 @@ void Player::beginCollision(GameObject * other, b2Contact* contact)
 	{
 		if (other->isActive())
 		{
-			auto ammo = dynamic_cast<AmmoPackage*>(other);
-			auto value = ammo->getValue();
-
-			ammo->collect();
+			auto value = other->getValue();
 
 			_currentGun->addAmmo(_currentGun->getMaxClip()*value);
 			_playerPanel->updateAmmoViewer(_currentGun->getClip(), _currentGun->getMagazine());
@@ -135,10 +128,7 @@ void Player::beginCollision(GameObject * other, b2Contact* contact)
 	{
 		if (other->isActive())
 		{
-			auto aidKit = dynamic_cast<AidKit*>(other);
-			auto value = aidKit->getValue();
-
-			aidKit->collect();
+			auto value = other->getValue();
 
 			_life.addLife(value);
 			_playerPanel->updateLifeBar(_life.getLife(), _life.getMaxLife());
@@ -148,6 +138,10 @@ void Player::beginCollision(GameObject * other, b2Contact* contact)
 	else if (other->getTag() == "Door")
 	{
 		_changeLevel = true;
+	}
+	else if (other->getTag() == "Death")
+	{
+		die();
 	}
 }
 
@@ -214,7 +208,7 @@ void Player::subLife(int damage)
 			{
 				_anim->hurt();
 				_playerArm->hurt();
-				//_spawnParticles = true;
+				_spawnParticles = true;
         
 				int rand = _game->random(0, 100);
 				if (rand > 80)
@@ -383,7 +377,7 @@ void Player::update(const double& deltaTime)
 		double center_x = _body->getBody()->GetPosition().x + _body->getW() / 2, center_y = _body->getBody()->GetPosition().y + _body->getH() / 2;
 
 		Vector2D direction = Vector2D((_contactPoint.x - center_x), (center_y - _contactPoint.y));
-		ParticleManager::GetParticleManager()->CreateSpray(_game->getTexture("Blood"), Vector2D(center_x*M_TO_PIXEL, center_y*M_TO_PIXEL), direction, 10, 20, 30, 1000, 15, 2);
+		ParticleManager::GetParticleManager()->CreateSpray(_game->getTexture("Blood"), Vector2D(_contactPoint.x*M_TO_PIXEL, _contactPoint.y*M_TO_PIXEL), direction, 4, 10, 30, 700, 5, 2);
 	}
 
 	checkMelee();
@@ -442,10 +436,8 @@ void Player::changeOtherGun(Gun * gun)
 	}
 }
 
-
 void Player::checkMovement(const Uint8* keyboard)
 {
-
 	if (!isDead() && !_inputFreezed)
 	{
 		if (keyboard[SDL_SCANCODE_A] && keyboard[SDL_SCANCODE_D] && !isMeleeing() && !isDashing())
@@ -454,7 +446,8 @@ void Player::checkMovement(const Uint8* keyboard)
 		{
 			if (_isDashing && _dashEnabled && !isReloading())
 				dash(Vector2D(-1, 0));
-			else {
+			else
+			{
 				move(Vector2D(-1, 0), _speed);
 				_isDashing = false;
 			}
@@ -463,14 +456,16 @@ void Player::checkMovement(const Uint8* keyboard)
 		{
 			if (_isDashing && _dashEnabled && !isReloading())
 				dash(Vector2D(1, 0));
-			else {
+			else
+			{
 				move(Vector2D(1, 0), _speed);
 				_isDashing = false;
 			}
 		}
 		else if ((keyboard[SDL_SCANCODE_S] || _jMoveDown) && _isDashing && !isDashing() && _dashEnabled && !isGrounded() && !isMeleeing() && !isReloading())
 			dash(Vector2D(0, 1));
-		else {
+		else
+		{
 			move(Vector2D(0, 0), _speed);
 			_isDashing = false;
 		}
@@ -478,32 +473,34 @@ void Player::checkMovement(const Uint8* keyboard)
 		if ((keyboard[SDL_SCANCODE_SPACE] || _jJump) && !isMeleeing() && !isJumping() && !isReloading())
 			if ((isGrounded() && !isFalling() && !isDashing()) || (!isGrounded() && isFalling() && _timeToJump > 0 && !isDashing()))
 				jump();
-		if (_game->isJoystick())
+
+		if (_game->usingJoystick())
 		{
 			_jPosX = (SDL_GameControllerGetAxis(_game->getJoystick(), SDL_CONTROLLER_AXIS_RIGHTX));
 			_jPosY = (SDL_GameControllerGetAxis(_game->getJoystick(), SDL_CONTROLLER_AXIS_RIGHTY));
+
+			if (_jReleased)
+				_jReleased = (_prevAxisX < 0 && _prevAxisX < _jPosX || _prevAxisX > 0 && _prevAxisX > _jPosX) || (_prevAxisY < 0 && _prevAxisY < _jPosY || _prevAxisY > 0 && _prevAxisY > _jPosY);
+
+			int winWidth = 0;	int winHeight = 0;
+			SDL_GetWindowSize(_game->getWindow(), &winWidth, &winHeight);
+			double radius = 250 * _game->getCurrentState()->getMainCamera()->getCameraSize().distance({}) / Vector2D(winWidth, winHeight).distance({});
+
 			if (_jPosX < -JOYSTICK_DEADZONE * 2 || _jPosX > JOYSTICK_DEADZONE * 2 || _jPosY < -JOYSTICK_DEADZONE * 2 || _jPosY > JOYSTICK_DEADZONE * 2)
-			{
-				if (_jReleased)
-					_jReleased = (_prevAxisX < 0 && _prevAxisX < _jPosX || _prevAxisX > 0 && _prevAxisX > _jPosX) || (_prevAxisY < 0 && _prevAxisY < _jPosY || _prevAxisY > 0 && _prevAxisY > _jPosY);
+				_jAngle = atan2(_jPosY, _jPosX);
 
-				int winWidth = 0;	int winHeight = 0;
-				SDL_GetWindowSize(_game->getWindow(), &winWidth, &winHeight);
-				double radius = 250 * _game->getCurrentState()->getMainCamera()->getCameraSize().distance({}) / Vector2D(winWidth, winHeight).distance({});
+			double mouseX = (_body->getBody()->GetPosition().x + _body->getW() / 2) * M_TO_PIXEL + cos(_jAngle) * radius;
+			double mouseY = (_body->getBody()->GetPosition().y + _body->getH() / 2) * M_TO_PIXEL + sin(_jAngle) * radius;
 
-				double angle = atan2(_jPosY, _jPosX);
-				double mouseX = (_body->getBody()->GetPosition().x + _body->getW() / 2) * M_TO_PIXEL + cos(angle) * radius;
-				double mouseY = (_body->getBody()->GetPosition().y + _body->getH() / 2) * M_TO_PIXEL + sin(angle) * radius;
+			if ((abs(_jPosX - _prevAxisX) < JOYSTICK_DEADZONE * 2 && abs(_jPosY - _prevAxisY) < JOYSTICK_DEADZONE * 2) && !_jReleased)
+				_game->getCurrentState()->setMousePositionInWorld({ mouseX,mouseY });
+			else
+				_jReleased = true;
 
-				if((abs(_jPosX - _prevAxisX) < JOYSTICK_DEADZONE * 2 && abs(_jPosY - _prevAxisY) < JOYSTICK_DEADZONE * 2) && !_jReleased)
-					_game->getCurrentState()->setMousePositionInWorld({ mouseX,mouseY });
-				else
-					_jReleased = true;
-
-				_prevAxisX = _jPosX;
-				_prevAxisY = _jPosY;
-			}
+			_prevAxisX = _jPosX;
+			_prevAxisY = _jPosY;
 		}
+
 		//Recarga
 		if (canReload() && !isMeleeing() && !isDashing())
 			reload();
@@ -580,6 +577,7 @@ void Player::refreshCooldowns(const double& deltaTime)
 
 	if (!isGrounded() && _timeToJump > 0)
 		_timeToJump -= deltaTime;
+	_runningSpawnParticle -= deltaTime;
 }
 
 void Player::refreshDashCoolDown(const double& deltaTime)
@@ -655,9 +653,10 @@ void Player::move(const Vector2D& dir, const double& speed)
 	else
 		_body->getBody()->SetLinearVelocity(b2Vec2(dir.getX() * speed, _body->getBody()->GetLinearVelocity().y));
 
-	if (_floorCount > 0 && dir.getX()!=0)
+	if (_floorCount > 0 && dir.getX()!=0 && _runningSpawnParticle<=0)
 	{
-		ParticleManager::GetParticleManager()->CreateFountain(_game->getTexture("Dust"), Vector2D((_body->getBody()->GetPosition().x)*M_TO_PIXEL, (_body->getBody()->GetPosition().y+_body->getH())*M_TO_PIXEL),Vector2D(-dir.getX(),1),0,speed,15,300,10, 100,3);
+		_runningSpawnParticle = 40;
+		ParticleManager::GetParticleManager()->CreateFountain(_game->getTexture("Smoke"), Vector2D((_body->getBody()->GetPosition().x+_body->getW() *-dir.getX())*M_TO_PIXEL, (_body->getBody()->GetPosition().y+_body->getH()*1.2)*M_TO_PIXEL),Vector2D(-dir.getX(),1),0,10/*spped*/,15,100,10, 100,3);
 	}
 }
 
@@ -779,17 +778,22 @@ void Player::shoot()
 		if (!_currentGun->isAutomatic())
 			_isShooting = false;
 	}
+	else if (_currentGun->hasBullets())
+	{
+		_playerArm->shoot();
+		_game->getSoundManager()->playSFX("emptyGun");
+		_isShooting = false;
+	}
 	else if (!_currentGun->canShoot() && !_currentGun->isAutomatic())
 	{
 		_playerArm->shoot();
 		_isShooting = false;
 	}
 
-	if (_currentGun->hasToBeReloaded())
-	{
+
+	if (_currentGun->hasToBeReloaded())	
 		_hasToReload = true;
-		_isShooting = false;
-	}
+	
 }
 
 bool Player::canReload()

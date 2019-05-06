@@ -11,7 +11,7 @@ Interactable::Interactable(Game* g, Vector2D posIni) : GameObject(g, "Interactab
 	_transform->setPosition(posIni.getX(), posIni.getY());
 
 	_interactIndicator = new GameObject(g);
-	if (g->isJoystick())
+	if (g->usingJoystick())
 		_interactIndicator->addComponent<Texture>(g->getTexture("InteractIndicatorController"));
 	else
 		_interactIndicator->addComponent<Texture>(g->getTexture("InteractIndicator"));
@@ -25,8 +25,6 @@ Interactable::Interactable(Game* g, Vector2D posIni) : GameObject(g, "Interactab
 
 	_interactIndicator->setActive(false);
 	addChild(_interactIndicator);
-
-	auto _indicatorTexture = _interactIndicator->getComponent<Texture>();
 }
 
 
@@ -63,16 +61,31 @@ void Interactable::beginCollision(GameObject * other, b2Contact* contact)
 	//Deteccion de player
 	if (other->getTag() == "Player")
 	{
+		if (_game->usingJoystick())
+		{
+			_interactIndicator->getComponent<AnimatedSpriteComponent>()->setTexture(_game->getTexture("InteractIndicatorController"));
+			_interactIndicator->getComponent<AnimatedSpriteComponent>()->addAnim(AnimatedSpriteComponent::Idle, 5, true);
+			_interactIndicator->getComponent<AnimatedSpriteComponent>()->playAnim(AnimatedSpriteComponent::Idle);
+		}
+		else
+		{
+			_interactIndicator->getComponent<AnimatedSpriteComponent>()->setTexture(_game->getTexture("InteractIndicator"));
+			_interactIndicator->getComponent<AnimatedSpriteComponent>()->addAnim(AnimatedSpriteComponent::Idle, 5, true);
+			_interactIndicator->getComponent<AnimatedSpriteComponent>()->playAnim(AnimatedSpriteComponent::Idle);
+		}
 		_canInteract = true;
 		_interactIndicator->setActive(true);
-		_other = dynamic_cast<Player*>(other);
+		_other = other;
 	}
 }
 
 void Interactable::endCollision(GameObject * other, b2Contact* contact)
 {
+	auto fA = contact->GetFixtureA();
+	auto fB = contact->GetFixtureB();
+
 	//Deteccion de player
-	if (other->getTag() == "Player")
+	if (other->getTag() == "Player" && !(fA->IsSensor() && fB->IsSensor()))
 	{
 		_canInteract = false;
 		_interactIndicator->setActive(false);

@@ -1,6 +1,7 @@
 #include "Game.h"
-#include <ctime>
 #include "AnyarothError.h"
+#include "ParticleManager.h"
+#include <ctime>
 #include <json.hpp>
 
 using namespace nlohmann;
@@ -62,7 +63,7 @@ void Game::createFonts()
 
 void Game::createSounds()
 {
-
+	//Music
 	_soundManager->addMusic("bgMusic", SOUNDS_PATH + "bgMusic.wav");
 	_soundManager->addMusic("shop", SOUNDS_PATH + "shop.ogg");
 	_soundManager->addMusic("safe_zone", SOUNDS_PATH + "safe_zone.ogg");
@@ -70,21 +71,16 @@ void Game::createSounds()
 	_soundManager->addMusic("demoLevelMusic", SOUNDS_PATH + "demoLevelMusic.ogg");
 	_soundManager->addSFX("example1", SOUNDS_PATH + "example1.wav");
 
-	//UI SOUNDS
+	//UI Sounds
 	_soundManager->addSFX("boton", SOUNDS_PATH + "boton.wav");
-		//Next Text (CAMBIAR)
-	_soundManager->addSFX("example", SOUNDS_PATH + "example.wav");
-		//Dialogue
 	_soundManager->addSFX("openDialogue", SOUNDS_PATH + "openDialogue.wav");
 	_soundManager->addSFX("closeDialogue", SOUNDS_PATH + "closeDialogue.wav");
 
-	//VOICES
-		//Example
+	//Voices
 	_soundManager->addSFX("exampleVoice", SOUNDS_PATH + "exampleVoice.wav");
-		//Boss
 	_soundManager->addSFX("bossVoice", SOUNDS_PATH + "bossVoice.wav");
 
-	//SOUND EFFECTS
+	//Sounds
 	_soundManager->addSFX("pick1", SOUNDS_PATH + "itempick1.wav");
 
 	_soundManager->addSFX("doorOpen", SOUNDS_PATH + "doorOpen.wav");
@@ -107,6 +103,7 @@ void Game::createSounds()
 	_soundManager->addSFX("bulletGround", SOUNDS_PATH + "bulletGround.wav");
 	_soundManager->addSFX("melee", SOUNDS_PATH + "melee.wav");
 	_soundManager->addSFX("reload", SOUNDS_PATH + "reload.wav");
+	_soundManager->addSFX("emptyGun", SOUNDS_PATH + "emptyGun.wav");
 	_soundManager->addSFX("shotgun1", SOUNDS_PATH + "shotgun1.wav");
 	_soundManager->addSFX("shotgun2", SOUNDS_PATH + "shotgun2.wav");
 	_soundManager->addSFX("rifle1", SOUNDS_PATH + "rifle1.wav");
@@ -185,9 +182,19 @@ void Game::initialiseJoysticks()
 			_joystick = SDL_GameControllerOpen(i);
 		}
 	}
-	_joystickAttached = _joystick != nullptr;
+	_joystickAttached = _usingJoystick = _joystick != nullptr;
 }
 
+
+void Game::setSensitivity(double sensitiviy)
+{
+	if (sensitiviy > 10)
+		_controllerSensitivity = 10;
+	else if (sensitiviy < 1)
+		_controllerSensitivity = 1;
+	else
+		_controllerSensitivity = sensitiviy;
+}
 
 void Game::toggleFullscreen()
 {
@@ -229,8 +236,6 @@ Game::Game()
 	createDialogues();
 	//---Initialise Joysticks
 	initialiseJoysticks();
-	//---Create world
-	_world = new b2World(b2Vec2(0.0, 9.8));
 	//---Create states
 	_stateMachine->pushState(new MenuState(this));
 }
@@ -250,9 +255,8 @@ Game::~Game()
 
 
 	delete _stateMachine;
-	ParticleManager::deleteManager();
-	delete _world;
 	delete _soundManager;
+	ParticleManager::deleteManager();
 	SDL_DestroyRenderer(_renderer);
 	SDL_DestroyWindow(_window);
 	SDL_Quit();
@@ -271,16 +275,31 @@ void Game::run()
 		startTime = current;
 		lag += elapsed;
 
+		start();
 		handleEvents();
 
 		while (lag >= FRAME_RATE)
 		{
-			_world->Step(_timestep, 8, 3);
+			updateWorld(_timestep, 8, 3);
 			update(FRAME_RATE);
 			lag -= FRAME_RATE;
 		}
 		render();
 	}
+}
+
+void Game::start()
+{
+	if (_stateMachine->currentState()->hasToStart())
+	{
+		_stateMachine->currentState()->start();
+		_stateMachine->currentState()->setStarted(true);
+	}
+}
+
+void Game::updateWorld(const float & timeStep, const int & velocityIterations, const int & positionIterations)
+{
+	_stateMachine->currentState()->updateWorld(timeStep, velocityIterations, positionIterations);
 }
 
 void Game::update(const double& deltaTime)
@@ -293,7 +312,7 @@ void Game::render() const
 {
 	SDL_RenderClear(_renderer);
 	_stateMachine->currentState()->render();
-	//_world->DrawDebugData();
+	//_stateMachine->currentState()->getWorld()->DrawDebugData();
 	SDL_RenderPresent(_renderer);
 }
 
@@ -311,9 +330,27 @@ void Game::handleEvents()
 			if (event.key.keysym.sym == SDLK_F11)
 				toggleFullscreen();
 		}
-		else if(event.type == SDL_CONTROLLERDEVICEADDED)
+		else if (event.type == SDL_CONTROLLERDEVICEADDED)
+		{
 			if (!isJoystick())
 				initialiseJoysticks();
+		}
+		else if (event.type == SDL_CONTROLLERDEVICEREMOVED)
+		{
+			_joystickAttached = false;
+			_usingJoystick = false;
+			_joystick = nullptr;
+		}
+			
+		else if (!_usingJoystick)
+		{
+			if (event.type == SDL_CONTROLLERAXISMOTION && abs(event.caxis.value) > JOYSTICK_DEADZONE) 
+				changeControlMode();
+			else if (event.type == SDL_CONTROLLERBUTTONDOWN)
+				changeControlMode();
+		}
+		else if (_usingJoystick && (event.type == SDL_MOUSEBUTTONDOWN || event.type == SDL_KEYDOWN))
+			changeControlMode();
 
 		_stateMachine->currentState()->handleEvent(event);
 	}

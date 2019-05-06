@@ -4,6 +4,7 @@
 #include "BossPanel.h"
 #include "ShopMenu.h"
 #include "DialoguePanel.h"
+#include "PopUpPanel.h"
 
 class Game;
 
@@ -14,6 +15,8 @@ private:
 	BossPanel* _bossPanel = nullptr;
 	ShopMenu* _shopMenu;
 	DialoguePanel* _dialoguePanel = nullptr;
+	PopUpPanel* _popUpPanel = nullptr;
+
 
 public:
 	PlayStateHUD() {}
@@ -24,4 +27,5 @@ public:
 	inline BossPanel* getBossPanel() const { return _bossPanel; }
 	inline ShopMenu* getShop() const { return _shopMenu; }
 	inline DialoguePanel* getDialoguePanel() const { return _dialoguePanel; }
+	inline PopUpPanel* getPopUpPanel() const { return _popUpPanel; }
 };

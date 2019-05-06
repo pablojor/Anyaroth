@@ -11,22 +11,20 @@ private:
 	GunType _id;
 
 protected:
+	Game* _game = nullptr;
+
 	int _maxMagazine = 0, _magazine = 0, _maxClip = 0, _clip = 0;
+	double _damage = 0, _range = 0, _speed = 0;
 	double _maxCadence = 0, _cadence = 0;	//Tiempo entre bala y bala (se actualizara con el deltaTime)
-	bool _isAutomatic = false;
+	bool _isAutomatic = false, createParticles = true;
+
 	EffectInterface* _effect;
 	BulletAnimType _bulletAnimType;
 	ArmAnimType _animType;
 
-	double _damage = 0, _range = 0, _speed = 0;
-
 	Vector2D _offset = { 0, 0 };
-
 	Texture* _armTexture = nullptr, *_bulletTexture = nullptr, *_iconTexture = nullptr;
 	string _shotSoundTag = "";
-	Game* _game = nullptr;
-
-	bool createParticles = true;
 
 public:
 	Gun(Game* game, Texture* armTexture, Texture* bulletTexture, string shotSoundTag, double speed, double damage, double range, int maxClip, int maxMagazine, int maxCadence, EffectInterface* effect, GunType id, Texture* iconTexture, bool automatic = false, BulletAnimType bType = BulletAnimType::Default);
@@ -38,6 +36,7 @@ public:
 	virtual void reload();
 
 	inline bool canShoot() const { return _clip > 0 && _cadence <= 0; }
+	inline bool hasBullets() const { return _clip == 0 && _magazine == 0; }
 	inline bool canReload() const { return _magazine > 0 && _clip < _maxClip; }
 
 	void addAmmo(int ammoAdded);
@@ -49,17 +48,15 @@ public:
 
 	inline const GunType& getGunID() const { return _id; }
 	inline const ArmAnimType& getAnimType() const { return _animType; }
+	inline BulletAnimType getBulletAnimType() const { return _bulletAnimType; }
 
 	inline bool hasToBeReloaded() const { return _clip == 0 && _magazine > 0; }
+	inline bool isAutomatic() const { return _isAutomatic; }
 
 	Vector2D prepareBulletPosition(const Vector2D& position, const double& angle);
 
-	inline bool isAutomatic() const { return _isAutomatic; }
-
 	inline void refreshGunCadence(const Uint32& deltaTime) { _cadence > 0 ? _cadence -= deltaTime : _cadence = 0; }
 
-	inline void setBulletTexture(Texture* texture) { _bulletTexture = texture; }
-	
 	inline Texture* getBulletTexture() const { return _bulletTexture; }
 	inline Texture* getArmTexture() const { return _armTexture; }
 	inline Texture* getIconTexture() const { return _iconTexture; }
@@ -69,8 +66,7 @@ public:
 	inline void setMaxCadence(double value) { _maxCadence = value; _cadence = 0; }
 	inline void setBulletSpeed(double value) { _speed = value; }
 	inline void setDamage(double value) { _damage = value; }
+	inline void setBulletTexture(Texture* texture) { _bulletTexture = texture; }
 	inline void setBulletAnimType(BulletAnimType bType) { _bulletAnimType = bType; }
 	inline void setShotSound(string soundTag) { _shotSoundTag = soundTag; }
-	inline BulletAnimType getBulletAnimType() const { return _bulletAnimType; }
-
 };

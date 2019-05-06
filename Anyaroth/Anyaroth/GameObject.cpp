@@ -3,7 +3,7 @@
 
 GameObject::GameObject(Game* game, string tag) : _game(game), _inputComp(), _physicsComp(), _renderComp(), _tag(tag)
 {
-	if (game != nullptr) _world = game->getWorld();
+	if (game != nullptr) _world = game->getCurrentState()->getWorld();
 }
 
 GameObject::~GameObject() 
@@ -17,11 +17,13 @@ GameObject::~GameObject()
 			it->second = nullptr;
 		}
 	}
-	
+	_components.clear();
 
 	//Llama a la destructora de los hijos
 	for (GameObject* child : _children)
 		delete child;
+
+	_children.clear();
 }
 
 bool GameObject::handleEvent(const SDL_Event& event)

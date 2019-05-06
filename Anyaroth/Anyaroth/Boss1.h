@@ -1,7 +1,7 @@
 #pragma once
 #include "Boss.h"
 #include "BossPanel.h"
-#include "Axe.h"
+#include "BossSword.h"
 #include "BossOrbCannon.h"
 #include "BomberGun.h"
 
@@ -36,6 +36,8 @@ public:
 	virtual ~Boss1();
 
 	virtual void update(const double& deltaTime);
+
+	void popUpMessage();
 
 	void movement(const double& deltaTime);
 	void bomberAttack(const double& deltaTime, int t1, int t2);

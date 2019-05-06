@@ -31,7 +31,7 @@ const Uint32 FRAME_RATE = 1000 / 60;
 const int TILES_SIZE = 16;
 const double M_TO_PIXEL = 8;
 const double BUTTON_SCALE = 0.25;
-const int JOYSTICK_DEADZONE = 6000;
+const int JOYSTICK_DEADZONE = 8000;
 
 enum _Category
 {
@@ -45,7 +45,7 @@ enum _Category
 	DEAD_ENEMIES = 128,
 	COLLECTED_OBJECTS = 256,
 	MELEE = 512,
-	MISIL=1024,
+	MISIL = 1024,
 };
 
 class Game
@@ -62,14 +62,26 @@ private:
 	map <string, Dialogue> _dialogues;
 	
 	SDL_GameController* _joystick = nullptr;
-	bool _joystickAttached;
-
-
-	b2World* _world = nullptr;
+	bool _joystickAttached;//Indica si hay algun mando conectado se este usando o no
+	bool _usingJoystick = false; // Indica si se esta usando el mando, si es falso se usa el raton 
+	
 	float _timestep = FRAME_RATE / 1000.0f;
 	bool _exit = false;
 
+	//valor entre 1 y 10
+	double _controllerSensitivity = 10;
+
 public:
+	Game();
+	~Game();
+
+	void run();
+	void start();
+	void updateWorld(const float& timeStep, const int& velocityIterations, const int& positionIterations);
+	void update(const double& deltaTime);
+	void render() const;
+	void handleEvents();
+
 	//Metodos
 	void createTextures();
 	void createFonts();
@@ -82,30 +94,27 @@ public:
 	inline void changeState(GameState* state) { _stateMachine->changeState(state); }
 	inline void popState() { _stateMachine->popState(); }
 
-	//Texture* newTexture(string id, string nameText);
 	inline Texture* getTexture(string nameText) { return _textures[nameText]; }
 	inline Font* getFont(string nameFont) { return _fonts[nameFont]; }
 	inline Dialogue getDialogue(string nameDialogue) { return _dialogues[nameDialogue]; }
 	inline SDL_GameController* getJoystick() const { return _joystick; }
 	inline bool isJoystick() const { return _joystickAttached; }
+	inline bool usingJoystick() const{ return _usingJoystick; }
+	inline void changeControlMode() { _usingJoystick = !_usingJoystick; }
+	inline void setControlMode(bool controlMode) { _usingJoystick = controlMode; }// si control mode es true o 1 se usa el mando si no se usa el raton 
 
 	inline SDL_Renderer* getRenderer() const { return _renderer; }
 	inline SDL_Window* getWindow() const { return _window; }
 
 	inline SoundManager* getSoundManager() const { return _soundManager; }
 
-	inline b2World* getWorld() const { return _world; }
 	inline void setTimestep(float timestep) { _timestep = timestep; }
 	inline void setExit(bool quit) { _exit = quit; }
 
 	inline int random(int low, int high) const { return low + (rand() % abs(high - low)); }
 
-	void toggleFullscreen();
+	void setSensitivity(double sensitiviy);
+	inline double getSensitivity() const { return _controllerSensitivity; }
 
-	Game();
-	~Game();
-	void run();
-	void update(const double& deltaTime);
-	void render() const;
-	void handleEvents();
+	void toggleFullscreen();
 };

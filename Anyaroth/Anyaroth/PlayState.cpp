@@ -1,77 +1,69 @@
 #include "PlayState.h"
 #include "Game.h"
 #include "PauseState.h"
-#include "ParallaxLayer.h"
-#include "WeaponManager.h"
 #include "GameManager.h"
+#include "ParticleManager.h"
+#include "WeaponManager.h"
 #include "CutScene.h"
 #include "checkML.h"
 #include <json.hpp>
 
 using namespace nlohmann;
 
-PlayState::PlayState(Game* g) : GameState(g)
+PlayState::PlayState(Game* g) : GameState(g) {}
+
+PlayState::~PlayState()
+{
+	_playerBulletPool->stopBullets();
+
+	if (_cutScene != nullptr)
+		delete _cutScene;
+}
+
+void PlayState::start()
 {
 	GameManager::init();
-	WeaponManager::init();	
+	WeaponManager::init();
 
-	//HUD
-	_playHud = new PlayStateHUD(g);
+	//PlayState HUD
+	_playHud = new PlayStateHUD(_gameptr);
 	setCanvas(_playHud);
 
+	//Cursor
+	_cursor = new Cursor(_gameptr);
+	SDL_ShowCursor(false);
+
 	//Player
-	_player = new Player(g, 100, 200);
-	_playerBulletPool = new BulletPool(g);
-	_player->setPlayerBulletPool(_playerBulletPool);
+	_player = new Player(_gameptr);
 	_player->setPlayerPanel(_playHud->getPlayerPanel());
 
-	_playHud->getShop()->setPlayer(_player);
+	//Player Bulletpool
+	_playerBulletPool = new BulletPool(_gameptr);
+	_player->setPlayerBulletPool(_playerBulletPool);
+
+	//Shop Items
+	if (!_gameptr->getCurrentState()->gameLoaded())
+		_playHud->getShop()->setPlayer(_player);
 	_playHud->getShop()->setVisible(false);
-
-	//Enemy Pool
-	auto enemyPool = new BulletPool(g);
-
-	//Levels
-	GameManager::getInstance()->setCurrentLevel(LevelManager::SafeDemo);
-	_level = new GameObject(g);
-	_levelManager = LevelManager(g, _player, _level, _mainCamera, _playHud, enemyPool);
-	_levelManager.setLevel(GameManager::getInstance()->getCurrentLevel());
-	_mainCamera->setWorldBounds(_levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getWidth(), _levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getHeight());
-
-	//Background
-	_parallaxZone1 = new ParallaxBackGround(_mainCamera);
-	_parallaxZone1->addLayer(new ParallaxLayer(g->getTexture("BgZ1L1"), _mainCamera, 0.25));
-	_parallaxZone1->addLayer(new ParallaxLayer(g->getTexture("BgZ1L2"), _mainCamera, 0.5));
-	_parallaxZone1->addLayer(new ParallaxLayer(g->getTexture("BgZ1L3"), _mainCamera, 0.75));
-	_controls = new ParallaxLayer(g->getTexture("ControlsBG"), _mainCamera, 0);
-	_parallaxZone1->addLayer(_controls);
-
-	//Cursor
-	_cursor = new Cursor(g);
-	SDL_ShowCursor(false);
 
 	//Camera
 	_mainCamera->fixCameraToObject(_player);
-	_mainCamera->setBackGround(_parallaxZone1);
 
-	//Collisions and debugger
-	g->getWorld()->SetContactListener(&_colManager);
-	g->getWorld()->SetDebugDraw(&_debugger);
+	//Enemy Pool
+	BulletPool* enemyPool = new BulletPool(_gameptr);
 
-	//World
-	_debugger.getRenderer(g->getRenderer());
-	_debugger.getTexture(g->getTexture("Box"));
-	_debugger.SetFlags(b2Draw::e_shapeBit);
-	_debugger.getCamera(_mainCamera);
+	//Level
+	GameManager::getInstance()->setCurrentLevel(LevelManager::Level1_1);
 
-	//Gestion de colisiones
-	g->getWorld()->SetContactListener(&_colManager);
-	g->getWorld()->SetDebugDraw(&_debugger);
+	_level = new GameObject(_gameptr);
+	_levelManager = LevelManager(_gameptr, _player, _level, enemyPool);
 
-	//Particulas
-	_particles = new ParticlePull(g);
-	_particleManager = ParticleManager::GetParticleManager();
-	_particleManager->setParticlePull(_particles);
+	if (!_gameptr->getCurrentState()->gameLoaded())
+		_levelManager.setLevel(GameManager::getInstance()->getCurrentLevel());
+
+	//Particles
+	_particlePool = new ParticlePool(_gameptr);
+	ParticleManager::GetParticleManager()->setParticlePool(_particlePool);
 
 	//----AÑADIR A LOS OBJETOS----//
 
@@ -80,22 +72,7 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_stages.push_back(_cursor);
 	_stages.push_back(_playerBulletPool);
 	_stages.push_back(enemyPool);
-	_stages.push_back(_particles);
-
-	getMainCamera()->fadeIn(3000);
-	getMainCamera()->fitCamera({ (double)_levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getWidth(),
-		(double)_levelManager.getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getHeight() }, false);
-}
-
-PlayState::~PlayState()
-{
-	if (_cutScene != nullptr)
-		delete _cutScene;
-}
-
-void PlayState::render() const
-{
-	GameState::render();
+	_stages.push_back(_particlePool);
 }
 
 bool PlayState::handleEvent(const SDL_Event& event)
@@ -135,8 +112,10 @@ void PlayState::saveGame()
 		j["otherGun"] = _player->getOtherGun()->getGunID();
 
 		auto items = _playHud->getShop()->getItems();
+
 		for (ShopItem* i : items)
 			j[i->getItemInfo()._name] = i->getItemInfo()._sold;
+
 		output << j;
 	}
 }
@@ -151,9 +130,9 @@ void PlayState::loadGame()
 		json j;
 		input >> j;
 		_player->setBank(j["Bank"]);
-		_levelManager.changeLevel(j["level"]);
-		_player->changeCurrentGun(WeaponManager::getWeapon(_gameptr, j["currentGun"]));
-		_player->changeOtherGun(WeaponManager::getWeapon(_gameptr, j["otherGun"]));
+		_levelManager.setLevel(j["level"]);
+		_player->changeCurrentGun(WeaponManager::getInstance()->getWeapon(_gameptr, j["currentGun"]));
+		_player->changeOtherGun(WeaponManager::getInstance()->getWeapon(_gameptr, j["otherGun"]));
 
 		auto items = _playHud->getShop()->getItems();
 		for (ShopItem* i : items)
@@ -170,85 +149,46 @@ void PlayState::update(const double& deltaTime)
 {
 	if (_player->changeLevel())
 	{
-		GameManager* gManager = GameManager::getInstance();
+		GameManager* gameManager = GameManager::getInstance();
 		_player->setChangeLevel(false);
 
 		if (!_player->isDead())
 		{
-			if ((gManager->getCurrentLevel() + 1) % 2 == 0) //Si el proximo nivel no es una safe zone guarda el juego
+			if ((gameManager->getCurrentLevel() + 1) % 2 == 0) //Si el proximo nivel no es una safe zone guarda el juego
 				saveGame();
 			else
 				_player->getMoney()->storeWallet();
 
 			_player->setInputFreezed(true);
 			getMainCamera()->fadeOut(1000);
-			getMainCamera()->onFadeComplete([this, gManager](Game* game)
+			getMainCamera()->onFadeComplete([this, gameManager](Game* game)
 			{
+				gameManager->nextLevel();
+				_levelManager.changeLevel(gameManager->getCurrentLevel());
+
 				_player->revive();
-				gManager->setCurrentLevel(gManager->getCurrentLevel() + 1);
-				_levelManager.changeLevel(gManager->getCurrentLevel());
 				_player->setInputFreezed(false);
 
 				if (_cutScene != nullptr)
 					_cutScene->play();
-
-				if (_controls != nullptr) {
-					_parallaxZone1->removeLayer(_controls);
-					delete _controls;
-					_controls = nullptr;
-				}
-
-				int l = gManager->getCurrentLevel();
-				if (l == LevelManager::Boss1 || l == LevelManager::Boss2 || l == LevelManager::Boss3 || l == LevelManager::BossDemo)
-				{
-					game->getCurrentState()->getMainCamera()->fadeIn(1000);
-					game->getCurrentState()->getMainCamera()->onFadeComplete([this, gManager, l](Game* game)
-					{
-						game->getCurrentState()->getMainCamera()->fitCamera({ (float)_levelManager.getCurrentLevel(l)->getWidth(), (float)_levelManager.getCurrentLevel(l)->getHeight() }, true);
-					});
-				}
 			});
 		}
 		else if (!getMainCamera()->isFading())
 		{
-			_playerBulletPool->stopBullets();
-
 			_player->setInputFreezed(true);
 			getMainCamera()->fadeOut(1000);
-			getMainCamera()->onFadeComplete([this, gManager](Game* game)
+			getMainCamera()->onFadeComplete([this, gameManager](Game* game)
 			{
-				_player->revive();
-
-				gManager->setCurrentLevel(gManager->getCurrentLevel() - 1);
-				_levelManager.changeLevel(gManager->getCurrentLevel());
-
-				if (gManager->getCurrentLevel() == LevelManager::SafeDemo)
-				{
-					_controls = new ParallaxLayer(game->getTexture("ControlsBG"), _mainCamera, 0);
-					_parallaxZone1->addLayer(_controls);
-					getMainCamera()->fitCamera({ (double)_levelManager.getCurrentLevel(1)->getWidth(), (double)_levelManager.getCurrentLevel(1)->getHeight() }, false);
-
-				}
-
 				_player->setChangeLevel(false);
+
+				gameManager->previousLevel();
+				_levelManager.changeLevel(gameManager->getCurrentLevel());
+
+				_player->revive();
 				_player->setInputFreezed(false);
 			});
 		}
 	}
-	else
-	{
-		if (_cutScene != nullptr)
-		{
-			if (_cutScene->isPlaying())
-				_cutScene->update(deltaTime);
-			else
-			{
-				delete _cutScene;
-				_cutScene = nullptr;
-			}
-		}
-	}
-
 	GameState::update(deltaTime);
-    _particleManager->updateManager(deltaTime);
+	ParticleManager::GetParticleManager()->updateManager(deltaTime);
 }

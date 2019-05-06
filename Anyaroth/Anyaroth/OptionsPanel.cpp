@@ -51,7 +51,6 @@ OptionsPanel::OptionsPanel(Game* g, bool mainMenu) : _menu(mainMenu), PanelUI(g)
 	_screenButton->setNextButtons({ _backButton, _lessBright, _backButton, _lessVolume });
 	_backButton->setNextButtons({ _screenButton, _moreBright, _screenButton, _moreVolume });
 
-	_selectedButton = _lessVolume;
 	//----TEXTOS----//
 
 	//Valores
@@ -99,8 +98,13 @@ OptionsPanel::OptionsPanel(Game* g, bool mainMenu) : _menu(mainMenu), PanelUI(g)
 
 	_visible = false;
 
-	if (_game->isJoystick())
+	_selectedButton = _lessVolume;
+	if (_game->usingJoystick())
+	{
 		_selectedButton->setSelected(true);
+		SDL_ShowCursor(false);
+		SDL_WarpMouseGlobal(0, 0);
+	}
 }
 
 

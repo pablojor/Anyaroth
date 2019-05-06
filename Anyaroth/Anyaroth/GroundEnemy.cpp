@@ -1,10 +1,10 @@
 #include "GroundEnemy.h"
 
-GroundEnemy::GroundEnemy(Game* g, Player* player, Vector2D pos, Texture* texture) : Enemy(g, player, pos, texture) {}
+GroundEnemy::GroundEnemy(Game* g, Player* player, Vector2D pos, Texture* texture) : Enemy(g, player, pos, texture) { _affectedByExternalForces = true; }
 
 void GroundEnemy::idle()
 {
-	if (!_stunned && _attacking == false)
+	if (!_stunned && !_attacking)
 	{
 		_body->getBody()->SetLinearVelocity({ 0, _body->getBody()->GetLinearVelocity().y });
 		_anim->playAnim(AnimatedSpriteComponent::Idle);
@@ -13,7 +13,7 @@ void GroundEnemy::idle()
 
 void GroundEnemy::moving(Vector2D& dir)
 {
-	if (!_stunned && _attacking == false)
+	if (!_stunned && !_attacking)
 	{
 		if (!(collidingL && dir.getX() < 0) && !(collidingR && dir.getX() > 0))
 		{
@@ -27,7 +27,7 @@ void GroundEnemy::moving(Vector2D& dir)
 
 void GroundEnemy::attack()
 {
-	if (!_stunned && _attacking == false)
+	if (!_stunned && !_attacking)
 	{
 		_body->getBody()->SetLinearVelocity({ 0, _body->getBody()->GetLinearVelocity().y });
 		_anim->playAnim(AnimatedSpriteComponent::EnemyAttack); //Llamas a animacion de ataque
@@ -36,6 +36,7 @@ void GroundEnemy::attack()
 		_attacking = true;
 	}
 }
+
 
 void GroundEnemy::addSensors()
 {

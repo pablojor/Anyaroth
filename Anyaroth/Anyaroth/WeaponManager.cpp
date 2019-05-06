@@ -9,12 +9,18 @@
 #include "GravityBombCannon.h"
 #include "PlasmaSniper.h"
 
+#include "Melee.h"
+#include "Knife.h"
+#include "Sword.h"
+#include "PoleAxe.h"
+
 #include <json.hpp>
 #include <map>
 
 WeaponManager WeaponManager::_instance;
 bool WeaponManager::_initilized = false;
 map<GunType, GunInfo> WeaponManager::_weaponInfo;
+map<MeleeType, MeleeInfo> WeaponManager::_meleeInfo;
 
 void WeaponManager::init()
 {
@@ -34,7 +40,10 @@ void WeaponManager::init()
 
 			for (nlohmann::json::iterator typeWeapon = weapon.begin(); typeWeapon != weapon.end(); ++typeWeapon)
 			{
-				_weaponInfo[typeWeapon.value()["id"]] = { typeWeapon.value()["zone"], typeWeapon.key(), typeWeapon.value()["price"] ,
+				if (it.key() == "Melee")
+					_meleeInfo[typeWeapon.value()["id"]] = { typeWeapon.value()["zone"], typeWeapon.key(), typeWeapon.value()["icon"].get<string>(), typeWeapon.value()["frame"].get<string>() };
+				else
+					_weaponInfo[typeWeapon.value()["id"]] = { typeWeapon.value()["zone"], typeWeapon.key(), typeWeapon.value()["price"] ,
 														typeWeapon.value()["damage"], typeWeapon.value()["cadence"], typeWeapon.value()["range"],
 														typeWeapon.value()["clip"], typeWeapon.value()["icon"].get<string>(), typeWeapon.value()["frame"].get<string>() };
 			}
@@ -53,37 +62,57 @@ WeaponManager * WeaponManager::getInstance()
 	return &_instance;
 }
 
-Gun* WeaponManager::getWeapon(Game* _game, GunType type)
+Gun* WeaponManager::getWeapon(Game* game, GunType type)
 {
 	Gun* w = nullptr;
 	switch (type)
 	{
 	case Pistol_Weapon:
-		w = new BasicPistol(_game);
+		w = new BasicPistol(game);
 		break;
 	case BasicShotgun_Weapon:
-		w = new BasicShotgun(_game);
+		w = new BasicShotgun(game);
 		break;
 	case ImprovedShotgun_Weapon:
-		w = new ImprovedShotgun(_game);
+		w = new ImprovedShotgun(game);
 		break;
 	case BasicRifle_Weapon:
-		w = new BasicRifle(_game);
+		w = new BasicRifle(game);
 		break;
 	case ImprovedRifle_Weapon:
-		w = new ImprovedRifle(_game);
+		w = new ImprovedRifle(game);
 		break;
 	case PlasmaSniper_Weapon:
-		w = new PlasmaSniper(_game);
+		w = new PlasmaSniper(game);
 		break;
 	case BounceOrbCannon_Weapon:
-		w = new BounceOrbCannon(_game);
+		w = new BounceOrbCannon(game);
 		break;
 	case BHCannon_Weapon:
-		w = new GravityBombCannon(_game);
+		w = new GravityBombCannon(game);
 		break;
 	default:
 		break;
 	}
 	return w;
+}
+
+Melee * WeaponManager::getMelee(Game * game, MeleeType type)
+{
+	Melee* m = nullptr;
+	switch (type)
+	{
+	case Knife_Weapon:
+		m = new Knife(game);
+		break;
+	case Sword_Weapon:
+		m = new Sword(game);
+		break;
+	case PoleAxe_Weapon:
+		m = new PoleAxe(game);
+		break;
+	default:
+		break;
+	}
+	return m;
 }

@@ -1,6 +1,6 @@
 #include "Gun.h"
+#include "ParticleManager.h"
 #include <algorithm>
-
 
 Gun::Gun(Game* game, Texture* armTexture, Texture* bulletTexture, string shotSoundTag, double speed, double damage, double range, int maxClip, int maxMagazine, int maxCadence, EffectInterface* effect, GunType id, Texture* iconTexture, bool automatic, BulletAnimType bType) : _armTexture(armTexture), _bulletTexture(bulletTexture), _shotSoundTag(shotSoundTag), _iconTexture(iconTexture)
 {
@@ -27,6 +27,8 @@ void Gun::shoot(BulletPool* bulletPool, const Vector2D& position, const double& 
 		_cadence = _maxCadence;
 
 		_game->getSoundManager()->playSFX(_shotSoundTag, _id); //Reproduce el sonido de disparo
+
+
 		//Disparar la bala aqui
 		Bullet* b = bulletPool->getUnusedObject();
 		Vector2D bulletPos = prepareBulletPosition(position, angle);
@@ -56,7 +58,7 @@ void Gun::enemyShoot(BulletPool* bulletPool, const Vector2D& position, const dou
 	{
 		_cadence = _maxCadence;
 
-		_game->getSoundManager()->playSFX(_shotSoundTag); //Reproduce el sonido de disparo
+		_game->getSoundManager()->playSFX(_shotSoundTag, _id); //Reproduce el sonido de disparo
 
 		//Disparar la bala aqui
 		Bullet* b = bulletPool->getUnusedObject();
