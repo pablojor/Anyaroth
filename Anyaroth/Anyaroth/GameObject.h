@@ -11,6 +11,7 @@
 
 #include "FileNotFoundError.h"
 #include "FileFormatError.h"
+#include "Vector2D.h"
 
 using namespace std;
 
@@ -121,6 +122,8 @@ public:
 
 	virtual int getDamage() const { return 0; }
 	virtual void subLife(int damage) {}
+
+	Vector2D getPositionOnScreen();
 
 	inline virtual int getValue() const { return -1; }
 

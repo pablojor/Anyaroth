@@ -4,10 +4,11 @@
 
 EnemyLifePanel::EnemyLifePanel(Game* game,Enemy* enemy) : PanelUI(game),_enemy(enemy)
 {
+	//auto camera = _game->getCurrentState()->getMainCamera();
 	_frame = new ImageUI(game, game->getTexture("HeadLifeBar"));
-	_frame->setPosition((enemy->getComponent<TransformComponent>()->getPosition().getX() - _frame->getW()*2), enemy->getComponent<TransformComponent>()->getPosition().getY() - _frame->getH() - 10);
+	auto pos = enemy->getPositionOnScreen();
+	_frame->setPosition((enemy->getPositionOnScreen().getX() - _frame->getW() / 2), enemy->getPositionOnScreen().getY() - _frame->getH() - 10);
 	
-	cout << _frame->getX() << " " << enemy->getComponent<TransformComponent>()->getPosition().getX() << endl;
 	_lifeBar = new LifeBar(game, "HeadLifeBarMask");
 
 	int maskPosY = _frame->getY() + _frame->getH() / 2 - _lifeBar->getH() / 2;
@@ -29,6 +30,10 @@ EnemyLifePanel::~EnemyLifePanel()
 
 void EnemyLifePanel::updateLifeBar( int life,  int maxLife)
 {
-
 	_lifeBar->updateLifeBar(life, maxLife);
+}
+
+void EnemyLifePanel::render() const
+{
+	PanelUI::render();
 }

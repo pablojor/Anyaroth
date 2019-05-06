@@ -3,8 +3,8 @@
 #include "LifeBar.h"
 #include "TextUI.h"
 #include "Enemy.h"
-class EnemyLifePanel :
-	public PanelUI
+
+class EnemyLifePanel :	public PanelUI
 {
 private:
 	ImageUI* _frame = nullptr;
@@ -14,5 +14,7 @@ public:
 	EnemyLifePanel(Game* game,Enemy* enemy);
 	~EnemyLifePanel();
 	void updateLifeBar(int life1, int maxLife);
+
+	virtual void render() const;
 };
 

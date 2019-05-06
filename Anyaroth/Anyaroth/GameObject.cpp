@@ -103,6 +103,21 @@ void GameObject::destroyAllChildren()
 	_children.clear();
 }
 
+Vector2D GameObject::getPositionOnScreen()
+{
+	auto transform = getComponent<TransformComponent>();
+	auto mainCamera = _game->getCurrentState()->getMainCamera();
+
+	//Cogemos su posicion en pantalla
+	int xPos = transform->getPosition().getX();	int yPos = transform->getPosition().getY();
+
+	//Lo convertimos en su posicion en el mundo
+	xPos -= mainCamera->getCameraPosition().getX();
+	yPos -= mainCamera->getCameraPosition().getY();
+
+	return Vector2D(xPos, yPos);
+}
+
 void GameObject::destroy()
 {
 	if (_game->getCurrentState() != nullptr) {

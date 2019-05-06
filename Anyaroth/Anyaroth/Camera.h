@@ -17,12 +17,12 @@ class Camera
 {
 private:
 	Game* _game = nullptr;
-	SDL_Rect _cameraRect;
+	SDL_Rect _cameraRect = { 0, 0, CAMERA_RESOLUTION_X, CAMERA_RESOLUTION_Y };
 	BackGround* _backGround = nullptr;
 
 	GameObject* _followedObject = nullptr;
 
-	int _xWorldBounds = 0, _yWorldBounds = 0;
+	int _xWorldBounds = CAMERA_RESOLUTION_X, _yWorldBounds = CAMERA_RESOLUTION_Y;
 
 	void moveCamera(const double& deltaTime);
 	void smoothMovement(const double& deltaTime);
