@@ -169,9 +169,10 @@ void Map::createObjects()
 			else if (name == "FloatingHead")
 			{
 				auto head = new FloatingHead(_game, _player, Vector2D(pos.getX() - TILES_SIZE * 2, pos.getY() - TILES_SIZE * 2), _bulletPool, _angra);
-				auto life=new EnemyLifePanel(_game, head);
-				_hud->addUIElement(life);
-				head->setLifePanel(life);
+
+				_hud->getEnemyLifePanel()->addEnemy(head);
+				head->setLifePanel(_hud->getEnemyLifePanel());
+
 				_angra->addChild(head);
 				_angra->push_backHead(head);
 			}

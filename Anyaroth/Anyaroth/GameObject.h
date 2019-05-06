@@ -123,7 +123,9 @@ public:
 	virtual int getDamage() const { return 0; }
 	virtual void subLife(int damage) {}
 
-	Vector2D getPositionOnScreen();
+	inline Camera* getCamera() const;
+
+	Vector2D getPositionOnCamera();
 
 	inline virtual int getValue() const { return -1; }
 

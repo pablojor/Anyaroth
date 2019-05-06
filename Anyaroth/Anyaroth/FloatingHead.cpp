@@ -14,7 +14,6 @@ FloatingHead::FloatingHead(Game* g, Player* player, Vector2D pos, BulletPool* po
 
 FloatingHead::~FloatingHead()
 {
-	
 }
 
 void FloatingHead::shooting(double deltaTime)
@@ -48,8 +47,6 @@ void FloatingHead::update( const double & deltaTime)
 
 	if (!isStunned() && !isDead() && inCamera())
 	{
-		
-
 		if (!_invincibility && _timeShooting<=6000)
 		{
 			shooting(deltaTime);
@@ -71,12 +68,11 @@ void FloatingHead::subLife(int damage)
 
 		if (_life.getLife() == 0)
 		{
-			_lifePanel->setVisible(false);
 			die();
+			_lifePanel->removeEnemy(this);
 		}
 		else
 		{
-			_lifePanel->updateLifeBar(_life.getLife(), _life.getMaxLife());
 			_anim->hurt();
 			_spawnParticles = true;
 		}

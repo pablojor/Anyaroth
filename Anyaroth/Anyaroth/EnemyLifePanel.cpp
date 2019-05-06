@@ -1,20 +1,11 @@
 #include "EnemyLifePanel.h"
 #include "Game.h"
+#include "Enemy.h"
 
-
-EnemyLifePanel::EnemyLifePanel(Game* game,Enemy* enemy) : PanelUI(game),_enemy(enemy)
+EnemyLifePanel::EnemyLifePanel(Game* game) : PanelUI(game)
 {
-	//auto camera = _game->getCurrentState()->getMainCamera();
-	_frame = new ImageUI(game, game->getTexture("HeadLifeBar"));
-	auto pos = enemy->getPositionOnScreen();
-	_frame->setPosition((enemy->getPositionOnScreen().getX() - _frame->getW() / 2), enemy->getPositionOnScreen().getY() - _frame->getH() - 10);
-	
+	_frame = new ImageUI(game, game->getTexture("HeadLifeBar"));	
 	_lifeBar = new LifeBar(game, "HeadLifeBarMask");
-
-	int maskPosY = _frame->getY() + _frame->getH() / 2 - _lifeBar->getH() / 2;
-	int maskPosX = _frame->getX() + _frame->getW() / 2 - _lifeBar->getW() / 2;
-
-	_lifeBar->setPosition(maskPosX, maskPosY);
 
 	addChild(_frame);
 	addChild(_lifeBar);
@@ -28,12 +19,28 @@ EnemyLifePanel::~EnemyLifePanel()
 {
 }
 
-void EnemyLifePanel::updateLifeBar( int life,  int maxLife)
+void EnemyLifePanel::updateLifeBar(int life,  int maxLife)
 {
 	_lifeBar->updateLifeBar(life, maxLife);
 }
 
 void EnemyLifePanel::render() const
 {
-	PanelUI::render();
+	for (auto it = _enemies.begin(); it != _enemies.end(); it++)
+	{
+		if (!(*it)->isDead())
+		{
+			Vector2D position = (*it)->getPositionOnCamera();
+
+			_frame->setPosition((position.getX() - _frame->getW() / 2 + 9), position.getY() - _frame->getH() - 10);
+
+			int maskPosX = _frame->getX() + _frame->getW() / 2 - _lifeBar->getImage()->getW() / 2;
+			int maskPosY = _frame->getY() + _frame->getH() / 2 - _lifeBar->getImage()->getH() / 2;
+
+			_lifeBar->updateLifeBar((*it)->getLife().getLife(), (*it)->getLife().getMaxLife());
+			_lifeBar->setPosition(maskPosX, maskPosY);
+
+			PanelUI::render();
+		}		
+	}
 }

@@ -188,12 +188,12 @@ void Boss2::meleeAttack()
 
 	_melee->setActive(false);
 
-	if (_life1.getLife() > 0)
-		_anim->playAnim(AnimatedSpriteComponent::AzuraSpin1);
-	else if (_life2.getLife() > 0)
-		_anim->playAnim(AnimatedSpriteComponent::AzuraSpin2);
-	else
-		_anim->playAnim(AnimatedSpriteComponent::AzuraSpin3);
+	//if (_life1.getLife() > 0)
+	//	//_anim->playAnim(AnimatedSpriteComponent::AzuraSpin1);
+	//else if (_life2.getLife() > 0)
+	//	//_anim->playAnim(AnimatedSpriteComponent::AzuraSpin2);
+	//else
+	//	//_anim->playAnim(AnimatedSpriteComponent::AzuraSpin3);
 
 	_velocity = { _velocity.getX() + _speedIncrement, _velocity.getY() };
 }
