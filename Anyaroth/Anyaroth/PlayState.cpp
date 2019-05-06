@@ -44,7 +44,6 @@ PlayState::PlayState(Game* g) : GameState(g)
 	_parallaxZone1->addLayer(new ParallaxLayer(g->getTexture("BgZ1L2"), _mainCamera, 0.5));
 	_parallaxZone1->addLayer(new ParallaxLayer(g->getTexture("BgZ1L3"), _mainCamera, 0.75));
 	_controls = new ParallaxLayer(g->getTexture("ControlsBG"), _mainCamera, 0);
-	_parallaxZone1->addLayer(_controls);
 
 	//Cursor
 	_cursor = new Cursor(g);

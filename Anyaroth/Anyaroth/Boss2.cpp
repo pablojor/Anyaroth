@@ -1,15 +1,17 @@
 #include "Boss2.h"
 #include "Poleaxe.h"
-#include "BasicShotgun.h"
+#include "ImprovedShotgun.h"
 
 Boss2::Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, player, pos, pool, g->getTexture("Azura")), Enemy(g, player, pos, g->getTexture("Azura"))
 {
 	_life = 250; // Demo Guerrilla
 	_life1 = _life2 = _life3 = _life;
 
-	_myGun = new BasicShotgun(g);
+	_myGun = new ImprovedShotgun(g);
+	_myGun->setBulletSpeed(60);
 
 	_arm->setOffSet(Vector2D(140, 105));
+	_arm->getComponent<CustomAnimatedSpriteComponent>()->setVisible(false);
 
 	_anim->addAnim(AnimatedSpriteComponent::AzuraIdle1, 13, true);
 	_anim->addAnim(AnimatedSpriteComponent::AzuraIdle2, 13, true);
@@ -33,13 +35,13 @@ Boss2::Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, 
 	_body->setW(40);
 	_body->setH(100);
 
-	_body->moveShape(b2Vec2(0, 2.2));
+	_body->moveShape(b2Vec2(0, 2));
 
 	_body->filterCollisions(ENEMIES, FLOOR | PLAYER_BULLETS | MELEE);
 
 	_body->addCricleShape(b2Vec2(0, 6.5), 2, PLAYER, FLOOR | PLATFORMS);
 	_body->getBody()->SetFixedRotation(true);
-	_body->getBody()->SetGravityScale(3.5);
+	_body->getBody()->SetGravityScale(10);
 
 	_originalPos = Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL);
 	
@@ -70,12 +72,10 @@ Boss2::~Boss2()
 
 void Boss2::Jump()
 {
-	
-		
-	_body->getBody()->ApplyLinearImpulseToCenter(b2Vec2(_dir * 300, -10000), true);
+	_body->getBody()->ApplyLinearImpulseToCenter(b2Vec2(_dir * 5000, -6000), true);
 
 	b2PolygonShape shape;
-	shape.SetAsBox(15 / M_TO_PIXEL, 22 / M_TO_PIXEL, b2Vec2(0, 0), 0);
+	shape.SetAsBox(35 / M_TO_PIXEL, 25 / M_TO_PIXEL, b2Vec2(0, 5), 0);
 	b2FixtureDef fDef;
 	fDef.shape = &shape;
 	fDef.filter.categoryBits = MELEE;
@@ -85,8 +85,6 @@ void Boss2::Jump()
 	_body->addFixture(&fDef, this);
 	
 	_damage = 20;
-
-	_doSomething = _game->random(1500, 2500);
 }
 
 
@@ -125,7 +123,7 @@ void Boss2::movement(const double& deltaTime)
 					_anim->playAnim(AnimatedSpriteComponent::AzuraWalk3);
 			}
 		}
-		else
+		else if(_actualState != Jumping)
 		{
 			_body->getBody()->SetLinearVelocity(b2Vec2(0, _body->getBody()->GetLinearVelocity().y));
 
@@ -199,6 +197,7 @@ void Boss2::endJump()
 	_endJump = false;
 	_body->getBody()->DestroyFixture(_body->getBody()->GetFixtureList());
 	_player->stunPlayer();
+	_doSomething = _game->random(800, 1500);
 }
 
 void Boss2::checkMelee(const double& deltaTime)
@@ -310,6 +309,7 @@ void Boss2::fase3(const double& deltaTime)
 						_actualState = Jumping;
 						Jump();
 						_noAction = 0;
+						_anim->playAnim(AnimatedSpriteComponent::AzuraJump);
 					}
 					else
 						fase2(deltaTime);
@@ -357,7 +357,7 @@ void Boss2::fase3(const double& deltaTime)
 
 void Boss2::beetwenFases(const double& deltaTime)
 {
-	if (_anim->animationFinished())
+	if (_anim->animationFinished() || _life3.getLife() == 0)
 	{
 		_originalVelocity = _originalVelocity + Vector2D(_speedIncrement, 0);
 		_velocity = _originalVelocity;
@@ -379,8 +379,10 @@ void Boss2::beetwenFases(const double& deltaTime)
 			_anim->playAnim(AnimatedSpriteComponent::AzuraIdle1);
 		else if (_life2.getLife() > 0)
 			_anim->playAnim(AnimatedSpriteComponent::AzuraIdle2);
-		else
+		else if (_life3.getLife() > 0)
 			_anim->playAnim(AnimatedSpriteComponent::AzuraIdle3);
+
+		_particles = false;
 	}
 	else
 	{
@@ -389,6 +391,24 @@ void Boss2::beetwenFases(const double& deltaTime)
 			_melee->endMelee();
 			_velocity = { _originalVelocity.getX(), _originalVelocity.getY() };
 			_timeOnMelee = 0;
+		}
+		if (!_body->getBody()->GetWorld()->IsLocked() && !_particles)
+		{
+			if (_life2.getLife() > 0)
+			{
+				ParticleManager::GetParticleManager()->CreateSimpleParticle(_game->getTexture("AzuraParticle1"), 1, Vector2D(_bodyPos.getX() + _game->random(-20,20), _bodyPos.getY() + _game->random(-10, 10)), 5, _game->random(0, 360), 2000, 1);
+				ParticleManager::GetParticleManager()->CreateSimpleParticle(_game->getTexture("AzuraParticle2"), 1, Vector2D(_bodyPos.getX() + _game->random(-20, 20), _bodyPos.getY() + _game->random(-10, 10)), 5, _game->random(0, 360), 2000, 1);
+				ParticleManager::GetParticleManager()->CreateSimpleParticle(_game->getTexture("AzuraParticle3"), 1, Vector2D(_bodyPos.getX() + _game->random(-20, 20), _bodyPos.getY() + _game->random(-10, 10)), 5, _game->random(0, 360), 2000, 1);
+				ParticleManager::GetParticleManager()->CreateSimpleParticle(_game->getTexture("AzuraParticle4"), 1, Vector2D(_bodyPos.getX() + _game->random(-20, 20), _bodyPos.getY() + _game->random(-10, 10)), 5, _game->random(0, 360), 2000, 1);
+				ParticleManager::GetParticleManager()->CreateSimpleParticle(_game->getTexture("AzuraParticle5"), 1, Vector2D(_bodyPos.getX() + _game->random(-20, 20), _bodyPos.getY() + _game->random(-10, 10)), 5, _game->random(0, 360), 2000, 1);
+			}
+			else if(_life3.getLife() > 0)
+			{
+				ParticleManager::GetParticleManager()->CreateSimpleParticle(_game->getTexture("AzuraParticle6"), 1,Vector2D(_bodyPos.getX() + _game->random(-20,20), _bodyPos.getY() + 30), 5, _game->random(0, 360), 2000, 1);
+				ParticleManager::GetParticleManager()->CreateSimpleParticle(_game->getTexture("AzuraParticle7"), 1, Vector2D(_bodyPos.getX() + _game->random(-20,20), _bodyPos.getY() + 30), 5, _game->random(0, 360), 2000, 1);
+				ParticleManager::GetParticleManager()->CreateSimpleParticle(_game->getTexture("AzuraParticle8"), 1, Vector2D(_bodyPos.getX() + _game->random(-20,20), _bodyPos.getY() + 30), 5, _game->random(0, 360), 2000, 1);
+			}
+			_particles = true;
 		}
 	}
 }
@@ -401,6 +421,18 @@ void Boss2::manageLife(Life& l, int damage)
 		_doSomething = 0;
 		_lastFase = _actualFase;
 		_actualFase = BetweenFase;
-		_anim->playAnim(AnimatedSpriteComponent::AzuraDie);
+		if (_life2.getLife() > 0)
+			_anim->playAnim(AnimatedSpriteComponent::AzuraScream1to2);
+
+		else if(_life3.getLife() > 0)
+			_anim->playAnim(AnimatedSpriteComponent::AzuraScream2to3);
 	}
+}
+
+void Boss2::die()
+{
+	_anim->die();
+	_anim->playAnim(AnimatedSpriteComponent::AzuraDie);
+	setDead(true);
+	_body->filterCollisions(DEAD_ENEMIES, FLOOR | PLATFORMS);
 }

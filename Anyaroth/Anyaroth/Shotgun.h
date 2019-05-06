@@ -12,5 +12,6 @@ public:
 	virtual ~Shotgun();
 
 	virtual void shoot(BulletPool* bulletPool, const Vector2D& position, const double& angle, const string& tag);
+	virtual void enemyShoot(BulletPool* bulletPool, const Vector2D& position, const double& angle, const string& tag);
 };
 

@@ -7,13 +7,13 @@ class Boss2 : public Boss
 private:
 	LaserHandler* _lasers = nullptr;
 	Vector2D _velocity = { 20,0 }, _originalVelocity = { 20,0 };
-	int _dir, _onFloor = 0, _stopRange = 83;
-	double _shootRange = 100, _speedIncrement = 30;
-	bool _endJump = false;
+	int _dir, _onFloor = 0, _stopRange = 103;
+	double _shootRange = 120, _speedIncrement = 30;
+	bool _endJump = false, _particles = false;
 
 	int _timeStartMelee = 400, _timeOnMelee = 0;
 
-	int _timeToShoot = 900, _timeWaiting = 0;
+	int _timeToShoot = 700, _timeWaiting = 0;
 public:
 	Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool);
 	~Boss2();
@@ -37,5 +37,7 @@ public:
 	virtual void fase3(const double& deltaTime);
 	virtual void beetwenFases(const double& deltaTime);
 	virtual void manageLife(Life& l, int damage);
+
+	virtual void die();
 };
 
