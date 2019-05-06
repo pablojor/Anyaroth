@@ -5,6 +5,7 @@
 #include "ShopMenu.h"
 #include "DialoguePanel.h"
 #include "PopUpPanel.h"
+#include "Cursor.h"
 
 class Game;
 
@@ -16,7 +17,7 @@ private:
 	ShopMenu* _shopMenu;
 	DialoguePanel* _dialoguePanel = nullptr;
 	PopUpPanel* _popUpPanel = nullptr;
-
+	Cursor* _cursor = nullptr;
 
 public:
 	PlayStateHUD() {}
@@ -28,4 +29,5 @@ public:
 	inline ShopMenu* getShop() const { return _shopMenu; }
 	inline DialoguePanel* getDialoguePanel() const { return _dialoguePanel; }
 	inline PopUpPanel* getPopUpPanel() const { return _popUpPanel; }
+	inline Cursor* getCursor() const { return _cursor; }
 };

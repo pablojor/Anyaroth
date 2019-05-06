@@ -1,27 +1,15 @@
 #include "Cursor.h"
-#include "Texture.h"
-#include "TransformComponent.h"
-#include "AnimatedSpriteComponent.h"
-#include "PlayState.h"
-#include "Camera.h"
+#include "ImageUI.h"
+#include "Game.h"
 
-Cursor::Cursor(Game* game) : GameObject(game)
+Cursor::Cursor(Game* game) : ImageUI(game, game->getTexture("GunCursor"))
 {
-	addComponent<Texture>(game->getTexture("GunCursor"));
-
-	_transform = addComponent<TransformComponent>();
-	_transform->setAnchor(0.5);
-
-	_anim = addComponent<AnimatedSpriteComponent>();
-	_anim->addAnim(AnimatedSpriteComponent::Idle, 1, false);
-
-	_anim->playAnim(AnimatedSpriteComponent::Idle);
+	
 }
 
 void Cursor::update(const double& deltaTime)
 {
-	GameObject::update(deltaTime);
-
-	Vector2D mousePos = getGame()->getCurrentState()->getMousePositionInWorld();
-	_transform->setPosition(mousePos);
+	Vector2D offset = { (double)getImage()->getW() / 2, (double)getImage()->getH() / 2 };
+	Vector2D mousePos = _game->getCurrentState()->getMousePositionInWorld() - _game->getCurrentState()->getMainCamera()->getCameraPosition() - offset;
+	setPosition(mousePos.getX(), mousePos.getY());
 }

@@ -18,12 +18,17 @@ PlayStateHUD::PlayStateHUD(Game * g)
 	//Panel emergente
 	_popUpPanel = new PopUpPanel(g);
 
+	//Cursor
+	_cursor = new Cursor(g);
+	SDL_ShowCursor(false);
+
 	//Anyadir a elementos
 	addUIElement(_playerPanel);
 	addUIElement(_bossPanel);
 	addUIElement(_shopMenu);
 	addUIElement(_dialoguePanel);
 	addUIElement(_popUpPanel);
+	addUIElement(_cursor);
 
 	//Asignaciones
 	_shopMenu->setDialoguePanel(_dialoguePanel);

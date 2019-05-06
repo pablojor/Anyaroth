@@ -1,16 +1,9 @@
 #pragma once
-#include "GameObject.h"
+#include "ImageUI.h"
 
-class TransformComponent;
-class AnimatedSpriteComponent;
-class PlayState;
-class Camera;
 
-class Cursor : public GameObject
+class Cursor : public ImageUI
 {
-private:
-	TransformComponent* _transform = nullptr;
-	AnimatedSpriteComponent* _anim = nullptr;
 
 public:
 	Cursor(Game* game);
