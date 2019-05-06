@@ -41,7 +41,7 @@ Map::Map(string filename, Game* game, Player* player, Texture* tileset, BulletPo
 			auto it = j[i].find("name");
 			if (it != j[i].end())
 			{
-				if (*it != "Map" && *it != "Ground" && *it != "Platform" && *it != "Door" && *it != "Death")
+				if (*it != "Map" && *it != "Ground" && *it != "Platform" && *it != "Door" && *it != "Death" && *it != "Props")
 					_objectLayers.push_back(new ObjectLayer(filename, *it));
 				else if (*it == "Map")
 				{
