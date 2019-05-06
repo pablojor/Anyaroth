@@ -41,8 +41,8 @@ public:
 		SpentaDie, SpentaStartBomb, SpentaLoopBomb, SpentaEndBomb, SpentaOrb, SpentaWing
 	};
 	enum Azura {
-		AzuraIdle1, AzuraIdle2, AzuraIdle3, AzuraWalk1, AzuraWalk2, AzuraWalk3, 
-		AzuraCannon1, AzuraCannon2, AzuraCannon3, AzuraJump, AzuraSpin1, AzuraSpin2, AzuraSpin3,
+		AzuraSpinEnd1, AzuraSpinEnd2, AzuraSpinEnd3, AzuraSpinLoop1, AzuraSpinLoop2, AzuraSpinLoop3, AzuraIdle1, AzuraIdle2, AzuraIdle3, AzuraWalk1, AzuraWalk2, AzuraWalk3,
+		AzuraCannon1, AzuraCannon2, AzuraCannon3, AzuraJump, AzuraSpinStart1, AzuraSpinStart2, AzuraSpinStart3,
 		AzuraScream1to2, AzuraScream2to3, AzuraDie
 	};
 

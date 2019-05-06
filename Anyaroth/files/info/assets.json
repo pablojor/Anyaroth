@@ -41,7 +41,7 @@
 	[ "AzuraParticle6", "azuraparticle6.png", 1, 1 ],
 	[ "AzuraParticle7", "azuraparticle7.png", 1, 1 ],
 	[ "AzuraParticle8", "azuraparticle8.png", 1, 1 ],
-	[ "Azura", "azura_spritesheet.png", 16, 23 ],
+	[ "Azura", "azura_spritesheet.png", 19, 23 ],
     [ "Weapon1", "weapon1.png", 1, 1 ],
     [ "Weapon2", "weapon2.png", 1, 1 ],
     [ "Ammo", "ammo.png", 1, 8 ],
