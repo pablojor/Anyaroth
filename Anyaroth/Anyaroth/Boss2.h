@@ -14,11 +14,15 @@ private:
 	int _timeStartMelee = 400, _timeOnMelee = 0;
 
 	int _timeToShoot = 700, _timeWaiting = 0;
+
+	int _timeToJump = 400, _timeWaitingJump = 0;
+	bool _jump = false;
 public:
 	Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool);
 	~Boss2();
 
 	void Jump();
+	void checkJump(const double& deltaTime);
 
 	virtual void movement(const double& deltaTime);
 	virtual void beginCollision(GameObject* other, b2Contact* contact);

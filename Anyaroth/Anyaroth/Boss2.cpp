@@ -4,7 +4,7 @@
 
 Boss2::Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, player, pos, pool, g->getTexture("Azura")), Enemy(g, player, pos, g->getTexture("Azura"))
 {
-	_life = 250; // Demo Guerrilla
+	_life = 20; // Demo Guerrilla
 	_life1 = _life2 = _life3 = _life;
 
 	_myGun = new ImprovedShotgun(g);
@@ -22,7 +22,7 @@ Boss2::Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, 
 	_anim->addAnim(AnimatedSpriteComponent::AzuraCannon1, 23, false);
 	_anim->addAnim(AnimatedSpriteComponent::AzuraCannon2, 23, false);
 	_anim->addAnim(AnimatedSpriteComponent::AzuraCannon3, 23, false);
-	_anim->addAnim(AnimatedSpriteComponent::AzuraJump, 20, false);
+	_anim->addAnim(AnimatedSpriteComponent::AzuraJump, 20, false, 85);
 	_anim->addAnim(AnimatedSpriteComponent::AzuraSpin1, 18, false);
 	_anim->addAnim(AnimatedSpriteComponent::AzuraSpin2, 18, false);
 	_anim->addAnim(AnimatedSpriteComponent::AzuraSpin3, 18, false);
@@ -195,6 +195,7 @@ void Boss2::meleeAttack()
 void Boss2::endJump()
 {
 	_endJump = false;
+	_jump = false;
 	_body->getBody()->DestroyFixture(_body->getBody()->GetFixtureList());
 	_player->stunPlayer();
 	_doSomething = _game->random(800, 1500);
@@ -307,7 +308,6 @@ void Boss2::fase3(const double& deltaTime)
 					if (ra >= 70)
 					{
 						_actualState = Jumping;
-						Jump();
 						_noAction = 0;
 						_anim->playAnim(AnimatedSpriteComponent::AzuraJump);
 					}
@@ -352,6 +352,26 @@ void Boss2::fase3(const double& deltaTime)
 				_timeWaiting += deltaTime;
 
 		}
+	}
+	else
+	{
+		checkJump(deltaTime);
+	}
+
+}
+
+void Boss2::checkJump(const double& deltaTime)
+{
+	if (!_jump)
+	{
+		if (_timeWaitingJump > _timeToJump && !_jump)
+		{
+			Jump();
+			_jump = true;
+			_timeWaitingJump = 0;
+		}
+		else
+			_timeWaitingJump += deltaTime;
 	}
 }
 
