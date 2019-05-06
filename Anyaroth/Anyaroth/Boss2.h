@@ -11,7 +11,7 @@ private:
 	double _shootRange = 100, _speedIncrement = 30;
 	bool _endJump = false;
 
-	int _timeMelee = 1250, _timeOnMelee = 0;
+	int _timeStartMelee = 400, _timeOnMelee = 0;
 
 	int _timeToShoot = 900, _timeWaiting = 0;
 public:

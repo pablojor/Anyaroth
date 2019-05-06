@@ -25,4 +25,5 @@ public:
 	inline const MeleeType& getId() const { return _id; }
 
 	inline bool isActive() const { return (_body != nullptr && _body->getBody() != nullptr &&  _body->getBody()->IsActive()); }
+	void setActive(bool act) { if (_body != nullptr && _body->getBody() != nullptr) _body->getBody()->SetActive(act); }
 };

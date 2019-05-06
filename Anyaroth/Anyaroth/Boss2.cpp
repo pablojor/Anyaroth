@@ -182,6 +182,8 @@ void Boss2::meleeAttack()
 	int dir = (_bodyPos.getX() >= _playerPos.getX()) ? -1 : 1;
 	_melee->meleeAttack(_bodyPos.getX(), _bodyPos.getY(), dir);
 
+	_melee->setActive(false);
+
 	if (_life1.getLife() > 0)
 		_anim->playAnim(AnimatedSpriteComponent::AzuraSpin1);
 	else if (_life2.getLife() > 0)
@@ -201,20 +203,27 @@ void Boss2::endJump()
 
 void Boss2::checkMelee(const double& deltaTime)
 {
-
-	if (_melee != nullptr && _melee->isActive())
+	if (_melee != nullptr)
 	{
-		if (_timeOnMelee > _timeMelee)
+		if (_anim->animationFinished())
 		{
-			_melee->endMelee();
-			_armVision = true;;
+			_armVision = true;
 			_velocity = { _originalVelocity.getX(), _originalVelocity.getY() };
 			_doSomething = _game->random(400, 800);
-			_timeOnMelee = 0;
 			_actualState = Moving;
+			_melee->endMelee();
+			_timeOnMelee = 0;
 		}
 		else
-			_timeOnMelee += deltaTime;
+		{
+			if (_timeOnMelee > _timeStartMelee)
+			{
+				_melee->setActive(true);
+			}
+			else
+				_timeOnMelee += deltaTime;
+		}
+
 	}
 }
 
