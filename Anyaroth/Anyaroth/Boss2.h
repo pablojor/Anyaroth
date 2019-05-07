@@ -31,7 +31,7 @@ public:
 	virtual void meleeAttack();
 	void endJump();
 	virtual void checkMelee(const double& deltaTime);
-	virtual int const  getDamage()
+	virtual int getDamage() const
 	{
 		return _damage;
 	}
