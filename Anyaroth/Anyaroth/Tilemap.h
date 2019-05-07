@@ -23,7 +23,18 @@ private:
 		int yIndex = 0;
 	};
 
-	map<int, Tile> _grid;
+	struct GridBox : GameObject
+	{
+		GridBox() : GameObject(nullptr) {}
+		std::vector<Tile> _tiles;
+		bool _hasCollider = false;
+
+		std::vector<Tile>& getTiles() { return _tiles; }
+		void setHasCollider(bool b) { _hasCollider = b; }
+		bool hasCollider() const { return _hasCollider; }
+	};
+
+	map<int, GridBox> _grid;
 	vector<b2Body*> _colliders;
 
 public:
