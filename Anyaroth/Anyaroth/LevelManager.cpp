@@ -17,7 +17,8 @@ void LevelManager::setLevel(int l)
 	switch (l)
 	{
 	case LevelManager::Tutorial:
-		//_currentMap = ...
+		_currentMap = new Map(TILEMAP_PATH + "Tutorial.json", _game, _player, _game->getTexture("TilesetTutorial"), _enemyBulletPool);
+		setParallaxZone1();
 		break;
 	case LevelManager::Safe1_1:
 		_currentSafeZone = new Map(TILEMAP_PATH + "SafeZonePrueba.json", _game, _player, _game->getTexture("Tileset1"), _enemyBulletPool);

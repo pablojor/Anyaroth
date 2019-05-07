@@ -18,7 +18,7 @@
     [ "ArmBounceCannon", "mk_bouncecannon_spritesheet.png", 4, 12 ],
     [ "ArmBHCannon", "mk_bHCannon_spritesheet.png", 4, 12 ],
     [ "ArmSniper", "mk_sniper_spritesheet.png", 4, 13 ],
-    
+
     [ "PistolBullet", "pistolbullet.png", 2, 4 ],
     [ "ShotgunBullet", "shotgunbullet.png", 2, 2 ],
     [ "RifleBullet", "riflebullet.png", 2, 2 ],
@@ -53,6 +53,7 @@
     [ "Missile", "spenta_misil_spritesheet.png", 2, 6 ],
 
     [ "Tileset1", "zona1_tileset.png", 22, 10 ],
+    [ "TilesetTutorial", "tutorial_tileset.png", 22, 26 ],
     [ "TilesetBoss1", "boss1_tileset.png", 13, 16 ],
     [ "Tileset2", "zona2_tileset.png", 17, 6 ],
 
@@ -103,7 +104,7 @@
     [ "InfoPanel", "info_panel.png", 3, 6 ],
     [ "DepotPanel", "depot_panel.png", 1, 1 ],
     [ "EquipPanel", "equip_panel.png", 1, 1 ],
-    [ "Equip/Depot_PanelName", "equip_depot_namePanel.png", 2, 1],
+    [ "Equip/Depot_PanelName", "equip_depot_namePanel.png", 2, 1 ],
     [ "ShopButton", "shop_menubuttons.png", 3, 6 ],
     [ "BuyButton", "buy_button.png", 1, 2 ],
     [ "ChangeButton", "changeweapons_button.png", 1, 2 ],
