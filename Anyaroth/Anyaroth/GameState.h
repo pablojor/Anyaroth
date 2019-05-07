@@ -68,6 +68,7 @@ public:
 	inline virtual PlayStateHUD* getPlayHUD() const { return _playHud; }
 	inline virtual MenuStateHUD* getMenuHUD() const { return _menuHud; }
 	inline virtual PauseStateHUD* getPauseHUD() const { return _pauseHud; }
+	inline virtual CutScene* getCutScene() const { return _cutScene; }
 	inline virtual void setCanvas(Canvas* canvas) { _canvas = canvas; }
 
 	inline virtual void addCutScene(CutScene* cutScene) { if (_cutScene != nullptr) delete _cutScene; _cutScene = cutScene; }

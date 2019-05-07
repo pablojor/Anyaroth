@@ -1,8 +1,8 @@
 #pragma once
 #include "GameObject.h"
 #include "BackGround.h"
-#include <utility>
 #include "Vector2D.h"
+#include <utility>
 #include <functional>
 
 //Valores predeterminados
@@ -40,6 +40,7 @@ private:
 	float _fadeTime = 0.f;
 	float _fadeMaxTime = 0.f;
 	bool _isFading = false, _fadeIsFinished = false;;
+	Uint8 _cameraAlpha;
 
 public:
 	Camera(Game* game) : _game(game) {};
@@ -86,4 +87,5 @@ public:
 	bool pre_handleEvent();
 
 	void setWorldBounds(const int& xBound, const int& yBound);
+	void setCameraAlpha(Uint8 alpha) { _cameraAlpha = alpha; }
 };

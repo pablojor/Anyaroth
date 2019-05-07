@@ -147,6 +147,7 @@
     <ClCompile Include="AmmoPackage.cpp" />
     <ClCompile Include="AmmoViewer.cpp" />
     <ClCompile Include="AnimatedImageUI.cpp" />
+    <ClCompile Include="BlackScreenEvent.cpp" />
     <ClCompile Include="BossSword.cpp" />
     <ClCompile Include="ButtonUI.cpp" />
     <ClCompile Include="CreditsPanel.cpp" />
@@ -163,11 +164,14 @@
     <ClCompile Include="Capsule.cpp" />
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="FadeInOutEvent.cpp" />
+    <ClCompile Include="FitCameraEvent.cpp" />
     <ClCompile Include="FlipEvent.cpp" />
     <ClCompile Include="FramedImageUI.cpp" />
     <ClCompile Include="AnimatedSpriteComponent.cpp" />
     <ClCompile Include="Arm.cpp" />
     <ClCompile Include="Knife.cpp" />
+    <ClCompile Include="PlayMusicEvent.cpp" />
+    <ClCompile Include="PlaySoundEvent.cpp" />
     <ClCompile Include="PoleAxe.cpp" />
     <ClCompile Include="Sword.cpp" />
     <ClCompile Include="BackGround.cpp" />
@@ -290,6 +294,7 @@
     <ClInclude Include="AmmoPackage.h" />
     <ClInclude Include="AmmoViewer.h" />
     <ClInclude Include="AnimatedImageUI.h" />
+    <ClInclude Include="BlackScreenEvent.h" />
     <ClInclude Include="BossSword.h" />
     <ClInclude Include="ButtonUI.h" />
     <ClInclude Include="CamEffectType.h" />
@@ -309,12 +314,15 @@
     <ClInclude Include="DistanceSpawner.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="FadeInOutEvent.h" />
+    <ClInclude Include="FitCameraEvent.h" />
     <ClInclude Include="FlipEvent.h" />
     <ClInclude Include="FramedImageUI.h" />
     <ClInclude Include="AnimatedSpriteComponent.h" />
     <ClInclude Include="AnyarothError.h" />
     <ClInclude Include="Arm.h" />
     <ClInclude Include="Knife.h" />
+    <ClInclude Include="PlayMusicEvent.h" />
+    <ClInclude Include="PlaySoundEvent.h" />
     <ClInclude Include="PoleAxe.h" />
     <ClInclude Include="Sword.h" />
     <ClInclude Include="BackGround.h" />

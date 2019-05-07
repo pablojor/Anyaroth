@@ -1,9 +1,5 @@
 #include "CutScene.h"
-
-CutScene::CutScene(Player* player) : _player(player)
-{
-
-}
+#include "SoundManager.h"
 
 CutScene::~CutScene()
 {
@@ -44,7 +40,6 @@ void CutScene::play()
 		_isPlaying = true;
 		_events.front()->play();
 	}
-
 }
 
 void CutScene::addMoveEvent(BodyComponent* body, int dir, int speed, int xDestination)
@@ -68,7 +63,7 @@ void CutScene::addCameraEvent(Camera* cam, int time, CamEffect type)
 	{
 		_events.push(new FadeInOutEvent(cam, time, type));
 	}
-	else
+	else if (type == ZoomIn || type == ZoomOut)
 	{
 		_events.push(new ZoomInOutEvent(cam, time, type));
 	}
@@ -79,6 +74,16 @@ void CutScene::addCameraShakeEvent(Camera* cam, int time, int intensity)
 	_events.push(new ShakeEvent(cam, time, intensity));
 }
 
+void CutScene::addCameraBlackScreenEvent(Camera * cam)
+{
+	_events.push(new BlackScreenEvent(cam));
+}
+
+void CutScene::addFitCameraEvent(Camera * cam, double x, double y)
+{
+	_events.push(new FitCameraEvent(cam, x, y));
+}
+
 void CutScene::addFlipEvent()
 {
 	_events.push(new FlipEvent(_player));
@@ -87,4 +92,14 @@ void CutScene::addFlipEvent()
 void CutScene::addShopEvent(ShopMenu* shop)
 {
 	_events.push(new ShopEvent(shop));
+}
+
+void CutScene::addPlaySoundEvent(Game* game, string sound)
+{
+	_events.push(new PlaySoundEvent(game, sound));
+}
+
+void CutScene::addPlayMusicEvent(Game* game, string music)
+{
+	_events.push(new PlayMusicEvent(game, music));
 }

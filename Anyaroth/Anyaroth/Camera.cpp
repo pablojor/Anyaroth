@@ -191,6 +191,7 @@ void Camera::shake(const float& intensity, const float& time)
 
 void Camera::fadeIn(const float & time)
 {
+	setCameraAlpha(255);
 	_onFadeComplete = nullptr;
 	_fadeIsFinished = false;
 	_fadeTime = 0;
@@ -200,6 +201,7 @@ void Camera::fadeIn(const float & time)
 
 void Camera::fadeOut(const float & time)
 {
+	setCameraAlpha(255);
 	_onFadeComplete = nullptr;
 	_fadeIsFinished = false;
 	_fadeTime = 0;
@@ -228,7 +230,15 @@ void Camera::render() const
 
 void Camera::last_render() const 
 {
-	if (_isFading || (_fadeIsFinished && _onFadeComplete != nullptr)) {
+	if (_cameraAlpha < 255)
+	{
+		Texture text = Texture(_game->getRenderer());
+		text.load(_cameraRect.w, _cameraRect.h, 0, 0, 0, 255 - _cameraAlpha);
+		text.render({ 0, 0, GAME_RESOLUTION_X, GAME_RESOLUTION_Y });
+	}
+
+	if (_isFading || (_fadeIsFinished && _onFadeComplete != nullptr))
+	{
 		Texture tex = Texture(_game->getRenderer());
 		Uint8 alpha = (_fadeTime / _fadeMaxTime) * 255;
 		if (alpha > 255) alpha = 255;

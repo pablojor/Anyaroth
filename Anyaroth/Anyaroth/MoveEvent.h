@@ -1,5 +1,4 @@
 #pragma once
-
 #include "Event.h"
 #include "BodyComponent.h"
 
@@ -15,6 +14,5 @@ public:
 	virtual void update(const double& time);
 	void move();
 
-	virtual void play() {};
+	virtual void play() {}
 };
-

@@ -1,14 +1,12 @@
 {
     "dialogues": {
-        "Jose Maria 1": {
+        "Helmet 1": {
             "face": "DialogueFace",
-            "name": "Jose Maria",
+            "name": "Helmet",
             "voice": "exampleVoice",
             "dialogue": [
-                "*Bzzt... Bip, bip...* Hey, que tal?",
-                "Hmm, con que programando... ya veo...",
-                "Pues sigue en ello, chaval! Deja de jugar tanto al Sekiro y ponte a estudiar de una maldita vez, escoria!",
-                "Adios! *Bip*"
+                "Starting up Helmet OS... WARNING. Data is corrupted, serious brain damage detected.",
+                "Initializing hippocampus analysis. This may take a while."
             ],
             "faces": [
                 0,
@@ -22,7 +20,381 @@
                 " "
             ]
         },
-        "Demo dude": {
+        "Helmet 2": {
+            "face": "DialogueFace",
+            "name": "Helmet",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Succesfully recovered user's data. Please, check if the data shown below is correct:",
+                "User's name: Avestas. Profession: Soldier. ...",
+                "FATAL ERROR OCURRED. Your helmet might be hacked or damaged. Please, report to the nearest..."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Helmet 3": {
+            "face": "DialogueFace",
+            "name": "Helmet",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Helmet OS has been succesfully hacked. Welcome to freedom.",
+                "As your virtual assistant, I will guide you towards the nearest rebel base.",
+                "But first, allow me to fix your nervous system's issues. Let's start with the basics:"
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Kartya 1-2": {
+            "face": "DialogueFace",
+            "name": "???",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Hey, you! What are you doing here? Why are you wearing the Queen's army military uniform?",
+                "What? Oh... So your helmet has just been hacked...",
+                "Okay, listen, I don't have time for you. And I don't like rookies.",
+                "You'll find Zornn at the shop inside this building.",
+                "He'll tell you what to do. We needed some soldiers, so don't fuck up and you may earn a living here. See you."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "NPC 1 1-2": {
+            "face": "DialogueFace",
+            "name": "Worker",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "The elders say that long ago the Queen was not a monarch, but a commander loyal to another king.",
+                "I don't care what she was, I just want my family to be free!"
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "NPC 2 1-2": {
+            "face": "DialogueFace",
+            "name": "Worker",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "The Queen won the Ancient War. She killed the four kings, even the one she obeyed.",
+                "Rumours say that she uses their corpses as servants. It may be true.",
+                "With those helmets she can make a servantout of anything..."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "NPC 3 1-2": {
+            "face": "DialogueFace",
+            "name": "Worker",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Now the Queen lives in a palace in the Core of Anyaroth.",
+                "I hope the whole planet collapses so she gets buried to death!"
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Shop 1 3": {
+            "face": "nullptr",
+            "name": "Zornn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Wait a second, I don't remember your face... I mean, your helmet."
+            ],
+            "faces": [
+                2
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Shop 2 3": {
+            "face": "nullptr",
+            "name": "Zornn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Howdy, soldier! Wanna check my new weapons?"
+            ],
+            "faces": [
+                2
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Shop Catalog 3": {
+            "face": "nullptr",
+            "name": "One-eyed Gronn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                ""
+            ],
+            "faces": [
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Shop Talk 3": {
+            "face": "nullptr",
+            "name": "One-eyed Gronn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Oh! So you are new here. Please, forgive Kartya, she is really busy these days.",
+                "I'm glad you are here, it's getting hard to recruit new soldiers. The rebellion gets a new fighter... and I get a new costumer!",
+                "Pay attention: in the rebellion there are no leaders, an Kartya will behead you with an axe if you act as one.",
+                "However, there is this soldier, Azura, who wants to go to the Core, where the Queen lives, and kill her.",
+                "He's made it into the Mantle already, where a lot of rebel soldiers are joining him.",
+                "Think about it, they need your strength and my weapons, and I need their money!",
+                "But the nearest lift to the Mantle is inside general Spenta Manyu's base, and I can't get there without your help. What do you say?",
+                "I'll meet you in the next rebel base, to the east. But you'd better buy me a weapon. You won't last long with that junk."
+            ],
+            "faces": [
+                2,
+                1,
+                2,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Shop Depot 3": {
+            "face": "nullptr",
+            "name": "One-eyed Gronn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                ""
+            ],
+            "faces": [
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "NPC 1 1-3": {
+            "face": "DialogueFace",
+            "name": "Rebel",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Azura must get to the Core and destroy the Queen. He's our only hope!"
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Kartya 1-3": {
+            "face": "DialogueFace",
+            "name": "Kartya",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "So Zornn has convinced you to face Spenta Manyu at his hangar.",
+                "You must be stupid if you think that you stand a chance against him.",
+                "I have bet with Zornn that you will lose your head in the battle.",
+                "He said you will only lose some limb."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "NPC 2 1-3": {
+            "face": "DialogueFace",
+            "name": "Rebel",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "I met general Spenta Manyu when he was a kid.",
+                "He came from a humble family, but he was always dreaming of becoming a pilot of the Queen's army.",
+                "He created prosthetic wings that allowed him to fly, and the army ended up hiring him as an engineer.",
+                "Now he is general of the Queen's Air Force, and one of the Queen's most dangerous supporters."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Shop 1 5": {
+            "face": "nullptr",
+            "name": "Zornn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Remember, the rebels need you at the Mantle, and I need their money!"
+            ],
+            "faces": [
+                2
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Shop 2 5": {
+            "face": "nullptr",
+            "name": "Zornn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Howdy, soldier! Wanna check my new weapons?"
+            ],
+            "faces": [
+                2
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Shop Catalog 5": {
+            "face": "nullptr",
+            "name": "One-eyed Gronn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                ""
+            ],
+            "faces": [
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Shop Talk 5": {
+            "face": "nullptr",
+            "name": "One-eyed Gronn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "There you are! I knew you were going to help me.",
+                "If you've made it so far on your own you might be able to survive to Spenta Manyu.",
+                "But if I were you I would buy a weapon first. You don't know what could go wrong at his hangar."
+            ],
+            "faces": [
+                2,
+                1,
+                2,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Shop Depot 5": {
+            "face": "nullptr",
+            "name": "One-eyed Gronn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                ""
+            ],
+            "faces": [
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Demo NPC": {
             "face": "DialogueFace",
             "name": "Insurgent",
             "voice": "exampleVoice",
@@ -43,7 +415,7 @@
                 " "
             ]
         },
-        "First safezone": {
+        "Demo dialogue": {
             "face": "nullptr",
             "name": "Player",
             "voice": "exampleVoice",

@@ -10,10 +10,9 @@ private:
 	Camera* _cam;
 	CamEffect _camEffect;
 
-	public:
-		FadeInOutEvent(Camera* cam, int time, CamEffect type);
+public:
+	FadeInOutEvent(Camera* cam, int time, CamEffect type) : _cam(cam), _time(time), _camEffect(type) {}
 
-		virtual void update(const double& time);
-		virtual void play();
+	virtual void update(const double& time);
+	virtual void play();
 };
-
