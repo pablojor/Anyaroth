@@ -12,6 +12,8 @@ private:
 	LifeBar* _lifeBar = nullptr;
 	list<Enemy*> _enemies;
 
+	void checkEnemyState(Enemy* enemy) const;
+
 public:
 	EnemyLifePanel(Game* game);
 	~EnemyLifePanel();
@@ -21,5 +23,6 @@ public:
 
 	inline void addEnemy(Enemy* enemy) { _enemies.push_back(enemy); };
 	inline void removeEnemy(Enemy* enemy) { _enemies.remove(enemy); }
+	inline void reset() { _enemies.clear(); }
 };
 

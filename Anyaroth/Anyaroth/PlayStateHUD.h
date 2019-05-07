@@ -30,4 +30,6 @@ public:
 	inline ShopMenu* getShop() const { return _shopMenu; }
 	inline DialoguePanel* getDialoguePanel() const { return _dialoguePanel; }
 	inline EnemyLifePanel* getEnemyLifePanel() const { return _enemyLifePanel; }
+
+	inline void reset() { _enemyLifePanel->reset(); }
 };

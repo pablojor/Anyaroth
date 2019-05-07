@@ -135,6 +135,8 @@ void LevelManager::setLevel(int l)
 
 void LevelManager::changeLevel(int l)
 {
+	if (_hud != nullptr) 
+		_hud->reset();
 	if (_currentSafeZone != nullptr)
 	{
 		_enemyBulletPool->stopBullets();
