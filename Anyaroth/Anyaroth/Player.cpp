@@ -651,6 +651,7 @@ void Player::refreshStunTime(const double & deltaTime)
 		{
 			_stunTime = 1000;
 			_stunned = false;
+			_playerArm->getComponent<CustomAnimatedSpriteComponent>()->setVisible(true);
 		}
 	}
 }
@@ -770,6 +771,7 @@ void Player::stunPlayer()
 	{
 		_stunned = true;
 		_anim->playAnim(AnimatedSpriteComponent::Hurt);
+		_playerArm->getComponent<CustomAnimatedSpriteComponent>()->setVisible(false);
 	}
 }
 

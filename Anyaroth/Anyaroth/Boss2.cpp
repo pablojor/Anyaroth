@@ -4,7 +4,7 @@
 
 Boss2::Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, player, pos, pool, g->getTexture("Azura")), Enemy(g, player, pos, g->getTexture("Azura"))
 {
-	_life = 250;
+	_life = 20;
 	_life1 = _life2 = _life3 = _life;
 
 	_myGun = new ImprovedShotgun(g);
@@ -156,9 +156,8 @@ void Boss2::beginCollision(GameObject * other, b2Contact* contact)
 	{
 		
 			_onFloor ++;
-			if (_onFloor <= 1)		
-				setTag("Enemy");
-			
+			if (_onFloor <= 1)
+				setTag("Enemy");		
 	}
 }
 
