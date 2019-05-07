@@ -4,7 +4,7 @@
 
 Boss2::Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, player, pos, pool, g->getTexture("Azura")), Enemy(g, player, pos, g->getTexture("Azura"))
 {
-	_life = 20; // Demo Guerrilla
+	_life = 250;
 	_life1 = _life2 = _life3 = _life;
 
 	_myGun = new ImprovedShotgun(g);
@@ -28,7 +28,7 @@ Boss2::Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, 
 	_anim->addAnim(AnimatedSpriteComponent::AzuraCannon1, 23, false);
 	_anim->addAnim(AnimatedSpriteComponent::AzuraCannon2, 23, false);
 	_anim->addAnim(AnimatedSpriteComponent::AzuraCannon3, 23, false);
-	_anim->addAnim(AnimatedSpriteComponent::AzuraJump, 23, false, 85);
+	_anim->addAnim(AnimatedSpriteComponent::AzuraJump, 23, false);
 	_anim->addAnim(AnimatedSpriteComponent::AzuraSpinStart1, 10, false);
 	_anim->addAnim(AnimatedSpriteComponent::AzuraSpinStart2, 10, false);
 	_anim->addAnim(AnimatedSpriteComponent::AzuraSpinStart3, 10, false);
@@ -114,7 +114,7 @@ void Boss2::movement(const double& deltaTime)
 		else
 			_anim->flip();
 
-		if (_actualState != Jumping && (range <= -_stopRange || range >= _stopRange) && _actualState == Moving || _actualState == Meleeing)
+		if (_actualState != Jumping && (range <= -_stopRange || range >= _stopRange) && _actualState == Moving || (_actualState == Meleeing && _realMelee))
 		{
 			_body->getBody()->SetLinearVelocity(b2Vec2(_velocity.getX() * _dir / M_TO_PIXEL, _body->getBody()->GetLinearVelocity().y));
 			
@@ -129,7 +129,7 @@ void Boss2::movement(const double& deltaTime)
 					_anim->playAnim(AnimatedSpriteComponent::AzuraWalk3);
 			}
 		}
-		else if(_actualState != Jumping)
+		else if(_actualState != Jumping && _actualState != Meleeing)
 		{
 			_body->getBody()->SetLinearVelocity(b2Vec2(0, _body->getBody()->GetLinearVelocity().y));
 
@@ -188,12 +188,12 @@ void Boss2::meleeAttack()
 
 	_melee->setActive(false);
 
-	//if (_life1.getLife() > 0)
-	//	//_anim->playAnim(AnimatedSpriteComponent::AzuraSpin1);
-	//else if (_life2.getLife() > 0)
-	//	//_anim->playAnim(AnimatedSpriteComponent::AzuraSpin2);
-	//else
-	//	//_anim->playAnim(AnimatedSpriteComponent::AzuraSpin3);
+	if (_life1.getLife() > 0)
+		_anim->playAnim(AnimatedSpriteComponent::AzuraSpinStart1);
+	else if (_life2.getLife() > 0)
+		_anim->playAnim(AnimatedSpriteComponent::AzuraSpinStart2);
+	else
+		_anim->playAnim(AnimatedSpriteComponent::AzuraSpinStart3);
 
 	_velocity = { _velocity.getX() + _speedIncrement, _velocity.getY() };
 }
@@ -211,25 +211,46 @@ void Boss2::checkMelee(const double& deltaTime)
 {
 	if (_melee != nullptr)
 	{
+		auto anim = _anim->getCurrentAnim();
 		if (_anim->animationFinished())
 		{
-			_armVision = true;
-			_velocity = { _originalVelocity.getX(), _originalVelocity.getY() };
-			_doSomething = _game->random(400, 800);
-			_actualState = Moving;
-			_melee->endMelee();
-			_timeOnMelee = 0;
+			if (anim == AnimatedSpriteComponent::AzuraSpinStart1 || anim == AnimatedSpriteComponent::AzuraSpinStart2 || anim == AnimatedSpriteComponent::AzuraSpinStart3)
+			{
+				_melee->setActive(true);
+				_realMelee = true;
+				if (_life1.getLife() > 0)
+					_anim->playAnim(AnimatedSpriteComponent::AzuraSpinLoop1);
+				else if (_life2.getLife() > 0)
+					_anim->playAnim(AnimatedSpriteComponent::AzuraSpinLoop2);
+				else
+					_anim->playAnim(AnimatedSpriteComponent::AzuraSpinLoop3);
+			}
+			else if (anim == AnimatedSpriteComponent::AzuraSpinEnd1 || anim == AnimatedSpriteComponent::AzuraSpinEnd2 || anim == AnimatedSpriteComponent::AzuraSpinEnd3)
+			{
+				_doSomething = _game->random(400, 800);
+				_actualState = Moving;
+			}
 		}
-		else
+		else if (anim == AnimatedSpriteComponent::AzuraSpinLoop1 || anim == AnimatedSpriteComponent::AzuraSpinLoop2 || anim == AnimatedSpriteComponent::AzuraSpinLoop3)
 		{
 			if (_timeOnMelee > _timeStartMelee)
 			{
-				_melee->setActive(true);
+				_armVision = true;
+				_velocity = { _originalVelocity.getX(), _originalVelocity.getY() };
+				_melee->endMelee();
+				_realMelee = false;
+				_timeOnMelee = 0;
+
+				if (_life1.getLife() > 0)
+					_anim->playAnim(AnimatedSpriteComponent::AzuraSpinEnd1);
+				else if (_life2.getLife() > 0)
+					_anim->playAnim(AnimatedSpriteComponent::AzuraSpinEnd2);
+				else
+					_anim->playAnim(AnimatedSpriteComponent::AzuraSpinEnd3);
 			}
 			else
 				_timeOnMelee += deltaTime;
 		}
-
 	}
 }
 
@@ -370,7 +391,7 @@ void Boss2::checkJump(const double& deltaTime)
 {
 	if (!_jump)
 	{
-		if (_timeWaitingJump > _timeToJump && !_jump)
+		if (_timeWaitingJump > _timeToJump)
 		{
 			Jump();
 			_jump = true;
@@ -385,7 +406,7 @@ void Boss2::beetwenFases(const double& deltaTime)
 {
 	if (_anim->animationFinished() || _life3.getLife() == 0)
 	{
-		_originalVelocity = _originalVelocity + Vector2D(_speedIncrement, 0);
+		_originalVelocity = _originalVelocity + Vector2D(30, 0);
 		_velocity = _originalVelocity;
 		if (_lastFase == Fase1)
 		{

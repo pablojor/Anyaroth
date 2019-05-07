@@ -8,15 +8,15 @@ private:
 	LaserHandler* _lasers = nullptr;
 	Vector2D _velocity = { 20,0 }, _originalVelocity = { 20,0 };
 	int _dir, _onFloor = 0, _stopRange = 103;
-	double _shootRange = 120, _speedIncrement = 30;
+	double _shootRange = 120, _speedIncrement = 100;
 	bool _endJump = false, _particles = false;
 
 	int _timeStartMelee = 400, _timeOnMelee = 0;
 
 	int _timeToShoot = 700, _timeWaiting = 0;
 
-	int _timeToJump = 400, _timeWaitingJump = 0;
-	bool _jump = false;
+	int _timeToJump = 100, _timeWaitingJump = 0;
+	bool _jump = false, _realMelee = false;;
 public:
 	Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool);
 	~Boss2();
