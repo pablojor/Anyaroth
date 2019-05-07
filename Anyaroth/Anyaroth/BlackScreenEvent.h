@@ -1,14 +1,14 @@
 #pragma once
 #include "Event.h"
-#include "Player.h"
+#include "Camera.h"
 
-class FlipEvent : public Event
+class BlackScreenEvent : public Event
 {
 private:
-	Player* _player = nullptr;
+	Camera* _cam;
 
 public:
-	FlipEvent(Player* player) : _player(player) {}
+	BlackScreenEvent(Camera* cam) : _cam(cam) {}
 
 	virtual void update(const double& deltaTime) {}
 	virtual void play();

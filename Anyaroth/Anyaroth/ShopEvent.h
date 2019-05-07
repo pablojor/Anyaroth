@@ -4,12 +4,12 @@
 
 class ShopEvent : public Event
 {
-	private:
-		ShopMenu* _shop;
-	public:
-		ShopEvent(ShopMenu* shop);
+private:
+	ShopMenu* _shop;
+
+public:
+	ShopEvent(ShopMenu* shop) : _shop(shop) {}
 
 	virtual void update(const double& time);
-
 	virtual void play();
 };

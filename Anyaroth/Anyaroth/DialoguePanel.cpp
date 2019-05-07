@@ -174,14 +174,14 @@ void DialoguePanel::nextText()
 		//Si la lista de textos no está vacía, ya se ha escrito entero un texto y éste no es el último, se escribe el siguiente.
 		if (_currentText < _dialogue.conversation.size())
 		{
-			if (_faceImage->getFrame() != _dialogue.faces[_currentText])
+			if (_currentText < _dialogue.faces.size() && _faceImage->getFrame() != _dialogue.faces[_currentText])
 				_faceImage->changeFrame(_dialogue.faces[_currentText]);
 
 			//REPRODUCIR SONIDO DE PASO DE TEXTO DEL DIALOGO
 			_game->getSoundManager()->playSFX("example1");
 			///ANIMACION DE INDICADOR DE PASO DE TEXTO DEL DIALOGO
 			//REPRODUCIR SONIDO ESPECIAL DE TEXTO DEL DIALOGO
-			if (_dialogue.sounds[_currentText] != " ")
+			if (_currentText<_dialogue.sounds.size() && _dialogue.sounds[_currentText] != " ")
 				_game->getSoundManager()->playSFX(_dialogue.sounds[_currentText]);
 
 			//si es necesario, troceamos el texto

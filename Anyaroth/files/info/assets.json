@@ -67,6 +67,9 @@
     [ "BgZ1L2", "bg_z1_l2.png", 1, 1 ],
     [ "BgZ1L3", "bg_z1_l3.png", 1, 1 ],
     [ "BgBoss1", "bg_boss1.png", 1, 1 ],
+    [ "BgZ2L1", "bg_z2_l1.png", 1, 1 ],
+    [ "BgZ2L2", "bg_z2_l2.png", 1, 1 ],
+    [ "BgZ2L3", "bg_z2_l3.png", 1, 1 ],
 
     [ "LifeBar", "life_bar.png", 1, 1 ],
     [ "LifeBarMask", "life_bar_mask.png", 1, 1 ],

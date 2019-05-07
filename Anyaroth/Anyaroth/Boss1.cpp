@@ -4,6 +4,7 @@
 #include "ImprovedRifle.h"
 #include "CreditsState.h"
 #include "GameManager.h"
+#include "CutScene.h"
 
 Boss1::Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, player, pos, pool, g->getTexture("Spenta")), Enemy(g, player, pos, g->getTexture("Spenta"), "boss1Die", "boss1Hit")
 {
@@ -64,6 +65,8 @@ Boss1::Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, 
 	_playerBody = _player->getComponent<BodyComponent>();
 
 	_hurtParticle = _game->getTexture("Smoke");
+
+	_message = _game->getCurrentState()->getPlayHUD()->getPopUpPanel();
 }
 
 Boss1::~Boss1()
@@ -74,65 +77,66 @@ Boss1::~Boss1()
 
 void Boss1::update(const double& deltaTime)
 {
-	Boss::update(deltaTime);
-
-	if (isDead())
+	if (_game->getCurrentState()->getCutScene() == nullptr)
 	{
+		Boss::update(deltaTime);
+
+		if (isDead())
+		{
+			if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaEndShield)
+			{
+				_anim->playAnim(AnimatedSpriteComponent::SpentaDie);
+
+				if (GameManager::getInstance()->getCurrentLevel() == LevelManager::BossDemo)
+				{
+					_game->getCurrentState()->getMainCamera()->fadeOut(3000);
+					_game->getCurrentState()->getMainCamera()->onFadeComplete([this](Game* game)
+					{
+						game->popState();
+						game->changeState(new CreditsState(game));
+					});
+				}
+				else
+					popUpMessage();
+			}
+
+			if (_game->getCurrentState()->getPlayHUD()->getPopUpPanel()->isFinished() && !_finishLevel)
+			{
+				_player->getLife().setMaxLife(_player->getLife().getMaxLife() + 50);
+				_player->setChangeLevel(true);
+				_finishLevel = true;
+			}
+		}
+
 		if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaEndShield)
 		{
-			_anim->playAnim(AnimatedSpriteComponent::SpentaDie);
-
-			if (GameManager::getInstance()->getCurrentLevel() == LevelManager::BossDemo)
-			{
-				_game->getCurrentState()->getMainCamera()->fadeOut(3000);
-				_game->getCurrentState()->getMainCamera()->onFadeComplete([this](Game* game)
-				{
-					game->popState();
-					game->changeState(new CreditsState(game));
-				});
-			}
-			else
-				popUpMessage();
+			_actualState = Moving;
 		}
 
-		if (_game->getCurrentState()->getPlayHUD()->getPopUpPanel()->isFinished() && !_finishLevel)
+		if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaEndBomb)
 		{
-			_player->getLife().setMaxLife(_player->getLife().getMaxLife() + 50);
-			_player->setChangeLevel(true);
-			_finishLevel = true;
+			_actualState = Moving;
 		}
-	}
+		else
+		{
+			if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaEndShield)
+				_anim->playAnim(AnimatedSpriteComponent::SpentaDie);
+		}
 
-	if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaEndShield)
-	{
-		_actualState = Moving;
-	}
+		if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaEndShield)
+		{
+			_actualState = Moving;
+		}
 
-	if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaEndBomb)
-	{
-		_actualState = Moving;
-	}
-	else
-	{
-		if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaEndShield)		
-			_anim->playAnim(AnimatedSpriteComponent::SpentaDie);	
-	}
-
-	if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaEndShield)
-	{
-		_actualState = Moving;
-	}
-
-	if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaEndBomb)
-	{
-		_actualState = Moving;
+		if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaEndBomb)
+		{
+			_actualState = Moving;
+		}
 	}
 }
 
 void Boss1::popUpMessage()
 {
-	_message = _game->getCurrentState()->getPlayHUD()->getPopUpPanel();
-
 	_message->addMessage({ "Notification:", "After this great battle, your resistance improves a lot. Your lifebar has now 50 extra points." });
 	_message->addMessage({ "Notification:", "And... there's more. That cool sword, Spenta's, is now yours. You can equip it in the next shop." });
 	_message->open();
