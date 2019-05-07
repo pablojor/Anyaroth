@@ -9,7 +9,7 @@ private:
 	Vector2D _velocity = { 20,0 }, _originalVelocity = { 20,0 };
 	int _dir, _onFloor = 0, _stopRange = 103;
 	double _shootRange = 120, _speedIncrement = 100;
-	bool _endJump = false, _particles = false;
+	bool _particles = false;
 
 	int _timeStartMelee = 400, _timeOnMelee = 0;
 

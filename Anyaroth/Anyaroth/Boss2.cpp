@@ -78,7 +78,7 @@ Boss2::~Boss2()
 
 void Boss2::Jump()
 {
-	_body->getBody()->ApplyLinearImpulseToCenter(b2Vec2(_dir * 5000, -6000), true);
+	_body->getBody()->ApplyLinearImpulseToCenter(b2Vec2(_dir * 5000, -5500), true);
 
 	b2PolygonShape shape;
 	shape.SetAsBox(35 / M_TO_PIXEL, 25 / M_TO_PIXEL, b2Vec2(0, 5), 0);
@@ -98,8 +98,6 @@ void Boss2::movement(const double& deltaTime)
 {
 	if (_actualFase != BetweenFase)
 	{
-		if (_endJump)
-			endJump();
 		_bodyPos = Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL);
 		_playerPos = Vector2D(_playerBody->getBody()->GetPosition().x * M_TO_PIXEL, _playerBody->getBody()->GetPosition().y * M_TO_PIXEL);
 
@@ -158,14 +156,9 @@ void Boss2::beginCollision(GameObject * other, b2Contact* contact)
 	{
 		
 			_onFloor ++;
-			if (_onFloor <= 1)
-			{
-				if (_actualState == Jumping)
-					_endJump = true;
+			if (_onFloor <= 1)		
 				setTag("Enemy");
-				_actualState = Moving;
-			}
-		
+			
 	}
 }
 
@@ -200,11 +193,11 @@ void Boss2::meleeAttack()
 
 void Boss2::endJump()
 {
-	_endJump = false;
 	_jump = false;
 	_body->getBody()->DestroyFixture(_body->getBody()->GetFixtureList());
 	_player->stunPlayer();
 	_doSomething = _game->random(800, 1500);
+	_actualState = Moving;
 }
 
 void Boss2::checkMelee(const double& deltaTime)
@@ -399,6 +392,11 @@ void Boss2::checkJump(const double& deltaTime)
 		}
 		else
 			_timeWaitingJump += deltaTime;
+	}
+	else
+	{
+		if (_anim->getCurrentAnim() == AnimatedSpriteComponent::AzuraJump && _anim->animationFinished())
+			endJump();
 	}
 }
 
