@@ -5,8 +5,6 @@ VisualStudioVersion = 15.0.28010.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Anyaroth", "Anyaroth\Anyaroth.vcxproj", "{60A3B899-1EDB-471B-84AB-DBCD1A6398D6}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup_Anyaroth", "Setup_Anyaroth\Setup_Anyaroth.vdproj", "{ED411A7B-3B9F-4DF8-B41A-8B43CB1FE9AD}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -23,10 +21,6 @@ Global
 		{60A3B899-1EDB-471B-84AB-DBCD1A6398D6}.Release|x64.Build.0 = Release|x64
 		{60A3B899-1EDB-471B-84AB-DBCD1A6398D6}.Release|x86.ActiveCfg = Release|Win32
 		{60A3B899-1EDB-471B-84AB-DBCD1A6398D6}.Release|x86.Build.0 = Release|Win32
-		{ED411A7B-3B9F-4DF8-B41A-8B43CB1FE9AD}.Debug|x64.ActiveCfg = Debug
-		{ED411A7B-3B9F-4DF8-B41A-8B43CB1FE9AD}.Debug|x86.ActiveCfg = Debug
-		{ED411A7B-3B9F-4DF8-B41A-8B43CB1FE9AD}.Release|x64.ActiveCfg = Release
-		{ED411A7B-3B9F-4DF8-B41A-8B43CB1FE9AD}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
