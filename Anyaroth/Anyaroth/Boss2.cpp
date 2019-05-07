@@ -69,6 +69,8 @@ Boss2::Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, 
 
 	_melee = new Poleaxe(getGame(), { 115,15 }, PLAYER, 2, 40, 75, this);
 	addChild(_melee);
+
+	addSensors();
 }
 
 
@@ -156,8 +158,20 @@ void Boss2::beginCollision(GameObject * other, b2Contact* contact)
 		
 			_onFloor ++;
 			if (_onFloor <= 1)
-				setTag("Enemy");		
+				setTag("Enemy");
+
+			if (fA->GetFriction() == 26 || fB->GetFriction() == 26)
+			{
+				_body->getBody()->SetLinearVelocity(b2Vec2(0, _body->getBody()->GetLinearVelocity().y));
+				_body->getBody()->ApplyLinearImpulse(b2Vec2(-10, 0), b2Vec2_zero, true);
+			}
+			else if (fA->GetFriction() == -26 || fB->GetFriction() == -26)
+			{
+				_body->getBody()->SetLinearVelocity(b2Vec2(0, _body->getBody()->GetLinearVelocity().y));
+				_body->getBody()->ApplyLinearImpulse(b2Vec2(10, 0), b2Vec2_zero, true);
+			}
 	}
+
 }
 
 

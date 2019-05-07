@@ -59,6 +59,8 @@ Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(
 
 	_body->getBody()->SetActive(false);
 	_armVision = false;
+
+	addSensors();
 }
 
 void Boss3::setBoss3Panel(Boss3Panel * b)
@@ -504,6 +506,16 @@ void Boss3::beginCollision(GameObject * other, b2Contact* contact)
 		{
 			_actualState = Moving;
 			_body->getBody()->SetLinearVelocity(b2Vec2(_velocity * _dir.getX() / M_TO_PIXEL, 0));
+		}
+		if (fA->GetFriction() == 26 || fB->GetFriction() == 26)
+		{
+			_body->getBody()->SetLinearVelocity(b2Vec2(0, _body->getBody()->GetLinearVelocity().y));
+			_body->getBody()->ApplyLinearImpulse(b2Vec2(-10, 0), b2Vec2_zero, true);
+		}
+		else if (fA->GetFriction() == -26 || fB->GetFriction() == -26)
+		{
+			_body->getBody()->SetLinearVelocity(b2Vec2(0, _body->getBody()->GetLinearVelocity().y));
+			_body->getBody()->ApplyLinearImpulse(b2Vec2(10, 0), b2Vec2_zero, true);
 		}
 	}
 }

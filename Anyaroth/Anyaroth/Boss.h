@@ -59,4 +59,5 @@ public:
 	virtual void fase3(const double& deltaTime) {};
 	virtual void beetwenFases(const double& deltaTime) {};
 	virtual void changeFase(int fase);
+	virtual void addSensors();
 };
