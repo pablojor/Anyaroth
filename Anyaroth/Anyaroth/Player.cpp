@@ -61,7 +61,7 @@ Player::Player(Game* game) : GameObject(game, "Player")
 	addChild(_playerArm);
 	
 	_currentGun = WeaponManager::getInstance()->getWeapon(game, Pistol_Weapon);
-	_otherGun = WeaponManager::getInstance()->getWeapon(game, BHCannon_Weapon);
+	//_otherGun = WeaponManager::getInstance()->getWeapon(game, BHCannon_Weapon);
 
 	_playerArm->setTexture(_currentGun->getArmTexture());
 	_playerArm->setAnimations(_currentGun->getAnimType());
@@ -416,7 +416,8 @@ void Player::changeCurrentGun(Gun * gun)
 {
 	if (gun != nullptr)
 	{
-		delete _currentGun;
+		 if ( _currentGun != nullptr) 
+			 delete _currentGun;
 		_currentGun = gun;
 
 		_playerArm->setTexture(_currentGun->getArmTexture());
@@ -431,7 +432,8 @@ void Player::changeOtherGun(Gun * gun)
 {
 	if (gun != nullptr)
 	{
-		delete _otherGun;
+		if (_otherGun != nullptr) 
+			delete _otherGun;
 		_otherGun = gun;
 	}
 }

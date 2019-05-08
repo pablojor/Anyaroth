@@ -17,7 +17,7 @@
       },
 
       "BasicRifle": {
-        "zone": -1,
+        "zone": 1,
         "frame": "BasicFrame",
         "icon": "RifleIcon",
         "price": 150,
@@ -31,7 +31,7 @@
       },
 
       "BasicShotgun": {
-        "zone": -1,
+        "zone": 1,
         "frame": "BasicFrame",
         "icon": "ShotgunIcon",
         "price": 150,

@@ -14,7 +14,8 @@ enum GunType
 	BomberGun_Weapon,
 	BasicEnemyGun_Weapon,
 	BasicEnemyShotgun_Weapon,
-	BossOrbCanon_Weapon
+	BossOrbCanon_Weapon,
+	None = 100
 };
 
 enum MeleeType
