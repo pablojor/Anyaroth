@@ -445,6 +445,7 @@
     <ClCompile Include="TutorialBullsEye.cpp">
       <Filter>Archivos de código fuente\Objects\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="Trigger.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -927,6 +928,7 @@
     <ClInclude Include="TutorialBullsEye.h">
       <Filter>Archivos de encabezado\Objects\Enemies</Filter>
     </ClInclude>
+    <ClInclude Include="Trigger.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de código fuente">

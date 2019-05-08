@@ -281,6 +281,7 @@
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Tilemap.cpp" />
     <ClCompile Include="TransformComponent.cpp" />
+    <ClCompile Include="Trigger.cpp" />
     <ClCompile Include="TTFclass.cpp" />
     <ClCompile Include="TutorialBullsEye.cpp" />
     <ClCompile Include="UIElement.cpp" />
@@ -441,6 +442,7 @@
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Tilemap.h" />
     <ClInclude Include="TransformComponent.h" />
+    <ClInclude Include="Trigger.h" />
     <ClInclude Include="TTFclass.h" />
     <ClInclude Include="TutorialBullsEye.h" />
     <ClInclude Include="UIElement.h" />
