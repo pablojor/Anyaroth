@@ -897,6 +897,7 @@
     <ClInclude Include="Sword.h">
       <Filter>Archivos de encabezado\Objects\Melee</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de código fuente">
@@ -1058,5 +1059,11 @@
     <Filter Include="Archivos de código fuente\Objects\Melee">
       <UniqueIdentifier>{91c2fb3e-33b4-42c8-b741-0a0b383c9988}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Anyaroth.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\assets\sprites\icon.ico" />
   </ItemGroup>
 </Project>

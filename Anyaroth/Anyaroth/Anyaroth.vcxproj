@@ -320,6 +320,7 @@
     <ClInclude Include="Arm.h" />
     <ClInclude Include="Knife.h" />
     <ClInclude Include="PoleAxe.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Sword.h" />
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="BasicPistol.h" />
@@ -443,6 +444,12 @@
     <ClInclude Include="WeaponManager.h" />
     <ClInclude Include="WeaponryViewer.h" />
     <ClInclude Include="ZoomInOutEvent.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Anyaroth.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\assets\sprites\icon.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />
