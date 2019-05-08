@@ -22,5 +22,5 @@ public:
 
 	virtual void update(const double& deltaTime);
 	void raycast();
-	void shoot();
+	virtual void shoot();
 };

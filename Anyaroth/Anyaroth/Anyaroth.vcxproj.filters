@@ -446,6 +446,8 @@
       <Filter>Archivos de código fuente\Objects\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="Trigger.cpp" />
+    <ClCompile Include="TutorialTurret.cpp" />
+    <ClCompile Include="TutorialBuddy.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -929,6 +931,8 @@
       <Filter>Archivos de encabezado\Objects\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="Trigger.h" />
+    <ClInclude Include="TutorialTurret.h" />
+    <ClInclude Include="TutorialBuddy.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de código fuente">
