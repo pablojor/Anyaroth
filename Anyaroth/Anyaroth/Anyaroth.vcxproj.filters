@@ -442,6 +442,9 @@
     <ClCompile Include="PlayMusicEvent.cpp">
       <Filter>Archivos de código fuente\Events</Filter>
     </ClCompile>
+    <ClCompile Include="TutorialBullsEye.cpp">
+      <Filter>Archivos de código fuente\Objects\Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -920,6 +923,9 @@
     </ClInclude>
     <ClInclude Include="PlayMusicEvent.h">
       <Filter>Archivos de encabezado\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="TutorialBullsEye.h">
+      <Filter>Archivos de encabezado\Objects\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

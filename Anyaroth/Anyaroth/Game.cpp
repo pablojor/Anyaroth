@@ -135,6 +135,8 @@ void Game::createSounds()
 	_soundManager->addSFX("boss1Interfase1", SOUNDS_PATH + "boss1Interfase1.wav");
 	_soundManager->addSFX("boss1Interfase2", SOUNDS_PATH + "boss1Interfase2.wav");
 	_soundManager->addSFX("boss1Interfase3", SOUNDS_PATH + "boss1Interfase3.wav");
+
+	_soundManager->addSFX("bullseyeHit", SOUNDS_PATH + "bullseyeHit.wav");
 }
 
 void Game::createDialogues()

@@ -14,6 +14,9 @@
 #include "NPC.h"
 #include "Shop.h"
 #include "MissileTurret.h"
+#include "TutorialBullsEye.h"
+#include "AmmoPackage.h"
+#include "AidKit.h"
 #include <json.hpp>
 
 using namespace nlohmann;
@@ -104,6 +107,18 @@ void Map::createObjects()
 			else if (name == "FlyingDistance")
 			{
 				_objects->addChild(new StaticFlyingEnemy(_game, _player, Vector2D(pos.getX() - TILES_SIZE, pos.getY() - TILES_SIZE * 2), _bulletPool));
+			}
+			else if (name == "Bullseye")
+			{
+				_objects->addChild(new TutorialBullsEye(_game, _player, Vector2D(pos.getX() - TILES_SIZE, pos.getY() - TILES_SIZE * 2)));
+			}
+			else if (name == "Ammo")
+			{
+				_objects->addChild(new AmmoPackage(_game, Vector2D(pos.getX() - TILES_SIZE, pos.getY() - TILES_SIZE * 2), 1));
+			}
+			else if (name == "Aidkit")
+			{
+				_objects->addChild(new AidKit(_game, Vector2D(pos.getX() - TILES_SIZE, pos.getY() - TILES_SIZE * 2), 100));
 			}
 			else if (name == "DistanceDynamic")
 			{
