@@ -47,6 +47,7 @@
     [ "Trooper", "trooper_spritesheet.png", 4, 35 ],
     [ "TrooperArm", "trooperarm.png", 3, 2 ],
     [ "TutorialBullseye", "tutorial_bullseye.png", 4, 4 ],
+    [ "TutorialBuddy", "tutorial_buddy.png", 4, 9 ],
 
     [ "Spenta", "spenta_spritesheet.png", 12, 26 ],
     [ "SpentaOrb", "spenta_orb_spritesheet.png", 2, 10 ],
