@@ -51,7 +51,6 @@ class DepotPanel : public PanelUI
 		virtual ~DepotPanel() { delete _voidItem; };
 
 		virtual bool handleEvent(const SDL_Event& event);
-		virtual void render() const;
 
 		void inicializeCallback(ShopMenu* menu);
 

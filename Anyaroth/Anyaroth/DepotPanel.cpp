@@ -111,14 +111,6 @@ bool DepotPanel::handleEvent(const SDL_Event& event)
 	return PanelUI::handleEvent(event);;
 }
 
-void DepotPanel::render() const
-{
-	if (_visible) {
-		PanelUI::render();
-		_secondWeaponFrame->render();
-	}
-}
-
 void DepotPanel::inicializeCallback(ShopMenu * menu)
 {
 	_exitButton->onDown([menu](Game* game) { menu->closeDepotPanel(game); });
