@@ -278,7 +278,7 @@ void Game::run()
 		start();
 		handleEvents();
 
-		while (lag >= FRAME_RATE)
+		while (lag >= FRAME_RATE && !_stateMachine->currentState()->hasToStart())
 		{
 			updateWorld(_timestep, 8, 3);
 			update(FRAME_RATE);

@@ -15,6 +15,12 @@ DistanceEnemy::DistanceEnemy(Game* g, Player* player, Vector2D pos, Texture* tex
 	_affectedByExternalForces = true;
 }
 
+DistanceEnemy::~DistanceEnemy()
+{
+	if (_myBulletPool != nullptr) _myBulletPool->stopBullets();
+	delete _myGun;
+}
+
 void DistanceEnemy::raycast()
 {
 	b2Vec2 enemyPos = _body->getBody()->GetPosition();

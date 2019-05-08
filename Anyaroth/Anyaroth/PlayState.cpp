@@ -14,8 +14,6 @@ PlayState::PlayState(Game* g) : GameState(g) {}
 
 PlayState::~PlayState()
 {
-	_playerBulletPool->stopBullets();
-
 	if (_cutScene != nullptr)
 		delete _cutScene;
 }
@@ -53,7 +51,7 @@ void PlayState::start()
 	BulletPool* enemyPool = new BulletPool(_gameptr);
 
 	//Level
-	GameManager::getInstance()->setCurrentLevel(LevelManager::Tutorial);
+	GameManager::getInstance()->setCurrentLevel(LevelManager::SafeBossDemo);
 
 	_level = new GameObject(_gameptr);
 	_levelManager = LevelManager(_gameptr, _player, _level, enemyPool);

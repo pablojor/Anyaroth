@@ -98,8 +98,10 @@ bool ButtonUI::handleEvent(const SDL_Event& event)
 			{
 				if (_onOverCallback != nullptr) _onOverCallback(_game);
 				handle = true;
+				_positionState = Over;
 			}
-			_positionState = Over;
+			if(!handle)
+				_positionState = Over;
 		}
 		else
 		{
