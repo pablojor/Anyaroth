@@ -133,5 +133,82 @@
   ],
   "fonts": [
     [ "ARIAL12", "arial.ttf", 12 ]
+  ],
+  "music": [
+    ["bgMusic", "bgMusic.wav"],
+    ["mainMenu", "mainMenu.ogg"],
+    ["shop", "shop.ogg"],
+    ["safe_zone", "safe_zone.ogg"],
+    ["boss1Battle", "boss1Battle.ogg"],
+    ["boss2Battle", "boss2Battle.ogg"],
+    ["demoLevelMusic", "demoLevelMusic.ogg"]
+  ],
+  "sounds":[
+    ["example1", "example1.wav"],
+
+    ["boton", "boton.wav"],
+
+    ["example", "example.wav"],
+
+    ["openDialogue", "openDialogue.wav"],
+    ["closeDialogue", "closeDialogue.wav"],
+
+    ["exampleVoice", "exampleVoice.wav"],
+    ["bossVoice", "bossVoice.wav"],
+
+    ["pick1", "itempick1.wav"],
+
+    ["doorOpen", "doorOpen.wav"],
+    ["doorClose", "doorClose.wav"],
+    ["turretShot", "turretShot.wav"],
+    ["spentaSword", "spentaSword.wav"],
+    ["step", "step.wav"],
+    ["jump", "jump.wav"],
+    ["dash", "dash.wav"],
+    ["die1", "die1.wav"],
+    ["die2", "die2.wav"],
+    ["pain1", "pain1.wav"],
+    ["pain2", "pain2.wav"],
+    ["pain3", "pain3.wav"],
+    ["pain4", "pain4.wav"],
+    ["pain5", "pain5.wav"],
+    ["pain6", "pain6.wav"],
+
+    ["pistolShot", "pistolShot.wav"],
+    ["bulletGround", "bulletGround.wav"],
+    ["melee", "melee.wav"],
+    ["reload", "reload.wav"],
+    ["emptyGun", "emptyGun.wav"],
+    ["shotgun1", "shotgun1.wav"],
+    ["shotgun2", "shotgun2.wav"],
+    ["rifle1", "rifle1.wav"],
+    ["rifle2", "rifle2.wav"],
+    ["plasmaSniper", "plasmaSniper.wav"],
+    ["blackHole", "blackHole.wav"],
+    ["duringBH", "duringBH.wav"],
+    ["orb", "orb.wav"],
+    ["orbBounce", "orbBounce.wav"],
+    ["bombThrow", "bombthrow.wav"],
+    ["bombExplosion", "bombexplosion.wav"],
+
+    ["turretMeleeHit", "turretMeleeHit.wav"],
+    ["turretHit", "turretHit.wav"],
+    ["turretDeath", "turretDeath.wav"],
+    ["bomberDeath", "bomberDeath.wav"],
+    ["martyrHit", "martyrHit.wav"],
+    ["martyrMeleeHit", "martyrMeleeHit.wav"],
+    ["martyrDie", "martyrDie.wav"],
+    ["martyrExplosion", "martyrExplosion.wav"],
+    ["meleeEnemyHit", "meleeEnemyHit.wav"],
+    ["meleeDeath", "meleeDeath.wav"],
+    ["meleeHit", "meleeHit.wav"],
+    ["meleeEnemyAttack", "meleeEnemyAttack.wav"],
+    ["rocketLuncherUp", "rocketLuncherUp.wav"],
+    ["rocketLaunch", "rocketLaunch.wav"],
+    ["boss1Hit", "boss1Hit.wav"],
+    ["boss1Die", "boss1Die.wav"],
+    ["boss1Interfase1", "boss1Interfase1.wav"],
+    ["boss1Interfase2", "boss1Interfase2.wav"],
+    ["boss1Interfase3", "boss1Interfase3.wav"]
   ]
 }
