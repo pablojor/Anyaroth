@@ -15,5 +15,5 @@ MenuState::MenuState(Game* g) : GameState(g)
 	//Camera BackGound
 	_mainCamera->setBackGround(new BackGround(g->getTexture("BgMenu"), _mainCamera));
 
-	//g->getSoundManager()->playMusic("bgMusic", true);
+	g->getSoundManager()->playMusic("mainMenu", true);
 }

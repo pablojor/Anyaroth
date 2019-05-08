@@ -64,9 +64,11 @@ void Game::createSounds()
 {
 
 	_soundManager->addMusic("bgMusic", SOUNDS_PATH + "bgMusic.wav");
+	_soundManager->addMusic("mainMenu", SOUNDS_PATH + "mainMenu.ogg");
 	_soundManager->addMusic("shop", SOUNDS_PATH + "shop.ogg");
 	_soundManager->addMusic("safe_zone", SOUNDS_PATH + "safe_zone.ogg");
 	_soundManager->addMusic("boss1Battle", SOUNDS_PATH + "boss1Battle.ogg");
+	_soundManager->addMusic("boss2Battle", SOUNDS_PATH + "boss2Battle.ogg");
 	_soundManager->addMusic("demoLevelMusic", SOUNDS_PATH + "demoLevelMusic.ogg");
 	_soundManager->addSFX("example1", SOUNDS_PATH + "example1.wav");
 
