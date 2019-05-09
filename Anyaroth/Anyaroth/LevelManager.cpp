@@ -59,7 +59,8 @@ void LevelManager::setLevel(int l)
 		_currentSafeZone = new Map(TILEMAP_PATH + "SafeZonePrueba.json", _game, _player, _game->getTexture("Tileset1"), _enemyBulletPool);
 		break;
 	case LevelManager::Boss2:
-		//_currentMap = ...
+		_currentMap = new Map(TILEMAP_PATH + "Nivel2-3.json", _game, _player, _game->getTexture("TilesetBoss2"), _enemyBulletPool);
+		_game->getSoundManager()->playMusic("boss2Battle", -1);
 		break;
 	case LevelManager::Safe3_1:
 		//_currentSafeZone = ...
@@ -77,7 +78,7 @@ void LevelManager::setLevel(int l)
 		//_currentSafeZone = ...
 		break;
 	case LevelManager::Boss3:
-		//_currentMap = ...
+		_currentMap = new Map(TILEMAP_PATH + "Nivel3-3.json", _game, _player, _game->getTexture("TilesetBoss3"), _enemyBulletPool);
 		break;
 
 		//Demo Guerrilla Game Festival
@@ -146,6 +147,8 @@ void LevelManager::setLevel(int l)
 
 void LevelManager::changeLevel(int l)
 {
+	if (_game->getCurrentState()->getPlayHUD() != nullptr)
+		_game->getCurrentState()->getPlayHUD()->reset();
 	_enemyBulletPool->stopBullets();
 	_level->destroyAllChildren();
 	setLevel(l);

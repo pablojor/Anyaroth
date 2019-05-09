@@ -40,10 +40,10 @@ void Particle::init(Texture * texture, const Vector2D & position, const double &
 	_texture = texture;
 	_transform->setRotation(angle);
 
-	_body->setH(texture->getH());
-	_body->setW(texture->getW());
+	_body->setH(texture->getH()/2);
+	_body->setW(texture->getW()/2);
 	
-	_body->moveShape(b2Vec2(0, -0.5));
+	_body->moveShape(b2Vec2(0, 0));
 	_body->filterCollisions(PLAYER_BULLETS, FLOOR);
 	
 	_body->getBody()->SetActive(true);

@@ -265,6 +265,6 @@ bool Camera::pre_handleEvent()
 
 void Camera::setWorldBounds(const int & xBound, const int & yBound)
 {
-	_xWorldBounds = xBound;
-	_yWorldBounds = yBound;
+	xBound > _cameraRect.w ? _xWorldBounds = xBound : _xWorldBounds = _cameraRect.w;
+	yBound > _cameraRect.h ? _yWorldBounds = yBound : _yWorldBounds = _cameraRect.h;
 }

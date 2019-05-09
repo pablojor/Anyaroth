@@ -5,7 +5,7 @@
 #include "Coin.h"
 #include "AmmoPackage.h"
 #include "AidKit.h"
-#include "ParticleManager.h"
+
 
 Enemy::Enemy(Game* g, Player* player, Vector2D pos, Texture* texture, string death, string hit, string meleeHit) : GameObject(g, "Enemy"), _player(player), _deathSound(death), _hitSound(hit), _meleeHit(meleeHit)
 {

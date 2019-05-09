@@ -6,6 +6,7 @@
 #include "CustomAnimatedSpriteComponent.h"
 #include "Player.h"
 #include "Life.h"
+#include "ParticleManager.h"
 
 class Enemy : public GameObject
 {
