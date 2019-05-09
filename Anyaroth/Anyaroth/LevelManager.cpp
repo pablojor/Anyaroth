@@ -85,7 +85,7 @@ void LevelManager::setLevel(int l)
 		break;
 	case LevelManager::LevelDemo:
 		_currentMap = new Map(TILEMAP_PATH + "NivelDemo.json", _game, _player, _tilesetZone1, _enemyBulletPool, _hud);
-		_game->getSoundManager()->playMusic("demoLevelMusic", -1);
+		_game->getSoundManager()->playMusic("zona1", -1);
 		break;
 	case LevelManager::SafeBossDemo:
 		_currentSafeZone = new Map(TILEMAP_PATH + "SafeZoneBossDemo.json", _game, _player, _tilesetZone1, _enemyBulletPool, _hud);
