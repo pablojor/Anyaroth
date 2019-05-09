@@ -7,10 +7,13 @@ class Boss2 : public Boss
 private:
 	LaserHandler* _lasers = nullptr;
 	Vector2D _velocity = { 20,0 }, _originalVelocity = { 20,0 };
+
+
 	int _dir, _onFloor = 0, _stopRange = 103;
 	double _shootRange = 120, _speedIncrement = 100;
 	bool _particles = false;
 
+	Melee* _melee;
 	int _timeStartMelee = 400, _timeOnMelee = 0;
 
 	int _timeToShoot = 700, _timeWaiting = 0;

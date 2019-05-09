@@ -20,5 +20,5 @@ void MenuState::start()
 	//Camera BackGound
 	_mainCamera->setBackGround(new BackGround(_gameptr->getTexture("BgMenu"), _mainCamera));
 
-	g->getSoundManager()->playMusic("mainMenu", true);
+	_gameptr->getSoundManager()->playMusic("mainMenu", true);
 }

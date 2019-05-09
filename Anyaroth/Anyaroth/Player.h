@@ -53,7 +53,8 @@ private:
 	bool _spawnParticles = false;
 
 	//Actions
-	bool _hasToReload = false, _isShooting = false, _isMeleeing = false;
+	bool _hasToReload = false, _isShooting = false, _isMeleeing = false, _stunned =false;
+	double _stunTime = 1000;
 
 	//Others
 	bool _changeLevel = false, _inputFreezed = false;
@@ -116,6 +117,8 @@ public:
 	void dashOff();
 	void jump();
 	void cancelJump();
+	void stunPlayer();
+	void refreshStunTime(const double & deltaTime);
 	inline bool isGrounded() const { return _floorCount; }
 
 	void melee();

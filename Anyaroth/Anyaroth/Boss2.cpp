@@ -1,5 +1,5 @@
 #include "Boss2.h"
-#include "Poleaxe.h"
+#include "BossPoleAxe.h"
 #include "ImprovedShotgun.h"
 
 Boss2::Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, player, pos, pool, g->getTexture("Azura")), Enemy(g, player, pos, g->getTexture("Azura"))
@@ -7,6 +7,8 @@ Boss2::Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, 
 	_life = 250;
 	_life1 = _life2 = _life3 = _life;
 
+	if (_myGun != nullptr)
+		delete _myGun;
 	_myGun = new ImprovedShotgun(g);
 	_myGun->setBulletSpeed(60);
 
@@ -67,7 +69,7 @@ Boss2::Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, 
 	_lasers = new LaserHandler(g, g->getTexture("Arm"), g->getTexture("ArmUp"), player, 8);
 	addChild(_lasers);
 
-	_melee = new Poleaxe(getGame(), { 115,15 }, PLAYER, 2, 40, 75, this);
+	_melee = new BossPoleAxe(getGame(), this);
 	addChild(_melee);
 
 	addSensors();
