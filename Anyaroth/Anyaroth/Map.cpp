@@ -17,6 +17,8 @@
 #include "TutorialBullsEye.h"
 #include "AmmoPackage.h"
 #include "AidKit.h"
+#include "TutorialTurret.h"
+#include "TutorialBuddy.h"
 #include <json.hpp>
 
 using namespace nlohmann;
@@ -119,6 +121,14 @@ void Map::createObjects()
 			else if (name == "Aidkit")
 			{
 				_objects->addChild(new AidKit(_game, Vector2D(pos.getX() - TILES_SIZE, pos.getY() - TILES_SIZE * 2), 100));
+			}
+			else if (name == "TutorialTurret")
+			{
+				_objects->addChild(new TutorialTurret(_game, _player, Vector2D(pos.getX(), pos.getY() - TILES_SIZE * 2), _bulletPool));
+			}
+			else if (name == "TutorialBuddy")
+			{
+				_objects->addChild(new TutorialBuddy(_game, _player, Vector2D(pos.getX(), pos.getY() - TILES_SIZE * 2)));
 			}
 			else if (name == "DistanceDynamic")
 			{

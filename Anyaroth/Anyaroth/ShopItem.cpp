@@ -5,6 +5,7 @@ ShopItem::ShopItem(Game* game, Texture* image, int xPos, int yPos) : ButtonUI(ga
 {
 	_weaponIcon = new ImageUI(game, image, xPos, yPos);
 	setPosition(xPos, yPos);
+	setImage(game->getTexture("ItemFrame"));
 }
 
 ShopItem::~ShopItem()
@@ -14,7 +15,7 @@ ShopItem::~ShopItem()
 
 void ShopItem::render() const
 {
-	_weaponIcon->render();
+	if (_weaponIcon->getImage() != nullptr) _weaponIcon->render();
 	ButtonUI::render();
 }
 
@@ -34,14 +35,16 @@ void ShopItem::setSize(int w, int h)
 
 void ShopItem::setItemInfo(const ItemInfo & info)
 {
-	_info = info;
+	if (&info != nullptr) {
+		_info = info;
 
-	//Frame (cambio al frame del color por rareza)
-	setImage(_game->getTexture(_info._rarityFrame));
-	//Cambio del icono del arma
-	_weaponIcon->setImage(_game->getTexture(_info._iconName));
-	//Ajustamos tama�os
-	setSize(getImage()->getW(), getImage()->getH());
+		//Frame (cambio al frame del color por rareza)
+		setImage(_game->getTexture(_info._rarityFrame));
+		//Cambio del icono del arma
+		_weaponIcon->setImage(_game->getTexture(_info._iconName));
+		//Ajustamos tama�os
+		setSize(getImage()->getW(), getImage()->getH());
+	}
 }
 
 void ShopItem::setChosen(bool selected)

@@ -4,31 +4,31 @@
 #include "ImageUI.h"
 #include "GunType_def.h"
 
+struct ItemInfo
+{
+	int _zone = -100;
+
+	string _name = "NoWeapon";
+	int _price = 0;
+
+	int _damage = 0;
+	int _cadence = 0;
+	int _clip = 0;
+
+	//ID del arma
+	uint _type = 100;
+	string _iconName = "VoidIcon";
+	string _rarityFrame = "ItemFrame";
+
+	bool _sold = false;
+	bool _equiped = false;
+
+	bool _isMelee = false;
+};
+
 class ShopItem : public ButtonUI
 {
 private:
-	struct ItemInfo
-	{
-		int _zone;
-
-		string _name;
-		int _price;
-
-		int _damage;
-		int _cadence;
-		int _clip;
-
-			//ID del arma
-			uint _type;
-			string _iconName;
-			string _rarityFrame;
-
-			bool _sold;
-			bool _equiped;
-
-			bool _isMelee = false;
-		};
-
 	ItemInfo _info;
 	ImageUI* _weaponIcon = nullptr;
 

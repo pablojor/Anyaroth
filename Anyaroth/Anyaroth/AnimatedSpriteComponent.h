@@ -52,6 +52,7 @@ public:
 
 	inline bool animationFinished() { return _animations[_currentAnim].animationFinished; }
 	inline uint getCurrentAnim() const { return _currentAnim; }
+	inline uint getCurrentFrame() const { return _frame; }
 	inline bool isLooping() { return _animations[_currentAnim].loop; }
 
 	void reset();
