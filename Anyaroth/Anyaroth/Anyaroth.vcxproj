@@ -150,6 +150,7 @@
     <ClCompile Include="BlackScreenEvent.cpp" />
     <ClCompile Include="BossSword.cpp" />
     <ClCompile Include="ButtonUI.cpp" />
+    <ClCompile Include="ChangeLevelEvent.cpp" />
     <ClCompile Include="CreditsPanel.cpp" />
     <ClCompile Include="CreditsState.cpp" />
     <ClCompile Include="CreditsStateHUD.cpp" />
@@ -173,6 +174,7 @@
     <ClCompile Include="PlayMusicEvent.cpp" />
     <ClCompile Include="PlaySoundEvent.cpp" />
     <ClCompile Include="PoleAxe.cpp" />
+    <ClCompile Include="PopUpEvent.cpp" />
     <ClCompile Include="Sword.cpp" />
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="BasicPistol.cpp" />
@@ -302,6 +304,7 @@
     <ClInclude Include="BossSword.h" />
     <ClInclude Include="ButtonUI.h" />
     <ClInclude Include="CamEffectType.h" />
+    <ClInclude Include="ChangeLevelEvent.h" />
     <ClInclude Include="CreditsPanel.h" />
     <ClInclude Include="CreditsState.h" />
     <ClInclude Include="CreditsStateHUD.h" />
@@ -328,6 +331,7 @@
     <ClInclude Include="PlayMusicEvent.h" />
     <ClInclude Include="PlaySoundEvent.h" />
     <ClInclude Include="PoleAxe.h" />
+    <ClInclude Include="PopUpEvent.h" />
     <ClInclude Include="Sword.h" />
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="BasicPistol.h" />

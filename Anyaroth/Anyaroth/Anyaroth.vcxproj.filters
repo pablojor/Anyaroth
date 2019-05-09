@@ -157,12 +157,6 @@
     <ClCompile Include="FlyingEnemy.cpp">
       <Filter>Archivos de código fuente\Objects\Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="MartyrEnemy.cpp">
-      <Filter>Archivos de código fuente\Objects\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="MeleeEnemy.cpp">
-      <Filter>Archivos de código fuente\Objects\Enemies</Filter>
-    </ClCompile>
     <ClCompile Include="DistanceDynamicEnemy.cpp">
       <Filter>Archivos de código fuente\Objects\Enemies\DistanceEnemies</Filter>
     </ClCompile>
@@ -270,9 +264,6 @@
     </ClCompile>
     <ClCompile Include="Boss.cpp">
       <Filter>Archivos de código fuente\Objects\Enemies\Bosses</Filter>
-    </ClCompile>
-    <ClCompile Include="GroundEnemy.cpp">
-      <Filter>Archivos de código fuente\Objects\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="Bullet.cpp">
       <Filter>Archivos de código fuente\Objects\Bullets</Filter>
@@ -412,9 +403,6 @@
     <ClCompile Include="MissileTurret.cpp">
       <Filter>Archivos de código fuente\Objects\Interactables</Filter>
     </ClCompile>
-    <ClCompile Include="PopUpPanel.cpp">
-      <Filter>Archivos de encabezado\HUD\Panels</Filter>
-    </ClCompile>
     <ClCompile Include="BossPoleAxe.cpp">
       <Filter>Archivos de código fuente\Objects\Melee</Filter>
     </ClCompile>
@@ -445,9 +433,33 @@
     <ClCompile Include="TutorialBullsEye.cpp">
       <Filter>Archivos de código fuente\Objects\Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="Trigger.cpp" />
-    <ClCompile Include="TutorialTurret.cpp" />
-    <ClCompile Include="TutorialBuddy.cpp" />
+    <ClCompile Include="PopUpPanel.cpp">
+      <Filter>Archivos de código fuente\HUD\Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="Trigger.cpp">
+      <Filter>Archivos de código fuente\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="GroundEnemy.cpp">
+      <Filter>Archivos de código fuente\Objects\Enemies\GroundEnemies</Filter>
+    </ClCompile>
+    <ClCompile Include="MartyrEnemy.cpp">
+      <Filter>Archivos de código fuente\Objects\Enemies\GroundEnemies</Filter>
+    </ClCompile>
+    <ClCompile Include="MeleeEnemy.cpp">
+      <Filter>Archivos de código fuente\Objects\Enemies\GroundEnemies</Filter>
+    </ClCompile>
+    <ClCompile Include="TutorialBuddy.cpp">
+      <Filter>Archivos de código fuente\Objects\Enemies\GroundEnemies</Filter>
+    </ClCompile>
+    <ClCompile Include="TutorialTurret.cpp">
+      <Filter>Archivos de código fuente\Objects\Enemies\DistanceEnemies</Filter>
+    </ClCompile>
+    <ClCompile Include="PopUpEvent.cpp">
+      <Filter>Archivos de código fuente\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="ChangeLevelEvent.cpp">
+      <Filter>Archivos de código fuente\Events</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -529,12 +541,6 @@
       <Filter>Archivos de encabezado\Objects\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="FlyingEnemy.h">
-      <Filter>Archivos de encabezado\Objects\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="MartyrEnemy.h">
-      <Filter>Archivos de encabezado\Objects\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="MeleeEnemy.h">
       <Filter>Archivos de encabezado\Objects\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="Arm.h">
@@ -753,9 +759,6 @@
     <ClInclude Include="Boss.h">
       <Filter>Archivos de encabezado\Objects\Enemies\Bosses</Filter>
     </ClInclude>
-    <ClInclude Include="GroundEnemy.h">
-      <Filter>Archivos de encabezado\Objects\Enemies</Filter>
-    </ClInclude>
     <ClInclude Include="CustomAnimatedSpriteComponent.h">
       <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
@@ -930,9 +933,30 @@
     <ClInclude Include="TutorialBullsEye.h">
       <Filter>Archivos de encabezado\Objects\Enemies</Filter>
     </ClInclude>
-    <ClInclude Include="Trigger.h" />
-    <ClInclude Include="TutorialTurret.h" />
-    <ClInclude Include="TutorialBuddy.h" />
+    <ClInclude Include="ChangeLevelEvent.h">
+      <Filter>Archivos de encabezado\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="PopUpEvent.h">
+      <Filter>Archivos de encabezado\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Trigger.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="TutorialTurret.h">
+      <Filter>Archivos de encabezado\Objects\Enemies\DistanceEnemies</Filter>
+    </ClInclude>
+    <ClInclude Include="GroundEnemy.h">
+      <Filter>Archivos de encabezado\Objects\Enemies\GroundEnemies</Filter>
+    </ClInclude>
+    <ClInclude Include="MartyrEnemy.h">
+      <Filter>Archivos de encabezado\Objects\Enemies\GroundEnemies</Filter>
+    </ClInclude>
+    <ClInclude Include="MeleeEnemy.h">
+      <Filter>Archivos de encabezado\Objects\Enemies\GroundEnemies</Filter>
+    </ClInclude>
+    <ClInclude Include="TutorialBuddy.h">
+      <Filter>Archivos de encabezado\Objects\Enemies\GroundEnemies</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de código fuente">
@@ -1093,6 +1117,12 @@
     </Filter>
     <Filter Include="Archivos de código fuente\Objects\Melee">
       <UniqueIdentifier>{91c2fb3e-33b4-42c8-b741-0a0b383c9988}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Objects\Enemies\GroundEnemies">
+      <UniqueIdentifier>{58f2601e-48ff-47ba-9587-138bb2c8b5aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código fuente\Objects\Enemies\GroundEnemies">
+      <UniqueIdentifier>{9684c4a4-6eef-4e40-8c5e-7b6fcd73340c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
