@@ -245,7 +245,6 @@
     <ClCompile Include="DistanceStaticEnemy.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="FollowingComponent.cpp" />
-    <ClCompile Include="MenuButton.cpp" />
     <ClCompile Include="ObjectLayer.cpp" />
     <ClCompile Include="ImageUI.cpp" />
     <ClCompile Include="LifeBar.cpp" />
@@ -418,7 +417,6 @@
     <ClInclude Include="DistanceStaticEnemy.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="FollowingComponent.h" />
-    <ClInclude Include="MenuButton.h" />
     <ClInclude Include="ObjectLayer.h" />
     <ClInclude Include="ImageUI.h" />
     <ClInclude Include="LifeBar.h" />

@@ -102,7 +102,11 @@ void PlayState::saveGame()
 		j["level"] = GameManager::getInstance()->getCurrentLevel();
 		j["Bank"] = _player->getBank();
 		j["currentGun"] = _player->getCurrentGun()->getGunID();
-		j["otherGun"] = _player->getOtherGun()->getGunID();
+
+		if (_player->getOtherGun() != nullptr)
+			j["otherGun"] = _player->getOtherGun()->getGunID();
+		else
+			j["otherGun"] = nullptr;
 
 		auto items = _playHud->getShop()->getItems();
 
@@ -123,9 +127,12 @@ void PlayState::loadGame()
 		json j;
 		input >> j;
 		_player->setBank(j["Bank"]);
-		_levelManager.setLevel(j["level"]);
+		GameManager::getInstance()->setCurrentLevel(j["level"]);
+		_levelManager.setLevel(GameManager::getInstance()->getCurrentLevel());
 		_player->changeCurrentGun(WeaponManager::getInstance()->getWeapon(_gameptr, j["currentGun"]));
-		_player->changeOtherGun(WeaponManager::getInstance()->getWeapon(_gameptr, j["otherGun"]));
+
+		if (j["otherGun"] != nullptr)
+			_player->changeOtherGun(WeaponManager::getInstance()->getWeapon(_gameptr, j["otherGun"]));
 
 		auto items = _playHud->getShop()->getItems();
 		for (ShopItem* i : items)
