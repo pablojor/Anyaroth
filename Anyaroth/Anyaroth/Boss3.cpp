@@ -23,8 +23,8 @@ Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(
 	_otherGun->setDamage(10);
 
 
-	_body->setW(12);
-	_body->setH(26);
+	_body->setW(40);
+	_body->setH(100);
 
 	_body->getBody()->SetGravityScale(_gravity);
 	_body->getBody()->SetLinearDamping(_damping);
@@ -36,7 +36,7 @@ Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(
 
 
 	b2PolygonShape shape;
-	shape.SetAsBox(5 / M_TO_PIXEL, 3 / M_TO_PIXEL, b2Vec2(0, 3), 0);
+	shape.SetAsBox(5 / M_TO_PIXEL, 3 / M_TO_PIXEL, b2Vec2(0, 8), 0);
 	b2FixtureDef fDef;
 	fDef.shape = &shape;
 	fDef.filter.categoryBits = ENEMIES;
@@ -52,11 +52,11 @@ Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(
 	_actualState = Moving;
 
 	_anim->addAnim(AnimatedSpriteComponent::AngraIdle, 10, true);
-	_anim->addAnim(AnimatedSpriteComponent::AngraIdle, 10, true);
+	_anim->addAnim(AnimatedSpriteComponent::AngraWalk, 10, true);
 	_anim->addAnim(AnimatedSpriteComponent::AngraBH, 18, false);
 	_anim->addAnim(AnimatedSpriteComponent::AngraAppear, 21, false);
 	_anim->addAnim(AnimatedSpriteComponent::AngraDisappear, 15, false);
-	_anim->addAnim(AnimatedSpriteComponent::AngraBH, 13, false);
+	_anim->addAnim(AnimatedSpriteComponent::AngraRing, 13, false);
 	_anim->addAnim(AnimatedSpriteComponent::AngraDie, 34, false);
 
 	_anim->playAnim(AnimatedSpriteComponent::AngraIdle);
@@ -126,8 +126,15 @@ void Boss3::movement(const double& deltaTime)
 		else
 			_anim->flip();
 
-		if (range <= -_stopRange || range >= _stopRange)
+		if (range <= -_stopRange || range >= _stopRange && _actualState != Shooting)
+		{
 			_body->getBody()->SetLinearVelocity(b2Vec2(_velocity * _dir.getX() / M_TO_PIXEL, _body->getBody()->GetLinearVelocity().y));
+			_anim->playAnim(AnimatedSpriteComponent::AngraWalk);
+		}
+		else if(_actualState != PortalAttack && _actualState != Shooting)
+		{
+			_anim->playAnim(AnimatedSpriteComponent::AngraIdle);
+		}
 	}
 }
 
@@ -192,12 +199,13 @@ void Boss3::fase2(const double& deltaTime)
 		if (_noAction > _doSomething)
 		{
 			if (_game->random(0, 100) > 70)
+			{
 				_actualState = Shooting;
+				_anim->playAnim(AnimatedSpriteComponent::AngraRing);
+			}
 			else
 			{
-				_body->getBody()->SetActive(false);
-				_arm->setActive(false);
-				_anim->setVisible(false);
+				_anim->playAnim(AnimatedSpriteComponent::AngraDisappear);
 				_actualState = PortalAttack;
 			}
 			_noAction = 0;
@@ -215,13 +223,14 @@ void Boss3::fase2(const double& deltaTime)
 		{
 			int rand = _game->random(0, 100);
 			if (rand > 70)
+			{
 				_actualState = Shooting;
+				_anim->playAnim(AnimatedSpriteComponent::AngraRing);
+			}
 			else if (rand > 45)
 			{
-				_body->getBody()->SetActive(false);
-				_arm->setActive(false);
-				_anim->setVisible(false);
 				_actualState = PortalAttack;
+				_anim->playAnim(AnimatedSpriteComponent::AngraDisappear);
 			}
 			else
 			{
@@ -295,6 +304,7 @@ void Boss3::beetwenFases(const double& deltaTime)
 		_armVision = false;
 
 		_actualState = PortalAttack;
+		_anim->playAnim(AnimatedSpriteComponent::AngraDisappear);
 		portalAttack(deltaTime);
 	}
 	else if (_lastFase == Fase2)
@@ -312,13 +322,14 @@ void Boss3::beetwenFases(const double& deltaTime)
 		_boss3Panel->resetLifeBar(_life1.getLife(), _life.getLife());
 		_boss3Panel->updateBossName("Angra Soldier");//Provisional
 		_actualState = Moving;
+		_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 	}
 	else
 	{
 		die();
 	}
 	_boss3Panel->updateLifeBar(_life1.getLife(), _life.getLife());
-	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
+
 	//}
 }
 
@@ -341,58 +352,69 @@ void Boss3::subLife(int damage)
 
 void Boss3::portalAttack(const double& deltaTime)
 {
-	if (_timeOut > timeToReapear)
+	if (_anim->getCurrentAnim() == AnimatedSpriteComponent::AngraDisappear && _anim->animationFinished())
 	{
-		_body->getBody()->SetActive(true);
-		_arm->setActive(true);
-		_doSomething = _game->random(2000, 3000);
-		_actualState = Moving;
-		portalVisible = false;
-		_timeOut = 0;
-
-		b2Vec2 playerPos = _player->getComponent<BodyComponent>()->getBody()->GetPosition(), enemyPos = _body->getBody()->GetPosition();
-		Vector2D playerDistance = Vector2D((playerPos.x - enemyPos.x)*M_TO_PIXEL, (playerPos.y - enemyPos.y)*M_TO_PIXEL);
-
-		bool maxRange = _playerDistance.getX() < _explosionRange && _playerDistance.getX() > -_explosionRange && _playerDistance.getY() < _explosionRange && _playerDistance.getY() > -_explosionRange;
-
-		if (maxRange)
+		_body->getBody()->SetActive(false);
+		_arm->setActive(false);
+		_anim->setVisible(false);
+		realGone = true;
+	}
+	if (realGone)
+	{
+		if (_timeOut > timeToReapear)
 		{
-			bool midleRange = _playerDistance.getX() < _explosionRange / 2 && _playerDistance.getX() > -_explosionRange / 2 && _playerDistance.getY() < _explosionRange / 2 && _playerDistance.getY() > -_explosionRange / 2;
+			_body->getBody()->SetActive(true);
+			_arm->setActive(true);
+			_anim->setVisible(true);
+			_doSomething = _game->random(2000, 3000);
+			_actualState = Moving;
+			portalVisible = false;
+			_timeOut = 0;
+			realGone = false;
 
-			if (playerDistance.getX() == 0)
+			b2Vec2 playerPos = _player->getComponent<BodyComponent>()->getBody()->GetPosition(), enemyPos = _body->getBody()->GetPosition();
+			Vector2D playerDistance = Vector2D((playerPos.x - enemyPos.x)*M_TO_PIXEL, (playerPos.y - enemyPos.y)*M_TO_PIXEL);
+
+			bool maxRange = _playerDistance.getX() < _explosionRange && _playerDistance.getX() > -_explosionRange && _playerDistance.getY() < _explosionRange && _playerDistance.getY() > -_explosionRange;
+
+			if (maxRange)
 			{
-				_playerBody->getBody()->ApplyLinearImpulseToCenter(b2Vec2(_impulse * 10 * 3, _impulse * 10 * 2), true);
+				bool midleRange = _playerDistance.getX() < _explosionRange / 2 && _playerDistance.getX() > -_explosionRange / 2 && _playerDistance.getY() < _explosionRange / 2 && _playerDistance.getY() > -_explosionRange / 2;
+
+				if (playerDistance.getX() == 0)
+				{
+					_playerBody->getBody()->ApplyLinearImpulseToCenter(b2Vec2(_impulse * 10 * 3, _impulse * 10 * 2), true);
+				}
+				else if (midleRange)
+					_playerBody->getBody()->ApplyLinearImpulseToCenter(b2Vec2(_impulse * _playerDistance.getX() * 3, _impulse * _playerDistance.getY() * 2), true);
+				else
+					_playerBody->getBody()->ApplyLinearImpulseToCenter(b2Vec2(_impulse * _playerDistance.getX(), _impulse * _playerDistance.getY()), true);
+
+				_player->subLife(_explosionDamage);
 			}
-			else if (midleRange)
-				_playerBody->getBody()->ApplyLinearImpulseToCenter(b2Vec2(_impulse * _playerDistance.getX() * 3, _impulse * _playerDistance.getY() * 2), true);
-			else
-				_playerBody->getBody()->ApplyLinearImpulseToCenter(b2Vec2(_impulse * _playerDistance.getX(), _impulse * _playerDistance.getY()), true);
-
-			_player->subLife(_explosionDamage);
+			_game->getCurrentState()->getMainCamera()->shake(2, 500);
 		}
-		_game->getCurrentState()->getMainCamera()->shake(2, 500);
-	}
-	else if (_timeOut > timeToShowPortal && !portalVisible)
-	{
-		_body->getBody()->SetTransform(b2Vec2((_playerBody->getBody()->GetPosition().x), _playerBody->getBody()->GetPosition().y), 0);
-		_transform->setPosition(Vector2D(_playerBody->getBody()->GetPosition().x / M_TO_PIXEL, _playerBody->getBody()->GetPosition().y / M_TO_PIXEL));
-		portalVisible = true;
+		else if (_timeOut > timeToShowPortal && !portalVisible)
+		{
+			_body->getBody()->SetTransform(b2Vec2((_playerBody->getBody()->GetPosition().x), _playerBody->getBody()->GetPosition().y - _body->getH()/2 - _playerBody->getH()/2), 0);
+			_transform->setPosition(Vector2D(_playerBody->getBody()->GetPosition().x / M_TO_PIXEL, _playerBody->getBody()->GetPosition().y / M_TO_PIXEL));
+			portalVisible = true;
 
-		_anim->setVisible(true);
-		//Se pone animacion del portal
+			_anim->setVisible(true);
+			_anim->playAnim(AnimatedSpriteComponent::AngraAppear);
+		}
+		else
+			_timeOut += deltaTime;
 	}
-	else
-		_timeOut += deltaTime;
 }
 
 void Boss3::circularShoot(const double& deltaTime)
 {
 	_bodyPos = Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL);
-	_timeOnShooting += deltaTime;
 	_armVision = false;
 	_myGun->setMaxCadence(0);
 
-	if (_actualBullet == 0 && _num == 3)
+	if (_num == 3 && _anim->getCurrentAnim() == AnimatedSpriteComponent::AngraRing && _anim->animationFinished())
 	{
 		_actualState = Moving;
 		_armVision = true;
@@ -401,11 +423,31 @@ void Boss3::circularShoot(const double& deltaTime)
 		_num = 0;
 		_timeOnShooting = 0;
 		_myGun->setMaxCadence(_rifleCadence);
+		_needToFinishAnim = false;
 	}
-	else
+	else if(_num != 3)
 	{
-		if (_timeOnShooting >= _timeBeetwenBullets)
-			shootBullet(_numBullets, _angleIncrease);
+		if (!_needToFinishAnim)
+		{
+			if (_timeOnShooting >= _timeBeetwenBullets)
+			{
+				shootBullet(_numBullets, _angleIncrease);
+				_needToFinishAnim = true;
+			}
+			else
+			{
+				_timeOnShooting += deltaTime;
+			}
+		}
+		else
+		{
+			if (_anim->getCurrentAnim() == AnimatedSpriteComponent::AngraRing && _anim->animationFinished())
+			{
+				_anim->playAnim(AnimatedSpriteComponent::AngraIdle);
+				_anim->playAnim(AnimatedSpriteComponent::AngraRing);
+				_needToFinishAnim = false;
+			}
+		}
 	}
 }
 

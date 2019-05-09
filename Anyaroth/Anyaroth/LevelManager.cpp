@@ -92,10 +92,10 @@ void LevelManager::setLevel(int l)
 	case LevelManager::SafeBoss3:
 		//_currentSafeZone = ...
 		_game->getSoundManager()->playMusic("safe_zone", -1);
-		_game->getSoundManager()->playMusic("boss2Battle", -1);
 		break;
 	case LevelManager::Boss3:
 		_currentMap = new Map(TILEMAP_PATH + "Nivel3-3.json", _game, _player, _game->getTexture("TilesetBoss3"), _enemyBulletPool);
+		_game->getSoundManager()->playMusic("boss3Battle", -1);
 		break;
 
 		//Demo Guerrilla Game Festival

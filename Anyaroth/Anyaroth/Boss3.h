@@ -18,9 +18,10 @@ class Boss3 : public Boss
 		Boss3Panel* _boss3Panel = nullptr;
 
 		//Cosas del disparo circular
-		int _num = 0, _timeOnShooting = 0, _timeBeetwenBullets = 0, _timeBeetwenCircularShoot = 1000;
+		int _num = 0, _timeOnShooting = 0, _timeBeetwenBullets = 500, _timeBeetwenCircularShoot = 500;
 		int _numBullets = 40, _actualBullet = 0;
 		double _angleIncrease = 360/ _numBullets, _angle = 180;
+		bool _needToFinishAnim = false;
 
 		void shoot();
 		void shootBullet(int numBullets, double angleIncrease);
@@ -55,6 +56,7 @@ class Boss3 : public Boss
 		int _explosionRange = 60, _impulse = 15, _explosionDamage = 15;
 		void portalAttack(const double& deltaTime);
 		bool portalVisible = false;
+		bool realGone = false;
 
 		// Cosas de la primera fase
 		vector<SpawnerBoss*> _spawners;
