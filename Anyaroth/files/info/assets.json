@@ -244,6 +244,11 @@
     [ "boss1Interfase1", "boss1Interfase1.wav" ],
     [ "boss1Interfase2", "boss1Interfase2.wav" ],
     [ "boss1Interfase3", "boss1Interfase3.wav" ],
-    [ "boss2Hit", "boss2Hit.wav" ]
+    [ "boss2Hit", "boss2Hit.wav" ],
+    [ "boss2Die", "boss2Die.wav" ],
+    [ "boss2Interfase", "boss2Interfase.wav" ],
+    [ "boss2Jump", "boss2Jump.wav" ],
+    [ "boss2Land", "boss2Land.wav" ],
+    [ "boss2Melee", "boss2Melee.wav" ]
   ]
 }
