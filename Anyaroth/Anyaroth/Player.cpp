@@ -44,7 +44,7 @@ Player::Player(Game* game) : GameObject(game, "Player")
 	_anim->addAnim(AnimatedSpriteComponent::Walk, 10, true);
 	_anim->addAnim(AnimatedSpriteComponent::WalkBack, 10, true);
 	_anim->addAnim(AnimatedSpriteComponent::MeleeKnife, 6, false);
-	_anim->addAnim(AnimatedSpriteComponent::MeleeSword, 13, false);
+	_anim->addAnim(AnimatedSpriteComponent::MeleeSword, 5, false);
 	_anim->addAnim(AnimatedSpriteComponent::BeforeJump, 1, false);
 	_anim->addAnim(AnimatedSpriteComponent::Jump, 4, true);
 	_anim->addAnim(AnimatedSpriteComponent::StartFalling, 2, false);
@@ -788,6 +788,7 @@ void Player::melee()
 		_melee->endMelee();
 
 	_anim->playAnim(AnimatedSpriteComponent::MeleeKnife);
+
 	_melee->meleeAttack(_body->getBody()->GetPosition().x* M_TO_PIXEL, _body->getBody()->GetPosition().y*M_TO_PIXEL, (_anim->isFlipped()) ? -1 : 1);
 	_isMeleeing = false;
 

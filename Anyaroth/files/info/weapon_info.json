@@ -129,21 +129,21 @@
       "BasicKnife": {
         "zone": -1,
         "frame": "BasicFrame",
-        "icon": "SniperIcon",
+        "icon": "KnifeIcon",
         "id": 0
       },
 
       "Sword": {
         "zone": 7,
         "frame": "CommonFrame",
-        "icon": "SniperIcon",
+        "icon": "SwordIcon",
         "id": 1
       },
 
       "PoleAxe": {
         "zone": 13,
         "frame": "RareFrame",
-        "icon": "SniperIcon",
+        "icon": "HalberdIcon",
         "id": 2
       }
     }

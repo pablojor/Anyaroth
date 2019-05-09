@@ -35,6 +35,9 @@
     [ "BounceCannonIcon", "bounceCannonIcon.png", 1, 1 ],
     [ "BHCannonIcon", "bHCannonIcon.png", 1, 1 ],
     [ "SniperIcon", "sniperIcon.png", 1, 1 ],
+	[ "KnifeIcon", "knifeIcon.png", 1, 1 ],
+	[ "SwordIcon", "swordIcon.png", 1, 1 ],
+	[ "HalberdIcon", "halberdIcon.png", 1, 1 ],
 
     [ "TutorialBullseye", "tutorial_bullseye.png", 4, 4 ],
     [ "TutorialBuddy", "tutorial_buddy.png", 4, 9 ],
