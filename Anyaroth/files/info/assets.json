@@ -54,6 +54,8 @@
 
     [ "Azura", "azura_spritesheet.png", 22, 23 ],
 
+	  [ "Angra", "angra_spritesheet.png", 7, 34 ],
+
     [ "Tileset1", "zona1_tileset.png", 22, 10 ],
     [ "TilesetBoss1", "boss1_tileset.png", 13, 16 ],
     [ "TilesetBoss2", "boss2_tileset.png", 13, 16 ],
