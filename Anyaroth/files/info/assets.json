@@ -36,6 +36,8 @@
     [ "BHCannonIcon", "bHCannonIcon.png", 1, 1 ],
     [ "SniperIcon", "sniperIcon.png", 1, 1 ],
 
+    [ "TutorialBullseye", "tutorial_bullseye.png", 4, 4 ],
+    [ "TutorialBuddy", "tutorial_buddy.png", 4, 9 ],
     [ "EnemyMelee", "enemymelee_spritesheet.png", 4, 18 ],
     [ "EnemyMartyr", "enemymartyr_spritesheet.png", 4, 23 ],
     [ "Turret", "turret_spritesheet.png", 4, 13 ],
@@ -46,8 +48,6 @@
     [ "Bomb", "bomb_spritesheet.png", 2, 8 ],
     [ "Trooper", "trooper_spritesheet.png", 4, 35 ],
     [ "TrooperArm", "trooperarm.png", 3, 2 ],
-    [ "TutorialBullseye", "tutorial_bullseye.png", 4, 4 ],
-    [ "TutorialBuddy", "tutorial_buddy.png", 4, 9 ],
 
     [ "Spenta", "spenta_spritesheet.png", 12, 26 ],
     [ "SpentaOrb", "spenta_orb_spritesheet.png", 2, 10 ],
@@ -58,12 +58,12 @@
 
 	  [ "Angra", "angra_spritesheet.png", 7, 34 ],
 
-    [ "Tileset1", "zona1_tileset.png", 22, 10 ],
     [ "TilesetTutorial", "tutorial_tileset.png", 22, 26 ],
+    [ "Tileset1", "zona1_tileset.png", 21, 10 ],
+    [ "TilesetSafe1", "safe1_tileset.png", 30, 35 ],
     [ "TilesetBoss1", "boss1_tileset.png", 13, 16 ],
-    [ "TilesetBoss2", "boss2_tileset.png", 13, 16 ],
-    [ "TilesetBoss3", "boss2_tileset.png", 13, 16 ],
     [ "Tileset2", "zona2_tileset.png", 17, 6 ],
+    [ "TilesetBoss2", "boss2_tileset.png", 13, 16 ],
 
     [ "BgControls", "controlsBG.png", 1, 1 ],
     [ "BgMenu", "bg_menu.png", 1, 1 ],
@@ -71,10 +71,10 @@
     [ "BgOptionsMenu", "bg_optionsmenu.png", 1, 1 ],
 
     [ "BgShop", "shop_background.png", 1, 6 ],
+    [ "BgBoss1", "bg_boss1.png", 1, 1 ],
     [ "BgZ1L1", "bg_z1_l1.png", 1, 1 ],
     [ "BgZ1L2", "bg_z1_l2.png", 1, 1 ],
     [ "BgZ1L3", "bg_z1_l3.png", 1, 1 ],
-    [ "BgBoss1", "bg_boss1.png", 1, 1 ],
     [ "BgZ2L1", "bg_z2_l1.png", 1, 1 ],
     [ "BgZ2L2", "bg_z2_l2.png", 1, 1 ],
     [ "BgZ2L3", "bg_z2_l3.png", 1, 1 ],
