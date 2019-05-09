@@ -1,16 +1,18 @@
 #pragma once
 #include "GameObject.h"
-#include "Player.h"
 #include "TransformComponent.h"
 #include "BodyComponent.h"
 #include "MovingComponent.h"
 #include "CustomAnimatedSpriteComponent.h"
+#include "Player.h"
 #include "Life.h"
+#include "ParticleManager.h"
 
 class Enemy : public GameObject
 {
 private:
 	string _deathSound = "", _hitSound = "", _meleeHit = "";
+	
 protected:
 	TransformComponent* _transform = nullptr;
 	BodyComponent* _body = nullptr;
@@ -21,14 +23,13 @@ protected:
 	Vector2D _playerDistance;
 
 	Life _life;
+	Texture * _hurtParticle = nullptr;
 
-	bool _attacking = false, _drop = true, _dropMelee = false,_stunned = false,
-		_spawnParticles = false;
+	bool _attacking = false, _drop = true, _dropMelee = false, _stunned = false, _spawnParticles = false;
 	int _vision, _attackRangeX, _attackRangeY, _attackTime, _damage;
 	double _time;
 	float32 _speed;
 	
-	Texture * _hurtParticle = nullptr;
 	b2Vec2 _contactPoint = b2Vec2_zero;
 
 	int _coinValue = 10;

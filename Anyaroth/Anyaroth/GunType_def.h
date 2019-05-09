@@ -21,7 +21,10 @@ enum MeleeType
 {
 	Knife_Weapon,
 	Sword_Weapon,
-	Poleaxe_Weapon
+	PoleAxe_Weapon,
+
+	BossSword_Weapon,
+	BossPoleAxe_Weapon
 };
 
 enum BulletAnimType

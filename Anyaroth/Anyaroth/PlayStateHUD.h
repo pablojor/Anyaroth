@@ -2,10 +2,12 @@
 #include "Canvas.h"
 #include "PlayerPanel.h"
 #include "BossPanel.h"
-#include "Boss3Panel.h"
 #include "ShopMenu.h"
 #include "DialoguePanel.h"
 #include "EnemyLifePanel.h"
+#include "PopUpPanel.h"
+#include "Boss3Panel.h"
+#include "Cursor.h"
 
 class Game;
 
@@ -14,10 +16,12 @@ class PlayStateHUD : public Canvas
 private:
 	PlayerPanel* _playerPanel = nullptr;
 	BossPanel* _bossPanel = nullptr;
-	Boss3Panel* _boss3Panel = nullptr;
 	ShopMenu* _shopMenu;
 	DialoguePanel* _dialoguePanel = nullptr;
+	Boss3Panel* _boss3Panel = nullptr;
 	EnemyLifePanel* _enemyLifePanel = nullptr;
+	PopUpPanel* _popUpPanel = nullptr;
+	Cursor* _cursor = nullptr;
 
 public:
 	PlayStateHUD() {}
@@ -32,4 +36,6 @@ public:
 	inline EnemyLifePanel* getEnemyLifePanel() const { return _enemyLifePanel; }
 
 	inline void reset() { _enemyLifePanel->reset(); }
+	inline PopUpPanel* getPopUpPanel() const { return _popUpPanel; }
+	inline Cursor* getCursor() const { return _cursor; }
 };

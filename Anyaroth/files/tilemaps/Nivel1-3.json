@@ -85,7 +85,7 @@
                         {
                          "name":"data",
                          "type":"string",
-                         "value":"3"
+                         "value":"2"
                         }],
                  "rotation":0,
                  "type":"",
@@ -97,7 +97,7 @@
                 {
                  "gid":19,
                  "height":16,
-                 "id":14,
+                 "id":15,
                  "name":"",
                  "properties":[
                         {
@@ -109,25 +109,25 @@
                  "type":"",
                  "visible":true,
                  "width":16,
-                 "x":608,
+                 "x":144,
                  "y":272
                 }, 
                 {
                  "gid":19,
                  "height":16,
-                 "id":15,
+                 "id":14,
                  "name":"",
                  "properties":[
                         {
                          "name":"data",
                          "type":"string",
-                         "value":"2"
+                         "value":"0"
                         }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":16,
-                 "x":144,
+                 "x":608,
                  "y":272
                 }],
          "opacity":1,

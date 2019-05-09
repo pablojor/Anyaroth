@@ -3,72 +3,63 @@
 #include "TransformComponent.h"
 #include "BodyComponent.h"
 #include "CustomAnimatedSpriteComponent.h"
+#include "PlayerPanel.h"
 #include "Life.h"
 #include "Money.h"
-#include "PlayerArm.h"
-#include "PoolWrapper.h"
-#include "Gun.h"
 #include "Melee.h"
-#include "PlayerPanel.h"
+#include "PlayerArm.h"
+#include "Gun.h"
+#include "PoolWrapper.h"
 
 class Game;
 
 class Player : public GameObject
 {
 private:
-	//Componentes
+	//Components
 	TransformComponent* _transform = nullptr;
 	BodyComponent* _body = nullptr;
 	CustomAnimatedSpriteComponent* _anim = nullptr;
 	Melee* _melee = nullptr;
 
-	//Propiedades
+	//Child
+	PlayerArm* _playerArm = nullptr;
+
+	//Properties
 	Life _life = Life(100);
 	Money* _money = nullptr;
 	PlayerPanel* _playerPanel = nullptr;
 
-	//Hijos
-	PlayerArm* _playerArm = nullptr;
+	double _speed = 15, _gravScale = 8, _damping = 3;
 
-	//Variables
-	int _dashTime = 250,
-		_dashCD = 1000 + _dashTime,
-		_dashParticleTime = 40,
-		_stunTime = 1000,
-		_floorCount = 0,
-		_deathCD = 3000;
+	//Jump
+	int _floorCount = 0;
+	double _jumpForce = 480;
+	float _timeToJump = 100.f;
 
-	double _speed = 15,
-		_gravScale = 8,
-		_damping = 3,
-		_jumpForce = 480,
-		_jPosX,
-		_jPosY,
-		_prevAxisX = 0,
-		_prevAxisY = 0,
-		_jAngle = 0;
+	//Dash
+	int _dashTime = 250, _dashCD = 1000 + _dashTime;
+	bool _isDashing = false, _onDash = false, _dashDown = false, _dashEnabled = true;
 
-	float _timeToJump = 100.f,
-		_runningSpawnParticle = 40.0f;
+	//Death
+	int _deathCD = 3000;
 
-	bool _hasToReload = false,
-		_isShooting = false,
-		_isMeleeing = false,
-		_isDashing = false,
-		_onDash = false,
-		_dashDown = false,
-		_dashEnabled = true,
-		_changeLevel = false,
-		_jJump = false,
-		_jShoot = false,
-		_jMoveLeft = false,
-		_jMoveDown = false,
-		_inputFreezed = false,
-		_jMoveRight = false,
-		_jReleased = false,
-		_spawnParticles = false,
-		_stunned = false;
+	//Controller
+	double _jPosX, _jPosY, _prevAxisX = 0, _prevAxisY = 0, _jAngle = 0;
+	bool _jJump = false, _jShoot = false, _jMoveLeft = false, _jMoveDown = false, _jMoveRight = false, _jReleased = false;
 
+	//Particles
+	float _runningSpawnParticle = 40.0f, _dashParticleTime = 40.0f;
+	bool _spawnParticles = false;
+
+	//Actions
+	bool _hasToReload = false, _isShooting = false, _isMeleeing = false, _stunned =false;
+	double _stunTime = 1000;
+
+	//Others
+	bool _changeLevel = false, _inputFreezed = false;
+
+	//Guns
 	Gun* _currentGun = nullptr;
 	Gun* _otherGun = nullptr;
 	BulletPool* _playerBulletPool = nullptr;
@@ -84,8 +75,6 @@ private:
 	void refreshDashCoolDown(const double& deltaTime);
 
 	void dashTimer(const double& deltaTime);
-	
-	void refreshStunTime(const double& deltaTime);
 
 	void refreshGunCadence(const double& deltaTime);
 	bool canReload();
@@ -93,7 +82,7 @@ private:
 	void checkMelee();
 
 public:
-	Player(Game* g, int xPos, int yPos);
+	Player(Game* g);
 	~Player();
 
 	bool handleEvent(const SDL_Event& event);
@@ -112,10 +101,10 @@ public:
 	void changeCurrentGun(Gun* gun);
 	void changeOtherGun(Gun* gun);
 	void changeMelee(Melee* newMelee);
+	inline Melee* getMelee() const { return _melee; }
 
 	inline Gun* getCurrentGun() const { return _currentGun; }
 	inline Gun* getOtherGun() const { return _otherGun; }
-	inline Melee* getMelee() const { return _melee; }
 
 	inline bool spendMoney(int n) { return _money->spend(n); }
 	inline int getBank() const { return _money->getBank(); }
@@ -129,6 +118,7 @@ public:
 	void jump();
 	void cancelJump();
 	void stunPlayer();
+	void refreshStunTime(const double & deltaTime);
 	inline bool isGrounded() const { return _floorCount; }
 
 	void melee();
@@ -145,7 +135,7 @@ public:
 	inline void setChangeLevel(bool change) { _changeLevel = change; }
 
 	void stopPlayer();
-	virtual inline void setInputFreezed(bool b) { _inputFreezed = b; if (b) stopPlayer(); }
+	inline void setInputFreezed(bool b) { _inputFreezed = b; if (b) stopPlayer(); }
 	inline bool isInputFreezed() { return _inputFreezed; }
 
 	inline bool isDashing() const { return _onDash; }

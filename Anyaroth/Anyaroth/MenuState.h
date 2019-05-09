@@ -8,4 +8,6 @@ class MenuState : public GameState
 public:
 	MenuState(Game* g);
 	~MenuState() {}
+
+	virtual void start();
 };

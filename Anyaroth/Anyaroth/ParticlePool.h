@@ -1,12 +1,12 @@
 #pragma once
 #include "ObjectPool.h"
 #include "Particle.h"
-class ParticlePull :
+class ParticlePool :
 	public ObjectPool<Particle,100>
 {
 public:
-	ParticlePull(Game* game);
-	~ParticlePull() {};
+	ParticlePool(Game* game);
+	~ParticlePool() {};
 
 	Particle* addNewParticle();
 	void stopParticles();

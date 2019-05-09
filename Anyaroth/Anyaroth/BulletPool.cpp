@@ -9,7 +9,7 @@ Bullet* BulletPool::addNewBullet()
 	Bullet* b = new Bullet(getGame());
 
 	_objects.push_back(b);
-	b->setWorld(_game->getWorld());
+	b->setWorld(getWorld());
 	return b;
 }
 

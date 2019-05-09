@@ -1,6 +1,7 @@
 #include "Game.h"
-#include <ctime>
 #include "AnyarothError.h"
+#include "ParticleManager.h"
+#include <ctime>
 #include <json.hpp>
 
 using namespace nlohmann;
@@ -194,8 +195,6 @@ Game::Game()
 	createDialogues();
 	//---Initialise Joysticks
 	initialiseJoysticks();
-	//---Create world
-	_world = new b2World(b2Vec2(0.0, 9.8));
 	//---Create states
 	_stateMachine->pushState(new MenuState(this));
 }
@@ -215,9 +214,8 @@ Game::~Game()
 
 
 	delete _stateMachine;
-	ParticleManager::deleteManager();
-	delete _world;
 	delete _soundManager;
+	ParticleManager::deleteManager();
 	SDL_DestroyRenderer(_renderer);
 	SDL_DestroyWindow(_window);
 	SDL_Quit();
@@ -236,16 +234,31 @@ void Game::run()
 		startTime = current;
 		lag += elapsed;
 
+		start();
 		handleEvents();
 
 		while (lag >= FRAME_RATE)
 		{
-			_world->Step(_timestep, 8, 3);
+			updateWorld(_timestep, 8, 3);
 			update(FRAME_RATE);
 			lag -= FRAME_RATE;
 		}
 		render();
 	}
+}
+
+void Game::start()
+{
+	if (_stateMachine->currentState()->hasToStart())
+	{
+		_stateMachine->currentState()->start();
+		_stateMachine->currentState()->setStarted(true);
+	}
+}
+
+void Game::updateWorld(const float & timeStep, const int & velocityIterations, const int & positionIterations)
+{
+	_stateMachine->currentState()->updateWorld(timeStep, velocityIterations, positionIterations);
 }
 
 void Game::update(const double& deltaTime)
@@ -258,7 +271,7 @@ void Game::render() const
 {
 	SDL_RenderClear(_renderer);
 	_stateMachine->currentState()->render();
-	_world->DrawDebugData();
+	_stateMachine->currentState()->getWorld()->DrawDebugData();
 	SDL_RenderPresent(_renderer);
 }
 

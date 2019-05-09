@@ -63,23 +63,13 @@ void Interactable::beginCollision(GameObject * other, b2Contact* contact)
 	{
 		if (_game->usingJoystick())
 		{
-			_interactIndicator->deleteComponent<Texture>(_interactIndicator->getComponent<Texture>());
-			_interactIndicator->addComponent<Texture>(_game->getTexture("InteractIndicatorController"));
-
-			_interactIndicator->deleteComponent<AnimatedSpriteComponent>(_interactIndicator->getComponent<AnimatedSpriteComponent>());
-
-			_interactIndicator->addComponent<AnimatedSpriteComponent>();
+			_interactIndicator->getComponent<AnimatedSpriteComponent>()->setTexture(_game->getTexture("InteractIndicatorController"));
 			_interactIndicator->getComponent<AnimatedSpriteComponent>()->addAnim(AnimatedSpriteComponent::Idle, 5, true);
 			_interactIndicator->getComponent<AnimatedSpriteComponent>()->playAnim(AnimatedSpriteComponent::Idle);
 		}
 		else
 		{
-			_interactIndicator->deleteComponent<Texture>(_interactIndicator->getComponent<Texture>());
-			_interactIndicator->addComponent<Texture>(_game->getTexture("InteractIndicator"));
-
-			_interactIndicator->deleteComponent<AnimatedSpriteComponent>(_interactIndicator->getComponent<AnimatedSpriteComponent>());
-
-			_interactIndicator->addComponent<AnimatedSpriteComponent>();
+			_interactIndicator->getComponent<AnimatedSpriteComponent>()->setTexture(_game->getTexture("InteractIndicator"));
 			_interactIndicator->getComponent<AnimatedSpriteComponent>()->addAnim(AnimatedSpriteComponent::Idle, 5, true);
 			_interactIndicator->getComponent<AnimatedSpriteComponent>()->playAnim(AnimatedSpriteComponent::Idle);
 		}

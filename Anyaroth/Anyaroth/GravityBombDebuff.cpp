@@ -33,7 +33,7 @@ void GravityBombDebuff::stop()
 	if (_obj != nullptr)
 	{
 		_active = false;
-		_obj->setStunned(false);
+		//_obj->setStunned(false);
 	}
 }
 
@@ -47,17 +47,19 @@ void GravityBombDebuff::update(const double& deltaTime)
 		{
 			changeDir();
 
-			auto body = _obj->getComponent<BodyComponent>();
-			body->getBody()->SetLinearVelocity(b2Vec2(_dir.getX() * _absorbSpeed, _dir.getY() * _absorbSpeed));
+			if (_obj->isAffectedByExternalForces())
+			{
+				auto body = _obj->getComponent<BodyComponent>();
+				body->getBody()->SetLinearVelocity(b2Vec2(_dir.getX() * _absorbSpeed, _dir.getY() * _absorbSpeed));
+			}	
 		}
 
-		_damageTime++;// = deltaTime;
+		_damageTime += deltaTime;
 
 		if (_damageTime >= _damageTickTime)
 		{
 			_obj->subLife(_gravityZone->getDamage());
 			_damageTime = 0;
-			_ticks++;
 		}
 	}
 }

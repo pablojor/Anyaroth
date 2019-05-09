@@ -2,8 +2,10 @@
 #include "StaticFlyingEnemy.h"
 
 #include "EnemyLifePanel.h"
-class FloatingHead :
-	public StaticFlyingEnemy
+
+class Boss3;
+
+class FloatingHead : public StaticFlyingEnemy
 {
 private:
 	Boss3 * _boss = nullptr;

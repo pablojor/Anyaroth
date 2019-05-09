@@ -4,73 +4,53 @@
 #include "ImageUI.h"
 #include "GunType_def.h"
 
-struct ItemInfo
-{
-	int _zone;
-
-	string _name;
-	int _price;
-
-	int _damage;
-	int _cadence;
-	int _clip;
-
-	//ID del arma
-	GunType _type;
-	string _iconName;
-	string _rarityFrame;
-
-	bool _sold;
-	bool _equiped;
-};
-
-struct MeleeItemInfo
-{
-	int _zone;
-
-	string _name;
-
-	int _damage;
-
-	MeleeType _type;
-	string _iconName;
-	string _rarityFrame;
-
-	bool _sold;
-	bool _equiped;
-};
-
 class ShopItem : public ButtonUI
 {
-	private:
+private:
+	struct ItemInfo
+	{
+		int _zone;
 
-		ItemInfo _info = {};
-		MeleeItemInfo _meleeInfo = {};
+		string _name;
+		int _price;
 
-		ImageUI* _weaponIcon = nullptr;
+		int _damage;
+		int _cadence;
+		int _clip;
 
-	public:
-		ShopItem(Game* game, Texture* image = nullptr, int xPos = 0, int yPos = 0);
-		~ShopItem();
+			//ID del arma
+			uint _type;
+			string _iconName;
+			string _rarityFrame;
 
-		virtual void render() const;
+			bool _sold;
+			bool _equiped;
 
-		inline Texture* getItemImage() const { return getImage(); }
-		inline ItemInfo& getItemInfo() { return _info; }
-		inline MeleeItemInfo& getMeleeInfo() { return _meleeInfo; }
-		inline void getItem(Game* game) {  }
+			bool _isMelee = false;
+		};
 
-		virtual void setPosition(int x, int y);
-		virtual void setSize(int w, int h);
+	ItemInfo _info;
+	ImageUI* _weaponIcon = nullptr;
 
-		void setItemImage(Texture* image) { setImage(image); }
-		void setItemInfo(const ItemInfo& info);
-		void setMeleeInfo(const MeleeItemInfo & info);
+public:
+	ShopItem(Game* game, Texture* image = nullptr, int xPos = 0, int yPos = 0);
+	~ShopItem();
 
-		void setItemSell(const bool& b) { _info._sold = b; }
-		void setItemEquiped(const bool& b) { _info._equiped = b; }
+	virtual void render() const;
 
-		void setChosen(bool chosen);
-		void setSelected(bool selected) { ButtonUI::setSelected(selected); setChosen(selected); }
+	inline Texture* getItemImage() const { return getImage(); }
+	inline ItemInfo& getItemInfo() { return _info; }
+	inline void getItem(Game* game) {  }
+
+	virtual void setPosition(int x, int y);
+	virtual void setSize(int w, int h);
+
+	void setItemImage(Texture* image) { setImage(image); }
+	void setItemInfo(const ItemInfo& info);
+
+	void setItemSell(const bool& b) { _info._sold = b; }
+	void setItemEquiped(const bool& b) { _info._equiped = b; }
+
+	void setChosen(bool chosen);
+	void setSelected(bool selected) { ButtonUI::setSelected(selected); setChosen(selected); }
 };
-

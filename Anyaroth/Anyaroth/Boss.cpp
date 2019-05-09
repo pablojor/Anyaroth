@@ -2,10 +2,7 @@
 
 Boss::Boss(Game * g, Player * player, Vector2D pos, BulletPool* pool, Texture* text) : DistanceEnemy(g, player, pos, text, pool), Enemy(g, player, pos, text)
 {
-}
-
-Boss::~Boss()
-{
+	_affectedByExternalForces = false;
 }
 
 void Boss::setBossPanel(BossPanel * b)
@@ -13,6 +10,7 @@ void Boss::setBossPanel(BossPanel * b)
 	_bossPanel = b;
 
 	//Actualizamos de primeras el aspecto del Panel del Jugador
+	_bossPanel->updateBossName("Spenta Manyu");
 	_bossPanel->updateLifeBar(_life1.getLife(), _life2.getLife(), _life3.getLife(), _life.getLife());
 	_bossPanel->setVisible(true);
 }
@@ -20,6 +18,7 @@ void Boss::setBossPanel(BossPanel * b)
 void Boss::update(const double & deltaTime)
 {
 	DistanceEnemy::update(deltaTime);
+
 	if (!isDead())
 	{
 		movement(deltaTime);
@@ -42,10 +41,10 @@ void Boss::subLife(int damage)
 {
 	if (!isDead() && !isbeetweenFases())
 	{
-
 		if (_life1.getLife() > 0)
 		{
 			manageLife(_life1, damage);
+
 			if (_life1.getLife() == 0)
 				_bossPanel->updateLifeBar(2, _life2.getLife(), _life3.getLife(), _life.getLife());
 			else
@@ -54,6 +53,7 @@ void Boss::subLife(int damage)
 		else if (_life2.getLife() > 0)
 		{
 			manageLife(_life2, damage); 
+
 			if (_life2.getLife() == 0)
 				_bossPanel->updateLifeBar(_life1.getLife(), 2, _life3.getLife(), _life.getLife());
 			else
@@ -62,6 +62,7 @@ void Boss::subLife(int damage)
 		else if (_life3.getLife() > 0)
 		{
 			manageLife(_life3, damage);
+
 			if (_life3.getLife() == 0)
 				_bossPanel->updateLifeBar(_life1.getLife(), _life2.getLife(), 2, _life.getLife());
 			else
@@ -75,6 +76,7 @@ void Boss::subLife(int damage)
 void Boss::manageLife(Life& l, int damage)
 {
 	l.subLife(damage);
+
 	if (l.getLife() == 0)
 	{
 		_doSomething = 0;

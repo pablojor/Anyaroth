@@ -11,6 +11,10 @@ DepotPanel::DepotPanel(Game* game) : PanelUI(game)
 	//----MARCOS----//
 
 	_depotFrame = new ImageUI(game, game->getTexture("DepotPanel"), 21, 29);
+	_depotFrame->setSize(_depotFrame->getW(), 2 * _depotFrame->getH() / 3 + 3);
+	_depotMeleeFrame = new ImageUI(game, game->getTexture("DepotPanel"), 21, _depotFrame->getY() + _depotFrame->getH() + 2);
+	_depotMeleeFrame->setSize(3 * _depotFrame->getW() / 4, _depotMeleeFrame->getH() / 3 + 5);
+	_depotMeleeFrame->setPosition(21 + _depotFrame->getW() / 2 - _depotMeleeFrame->getW() / 2, _depotMeleeFrame->getY());
 	_equipmentFrame = new ImageUI(game, game->getTexture("EquipPanel"), _depotFrame->getX() + _depotFrame->getW() + 5, _depotFrame->getY() + 14);
 
 	_depotFrameName = new FramedImageUI(game, game->getTexture("Equip/Depot_PanelName"));
@@ -26,6 +30,7 @@ DepotPanel::DepotPanel(Game* game) : PanelUI(game)
 
 	//A�adir como hijo
 	addChild(_depotFrame);
+	addChild(_depotMeleeFrame);
 	addChild(_equipmentFrame);
 
 	addChild(_depotFrameName);
@@ -43,21 +48,18 @@ DepotPanel::DepotPanel(Game* game) : PanelUI(game)
 	addChild(_exitButton);
 
 	_firstWeaponFrame = new ShopItem(game, game->getTexture("ItemFrame"));
-	_firstWeaponFrame->setPosition(_equipmentFrame->getX() + 8,
-		_equipmentFrame->getY() + 8);
+	_firstWeaponFrame->setPosition(_equipmentFrame->getX() + 8,	_equipmentFrame->getY() + 8);
 	_firstWeaponFrame->setItemInfo({ -1, "arma1", 0, 14, 25, 10, GunType::Pistol_Weapon, "Weapon1","CommonFrame",true, true });
 	_firstWeaponFrame->setFrames({ 0, 0, 0, 0, 0 });
 
 	_secondWeaponFrame = new ShopItem(game, game->getTexture("ItemFrame"));
-	_secondWeaponFrame->setPosition(_firstWeaponFrame->getX() + _firstWeaponFrame->getW() + 26,
-		_firstWeaponFrame->getY());
+	_secondWeaponFrame->setPosition(_firstWeaponFrame->getX() + _firstWeaponFrame->getW() + 26,	_firstWeaponFrame->getY());
 	_secondWeaponFrame->setItemInfo({ -1, "arma2", 0, 14, 25, 10, GunType::Pistol_Weapon, "Weapon1","CommonFrame",true, true });
 	_secondWeaponFrame->setFrames({ 0, 0, 0, 0, 0 });
 	//----EQUIPAMIENTO----//
 
 	_meleeWeaponFrame = new ShopItem(game, game->getTexture("ItemFrame"));
-	_meleeWeaponFrame->setPosition(_equipmentFrame->getX() + _equipmentFrame->getW() / 2 - _meleeWeaponFrame->getW() / 2,
-							_firstWeaponFrame->getY() + _firstWeaponFrame->getH() + distanceBetweenEquipmentSlots);
+	_meleeWeaponFrame->setPosition(_equipmentFrame->getX() + _equipmentFrame->getW() / 2 - _meleeWeaponFrame->getW() / 2,	_firstWeaponFrame->getY() + _firstWeaponFrame->getH() + distanceBetweenEquipmentSlots);
 	_meleeWeaponFrame->setItemInfo({ -1, "melee1", 0, 14, 25, 10, GunType::Pistol_Weapon, "Weapon1","CommonFrame",true, true });
 	_meleeWeaponFrame->setFrames({ 0, 0, 0, 0, 0 });
 
@@ -65,10 +67,6 @@ DepotPanel::DepotPanel(Game* game) : PanelUI(game)
 	_firstWeaponFrame->onDown([this](Game* game) { setDistanceWeapon(game, _firstWeaponFrame); });
 	_secondWeaponFrame->onDown([this](Game* game) { setDistanceWeapon(game, _secondWeaponFrame); });
 	_meleeWeaponFrame->onDown([this](Game* game) { setMeleeWeapon(game, _meleeWeaponFrame); });
-
-		//A�adir como hijo
-
-//	addChild(_meleeWeaponFrame);
 
 	//----BOTON DE CAMBIO DE EQUIPAMIENTO----//
 
@@ -88,11 +86,11 @@ bool DepotPanel::handleEvent(const SDL_Event& event)
 	{
 		if (event.type == SDL_CONTROLLERBUTTONDOWN && event.cbutton.button == SDL_CONTROLLER_BUTTON_B)
 		{
-			if (_firstWeaponFrame->isSelected() || _secondWeaponFrame->isSelected())
+			if (_firstWeaponFrame->isSelected() || _secondWeaponFrame->isSelected() || _meleeWeaponFrame->isSelected())
 			{
 				_selectedItem->setChosen(false);
 				_selectedButton->setSelected(false);
-				_selectedButton = _exitButton->getNextRight();
+				_selectedButton = _selectedItem;
 				_selectedButton->setSelected(true);
 			}
 			else
@@ -119,51 +117,71 @@ void DepotPanel::setPlayer(Player * ply)
 {
 	_player = ply;
 
-	ShopItem* fItem = nullptr, * sItem = nullptr, *mItem = nullptr;
+	ShopItem* fItem = nullptr, *sItem = nullptr, *mItem = nullptr;
 
-	for (auto i = _items->begin(); i != _items->end(); i++)
+	for (auto i = _weaponItems->begin(); i != _weaponItems->end(); i++)
 	{
-		if ((*i)->getItemInfo()._name != "" && (*i)->getItemInfo()._type == _player->getCurrentGun()->getGunID())
+		if ((*i)->getItemInfo()._type == _player->getCurrentGun()->getGunID() && !(*i)->getItemInfo()._isMelee)
 			fItem = (*i);
-		else if ((*i)->getItemInfo()._name != "" && (*i)->getItemInfo()._type == _player->getOtherGun()->getGunID())
+		else if ((*i)->getItemInfo()._type == _player->getOtherGun()->getGunID() && !(*i)->getItemInfo()._isMelee)
 			sItem = (*i);
-		else if ((*i)->getMeleeInfo()._name != "" && (*i)->getMeleeInfo()._type == _player->getMelee()->getId())
+	}
+
+	for (auto i = _meleeItems->begin(); i != _meleeItems->end(); i++)
+	{
+		if ((*i)->getItemInfo()._type == _player->getMelee()->getMeleeID() && (*i)->getItemInfo()._isMelee)
 			mItem = (*i);
 	}
 
 	auto* fInfo = &fItem->getItemInfo(); fInfo->_sold = true; fInfo->_equiped = true;
 	auto* sInfo = &sItem->getItemInfo(); sInfo->_sold = true; sInfo->_equiped = true;
-	auto* mInfo = &mItem->getMeleeInfo(); mInfo->_sold = true; mInfo->_equiped = true;
+	auto* mInfo = &mItem->getItemInfo(); mInfo->_sold = true; mInfo->_equiped = true;
 
-	//FALTA HACERLO PARA EL ARMA A MELEE
 	_firstWeaponItem = fItem;
 	_secondWeaponItem = sItem;
+	_meleeWeaponItem = mItem;
 
 	_firstWeaponFrame->setItemInfo(*fInfo);
 	_secondWeaponFrame->setItemInfo(*sInfo);
-	_meleeWeaponFrame->setMeleeInfo(*mInfo);
+	_meleeWeaponFrame->setItemInfo(*mInfo);
 
 	addChild(_firstWeaponFrame);
 	addChild(_secondWeaponFrame);
 	addChild(_meleeWeaponFrame);
 }
 
-void DepotPanel::setItems(list<ShopItem*>* list)
+void DepotPanel::setWeaponItems(list<ShopItem*>* list)
 {
-	_items = list;
-	for (auto it : *_items)
+	_weaponItems = list;
+	for (auto it : *_weaponItems)
 		addChild(it);
 }
 
-void DepotPanel::removeItems()
+void DepotPanel::removeWeaponItems()
 {
-	for (auto it : *_items)
+	for (auto it : *_weaponItems)
+		removeChild(it);
+}
+
+void DepotPanel::setMeleeItems(list<ShopItem*>* list)
+{
+	_meleeItems = list;
+	for (auto it : *_meleeItems)
+		addChild(it);
+}
+
+void DepotPanel::removeMeleeItems()
+{
+	for (auto it : *_meleeItems)
 		removeChild(it);
 }
 
 void DepotPanel::openDepotPanel()
 {
-	for (auto it : *_items)
+	for (auto it : *_weaponItems)
+		it->onDown([this, it](Game* game) {	selectItem(game, it); });
+
+	for(auto it : *_meleeItems)
 		it->onDown([this, it](Game* game) {	selectItem(game, it); });
 
 	reorderDepot();
@@ -193,22 +211,24 @@ void DepotPanel::closeDepotPanel()
 
 void DepotPanel::reorderDepot()
 {
+	//Armas a distancia
 	int posIniX = 11,
-		posIniY = 9,
+		posIniY = 7,
 		distX = 9,
 		distY = 4;
 
 	ShopItem* primItem = nullptr;
-	vector<ShopItem*> visibleItems;
+	vector<ShopItem*> visibleWeapons;
+	vector<ShopItem*> visibleMelee;
 
-	auto it = (*_items).begin();
+	auto it = (*_weaponItems).begin();
 	int fil = 0;
 
 
-	while (fil < itemsPerCol && it != (*_items).end())
+	while (fil < itemsPerCol && it != (*_weaponItems).end())
 	{
 		int col = 0;
-		while (it != (*_items).end() && col < itemsPerRow)
+		while (it != (*_weaponItems).end() && col < itemsPerRow)
 		{
 			auto item = *it;
 			auto info = item->getItemInfo();
@@ -216,7 +236,7 @@ void DepotPanel::reorderDepot()
 			if (info._sold && !info._equiped)
 			{
 				item->setVisible(true);
-				visibleItems.push_back(item);
+				visibleWeapons.push_back(item);
 
 				if (primItem == nullptr)
 				{
@@ -236,32 +256,84 @@ void DepotPanel::reorderDepot()
 		fil++;
 	}
 
-	for (int i=0; i < visibleItems.size(); i++)
-	{
-		ButtonUI* nL = (i > 0) ? visibleItems[i - 1] : _exitButton;
-		ButtonUI* nU = (i > 3) ? visibleItems[i - 4] : _exitButton;
-		ButtonUI* nR = (i + 1 < visibleItems.size()) ? visibleItems[i + 1] : _changeButton;
-		ButtonUI* nD = (i + 4 < visibleItems.size()) ? visibleItems[i + 4] : _changeButton;
-		visibleItems[i]->setNextButtons({ nL, nU, nR, nD });
-	}
-	if (visibleItems.size() > 0)
-	{
-		_selectedButton = *(visibleItems.begin());
+	//Armas melee
+	primItem = nullptr;
+	it = (*_meleeItems).begin();
+	fil = 0;
 
-		_exitButton->setNextButtons({ _changeButton, nullptr, *(visibleItems.begin()), nullptr });
-		_firstWeaponFrame->setNextButtons({ _secondWeaponFrame, nullptr, _secondWeaponFrame, nullptr });
-		_changeButton->setNextButtons({ *prev(visibleItems.end()), nullptr, _exitButton, nullptr });
-		_secondWeaponFrame->setNextButtons({ _firstWeaponFrame, nullptr, _firstWeaponFrame, nullptr });
+	while (fil < itemsPerCol && it != (*_meleeItems).end())
+	{
+		int col = 0;
+		while (it != (*_meleeItems).end() && col < itemsPerRow)
+		{
+			auto item = *it;
+			auto info = item->getItemInfo();
+
+			if (/*info._sold &&*/ !info._equiped)
+			{
+				item->setVisible(true);
+				visibleMelee.push_back(item);
+
+				if (primItem == nullptr)
+				{
+					item->setPosition(_depotMeleeFrame->getX() + posIniX, _depotMeleeFrame->getY() + posIniY);
+					primItem = item;
+				}
+				else
+					item->setPosition(primItem->getX() + (primItem->getW() + distX) * col, primItem->getY() + (primItem->getH() + distY) * fil);
+
+				col++;
+			}
+			else
+				item->setVisible(false);
+
+			it++;
+		}
+		fil++;
+	}
+
+	for (int i=0; i < visibleWeapons.size(); i++)
+	{
+		ButtonUI* nL = (i > 0) ? visibleWeapons[i - 1] : _exitButton;
+		ButtonUI* nU = (i > 3) ? visibleWeapons[i - 4] : ((visibleMelee.begin() != visibleMelee.end()) ? *prev(visibleMelee.end()) : nullptr);
+		ButtonUI* nR = (i + 1 < visibleWeapons.size()) ? visibleWeapons[i + 1] : _changeButton;
+		ButtonUI* nD = (i + 4 < visibleWeapons.size()) ? visibleWeapons[i + 4] :((visibleMelee.begin() != visibleMelee.end()) ? *visibleMelee.begin() : nullptr);
+		visibleWeapons[i]->setNextButtons({ nL, nU, nR, nD });
+	}
+	for (int i = 0; i < visibleMelee.size(); i++)
+	{
+		ButtonUI* nL = (i > 0) ? visibleMelee[i - 1] : _exitButton;
+		ButtonUI* nU = (i > 3) ? visibleMelee[i - 4] : ((visibleWeapons.begin() != visibleWeapons.end()) ? *prev(visibleWeapons.end()) : nullptr);
+		ButtonUI* nR = (i + 1 < visibleMelee.size()) ? visibleMelee[i + 1] : _changeButton;
+		ButtonUI* nD = (i + 4 < visibleMelee.size()) ? visibleMelee[i + 4] : ((visibleWeapons.begin() != visibleWeapons.end()) ? *visibleWeapons.begin() : nullptr);
+		visibleMelee[i]->setNextButtons({ nL, nU, nR, nD });
+	}
+	if (visibleWeapons.size() > 0)
+	{
+		_selectedButton = *(visibleWeapons.begin());
+
+		_exitButton->setNextButtons({ _changeButton, nullptr, *(visibleWeapons.begin()), nullptr });
+		_changeButton->setNextButtons({ *prev(visibleWeapons.end()), nullptr, _exitButton, nullptr });
+	}
+	else if (visibleMelee.size() > 0)
+	{
+		_selectedButton = *(visibleMelee.begin());
+
+		_exitButton->setNextButtons({ _changeButton, nullptr, *(visibleMelee.begin()), nullptr });
+		_changeButton->setNextButtons({ *prev(visibleMelee.end()), nullptr, _exitButton, nullptr });
 	}
 	else
 	{
-		_selectedButton = _changeButton;
+		_selectedButton =  _changeButton;
 
 		_exitButton->setNextButtons({ _changeButton, nullptr, _changeButton, nullptr });
-		_firstWeaponFrame->setNextButtons({ nullptr, nullptr, nullptr, nullptr });
 		_changeButton->setNextButtons({ _exitButton, nullptr, _exitButton, nullptr });
-		_secondWeaponFrame->setNextButtons({ nullptr, nullptr, nullptr, nullptr });
 	}
+
+	_meleeWeaponFrame->setNextButtons({ nullptr, nullptr, nullptr, nullptr });
+	_firstWeaponFrame->setNextButtons({ _secondWeaponFrame, nullptr, _secondWeaponFrame, nullptr });
+	_secondWeaponFrame->setNextButtons({ _firstWeaponFrame, nullptr, _firstWeaponFrame, nullptr });
+
 	if (_game->usingJoystick())
 		_selectedButton->setSelected(true);
 }
@@ -290,8 +362,8 @@ void DepotPanel::selectItem(Game * game, ShopItem* item)
 		{
 			if (_game->usingJoystick())
 			{
-				_selectedButton->setSelected(false);
-				_selectedButton = _firstWeaponFrame;
+				_selectedButton->setSelected(false);				
+				_selectedButton = (item->getItemInfo()._isMelee) ? _meleeWeaponFrame : _firstWeaponFrame;
 				_selectedButton->setSelected(true);
 			}
 			_selectedItem = item;
@@ -300,12 +372,12 @@ void DepotPanel::selectItem(Game * game, ShopItem* item)
 		else
 			_selectedItem = nullptr;
 	}
-	else if (item != _firstWeaponFrame && item != _secondWeaponFrame)
+	else if (item != _firstWeaponFrame && item != _secondWeaponFrame && item != _meleeWeaponFrame)
 	{
 		if (_game->usingJoystick())
 		{
 			_selectedButton->setSelected(false);
-			_selectedButton = _firstWeaponFrame;
+			_selectedButton = (item->getItemInfo()._isMelee) ? _meleeWeaponFrame : _firstWeaponFrame;
 			_selectedButton->setSelected(true);
 		}
 		_selectedItem = item;
@@ -315,7 +387,7 @@ void DepotPanel::selectItem(Game * game, ShopItem* item)
 
 void DepotPanel::setDistanceWeapon(Game* game, ShopItem* item)
 {
-	if (_selectedItem != nullptr && _selectedItem->getItemInfo()._name != "") //COMPROBAR QUE NO ES MELEE
+	if (_selectedItem != nullptr && !_selectedItem->getItemInfo()._isMelee) //COMPROBAR QUE NO ES MELEE
 	{
 		swapDistanceItems(item);
 		reorderDepot();
@@ -327,9 +399,10 @@ void DepotPanel::setDistanceWeapon(Game* game, ShopItem* item)
 
 void DepotPanel::setMeleeWeapon(Game* game, ShopItem* item)
 {
-	if (_selectedItem != nullptr && _selectedItem->getMeleeInfo()._name != "") //COMPROBAR QUE NO ES A DISTANCIA
+	if (_selectedItem != nullptr && _selectedItem->getItemInfo()._isMelee) //COMPROBAR QUE NO ES A DISTANCIA
 	{
 		swapMeleeItems(item);
+		_meleeWeaponFrame->setSelected(false);
 		reorderDepot();
 
 		_selectedItem->setChosen(false);
@@ -356,7 +429,7 @@ void DepotPanel::swapDistanceItems(ShopItem* _equiped)
 	_equiped->setItemInfo(infoSelected);
 
 	//Equipo arma
-	Gun* newGun = WeaponManager::getWeapon(_game, _equiped->getItemInfo()._type);
+	Gun* newGun = WeaponManager::getInstance()->getWeapon(_game, (GunType)_equiped->getItemInfo()._type);
 	if (_equiped == _firstWeaponFrame) 
 		_player->changeCurrentGun(newGun);
 	else if (_equiped == _secondWeaponFrame)
@@ -366,13 +439,14 @@ void DepotPanel::swapDistanceItems(ShopItem* _equiped)
 void DepotPanel::swapMeleeItems(ShopItem* _equiped)
 {
 	//Cambiamos la info
-	auto infoSelected = _selectedItem->getMeleeInfo();
-	auto otherInfo = _equiped->getMeleeInfo();
+	auto infoSelected = _selectedItem->getItemInfo();
+	auto otherInfo = _equiped->getItemInfo();
 	infoSelected._equiped = true;
 	otherInfo._equiped = false;
 
-	_selectedItem->setMeleeInfo(otherInfo);
-	_equiped->setMeleeInfo(infoSelected);
-	Melee* newMelee = nullptr; //= WeaponManager::getMelee(_game, _equiped->getMeleeInfo()._type, _player);
-	_player->changeMelee(newMelee);
+	_selectedItem->setItemInfo(otherInfo);
+	_equiped->setItemInfo(infoSelected);
+
+	//FALTA EQUIPAR EL ARMA
+	//_player->changeMelee();
 }

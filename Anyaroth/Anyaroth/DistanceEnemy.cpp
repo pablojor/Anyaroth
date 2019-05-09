@@ -9,7 +9,10 @@ DistanceEnemy::DistanceEnemy(Game* g, Player* player, Vector2D pos, Texture* tex
 	_arm->setAnimations(DefaultArmType);
 	addChild(_arm);
 
+	_myGun = new BasicPistol(g);
 	_myBulletPool = pool;
+
+	_affectedByExternalForces = true;
 }
 
 void DistanceEnemy::raycast()
@@ -29,7 +32,8 @@ void DistanceEnemy::raycast()
 
 	for (b2Body* b = getWorld()->GetBodyList(); b && _armVision; b = b->GetNext())
 		for (b2Fixture* f = b->GetFixtureList(); f && _armVision; f = f->GetNext())
-			if (b->GetType() == b2_staticBody && f->RayCast(&rayOutput, rayInput, 0))
+			if (/*b->GetType() == b2_staticBody*/ (((GameObject*)(b->GetUserData()))->getTag() == "Ground" || ((GameObject*)(b->GetUserData()))->getTag() == "Platform" ||
+				((GameObject*)(b->GetUserData()))->getTag() == "Door") && f->RayCast(&rayOutput, rayInput, 0))
 				_armVision = false;
 }
 

@@ -55,7 +55,7 @@ void BomberEnemy::update(const double& deltaTime)
 
 	bool inVision = _playerDistance.getX() < _vision && _playerDistance.getX() > -_vision && _playerDistance.getY() < _vision && _playerDistance.getY() > -_vision;
 
-	if (!isDead() && /*inCamera()* &&*/ inVision)
+	if (!isDead() && inVision)
 	{
 		if (_playerDistance.getX() > _attackRangeX)
 			_dir = Vector2D(1, 0);
@@ -84,26 +84,6 @@ void BomberEnemy::subLife(int damage)
 
 void BomberEnemy::throwBomb(const Vector2D& position)
 {
-	/*Bullet* b = _myBulletPool->getUnusedObject();
-	Vector2D helpPos = position;
-	Vector2D bulletPos = helpPos.rotateAroundPoint(angle, position);*/
-	//b->init();
 	_gun->enemyShoot(_myBulletPool, position, _angle, "EnemyBullet");
 	_anim->playAnim(AnimatedSpriteComponent::EnemyAttack);
-	/*if (b != nullptr)
-	{
-		b->init(_bulletTexture, position, 0, 10, angle, _range, tag, &_effect);
-		b->init(_bulletTexture, position, 0, _damage, _angle, _range, "EnemyBullet");
-		b->changeFilter(true);
-	}
-	else
-	{
-		Bullet* b2 = _myBulletPool->addNewBullet();
-
-		b2->init(_bulletTexture, position, 0, 10, angle, _range, tag, &_effect);
-		Bullet* b2 = _bulletPool->addNewBullet();
-
-		b2->init(_bulletTexture, position, 0, _damage, _angle, _range, "EnemyBullet");
-		b2->changeFilter();
-	}*/
 }

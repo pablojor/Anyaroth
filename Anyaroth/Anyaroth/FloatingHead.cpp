@@ -1,5 +1,5 @@
 #include "FloatingHead.h"
-
+#include "Boss3.h"
 
 
 FloatingHead::FloatingHead(Game* g, Player* player, Vector2D pos, BulletPool* pool, Boss3 * boss) : StaticFlyingEnemy(g, player, pos, pool), Enemy(g, player, pos, g->getTexture("Turret"), "turretDeath", "turretHit", "turretMeleeHit"),_boss(boss)

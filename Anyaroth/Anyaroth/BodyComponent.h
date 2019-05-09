@@ -4,7 +4,6 @@
 #include "Box2D/Box2D.h"
 #include <string>
 
-
 class BodyComponent : public PhysicsComponent
 {
 private:

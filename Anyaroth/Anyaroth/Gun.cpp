@@ -1,6 +1,6 @@
 #include "Gun.h"
+#include "ParticleManager.h"
 #include <algorithm>
-
 
 Gun::Gun(Game* game, Texture* armTexture, Texture* bulletTexture, string shotSoundTag, double speed, double damage, double range, int maxClip, int maxMagazine, int maxCadence, EffectInterface* effect, GunType id, Texture* iconTexture, bool automatic, BulletAnimType bType) : _armTexture(armTexture), _bulletTexture(bulletTexture), _shotSoundTag(shotSoundTag), _iconTexture(iconTexture)
 {

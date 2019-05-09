@@ -10,10 +10,10 @@ PausePanel::PausePanel(Game* g) : PanelUI(g)
 		buttonW = _playButton->getW();
 	_playButton->setPosition(CAMERA_RESOLUTION_X / 2 - buttonW / 2, CAMERA_RESOLUTION_Y / 3 - buttonH + 50);
 
-	_optionsButton = new ButtonUI(g, g->getTexture("MenuButtons"), [this](Game* game) { options(game); }, { 0, 1, 2, 2, 2 });
+	_optionsButton = new ButtonUI(g, g->getTexture("MenuButtons"), [this](Game* game) { options(game); }, { 0, 1, 2, 2, 2 }, 1);
 	_optionsButton->setPosition(CAMERA_RESOLUTION_X / 2 - buttonW / 2, CAMERA_RESOLUTION_Y / 3 + buttonH + 50);
 
-	_menuButton = new ButtonUI(g, g->getTexture("MenuButtons"), [this](Game* game) { returnMenu(game); }, { 0, 1, 2, 2, 2 });
+	_menuButton = new ButtonUI(g, g->getTexture("MenuButtons"), [this](Game* game) { returnMenu(game); }, { 0, 1, 2, 2, 2 }, 2);
 	_menuButton->setPosition(CAMERA_RESOLUTION_X / 2 - buttonW / 2, CAMERA_RESOLUTION_Y / 3 + buttonH + 100);
 
 	//----TEXTOS----//

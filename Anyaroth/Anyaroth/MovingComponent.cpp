@@ -15,7 +15,7 @@ void MovingComponent::update(const double& deltaTime)
 	double x = pos.x;
 	double y = pos.y;
 
-	//_body->getBody()->SetLinearVelocity(b2Vec2(_dir.x*_speed, _body->getBody()->GetLinearVelocity().y));
+	_body->getBody()->SetLinearVelocity(b2Vec2(_dir.x*_speed, _body->getBody()->GetLinearVelocity().y));
 
 	/*if (!_dashing)
 	{
