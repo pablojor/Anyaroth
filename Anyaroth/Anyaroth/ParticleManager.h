@@ -1,5 +1,5 @@
 #pragma once
-#include "ParticlePull.h"
+#include "ParticlePool.h"
 #include "Particle.h"
 #include "Texture.h"
 #include "Vector2D.h"
@@ -38,7 +38,7 @@ private:
 	ParticleManager();
 	~ParticleManager();
 
-	ParticlePull * _pull;
+	ParticlePool * _pull;
 	priority_queue< ParticleData,vector<ParticleData>,less<ParticleData>> _ParticleQueue;
 	
 	Game * _game;
@@ -48,7 +48,7 @@ public:
 	static ParticleManager* GetParticleManager();
 	static void deleteManager(); //Only when closing or it can break everything
 
-	inline void setParticlePull(ParticlePull* pull) { _pull = pull; }
+	inline void setParticlePool(ParticlePool* pull) { _pull = pull; }
 	inline int random(int low, int high) const { return low + (rand() % abs(high - low)); }
 
 	void updateManager(const double& deltaTime);

@@ -11,7 +11,7 @@ private:
 
 	GameManager() {};
 
-	//Aqui irán todas la varibles que se necesite en el juego
+	//Aqui irï¿½n todas la varibles que se necesite en el juego
 	int _currentLevel = 1;
 	bool _onDialogue = false, _onShop = false;
 
@@ -23,6 +23,8 @@ public:
 
 	int getCurrentLevel() const { return _currentLevel; }
 	void setCurrentLevel(const int& a) { _currentLevel = a; }
+	void nextLevel();
+	void previousLevel();
 
 	bool getOnDialogue() const { return _onDialogue; }
 	void setOnDialogue(const bool& b) { _onDialogue = b; }

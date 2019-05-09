@@ -1,9 +1,10 @@
 {
-  "Guns": {
-    "Basic": {
-      "BasicPistol": {
+    "Basic":
+    {
+      "BasicPistol": 
+      {
         "zone": -1,
-        "frame": "BasicFrame",
+	      "frame": "BasicFrame",
         "icon": "PistolIcon",
         "price": 0,
         "speed": 100,
@@ -14,6 +15,7 @@
         "cadence": 270,
         "id": 0
       },
+
       "BasicRifle": {
         "zone": -1,
         "frame": "BasicFrame",
@@ -27,6 +29,7 @@
         "cadence": 170,
         "id": 3
       },
+
       "BasicShotgun": {
         "zone": -1,
         "frame": "BasicFrame",
@@ -41,7 +44,9 @@
         "id": 1
       }
     },
-    "Common": {
+
+    "Common":
+    {
       "Gamma Blaster": {
         "zone": 53,
         "frame": "CommonFrame",
@@ -55,6 +60,7 @@
         "cadence": 6,
         "id": 4
       },
+
       "A4X Shotgun": {
         "zone": 53,
         "frame": "CommonFrame",
@@ -69,7 +75,9 @@
         "id": 2
       }
     },
-    "Rare": {
+
+    "Rare" :
+    {
       "Plasma Sniper": {
         "zone": 53,
         "frame": "RareFrame",
@@ -83,8 +91,9 @@
         "cadence": 1,
         "id": 5
       },
+
       "BounceOrbCanon": {
-        "zone": 100,
+        "zone": 53,
         "frame": "RareFrame",
         "icon": "BounceCannonIcon",
         "price": 1000,
@@ -96,8 +105,9 @@
         "cadence": 200,
         "id": 6
       },
+
       "GravityCannon": {
-        "zone": 100,
+        "zone": 53,
         "frame": "RareFrame",
         "icon": "BHCannonIcon",
         "price": 1000,
@@ -109,29 +119,28 @@
         "cadence": 400,
         "id": 7
       }
-    }
-  },
-  "Melee": {
-    "Knife": {
-      "zone": -1,
-      "frame": "RareFrame",
-      "icon": "Weapon1",
-      "damage": 25,
-      "id": 0
     },
-    "Sword": {
-      "zone": 2,
-      "frame": "RareFrame",
-      "icon": "Weapon1",
-      "damage": 50,
-      "id": 1
-    },
-    "Poleaxe": {
-      "zone": 3,
-      "frame": "RareFrame",
-      "icon": "Weapon1",
-      "damage": 15,
-      "id": 2
+    "Melee":
+    {
+      "BasicKnife": {
+        "zone": -1,
+        "frame": "BasicFrame",
+        "icon": "SniperIcon",
+        "id": 0
+      },
+
+      "Sword": {
+        "zone": 53,
+        "frame": "CommonFrame",
+        "icon": "SniperIcon",
+        "id": 1
+      },
+
+      "PoleAxe": {
+        "zone": 53,
+        "frame": "RareFrame",
+        "icon": "SniperIcon",
+        "id": 2
+      }
     }
-  }
 }

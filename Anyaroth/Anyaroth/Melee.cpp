@@ -25,7 +25,6 @@ void Melee::meleeAttack(double x, double y, int dir)
 	_body->setW(_w);
 	_body->setH(_h);
 	_body->getBody()->GetFixtureList()->SetSensor(true);
-	_body->filterCollisions(MELEE, _collidesWith);
 
 	_body->filterCollisions(MELEE, _collidesWith);
 
@@ -35,9 +34,23 @@ void Melee::meleeAttack(double x, double y, int dir)
 
 void Melee::endMelee()
 {
-	if (_body!= nullptr && _body->getBody() != nullptr && _body->getBody()->IsActive())
+	if (_body->getBody() != nullptr && _body->getBody()->IsActive())
 	{
 		if (!_body->getBody()->GetWorld()->IsLocked())
 			_body->getBody()->SetActive(false);
+	}
+}
+
+void Melee::setCollisionSize(const Vector2D & size)
+{
+	_w = size.getX();
+	_h = size.getY();
+	if (_body != nullptr)
+	{
+		_body->setW(_w);
+		_body->setH(_h);
+		_body->getBody()->GetFixtureList()->SetSensor(true);
+
+		_body->filterCollisions(MELEE, _collidesWith);
 	}
 }

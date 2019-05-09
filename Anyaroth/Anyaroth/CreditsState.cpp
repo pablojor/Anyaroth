@@ -4,13 +4,17 @@
 
 CreditsState::CreditsState(Game* game) : GameState(game)
 {
-	game->getSoundManager()->stopMusic();
-
-	SDL_ShowCursor(true);
-	setCanvas(new CreditsStateHUD(game));
-	_mainCamera->fadeIn(1500);
 }
 
 CreditsState::~CreditsState()
 {
+}
+
+void CreditsState::start()
+{
+	_gameptr->getSoundManager()->stopMusic();
+
+	SDL_ShowCursor(true);
+	setCanvas(new CreditsStateHUD(_gameptr));
+	_mainCamera->fadeIn(1500);
 }

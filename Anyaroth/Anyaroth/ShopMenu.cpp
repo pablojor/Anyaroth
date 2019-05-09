@@ -11,7 +11,7 @@ ShopMenu::ShopMenu(Game* game) : PanelUI(game)
 {
 	//----FONDO----//
 
-	_imageBG = new AnimatedImageUI(game, game->getTexture("ShopBackground"));
+	_imageBG = new AnimatedImageUI(game, game->getTexture("BgShop"));
 	_imageBG->addAnim(AnimatedImageUI::Idle, 6, true);
 	addChild(_imageBG);
 
@@ -23,7 +23,7 @@ ShopMenu::ShopMenu(Game* game) : PanelUI(game)
 		middleOfTheButtonPanelY = 100;
 
 	//BOTON DE HABLAR
-	_talkButton = new ButtonUI(game, game->getTexture("ShopButton"), [this](Game* game) { startTalking(game); }, { 0, 1, 1, 1, 1 });
+	_talkButton = new ButtonUI(game, game->getTexture("ShopButton"), [this](Game* game) { startTalking(game); }, { 0, 1, 1, 1, 1 }, 1);
 	_talkButton->setPosition(middleOfTheButtonPanelX / 2 - _talkButton->getW() / 2,
 		middleOfTheButtonPanelY - (distanceBetweenButtons / 2) - _talkButton->getH());
 
@@ -41,7 +41,7 @@ ShopMenu::ShopMenu(Game* game) : PanelUI(game)
 		_shopButton->getY() + _shopButton->getH() / 2 - _shopText->getH() / 2);
 
 	//BOTON DE ALMACEN
-	_depotButton = new ButtonUI(game, game->getTexture("ShopButton"), [this](Game* game) { openDepotPanel(game); }, { 0, 1, 1, 1, 1 });
+	_depotButton = new ButtonUI(game, game->getTexture("ShopButton"), [this](Game* game) { openDepotPanel(game); }, { 0, 1, 1, 1, 1 }, 2);
 	_depotButton->setPosition(middleOfTheButtonPanelX / 2 - _depotButton->getW() / 2,
 		middleOfTheButtonPanelY + (distanceBetweenButtons / 2));
 
@@ -50,7 +50,7 @@ ShopMenu::ShopMenu(Game* game) : PanelUI(game)
 		_depotButton->getY() + _depotButton->getH() / 2 - _depotText->getH() / 2);
 
 	//BOTON DE SALIR
-	_exitButton = new ButtonUI(game, game->getTexture("ExitButton"), nullptr, { 0, 1, 1, 1 });
+	_exitButton = new ButtonUI(game, game->getTexture("ExitButton"), nullptr, { 0, 1, 1, 1 }, 3);
 	_exitButton->setPosition(CAMERA_RESOLUTION_X - _exitButton->getW() - 12, 188 - 1 - _exitButton->getH());
 
 	_exitButton->onUp([this](Game* game) { exit(game); });
@@ -83,16 +83,22 @@ ShopMenu::ShopMenu(Game* game) : PanelUI(game)
 
 	loadWeaponInfo();
 
-	_catalogPanel->setItems(&_items);
-	_depotPanel->setItems(&_items);
+	_catalogPanel->setItems(&_weaponItems);
+	_depotPanel->setWeaponItems(&_weaponItems);
+	_depotPanel->setMeleeItems(&_meleeItems);
 }
 
 ShopMenu::~ShopMenu()
 {
-	_depotPanel->removeItems();
+	_depotPanel->removeWeaponItems();
+	_depotPanel->removeMeleeItems();
+
 	_catalogPanel->removeItems();
 	if (_dialoguePanel != nullptr) removeChild(_dialoguePanel);
-	for (auto it = _items.begin(); it != _items.end(); it++)
+
+	for (auto it = _weaponItems.begin(); it != _weaponItems.end(); it++)
+		delete *it;
+	for (auto it = _meleeItems.begin(); it != _meleeItems.end(); it++)
 		delete *it;
 }
 
@@ -142,8 +148,8 @@ bool ShopMenu::handleEvent(const SDL_Event& event)
 
 void ShopMenu::loadWeaponInfo()
 {
-	auto weaponInfo = WeaponManager::getAllWeaponInfo();
-	int i = 0;
+	//Armas de fuego
+	auto weaponInfo = WeaponManager::getInstance()->getAllWeaponInfo();
 	for (auto it = weaponInfo.begin(); it != weaponInfo.end(); it++)
 	{
 		auto item = new ShopItem(_game, _game->getTexture((*it).second._iconName), 0, 0);
@@ -157,16 +163,15 @@ void ShopMenu::loadWeaponInfo()
 			sold = true;
 		}
 		
-		item->setItemInfo({ (*it).second._zone, (*it).second._name, (*it).second._price ,(*it).second._damage, (*it).second._cadence, (*it).second._clip, (*it).first, (*it).second._iconName, (*it).second._rarityFrame, sold, equiped });
-		_items.push_back(item);
-		i++;
+		item->setItemInfo({ (*it).second._zone, (*it).second._name, (*it).second._price ,(*it).second._damage, (*it).second._cadence, (*it).second._clip, (uint)(*it).first, (*it).second._iconName, (*it).second._rarityFrame, sold, equiped, false });
+		_weaponItems.push_back(item);
 	}
 
-	auto meleeInfo = WeaponManager::getAllMeleeInfo();
-
+	//Armas melee
+	auto meleeInfo = WeaponManager::getInstance()->getAllMeleeInfo();
 	for (auto it = meleeInfo.begin(); it != meleeInfo.end(); it++)
 	{
-		auto item = new ShopItem(_game, _game->getTexture((*it).second._iconName));
+		auto item = new ShopItem(_game, _game->getTexture((*it).second._iconName), 0, 0);
 
 		bool sold = false;
 		bool equiped = false;
@@ -177,8 +182,8 @@ void ShopMenu::loadWeaponInfo()
 			sold = true;
 		}
 
-		item->setMeleeInfo({ (*it).second._zone, (*it).second._name,(*it).second._damage, (*it).first, (*it).second._iconName, (*it).second._rarityFrame, sold, equiped });
-		_items.push_back(item);
+		item->setItemInfo({ (*it).second._zone, (*it).second._name, 0, 0, 0, 0, (uint)(*it).first, (*it).second._iconName, (*it).second._rarityFrame, sold, equiped, true });
+		_meleeItems.push_back(item);
 	}
 }
 

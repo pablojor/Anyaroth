@@ -34,7 +34,7 @@ class ButtonUI : public FramedImageUI
 		vector<ButtonUI*> _nextButtons = { nullptr, nullptr, nullptr, nullptr };
 
 	public:
-		ButtonUI(Game* game, Texture* image, const Callback& callback = NULL, Frames frames = { 0, 0, 0, 0 });
+		ButtonUI(Game* game, Texture* image, const Callback& callback = NULL, Frames frames = { 0, 0, 0, 0 }, int arrayPos = 0);
 		virtual ~ButtonUI() {};
 
 		virtual void update(const double& deltaTime);
@@ -65,5 +65,3 @@ class ButtonUI : public FramedImageUI
 
 		void setInputEnable(bool b);
 };
-
-

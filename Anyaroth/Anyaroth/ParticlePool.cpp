@@ -1,13 +1,13 @@
-#include "ParticlePull.h"
+#include "ParticlePool.h"
 #include "Game.h"
 
 
-ParticlePull::ParticlePull(Game* game) : ObjectPool<Particle, 100>(game) {}
+ParticlePool::ParticlePool(Game* game) : ObjectPool<Particle, 100>(game) {}
 
 
 
 
-Particle * ParticlePull::addNewParticle()
+Particle * ParticlePool::addNewParticle()
 {
 
 	Particle* b = getUnusedObject();
@@ -16,12 +16,12 @@ Particle * ParticlePull::addNewParticle()
 		b = new Particle(getGame());
 
 		_objects.push_back(b);
-		b->setWorld(_game->getWorld());
+		b->setWorld(getWorld());
 	}
 	return b;
 }
 
-void ParticlePull::stopParticles()
+void ParticlePool::stopParticles()
 {
 	for (auto b : _objects)
 	{

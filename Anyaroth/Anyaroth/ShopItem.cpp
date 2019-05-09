@@ -1,7 +1,6 @@
 #include "ShopItem.h"
 #include "Game.h"
 
-
 ShopItem::ShopItem(Game* game, Texture* image, int xPos, int yPos) : ButtonUI(game, image, 0, {0, 2, 2, 2, 2})
 {
 	_weaponIcon = new ImageUI(game, image, xPos, yPos);
@@ -45,17 +44,6 @@ void ShopItem::setItemInfo(const ItemInfo & info)
 	setSize(getImage()->getW(), getImage()->getH());
 }
 
-void ShopItem::setMeleeInfo(const MeleeItemInfo & info)
-{
-	_meleeInfo = info;
-	//Frame (cambio al frame del color por rareza)
-	setImage(_game->getTexture(_meleeInfo._rarityFrame));
-	//Cambio del icono del arma
-	_weaponIcon->setImage(_game->getTexture(_meleeInfo._iconName));
-	//Ajustamos tama�os
-	setSize(getImage()->getW(), getImage()->getH());
-}
-
 void ShopItem::setChosen(bool selected)
 {
 	if (selected && !_game->usingJoystick())
@@ -65,4 +53,3 @@ void ShopItem::setChosen(bool selected)
 	else
 		setFrames({ 0, 2, 2, 2, 2 });
 }
-

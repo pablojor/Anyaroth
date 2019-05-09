@@ -1,8 +1,7 @@
 #include "ButtonUI.h"
 #include "Game.h"
 
-
-ButtonUI::ButtonUI(Game* game, Texture* image, const Callback& callback, Frames frames) : FramedImageUI(game, image)
+ButtonUI::ButtonUI(Game* game, Texture* image, const Callback& callback, Frames frames, int arrayPos) : FramedImageUI(game, image)
 {
 	setFrames(frames);
 	_frame = _onOutFrame;
@@ -20,7 +19,6 @@ bool ButtonUI::mouseIsOver()
 
 	return SDL_PointInRect(&point, &winRect);
 }
-
 
 bool ButtonUI::handleEvent(const SDL_Event& event)
 {

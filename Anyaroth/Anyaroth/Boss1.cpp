@@ -1,9 +1,9 @@
 #include "Boss1.h"
-#include "AnimatedSpriteComponent.h"
 #include "Player.h"
 #include "BasicRifle.h"
 #include "ImprovedRifle.h"
 #include "CreditsState.h"
+#include "GameManager.h"
 
 Boss1::Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, player, pos, pool, g->getTexture("Spenta")), Enemy(g, player, pos, g->getTexture("Spenta"), "boss1Die", "boss1Hit")
 {
@@ -53,7 +53,8 @@ Boss1::Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, 
 	_body->getBody()->SetGravityScale(0);
 
 	_originalPos = Vector2D(pos.getX() + (_anim->getTexture()->getW() / 2) / _anim->getTexture()->getNumCols(), pos.getY() + (_anim->getTexture()->getW() / 2) / _anim->getTexture()->getNumCols());
-	_melee = new Axe(g, { 100, 0 }, PLAYER, 5, 50, 50, 270);
+	
+	_melee = new BossSword(g);;
 	addChild(_melee);
 
 	_armVision = true;
@@ -74,16 +75,31 @@ Boss1::~Boss1()
 void Boss1::update(const double& deltaTime)
 {
 	Boss::update(deltaTime);
+
 	if (isDead())
 	{
 		if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaEndShield)
 		{
 			_anim->playAnim(AnimatedSpriteComponent::SpentaDie);
-			_game->getCurrentState()->getMainCamera()->fadeOut(3000);
-			_game->getCurrentState()->getMainCamera()->onFadeComplete([this](Game* game) {
-				game->popState();
-				game->changeState(new CreditsState(game));
-			});
+
+			if (GameManager::getInstance()->getCurrentLevel() == LevelManager::BossDemo)
+			{
+				_game->getCurrentState()->getMainCamera()->fadeOut(3000);
+				_game->getCurrentState()->getMainCamera()->onFadeComplete([this](Game* game)
+				{
+					game->popState();
+					game->changeState(new CreditsState(game));
+				});
+			}
+			else
+				popUpMessage();
+		}
+
+		if (_game->getCurrentState()->getPlayHUD()->getPopUpPanel()->isFinished() && !_finishLevel)
+		{
+			_player->getLife().setMaxLife(_player->getLife().getMaxLife() + 50);
+			_player->setChangeLevel(true);
+			_finishLevel = true;
 		}
 	}
 
@@ -111,6 +127,15 @@ void Boss1::update(const double& deltaTime)
 	{
 		_actualState = Moving;
 	}
+}
+
+void Boss1::popUpMessage()
+{
+	_message = _game->getCurrentState()->getPlayHUD()->getPopUpPanel();
+
+	_message->addMessage({ "Notification:", "After this great battle, your resistance improves a lot. Your lifebar has now 50 extra points." });
+	_message->addMessage({ "Notification:", "And... there's more. That cool sword, Spenta's, is now yours. You can equip it in the next shop." });
+	_message->open();
 }
 
 void Boss1::movement(const double& deltaTime)

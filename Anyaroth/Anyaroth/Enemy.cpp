@@ -5,6 +5,7 @@
 #include "Coin.h"
 #include "AmmoPackage.h"
 #include "AidKit.h"
+#include "ParticleManager.h"
 
 Enemy::Enemy(Game* g, Player* player, Vector2D pos, Texture* texture, string death, string hit, string meleeHit) : GameObject(g, "Enemy"), _player(player), _deathSound(death), _hitSound(hit), _meleeHit(meleeHit)
 {
@@ -58,6 +59,9 @@ void Enemy::beginCollision(GameObject * other, b2Contact* contact)
 void Enemy::update(const double& deltaTime)
 {
 	GameObject::update(deltaTime);
+
+	if (!isDead() && inCamera())
+		_body->getBody()->SetAwake(true);
 
 	b2Vec2 playerPos = _player->getComponent<BodyComponent>()->getBody()->GetPosition(), enemyPos = _body->getBody()->GetPosition();
 	_playerDistance = Vector2D((playerPos.x - enemyPos.x)*M_TO_PIXEL, (playerPos.y - enemyPos.y)*M_TO_PIXEL);

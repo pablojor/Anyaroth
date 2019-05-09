@@ -74,8 +74,11 @@ void DialoguePanel::startDialogue(const Dialogue& dialogue)
 		_isConversating = true;
 		GameManager::getInstance()->setOnDialogue(true);
 
+		if (_dialogue.conversation.size() <= 0)
+			_dialogue = { nullptr,"","Default",{"Dialogue not found"},{0},{ "Default" } };
+
 		//inicializamos cada elemento
-		if (_dialogue.name != "")
+		if (_dialogue.name != " ")
 		{
 			_nameText->setText(_dialogue.name);
 			_nameBackground->setVisible(true);

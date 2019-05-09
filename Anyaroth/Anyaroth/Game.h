@@ -45,8 +45,7 @@ enum _Category
 	DEAD_ENEMIES = 128,
 	COLLECTED_OBJECTS = 256,
 	MELEE = 512,
-	MISIL=1024,
-	LASER = 2048
+	MISIL = 1024,
 };
 
 class Game
@@ -65,8 +64,7 @@ private:
 	SDL_GameController* _joystick = nullptr;
 	bool _joystickAttached;//Indica si hay algun mando conectado se este usando o no
 	bool _usingJoystick = false; // Indica si se esta usando el mando, si es falso se usa el raton 
-
-	b2World* _world = nullptr;
+	
 	float _timestep = FRAME_RATE / 1000.0f;
 	bool _exit = false;
 
@@ -74,6 +72,16 @@ private:
 	double _controllerSensitivity = 10;
 
 public:
+	Game();
+	~Game();
+
+	void run();
+	void start();
+	void updateWorld(const float& timeStep, const int& velocityIterations, const int& positionIterations);
+	void update(const double& deltaTime);
+	void render() const;
+	void handleEvents();
+
 	//Metodos
 	void createTextures();
 	void createFonts();
@@ -86,7 +94,6 @@ public:
 	inline void changeState(GameState* state) { _stateMachine->changeState(state); }
 	inline void popState() { _stateMachine->popState(); }
 
-	//Texture* newTexture(string id, string nameText);
 	inline Texture* getTexture(string nameText) { return _textures[nameText]; }
 	inline Font* getFont(string nameFont) { return _fonts[nameFont]; }
 	inline Dialogue getDialogue(string nameDialogue) { return _dialogues[nameDialogue]; }
@@ -101,21 +108,13 @@ public:
 
 	inline SoundManager* getSoundManager() const { return _soundManager; }
 
-	inline b2World* getWorld() const { return _world; }
 	inline void setTimestep(float timestep) { _timestep = timestep; }
 	inline void setExit(bool quit) { _exit = quit; }
 
 	inline int random(int low, int high) const { return low + (rand() % abs(high - low)); }
 
-	inline double getSensitivity() const { return _controllerSensitivity; }
 	void setSensitivity(double sensitiviy);
+	inline double getSensitivity() const { return _controllerSensitivity; }
 
 	void toggleFullscreen();
-
-	Game();
-	~Game();
-	void run();
-	void update(const double& deltaTime);
-	void render() const;
-	void handleEvents();
 };

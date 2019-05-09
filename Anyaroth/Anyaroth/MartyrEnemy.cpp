@@ -45,28 +45,15 @@ void MartyrEnemy::update(const double& deltaTime)
 
 		if (!_attacking && inVision)
 		{
-			if (_playerDistance.getX() > 0) //Derecha
+			if (abs(_playerDistance.getX()) > 0)
 			{
-				_anim->unFlip();
-				_dir = Vector2D(1, 0);
+				_playerDistance.getX() > 0 ? _dir = Vector2D(1, 0) : _dir = Vector2D(-1, 0);
+				_dir.getX() > 0 ? _anim->unFlip() : _anim->flip();
 
-				if (_playerDistance.getX() > _attackRangeX)
-					moving(_dir);
-				else if(sameFloor)
-					attack();
-				else idle();
-			}
-			else if (_playerDistance.getX() < 0) //Izquierda
-			{
-				_anim->flip();
-				_dir = Vector2D(-1, 0);
-
-				if (_playerDistance.getX() < -_attackRangeX)
+				if (abs(_playerDistance.getX()) > _attackRangeX)
 					moving(_dir);
 				else if (sameFloor)
 					attack();
-				else
-					idle();
 			}
 		}
 		else if(_attacking)
@@ -97,11 +84,7 @@ void MartyrEnemy::attacking(const double& deltaTime)
 		{
 			auto body = _player->getComponent<BodyComponent>()->getBody();
 
-			if (_playerDistance.getX() == 0)
-			{
-				body->ApplyLinearImpulseToCenter(b2Vec2(_impulse * 10 * 3, _impulse * 10 * 2), true);
-			}
-			else if (midleRange)
+			if (midleRange)
 				body->ApplyLinearImpulseToCenter(b2Vec2(_impulse * _playerDistance.getX() * 3, _impulse * _playerDistance.getY() * 2), true);
 			else
 				body->ApplyLinearImpulseToCenter(b2Vec2(_impulse * _playerDistance.getX(), _impulse * _playerDistance.getY()), true);
@@ -115,6 +98,7 @@ void MartyrEnemy::attacking(const double& deltaTime)
 		{
 			_attacking = false;
 			explosionDie();
+			_game->getCurrentState()->getMainCamera()->shake(2, 500);
 		}
 		_time += deltaTime;
 	}

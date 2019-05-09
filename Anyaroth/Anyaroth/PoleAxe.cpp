@@ -1,21 +1,19 @@
-#include "Poleaxe.h"
+#include "PoleAxe.h"
 #include "Game.h"
 
 
-Poleaxe::Poleaxe(Game * g, Vector2D offset, Uint16 collidesWith, double damage, double w, double h, GameObject* owner) : Melee(g, offset, collidesWith, damage, w, h, Poleaxe_Weapon)
-{
-	_owner = owner->getComponent<BodyComponent>();
-}
-
-Poleaxe::~Poleaxe()
+PoleAxe::PoleAxe(Game * game) : Melee(game, { 20, 0 }, ENEMIES, 20, 30, 30, PoleAxe_Weapon)
 {
 }
 
-void Poleaxe::update(const double & deltaTime)
+PoleAxe::~PoleAxe()
+{
+}
+
+void PoleAxe::update(const double & deltaTime)
 {
 	if (isActive())
 	{
-		_center = { _owner->getBody()->GetPosition().x * M_TO_PIXEL,_owner->getBody()->GetPosition().y * M_TO_PIXEL };
 		_pos = { _body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL };
 		_nextPos = _pos + _velocity * (double)_dir;
 		if (_nextPos.distance(_center) > _offset.getX())

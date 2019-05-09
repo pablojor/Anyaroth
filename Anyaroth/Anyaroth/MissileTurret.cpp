@@ -1,14 +1,10 @@
-#include "BotonLanzaMisiles.h"
-#include "TransformComponent.h"
-#include "BodyComponent.h"
-#include "AnimatedSpriteComponent.h"
+#include "MissileTurret.h"
 #include "Game.h"
 
-BotonLanzaMisiles::BotonLanzaMisiles(Game* g, Boss1* boss, Texture* texture, Vector2D pos, int activeFase) : _boss(boss), _activeFase(activeFase), Interactable(g, pos)
+MissileTurret::MissileTurret(Game* g, Boss1* boss, Vector2D pos, int activeFase) : Interactable(g, pos), _boss(boss), _activeFase(activeFase)
 {
-	addComponent<Texture>(texture);
-
-	auto _indicatorTexture = _interactIndicator->getComponent<Texture>();
+	Texture* missileTexture = g->getTexture("MissileTurret");
+	addComponent<Texture>(missileTexture);
 
 	_body = addComponent<BodyComponent>();
 	_body->getBody()->SetType(b2_kinematicBody);
@@ -25,14 +21,11 @@ BotonLanzaMisiles::BotonLanzaMisiles(Game* g, Boss1* boss, Texture* texture, Vec
 
 	_anim->playAnim(AnimatedSpriteComponent::Deactivated);
 
-	_interactIndicator->getComponent<TransformComponent>()->setPosition(pos.getX() + (texture->getW() / texture->getNumCols()) / 2 - (_indicatorTexture->getW() / _indicatorTexture->getNumCols()) / 2 /*50*/, pos.getY() - 30 /*180*/);
+	Texture* _indicatorTexture = _interactIndicator->getComponent<Texture>();
+	_interactIndicator->getComponent<TransformComponent>()->setPosition(pos.getX() + (missileTexture->getW() / missileTexture->getNumCols()) / 2 - (_indicatorTexture->getW() / _indicatorTexture->getNumCols()) / 2, pos.getY() - 30);
 }
 
-BotonLanzaMisiles::~BotonLanzaMisiles()
-{
-}
-
-void BotonLanzaMisiles::update(const double & deltaTime)
+void MissileTurret::update(const double & deltaTime)
 {
 	Interactable::update(deltaTime);
 
@@ -58,8 +51,7 @@ void BotonLanzaMisiles::update(const double & deltaTime)
 
 		if (ready)
 		{
-			if (_anim->getCurrentAnim() != AnimatedSpriteComponent::Activating
-				&& _anim->getCurrentAnim() != AnimatedSpriteComponent::Active)
+			if (_anim->getCurrentAnim() != AnimatedSpriteComponent::Activating && _anim->getCurrentAnim() != AnimatedSpriteComponent::Active)
 			{
 				_anim->playAnim(AnimatedSpriteComponent::Activating);
 				_game->getSoundManager()->playSFX("rocketLuncherUp");
@@ -70,15 +62,14 @@ void BotonLanzaMisiles::update(const double & deltaTime)
 	}
 }
 
-void BotonLanzaMisiles::interact()
+void MissileTurret::interact()
 {
-	if (usable &&ready)
+	if (usable && ready)
 	{
 		_anim->playAnim(AnimatedSpriteComponent::Used);
-		MisilBoss1 * misil = new MisilBoss1(_boss, _game, _play, _game->getTexture("SpentaMisil"), _transform->getPosition(), "Misil");
-		addChild(misil);
+		addChild(new Missile(_game, _transform->getPosition(), _boss));
+
 		ready = false;
 		usable = false;
-		_body->getBody()->SetActive(false);
 	}
 }

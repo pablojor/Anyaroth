@@ -33,8 +33,6 @@ struct MeleeInfo {
 
 	string _name;
 
-	int _damage;
-
 	string _iconName;
 	string _rarityFrame;
 };
@@ -59,12 +57,12 @@ public:
 	static void init();
 	static WeaponManager* getInstance();
 
-	static Gun* getWeapon(Game* game, GunType type);
-	static const GunInfo& getGunInfo(const GunType& id) { return _weaponInfo[id]; };
-	static std::map<GunType, GunInfo> getAllWeaponInfo() { return _weaponInfo; }
+	Gun* getWeapon(Game* game, GunType type);
+	const GunInfo& getGunInfo(const GunType& id) { return _weaponInfo[id]; };
+	std::map<GunType, GunInfo> getAllWeaponInfo() { return _weaponInfo; }
 
-	static Melee* getMelee(Game* game, MeleeType type, Player* p);
-	static const MeleeInfo& getMeleeInfo(const MeleeType& id) { return _meleeInfo[id]; };
-	static std::map<MeleeType, MeleeInfo> getAllMeleeInfo() { return _meleeInfo; }
+	Melee* getMelee(Game* game, MeleeType type);
+	const MeleeInfo& getMeleeInfo(const MeleeType& id) { return _meleeInfo[id]; };
+	std::map<MeleeType, MeleeInfo> getAllMeleeInfo() { return _meleeInfo; }
 };
 
