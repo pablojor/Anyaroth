@@ -21,42 +21,53 @@ void LevelManager::setLevel(int l)
 		break;
 	case LevelManager::Safe1_1:
 		_currentSafeZone = new Map(TILEMAP_PATH + "SafeZonePrueba.json", _game, _player, _game->getTexture("Tileset1"), _enemyBulletPool);
+		_game->getSoundManager()->playMusic("safe_zone", -1);
 		setParallaxZone1();
 		break;
 	case LevelManager::Level1_1:
 		_currentMap = new Map(TILEMAP_PATH + "Nivel1-1.json", _game, _player, _game->getTexture("Tileset1"), _enemyBulletPool);
+		_game->getSoundManager()->playMusic("zona1", -1);
 		setParallaxZone1();
 		break;
 	case LevelManager::Safe1_2:
 		_currentSafeZone = new Map(TILEMAP_PATH + "SafeZonePrueba.json", _game, _player, _game->getTexture("Tileset1"), _enemyBulletPool);
+		_game->getSoundManager()->playMusic("safe_zone", -1);
 		setParallaxZone1();
 		break;
 	case LevelManager::Level1_2:
 		_currentMap = new Map(TILEMAP_PATH + "Nivel1-2.json", _game, _player, _game->getTexture("Tileset1"), _enemyBulletPool);
+		_game->getSoundManager()->playMusic("zona1", -1);
 		setParallaxZone1();
 		break;
 	case LevelManager::SafeBoss1:
 		_currentSafeZone = new Map(TILEMAP_PATH + "SafeZonePrueba.json", _game, _player, _game->getTexture("Tileset1"), _enemyBulletPool);
+		_game->getSoundManager()->playMusic("safe_zone", -1);
 		setParallaxZone1();
 		break;
 	case LevelManager::Boss1:
 		_currentMap = new Map(TILEMAP_PATH + "Nivel1-3.json", _game, _player, _game->getTexture("TilesetBoss1"), _enemyBulletPool);
+		_game->getSoundManager()->playMusic("boss1Battle", -1);
 		setBackgroundBoss1();
 		break;
 	case LevelManager::Safe2_1:
 		_currentSafeZone = new Map(TILEMAP_PATH + "SafeZonePrueba.json", _game, _player, _game->getTexture("Tileset1"), _enemyBulletPool);
+		_game->getSoundManager()->playMusic("safe_zone", -1);
 		break;
 	case LevelManager::Level2_1:
 		_currentMap = new Map(TILEMAP_PATH + "Nivel2-1.json", _game, _player, _game->getTexture("Tileset2"), _enemyBulletPool);
+		_game->getSoundManager()->playMusic("zona2", -1);
 		break;
 	case LevelManager::Safe2_2:
 		_currentSafeZone = new Map(TILEMAP_PATH + "SafeZonePrueba.json", _game, _player, _game->getTexture("Tileset1"), _enemyBulletPool);
+		_game->getSoundManager()->playMusic("safe_zone", -1);
 		break;
 	case LevelManager::Level2_2:
 		_currentMap = new Map(TILEMAP_PATH + "Nivel2-2.json", _game, _player, _game->getTexture("Tileset2"), _enemyBulletPool);
+		_game->getSoundManager()->playMusic("zona2", -1);
 		break;
 	case LevelManager::SafeBoss2:
 		_currentSafeZone = new Map(TILEMAP_PATH + "SafeZonePrueba.json", _game, _player, _game->getTexture("Tileset1"), _enemyBulletPool);
+		_game->getSoundManager()->playMusic("safe_zone", -1);
 		break;
 	case LevelManager::Boss2:
 		_currentMap = new Map(TILEMAP_PATH + "Nivel2-3.json", _game, _player, _game->getTexture("TilesetBoss2"), _enemyBulletPool);
@@ -64,18 +75,24 @@ void LevelManager::setLevel(int l)
 		break;
 	case LevelManager::Safe3_1:
 		//_currentSafeZone = ...
+		_game->getSoundManager()->playMusic("safe_zone", -1);
 		break;
 	case LevelManager::Level3_1:
 		//_currentMap = ...
+		_game->getSoundManager()->playMusic("zona3", -1);
 		break;
 	case LevelManager::Safe3_2:
 		//_currentSafeZone = ...
+		_game->getSoundManager()->playMusic("safe_zone", -1);
 		break;
 	case LevelManager::Level3_2:
 		//_currentMap = ...
+		_game->getSoundManager()->playMusic("zona3", -1);
 		break;
 	case LevelManager::SafeBoss3:
 		//_currentSafeZone = ...
+		_game->getSoundManager()->playMusic("safe_zone", -1);
+		_game->getSoundManager()->playMusic("boss2Battle", -1);
 		break;
 	case LevelManager::Boss3:
 		_currentMap = new Map(TILEMAP_PATH + "Nivel3-3.json", _game, _player, _game->getTexture("TilesetBoss3"), _enemyBulletPool);

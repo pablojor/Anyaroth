@@ -2,7 +2,7 @@
 #include "BossPoleAxe.h"
 #include "ImprovedShotgun.h"
 
-Boss2::Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, player, pos, pool, g->getTexture("Azura")), Enemy(g, player, pos, g->getTexture("Azura"))
+Boss2::Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, player, pos, pool, g->getTexture("Azura")), Enemy(g, player, pos, g->getTexture("Azura"), "boss2Die", "boss2Hit", "meleeEnemyHit")
 {
 	_life = 250;
 	_life1 = _life2 = _life3 = _life;
@@ -160,7 +160,10 @@ void Boss2::beginCollision(GameObject * other, b2Contact* contact)
 		
 			_onFloor ++;
 			if (_onFloor <= 1)
+			{
 				setTag("Enemy");
+				_game->getSoundManager()->playSFX("boss2Land");
+			}
 
 			if (fA->GetFriction() == 26 || fB->GetFriction() == 26)
 			{
@@ -203,6 +206,8 @@ void Boss2::meleeAttack()
 		_anim->playAnim(AnimatedSpriteComponent::AzuraSpinStart3);
 
 	_velocity = { _velocity.getX() + _speedIncrement, _velocity.getY() };
+
+	_game->getSoundManager()->playSFX("boss2Melee");
 }
 
 void Boss2::endJump()
@@ -344,6 +349,7 @@ void Boss2::fase3(const double& deltaTime)
 						_actualState = Jumping;
 						_noAction = 0;
 						_anim->playAnim(AnimatedSpriteComponent::AzuraJump);
+						_game->getSoundManager()->playSFX("boss2Jump");
 					}
 					else
 						fase2(deltaTime);
@@ -424,9 +430,13 @@ void Boss2::beetwenFases(const double& deltaTime)
 		{
 			_lasers->Activate();
 			changeFase(Fase2);
+			_game->getSoundManager()->playSFX("boss2Interfase");
 		}
 		else if (_lastFase == Fase2)
+		{
 			changeFase(Fase3);
+			_game->getSoundManager()->playSFX("boss2Interfase");
+		}
 		else
 		{
 			die();

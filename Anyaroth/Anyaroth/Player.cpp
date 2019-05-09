@@ -60,8 +60,8 @@ Player::Player(Game* game) : GameObject(game, "Player")
 	_playerArm = new PlayerArm(game, this, { 28, 15 });
 	addChild(_playerArm);
 	
-	_currentGun = WeaponManager::getInstance()->getWeapon(game, PlasmaSniper_Weapon);
-	_otherGun = WeaponManager::getInstance()->getWeapon(game, BHCannon_Weapon);
+	_currentGun = WeaponManager::getInstance()->getWeapon(game, ImprovedRifle_Weapon);
+	_otherGun = WeaponManager::getInstance()->getWeapon(game, PlasmaSniper_Weapon);
 
 	_playerArm->setTexture(_currentGun->getArmTexture());
 	_playerArm->setAnimations(_currentGun->getAnimType());
