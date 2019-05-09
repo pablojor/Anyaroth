@@ -11,6 +11,8 @@
 
 Player::Player(Game* game) : GameObject(game, "Player")
 {
+	_affectedByExternalForces = true;
+
 	addComponent<Texture>(game->getTexture("Mk"));
 
 	_transform = addComponent<TransformComponent>();

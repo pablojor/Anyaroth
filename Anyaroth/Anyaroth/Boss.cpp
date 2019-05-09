@@ -10,7 +10,7 @@ void Boss::setBossPanel(BossPanel * b)
 	_bossPanel = b;
 
 	//Actualizamos de primeras el aspecto del Panel del Jugador
-	_bossPanel->updateBossName("Spenta Manyu");
+	_bossPanel->updateBossName(_name);
 	_bossPanel->updateLifeBar(_life1.getLife(), _life2.getLife(), _life3.getLife(), _life.getLife());
 	_bossPanel->setVisible(true);
 }

@@ -47,6 +47,8 @@ void Missile::beginCollision(GameObject * other, b2Contact * contact)
 	contact->SetEnabled(false);
 	setActive(false);
 
+	_body->filterCollisions(MISIL, 0);
+
 	_game->getSoundManager()->playSFX("martyrExplosion");
 }
 
