@@ -18,7 +18,7 @@ private:
 	GameObject* _objects = nullptr;
 	vector <ObjectLayer*> _objectLayers;
 
-	double _height = 0, _width = 0;
+	double _height = 0, _width = 0, _spawnType = 0;
 
 public:
 	Map(string filename, Game* game, Player* player, Texture* tileset, BulletPool* bulletPool);

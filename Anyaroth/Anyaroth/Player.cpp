@@ -22,7 +22,7 @@ Player::Player(Game* game) : GameObject(game, "Player")
 	_body->setW(12);
 	_body->setH(26);
 
-	_body->filterCollisions(PLAYER, OBJECTS | FLOOR | PLATFORMS | ENEMY_BULLETS | MELEE);
+	_body->filterCollisions(PLAYER, OBJECTS | FLOOR | PLATFORMS | ENEMY_BULLETS | MELEE | LASER);
 	_body->addCricleShape(b2Vec2(0, 1.1), 0.7, PLAYER, FLOOR | PLATFORMS);
 	_body->getBody()->SetFixedRotation(true);
 
@@ -442,9 +442,9 @@ void Player::checkMovement(const Uint8* keyboard)
 {
 	if (!isDead() && !_inputFreezed)
 	{
-		if (keyboard[SDL_SCANCODE_A] && keyboard[SDL_SCANCODE_D] && !isMeleeing() && !isDashing())
+		if (keyboard[SDL_SCANCODE_A] && keyboard[SDL_SCANCODE_D] && !isMeleeing() && !isDashing() && !_stunned)
 			move(Vector2D(0, 0), _speed);
-		else if ((keyboard[SDL_SCANCODE_A] || _jMoveLeft) && !isMeleeing() && !isDashing())
+		else if ((keyboard[SDL_SCANCODE_A] || _jMoveLeft) && !isMeleeing() && !isDashing() && !_stunned)
 		{
 			if (_isDashing && _dashEnabled && !isReloading())
 				dash(Vector2D(-1, 0));
@@ -454,7 +454,7 @@ void Player::checkMovement(const Uint8* keyboard)
 				_isDashing = false;
 			}
 		}
-		else if ((keyboard[SDL_SCANCODE_D] || _jMoveRight) && !isMeleeing() && !isDashing())
+		else if ((keyboard[SDL_SCANCODE_D] || _jMoveRight) && !isMeleeing() && !isDashing() && !_stunned)
 		{
 			if (_isDashing && _dashEnabled && !isReloading())
 				dash(Vector2D(1, 0));
@@ -472,7 +472,7 @@ void Player::checkMovement(const Uint8* keyboard)
 			_isDashing = false;
 		}
 
-		if ((keyboard[SDL_SCANCODE_SPACE] || _jJump) && !isMeleeing() && !isJumping() && !isReloading())
+		if ((keyboard[SDL_SCANCODE_SPACE] || _jJump) && !isMeleeing() && !isJumping() && !isReloading() && !_stunned)
 			if ((isGrounded() && !isFalling() && !isDashing()) || (!isGrounded() && isFalling() && _timeToJump > 0 && !isDashing()))
 				jump();
 
@@ -524,7 +524,7 @@ void Player::handleAnimations()
 	if (!isDead())
 	{
 		//Idle&Walking
-		if (isGrounded() && !isDashing() && !isMeleeing())
+		if (isGrounded() && !isDashing() && !isMeleeing() && !_stunned)
 		{
 			//Idle
 			if (vel.x == 0 && vel.y == 0 && isGrounded())
@@ -538,7 +538,7 @@ void Player::handleAnimations()
 					_anim->playAnim(AnimatedSpriteComponent::WalkBack);
 			}
 		}
-		else if (!isGrounded() && !isDashing() && !isMeleeing()) //Jumping&Falling (Si no esta en el suelo esta Saltando/Cayendo)
+		else if (!isGrounded() && !isDashing() && !isMeleeing() && !_stunned) //Jumping&Falling (Si no esta en el suelo esta Saltando/Cayendo)
 		{
 			if (vel.y > 2)
 				_anim->playAnim(AnimatedSpriteComponent::Falling);
@@ -576,6 +576,7 @@ void Player::refreshCooldowns(const double& deltaTime)
 {
 	refreshDashCoolDown(deltaTime);
 	refreshGunCadence(deltaTime);
+	refreshStunTime(deltaTime);
 
 	if (!isGrounded() && _timeToJump > 0)
 		_timeToJump -= deltaTime;
@@ -646,6 +647,20 @@ void Player::refreshGunCadence(const double& deltaTime)
 	_currentGun->refreshGunCadence(deltaTime);
 	if (_otherGun != nullptr)
 		_otherGun->refreshGunCadence(deltaTime);
+}
+
+void Player::refreshStunTime(const double & deltaTime)
+{
+	if (_stunned)
+	{
+		_stunTime -= deltaTime;
+		if (_stunTime <= 0)
+		{
+			_stunTime = 1000;
+			_stunned = false;
+			_playerArm->getComponent<CustomAnimatedSpriteComponent>()->setVisible(true);
+		}
+	}
 }
 
 void Player::move(const Vector2D& dir, const double& speed)
@@ -755,6 +770,16 @@ void Player::cancelJump()
 {
 	float penalization = 0.4f;
 	_body->getBody()->SetLinearVelocity(b2Vec2(_body->getBody()->GetLinearVelocity().x, _body->getBody()->GetLinearVelocity().y * (1 - penalization)));
+}
+
+void Player::stunPlayer()
+{
+	if (isGrounded())
+	{
+		_stunned = true;
+		_anim->playAnim(AnimatedSpriteComponent::Hurt);
+		_playerArm->getComponent<CustomAnimatedSpriteComponent>()->setVisible(false);
+	}
 }
 
 void Player::melee()

@@ -5,6 +5,12 @@
 BossPoleAxe::BossPoleAxe(Game* game, GameObject* owner) : PoleAxe(game)
 {
 	_owner = owner->getComponent<BodyComponent>();
+	setCollisionFilters(PLAYER);
+	setCollisionSize({ 40, 75 });
+	setOffset({ 115,15 });
+	setDamage(5);
+	setVelocity({ 18,0 });
+
 	_id = BossPoleAxe_Weapon;
 }
 

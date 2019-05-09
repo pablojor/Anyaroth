@@ -122,7 +122,7 @@ void LevelManager::setLevel(int l)
 		_game->getSoundManager()->playMusic("safe_zone", -1);
 		break;
 	case LevelManager::Boss2:
-		//_currentMap = ...
+		_currentMap = new Map(TILEMAP_PATH + "Nivel2-3.json", _game, _player, _game->getTexture("TilesetBoss2"), _enemyBulletPool);
 		setParallaxZone2();
 
 		cutscene = new CutScene(_player);
@@ -172,7 +172,7 @@ void LevelManager::setLevel(int l)
 		_game->getSoundManager()->playMusic("safe_zone", -1);
 		break;
 	case LevelManager::Boss3:
-		//_currentMap = ...
+		_currentMap = new Map(TILEMAP_PATH + "Nivel3-3.json", _game, _player, _game->getTexture("TilesetBoss3"), _enemyBulletPool);
 		setParallaxZone3();
 		//_game->getSoundManager()->playMusic("") m�sica boss 3
 
@@ -283,6 +283,8 @@ void LevelManager::setLevel(int l)
 
 void LevelManager::changeLevel(int l)
 {
+	if (_game->getCurrentState()->getPlayHUD() != nullptr)
+		_game->getCurrentState()->getPlayHUD()->reset();
 	_enemyBulletPool->stopBullets();
 	_level->destroyAllChildren();
 	_game->getSoundManager()->stopMusic();

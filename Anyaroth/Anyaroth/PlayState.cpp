@@ -27,10 +27,6 @@ void PlayState::start()
 	_playHud = new PlayStateHUD(_gameptr);
 	setCanvas(_playHud);
 
-	//Cursor
-	_cursor = new Cursor(_gameptr);
-	SDL_ShowCursor(false);
-
 	//Player
 	_player = new Player(_gameptr);
 	_player->setPlayerPanel(_playHud->getPlayerPanel());
@@ -67,7 +63,6 @@ void PlayState::start()
 
 	_stages.push_back(_level);
 	_stages.push_back(_player);
-	_stages.push_back(_cursor);
 	_stages.push_back(_playerBulletPool);
 	_stages.push_back(enemyPool);
 	_stages.push_back(_particlePool);

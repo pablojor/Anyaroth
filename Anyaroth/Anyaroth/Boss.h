@@ -9,7 +9,7 @@ enum Fase
 
 enum State
 {
-	Moving, Shooting, Bombing, Meleeing, OrbAttacking
+	Moving, Shooting, Bombing, Meleeing, OrbAttacking, Jumping, GravAttack, PortalAttack, Dashing, Idle
 };
 
 class Boss : public DistanceEnemy
@@ -53,5 +53,6 @@ public:
 	bool inline const isbeetweenFases() { return _actualFase == BetweenFase; }
 
 	virtual void changeFase(int fase);
+	virtual void addSensors();
 	int inline const getLastFase() { return _lastFase; }
 };
