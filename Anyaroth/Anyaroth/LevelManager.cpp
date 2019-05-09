@@ -36,6 +36,8 @@ void LevelManager::setLevel(int l)
 		//cutscene->addPlayMusicEvent(_game, ""); m�sica tutorial
 		cutscene->addDialogueEvent(dialogue, _game->getDialogue("Helmet 3"));
 		_game->getCurrentState()->addCutScene(cutscene);
+
+		cutscene->play();
 		
 		break;
 	case LevelManager::Safe1_1:
@@ -77,6 +79,7 @@ void LevelManager::setLevel(int l)
 		setBackgroundBoss1();
 
 		cutscene = new CutScene(_player);
+
 		cutscene->addCameraEvent(_camera, 150, ZoomIn);
 		cutscene->addMoveEvent(_player->getComponent<BodyComponent>(), 1, 15, 192 / M_TO_PIXEL);
 		//cutscene->addPlaySoundEvent(_game, ""); sonido vuelo
@@ -88,39 +91,121 @@ void LevelManager::setLevel(int l)
 		break;
 	case LevelManager::Safe2_1:
 		_currentSafeZone = new Map(TILEMAP_PATH + "SafeZonePrueba.json", _game, _player, _game->getTexture("Tileset1"), _enemyBulletPool);
+		setParallaxZone2();
+		_game->getSoundManager()->playMusic("safe_zone", -1);
+
+		cutscene = new CutScene(_player);
+
+		cutscene->addMoveEvent(_player->getComponent<BodyComponent>(), 1, 15, 10 / M_TO_PIXEL /* posicion de Azura*/);
+		cutscene->addDialogueEvent(dialogue, _game->getDialogue("Azura 2-1"));
+		_game->getCurrentState()->addCutScene(cutscene);
+
 		break;
 	case LevelManager::Level2_1:
 		_currentMap = new Map(TILEMAP_PATH + "Nivel2-1.json", _game, _player, _game->getTexture("Tileset2"), _enemyBulletPool);
+		setParallaxZone2();
+		//_game->getSoundManager()->playMusic("") m�sica zona 2
 		break;
 	case LevelManager::Safe2_2:
 		_currentSafeZone = new Map(TILEMAP_PATH + "SafeZonePrueba.json", _game, _player, _game->getTexture("Tileset1"), _enemyBulletPool);
+		setParallaxZone2();
+		_game->getSoundManager()->playMusic("safe_zone", -1);
 		break;
 	case LevelManager::Level2_2:
 		_currentMap = new Map(TILEMAP_PATH + "Nivel2-2.json", _game, _player, _game->getTexture("Tileset2"), _enemyBulletPool);
+		setParallaxZone2();
+		//_game->getSoundManager()->playMusic("") m�sica zona 2
 		break;
 	case LevelManager::SafeBoss2:
 		_currentSafeZone = new Map(TILEMAP_PATH + "SafeZonePrueba.json", _game, _player, _game->getTexture("Tileset1"), _enemyBulletPool);
+		setParallaxZone2();
+		_game->getSoundManager()->playMusic("safe_zone", -1);
 		break;
 	case LevelManager::Boss2:
 		//_currentMap = ...
+		setParallaxZone2();
+
+		cutscene = new CutScene(_player);
+
+		cutscene->addCameraEvent(_camera, 150, ZoomIn);
+		cutscene->addMoveEvent(_player->getComponent<BodyComponent>(), 1, 15, 192 / M_TO_PIXEL);
+		//cutscene->addPlaySoundEvent(_game, ""); sonido gruñido
+		cutscene->addCameraShakeEvent(_camera, 1500, 3);
+		cutscene->addFitCameraEvent(_camera, _currentMap->getWidth(), _currentMap->getHeight());
+		cutscene->addDialogueEvent(dialogue, _game->getDialogue("Azura Manyu 1"));
+		//cutscene->addPlaySoundEvent(_game, ""); sonido rugido
+		cutscene->addCameraShakeEvent(_camera, 1500, 3);
+		//cutscene->addPlayMusicEvent(_game, ""); música boss 2
+		_game->getCurrentState()->addCutScene(cutscene);
+
 		break;
 	case LevelManager::Safe3_1:
 		//_currentSafeZone = ...
+		setParallaxZone3();
+		_game->getSoundManager()->playMusic("safe_zone", -1);
+
+		cutscene = new CutScene(_player);
+
+		cutscene->addMoveEvent(_player->getComponent<BodyComponent>(), 1, 15, 10 / M_TO_PIXEL /* posicion de Kheismani*/);
+		cutscene->addDialogueEvent(dialogue, _game->getDialogue("Azura 2-1"));
+		_game->getCurrentState()->addCutScene(cutscene);
+
 		break;
 	case LevelManager::Level3_1:
 		//_currentMap = ...
+		setParallaxZone3();
+		//_game->getSoundManager()->playMusic("") m�sica zona 3
 		break;
 	case LevelManager::Safe3_2:
 		//_currentSafeZone = ...
+		setParallaxZone3();
+		_game->getSoundManager()->playMusic("safe_zone", -1);
 		break;
 	case LevelManager::Level3_2:
 		//_currentMap = ...
+		setParallaxZone3();
+		//_game->getSoundManager()->playMusic("") m�sica zona 3
 		break;
 	case LevelManager::SafeBoss3:
 		//_currentSafeZone = ...
+		setParallaxZone3();
+		_game->getSoundManager()->playMusic("safe_zone", -1);
 		break;
 	case LevelManager::Boss3:
 		//_currentMap = ...
+		setParallaxZone3();
+		//_game->getSoundManager()->playMusic("") m�sica boss 3
+
+		cutscene = new CutScene(_player);
+
+		cutscene->addCameraEvent(_camera, 150, ZoomIn);
+		cutscene->addMoveEvent(_player->getComponent<BodyComponent>(), 1, 15, 192 / M_TO_PIXEL);
+		cutscene->addCameraShakeEvent(_camera, 1500, 3);
+		cutscene->addFitCameraEvent(_camera, _currentMap->getWidth(), _currentMap->getHeight());
+		cutscene->addDialogueEvent(dialogue, _game->getDialogue("Angra Manyu 1"));
+		//cutscene->addPlayMusicEvent(_game, ""); música boss 3
+		_game->getCurrentState()->addCutScene(cutscene);
+
+		break;
+	case LevelManager::End:
+		//_currentMap = ...
+		setParallaxZone3();
+
+		cutscene = new CutScene(_player);
+
+		cutscene->addDialogueEvent(dialogue, _game->getDialogue("Kartya Boss 1"));
+		cutscene->addDialogueEvent(dialogue, _game->getDialogue("Kheismani Boss 1"));
+		cutscene->addDialogueEvent(dialogue, _game->getDialogue("Kartya Boss 2"));
+		cutscene->addDialogueEvent(dialogue, _game->getDialogue("Kheismani Boss 2"));
+		cutscene->addDialogueEvent(dialogue, _game->getDialogue("Kartya Boss 3"));
+		cutscene->addDialogueEvent(dialogue, _game->getDialogue("Kheismani Boss 3"));
+		cutscene->addDialogueEvent(dialogue, _game->getDialogue("Kartya Boss 4"));
+		cutscene->addDialogueEvent(dialogue, _game->getDialogue("Kheismani Boss 4"));
+		cutscene->addDialogueEvent(dialogue, _game->getDialogue("Kartya Boss 5"));
+		_game->getCurrentState()->addCutScene(cutscene);
+
+		cutscene->play();
+
 		break;
 
 		//Demo Guerrilla Game Festival
@@ -147,7 +232,7 @@ void LevelManager::setLevel(int l)
 		cutscene->addWaitEvent(1000);
 		cutscene->addFlipEvent();
 		cutscene->addWaitEvent(1000);
-		cutscene->addDialogueEvent(dialogue, _game->getDialogue("Demo dialogue"));
+		cutscene->addDialogueEvent(dialogue, _game->getDialogue("Demo"));
 		cutscene->addWaitEvent(1000);
 		cutscene->addFlipEvent();
 		cutscene->addWaitEvent(1000);
@@ -162,6 +247,17 @@ void LevelManager::setLevel(int l)
 		_currentMap = new Map(TILEMAP_PATH + "Nivel1-3.json", _game, _player, _game->getTexture("TilesetBoss1"), _enemyBulletPool);
 		setBackgroundBoss1();
 		_game->getSoundManager()->playMusic("boss1Battle", -1);
+
+		cutscene = new CutScene(_player);
+
+		cutscene->addCameraEvent(_camera, 150, ZoomIn);
+		cutscene->addMoveEvent(_player->getComponent<BodyComponent>(), 1, 15, 192 / M_TO_PIXEL);
+		//cutscene->addPlaySoundEvent(_game, ""); sonido vuelo
+		cutscene->addCameraShakeEvent(_camera, 1500, 3);
+		cutscene->addFitCameraEvent(_camera, _currentMap->getWidth(), _currentMap->getHeight());
+		cutscene->addPlayMusicEvent(_game, "boss1Battle");
+		_game->getCurrentState()->addCutScene(cutscene);
+
 		break;
 	}
 
@@ -176,7 +272,7 @@ void LevelManager::setLevel(int l)
 	else
 		_level->addChild(_currentSafeZone);
 
-	if (l == Boss2 || l == Boss3 || l == SafeDemo || l == BossDemo)
+	if (l == SafeDemo || l == End)
 		_camera->fitCamera({ xBound, yBound }, true);
 	else
 		_camera->setZoom(CAMERA_SCALE_FACTOR);
@@ -227,6 +323,28 @@ void LevelManager::setParallaxZone1()
 	parallaxZone1->addLayer(new ParallaxLayer(_game->getTexture("BgZ1L1"), _camera, 0.25));
 	parallaxZone1->addLayer(new ParallaxLayer(_game->getTexture("BgZ1L2"), _camera, 0.5));
 	parallaxZone1->addLayer(new ParallaxLayer(_game->getTexture("BgZ1L3"), _camera, 0.75));
+
+	_camera->setBackGround(parallaxZone1);
+}
+
+void LevelManager::setParallaxZone2()
+{
+	ParallaxBackGround* parallaxZone1 = new ParallaxBackGround(_camera);
+
+	parallaxZone1->addLayer(new ParallaxLayer(_game->getTexture("BgZ2L1"), _camera, 0.25));
+	parallaxZone1->addLayer(new ParallaxLayer(_game->getTexture("BgZ2L2"), _camera, 0.5));
+	parallaxZone1->addLayer(new ParallaxLayer(_game->getTexture("BgZ2L3"), _camera, 0.75));
+
+	_camera->setBackGround(parallaxZone1);
+}
+
+void LevelManager::setParallaxZone3()
+{
+	ParallaxBackGround* parallaxZone1 = new ParallaxBackGround(_camera);
+
+	parallaxZone1->addLayer(new ParallaxLayer(_game->getTexture("BgZ3L1"), _camera, 0.25));
+	parallaxZone1->addLayer(new ParallaxLayer(_game->getTexture("BgZ3L2"), _camera, 0.5));
+	parallaxZone1->addLayer(new ParallaxLayer(_game->getTexture("BgZ3L3"), _camera, 0.75));
 
 	_camera->setBackGround(parallaxZone1);
 }

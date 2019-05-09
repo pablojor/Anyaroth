@@ -65,8 +65,6 @@ Boss1::Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, 
 	_playerBody = _player->getComponent<BodyComponent>();
 
 	_hurtParticle = _game->getTexture("Smoke");
-
-	_message = _game->getCurrentState()->getPlayHUD()->getPopUpPanel();
 }
 
 Boss1::~Boss1()
@@ -96,14 +94,17 @@ void Boss1::update(const double& deltaTime)
 						game->changeState(new CreditsState(game));
 					});
 				}
-				else
-					popUpMessage();
 			}
 
-			if (_game->getCurrentState()->getPlayHUD()->getPopUpPanel()->isFinished() && !_finishLevel)
+			if (!_finishLevel)
 			{
+				CutScene* cutscene = new CutScene(_player);
+				cutscene->addPopUpEvent(_game->getCurrentState()->getPlayHUD()->getPopUpPanel());
+				cutscene->addChangeLevelEvent();
+				_game->getCurrentState()->addCutScene(cutscene);
+				cutscene->play();
+
 				_player->getLife().setMaxLife(_player->getLife().getMaxLife() + 50);
-				_player->setChangeLevel(true);
 				_finishLevel = true;
 			}
 		}
@@ -133,13 +134,6 @@ void Boss1::update(const double& deltaTime)
 			_actualState = Moving;
 		}
 	}
-}
-
-void Boss1::popUpMessage()
-{
-	_message->addMessage({ "Notification:", "After this great battle, your resistance improves a lot. Your lifebar has now 50 extra points." });
-	_message->addMessage({ "Notification:", "And... there's more. That cool sword, Spenta's, is now yours. You can equip it in the next shop." });
-	_message->open();
 }
 
 void Boss1::movement(const double& deltaTime)

@@ -52,6 +52,11 @@ void CutScene::addDialogueEvent(DialoguePanel* dialoguePanel, Dialogue dialogue)
 	_events.push(new DialogueEvent(dialoguePanel, dialogue));
 }
 
+void CutScene::addPopUpEvent(PopUpPanel * popUpPanel)
+{
+	_events.push(new PopUpEvent(popUpPanel));
+}
+
 void CutScene::addWaitEvent(int time)
 {
 	_events.push(new WaitingEvent(time));
@@ -87,6 +92,11 @@ void CutScene::addFitCameraEvent(Camera * cam, double x, double y)
 void CutScene::addFlipEvent()
 {
 	_events.push(new FlipEvent(_player));
+}
+
+void CutScene::addChangeLevelEvent()
+{
+	_events.push(new ChangeLevelEvent(_player));
 }
 
 void CutScene::addShopEvent(ShopMenu* shop)

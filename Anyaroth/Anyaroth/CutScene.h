@@ -5,13 +5,15 @@
 #include "Player.h"
 
 #include "DialogueEvent.h"
+#include "PopUpEvent.h"
+#include "ShopEvent.h"
 #include "MoveEvent.h"
 #include "WaitingEvent.h"
 #include "ZoomInOutEvent.h"
 #include "FadeInOutEvent.h"
 #include "ShakeEvent.h"
 #include "FlipEvent.h"
-#include "ShopEvent.h"
+#include "ChangeLevelEvent.h"
 #include "BlackScreenEvent.h"
 #include "FitCameraEvent.h"
 #include "PlaySoundEvent.h"
@@ -38,6 +40,7 @@ public:
 	void addWaitEvent(int time);
 
 	void addDialogueEvent(DialoguePanel* dialoguePanel, Dialogue dialogue);
+	void addPopUpEvent(PopUpPanel* popUpPanel);
 	void addShopEvent(ShopMenu* shop);
 
 	void addCameraEvent(Camera* cam, int time, CamEffect type);
@@ -46,6 +49,7 @@ public:
 	void addFitCameraEvent(Camera* cam, double x, double y);
 
 	void addFlipEvent();
+	void addChangeLevelEvent();
 
 	void addPlaySoundEvent(Game* game, string sound);
 	void addPlayMusicEvent(Game* game, string music);

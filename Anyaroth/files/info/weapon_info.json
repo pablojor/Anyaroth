@@ -16,22 +16,9 @@
         "id": 0
       },
 
-      "BasicRifle": {
-        "zone": -1,
-        "frame": "BasicFrame",
-        "icon": "RifleIcon",
-        "price": 150,
-        "speed": 100,
-        "damage": 15,
-        "range": 1000,
-        "clip": 30,
-        "magazine": 120,
-        "cadence": 170,
-        "id": 3
-      },
-
-      "BasicShotgun": {
-        "zone": -1,
+      "BasicShotgun":
+      {
+        "zone": 3,
         "frame": "BasicFrame",
         "icon": "ShotgunIcon",
         "price": 150,
@@ -42,27 +29,29 @@
         "magazine": 48,
         "cadence": 800,
         "id": 1
+      },
+
+      "BasicRifle":
+      {
+        "zone": 3,
+        "frame": "BasicFrame",
+        "icon": "RifleIcon",
+        "price": 150,
+        "speed": 100,
+        "damage": 15,
+        "range": 1000,
+        "clip": 30,
+        "magazine": 120,
+        "cadence": 170,
+        "id": 3
       }
     },
 
     "Common":
     {
-      "Gamma Blaster": {
-        "zone": 53,
-        "frame": "CommonFrame",
-        "icon": "ImprovedRifleIcon",
-        "price": 120,
-        "speed": 100,
-        "damage": 3,
-        "range": 1000,
-        "clip": 6,
-        "magazine": 160,
-        "cadence": 6,
-        "id": 4
-      },
-
-      "A4X Shotgun": {
-        "zone": 53,
+      "A4X Shotgun":
+      {
+        "zone": 7,
         "frame": "CommonFrame",
         "icon": "ImprovedShotgunIcon",
         "price": 120,
@@ -73,13 +62,28 @@
         "magazine": 50,
         "cadence": 2,
         "id": 2
+      },
+
+      "Gamma Blaster":
+      {
+        "zone": 7,
+        "frame": "CommonFrame",
+        "icon": "ImprovedRifleIcon",
+        "price": 120,
+        "speed": 100,
+        "damage": 3,
+        "range": 1000,
+        "clip": 6,
+        "magazine": 160,
+        "cadence": 6,
+        "id": 4
       }
     },
 
     "Rare" :
     {
       "Plasma Sniper": {
-        "zone": 53,
+        "zone": 15,
         "frame": "RareFrame",
         "icon": "SniperIcon",
         "price": 180,
@@ -93,7 +97,7 @@
       },
 
       "BounceOrbCanon": {
-        "zone": 53,
+        "zone": 11,
         "frame": "RareFrame",
         "icon": "BounceCannonIcon",
         "price": 1000,
@@ -107,7 +111,7 @@
       },
 
       "GravityCannon": {
-        "zone": 53,
+        "zone": 11,
         "frame": "RareFrame",
         "icon": "BHCannonIcon",
         "price": 1000,
@@ -130,14 +134,14 @@
       },
 
       "Sword": {
-        "zone": 53,
+        "zone": 7,
         "frame": "CommonFrame",
         "icon": "SniperIcon",
         "id": 1
       },
 
       "PoleAxe": {
-        "zone": 53,
+        "zone": 13,
         "frame": "RareFrame",
         "icon": "SniperIcon",
         "id": 2
