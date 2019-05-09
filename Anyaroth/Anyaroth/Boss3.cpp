@@ -2,7 +2,7 @@
 #include "ImprovedRifle.h"
 #include "SpawnerBoss.h"
 #include "FloatingHead.h"
-Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(g, player, pos, pool, g->getTexture("EnemyMartyr")), Enemy(g, player, pos, g->getTexture("EnemyMartyr"))
+Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(g, player, pos, pool, g->getTexture("Angra")), Enemy(g, player, pos, g->getTexture("Angra"))
 {
 	_life = 300; // Demo Guerrilla
 	_life1 = _life;
@@ -51,6 +51,16 @@ Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(
 
 	_actualState = Moving;
 
+	_anim->addAnim(AnimatedSpriteComponent::AngraIdle, 10, true);
+	_anim->addAnim(AnimatedSpriteComponent::AngraIdle, 10, true);
+	_anim->addAnim(AnimatedSpriteComponent::AngraBH, 18, false);
+	_anim->addAnim(AnimatedSpriteComponent::AngraAppear, 21, false);
+	_anim->addAnim(AnimatedSpriteComponent::AngraDisappear, 15, false);
+	_anim->addAnim(AnimatedSpriteComponent::AngraBH, 13, false);
+	_anim->addAnim(AnimatedSpriteComponent::AngraDie, 34, false);
+
+	_anim->playAnim(AnimatedSpriteComponent::AngraIdle);
+
 	//activar al pasar a la fase 3
 	_sensor = new BossSensor(g, this, { 100, 100 }, { 30, 30 });
 	_sensor->setActive(false);
@@ -73,7 +83,7 @@ void Boss3::setBoss3Panel(Boss3Panel * b)
 }
 
 Boss3::~Boss3()
-{ 
+{
 	delete _gravGun;
 	delete _otherGun;
 }
@@ -128,7 +138,7 @@ void Boss3::fase1(const double & deltaTime)
 	bool ok = true, HeadsDead = true;
 	if (_initSpawn)
 	{
-		for(int i=0;i<_spawners.size();i++)
+		for (int i = 0; i < _spawners.size(); i++)
 		{
 			_spawners.at(i)->spawnEnemy();
 		}
@@ -176,12 +186,12 @@ void Boss3::fase1(const double & deltaTime)
 void Boss3::fase2(const double& deltaTime)
 {
 	if (_actualState == Shooting)
-			circularShoot(deltaTime);
+		circularShoot(deltaTime);
 	else if (_actualState == GravAttack)
 	{
 		if (_noAction > _doSomething)
 		{
-			if (_game->random(0, 100) > 70)			
+			if (_game->random(0, 100) > 70)
 				_actualState = Shooting;
 			else
 			{
@@ -204,8 +214,8 @@ void Boss3::fase2(const double& deltaTime)
 		if (_noAction > _doSomething)
 		{
 			int rand = _game->random(0, 100);
-			if ( rand > 70)			
-				_actualState = Shooting;			
+			if (rand > 70)
+				_actualState = Shooting;
 			else if (rand > 45)
 			{
 				_body->getBody()->SetActive(false);
@@ -393,9 +403,9 @@ void Boss3::circularShoot(const double& deltaTime)
 		_myGun->setMaxCadence(_rifleCadence);
 	}
 	else
-	{	
-		if (_timeOnShooting >= _timeBeetwenBullets)		
-			shootBullet(_numBullets, _angleIncrease);		
+	{
+		if (_timeOnShooting >= _timeBeetwenBullets)
+			shootBullet(_numBullets, _angleIncrease);
 	}
 }
 
@@ -406,7 +416,7 @@ void Boss3::changeGun()
 	_otherGun = aux;
 
 	int numShots = _game->random(5, 10);
-	double incrAngle = 180 / (numShots-1);
+	double incrAngle = 180 / (numShots - 1);
 	shootBullet(numShots, incrAngle);
 
 	_otherGun = _myGun;
@@ -443,7 +453,7 @@ void Boss3::checkDash(double deltaTime)
 void Boss3::jump()
 {
 	_body->getBody()->SetLinearVelocity(b2Vec2(_body->getBody()->GetLinearVelocity().x + _game->random(-75, 75), 0));
-	_body->getBody()->ApplyLinearImpulse(b2Vec2(0 , -_jumpForce), _body->getBody()->GetWorldCenter(), true);
+	_body->getBody()->ApplyLinearImpulse(b2Vec2(0, -_jumpForce), _body->getBody()->GetWorldCenter(), true);
 }
 
 void Boss3::shootBullet(int numBullets, double angleIncrease)
@@ -457,7 +467,7 @@ void Boss3::shootBullet(int numBullets, double angleIncrease)
 
 	_timeBeetwenBullets += _timeBeetwenCircularShoot;
 	_num++;
-	_actualBullet = 0;	
+	_actualBullet = 0;
 	_angle = 180;
 }
 

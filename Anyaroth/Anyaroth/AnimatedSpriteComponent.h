@@ -45,6 +45,9 @@ public:
 		AzuraCannon1, AzuraCannon2, AzuraCannon3, AzuraJump, AzuraSpinStart1, AzuraSpinStart2, AzuraSpinStart3,
 		AzuraScream1to2, AzuraScream2to3, AzuraDie
 	};
+	enum Angra {
+		AngraIdle, AngraWalk, AngraBH, AngraAppear, AngraDisappear, AngraRing, AngraDie
+	};
 
 	AnimatedSpriteComponent(GameObject* obj) : SpriteComponent(obj), PhysicsComponent(obj), RenderComponent(obj), Component(), _obj(obj) {}
 	virtual ~AnimatedSpriteComponent() {}
