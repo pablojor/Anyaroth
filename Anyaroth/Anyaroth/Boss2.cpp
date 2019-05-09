@@ -1,6 +1,7 @@
 #include "Boss2.h"
 #include "BossPoleAxe.h"
 #include "ImprovedShotgun.h"
+#include "CutScene.h"
 
 Boss2::Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, player, pos, pool, g->getTexture("Azura")), Enemy(g, player, pos, g->getTexture("Azura"))
 {
@@ -9,6 +10,7 @@ Boss2::Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, 
 
 	if (_myGun != nullptr)
 		delete _myGun;
+
 	_myGun = new ImprovedShotgun(g);
 	_myGun->setBulletSpeed(60);
 
@@ -75,9 +77,31 @@ Boss2::Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, 
 	addSensors();
 }
 
-
-Boss2::~Boss2()
+void Boss2::update(const double & deltaTime)
 {
+	if (_game->getCurrentState()->getCutScene() == nullptr)
+	{
+		Boss::update(deltaTime);
+
+		if (isDead())
+		{
+			if (!_finishLevel)
+			{
+				CutScene* cutscene = new CutScene(_player);
+				cutscene->addWaitEvent(1000);
+				//cutscene->addPlayMusicEvent(""); música triste
+				cutscene->addDialogueEvent(_game->getCurrentState()->getPlayHUD()->getDialoguePanel(), _game->getDialogue("Azura Manyu 2"));
+				cutscene->addWaitEvent(1000);
+				cutscene->addPopUpEvent(_game->getCurrentState()->getPlayHUD()->getPopUpPanel());
+				cutscene->addChangeLevelEvent();
+				_game->getCurrentState()->addCutScene(cutscene);
+				cutscene->play();
+
+				_player->getLife().setMaxLife(_player->getLife().getMaxLife() + 50);
+				_finishLevel = true;
+			}
+		}
+	}
 }
 
 void Boss2::Jump()
@@ -96,7 +120,6 @@ void Boss2::Jump()
 	_body->addFixture(&fDef, this);
 }
 
-
 void Boss2::movement(const double& deltaTime)
 {
 	if (_actualFase != BetweenFase)
@@ -108,7 +131,6 @@ void Boss2::movement(const double& deltaTime)
 		_dir = (pos >= _playerPos.getX()) ? -1 : 1;
 
 		double range = _playerPos.getX() + _playerBody->getW() / 2 - _bodyPos.getX() +_body->getW() / 2;
-
 
 		if (_dir == 1)
 			_anim->unFlip();
@@ -157,7 +179,6 @@ void Boss2::beginCollision(GameObject * other, b2Contact* contact)
 	//Deteccion del suelo
 	if ((fA->IsSensor() || fB->IsSensor()) && (other->getTag() == "Ground" || other->getTag() == "Platform"))
 	{
-		
 			_onFloor ++;
 			if (_onFloor <= 1)
 				setTag("Enemy");
@@ -173,9 +194,7 @@ void Boss2::beginCollision(GameObject * other, b2Contact* contact)
 				_body->getBody()->ApplyLinearImpulse(b2Vec2(10, 0), b2Vec2_zero, true);
 			}
 	}
-
 }
-
 
 void Boss2::endCollision(GameObject * other, b2Contact* contact)
 {

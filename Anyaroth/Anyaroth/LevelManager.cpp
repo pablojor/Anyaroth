@@ -32,6 +32,7 @@ void LevelManager::setLevel(int l)
 		cutscene->addDialogueEvent(dialogue, _game->getDialogue("Helmet 1"));
 		cutscene->addWaitEvent(1000);
 		cutscene->addDialogueEvent(dialogue, _game->getDialogue("Helmet 2"));
+		cutscene->addWaitEvent(1000);
 		//cutscene->addPlaySoundEvent(_game, ""); sonido desconexi�n
 		//cutscene->addPlayMusicEvent(_game, ""); m�sica tutorial
 		cutscene->addDialogueEvent(dialogue, _game->getDialogue("Helmet 3"));
@@ -41,7 +42,7 @@ void LevelManager::setLevel(int l)
 		
 		break;
 	case LevelManager::Safe1_1:
-		_currentSafeZone = new Map(TILEMAP_PATH + "SafeZonePrueba.json", _game, _player, _game->getTexture("Tileset1"), _enemyBulletPool);
+		_currentSafeZone = new Map(TILEMAP_PATH + "Safe1-1.json", _game, _player, _game->getTexture("TilesetTutorial"), _enemyBulletPool);
 		setParallaxZone1();
 		//_game->getSoundManager()->playMusic("") sonido alarma en bucle
 		break;
@@ -51,15 +52,17 @@ void LevelManager::setLevel(int l)
 		//_game->getSoundManager()->playMusic("") m�sica zona 1
 		break;
 	case LevelManager::Safe1_2:
-		_currentSafeZone = new Map(TILEMAP_PATH + "SafeZonePrueba.json", _game, _player, _game->getTexture("Tileset1"), _enemyBulletPool);
+		_currentSafeZone = new Map(TILEMAP_PATH + "Safe1-2.json", _game, _player, _game->getTexture("TilesetSafe1"), _enemyBulletPool);
 		setParallaxZone1();
 		_game->getSoundManager()->playMusic("safe_zone", -1);
 
 		cutscene = new CutScene(_player);
 
-		cutscene->addMoveEvent(_player->getComponent<BodyComponent>(), 1, 15, 10 / M_TO_PIXEL /* posicion de Kartya*/);
+		cutscene->addWaitEvent(1000);
+		cutscene->addMoveEvent(_player->getComponent<BodyComponent>(), 1, 15, 192 / M_TO_PIXEL);
 		cutscene->addDialogueEvent(dialogue, _game->getDialogue("Kartya 1-2"));
-		cutscene->addMoveEvent(_player->getComponent<BodyComponent>(), 1, 15, 10 / M_TO_PIXEL /* posicion de la tienda*/);
+		cutscene->addWaitEvent(1000);
+		cutscene->addMoveEvent(_player->getComponent<BodyComponent>(), 1, 15, 416 / M_TO_PIXEL);
 		cutscene->addShopEvent(shop);
 		_game->getCurrentState()->addCutScene(cutscene);
 
@@ -70,7 +73,7 @@ void LevelManager::setLevel(int l)
 		//_game->getSoundManager()->playMusic("") m�sica zona 1
 		break;
 	case LevelManager::SafeBoss1:
-		_currentSafeZone = new Map(TILEMAP_PATH + "SafeZonePrueba.json", _game, _player, _game->getTexture("Tileset1"), _enemyBulletPool);
+		_currentSafeZone = new Map(TILEMAP_PATH + "Safe1-3.json", _game, _player, _game->getTexture("TilesetSafe1"), _enemyBulletPool);
 		setParallaxZone1();
 		_game->getSoundManager()->playMusic("safe_zone", -1);
 		break;
@@ -90,13 +93,13 @@ void LevelManager::setLevel(int l)
 
 		break;
 	case LevelManager::Safe2_1:
-		_currentSafeZone = new Map(TILEMAP_PATH + "SafeZonePrueba.json", _game, _player, _game->getTexture("Tileset1"), _enemyBulletPool);
+		_currentSafeZone = new Map(TILEMAP_PATH + "Safe2-1.json", _game, _player, _game->getTexture("TilesetSafe2"), _enemyBulletPool);
 		setParallaxZone2();
 		_game->getSoundManager()->playMusic("safe_zone", -1);
 
 		cutscene = new CutScene(_player);
 
-		cutscene->addMoveEvent(_player->getComponent<BodyComponent>(), 1, 15, 10 / M_TO_PIXEL /* posicion de Azura*/);
+		cutscene->addMoveEvent(_player->getComponent<BodyComponent>(), 1, 15, 496 / M_TO_PIXEL);
 		cutscene->addDialogueEvent(dialogue, _game->getDialogue("Azura 2-1"));
 		_game->getCurrentState()->addCutScene(cutscene);
 
@@ -107,7 +110,7 @@ void LevelManager::setLevel(int l)
 		//_game->getSoundManager()->playMusic("") m�sica zona 2
 		break;
 	case LevelManager::Safe2_2:
-		_currentSafeZone = new Map(TILEMAP_PATH + "SafeZonePrueba.json", _game, _player, _game->getTexture("Tileset1"), _enemyBulletPool);
+		_currentSafeZone = new Map(TILEMAP_PATH + "Safe2-2.json", _game, _player, _game->getTexture("TilesetSafe2"), _enemyBulletPool);
 		setParallaxZone2();
 		_game->getSoundManager()->playMusic("safe_zone", -1);
 		break;
@@ -117,7 +120,7 @@ void LevelManager::setLevel(int l)
 		//_game->getSoundManager()->playMusic("") m�sica zona 2
 		break;
 	case LevelManager::SafeBoss2:
-		_currentSafeZone = new Map(TILEMAP_PATH + "SafeZonePrueba.json", _game, _player, _game->getTexture("Tileset1"), _enemyBulletPool);
+		_currentSafeZone = new Map(TILEMAP_PATH + "Safe2-3.json", _game, _player, _game->getTexture("TilesetSafe2"), _enemyBulletPool);
 		setParallaxZone2();
 		_game->getSoundManager()->playMusic("safe_zone", -1);
 		break;
