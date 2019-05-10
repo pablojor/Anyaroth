@@ -121,40 +121,43 @@ void DialoguePanel::startDialogue(const Dialogue& dialogue)
 
 void DialoguePanel::endDialogue()
 {
-	_isConversating = false;
-	GameManager::getInstance()->setOnDialogue(false);
-
-	//ponemos invisible todo y reseteamos lo que había
-	_indicatorImage->setVisible(false);
-	_faceImage->setVisible(false);
-	_nameText->setVisible(false);
-
-	_nameText->setText(" ");
-
-	_linesTyped = 0;
-	_currentText = 0;
-
-	for (int i = 0; i < _lines; i++)
+	if (_isConversating)
 	{
-		_dialogueTexts[i]->setVisible(false);
-		_dialogueTexts[i]->setText(" ");
-		_dialogueTexts[i]->setTextTyped(false);
+		_isConversating = false;
+		GameManager::getInstance()->setOnDialogue(false);
+
+		//ponemos invisible todo y reseteamos lo que había
+		_indicatorImage->setVisible(false);
+		_faceImage->setVisible(false);
+		_nameText->setVisible(false);
+
+		_nameText->setText(" ");
+
+		_linesTyped = 0;
+		_currentText = 0;
+
+		for (int i = 0; i < _lines; i++)
+		{
+			_dialogueTexts[i]->setVisible(false);
+			_dialogueTexts[i]->setText(" ");
+			_dialogueTexts[i]->setTextTyped(false);
+		}
+
+		for (int i = 0; i < _lines; i++)
+			_segments[i] = " ";
+
+		//REPRODUCIR SONIDO ESPECIAL DE FINAL DE DIALOGO
+		if (_dialogue.sounds[_currentText] != " ")
+			_game->getSoundManager()->playSFX(_dialogue.sounds[_currentText]);
+
+		//comenzamos animacion de cerrar diálogo
+		_backgroundImage->playAnim(AnimatedImageUI::End);
+		_nameBackground->playAnim(AnimatedImageUI::End);
+		//REPRODUCIR SONIDO DE CERRAR DIALOGO
+		_game->getSoundManager()->playSFX("closeDialogue");
+
+		_dialogue = {};
 	}
-
-	for (int i = 0; i < _lines; i++)
-		_segments[i] = " ";
-
-	//REPRODUCIR SONIDO ESPECIAL DE FINAL DE DIALOGO
-	if (_dialogue.sounds[_currentText] != " ")
-		_game->getSoundManager()->playSFX(_dialogue.sounds[_currentText]);
-
-	//comenzamos animacion de cerrar diálogo
-	_backgroundImage->playAnim(AnimatedImageUI::End);
-	_nameBackground->playAnim(AnimatedImageUI::End);
-	//REPRODUCIR SONIDO DE CERRAR DIALOGO
-	_game->getSoundManager()->playSFX("closeDialogue");
-
-	_dialogue = {};
 }
 
 void DialoguePanel::nextText()

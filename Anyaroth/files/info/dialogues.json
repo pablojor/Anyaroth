@@ -1731,6 +1731,44 @@
                 " ",
                 " "
             ]
+        },
+        "Tutorial1": {
+            "face": "nullptr",
+            "name": "Tutorial",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Ey youh, maaa niggggaaaaaaaaa"
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Tutorial2": {
+            "face": "nullptr",
+            "name": "Tutorial",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Wanna fight jackass?"
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
         }
     }
 }

@@ -8,6 +8,8 @@
 #include "checkML.h"
 #include <json.hpp>
 
+#include "Trigger.h"
+
 using namespace nlohmann;
 
 PlayState::PlayState(Game* g) : GameState(g) {}
@@ -59,6 +61,33 @@ void PlayState::start()
 	_particlePool = new ParticlePool(_gameptr);
 	ParticleManager::GetParticleManager()->setParticlePool(_particlePool);
 
+	//Prueba
+	Trigger* trigger1 = new Trigger(_gameptr); trigger1->setPosition(200, 175);
+	Trigger* trigger2 = new Trigger(_gameptr); trigger2->setPosition(250, 175);
+	Trigger* trigger3 = new Trigger(_gameptr); trigger3->setPosition(320, 175);
+
+	trigger1->onTriggerEnter([this, trigger1]() {
+		_playHud->getDialoguePanel()->endDialogue();
+		_playHud->getDialoguePanel()->stopAtLastLineShown(true);
+		_playHud->getDialoguePanel()->startDialogue(_gameptr->getDialogue("Tutorial1"));
+		_player->setInputFreezed(false);
+		trigger1->destroy();
+	});
+
+	trigger2->onTriggerEnter([this, trigger2]() {
+		_playHud->getDialoguePanel()->endDialogue();
+		_playHud->getDialoguePanel()->stopAtLastLineShown(true);
+		_playHud->getDialoguePanel()->startDialogue(_gameptr->getDialogue("Tutorial2"));
+		_player->setInputFreezed(false);
+		trigger2->destroy();
+	});
+
+	trigger3->onTriggerEnter([this, trigger3]() {
+		_playHud->getDialoguePanel()->endDialogue();
+		_playHud->getDialoguePanel()->stopAtLastLineShown(false);
+		trigger3->destroy();
+	});
+
 	//----AÑADIR A LOS OBJETOS----//
 
 	_stages.push_back(_level);
@@ -66,6 +95,10 @@ void PlayState::start()
 	_stages.push_back(_playerBulletPool);
 	_stages.push_back(enemyPool);
 	_stages.push_back(_particlePool);
+
+	_stages.push_back(trigger1);
+	_stages.push_back(trigger2);
+	_stages.push_back(trigger3);
 }
 
 bool PlayState::handleEvent(const SDL_Event& event)
