@@ -22,6 +22,7 @@ Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(
 	_otherGun->setDamage(10);
 
 	_arm->setOffSet(Vector2D(90, 105));
+	_arm->getComponent<CustomAnimatedSpriteComponent>()->setVisible(false);
 
 	_body->setW(80);
 	_body->setH(170);
@@ -122,9 +123,15 @@ void Boss3::movement(const double& deltaTime)
 		double range = _playerPos.getX() + _playerBody->getW() / 2 - _bodyPos.getX() + _body->getW() / 2;
 
 		if (_dir.getX() == 1)
+		{
 			_anim->unFlip();
+			_arm->setOffSet(Vector2D(245, 105));
+		}
 		else
+		{
 			_anim->flip();
+			_arm->setOffSet(Vector2D(90, 105));
+		}
 
 		if (range <= -_stopRange || range >= _stopRange && _actualState != Shooting)
 		{
@@ -524,7 +531,7 @@ void Boss3::shootBullet(int numBullets, double angleIncrease)
 
 void Boss3::shoot()
 {
-	_myGun->enemyShoot(_myBulletPool, _bodyPos, _angle, "EnemyBullet");
+	_myGun->enemyShoot(_myBulletPool,Vector2D( _bodyPos.getX(), _bodyPos.getY() - 10), _angle, "EnemyBullet");
 }
 
 void Boss3::shootGrav()

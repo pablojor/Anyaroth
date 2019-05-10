@@ -13,7 +13,8 @@ private:
 	EnemyLifePanel * _lifePanel;
 
 	bool _invincibility = true,
-		_changeAngle = false;
+		_changeAngle = false,
+		_shooting = false;
 	double
 		_timeBetweenShoots = 1000,
 		_currentTimer = 500,

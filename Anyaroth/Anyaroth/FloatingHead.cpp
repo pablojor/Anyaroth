@@ -8,6 +8,7 @@ FloatingHead::FloatingHead(Game* g, Player* player, Vector2D pos, BulletPool* po
 	_myGun->setMaxCadence(0);
 	_myGun->setBulletSpeed(30);
 
+	_anim->reset();
 	_anim->addAnim(AnimatedSpriteComponent::HeadIdle, 10, true);
 	_anim->addAnim(AnimatedSpriteComponent::HeadAttackStart, 3, false);
 	_anim->addAnim(AnimatedSpriteComponent::HeadAttackLoop, 9, true);
@@ -60,21 +61,16 @@ void FloatingHead::update(const double & deltaTime)
 		{
 			shooting(deltaTime);
 			_timeShooting += deltaTime;
-			if (_anim->getCurrentAnim() == AnimatedSpriteComponent::HeadAttackStart)
-			{
-				if(_anim->animationFinished())
-					_anim->playAnim(AnimatedSpriteComponent::HeadAttackLoop);
-			}
-			else
-			{
+			_shooting = true;
+			if (_anim->getCurrentAnim() == AnimatedSpriteComponent::HeadAttackStart && _anim->animationFinished())
 				_anim->playAnim(AnimatedSpriteComponent::HeadAttackLoop);
-			}
-
+			
 		}
-		else
+		else if (_shooting)
 		{
 			_timeShooting = 0;
 			_invincibility = true;
+			_shooting = false;
 			_anim->playAnim(AnimatedSpriteComponent::HeadAttackEnd);
 		}
 		if (_anim->getCurrentAnim() == AnimatedSpriteComponent::HeadAttackEnd && _anim->animationFinished())
