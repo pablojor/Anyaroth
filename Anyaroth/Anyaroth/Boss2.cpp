@@ -4,7 +4,7 @@
 
 Boss2::Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, player, pos, pool, g->getTexture("Azura")), Enemy(g, player, pos, g->getTexture("Azura"), "boss2Die", "boss2Hit", "meleeEnemyHit")
 {
-	_life = 250;
+	_life = 25;
 	_life1 = _life2 = _life3 = _life;
 
 	if (_myGun != nullptr)
@@ -65,9 +65,6 @@ Boss2::Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, 
 	_armVision = true;
 
 	_playerBody = _player->getComponent<BodyComponent>();
-
-	_lasers = new LaserHandler(g, g->getTexture("Arm"), g->getTexture("ArmUp"), player, 8);
-	addChild(_lasers);
 
 	_melee = new BossPoleAxe(getGame(), this);
 	addChild(_melee);

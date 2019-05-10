@@ -32,6 +32,7 @@ public:
 	virtual void endCollision(GameObject * other, b2Contact* contact);
 
 	virtual void meleeAttack();
+	inline void setLasers(LaserHandler* lasers) { _lasers = lasers; }
 	void endJump();
 	virtual void checkMelee(const double& deltaTime);
 	virtual int getDamage() const

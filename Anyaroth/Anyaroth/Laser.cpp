@@ -8,7 +8,9 @@ Laser::Laser(Game* g, Vector2D pos, Texture* texture, Player* player, double dam
 	_transform = addComponent<TransformComponent>();
 	_transform->setPosition(pos.getX(), pos.getY());
 
-	_anim = addComponent<SpriteComponent>();
+	_anim = addComponent<AnimatedSpriteComponent>();
+	_anim->addAnim(AnimatedSpriteComponent::LaserShooting, 1, true);
+	_anim->addAnim(AnimatedSpriteComponent::LaserWarning, 1, true);
 
 	setActive(false);
 }
@@ -16,6 +18,7 @@ void Laser::update(const double& deltaTime)
 {
 	if (isActive())
 	{
+		_anim->playAnim(AnimatedSpriteComponent::LaserShooting);
 		if (colliding)
 		{
 			if (startedDamaging >= timeToDmg)
@@ -31,7 +34,6 @@ void Laser::update(const double& deltaTime)
 
 void Laser::Shoot(double angle)
 {
-	setActive(true);
 
 	_angle = angle;
 	_transform->setRotation(angle);
@@ -42,9 +44,6 @@ void Laser::Shoot(double angle)
 
 		_body->filterCollisions(LASER, PLAYER);
 		_body->getBody()->SetType(b2_kinematicBody);
-		//Provisional
-		_body->setH(400);
-		_body->setW(3);
 
 		_body->getBody()->GetFixtureList()->SetSensor(true);
 

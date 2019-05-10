@@ -149,6 +149,12 @@ void Map::createObjects()
 				_objects->addChild(angra);
 				angra->setBoss3Panel(_game->getCurrentState()->getPlayHUD()->getBoss3Panel());
 			}
+			else if (name == "Lasers")
+			{
+				LaserHandler* l = new LaserHandler(_game, _game->getTexture("LaserContainer"), _game->getTexture("Laser"), _player, 8, stoi(data), pos);
+				_objects->addChild(l);
+				azura->setLasers(l);
+			}
 			else if (name == "Misil")
 			{
 				_objects->addChild(new MissileTurret(_game, spenta, Vector2D(pos.getX() - TILES_SIZE, pos.getY() - TILES_SIZE * 2.8), stoi(data)));

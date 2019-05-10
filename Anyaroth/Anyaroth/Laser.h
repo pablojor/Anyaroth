@@ -8,7 +8,7 @@ class Player;
 class Laser : public GameObject
 {
 protected:
-	SpriteComponent* _anim;
+	AnimatedSpriteComponent* _anim;
 	TransformComponent* _transform;
 	BodyComponent* _body = nullptr;
 	Vector2D _pos;
