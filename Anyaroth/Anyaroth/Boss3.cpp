@@ -13,7 +13,6 @@ Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(
 	_myGun->setBulletSpeed(8);
 	_myGun->setDamage(5);
 
-
 	_gravGun = new GravityBombCannon(g);
 	_gravGun->setMaxCadence(0);
 
@@ -22,10 +21,11 @@ Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(
 	_otherGun->setBulletSpeed(8);
 	_otherGun->setDamage(10);
 
+	_arm->setOffSet(Vector2D(90, 105));
 
-	_body->setW(40);
-	_body->setH(100);
-
+	_body->setW(80);
+	_body->setH(170);
+	_body->moveShape(b2Vec2(0, 3));
 	_body->getBody()->SetGravityScale(_gravity);
 	_body->getBody()->SetLinearDamping(_damping);
 
@@ -46,7 +46,7 @@ Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(
 
 	_playerBody = _player->getComponent<BodyComponent>();
 
-	_arm->setOffSet(Vector2D(30, 30));
+
 	_armVision = true;
 
 	_actualState = Moving;
@@ -196,7 +196,7 @@ void Boss3::fase2(const double& deltaTime)
 		circularShoot(deltaTime);
 	else if (_actualState == GravAttack)
 	{
-		if (_noAction > _doSomething)
+		if(_anim->getCurrentAnim() == AnimatedSpriteComponent::AngraBH && _anim->animationFinished())
 		{
 			if (_game->random(0, 100) > 70)
 			{
@@ -208,10 +208,19 @@ void Boss3::fase2(const double& deltaTime)
 				_anim->playAnim(AnimatedSpriteComponent::AngraDisappear);
 				_actualState = PortalAttack;
 			}
-			_noAction = 0;
+			_alreadyShoot = false;
 		}
-		else
-			_noAction += deltaTime;
+		else if (!_alreadyShoot)
+		{
+			if (_timeWaiting > _timeToShoot)
+			{
+				_timeWaiting = 0;
+				shootGrav();
+				_alreadyShoot = true;
+			}
+			else
+				_timeWaiting += deltaTime;
+		}
 	}
 	else if (_actualState == PortalAttack)
 	{
@@ -234,7 +243,7 @@ void Boss3::fase2(const double& deltaTime)
 			}
 			else
 			{
-				shootGrav();
+				_anim->playAnim(AnimatedSpriteComponent::AngraBH);
 				_actualState = GravAttack;
 			}
 			_noAction = 0;
@@ -396,7 +405,7 @@ void Boss3::portalAttack(const double& deltaTime)
 		}
 		else if (_timeOut > timeToShowPortal && !portalVisible)
 		{
-			_body->getBody()->SetTransform(b2Vec2((_playerBody->getBody()->GetPosition().x), _playerBody->getBody()->GetPosition().y - _body->getH()/2 - _playerBody->getH()/2), 0);
+			_body->getBody()->SetTransform(b2Vec2((_playerBody->getBody()->GetPosition().x), _playerBody->getBody()->GetPosition().y - _body->getH()/2 - _playerBody->getH() -5), 0);
 			_transform->setPosition(Vector2D(_playerBody->getBody()->GetPosition().x / M_TO_PIXEL, _playerBody->getBody()->GetPosition().y / M_TO_PIXEL));
 			portalVisible = true;
 

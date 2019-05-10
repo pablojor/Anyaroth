@@ -50,10 +50,12 @@ class Boss3 : public Boss
 		//Cosas del disparo de agujeros negros
 		GravityBombCannon* _gravGun = nullptr;
 		void shootGrav();
+		int _timeToShoot = 900, _timeWaiting = 0;
+		bool _alreadyShoot = false;
 
 		//Cosas del ataque Portal
 		int timeToReapear = 2000, timeToShowPortal = 1000, _timeOut = 0;
-		int _explosionRange = 60, _impulse = 15, _explosionDamage = 15;
+		int _explosionRange = 100, _impulse = 15, _explosionDamage = 15;
 		void portalAttack(const double& deltaTime);
 		bool portalVisible = false;
 		bool realGone = false;

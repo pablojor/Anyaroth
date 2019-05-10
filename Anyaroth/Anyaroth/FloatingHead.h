@@ -31,6 +31,7 @@ public:
 
 	void turnInvincibilityOff();
 	bool isInvincible();
+	virtual void die();
 		
 };
 

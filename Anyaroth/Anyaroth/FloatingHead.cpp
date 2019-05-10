@@ -15,6 +15,7 @@ FloatingHead::FloatingHead(Game* g, Player* player, Vector2D pos, BulletPool* po
 	_anim->addAnim(AnimatedSpriteComponent::HeadDie, 18, false);
 
 	_anim->playAnim(AnimatedSpriteComponent::HeadIdle);
+	_arm->getComponent<CustomAnimatedSpriteComponent>()->setVisible(false);
 }
 
 
@@ -59,13 +60,28 @@ void FloatingHead::update(const double & deltaTime)
 		{
 			shooting(deltaTime);
 			_timeShooting += deltaTime;
+			if (_anim->getCurrentAnim() == AnimatedSpriteComponent::HeadAttackStart)
+			{
+				if(_anim->animationFinished())
+					_anim->playAnim(AnimatedSpriteComponent::HeadAttackLoop);
+			}
+			else
+			{
+				_anim->playAnim(AnimatedSpriteComponent::HeadAttackLoop);
+			}
+
 		}
 		else
 		{
 			_timeShooting = 0;
 			_invincibility = true;
+			_anim->playAnim(AnimatedSpriteComponent::HeadAttackEnd);
 		}
+		if (_anim->getCurrentAnim() == AnimatedSpriteComponent::HeadAttackEnd && _anim->animationFinished())
+			_anim->playAnim(AnimatedSpriteComponent::HeadIdle);
+
 	}
+
 }
 
 void FloatingHead::subLife(int damage)
@@ -90,6 +106,7 @@ void FloatingHead::subLife(int damage)
 void FloatingHead::turnInvincibilityOff()
 {
 	_invincibility = false;
+	_anim->playAnim(AnimatedSpriteComponent::HeadAttackStart);
 }
 
 bool FloatingHead::isInvincible()
@@ -99,4 +116,13 @@ bool FloatingHead::isInvincible()
 		return _invincibility;
 	}
 	else return true;
+}
+void FloatingHead::die()
+{
+	_anim->die();
+	_anim->playAnim(AnimatedSpriteComponent::HeadDie);
+	setDead(true);
+	_body->filterCollisions(DEAD_ENEMIES, FLOOR | PLATFORMS);
+
+	_game->getSoundManager()->playSFX(_deathSound);
 }
