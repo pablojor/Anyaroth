@@ -12,7 +12,7 @@ private:
 
 	int timeToshot = 0, timeBetweenShot = 3000, timeToEnd = 3000;
 
-	bool isShooting = false, shootStareted = false;
+	bool isShooting = false, shootStareted = false, _isWarning = false;
 
 public:
 	LaserHandler(Game* g, Texture* container, Texture* laser, Player* player, int numLasers, int span, Vector2D pos);

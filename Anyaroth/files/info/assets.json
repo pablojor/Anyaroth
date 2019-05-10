@@ -53,7 +53,7 @@
     [ "Missile", "spenta_misil_spritesheet.png", 2, 6 ],
 
     [ "Azura", "azura_spritesheet.png", 22, 23 ],
-    [ "Laser", "laser.png", 1, 2],
+    [ "Laser", "laser.png", 2, 1],
     [ "LaserContainer", "laserContainer.png", 4, 4],
 
     [ "Angra", "angra_spritesheet.png", 7, 34 ],

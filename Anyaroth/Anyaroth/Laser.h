@@ -24,7 +24,8 @@ public:
 
 	virtual void update(const double& deltaTime);
 
-	void Shoot(double angle);
+	void Shoot();
+	void PreShoot(double angle);
 	void Stop();
 	virtual void beginCollision(GameObject* other, b2Contact* contact);
 	virtual void endCollision(GameObject* other, b2Contact* contact);

@@ -48,13 +48,15 @@ void LaserHandler::update(const double& deltaTime)
 			}
 			else
 			{
-				if ((timeBetweenShot - timeToshot) <= 1000)
+				if ((timeBetweenShot - timeToshot) <= 1000 && !_isWarning)
 				{
-					for (auto l : _lasers)
-					{
-						l->setActive(true);
-						l->Warning();
-					}
+					_isWarning = true;
+					_lasers[0]->Warning(_game->random(-30, 0));
+
+					for (int i = 1; i < _numLasers - 1; i++)
+						_lasers[i]->Warning(_game->random(-30, 30));
+
+					_lasers[_numLasers - 1]->Warning(_game->random(0, 30));
 				}
 				timeToshot += deltaTime;
 			}
@@ -64,14 +66,11 @@ void LaserHandler::update(const double& deltaTime)
 
 void LaserHandler::Shoot()
 {
-	_lasers[0]->Shoot(_game->random(60, 100));
-
-	for (int i = 1; i < _numLasers - 1; i++)
+	_isWarning = false;
+	for (auto l : _lasers)
 	{
-		_lasers[i]->Shoot(_game->random(60, 120));
+		l->Shoot();
 	}
-
-	_lasers[_numLasers - 1]->Shoot(_game->random(80, 120));
 }
 void LaserHandler::Stop()
 {

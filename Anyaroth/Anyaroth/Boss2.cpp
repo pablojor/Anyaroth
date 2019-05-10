@@ -4,7 +4,7 @@
 
 Boss2::Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, player, pos, pool, g->getTexture("Azura")), Enemy(g, player, pos, g->getTexture("Azura"), "boss2Die", "boss2Hit", "meleeEnemyHit")
 {
-	_life = 25;
+	_life = 250;
 	_life1 = _life2 = _life3 = _life;
 
 	if (_myGun != nullptr)

@@ -17,8 +17,8 @@ public:
 
 	virtual void update(const double& deltaTime) { GameObject::update(deltaTime); }
 
-	void Warning() {  _anim->playAnim(AnimatedSpriteComponent::LaserOpening); }
-	void Shoot(double angle) { _laser->Shoot(angle); }
+	void Warning(double angle) { _laser->PreShoot(angle); _anim->playAnim(AnimatedSpriteComponent::LaserOpening); }
+	void Shoot() { _laser->Shoot(); }
 	void Stop() { _laser->Stop();  _anim->playAnim(AnimatedSpriteComponent::LaserClosing);
 	}
 };
