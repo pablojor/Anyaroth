@@ -466,8 +466,14 @@ void DepotPanel::swapMeleeItems(ShopItem* _equiped)
 	_selectedItem->setItemInfo(otherInfo);
 	_equiped->setItemInfo(infoSelected);
 
+	MeleeType type = (MeleeType)_equiped->getItemInfo()._type;
+	Melee* newMelee = WeaponManager::getInstance()->getMelee(_game, type);
 	//FALTA EQUIPAR EL ARMA
-	//_player->changeMelee();
+	int anim = AnimatedSpriteComponent::MeleeKnife;
+	if (type == Sword_Weapon) anim = AnimatedSpriteComponent::MeleeSword;
+	else if (type == PoleAxe_Weapon) anim = AnimatedSpriteComponent::MeleeHalberd;
+
+	_player->changeMelee(newMelee, anim);
 }
 
 

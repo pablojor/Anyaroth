@@ -2,7 +2,7 @@
 #include "Game.h"
 
 
-PoleAxe::PoleAxe(Game * game) : Melee(game, { 20, 0 }, ENEMIES, 20, 30, 30, PoleAxe_Weapon)
+PoleAxe::PoleAxe(Game * game) : Melee(game, { 0, 0 }, ENEMIES, 20, 60, 30, PoleAxe_Weapon)
 {
 }
 

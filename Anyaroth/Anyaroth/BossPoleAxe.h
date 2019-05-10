@@ -11,8 +11,5 @@ public:
 	virtual ~BossPoleAxe();
 
 	void update(const double& deltaTime);
-	//void chargeAttack();
-	//void meleeAttack();
-	//void thrustAttack();
 };
 

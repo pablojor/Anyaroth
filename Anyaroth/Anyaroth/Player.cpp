@@ -787,7 +787,7 @@ void Player::melee()
 	if(_melee->isActive())
 		_melee->endMelee();
 
-	_anim->playAnim(AnimatedSpriteComponent::MeleeKnife);
+	_anim->playAnim(_meleeAnim);
 
 	_melee->meleeAttack(_body->getBody()->GetPosition().x* M_TO_PIXEL, _body->getBody()->GetPosition().y*M_TO_PIXEL, (_anim->isFlipped()) ? -1 : 1);
 	_isMeleeing = false;
@@ -839,7 +839,8 @@ void Player::checkMelee()
 		_melee->endMelee();
 }
 
-void Player::changeMelee(Melee* newMelee)
+void Player::changeMelee(Melee* newMelee, int anim)
 {
 	_melee = newMelee;
+	_meleeAnim = anim;
 }
