@@ -134,18 +134,6 @@
                  "width":16,
                  "x":3600,
                  "y":192
-                }, 
-                {
-                 "gid":423,
-                 "height":16,
-                 "id":352,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16,
-                 "x":3552,
-                 "y":192
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -180,15 +168,116 @@
          "draworder":"topdown",
          "id":368,
          "name":"Bullseye",
-         "objects":[],
+         "objects":[
+                {
+                 "gid":424,
+                 "height":16,
+                 "id":361,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":1968,
+                 "y":160
+                }, 
+                {
+                 "gid":424,
+                 "height":16,
+                 "id":362,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":2032,
+                 "y":112
+                }, 
+                {
+                 "gid":424,
+                 "height":16,
+                 "id":363,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":2080,
+                 "y":144
+                }, 
+                {
+                 "gid":424,
+                 "height":16,
+                 "id":364,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":2144,
+                 "y":80
+                }, 
+                {
+                 "gid":424,
+                 "height":16,
+                 "id":365,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":2192,
+                 "y":160
+                }, 
+                {
+                 "gid":424,
+                 "height":16,
+                 "id":366,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":2256,
+                 "y":128
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":377,
+         "name":"NPC",
+         "objects":[
+                {
+                 "gid":15,
+                 "height":16,
+                 "id":367,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"data",
+                         "type":"string",
+                         "value":"Tutorial Signpost"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":4016,
+                 "y":192
+                }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
          "x":0,
          "y":0
         }],
- "nextlayerid":377,
- "nextobjectid":355,
+ "nextlayerid":378,
+ "nextobjectid":368,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.2.1",

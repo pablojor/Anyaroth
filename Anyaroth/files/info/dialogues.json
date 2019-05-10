@@ -62,6 +62,25 @@
                 " "
             ]
         },
+        "Tutorial Signpost": {
+            "face": "nullptr",
+            "name": "Signpost",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "WARNING. RESTRICTED AREA. Entry without authorization from the commander is prohibited."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
         "Kartya 1-2": {
             "face": "DialogueFace",
             "name": "???",
