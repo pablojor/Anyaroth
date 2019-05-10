@@ -46,6 +46,8 @@ class DepotPanel : public PanelUI
 			itemsPerCol = 4, 
 			distanceBetweenEquipmentSlots = 10;
 
+		void checkPlayer();
+
 	public:
 		DepotPanel(Game* game);
 		virtual ~DepotPanel() { delete _voidItem; };

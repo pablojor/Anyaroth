@@ -6,6 +6,7 @@
 #include "Game.h"
 #include "WeaponManager.h"
 
+
 DepotPanel::DepotPanel(Game* game) : PanelUI(game)
 {
 	//----MARCOS----//
@@ -46,6 +47,7 @@ DepotPanel::DepotPanel(Game* game) : PanelUI(game)
 
 	_voidItem = new ShopItem(game, game->getTexture("VoidIcon"));
 	_voidItem->setItemInfo(_voidItem->getItemInfo());
+	_voidItem->setFrames({ 0, 0, 0, 0, 0 });
 
 		//A�adir como hijo
 	addChild(_exitButton);
@@ -190,6 +192,8 @@ void DepotPanel::removeMeleeItems()
 
 void DepotPanel::openDepotPanel()
 {
+	checkPlayer();
+
 	for (auto it : *_weaponItems)
 		it->onDown([this, it](Game* game) {	selectItem(game, it); });
 
@@ -464,4 +468,20 @@ void DepotPanel::swapMeleeItems(ShopItem* _equiped)
 
 	//FALTA EQUIPAR EL ARMA
 	//_player->changeMelee();
+}
+
+
+void DepotPanel::checkPlayer()
+{
+	if (_firstWeaponFrame->getItemInfo()._type != _player->getCurrentGun()->getGunID())
+	{
+		auto firstWeaponInfo = _firstWeaponFrame->getItemInfo();
+		_firstWeaponFrame->setItemInfo(_secondWeaponFrame->getItemInfo());
+
+		_secondWeaponFrame->setItemInfo(firstWeaponInfo);
+
+		auto aux = _firstWeaponItem;
+		_firstWeaponItem = _secondWeaponItem;
+		_secondWeaponItem = aux;
+	}
 }
