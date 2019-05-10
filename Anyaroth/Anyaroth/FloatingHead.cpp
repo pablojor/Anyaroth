@@ -2,11 +2,19 @@
 #include "Boss3.h"
 
 
-FloatingHead::FloatingHead(Game* g, Player* player, Vector2D pos, BulletPool* pool, Boss3 * boss) : StaticFlyingEnemy(g, player, pos, pool), Enemy(g, player, pos, g->getTexture("Turret"), "turretDeath", "turretHit", "turretMeleeHit"),_boss(boss)
+FloatingHead::FloatingHead(Game* g, Player* player, Vector2D pos, BulletPool* pool, Boss3 * boss) : StaticFlyingEnemy(g, player, pos, pool), Enemy(g, player, pos, g->getTexture("FlyingHead"), "turretDeath", "turretHit", "turretMeleeHit"), _boss(boss)
 {
 	_myGun->setDamage(2);
 	_myGun->setMaxCadence(0);
 	_myGun->setBulletSpeed(30);
+
+	_anim->addAnim(AnimatedSpriteComponent::HeadIdle, 10, true);
+	_anim->addAnim(AnimatedSpriteComponent::HeadAttackStart, 3, false);
+	_anim->addAnim(AnimatedSpriteComponent::HeadAttackLoop, 9, true);
+	_anim->addAnim(AnimatedSpriteComponent::HeadAttackEnd, 3, false);
+	_anim->addAnim(AnimatedSpriteComponent::HeadDie, 18, false);
+
+	_anim->playAnim(AnimatedSpriteComponent::HeadIdle);
 }
 
 
@@ -18,7 +26,7 @@ FloatingHead::~FloatingHead()
 
 void FloatingHead::shooting(double deltaTime)
 {
-	double angle = 360.0 / (_numOfShoots*2);
+	double angle = 360.0 / (_numOfShoots * 2);
 	if (_currentTimer >= 1000)
 	{
 		for (int i = 0; i < _numOfShoots; i++)
@@ -41,13 +49,13 @@ void FloatingHead::setLifePanel(EnemyLifePanel * lifePanel)
 	_lifePanel->setVisible(true);
 }
 
-void FloatingHead::update( const double & deltaTime)
+void FloatingHead::update(const double & deltaTime)
 {
 	DistanceEnemy::update(deltaTime);
 
 	if (!isStunned() && !isDead() && inCamera())
 	{
-		if (!_invincibility && _timeShooting<=6000)
+		if (!_invincibility && _timeShooting <= 6000)
 		{
 			shooting(deltaTime);
 			_timeShooting += deltaTime;
@@ -62,7 +70,7 @@ void FloatingHead::update( const double & deltaTime)
 
 void FloatingHead::subLife(int damage)
 {
-	if (!isDead()&& !_invincibility)
+	if (!isDead() && !_invincibility)
 	{
 		_life.subLife(damage);
 

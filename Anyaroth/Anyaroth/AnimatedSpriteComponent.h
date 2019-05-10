@@ -48,6 +48,9 @@ public:
 	enum Angra {
 		AngraIdle, AngraWalk, AngraBH, AngraAppear, AngraDisappear, AngraRing, AngraDie
 	};
+	enum FloatingHead {
+		HeadIdle, HeadAttackStart, HeadAttackLoop, HeadAttackEnd, HeadDie
+	};
 
 	AnimatedSpriteComponent(GameObject* obj) : SpriteComponent(obj), PhysicsComponent(obj), RenderComponent(obj), Component(), _obj(obj) {}
 	virtual ~AnimatedSpriteComponent() {}
