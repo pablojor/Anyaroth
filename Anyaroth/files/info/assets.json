@@ -47,6 +47,7 @@
     [ "Trooper", "trooper_spritesheet.png", 4, 35 ],
     [ "TrooperArm", "trooperarm.png", 3, 2 ],
 	[ "Hive", "hive_spritesheet.png", 3, 10 ],
+	[ "Bee", "abeja_spritesheet.png", 2, 8 ],
 
     [ "Spenta", "spenta_spritesheet.png", 12, 26 ],
     [ "SpentaOrb", "spenta_orb_spritesheet.png", 2, 10 ],
