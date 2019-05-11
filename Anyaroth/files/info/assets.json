@@ -46,6 +46,7 @@
     [ "Bomb", "bomb_spritesheet.png", 2, 8 ],
     [ "Trooper", "trooper_spritesheet.png", 4, 35 ],
     [ "TrooperArm", "trooperarm.png", 3, 2 ],
+	[ "Hive", "hive_spritesheet.png", 3, 10 ],
 
     [ "Spenta", "spenta_spritesheet.png", 12, 26 ],
     [ "SpentaOrb", "spenta_orb_spritesheet.png", 2, 10 ],
@@ -54,7 +55,7 @@
 
     [ "Azura", "azura_spritesheet.png", 22, 23 ],
 
-	  [ "Angra", "angra_spritesheet.png", 7, 34 ],
+	[ "Angra", "angra_spritesheet.png", 7, 34 ],
 
     [ "Tileset1", "zona1_tileset.png", 22, 10 ],
     [ "TilesetBoss1", "boss1_tileset.png", 13, 16 ],
