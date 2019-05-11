@@ -53,10 +53,7 @@ Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(
 
 	_actualState = Moving;
 
-	//activar al pasar a la fase 3
-	_sensor = new BossSensor(g, this, { 100, 100 }, { 30, 30 });
-	_sensor->setActive(false);
-	addChild(_sensor);
+
 	_invulnerable = true;
 
 	_body->getBody()->SetActive(false);
@@ -293,7 +290,8 @@ void Boss3::beetwenFases(const double& deltaTime)
 	else if (_lastFase == Fase2)
 	{
 		changeFase(Fase3);
-		_sensor->setActive(true);
+		_sensor = new BossSensor(_game, this, { 100, 100 }, { 30, 30 });
+		addChild(_sensor);
 		_velocity = 100;
 		_myGun->setMaxCadence(_rifleCadence);
 
@@ -306,6 +304,8 @@ void Boss3::beetwenFases(const double& deltaTime)
 		_name = "Angra Soldier";
 		_boss3Panel->updateBossName(_name);//Provisional
 		_actualState = Moving;
+		_corpse = new BossCorpse(_game, _transform->getPosition(), _game->getTexture("PistolIcon"));
+		addChild(_corpse);
 	}
 	else
 	{
@@ -531,4 +531,14 @@ void Boss3::endCollision(GameObject * other, b2Contact* contact)
 	//Deteccion del suelo
 	if ((fA->IsSensor() || fB->IsSensor()) && (other->getTag() == "Ground" || other->getTag() == "Platform"))
 		_onFloor--;
+}
+
+BossCorpse::BossCorpse(Game * g, Vector2D pos, Texture* texture): GameObject(g)
+{
+	TransformComponent* t = addComponent<TransformComponent>();
+	t->setPosition(pos);
+
+	addComponent<Texture>(texture);
+
+	_sprite = addComponent<SpriteComponent>();
 }

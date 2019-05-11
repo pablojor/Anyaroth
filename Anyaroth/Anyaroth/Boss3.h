@@ -7,6 +7,14 @@
 class FloatingHead;
 class SpawnerBoss;
 
+class BossCorpse : public GameObject
+{
+private:
+	SpriteComponent* _sprite = nullptr;
+public:
+	BossCorpse(Game* g, Vector2D pos, Texture* texture);
+};
+
 class Boss3 : public Boss
 {
 	private:
@@ -27,6 +35,7 @@ class Boss3 : public Boss
 		void circularShoot(const double& deltaTime);
 
 		//Cosas de la fase soldado
+		BossCorpse* _corpse  = nullptr;
 		Gun* _otherGun = nullptr;
 		void changeGun();
 
@@ -82,3 +91,5 @@ class Boss3 : public Boss
 		void push_backSpawner(SpawnerBoss* spawner) { _spawners.push_back(spawner); }
 		void push_backHead(FloatingHead* head) { _heads.push_back(head); }
 };
+
+
