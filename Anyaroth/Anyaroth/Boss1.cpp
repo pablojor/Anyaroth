@@ -12,6 +12,8 @@ Boss1::Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, 
 	_life = 250; // Demo Guerrilla
 	_life1 = _life2 = _life3 = _life;
 
+	_name = "Spenta Manyu";
+
 	delete(_myGun);
 	_myGun = new ImprovedRifle(g);
 	_myGun->setMaxCadence(0);
@@ -113,26 +115,11 @@ void Boss1::update(const double& deltaTime)
 		{
 			_actualState = Moving;
 		}
+	}
 
-		if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaEndBomb)
-		{
-			_actualState = Moving;
-		}
-		else
-		{
-			if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaEndShield)
-				_anim->playAnim(AnimatedSpriteComponent::SpentaDie);
-		}
-
-		if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaEndShield)
-		{
-			_actualState = Moving;
-		}
-
-		if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaEndBomb)
-		{
-			_actualState = Moving;
-		}
+	if (_anim->animationFinished() && (_anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaEndShield || _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaEndBomb))
+	{
+		_actualState = Moving;
 	}
 }
 

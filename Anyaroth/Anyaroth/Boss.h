@@ -30,6 +30,8 @@ protected:
 	int _actualFase = Fase1, _lastFase = Fase1, _actualState = Moving;
 	bool _finishLevel = false;
 
+	string _name;
+
 public:
 	Boss(Game* g, Player* player, Vector2D pos, BulletPool* pool, Texture* text);
 	virtual ~Boss() {}

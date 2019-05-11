@@ -7,6 +7,8 @@ Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(
 	_life = 300; // Demo Guerrilla
 	_life1 = _life;
 
+	_name = "Angra Manyu";
+
 	delete(_myGun);
 	_myGun = new ImprovedRifle(g);
 	_myGun->setMaxCadence(_rifleCadence);
@@ -66,6 +68,7 @@ Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(
 void Boss3::setBoss3Panel(Boss3Panel * b)
 {
 	_boss3Panel = b;
+	_boss3Panel->updateBossName(_name);
 
 	//Actualizamos de primeras el aspecto del Panel del Jugador
 	_boss3Panel->updateLifeBar(_life1.getLife(), _life.getLife());
@@ -300,7 +303,8 @@ void Boss3::beetwenFases(const double& deltaTime)
 		_life1.resetLife();
 
 		_boss3Panel->resetLifeBar(_life1.getLife(), _life.getLife());
-		_boss3Panel->updateBossName("Angra Soldier");//Provisional
+		_name = "Angra Soldier";
+		_boss3Panel->updateBossName(_name);//Provisional
 		_actualState = Moving;
 	}
 	else

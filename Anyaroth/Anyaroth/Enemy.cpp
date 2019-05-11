@@ -25,7 +25,6 @@ Enemy::Enemy(Game* g, Player* player, Vector2D pos, Texture* texture, string dea
 	
 	_body->getBody()->SetFixedRotation(true);
 
-	_movement = addComponent<MovingComponent>();
 	_anim = addComponent<CustomAnimatedSpriteComponent>();
 
 	_life = Life(50);

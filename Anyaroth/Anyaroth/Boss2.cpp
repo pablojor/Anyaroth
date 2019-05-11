@@ -8,6 +8,8 @@ Boss2::Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, 
 	_life = 250;
 	_life1 = _life2 = _life3 = _life;
 
+	_name = "Azura Manyu";
+
 	if (_myGun != nullptr)
 		delete _myGun;
 
@@ -89,7 +91,7 @@ void Boss2::update(const double & deltaTime)
 			{
 				CutScene* cutscene = new CutScene(_player);
 				cutscene->addWaitEvent(1000);
-				//cutscene->addPlayMusicEvent(""); música triste
+				//cutscene->addPlayMusicEvent(""); mï¿½sica triste
 				cutscene->addDialogueEvent(_game->getCurrentState()->getPlayHUD()->getDialoguePanel(), _game->getDialogue("Azura Manyu 2"));
 				cutscene->addWaitEvent(1000);
 				cutscene->addPopUpEvent(_game->getCurrentState()->getPlayHUD()->getPopUpPanel());
@@ -178,7 +180,7 @@ void Boss2::beginCollision(GameObject * other, b2Contact* contact)
 	Boss::beginCollision(other, contact);
 	//Deteccion del suelo
 	if ((fA->IsSensor() || fB->IsSensor()) && (other->getTag() == "Ground" || other->getTag() == "Platform"))
-	{
+	{		
 			_onFloor ++;
 			if (_onFloor <= 1)
 				setTag("Enemy");
