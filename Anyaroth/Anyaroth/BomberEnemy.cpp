@@ -1,5 +1,6 @@
 #include "BomberEnemy.h"
 #include "BulletEffect.h"
+#include "GameManager.h"
 
 BomberEnemy::BomberEnemy(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Enemy(g, player, pos, g->getTexture("Bomber"), "bomberDeath", "turretHit", "turretMeleeHit"), _myBulletPool(pool)
 {
@@ -55,7 +56,7 @@ void BomberEnemy::update(const double& deltaTime)
 
 	bool inVision = _playerDistance.getX() < _vision && _playerDistance.getX() > -_vision && _playerDistance.getY() < _vision && _playerDistance.getY() > -_vision;
 
-	if (!isDead() && inVision)
+	if (!isDead() && (inVision || GameManager::getInstance()->getCurrentLevel() == LevelManager::Boss3))
 	{
 		if (_playerDistance.getX() > _attackRangeX)
 			_dir = Vector2D(1, 0);

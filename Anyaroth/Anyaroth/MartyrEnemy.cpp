@@ -2,6 +2,8 @@
 #include "GameObject.h"
 #include "AnimatedSpriteComponent.h"
 #include "Player.h"
+#include "GameManager.h"
+#include "LevelManager.h"
 #include "BodyComponent.h"
 
 MartyrEnemy::MartyrEnemy(Game* g, Player* player, Vector2D pos) : GroundEnemy(g, player, pos, g->getTexture("EnemyMartyr")), Enemy(g, player, pos, g->getTexture("EnemyMartyr"), "martyrDie","martyrHit", "martyrMeleeHit")
@@ -38,12 +40,12 @@ void MartyrEnemy::update(const double& deltaTime)
 {
 	Enemy::update(deltaTime);
 
-	if (!isStunned() && !isDead() && inCamera())
+	if (!isStunned() && !isDead() && (inCamera() || GameManager::getInstance()->getCurrentLevel() == LevelManager::Boss3))
 	{
 		bool inVision = _playerDistance.getX() < _vision && _playerDistance.getX() > -_vision && _playerDistance.getY() < _vision && _playerDistance.getY() > -_vision;
 		bool sameFloor = _playerDistance.getY() < _attackRangeY && _playerDistance.getY() > -_attackRangeY;
 
-		if (!_attacking && inVision)
+		if (!_attacking && (inVision || GameManager::getInstance()->getCurrentLevel() == LevelManager::Boss3))
 		{
 			if (abs(_playerDistance.getX()) > 0)
 			{

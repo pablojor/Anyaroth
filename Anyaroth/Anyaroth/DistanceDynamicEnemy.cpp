@@ -1,5 +1,6 @@
 ﻿#include "DistanceDynamicEnemy.h"
 #include "GameObject.h"
+#include "GameManager.h"
 #include "AnimatedSpriteComponent.h"
 #include "Player.h"
 
@@ -47,11 +48,11 @@ void DistanceDynamicEnemy::update(const double& deltaTime)
 {
 	DistanceEnemy::update(deltaTime);
 
-	if (!isStunned() && !isDead() && inCamera())
+	if (!isStunned() && !isDead() && (inCamera() || GameManager::getInstance()->getCurrentLevel() == LevelManager::Boss3))
 	{
 		bool inVision = _playerDistance.getX() < _vision && _playerDistance.getX() > -_vision && _playerDistance.getY() < _vision && _playerDistance.getY() > -_vision;
 
-		if (!_attacking && inVision) //Me acerco al jugador
+		if (!_attacking && (inVision || GameManager::getInstance()->getCurrentLevel() == LevelManager::Boss3)) //Me acerco al jugador
 		{
 			if (_playerDistance.getX() > 0)//Derecha
 			{

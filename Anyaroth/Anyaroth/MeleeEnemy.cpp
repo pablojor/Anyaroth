@@ -1,5 +1,6 @@
 #include "MeleeEnemy.h"
 #include "GameObject.h"
+#include "GameManager.h"
 #include "AnimatedSpriteComponent.h"
 #include "Player.h"
 
@@ -32,12 +33,12 @@ void MeleeEnemy::update(const double& deltaTime)
 {
 	Enemy::update(deltaTime);
 
-	if (!isStunned() && !isDead() && inCamera())
+	if (!isStunned() && !isDead() && (inCamera() || GameManager::getInstance()->getCurrentLevel() == LevelManager::Boss3))
 	{
 		bool inVision = _playerDistance.getX() < _vision && _playerDistance.getX() > -_vision && _playerDistance.getY() < _vision && _playerDistance.getY() > -_vision;
 		bool sameFloor = _playerDistance.getY() < _attackRangeY && _playerDistance.getY() > -_attackRangeY;
 
-		if (inVision)
+		if (inVision || GameManager::getInstance()->getCurrentLevel() == LevelManager::Boss3)
 		{
 			if (abs(_playerDistance.getX()) > 0)
 			{
