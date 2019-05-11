@@ -2,17 +2,29 @@
 #include "PanelUI.h"
 #include "TextUI.h"
 #include "ButtonUI.h"
+#include "ImageUI.h"
+
+
 class CreditsPanel : public PanelUI
 {
 private:
-	ButtonUI * _menuButton = nullptr;
-	TextUI* _buttonText = nullptr;
+	enum State {First, Second, Third, Last, ChangeToMenu};
 
-	TextUI* _text = nullptr;
+	ImageUI* _anyarothLogo = nullptr;
+	ImageUI* _creditsImage = nullptr;
+	ImageUI* _yggdraseedLogo = nullptr;
 
-	void goToMenu(Game* game);
+	State _state = First;
+	int _timeBetweenStates = 7500;
+
+	void goToMenu();
+	void nextState();
+	void checkState();
 public:
-	CreditsPanel(Game* g);
+	CreditsPanel(Game* g, bool goodFinal);
 	virtual ~CreditsPanel();
+
+	virtual void update(const double& deltaTime);
+	virtual bool handleEvent(const SDL_Event& event);
 };
 

@@ -3,9 +3,9 @@
 #include "Camera.h"
 
 
-CreditsStateHUD::CreditsStateHUD(Game* game)
+CreditsStateHUD::CreditsStateHUD(Game* game, bool goodFinal)
 {
-	_creditsPanel = new CreditsPanel(game);
+	_creditsPanel = new CreditsPanel(game, goodFinal);
 
 	addUIElement(_creditsPanel);
 }

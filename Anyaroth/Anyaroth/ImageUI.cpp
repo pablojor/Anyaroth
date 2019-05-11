@@ -36,3 +36,9 @@ void ImageUI::setClippingAreaSize(float w, float h)
 	_clipArea.w = _image->getW() * w;
 	_clipArea.h = _image->getH() * h;
 }
+
+void ImageUI::setScale(float s)
+{
+	_destRect.w *= s;
+	_destRect.h *= s;
+}

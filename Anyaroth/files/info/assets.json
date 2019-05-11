@@ -35,9 +35,9 @@
     [ "BounceCannonIcon", "bounceCannonIcon.png", 1, 1 ],
     [ "BHCannonIcon", "bHCannonIcon.png", 1, 1 ],
     [ "SniperIcon", "sniperIcon.png", 1, 1 ],
-	[ "KnifeIcon", "knifeIcon.png", 1, 1 ],
-	[ "SwordIcon", "swordIcon.png", 1, 1 ],
-	[ "HalberdIcon", "halberdIcon.png", 1, 1 ],
+	  [ "KnifeIcon", "knifeIcon.png", 1, 1 ],
+	  [ "SwordIcon", "swordIcon.png", 1, 1 ],
+	  [ "HalberdIcon", "halberdIcon.png", 1, 1 ],
 
     [ "TutorialBullseye", "tutorial_bullseye.png", 4, 4 ],
     [ "TutorialBuddy", "tutorial_buddy.png", 4, 9 ],
@@ -51,8 +51,8 @@
     [ "Bomb", "bomb_spritesheet.png", 2, 8 ],
     [ "Trooper", "trooper_spritesheet.png", 4, 35 ],
     [ "TrooperArm", "trooperarm.png", 3, 2 ],
-	[ "Hive", "hive_spritesheet.png", 3, 10 ],
-	[ "Bee", "abeja_spritesheet.png", 2, 8 ],
+	  [ "Hive", "hive_spritesheet.png", 3, 10 ],
+	  [ "Bee", "abeja_spritesheet.png", 2, 8 ],
 
     [ "Spenta", "spenta_spritesheet.png", 12, 26 ],
     [ "SpentaOrb", "spenta_orb_spritesheet.png", 2, 10 ],
@@ -61,7 +61,7 @@
 
     [ "Azura", "azura_spritesheet.png", 22, 23 ],
 
-	[ "Angra", "angra_spritesheet.png", 7, 34 ],
+	  [ "Angra", "angra_spritesheet.png", 7, 34 ],
 
     [ "TilesetTutorial", "tutorial_tileset.png", 22, 26 ],
     [ "Tileset1", "zona1_tileset.png", 21, 10 ],
@@ -169,6 +169,9 @@
     [ "DashDownTrailFlip", "dashdowntrailflip.png", 1, 1 ],
     [ "DemoCredits", "demo_credits.png", 1, 1 ],
     [ "DemoTwitter", "demo_twitter.png", 1, 1 ],
+    [ "AnyarothLogo", "anyaroth_logo.png", 1, 1 ],
+    [ "Credits", "credits.png", 1, 1 ],
+    [ "YggdraSeedLogo", "yggdraSeed_logo.png", 1, 1 ],
     
     [ "VoidIcon", "void_icon.png", 1, 1 ]
   ],

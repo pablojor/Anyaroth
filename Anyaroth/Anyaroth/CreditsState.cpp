@@ -15,6 +15,6 @@ void CreditsState::start()
 	_gameptr->getSoundManager()->stopMusic();
 
 	SDL_ShowCursor(true);
-	setCanvas(new CreditsStateHUD(_gameptr));
+	setCanvas(new CreditsStateHUD(_gameptr, _goodFinal));
 	_mainCamera->fadeIn(1500);
 }

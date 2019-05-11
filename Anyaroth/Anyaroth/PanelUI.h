@@ -13,6 +13,7 @@ protected:
 	void removeAllChildren();
 
 	ButtonUI* _selectedButton = nullptr;
+	bool _inputEnabled = true;
 public:
 	PanelUI() : UIElement(nullptr) {}
 	PanelUI(Game* game);
