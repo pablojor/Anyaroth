@@ -4,7 +4,7 @@
 class CreditsState : public GameState
 {
 private:
-	_goodFinal = true;
+	bool _goodFinal = true;
 public:
 	CreditsState(Game* game, bool goodFinal = true);
 	~CreditsState();

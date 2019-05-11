@@ -147,6 +147,7 @@
     <ClCompile Include="AmmoPackage.cpp" />
     <ClCompile Include="AmmoViewer.cpp" />
     <ClCompile Include="AnimatedImageUI.cpp" />
+    <ClCompile Include="BadCredits.cpp" />
     <ClCompile Include="BlackScreenEvent.cpp" />
     <ClCompile Include="Boss2.cpp" />
     <ClCompile Include="Boss3.cpp" />
@@ -311,6 +312,7 @@
     <ClInclude Include="AmmoPackage.h" />
     <ClInclude Include="AmmoViewer.h" />
     <ClInclude Include="AnimatedImageUI.h" />
+    <ClInclude Include="BadCredits.h" />
     <ClInclude Include="BlackScreenEvent.h" />
     <ClInclude Include="Boss2.h" />
     <ClInclude Include="Boss3.h" />

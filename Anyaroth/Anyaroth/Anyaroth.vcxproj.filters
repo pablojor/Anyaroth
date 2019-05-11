@@ -489,6 +489,7 @@
     </ClCompile>
     <ClCompile Include="DialogueTrigger.cpp" />
     <ClCompile Include="GoodCredits.cpp" />
+    <ClCompile Include="BadCredits.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -1015,6 +1016,7 @@
     </ClInclude>
     <ClInclude Include="DialogueTrigger.h" />
     <ClInclude Include="GoodCredits.h" />
+    <ClInclude Include="BadCredits.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de código fuente">
