@@ -68,7 +68,7 @@
     [ "TilesetSafe1", "safe1_tileset.png", 30, 35 ],
     [ "TilesetBoss1", "boss1_tileset.png", 13, 16 ],
     [ "TilesetBoss2", "boss2_tileset.png", 13, 16 ],
-    [ "TilesetBoss3", "boss3_tileset.png", 12, 11 ],
+    [ "TilesetBoss3", "boss3_tileset3.png", 12, 11 ],
     [ "Tileset2", "zona2_tileset.png", 17, 6 ],
     [ "TilesetSafe2", "safe2_tileset.png", 30, 31 ],
     [ "TilesetBoss2", "boss2_tileset.png", 13, 16 ],

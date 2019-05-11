@@ -279,7 +279,7 @@ void LevelManager::setLevel(int l)
 	else
 		_level->addChild(_currentSafeZone);
 
-	if (l == SafeDemo || l == End)
+	if (l == Boss1 || l == Boss2 || l == Boss3 || l == SafeDemo || l == BossDemo || l == End)
 		_camera->fitCamera({ xBound, yBound }, true);
 	else
 		_camera->setZoom(CAMERA_SCALE_FACTOR);
