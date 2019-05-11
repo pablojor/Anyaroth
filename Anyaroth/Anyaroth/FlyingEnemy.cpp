@@ -1,12 +1,12 @@
 #include "FlyingEnemy.h"
 #include "Game.h"
 
-FlyingEnemy::FlyingEnemy(Game* g, Player* player, Vector2D pos) : Enemy(g,  player, pos, g->getTexture("EnemyMelee"))
+FlyingEnemy::FlyingEnemy(Game* g, Player* player, Vector2D pos) : Enemy(g,  player, pos, g->getTexture("Bee"))
 {
 	_damage = 5;
 
-	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 13, true);
-	_anim->addAnim(AnimatedSpriteComponent::EnemyDie, 18, false);
+	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 6, true);
+	_anim->addAnim(AnimatedSpriteComponent::EnemyDie, 7, false);
 
 	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 

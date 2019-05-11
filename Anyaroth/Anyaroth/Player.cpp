@@ -844,6 +844,8 @@ void Player::checkMelee()
 
 void Player::changeMelee(Melee* newMelee, int anim)
 {
+	if (_melee != nullptr)
+		_melee->destroy();
 	_melee = newMelee;
 	_meleeAnim = anim;
 }

@@ -47,7 +47,7 @@ void PlayState::start()
 	BulletPool* enemyPool = new BulletPool(_gameptr);
 
 	//Level
-	GameManager::getInstance()->setCurrentLevel(LevelManager::Safe1_2);
+	GameManager::getInstance()->setCurrentLevel(LevelManager::Level2_1);
 
 	_level = new GameObject(_gameptr);
 	_levelManager = LevelManager(_gameptr, _player, _level, enemyPool);
@@ -108,6 +108,9 @@ void PlayState::saveGame()
 		else
 			j["otherGun"] = nullptr;
 
+		j["meleeWeapon"] = _player->getMelee()->getMeleeID();
+		j["meleeAnim"] = _player->getMeleeAnim();
+
 		auto items = _playHud->getShop()->getItems();
 
 		for (ShopItem* i : items)
@@ -134,6 +137,7 @@ void PlayState::loadGame()
 		if (j["otherGun"] != nullptr)
 			_player->changeOtherGun(WeaponManager::getInstance()->getWeapon(_gameptr, j["otherGun"]));
 
+		_player->changeMelee(WeaponManager::getInstance()->getMelee(_gameptr, j["meleeWeapon"]), j["meleeAnim"]);
 		auto items = _playHud->getShop()->getItems();
 		for (ShopItem* i : items)
 		{
@@ -141,6 +145,11 @@ void PlayState::loadGame()
 			i->setItemEquiped(false);
 		}
 		_playHud->getShop()->setPlayer(_player);
+	}
+	else
+	{
+		_playHud->getShop()->setPlayer(_player);
+		_levelManager.setLevel(GameManager::getInstance()->getCurrentLevel());
 	}
 }
 
