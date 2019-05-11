@@ -22,7 +22,10 @@ void LevelManager::setLevel(int l)
 		_currentMap = new Map(TILEMAP_PATH + "Tutorial.json", _game, _player, _game->getTexture("TilesetTutorial"), _enemyBulletPool);
 		setParallaxZone1();
 
+		_player->clearAmmo();
+
 		cutscene = new CutScene(_player);
+
 
 		cutscene->addCameraBlackScreenEvent(_camera);
 		//cutscene->addPlaySoundEvent(_game, ""); sonido chispas
@@ -36,6 +39,7 @@ void LevelManager::setLevel(int l)
 		//cutscene->addPlaySoundEvent(_game, ""); sonido desconexi�n
 		//cutscene->addPlayMusicEvent(_game, ""); m�sica tutorial
 		cutscene->addDialogueEvent(dialogue, _game->getDialogue("Helmet 3"));
+		cutscene->addDialogueEvent(dialogue, _game->getDialogue(_game->usingJoystick() ? "Tutorial1PAD" : "Tutorial1"));
 		_game->getCurrentState()->addCutScene(cutscene);
 
 		cutscene->play();

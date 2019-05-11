@@ -85,6 +85,53 @@
         }, 
         {
          "draworder":"topdown",
+         "id":65,
+         "name":"Trigger",
+         "objects":[
+                {
+                 "gid":1218,
+                 "height":16,
+                 "id":19,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"data",
+                         "type":"string",
+                         "value":"Tutorial9"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":448,
+                 "y":384
+                }, 
+                {
+                 "gid":1218,
+                 "height":16,
+                 "id":20,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"data",
+                         "type":"string",
+                         "value":"Close"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":640,
+                 "y":384
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
          "id":55,
          "name":"NPC",
          "objects":[
@@ -166,8 +213,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":65,
- "nextobjectid":19,
+ "nextlayerid":66,
+ "nextobjectid":21,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.2.1",
@@ -176,6 +223,10 @@
         {
          "firstgid":1,
          "source":"safe1_tileset.tsx"
+        }, 
+        {
+         "firstgid":1051,
+         "source":"zona1_tileset.tsx"
         }],
  "tilewidth":16,
  "type":"map",

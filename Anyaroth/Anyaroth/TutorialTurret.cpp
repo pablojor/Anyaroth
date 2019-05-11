@@ -16,7 +16,7 @@ TutorialTurret::TutorialTurret(Game* g, Player* player, Vector2D pos, BulletPool
 	//Ajustes del arma
 	_myGun->setDamage(0);
 	_myGun->setMaxCadence(4000);
-	_myGun->setBulletSpeed(12);
+	_myGun->setBulletSpeed(25);
 
 	_anim->flip();
 }

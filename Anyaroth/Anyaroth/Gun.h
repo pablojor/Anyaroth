@@ -41,6 +41,7 @@ public:
 
 	void addAmmo(int ammoAdded);
 	void resetAmmo();
+	void clearAmmo();
 
 	inline int getMagazine() const { return _magazine; }
 	inline int getClip() const { return _clip; }

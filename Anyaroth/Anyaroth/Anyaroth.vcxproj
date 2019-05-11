@@ -164,6 +164,7 @@
     <ClCompile Include="BossOrbCannon.cpp" />
     <ClCompile Include="BulletEffect.cpp" />
     <ClCompile Include="DialogueEvent.cpp" />
+    <ClCompile Include="DialogueTrigger.cpp" />
     <ClCompile Include="EffectInterface.cpp" />
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="Capsule.cpp" />
@@ -327,6 +328,7 @@
     <ClInclude Include="BossOrbCannon.h" />
     <ClInclude Include="BulletEffect.h" />
     <ClInclude Include="DialogueEvent.h" />
+    <ClInclude Include="DialogueTrigger.h" />
     <ClInclude Include="EffectInterface.h" />
     <ClInclude Include="Boss.h" />
     <ClInclude Include="CapsuleDistance.h" />

@@ -119,6 +119,12 @@ void Gun::resetAmmo()
 	_clip = _maxClip;
 }
 
+void Gun::clearAmmo()
+{
+	_magazine = 0;
+	_clip = 0;
+}
+
 Vector2D Gun::prepareBulletPosition(const Vector2D & position, const double & angle)
 {
 	return (position + _offset).rotateAroundPoint(angle, position);

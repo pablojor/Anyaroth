@@ -11,6 +11,7 @@ Trigger::Trigger(Game* game, int xPos, int yPos) : GameObject(game, ""), _collid
 	_body->getBody()->SetType(b2_kinematicBody);
 	_body->getBody()->GetFixtureList()->SetSensor(true);
 	_body->filterCollisions(OBJECTS, PLAYER);
+	_body->setH(800);
 }
 
 Trigger::~Trigger()
@@ -34,7 +35,7 @@ void Trigger::update(const double & deltaTime)
 
 void Trigger::beginCollision(GameObject * other, b2Contact * contact)
 {
-	if (!_triggered)
+	if (other->isPlayer() && !_triggered)
 	{
 		_triggered = true;
 		if (_onTriggerEnter != nullptr)
@@ -44,7 +45,7 @@ void Trigger::beginCollision(GameObject * other, b2Contact * contact)
 
 void Trigger::endCollision(GameObject * other, b2Contact * contact)
 {
-	if (_triggered)
+	if (other->isPlayer() && _triggered)
 	{
 		_triggered = false;
 		if (_onTriggerExit != nullptr)

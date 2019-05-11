@@ -21,6 +21,7 @@
 #include "TutorialBuddy.h"
 #include "AmmoPackage.h"
 #include "AidKit.h"
+#include "DialogueTrigger.h"
 #include "SpawnerBoss.h"
 #include "FloatingHead.h"
 #include <json.hpp>
@@ -122,7 +123,7 @@ void Map::createObjects()
 			}
 			else if (name == "Ammo")
 			{
-				_objects->addChild(new AmmoPackage(_game, Vector2D(pos.getX() - TILES_SIZE, pos.getY() - TILES_SIZE * 2), 1));
+				_objects->addChild(new AmmoPackage(_game, Vector2D(pos.getX() - TILES_SIZE, pos.getY() - TILES_SIZE * 2), 5));
 			}
 			else if (name == "Aidkit")
 			{
@@ -135,6 +136,10 @@ void Map::createObjects()
 			else if (name == "TutorialBuddy")
 			{
 				_objects->addChild(new TutorialBuddy(_game, _player, Vector2D(pos.getX(), pos.getY() - TILES_SIZE * 2)));
+			}
+			else if (name == "Trigger")
+			{
+				_objects->addChild(new DialogueTrigger(_game, data, _player, pos.getX(), pos.getY() - TILES_SIZE * 2));
 			}
 			else if (name == "DistanceDynamic")
 			{

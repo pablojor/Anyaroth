@@ -78,7 +78,7 @@ void DialoguePanel::startDialogue(const Dialogue& dialogue)
 			_dialogue = { nullptr,"","Default",{"Dialogue not found"},{0},{ "Default" } };
 
 		//inicializamos cada elemento
-		if (_dialogue.name != " ")
+		if (_dialogue.name != "")
 		{
 			_nameText->setText(_dialogue.name);
 			_nameBackground->setVisible(true);
@@ -269,7 +269,7 @@ void DialoguePanel::update(const double& deltaTime)
 
 			if (_dialogue.face != nullptr)
 				_faceImage->setVisible(true);
-			if (_dialogue.name != " ")
+			if (_dialogue.name != "")
 			{
 				_nameText->setVisible(true);
 				_nameBackground->setVisible(true);

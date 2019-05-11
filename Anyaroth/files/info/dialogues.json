@@ -27,7 +27,7 @@
             "dialogue": [
                 "Successfully recovered user's data. Please, check if the data shown below is correct:",
                 "User's name: Avestas. Profession: Soldier. ...",
-                "FATAL ERROR OCCURRED. Your helmet might be hacked or damaged. Please, report to the nearest..."
+                "WARNING. FATAL ERROR OCCURRED. Your helmet might be hacked or damaged. Please, report to the nearest..."
             ],
             "faces": [
                 0,
@@ -64,7 +64,7 @@
         },
         "Tutorial Signpost": {
             "face": "nullptr",
-            "name": "Signpost",
+            "name": "",
             "voice": "exampleVoice",
             "dialogue": [
                 "WARNING. RESTRICTED AREA. Entry without authorization from the commander is prohibited."
@@ -1734,10 +1734,29 @@
         },
         "Tutorial1": {
             "face": "nullptr",
-            "name": "Tutorial",
+            "name": "",
             "voice": "exampleVoice",
             "dialogue": [
-                "Ey youh, maaa niggggaaaaaaaaa"
+                "Press <A / D> to move left / right."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Tutorial1PAD": {
+            "face": "nullptr",
+            "name": "",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Use <Left Thumbstick> to move left / right."
             ],
             "faces": [
                 0,
@@ -1753,10 +1772,294 @@
         },
         "Tutorial2": {
             "face": "nullptr",
-            "name": "Tutorial",
+            "name": "",
             "voice": "exampleVoice",
             "dialogue": [
-                "Wanna fight jackass?"
+                "Tap <SPACEBAR> to jump. Hold <SPACEBAR> to jump higher."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },"Tutorial2PAD": {
+            "face": "nullptr",
+            "name": "",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Tap <A button> to jump. Hold <A button> to jump higher."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Tutorial3": {
+            "face": "nullptr",
+            "name": "",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Press <SHIFT> while moving in a direction to dash. Use it in the air to reach distant places."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Tutorial3PAD": {
+            "face": "nullptr",
+            "name": "",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Press <LEFT TRIGGER> while moving in a direction to dash. Use it in the air to reach distant places."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Tutorial4": {
+            "face": "nullptr",
+            "name": "",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "There is no ammo left in your pistol. Touch that ammo package to pick it up."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Tutorial4PAD": {
+            "face": "nullptr",
+            "name": "",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "There is no ammo left in your pistol. Touch that ammo package to pick it up."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Tutorial5": {
+            "face": "nullptr",
+            "name": "",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Try to hit those targets. You can shoot with <LEFT CLICK> and reload with <R>. Use <MOUSE> to aim."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Tutorial5PAD": {
+            "face": "nullptr",
+            "name": "",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Try to hit those targets. You can shoot with <RIGHT TRIGGER> and reload with <X button>. Use <RIGHT THUMBSTICK> to aim."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Tutorial6": {
+            "face": "nullptr",
+            "name": "",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Use your dagger by pressing <RIGHT CLICK>. You can receive medkits if you kill with your dagger."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Tutorial6PAD": {
+            "face": "nullptr",
+            "name": "",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Use your dagger by pressing the <RIGHT THUMBSTICK>. You can receive medkits if you kill with your dagger."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Tutorial7": {
+            "face": "nullptr",
+            "name": "",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "You can ignore damage while dashing. Use your dash (press <SHIFT>) to avoid being hit by the shots from the turret."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Tutorial7PAD": {
+            "face": "nullptr",
+            "name": "",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "You can ignore damage while dashing. Use your dash (press <LEFT TRIGGER>) to avoid being hit by the shots from the turret."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Tutorial8": {
+            "face": "nullptr",
+            "name": "",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "You can heal by picking up medkits like this one."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Tutorial8PAD": {
+            "face": "nullptr",
+            "name": "",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "You can heal by picking up medkits like this one."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Tutorial9": {
+            "face": "nullptr",
+            "name": "",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "If you have two weapons equipped, you can change weapon pressing <Q>."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Tutorial9PAD": {
+            "face": "nullptr",
+            "name": "",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "If you have two weapons equipped, you can change weapon pressing <Y button>."
             ],
             "faces": [
                 0,

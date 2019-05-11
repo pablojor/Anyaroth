@@ -11,6 +11,7 @@
 
 Player::Player(Game* game) : GameObject(game, "Player")
 {
+	_isPlayer = true;
 	addComponent<Texture>(game->getTexture("Mk"));
 
 	_transform = addComponent<TransformComponent>();
@@ -843,4 +844,10 @@ void Player::changeMelee(Melee* newMelee, int anim)
 {
 	_melee = newMelee;
 	_meleeAnim = anim;
+}
+
+void Player::clearAmmo() 
+{ 
+	_currentGun->clearAmmo(); 
+	_playerPanel->updateAmmoViewer(_currentGun->getClip(), _currentGun->getMagazine());
 }
