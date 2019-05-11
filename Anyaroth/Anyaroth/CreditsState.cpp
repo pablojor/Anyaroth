@@ -2,7 +2,7 @@
 #include "CreditsStateHUD.h"
 #include "Game.h"
 
-CreditsState::CreditsState(Game* game) : GameState(game)
+CreditsState::CreditsState(Game* game, bool goodFinal) : GameState(game) , _goodFinal(goodFinal)
 {
 }
 

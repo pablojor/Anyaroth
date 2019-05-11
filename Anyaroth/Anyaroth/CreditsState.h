@@ -3,8 +3,10 @@
 
 class CreditsState : public GameState
 {
+private:
+	_goodFinal = true;
 public:
-	CreditsState(Game* game);
+	CreditsState(Game* game, bool goodFinal = true);
 	~CreditsState();
 
 	virtual void start();

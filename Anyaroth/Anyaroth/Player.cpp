@@ -528,10 +528,10 @@ void Player::handleAnimations()
 		if (isGrounded() && !isDashing() && !isMeleeing() && !_stunned)
 		{
 			//Idle
-			if (vel.x == 0 && vel.y == 0 && isGrounded())
+			if (abs(vel.x) <= 5.f /*&& vel.y == 0*/ && isGrounded())
 				_anim->playAnim(AnimatedSpriteComponent::Idle);
 			//Walking
-			else if (abs(vel.x) > 0 && isGrounded() && !isDashing())
+			else if (abs(vel.x) > 5.f && isGrounded() && !isDashing())
 			{
 				if ((!_anim->isFlipped() && vel.x > 0) || (_anim->isFlipped() && vel.x < 0))
 					_anim->playAnim(AnimatedSpriteComponent::Walk);

@@ -9,9 +9,9 @@ Trigger::Trigger(Game* game, int xPos, int yPos) : GameObject(game, ""), _collid
 
 	_body = addComponent<BodyComponent>();
 	_body->getBody()->SetType(b2_kinematicBody);
-	_body->getBody()->GetFixtureList()->SetSensor(true);
 	_body->filterCollisions(OBJECTS, PLAYER);
 	_body->setH(800);
+	_body->getBody()->GetFixtureList()->SetSensor(true);
 }
 
 Trigger::~Trigger()

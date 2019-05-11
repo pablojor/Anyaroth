@@ -488,6 +488,7 @@
       <Filter>Archivos de código fuente\Objects</Filter>
     </ClCompile>
     <ClCompile Include="DialogueTrigger.cpp" />
+    <ClCompile Include="GoodCredits.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -1013,6 +1014,7 @@
       <Filter>Archivos de encabezado\Objects\Enemies\GroundEnemies</Filter>
     </ClInclude>
     <ClInclude Include="DialogueTrigger.h" />
+    <ClInclude Include="GoodCredits.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de código fuente">

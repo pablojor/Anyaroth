@@ -177,6 +177,7 @@
     <ClCompile Include="FramedImageUI.cpp" />
     <ClCompile Include="AnimatedSpriteComponent.cpp" />
     <ClCompile Include="Arm.cpp" />
+    <ClCompile Include="GoodCredits.cpp" />
     <ClCompile Include="Knife.cpp" />
     <ClCompile Include="PlayMusicEvent.cpp" />
     <ClCompile Include="PlaySoundEvent.cpp" />
@@ -344,6 +345,7 @@
     <ClInclude Include="AnimatedSpriteComponent.h" />
     <ClInclude Include="AnyarothError.h" />
     <ClInclude Include="Arm.h" />
+    <ClInclude Include="GoodCredits.h" />
     <ClInclude Include="Knife.h" />
     <ClInclude Include="PlayMusicEvent.h" />
     <ClInclude Include="PlaySoundEvent.h" />

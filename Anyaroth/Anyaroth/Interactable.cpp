@@ -32,10 +32,6 @@ Interactable::~Interactable()
 {
 }
 
-void Interactable::update(const double& time)
-{
-	GameObject::update(time);
-}
 
 bool Interactable::handleEvent(const SDL_Event& event)
 {
@@ -43,6 +39,7 @@ bool Interactable::handleEvent(const SDL_Event& event)
 	{
 		if (event.key.keysym.sym == SDLK_e && _canInteract) { //TECLA PARA PASAR DE TEXTO EN EL DIALOGO
 			interact();//realiza accion
+			return true;
 		}
 	}
 	else if (event.type == SDL_CONTROLLERBUTTONDOWN)
@@ -50,6 +47,7 @@ bool Interactable::handleEvent(const SDL_Event& event)
 		if (event.cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_UP && _canInteract)
 		{
 			interact();//realiza accion
+			return true;
 		}
 	}
 

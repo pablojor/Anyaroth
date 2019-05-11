@@ -24,6 +24,8 @@
 #include "DialogueTrigger.h"
 #include "SpawnerBoss.h"
 #include "FloatingHead.h"
+#include "GoodCredits.h"
+#include "BadCredits.h"
 #include <json.hpp>
 
 using namespace nlohmann;
@@ -211,6 +213,14 @@ void Map::createObjects()
 				angra->addChild(spawner);
 				angra->push_backSpawner(spawner);
 				_spawnType++;
+			}
+			else if (name == "GoodCredits")
+			{
+				_objects->addChild(new GoodCredits(_game, Vector2D(pos.getX() - TILES_SIZE, pos.getY() - TILES_SIZE * 2)));
+			}
+			else if (name == "BadCredits")
+			{
+				_objects->addChild(new BadCredits(_game, Vector2D(pos.getX() - TILES_SIZE, pos.getY() - TILES_SIZE * 2)));
 			}
 		}
 	}
