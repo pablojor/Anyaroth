@@ -482,7 +482,8 @@ void Boss3::changeGun()
 	_otherGun = aux;
 
 	int numShots = _game->random(5, 10);
-	double incrAngle = 180 / (numShots - 1);
+	double incrAngle = 30 / (numShots - 1);
+	(_dir.getX() == 1) ? _angle = 195 : _angle = -15;
 	shootBullet(numShots, incrAngle);
 
 	_otherGun = _myGun;
