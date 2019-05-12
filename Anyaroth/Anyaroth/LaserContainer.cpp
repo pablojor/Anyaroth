@@ -7,7 +7,7 @@ LaserContainer::LaserContainer(Game* g, Vector2D pos, Texture* container, Textur
 
 	auto transform = addComponent<TransformComponent>();
 	transform->setPosition(pos.getX(), pos.getY());
-	transform->setScale(0.5);
+	transform->setScale(0.75);
 
 	_anim = addComponent<AnimatedSpriteComponent>();
 	_anim->addAnim(AnimatedSpriteComponent::LaserClosed, 1, true);
@@ -19,4 +19,13 @@ LaserContainer::LaserContainer(Game* g, Vector2D pos, Texture* container, Textur
 	_laser = new Laser(g, pos, laser, player, 5);
 
 	addChild(_laser);
+}
+void LaserContainer::render(Camera* c) const
+{
+	//Llama al render de los hijos
+	if (_laser->isActive())
+		_laser->render(c);
+
+	for (auto rc : getRenderComponents())
+		rc->render(c);
 }

@@ -19,6 +19,7 @@ public:
 
 	void Warning(double angle) { _laser->PreShoot(angle); _anim->playAnim(AnimatedSpriteComponent::LaserOpening); }
 	void Shoot() { _laser->Shoot(); }
-	void Stop() { _laser->Stop();  _anim->playAnim(AnimatedSpriteComponent::LaserClosing);
-	}
+	void Stop() { _laser->Stop();  _anim->playAnim(AnimatedSpriteComponent::LaserClosing);	}
+
+	virtual void render(Camera* c) const;
 };

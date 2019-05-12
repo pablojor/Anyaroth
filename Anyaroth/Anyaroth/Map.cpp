@@ -151,8 +151,8 @@ void Map::createObjects()
 			}
 			else if (name == "Lasers")
 			{
-				LaserHandler* l = new LaserHandler(_game, _game->getTexture("LaserContainer"), _game->getTexture("Laser"), _player, 8, stoi(data), pos);
-				_objects->addChild(l);
+				LaserHandler* l = new LaserHandler(_game, _game->getTexture("LaserContainer"), _game->getTexture("Laser"), _player, 8, stoi(data), pos + Vector2D{0, -40});
+				addChildFront(l);
 				azura->setLasers(l);
 			}
 			else if (name == "Misil")
