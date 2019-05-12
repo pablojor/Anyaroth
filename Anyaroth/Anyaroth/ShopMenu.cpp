@@ -136,7 +136,7 @@ bool ShopMenu::handleEvent(const SDL_Event& event)
 
 		while (!handled && it != _children.end())
 		{
-			if ((*it)->handleEvent(event))
+			if ((*it) != _dialoguePanel && (*it)->handleEvent(event))
 				handled = true;
 			else
 				it++;

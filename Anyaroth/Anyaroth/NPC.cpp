@@ -35,7 +35,7 @@ void NPC::update(const double& time)
 
 	if (_canInteract)
 	{
-		if (_dialoguePanel->isConversating())
+		if (_dialoguePanel->isOpened())
 		{
 			_interactIndicator->setActive(false);
 			if (_other != nullptr)
@@ -65,8 +65,11 @@ void NPC::update(const double& time)
 
 bool NPC::interact()
 {
-	_dialoguePanel->startDialogue(_dialogue);
-	_other->setInputFreezed(true);
+	if(!_dialoguePanel->isOpened())
+	{
+		_dialoguePanel->startDialogue(_dialogue);
+		_other->setInputFreezed(true);
+	}
 	return false;
 }
 

@@ -70,8 +70,8 @@ void DialoguePanel::startDialogue(const Dialogue& dialogue)
 	{
 		//inicializamos
 		_dialogue = dialogue;
+		_opened = true;
 		_currentText = 0;
-		_isConversating = true;
 		GameManager::getInstance()->setOnDialogue(true);
 
 		if (_dialogue.conversation.size() <= 0)
@@ -162,7 +162,7 @@ void DialoguePanel::endDialogue()
 
 void DialoguePanel::nextText()
 {
-	if (_isConversating && _dialogue.conversation.size() != 0 && _linesTyped == _lines)
+	if (_isConversating && _dialogue.conversation.size() != 0 && _linesTyped == _lines && _currentText + 1 < _dialogue.conversation.size())
 	{
 		_currentText++;
 		_indicatorImage->setVisible(false);
@@ -193,9 +193,11 @@ void DialoguePanel::nextText()
 			_dialogueTexts[0]->type(_segments[0]);
 			//_dialogueTexts[0]->type(_dialogue.conversation[_currentText]);
 		}
-		else //Si _currentText ya es el último, se termina la conversación y se cierra el diálogo.
+		else if(!_keepLastLine) //Si _currentText ya es el último, se termina la conversación y se cierra el diálogo.
 			endDialogue();
 	}
+	else if (!_keepLastLine) //Si _currentText ya es el último, se termina la conversación y se cierra el diálogo.
+		endDialogue();
 }
 
 void DialoguePanel::chopTextIfNecesary(string text)
@@ -244,6 +246,16 @@ void DialoguePanel::chopTextIfNecesary(string text)
 		_segments[0] = text;
 }
 
+void DialoguePanel::completeLines()
+{
+	for (int i = 0; i < _lines; i++) {
+		_dialogueTexts[i]->type(_segments[i]);
+		_dialogueTexts[i]->completeLine();
+	}
+
+	_linesTyped = _lines;
+}
+
 void DialoguePanel::update(const double& deltaTime)
 {
 	PanelUI::update(deltaTime);
@@ -259,11 +271,13 @@ void DialoguePanel::update(const double& deltaTime)
 			_nameBackground->setVisible(false);
 
 			_keepLastLine = false;
+			_opened = false;
 			setVisible(false);
 		}
 		//Cuando termine animacion de abrir dialogo (START DIALOGUE)
 		else if ((_keepLastLine && _backgroundImage->getCurrentAnim() != AnimatedImageUI::Default) || (_backgroundImage->getCurrentAnim() == AnimatedImageUI::Start && _backgroundImage->animationFinished()))
 		{
+			_isConversating = true;
 			_backgroundImage->playAnim(AnimatedImageUI::Default);
 			_nameBackground->playAnim(AnimatedImageUI::Default);
 
@@ -309,14 +323,14 @@ bool DialoguePanel::handleEvent(const SDL_Event& event)
 {
 	bool handled = PanelUI::handleEvent(event);
 
-	if (!handled)
+	if (!handled && _opened)
 	{
-		if ((event.type == SDL_KEYDOWN && !event.key.repeat) || event.type == SDL_CONTROLLERBUTTONDOWN) // Captura solo el primer frame que se pulsa
+		if ((event.type == SDL_KEYDOWN) || event.type == SDL_CONTROLLERBUTTONDOWN) // Captura solo el primer frame que se pulsa
 		{
-			if (event.key.keysym.sym == SDLK_e || event.jbutton.button == SDL_CONTROLLER_BUTTON_A) //TECLA PARA PASAR DE TEXTO EN EL DIALOGO
-				if (!_keepLastLine)
-					nextText();
-				else if (_currentText != _dialogue.conversation.size() - 1)
+			if ((event.key.keysym.sym == SDLK_e && !event.key.repeat) || event.jbutton.button == SDL_CONTROLLER_BUTTON_A) //TECLA PARA PASAR DE TEXTO EN EL DIALOGO
+				if (_linesTyped != _lines && _isConversating)
+					completeLines();
+				else if (_linesTyped == _lines && _isConversating)
 					nextText();
 		}
 	}
