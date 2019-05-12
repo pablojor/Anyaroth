@@ -209,7 +209,7 @@ void Boss3::fase2(const double& deltaTime)
 	{
 		if(_anim->getCurrentAnim() == AnimatedSpriteComponent::AngraBH && _anim->animationFinished())
 		{
-			if (_game->random(0, 100) > 70)
+			if (_game->random(0, 100) > 60)
 			{
 				_actualState = Shooting;
 				_anim->playAnim(AnimatedSpriteComponent::AngraRing);
@@ -242,12 +242,12 @@ void Boss3::fase2(const double& deltaTime)
 		if (_noAction > _doSomething)
 		{
 			int rand = _game->random(0, 100);
-			if (rand > 70)
+			if (rand > 60)
 			{
 				_actualState = Shooting;
 				_anim->playAnim(AnimatedSpriteComponent::AngraRing);
 			}
-			else if (rand > 45)
+			else if (rand > 40)
 			{
 				_actualState = PortalAttack;
 				_anim->playAnim(AnimatedSpriteComponent::AngraDisappear);
