@@ -159,7 +159,7 @@ void LevelManager::setLevel(int l)
 
 		break;
 	case LevelManager::Level3_1:
-		//_currentMap = ...
+		_currentMap = new Map(TILEMAP_PATH + "Nivel3-1.json", _game, _player, _game->getTexture("Tileset3"), _enemyBulletPool);
 		setParallaxZone3();
 		//_game->getSoundManager()->playMusic("") m�sica zona 3
 		break;
@@ -279,7 +279,7 @@ void LevelManager::setLevel(int l)
 	else
 		_level->addChild(_currentSafeZone);
 
-	if (SafeDemo || l == End)
+	if (l == SafeDemo || l == End)
 		_camera->fitCamera({ xBound, yBound }, true);
 	else
 		_camera->setZoom(CAMERA_SCALE_FACTOR);
@@ -292,6 +292,7 @@ void LevelManager::changeLevel(int l)
 {
 	if (_game->getCurrentState()->getPlayHUD() != nullptr)
 		_game->getCurrentState()->getPlayHUD()->reset();
+
 	_enemyBulletPool->stopBullets();
 	_level->destroyAllChildren();
 	_game->getSoundManager()->stopMusic();
