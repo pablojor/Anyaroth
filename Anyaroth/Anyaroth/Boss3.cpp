@@ -2,7 +2,7 @@
 #include "ImprovedRifle.h"
 #include "SpawnerBoss.h"
 #include "FloatingHead.h"
-Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(g, player, pos, pool, g->getTexture("Angra")), Enemy(g, player, pos, g->getTexture("Angra"))
+Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(g, player, pos, pool, g->getTexture("Angra")), Enemy(g, player, pos, g->getTexture("Angra"),"die2")
 {
 	_life = 300; // Demo Guerrilla
 	_life1 = _life;

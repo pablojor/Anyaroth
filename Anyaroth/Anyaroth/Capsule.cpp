@@ -51,5 +51,6 @@ void Capsule::beginCollision(GameObject * other, b2Contact* contact)
 	{
 		_spawning = true;
 		_anim->playAnim(AnimatedSpriteComponent::CapsuleSpawn);
+		_game->getSoundManager()->playSFX("capsuleOpen");
 	}
 }

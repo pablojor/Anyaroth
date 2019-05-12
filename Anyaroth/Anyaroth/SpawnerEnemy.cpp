@@ -1,6 +1,6 @@
 #include "SpawnerEnemy.h"
 
-SpawnerEnemy::SpawnerEnemy(Game* g, Player* player, Vector2D pos) : Enemy(g, player, pos, g->getTexture("Spawner"))
+SpawnerEnemy::SpawnerEnemy(Game* g, Player* player, Vector2D pos) : Enemy(g, player, pos, g->getTexture("Spawner"), "spawnerDeath", "spawnerHit", "martyrMeleeHit")
 {
 	_vision = 800;
 	_life = 40;

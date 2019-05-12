@@ -178,6 +178,7 @@
     [ "shop", "shop.ogg" ],
     [ "safe_zone", "safe_zone.ogg" ],
     [ "cutScene1", "cutScene(Spenta-Queen).ogg" ],
+    [ "cutScene2", "azuraCutScene.ogg" ],
     [ "boss1Battle", "boss1Battle.ogg" ],
     [ "boss2Battle", "boss2Battle.ogg" ],
     [ "boss3Battle", "boss3Battle.ogg" ],
@@ -200,6 +201,11 @@
 
     [ "pick1", "itempick1.wav" ],
 
+    [ "helmetDown", "helmetDown.wav" ],
+    [ "helmetSpark", "helmetSpark.wav" ],
+    [ "flySpenta", "flySpenta.wav" ],
+    [ "angraGrunt", "angraGrunt.wav" ],
+    [ "alarm", "alarm.wav" ],
     [ "doorOpen", "doorOpen.wav" ],
     [ "doorClose", "doorClose.wav" ],
     [ "turretShot", "turretShot.wav" ],
@@ -233,6 +239,12 @@
     [ "bombThrow", "bombthrow.wav" ],
     [ "bombExplosion", "bombexplosion.wav" ],
 
+    [ "staticSpawnerDeath", "staticSpawnerDeath.wav" ],
+    [ "staticSpawnerSpawn", "staticSpawnerSpawn.wav" ],
+    [ "beeDeath", "beeDeath.wav" ],
+    [ "spawnerHit", "spawnerHit.wav" ],
+    [ "spawnerDeath", "spawnerDeath.wav" ],
+    [ "spawnerSpawn", "spawnerSpawn.wav" ],
     [ "turretMeleeHit", "turretMeleeHit.wav" ],
     [ "turretHit", "turretHit.wav" ],
     [ "turretDeath", "turretDeath.wav" ],

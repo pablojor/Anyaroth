@@ -1,7 +1,7 @@
 #include "FlyingEnemy.h"
 #include "Game.h"
 
-FlyingEnemy::FlyingEnemy(Game* g, Player* player, Vector2D pos) : Enemy(g,  player, pos, g->getTexture("Bee"))
+FlyingEnemy::FlyingEnemy(Game* g, Player* player, Vector2D pos) : Enemy(g,  player, pos, g->getTexture("Bee"), "beeDeath")
 {
 	_damage = 5;
 
