@@ -2,7 +2,7 @@
   "textures": [
     [ "Box", "box.png", 1, 1 ],
     [ "GunCursor", "gunCursor.png", 1, 1 ],
-    [ "Tutorial Signpost", "box.png", 1, 1 ],
+    [ "Tutorial Signpost", "tutorial_sign.png", 1, 1 ],
 
     [ "Azura", "azura_idle.png", 1, 8 ],
     [ "Kartya", "kartya_idle.png", 1, 12 ],

@@ -169,7 +169,7 @@ void LevelManager::setLevel(int l)
 		_game->getSoundManager()->playMusic("safe_zone", -1);
 		break;
 	case LevelManager::Level3_2:
-		//_currentMap = ...
+		_currentMap = new Map(TILEMAP_PATH + "Nivel3-2.json", _game, _player, _game->getTexture("Tileset3"), _enemyBulletPool);
 		setParallaxZone3();
 		//_game->getSoundManager()->playMusic("") m�sica zona 3
 		break;

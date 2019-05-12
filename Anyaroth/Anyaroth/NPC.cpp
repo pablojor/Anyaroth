@@ -18,7 +18,7 @@ NPC::NPC(Game* g, Texture* texture, Vector2D pos, Dialogue dialogue) : Interacta
 	_body->filterCollisions(OBJECTS, PLAYER);
 
 	_anim = addComponent<AnimatedSpriteComponent>();
-	_anim->addAnim(AnimatedSpriteComponent::Main, 8, true);
+	_anim->addAnim(AnimatedSpriteComponent::Main, _anim->getTexture()->getNumCols(), true);
 
 	_anim->playAnim(AnimatedSpriteComponent::Main);
 
