@@ -73,6 +73,29 @@
         }, 
         {
          "draworder":"topdown",
+         "id":31,
+         "name":"Throne",
+         "objects":[
+                {
+                 "gid":82,
+                 "height":16,
+                 "id":46,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":561.333333333333,
+                 "y":385.333333333333
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
          "id":19,
          "name":"FloatingHead",
          "objects":[
@@ -201,8 +224,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":31,
- "nextobjectid":45,
+ "nextlayerid":32,
+ "nextobjectid":47,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.2.1",
