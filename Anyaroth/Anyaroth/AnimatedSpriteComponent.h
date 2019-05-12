@@ -51,6 +51,10 @@ public:
 	enum Angra {
 		AngraIdle, AngraWalk, AngraBH, AngraAppear, AngraDisappear, AngraRing, AngraDie
 	};
+	enum AngraSoldier {
+		AngraSoldierIdle, AngraSoldierWalk, AngraSoldierWalkBack, AngraSoldierBeforeJump, AngraSoldierJump, AngraSoldierStartFalling, AngraSoldierFalling, 
+		AngraSoldierHurt, AngraSoldierDash, AngraSoldierDashDown, AngraSoldierDashBack, AngraSoldierDie
+	};
 	enum FloatingHead {
 		HeadIdle, HeadAttackStart, HeadAttackLoop, HeadAttackEnd, HeadDie
 	};

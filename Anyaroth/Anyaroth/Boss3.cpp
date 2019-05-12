@@ -18,11 +18,12 @@ Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(
 	_gravGun = new GravityBombCannon(g);
 	_gravGun->setMaxCadence(0);
 
-	_otherGun = new BounceOrbCannon(g);
+	_otherGun = new OrbShotgun(g);
 	_otherGun->setMaxCadence(0);
 	_otherGun->setBulletSpeed(8);
 	_otherGun->setDamage(10);
 
+	_arm->setTexture(_game->getTexture("AngraArmImproveRifle"));
 	_arm->setOffSet(Vector2D(90, 105));
 	_arm->getComponent<CustomAnimatedSpriteComponent>()->setVisible(false);
 
@@ -476,16 +477,37 @@ void Boss3::circularShoot(const double& deltaTime)
 	}
 }
 
+void Boss3::AngraSoldierSpawn()
+{
+	_anim->setTexture(_game->getTexture("AngraSoldier"));
+	_anim->reset();
+	_anim->addAnim(AnimatedSpriteComponent::AngraSoldierIdle, 16, true);
+	_anim->addAnim(AnimatedSpriteComponent::AngraSoldierWalk, 10, true);
+	_anim->addAnim(AnimatedSpriteComponent::AngraSoldierWalkBack, 10, true);
+	_anim->addAnim(AnimatedSpriteComponent::AngraSoldierBeforeJump, 1, true);
+	_anim->addAnim(AnimatedSpriteComponent::AngraSoldierJump, 4, true);
+	_anim->addAnim(AnimatedSpriteComponent::AngraSoldierStartFalling, 2, true);
+	_anim->addAnim(AnimatedSpriteComponent::AngraSoldierFalling, 2, true);
+	_anim->addAnim(AnimatedSpriteComponent::AngraSoldierDash, 5, true);
+	_anim->addAnim(AnimatedSpriteComponent::AngraSoldierDashDown, 3, true);
+	_anim->addAnim(AnimatedSpriteComponent::AngraSoldierDashBack, 5, true);
+	_anim->addAnim(AnimatedSpriteComponent::AngraSoldierDie, 35, true);
+	
+	_body->setW(12);
+	_body->setH(26);
+	_body->filterCollisions(ENEMIES, FLOOR | PLAYER_BULLETS | MELEE);
+
+	_arm->setTexture(_game->getTexture("AngraArmImproveRifle"));
+	_arm->setActive(true);
+}
+
 void Boss3::changeGun()
 {
 	auto aux = _myGun;
 	_myGun = _otherGun;
 	_otherGun = aux;
 
-	int numShots = _game->random(5, 10);
-	double incrAngle = 30 / (numShots - 1);
-	(_dir.getX() == 1) ? _angle = 195 : _angle = -15;
-	shootBullet(numShots, incrAngle);
+	shoot();
 
 	_otherGun = _myGun;
 	_myGun = aux;
