@@ -238,8 +238,7 @@ void Map::restartLevel()
 
 bool Map::handleEvent(const SDL_Event & event)
 {
-	GameObject::handleEvent(event);
-	return false;
+	return GameObject::handleEvent(event);
 }
 
 void Map::update(const double& deltaTime)
