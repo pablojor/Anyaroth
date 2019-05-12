@@ -2,7 +2,6 @@
 #include "GameObject.h"
 #include "TransformComponent.h"
 #include "BodyComponent.h"
-#include "MovingComponent.h"
 #include "CustomAnimatedSpriteComponent.h"
 #include "Player.h"
 #include "Life.h"
@@ -13,7 +12,6 @@ class Enemy : public GameObject
 protected:
 	TransformComponent* _transform = nullptr;
 	BodyComponent* _body = nullptr;
-	MovingComponent* _movement = nullptr;
 	CustomAnimatedSpriteComponent* _anim = nullptr;
 
 	Player* _player = nullptr;

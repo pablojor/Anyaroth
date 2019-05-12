@@ -14,7 +14,7 @@ protected:
 	Vector2D _pos;
 	Player* _player;
 	int _damage, _angle;
-	//Sistema de daño
+	//Sistema de daï¿½o
 	double startedDamaging = 301, timeToDmg = 300;
 	bool colliding = false;
 

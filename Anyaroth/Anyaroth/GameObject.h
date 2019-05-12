@@ -111,6 +111,7 @@ public:
 	inline void addChildFront(GameObject* obj) { obj->_parent = this; _children.push_front(obj); }
 	inline list<GameObject*>& getChildren()  { return _children; }
 	void destroyAllChildren();
+	inline GameObject* getParent() const { return _parent; }
 
 	inline Game* getGame() const { return _game; }
 

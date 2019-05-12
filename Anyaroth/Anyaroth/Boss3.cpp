@@ -7,6 +7,8 @@ Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(
 	_life = 300; // Demo Guerrilla
 	_life1 = _life;
 
+	_name = "Angra Manyu";
+
 	delete(_myGun);
 	_myGun = new ImprovedRifle(g);
 	_myGun->setMaxCadence(_rifleCadence);
@@ -47,7 +49,6 @@ Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(
 
 	_playerBody = _player->getComponent<BodyComponent>();
 
-
 	_armVision = true;
 
 	_actualState = Moving;
@@ -63,10 +64,6 @@ Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(
 	_anim->playAnim(AnimatedSpriteComponent::AngraIdle);
 	_anim->setVisible(false);
 
-	//activar al pasar a la fase 3
-	_sensor = new BossSensor(g, this, { 100, 100 }, { 30, 30 });
-	_sensor->setActive(false);
-	addChild(_sensor);
 	_invulnerable = true;
 
 	_body->getBody()->SetActive(false);
@@ -78,6 +75,7 @@ Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(
 void Boss3::setBoss3Panel(Boss3Panel * b)
 {
 	_boss3Panel = b;
+	_boss3Panel->updateBossName(_name);
 
 	//Actualizamos de primeras el aspecto del Panel del Jugador
 	_boss3Panel->updateLifeBar(_life1.getLife(), _life.getLife());
@@ -333,7 +331,8 @@ void Boss3::beetwenFases(const double& deltaTime)
 	else if (_lastFase == Fase2)
 	{
 		changeFase(Fase3);
-		_sensor->setActive(true);
+		_sensor = new BossSensor(_game, this, { 100, 100 }, { 30, 30 });
+		addChild(_sensor);
 		_velocity = 100;
 		_myGun->setMaxCadence(_rifleCadence);
 
@@ -343,16 +342,18 @@ void Boss3::beetwenFases(const double& deltaTime)
 		_life1.resetLife();
 
 		_boss3Panel->resetLifeBar(_life1.getLife(), _life.getLife());
-		_boss3Panel->updateBossName("Angra Soldier");//Provisional
+		_name = "Angra Soldier";
+		_boss3Panel->updateBossName(_name);//Provisional
 		_actualState = Moving;
 		_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
+		_corpse = new BossCorpse(_game, _transform->getPosition(), _game->getTexture("PistolIcon"));
+		addChild(_corpse);
 	}
 	else
 	{
 		die();
 	}
 	_boss3Panel->updateLifeBar(_life1.getLife(), _life.getLife());
-
 	//}
 }
 
@@ -604,4 +605,14 @@ void Boss3::endCollision(GameObject * other, b2Contact* contact)
 	//Deteccion del suelo
 	if ((fA->IsSensor() || fB->IsSensor()) && (other->getTag() == "Ground" || other->getTag() == "Platform"))
 		_onFloor--;
+}
+
+BossCorpse::BossCorpse(Game * g, Vector2D pos, Texture* texture): GameObject(g)
+{
+	TransformComponent* t = addComponent<TransformComponent>();
+	t->setPosition(pos);
+
+	addComponent<Texture>(texture);
+
+	_sprite = addComponent<SpriteComponent>();
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include "PhysicsComponent.h"
 #include "TransformComponent.h"
+#include "BodyComponent.h"
 #include "Texture.h"
 
 class GameObject;
@@ -9,6 +10,7 @@ class FollowingComponent : public PhysicsComponent
 {
 protected:
 	TransformComponent* _transform = nullptr;
+	BodyComponent* _body = nullptr;
 	TransformComponent* _transformOther = nullptr;
 	GameObject* _other = nullptr;
 	Vector2D _offset;

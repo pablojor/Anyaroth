@@ -7,6 +7,8 @@ Boss2::Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, 
 	_life = 250;
 	_life1 = _life2 = _life3 = _life;
 
+	_name = "Azura Manyu";
+
 	if (_myGun != nullptr)
 		delete _myGun;
 	_myGun = new ImprovedShotgun(g);
