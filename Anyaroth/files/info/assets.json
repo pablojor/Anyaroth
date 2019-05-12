@@ -48,7 +48,8 @@
     [ "TrooperArm", "trooperarm.png", 3, 2 ],
 	[ "Hive", "hive_spritesheet.png", 3, 10 ],
 	[ "Bee", "abeja_spritesheet.png", 2, 8 ],
-	[ "Capsule", "capsule.png", 2, 17 ],
+	[ "Spawner", "spawner_spritesheet.png", 3, 14 ],
+	[ "Capsule", "capsule_spritesheet.png", 2, 17 ],
 
     [ "Spenta", "spenta_spritesheet.png", 12, 26 ],
     [ "SpentaOrb", "spenta_orb_spritesheet.png", 2, 10 ],
