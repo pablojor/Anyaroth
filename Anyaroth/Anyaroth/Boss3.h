@@ -20,7 +20,7 @@ class Boss3 : public Boss
 
 		//Cosas del disparo circular
 		int _num = 0, _timeOnShooting = 0, _timeBeetwenBullets = 500, _timeBeetwenCircularShoot = 500;
-		int _numBullets = 40, _actualBullet = 0;
+		int _numBullets = 60, _actualBullet = 0;
 		double _angleIncrease = 360/ _numBullets, _angle = 180;
 		bool _needToFinishAnim = false;
 
