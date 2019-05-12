@@ -32,6 +32,9 @@
     [ "SniperBullet", "sniperbullet_spritesheet.png", 2, 3 ],
     [ "BHBullet", "bHCannon_bullet_spritesheet.png", 2, 5 ],
     [ "BHArea", "bHCannon_area.png", 1, 4 ],
+    [ "SpentaBullet", "SpentaBullets.png", 2, 4 ],
+    [ "AzuraShotgunBullet", "AzuraShotgunBullet.png", 2, 2 ],
+    [ "AngraMechaBullet", "AgraMechaBullet.png", 2, 4 ],
 
     [ "PistolIcon", "pistolIcon.png", 1, 1 ],
     [ "ShotgunIcon", "shotgunIcon.png", 1, 1 ],
@@ -160,7 +163,9 @@
     [ "CommonFrame", "commonweapon_frame.png", 1, 3 ],
     [ "RareFrame", "rareweapon_frame.png", 1, 3 ],
 
-    [ "Dust", "dust.png", 1, 1 ],
+    [ "Dust1", "dust1.png", 1, 1 ],
+    [ "Dust2", "dust2.png", 1, 1 ],
+    [ "Dust3", "dust3.png", 1, 1 ],
     [ "Smoke", "smoke.png", 1, 1 ],
     [ "Blood", "blood.png", 1, 1 ],
     [ "Sparks", "sparks.png", 1, 1 ],

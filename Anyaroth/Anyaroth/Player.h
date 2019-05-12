@@ -30,6 +30,8 @@ private:
 	Money* _money = nullptr;
 	PlayerPanel* _playerPanel = nullptr;
 
+	string _dustParticle = "Dust1";
+
 	double _speed = 15, _gravScale = 8, _damping = 3;
 
 	int _meleeAnim = AnimatedSpriteComponent::MeleeKnife;
@@ -132,8 +134,9 @@ public:
 	void setPlayerPanel(PlayerPanel* p);
 	inline PlayerPanel* getPlayerPanel() const { return _playerPanel; };
 
-	inline void setPlayerPosition(Vector2D pos) { _body->getBody()->SetTransform(b2Vec2(pos.getX(), pos.getY()), 0); }
+	inline void setPlayerPosition(Vector2D pos) {_body->getBody()->SetTransform(b2Vec2(pos.getX(), pos.getY()), 0);}
 	inline void setPlayerBulletPool(BulletPool* pool) { _playerBulletPool = pool; }
+	void resetDustParticle();
 
 	inline bool changeLevel() const { return _changeLevel; }
 	inline void setChangeLevel(bool change) { _changeLevel = change; }

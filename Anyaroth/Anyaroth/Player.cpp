@@ -7,6 +7,7 @@
 #include "GunType_def.h"
 #include "WeaponManager.h"
 #include "ParticleManager.h"
+#include "GameManager.h"
 
 
 Player::Player(Game* game) : GameObject(game, "Player")
@@ -676,7 +677,7 @@ void Player::move(const Vector2D& dir, const double& speed)
 	if (_floorCount > 0 && dir.getX()!=0 && _runningSpawnParticle<=0)
 	{
 		_runningSpawnParticle = 40;
-		ParticleManager::GetParticleManager()->CreateFountain(_game->getTexture("Smoke"), Vector2D((_body->getBody()->GetPosition().x+_body->getW() *-dir.getX())*M_TO_PIXEL, (_body->getBody()->GetPosition().y+_body->getH()*1.2)*M_TO_PIXEL),Vector2D(-dir.getX(),1),0,10/*spped*/,15,100,10, 100,3);
+		ParticleManager::GetParticleManager()->CreateFountain(_game->getTexture(_dustParticle), Vector2D((_body->getBody()->GetPosition().x+_body->getW() *-dir.getX())*M_TO_PIXEL, (_body->getBody()->GetPosition().y+_body->getH()*1.2)*M_TO_PIXEL),Vector2D(-dir.getX(),1),0,10/*spped*/,15,100,10, 100,3);
 	}
 }
 
@@ -699,6 +700,24 @@ void Player::setPlayerPanel(PlayerPanel * p)
 
 	if (_currentGun->getIconTexture() != nullptr) _playerPanel->updateWeaponryViewer(_currentGun->getIconTexture());
 }
+
+void Player::resetDustParticle()
+{
+	int level = GameManager::getInstance()->getCurrentLevel();
+	if (level <= 6)
+	{
+		_dustParticle = "Dust1";
+	}
+	else if (level <= 12)
+	{
+		_dustParticle = "Dust2";
+	}
+	else
+	{
+		_dustParticle = "Dust3";
+	}
+}
+
 
 void Player::stopPlayer()
 {
@@ -763,8 +782,8 @@ void Player::jump()
 	_timeToJump = 0.f;
 
 	_anim->playAnim(AnimatedSpriteComponent::BeforeJump); 
-	ParticleManager::GetParticleManager()->CreateSpray(_game->getTexture("Dust"), Vector2D((_body->getBody()->GetPosition().x+_body->getW()/2)*M_TO_PIXEL, (_body->getBody()->GetPosition().y + _body->getH())*M_TO_PIXEL), Vector2D(-1, 1), 10, 20, 20, 400, 10, 3);
-	ParticleManager::GetParticleManager()->CreateSpray(_game->getTexture("Dust"), Vector2D((_body->getBody()->GetPosition().x - _body->getW() / 2)*M_TO_PIXEL, (_body->getBody()->GetPosition().y + _body->getH())*M_TO_PIXEL), Vector2D(1, 1), 10, 20, 20, 400, 10, 3);
+	ParticleManager::GetParticleManager()->CreateSpray(_game->getTexture(_dustParticle), Vector2D((_body->getBody()->GetPosition().x+_body->getW()/2)*M_TO_PIXEL, (_body->getBody()->GetPosition().y + _body->getH())*M_TO_PIXEL), Vector2D(-1, 1), 10, 20, 20, 400, 10, 3);
+	ParticleManager::GetParticleManager()->CreateSpray(_game->getTexture(_dustParticle), Vector2D((_body->getBody()->GetPosition().x - _body->getW() / 2)*M_TO_PIXEL, (_body->getBody()->GetPosition().y + _body->getH())*M_TO_PIXEL), Vector2D(1, 1), 10, 20, 20, 400, 10, 3);
   
 	_game->getSoundManager()->playSFX("jump");
 }

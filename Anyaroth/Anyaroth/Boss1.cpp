@@ -19,6 +19,8 @@ Boss1::Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, 
 	_myGun->setMaxCadence(0);
 	_myGun->setBulletSpeed(8);
 	_myGun->setDamage(3);
+	_myGun->setBulletAnimType(BulletAnimType::Default);
+	_myGun->setBulletTexture(g->getTexture("SpentaBullet"));
 
 	_bombGun = new BomberGun(g);
 	_bombGun->setMaxCadence(0);
@@ -66,7 +68,7 @@ Boss1::Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, 
 
 	_playerBody = _player->getComponent<BodyComponent>();
 
-	_hurtParticle = _game->getTexture("Smoke");
+	_hurtParticle = _game->getTexture("Blood");
 }
 
 Boss1::~Boss1()

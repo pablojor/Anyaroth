@@ -14,6 +14,8 @@ Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(
 	_myGun->setMaxCadence(_rifleCadence);
 	_myGun->setBulletSpeed(8);
 	_myGun->setDamage(5);
+	_myGun->setBulletAnimType(BulletAnimType::Default);
+	_myGun->setBulletTexture(g->getTexture("AngraMechaBullet"));
 
 
 	_gravGun = new GravityBombCannon(g);
@@ -62,6 +64,7 @@ Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(
 	_body->getBody()->SetActive(false);
 	_armVision = false;
 
+	_hurtParticle = _game->getTexture("Sparks");
 	addSensors();
 }
 
@@ -288,15 +291,21 @@ void Boss3::beetwenFases(const double& deltaTime)
 		_body->getBody()->SetActive(true);
 		_armVision = false;
 
+
 		_actualState = PortalAttack;
 		portalAttack(deltaTime);
 	}
 	else if (_lastFase == Fase2)
 	{
+		_hurtParticle = _game->getTexture("Blood");
 		changeFase(Fase3);
 		_sensor->setActive(true);
 		_velocity = 100;
 		_myGun->setMaxCadence(_rifleCadence);
+
+
+		_myGun->setBulletTexture(_game->getTexture("RifleBullet"));
+		_myGun->setBulletAnimType(BulletAnimType::RifleBullet);
 
 		_life.setMaxLife(350);
 		_life.resetLife();
