@@ -197,6 +197,7 @@ void Map::createObjects()
 				throneAnim->addAnim(AnimatedSpriteComponent::ThroneEnd, 27, false);
 
 				throneAnim->playAnim(AnimatedSpriteComponent::ThroneIdle);
+				angra->setAnimThrone(throneAnim);
 				addChild(throne);
 			}
 		}

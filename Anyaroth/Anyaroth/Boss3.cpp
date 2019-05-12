@@ -191,7 +191,10 @@ void Boss3::fase1(const double & deltaTime)
 				if (HeadsDead)
 				{
 					_invulnerable = false;
+					_initSpawn = false;
+					_headTurn = true;
 					beetwenFases(deltaTime);
+					_throneAnim->playAnim(AnimatedSpriteComponent::ThroneEnd);
 				}
 			}
 		}
