@@ -25,13 +25,15 @@ void FlyingEnemy::sinusoidalMove(const double& deltaTime)
 	//Onda Sinusoidal vertical 
 	double prevX = _body->getBody()->GetPosition().x * M_TO_PIXEL + _velocity.getX() * _dir.getX();
 	double prevY = _previousPos.getY() + _velocity.getY() * _dir.getY();
-
-	_previousPos = Vector2D(prevX, prevY);
+	Vector2D aux = Vector2D(prevX, prevY);
 
 	double y = prevY + _amplitude * sin(_k * prevX - _angularFrequency * deltaTime / 1000);
 
-	if (_originalPos.distance(_previousPos) < _maxDistance)
+	if (_originalPos.distance(aux) < _maxDistance)
+	{
 		_body->getBody()->SetTransform(b2Vec2(prevX / M_TO_PIXEL, y / M_TO_PIXEL), 0);
+		_previousPos = aux;
+	}
 }
 
 void FlyingEnemy::update(const double& deltaTime)
