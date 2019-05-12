@@ -7,6 +7,7 @@
 #include "GunType_def.h"
 #include "WeaponManager.h"
 #include "ParticleManager.h"
+#include "OrbShotgun.h"
 
 
 Player::Player(Game* game) : GameObject(game, "Player")
@@ -63,7 +64,7 @@ Player::Player(Game* game) : GameObject(game, "Player")
 	addChild(_playerArm);
 	
 	_currentGun = WeaponManager::getInstance()->getWeapon(game, ImprovedRifle_Weapon);
-	_otherGun = WeaponManager::getInstance()->getWeapon(game, PlasmaSniper_Weapon);
+	_otherGun = new OrbShotgun(_game);
 
 	_playerArm->setTexture(_currentGun->getArmTexture());
 	_playerArm->setAnimations(_currentGun->getAnimType());

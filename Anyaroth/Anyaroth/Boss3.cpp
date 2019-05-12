@@ -2,6 +2,22 @@
 #include "ImprovedRifle.h"
 #include "SpawnerBoss.h"
 #include "FloatingHead.h"
+
+void Boss3::handleAnimations(double time)
+{
+	if (_actualFase == Fase3)
+	{
+		auto vel = _body->getBody()->GetLinearVelocity();
+
+		if (vel.y > 2)
+			_anim->playAnim(AnimatedSpriteComponent::AngraSoldierFalling);
+		else if (vel.y < 2 && vel.y > -2)
+			_anim->playAnim(AnimatedSpriteComponent::AngraSoldierStartFalling);
+		else if (vel.y < -2)
+			_anim->playAnim(AnimatedSpriteComponent::AngraSoldierJump);
+	}
+}
+
 Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(g, player, pos, pool, g->getTexture("Angra")), Enemy(g, player, pos, g->getTexture("Angra"),"die2", "boss1Hit", "meleeEnemyHit")
 {
 	_life = 10; // Demo Guerrilla
@@ -19,7 +35,7 @@ Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(
 	_gravGun->setMaxCadence(0);
 
 	_otherGun = new OrbShotgun(g);
-	_otherGun->setMaxCadence(0);
+	_otherGun->setMaxCadence(500);
 	_otherGun->setBulletSpeed(8);
 	_otherGun->setDamage(10);
 
@@ -355,7 +371,7 @@ void Boss3::beetwenFases(const double& deltaTime)
 		_name = "Angra Soldier";
 		_boss3Panel->updateBossName(_name);//Provisional
 		_actualState = Moving;
-		_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
+		_anim->playAnim(AnimatedSpriteComponent::AngraDie);
 		_corpse = new BossCorpse(_game, _transform->getPosition(), _game->getTexture("PistolIcon"));
 		addChild(_corpse);
 		AngraSoldierSpawn();
@@ -533,7 +549,8 @@ void Boss3::AngraSoldierSpawn()
 	fDef.filter.maskBits = FLOOR | PLATFORMS;
 	fDef.isSensor = true;
 	_body->addFixture(&fDef, this);
-
+	
+	_myGun->setArmTexture(_game->getTexture("AngraArmImprovedRifle"));
 	_arm->setTexture(_game->getTexture("AngraArmImprovedRifle"));
 	_arm->setActive(true);
 	_arm->getComponent<CustomAnimatedSpriteComponent>()->setVisible(true);
@@ -545,17 +562,20 @@ void Boss3::changeGun()
 	auto aux = _myGun;
 	_myGun = _otherGun;
 	_otherGun = aux;
-
-	shoot();
-
-	_otherGun = _myGun;
-	_myGun = aux;
+	_arm->setTexture(_myGun->getArmTexture());
 }
 
 void Boss3::dash()
 {
 	int dir = (_game->random(0, 2) == 0) ? -1 : 1;
 	_body->getBody()->SetLinearVelocity(b2Vec2(-dir * _force, 0));
+
+	//Si la direccion en la que se mueve es iguall a la direccion en la que hace el dash, es hacia el delante
+	if (dir *_dir.getX() == 1)
+		_anim->playAnim(AnimatedSpriteComponent::AngraSoldierDash);
+	else
+		_anim->playAnim(AnimatedSpriteComponent::AngraSoldierDashBack);
+
 
 	_invulnerable = true;
 
@@ -582,6 +602,7 @@ void Boss3::checkDash(double deltaTime)
 
 void Boss3::jump()
 {
+	_anim->playAnim(AnimatedSpriteComponent::AngraSoldierBeforeJump);
 	_body->getBody()->SetLinearVelocity(b2Vec2(_body->getBody()->GetLinearVelocity().x + _game->random(-75, 75), 0));
 	_body->getBody()->ApplyLinearImpulse(b2Vec2(0, -_jumpForce), _body->getBody()->GetWorldCenter(), true);
 	_game->getSoundManager()->playSFX("jump");
