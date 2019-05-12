@@ -64,6 +64,8 @@
 	[ "AngraSoldier", "angrasoldier_spritesheet.png", 11, 35 ],
     [ "FlyingHead", "flyinghead_spritesheet.png", 5, 18 ],
 	[ "Throne", "throne_spritesheet.png", 2, 27 ],
+	[ "AngraArmBounceCannon", "angra_bouncecannon_spritesheet.png", 4, 12 ],
+	[ "AngraArmImprovedRifle", "angra_arm_improvedsubfusil_spritesheet.png", 4, 12 ],
 
     [ "Tileset1", "zona1_tileset.png", 22, 10 ],
     [ "TilesetBoss1", "boss1_tileset.png", 13, 16 ],
