@@ -39,7 +39,7 @@ DistanceStaticEnemy::DistanceStaticEnemy(Game* g, Player* player, Vector2D pos, 
 	_myGun->setMaxCadence(700);
 	_myGun->setBulletSpeed(30);
 	_myGun->setShotSound("turretShot");
-
+	_hurtParticle = g->getTexture("Sparks");
 	_affectedByExternalForces = false;
 }
 

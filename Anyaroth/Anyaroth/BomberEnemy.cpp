@@ -25,6 +25,7 @@ BomberEnemy::BomberEnemy(Game* g, Player* player, Vector2D pos, BulletPool* pool
 	_body->setH(20);
 	_body->getBody()->SetGravityScale(0);
 	_body->filterCollisions(ENEMIES, FLOOR | PLATFORMS | PLAYER_BULLETS | MELEE);
+	_hurtParticle = g->getTexture("Sparks");
 }
 
 BomberEnemy::~BomberEnemy()

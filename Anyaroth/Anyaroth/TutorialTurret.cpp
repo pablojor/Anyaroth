@@ -19,6 +19,7 @@ TutorialTurret::TutorialTurret(Game* g, Player* player, Vector2D pos, BulletPool
 	_myGun->setBulletSpeed(25);
 
 	_anim->flip();
+	_hurtParticle = g->getTexture("Sparks");
 }
 
 

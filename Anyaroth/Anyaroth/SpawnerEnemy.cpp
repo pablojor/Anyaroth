@@ -17,6 +17,7 @@ SpawnerEnemy::SpawnerEnemy(Game* g, Player* player, Vector2D pos) : Enemy(g, pla
 
 	_body->addCricleShape(b2Vec2(0, _body->getH() + _body->getH() / 20), _body->getW() - _body->getW() / 20, ENEMIES, FLOOR | PLATFORMS | PLAYER_BULLETS | MELEE);
 	_body->getBody()->SetGravityScale(0);
+	_hurtParticle = g->getTexture("Sparks");
 }
 
 void SpawnerEnemy::move()

@@ -163,6 +163,7 @@
     [ "Dust", "dust.png", 1, 1 ],
     [ "Smoke", "smoke.png", 1, 1 ],
     [ "Blood", "blood.png", 1, 1 ],
+    [ "Sparks", "sparks.png", 1, 1 ],
 
     [ "AzuraParticle1", "azuraparticle1.png", 1, 1 ],
     [ "AzuraParticle2", "azuraparticle2.png", 1, 1 ],

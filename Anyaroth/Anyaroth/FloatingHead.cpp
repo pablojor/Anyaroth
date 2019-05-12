@@ -7,6 +7,7 @@ FloatingHead::FloatingHead(Game* g, Player* player, Vector2D pos, BulletPool* po
 	_myGun->setDamage(2);
 	_myGun->setMaxCadence(0);
 	_myGun->setBulletSpeed(30);
+	_hurtParticle = g->getTexture("Sparks");
 }
 
 
