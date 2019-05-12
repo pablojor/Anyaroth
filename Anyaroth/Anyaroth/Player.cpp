@@ -796,31 +796,33 @@ void Player::melee()
 
 void Player::shoot()
 {
-	if (_currentGun->canShoot() && !isReloading())
+	if (!_stunned)
 	{
-		_playerArm->shoot();
-		_currentGun->shoot(_playerBulletPool, _playerArm->getPosition(), !_anim->isFlipped() ? _playerArm->getAngle() : _playerArm->getAngle() + 180, "Bullet");
-		_playerPanel->updateAmmoViewer(_currentGun->getClip(), _currentGun->getMagazine());
+		if (_currentGun->canShoot() && !isReloading())
+		{
+			_playerArm->shoot();
+			_currentGun->shoot(_playerBulletPool, _playerArm->getPosition(), !_anim->isFlipped() ? _playerArm->getAngle() : _playerArm->getAngle() + 180, "Bullet");
+			_playerPanel->updateAmmoViewer(_currentGun->getClip(), _currentGun->getMagazine());
 
-		if (!_currentGun->isAutomatic())
+			if (!_currentGun->isAutomatic())
+				_isShooting = false;
+		}
+		else if (_currentGun->hasBullets())
+		{
+			_playerArm->shoot();
+			_game->getSoundManager()->playSFX("emptyGun");
 			_isShooting = false;
-	}
-	else if (_currentGun->hasBullets())
-	{
-		_playerArm->shoot();
-		_game->getSoundManager()->playSFX("emptyGun");
-		_isShooting = false;
-	}
-	else if (!_currentGun->canShoot() && !_currentGun->isAutomatic())
-	{
-		_playerArm->shoot();
-		_isShooting = false;
-	}
+		}
+		else if (!_currentGun->canShoot() && !_currentGun->isAutomatic())
+		{
+			_playerArm->shoot();
+			_isShooting = false;
+		}
 
 
-	if (_currentGun->hasToBeReloaded())	
-		_hasToReload = true;
-	
+		if (_currentGun->hasToBeReloaded())
+			_hasToReload = true;
+	}
 }
 
 bool Player::canReload()
