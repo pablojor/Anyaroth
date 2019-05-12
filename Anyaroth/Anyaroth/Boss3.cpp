@@ -4,7 +4,7 @@
 #include "FloatingHead.h"
 Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(g, player, pos, pool, g->getTexture("Angra")), Enemy(g, player, pos, g->getTexture("Angra"),"die2", "boss1Hit", "meleeEnemyHit")
 {
-	_life = 300; // Demo Guerrilla
+	_life = 10; // Demo Guerrilla
 	_life1 = _life;
 
 	_name = "Angra Manyu";
@@ -125,12 +125,14 @@ void Boss3::movement(const double& deltaTime)
 		if (_dir.getX() == 1)
 		{
 			_anim->unFlip();
-			_arm->setOffSet(Vector2D(245, 105));
+			if(_actualFase == Fase2)
+				_arm->setOffSet(Vector2D(245, 105));
 		}
 		else
 		{
 			_anim->flip();
-			_arm->setOffSet(Vector2D(90, 105));
+			if(_actualFase == Fase2)
+				_arm->setOffSet(Vector2D(90, 105));
 		}
 
 		if (range <= -_stopRange || range >= _stopRange && _actualState != Shooting)
@@ -356,6 +358,7 @@ void Boss3::beetwenFases(const double& deltaTime)
 		_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 		_corpse = new BossCorpse(_game, _transform->getPosition(), _game->getTexture("PistolIcon"));
 		addChild(_corpse);
+		AngraSoldierSpawn();
 	}
 	else
 	{
@@ -486,7 +489,11 @@ void Boss3::circularShoot(const double& deltaTime)
 
 void Boss3::AngraSoldierSpawn()
 {
+	deleteComponent<Texture>(_texture);
+	_texture = _game->getTexture("AngraSoldier");
+	addComponent<Texture>(_texture);
 	_anim->setTexture(_game->getTexture("AngraSoldier"));
+
 	_anim->reset();
 	_anim->addAnim(AnimatedSpriteComponent::AngraSoldierIdle, 16, true);
 	_anim->addAnim(AnimatedSpriteComponent::AngraSoldierWalk, 10, true);
@@ -500,12 +507,37 @@ void Boss3::AngraSoldierSpawn()
 	_anim->addAnim(AnimatedSpriteComponent::AngraSoldierDashBack, 5, true);
 	_anim->addAnim(AnimatedSpriteComponent::AngraSoldierDie, 35, true);
 	
+	_body->deleteBody();
+	deleteComponent<BodyComponent>(_body);
+
+
+	_body = addComponent<BodyComponent>();
+
 	_body->setW(12);
 	_body->setH(26);
 	_body->filterCollisions(ENEMIES, FLOOR | PLAYER_BULLETS | MELEE);
+	_body->getBody()->SetType(b2_dynamicBody);
 
-	_arm->setTexture(_game->getTexture("AngraArmImproveRifle"));
+	_body->getBody()->SetLinearDamping(3);
+	_body->getBody()->SetGravityScale(8);
+
+	_body->addCricleShape(b2Vec2(0, 1.1), 0.7, PLAYER, FLOOR | PLATFORMS);
+	_body->getBody()->SetFixedRotation(true);
+
+
+	b2PolygonShape shape;
+	shape.SetAsBox(5 / M_TO_PIXEL, 3 / M_TO_PIXEL, b2Vec2(0, 3), 0);
+	b2FixtureDef fDef;
+	fDef.shape = &shape;
+	fDef.filter.categoryBits = ENEMIES;
+	fDef.filter.maskBits = FLOOR | PLATFORMS;
+	fDef.isSensor = true;
+	_body->addFixture(&fDef, this);
+
+	_arm->setTexture(_game->getTexture("AngraArmImprovedRifle"));
 	_arm->setActive(true);
+	_arm->getComponent<CustomAnimatedSpriteComponent>()->setVisible(true);
+	_arm->setOffSet(Vector2D(28, 15));
 }
 
 void Boss3::changeGun()
