@@ -19,5 +19,5 @@ public:
 	virtual ~MissileTurret() {}
 
 	virtual void update(const double& deltaTime);
-	void interact();
+	bool interact();
 };

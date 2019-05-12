@@ -8,6 +8,6 @@ public:
 	GoodCredits(Game* game, Vector2D posIni);
 	~GoodCredits();
 
-	virtual void interact();
+	virtual bool interact();
 };
 

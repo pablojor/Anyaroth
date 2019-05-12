@@ -62,7 +62,7 @@ void MissileTurret::update(const double & deltaTime)
 	}
 }
 
-void MissileTurret::interact()
+bool MissileTurret::interact()
 {
 	if (usable && ready)
 	{
@@ -72,4 +72,5 @@ void MissileTurret::interact()
 		ready = false;
 		usable = false;
 	}
+	return false;
 }

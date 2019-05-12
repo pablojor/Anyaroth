@@ -18,6 +18,6 @@ class Shop : public Interactable
 
 		virtual void update(const double& deltaTime);
 
-		virtual void interact();
+		virtual bool interact();
 };
 

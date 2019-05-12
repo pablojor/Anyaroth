@@ -63,10 +63,11 @@ void NPC::update(const double& time)
 	}
 }
 
-void NPC::interact()
+bool NPC::interact()
 {
 	_dialoguePanel->startDialogue(_dialogue);
 	_other->setInputFreezed(true);
+	return false;
 }
 
 void NPC::setDialoguePanel(DialoguePanel* dialoguePanel)

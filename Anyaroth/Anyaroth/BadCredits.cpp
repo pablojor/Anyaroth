@@ -20,9 +20,10 @@ BadCredits::~BadCredits()
 {
 }
 
-void BadCredits::interact()
+bool BadCredits::interact()
 {
 	Game* g = _game;
 	g->popState();
 	g->changeState(new CreditsState(g, false));
+	return true;
 }

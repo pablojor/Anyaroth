@@ -38,16 +38,14 @@ bool Interactable::handleEvent(const SDL_Event& event)
 	if (event.type == SDL_KEYDOWN && !event.key.repeat) // Captura solo el primer frame que se pulsa
 	{
 		if (event.key.keysym.sym == SDLK_e && _canInteract) { //TECLA PARA PASAR DE TEXTO EN EL DIALOGO
-			interact();//realiza accion
-			return true;
+			return interact();//realiza accion
 		}
 	}
 	else if (event.type == SDL_CONTROLLERBUTTONDOWN)
 	{
 		if (event.cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_UP && _canInteract)
 		{
-			interact();//realiza accion
-			return true;
+			return interact();//realiza accion
 		}
 	}
 

@@ -13,7 +13,7 @@ public:
 	virtual ~NPC();
 
 	virtual void update(const double& time);
-	virtual void interact();
+	virtual bool interact();
 
 	void setDialoguePanel(DialoguePanel* dialoguePanel);
 };

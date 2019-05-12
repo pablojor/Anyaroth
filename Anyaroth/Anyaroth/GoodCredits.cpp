@@ -18,9 +18,10 @@ GoodCredits::~GoodCredits()
 {
 }
 
-void GoodCredits::interact()
+bool GoodCredits::interact()
 {
 	Game* g = _game;
 	g->popState();
 	g->changeState(new CreditsState(g));
+	return true;
 }
