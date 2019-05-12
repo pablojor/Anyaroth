@@ -2,7 +2,7 @@
 #include "ImprovedRifle.h"
 #include "SpawnerBoss.h"
 #include "FloatingHead.h"
-Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(g, player, pos, pool, g->getTexture("Angra")), Enemy(g, player, pos, g->getTexture("Angra"),"die2")
+Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(g, player, pos, pool, g->getTexture("Angra")), Enemy(g, player, pos, g->getTexture("Angra"),"die2", "boss1Hit", "meleeEnemyHit")
 {
 	_life = 300; // Demo Guerrilla
 	_life1 = _life;
@@ -193,7 +193,12 @@ void Boss3::fase1(const double & deltaTime)
 					_initSpawn = false;
 					_headTurn = true;
 					beetwenFases(deltaTime);
-					_throneAnim->playAnim(AnimatedSpriteComponent::ThroneEnd);
+					if (!_alreadyDead)
+					{
+						_throneAnim->playAnim(AnimatedSpriteComponent::ThroneEnd);
+						_game->getSoundManager()->playSFX("boss3Teleport");
+						_alreadyDead = true;
+					}
 				}
 			}
 		}
@@ -217,6 +222,7 @@ void Boss3::fase2(const double& deltaTime)
 			{
 				_anim->playAnim(AnimatedSpriteComponent::AngraDisappear);
 				_actualState = PortalAttack;
+				_game->getSoundManager()->playSFX("boss3Teleport");
 			}
 			_alreadyShoot = false;
 		}
@@ -250,6 +256,7 @@ void Boss3::fase2(const double& deltaTime)
 			{
 				_actualState = PortalAttack;
 				_anim->playAnim(AnimatedSpriteComponent::AngraDisappear);
+				_game->getSoundManager()->playSFX("boss3Teleport");
 			}
 			else
 			{
@@ -368,7 +375,6 @@ void Boss3::subLife(int damage)
 			{
 				manageLife(_life1, damage);
 				_boss3Panel->updateLifeBar(_life1.getLife(), _life.getLife());
-				_throneAnim->playAnim(AnimatedSpriteComponent::ThroneEnd);
 			}
 		}
 		_spawnParticles = true;
@@ -419,6 +425,7 @@ void Boss3::portalAttack(const double& deltaTime)
 				_player->subLife(_explosionDamage);
 			}
 			_game->getCurrentState()->getMainCamera()->shake(2, 500);
+			_game->getSoundManager()->playSFX("martyrExplosion");
 		}
 		else if (_timeOut > timeToShowPortal && !portalVisible)
 		{
@@ -522,6 +529,7 @@ void Boss3::dash()
 
 	_body->getBody()->SetLinearDamping(0);
 	_body->getBody()->SetGravityScale(0);
+	_game->getSoundManager()->playSFX("dash");
 }
 
 void Boss3::checkDash(double deltaTime)
@@ -544,6 +552,7 @@ void Boss3::jump()
 {
 	_body->getBody()->SetLinearVelocity(b2Vec2(_body->getBody()->GetLinearVelocity().x + _game->random(-75, 75), 0));
 	_body->getBody()->ApplyLinearImpulse(b2Vec2(0, -_jumpForce), _body->getBody()->GetWorldCenter(), true);
+	_game->getSoundManager()->playSFX("jump");
 }
 
 void Boss3::shootBullet(int numBullets, double angleIncrease)

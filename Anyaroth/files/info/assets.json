@@ -186,8 +186,8 @@
     [ "boss2Battle", "boss2Battle.ogg" ],
     [ "boss3Battle", "boss3Battle.ogg" ],
     [ "zona1", "zona1.ogg" ],
-    [ "zona1", "zona2.ogg" ],
-    [ "zona1", "zona3.ogg" ]
+    [ "zona2", "zona2.ogg" ],
+    [ "zona3", "zona3.ogg" ]
   ],
   "sounds": [
     [ "example1", "example1.wav" ],
@@ -273,6 +273,7 @@
     [ "boss2Interfase", "boss2Interfase.wav" ],
     [ "boss2Jump", "boss2Jump.wav" ],
     [ "boss2Land", "boss2Land.wav" ],
-    [ "boss2Melee", "boss2Melee.wav" ]
+    [ "boss2Melee", "boss2Melee.wav" ],
+    [ "boss3Teleport", "boss3Teleport.wav" ]
   ]
 }

@@ -75,7 +75,7 @@ class Boss3 : public Boss
 		vector<SpawnerBoss*> _spawners;
 		vector<FloatingHead*>_heads;
 
-		bool _headTurn = false, _initSpawn = true;
+		bool _headTurn = false, _initSpawn = true, _alreadyDead = false;
 
 		//Trono
 		AnimatedSpriteComponent* _throneAnim = nullptr;
