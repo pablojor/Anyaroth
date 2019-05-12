@@ -61,6 +61,7 @@
     [ "LaserContainer", "laserContainer.png", 4, 4],
 
     [ "Angra", "angra_spritesheet.png", 7, 34 ],
+	[ "AngraSoldier", "angrasoldier_spritesheet.png", 11, 35 ],
     [ "FlyingHead", "flyinghead_spritesheet.png", 5, 18 ],
 	[ "Throne", "throne_spritesheet.png", 2, 27 ],
 
