@@ -188,6 +188,17 @@ void Map::createObjects()
 				angra->push_backSpawner(spawner);
 				_spawnType++;
 			}
+			else if (name == "Throne")
+			{
+				SpriteObject* throne = new SpriteObject(_game, _game->getTexture("Throne"), Vector2D(pos.getX() - TILES_SIZE * 2, pos.getY() - TILES_SIZE * 2));
+				AnimatedSpriteComponent* throneAnim = throne->getComponent<AnimatedSpriteComponent>();
+				throneAnim->reset();
+				throneAnim->addAnim(AnimatedSpriteComponent::ThroneIdle, 14, true);
+				throneAnim->addAnim(AnimatedSpriteComponent::ThroneEnd, 27, false);
+
+				throneAnim->playAnim(AnimatedSpriteComponent::ThroneIdle);
+				addChild(throne);
+			}
 		}
 	}
 }

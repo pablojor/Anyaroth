@@ -53,7 +53,9 @@ public:
 	enum FloatingHead {
 		HeadIdle, HeadAttackStart, HeadAttackLoop, HeadAttackEnd, HeadDie
 	};
-
+	enum Throne {
+		ThroneIdle, ThroneEnd
+	};
 	AnimatedSpriteComponent(GameObject* obj) : SpriteComponent(obj), PhysicsComponent(obj), RenderComponent(obj), Component(), _obj(obj) {}
 	virtual ~AnimatedSpriteComponent() {}
 

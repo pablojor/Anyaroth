@@ -61,6 +61,7 @@ Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(
 	_anim->addAnim(AnimatedSpriteComponent::AngraDie, 34, false);
 
 	_anim->playAnim(AnimatedSpriteComponent::AngraIdle);
+	_anim->setVisible(false);
 
 	//activar al pasar a la fase 3
 	_sensor = new BossSensor(g, this, { 100, 100 }, { 30, 30 });
@@ -314,14 +315,17 @@ void Boss3::beetwenFases(const double& deltaTime)
 	//{
 	if (_lastFase == Fase1)
 	{
-		changeFase(Fase2);
-		_boss3Panel->setVisible(true);
-		_body->getBody()->SetActive(true);
-		_armVision = false;
+		if (_throneAnim->animationFinished())
+		{
+			changeFase(Fase2);
+			_boss3Panel->setVisible(true);
+			_body->getBody()->SetActive(true);
+			_armVision = false;
 
-		_actualState = PortalAttack;
-		_anim->playAnim(AnimatedSpriteComponent::AngraDisappear);
-		portalAttack(deltaTime);
+			_actualState = PortalAttack;
+			_anim->playAnim(AnimatedSpriteComponent::AngraDisappear);
+			portalAttack(deltaTime);
+		}
 	}
 	else if (_lastFase == Fase2)
 	{
@@ -359,6 +363,7 @@ void Boss3::subLife(int damage)
 			{
 				manageLife(_life1, damage);
 				_boss3Panel->updateLifeBar(_life1.getLife(), _life.getLife());
+				_throneAnim->playAnim(AnimatedSpriteComponent::ThroneEnd);
 			}
 		}
 		_spawnParticles = true;

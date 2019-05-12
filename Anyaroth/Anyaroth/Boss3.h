@@ -3,6 +3,7 @@
 #include "BounceOrbCannon.h"
 #include "BossSensor.h"
 #include "Boss3Panel.h"
+#include "SpriteObject.h"
 
 class FloatingHead;
 class SpawnerBoss;
@@ -66,6 +67,9 @@ class Boss3 : public Boss
 
 		bool _headTurn = false, _initSpawn = true;
 
+		//Trono
+		AnimatedSpriteComponent* _throneAnim = nullptr;
+
 	public:
 		Boss3(Game* g, Player* player, Vector2D pos, BulletPool* pool);
 		virtual ~Boss3();
@@ -85,4 +89,6 @@ class Boss3 : public Boss
 
 		void push_backSpawner(SpawnerBoss* spawner) { _spawners.push_back(spawner); }
 		void push_backHead(FloatingHead* head) { _heads.push_back(head); }
+
+		void setAnimThrone(AnimatedSpriteComponent* throneAnim) { _throneAnim = throneAnim; };
 };
