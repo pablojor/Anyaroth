@@ -1,12 +1,14 @@
 #include "FlyingEnemy.h"
 #include "Game.h"
 
-FlyingEnemy::FlyingEnemy(Game* g, Player* player, Vector2D pos) : Enemy(g,  player, pos, g->getTexture("EnemyMelee"))
+FlyingEnemy::FlyingEnemy(Game* g, Player* player, Vector2D pos) : Enemy(g,  player, pos, g->getTexture("Bee"))
 {
 	_damage = 5;
 
-	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 13, true);
-	_anim->addAnim(AnimatedSpriteComponent::EnemyDie, 18, false);
+	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 6, true);
+	_anim->addAnim(AnimatedSpriteComponent::EnemyWalk, 1, true);
+	_anim->addAnim(AnimatedSpriteComponent::EnemyAttack, 1, true);
+	_anim->addAnim(AnimatedSpriteComponent::EnemyDie, 7, false);
 
 	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 
@@ -44,6 +46,9 @@ void FlyingEnemy::update(const double& deltaTime)
 		_anim->unFlip();
 
 	sinusoidalMove(deltaTime);
+
+	if (_anim->getCurrentAnim() == AnimatedSpriteComponent::EnemyDie && _anim->animationFinished())
+		destroy();
 }
 
 void FlyingEnemy::beginCollision(GameObject * other, b2Contact * contact)
@@ -51,6 +56,6 @@ void FlyingEnemy::beginCollision(GameObject * other, b2Contact * contact)
 	if (other->getTag() == "Player")
 	{
 		_player->subLife(_damage);
-		destroy();
+		_anim->playAnim(AnimatedSpriteComponent::EnemyDie);
 	}
 }

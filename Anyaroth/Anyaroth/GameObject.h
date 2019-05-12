@@ -106,6 +106,7 @@ public:
 	inline void addChild(GameObject* obj) { obj->_parent = this; _children.push_back(obj); }
 	inline list<GameObject*>& getChildren() { return _children; }
 	void destroyAllChildren();
+	inline GameObject* getParent() const { return _parent; }
 
 	inline Game* getGame() const { return _game; }
 

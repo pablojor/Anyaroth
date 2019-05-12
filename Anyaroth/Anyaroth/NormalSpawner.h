@@ -17,9 +17,16 @@ void NormalSpawner<Spawned>::dropCapsule(const double& deltaTime)
 {
 	if (_time >= _spawnTime && _currentEnemies < _maxEnemies)
 	{
-		_game->getCurrentState()->addObject(new CapsuleNormal<Spawned>(_game, _player, Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL), this));
+		_anim->playAnim(AnimatedSpriteComponent::EnemyAttack);
 		_time = 0;
 	}
 	else
 		_time += deltaTime;
+
+
+	if (_anim->getCurrentAnim() == AnimatedSpriteComponent::EnemyAttack && _anim->animationFinished())
+	{
+		_game->getCurrentState()->addObject(new CapsuleNormal<Spawned>(_game, _player, Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL- 40, _body->getBody()->GetPosition().y * M_TO_PIXEL), this));
+		_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
+	}
 }

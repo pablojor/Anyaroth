@@ -1,16 +1,16 @@
 #include "StaticSpawnerEnemy.h"
 #include "FlyingEnemy.h"
 
-StaticSpawnerEnemy::StaticSpawnerEnemy(Game * g, Player * player, Vector2D pos) : Enemy(g, player, pos, g->getTexture("EnemyMartyr"))
+StaticSpawnerEnemy::StaticSpawnerEnemy(Game * g, Player * player, Vector2D pos) : Enemy(g, player, pos, g->getTexture("Hive"))
 {
 	_vision = 500;
 	_life = 30;
 	_time = 0;
 
-	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 13, true);
-	_anim->addAnim(AnimatedSpriteComponent::EnemyWalk, 8, true);
-	_anim->addAnim(AnimatedSpriteComponent::EnemyAttack, 11, false);
-	_anim->addAnim(AnimatedSpriteComponent::EnemyDie, 18, false);
+	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 9, true);
+	_anim->addAnim(AnimatedSpriteComponent::EnemyWalk, 1, true);
+	_anim->addAnim(AnimatedSpriteComponent::EnemyAttack, 8, false);
+	_anim->addAnim(AnimatedSpriteComponent::EnemyDie, 10, false);
 
 	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 }
@@ -27,14 +27,22 @@ void StaticSpawnerEnemy::update(const double& deltaTime)
 
 		if (_time >= _spawnTime && _currentEnemies < _maxEnemies)
 		{
-			addChild(new FlyingEnemy(_game, _player, Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL - TILES_SIZE * 2, _body->getBody()->GetPosition().y * M_TO_PIXEL - TILES_SIZE * 2)));
+			_anim->playAnim(AnimatedSpriteComponent::EnemyAttack);
 			_time = 0;
 		}
 		else
 			_time += deltaTime;
+
+		if (_anim->getCurrentAnim() == AnimatedSpriteComponent::EnemyAttack && _anim->animationFinished())
+		{
+			addChild(new FlyingEnemy(_game, _player, Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL - TILES_SIZE * 2, _body->getBody()->GetPosition().y * M_TO_PIXEL - TILES_SIZE * 2)));
+			_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
+		}
 	}
 	else if (isDead())
+	{
 		destroyAllChildren();
+	}
 }
 
 int StaticSpawnerEnemy::activeEnemies()

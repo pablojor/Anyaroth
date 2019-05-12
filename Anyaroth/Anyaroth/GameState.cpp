@@ -80,6 +80,10 @@ void GameState::post_update()
 	int i = items_ToDelete.size() - 1;
 	while (i >= 0)
 	{
+		GameObject* parent = items_ToDelete[i]->getParent();
+		if (parent != nullptr)
+			parent->getChildren().remove(items_ToDelete[i]);
+
 		delete items_ToDelete[i];
 		_stages.remove(items_ToDelete[i]);
 		items_ToDelete.pop_back();
@@ -125,6 +129,7 @@ void GameState::addObject(GameObject* n)
 void GameState::destroyObject(GameObject* obj)
 {
 	items_ToDelete.push_back(obj);
+
 }
 
 Vector2D GameState::getMousePositionInWorld() const
