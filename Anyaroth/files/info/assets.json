@@ -58,6 +58,7 @@
 
     [ "Angra", "angra_spritesheet.png", 7, 34 ],
     [ "FlyingHead", "flyinghead_spritesheet.png", 5, 18 ],
+	[ "Throne", "throne_spritesheet.png", 2, 27 ],
 
     [ "Tileset1", "zona1_tileset.png", 22, 10 ],
     [ "TilesetBoss1", "boss1_tileset.png", 13, 16 ],
