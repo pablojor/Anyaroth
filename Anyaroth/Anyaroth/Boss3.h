@@ -1,6 +1,6 @@
 #include "Boss.h"
 #include "GravityBombCannon.h"
-#include "BounceOrbCannon.h"
+#include "OrbShotgun.h"
 #include "BossSensor.h"
 #include "Boss3Panel.h"
 #include "SpriteObject.h"
@@ -37,6 +37,7 @@ class Boss3 : public Boss
 		void circularShoot(const double& deltaTime);
 
 		//Cosas de la fase soldado
+		void AngraSoldierSpawn();
 		BossCorpse* _corpse  = nullptr;
 		Gun* _otherGun = nullptr;
 		void changeGun();

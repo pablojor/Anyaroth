@@ -13,6 +13,7 @@ protected:
 	TransformComponent* _transform = nullptr;
 	BodyComponent* _body = nullptr;
 	CustomAnimatedSpriteComponent* _anim = nullptr;
+	Texture* _texture;
 
 	Player* _player = nullptr;
 	Vector2D _playerDistance;
