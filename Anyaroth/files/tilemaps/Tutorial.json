@@ -229,29 +229,6 @@
         }, 
         {
          "draworder":"topdown",
-         "id":364,
-         "name":"Ammo",
-         "objects":[
-                {
-                 "gid":455,
-                 "height":16,
-                 "id":349,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16,
-                 "x":1728,
-                 "y":192
-                }],
-         "opacity":1,
-         "type":"objectgroup",
-         "visible":true,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "draworder":"topdown",
          "id":365,
          "name":"Aidkit",
          "objects":[
@@ -265,6 +242,29 @@
                  "visible":true,
                  "width":16,
                  "x":3728,
+                 "y":192
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":364,
+         "name":"Ammo",
+         "objects":[
+                {
+                 "gid":455,
+                 "height":16,
+                 "id":349,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":1728,
                  "y":192
                 }],
          "opacity":1,

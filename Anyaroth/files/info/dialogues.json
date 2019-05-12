@@ -1,7 +1,7 @@
 {
     "dialogues": {
         "Helmet 1": {
-            "face": "DialogueFace",
+            "face": "nullptr",
             "name": "Helmet",
             "voice": "exampleVoice",
             "dialogue": [
@@ -21,7 +21,7 @@
             ]
         },
         "Helmet 2": {
-            "face": "DialogueFace",
+            "face": "nullptr",
             "name": "Helmet",
             "voice": "exampleVoice",
             "dialogue": [
@@ -42,7 +42,7 @@
             ]
         },
         "Helmet 3": {
-            "face": "DialogueFace",
+            "face": "nullptr",
             "name": "Helmet",
             "voice": "exampleVoice",
             "dialogue": [
@@ -62,7 +62,7 @@
                 " "
             ]
         },
-        "Tutorial Signpost": {
+        "Tutorial Signpost 0": {
             "face": "nullptr",
             "name": "",
             "voice": "exampleVoice",
@@ -81,8 +81,8 @@
                 " "
             ]
         },
-        "Kartya 1-2": {
-            "face": "DialogueFace",
+        "Kartya 3": {
+            "face": "KartyaFace",
             "name": "???",
             "voice": "exampleVoice",
             "dialogue": [
@@ -104,9 +104,9 @@
                 " "
             ]
         },
-        "NPC 1 1-2": {
-            "face": "DialogueFace",
-            "name": "Worker 1",
+        "NPC 1 3": {
+            "face": "NPC1Face",
+            "name": "Rebel 1",
             "voice": "exampleVoice",
             "dialogue": [
                 "The elders say that long ago the Queen was not a monarch, but a commander loyal to another king.",
@@ -124,9 +124,9 @@
                 " "
             ]
         },
-        "NPC 2 1-2": {
-            "face": "DialogueFace",
-            "name": "Worker 2",
+        "NPC 2 3": {
+            "face": "NPC2Face",
+            "name": "Rebel 2",
             "voice": "exampleVoice",
             "dialogue": [
                 "The Queen won the Ancient War. She killed the four kings, even the one she obeyed.",
@@ -145,9 +145,9 @@
                 " "
             ]
         },
-        "NPC 3 1-2": {
-            "face": "DialogueFace",
-            "name": "Worker 3",
+        "NPC 3 3": {
+            "face": "NPC3Face",
+            "name": "Rebel 3",
             "voice": "exampleVoice",
             "dialogue": [
                 "Now the Queen lives in a palace in the Core of Anyaroth.",
@@ -260,8 +260,8 @@
                 " "
             ]
         },
-        "Kartya 1-3": {
-            "face": "DialogueFace",
+        "Kartya 5": {
+            "face": "KartyaFace",
             "name": "Kartya",
             "voice": "exampleVoice",
             "dialogue": [
@@ -282,8 +282,8 @@
                 " "
             ]
         },
-        "NPC 1 1-3": {
-            "face": "DialogueFace",
+        "NPC 1 5": {
+            "face": "NPC1Face",
             "name": "Rebel 1",
             "voice": "exampleVoice",
             "dialogue": [
@@ -301,8 +301,8 @@
                 " "
             ]
         },
-        "NPC 2 1-3": {
-            "face": "DialogueFace",
+        "NPC 2 5": {
+            "face": "NPC2Face",
             "name": "Rebel 2",
             "voice": "exampleVoice",
             "dialogue": [
@@ -413,8 +413,8 @@
                 " "
             ]
         },
-        "Azura 2-1": {
-            "face": "DialogueFace",
+        "Azura 7": {
+            "face": "AzuraFace",
             "name": "Azura",
             "voice": "exampleVoice",
             "dialogue": [
@@ -441,8 +441,8 @@
                 " "
             ]
         },
-        "NPC 1 2-1": {
-            "face": "DialogueFace",
+        "NPC 1 7": {
+            "face": "NPC1Face",
             "name": "Rebel 1",
             "voice": "exampleVoice",
             "dialogue": [
@@ -460,8 +460,8 @@
                 " "
             ]
         },
-        "NPC 2 2-1": {
-            "face": "DialogueFace",
+        "NPC 2 7": {
+            "face": "NPC2Face",
             "name": "Rebel 2",
             "voice": "exampleVoice",
             "dialogue": [
@@ -480,8 +480,8 @@
                 " "
             ]
         },
-        "NPC 3 2-1": {
-            "face": "DialogueFace",
+        "NPC 3 7": {
+            "face": "NPC3Face",
             "name": "Rebel 3",
             "voice": "exampleVoice",
             "dialogue": [
@@ -588,8 +588,8 @@
                 " "
             ]
         },
-        "NPC 1 2-2": {
-            "face": "DialogueFace",
+        "NPC 1 9": {
+            "face": "NPC1Face",
             "name": "Rebel 1",
             "voice": "exampleVoice",
             "dialogue": [
@@ -607,8 +607,8 @@
                 " "
             ]
         },
-        "Kartya 2-2": {
-            "face": "DialogueFace",
+        "Kartya 9": {
+            "face": "KartyaFace",
             "name": "Kartya",
             "voice": "exampleVoice",
             "dialogue": [
@@ -630,8 +630,8 @@
                 " "
             ]
         },
-        "Kheismani 2-2": {
-            "face": "DialogueFace",
+        "Kheismani 9": {
+            "face": "KheismaniFace",
             "name": "Kheismani",
             "voice": "exampleVoice",
             "dialogue": [
@@ -744,8 +744,8 @@
                 " "
             ]
         },
-        "Kheismani 2-3": {
-            "face": "DialogueFace",
+        "Kheismani 11": {
+            "face": "KheismaniFace",
             "name": "Kheismani",
             "voice": "exampleVoice",
             "dialogue": [
@@ -764,8 +764,8 @@
                 " "
             ]
         },
-        "NPC 1 2-3": {
-            "face": "DialogueFace",
+        "NPC 1 11": {
+            "face": "NPC1Face",
             "name": "Rebel 1",
             "voice": "exampleVoice",
             "dialogue": [
@@ -873,7 +873,7 @@
             ]
         },
         "Azura Manyu 1": {
-            "face": "DialogueFace",
+            "face": "nullptr",
             "name": "Azura Manyu",
             "voice": "exampleVoice",
             "dialogue": [
@@ -895,7 +895,7 @@
             ]
         },
         "Azura Manyu 2": {
-            "face": "DialogueFace",
+            "face": "nullptr",
             "name": "Azura Manyu",
             "voice": "exampleVoice",
             "dialogue": [
@@ -914,8 +914,8 @@
                 " "
             ]
         },
-        "Kheismani 3-1": {
-            "face": "DialogueFace",
+        "Kheismani 13": {
+            "face": "KheismaniFace",
             "name": "Kheismani",
             "voice": "exampleVoice",
             "dialogue": [
@@ -939,8 +939,8 @@
                 " "
             ]
         },
-        "NPC 1 3-1": {
-            "face": "DialogueFace",
+        "NPC 1 13": {
+            "face": "NPC1Face",
             "name": "Rebel 1",
             "voice": "exampleVoice",
             "dialogue": [
@@ -958,8 +958,8 @@
                 " "
             ]
         },
-        "NPC 2 3-1": {
-            "face": "DialogueFace",
+        "NPC 2 13": {
+            "face": "NPC2Face",
             "name": "Rebel 2",
             "voice": "exampleVoice",
             "dialogue": [
@@ -979,8 +979,8 @@
                 " "
             ]
         },
-        "NPC 3 3-1": {
-            "face": "DialogueFace",
+        "NPC 3 13": {
+            "face": "NPC3Face",
             "name": "Rebel 3",
             "voice": "exampleVoice",
             "dialogue": [
@@ -1090,8 +1090,8 @@
                 " "
             ]
         },
-        "Kartya 3-2": {
-            "face": "DialogueFace",
+        "Kartya 15": {
+            "face": "KartyaFace",
             "name": "Kartya",
             "voice": "exampleVoice",
             "dialogue": [
@@ -1111,8 +1111,8 @@
                 " "
             ]
         },
-        "Kheismani 3-2": {
-            "face": "DialogueFace",
+        "Kheismani 15": {
+            "face": "KheismaniFace",
             "name": "Kheismani",
             "voice": "exampleVoice",
             "dialogue": [
@@ -1132,8 +1132,8 @@
                 " "
             ]
         },
-        "NPC 1 3-2": {
-            "face": "DialogueFace",
+        "NPC 1 15": {
+            "face": "NPC1Face",
             "name": "Rebel 1",
             "voice": "exampleVoice",
             "dialogue": [
@@ -1245,8 +1245,8 @@
                 " "
             ]
         },
-        "Kartya 3-3": {
-            "face": "DialogueFace",
+        "Kartya 17": {
+            "face": "KartyaFace",
             "name": "Kartya",
             "voice": "exampleVoice",
             "dialogue": [
@@ -1265,8 +1265,8 @@
                 " "
             ]
         },
-        "Kheismani 3-3": {
-            "face": "DialogueFace",
+        "Kheismani 17": {
+            "face": "KheismaniFace",
             "name": "Kheismani",
             "voice": "exampleVoice",
             "dialogue": [
@@ -1381,7 +1381,7 @@
             ]
         },
         "Angra Manyu 1": {
-            "face": "DialogueFace",
+            "face": "nullptr",
             "name": "Angra Manyu",
             "voice": "exampleVoice",
             "dialogue": [
@@ -1406,7 +1406,7 @@
             ]
         },
         "Angra Manyu 2": {
-            "face": "DialogueFace",
+            "face": "nullptr",
             "name": "Angra Manyu",
             "voice": "exampleVoice",
             "dialogue": [
@@ -1427,8 +1427,8 @@
                 " "
             ]
         },
-        "Kartya Boss 1": {
-            "face": "DialogueFace",
+        "Kartya 19 1": {
+            "face": "KartyaFace",
             "name": "Kartya",
             "voice": "exampleVoice",
             "dialogue": [
@@ -1446,8 +1446,8 @@
                 " "
             ]
         },
-        "Kheismani Boss 1": {
-            "face": "DialogueFace",
+        "Kheismani 19 1": {
+            "face": "KheismaniFace",
             "name": "Kheismani",
             "voice": "exampleVoice",
             "dialogue": [
@@ -1465,8 +1465,8 @@
                 " "
             ]
         },
-        "Kartya Boss 2": {
-            "face": "DialogueFace",
+        "Kartya 19 2": {
+            "face": "KartyaFace",
             "name": "Kartya",
             "voice": "exampleVoice",
             "dialogue": [
@@ -1484,8 +1484,8 @@
                 " "
             ]
         },
-        "Kheismani Boss 2": {
-            "face": "DialogueFace",
+        "Kheismani 19 2": {
+            "face": "KheismaniFace",
             "name": "Kheismani",
             "voice": "exampleVoice",
             "dialogue": [
@@ -1503,8 +1503,8 @@
                 " "
             ]
         },
-        "Kartya Boss 3": {
-            "face": "DialogueFace",
+        "Kartya 19 3": {
+            "face": "KartyaFace",
             "name": "Kartya",
             "voice": "exampleVoice",
             "dialogue": [
@@ -1522,8 +1522,8 @@
                 " "
             ]
         },
-        "Kheismani Boss 3": {
-            "face": "DialogueFace",
+        "Kheismani 19 3": {
+            "face": "KheismaniFace",
             "name": "Kheismani",
             "voice": "exampleVoice",
             "dialogue": [
@@ -1542,8 +1542,8 @@
                 " "
             ]
         },
-        "Kartya Boss 4": {
-            "face": "DialogueFace",
+        "Kartya 19 4": {
+            "face": "KartyaFace",
             "name": "Kartya",
             "voice": "exampleVoice",
             "dialogue": [
@@ -1561,8 +1561,8 @@
                 " "
             ]
         },
-        "Kheismani Boss 4": {
-            "face": "DialogueFace",
+        "Kheismani 19": {
+            "face": "KheismaniFace",
             "name": "Kheismani",
             "voice": "exampleVoice",
             "dialogue": [
@@ -1580,8 +1580,8 @@
                 " "
             ]
         },
-        "Kartya Boss 5": {
-            "face": "DialogueFace",
+        "Kartya 19": {
+            "face": "KartyaFace",
             "name": "Kartya",
             "voice": "exampleVoice",
             "dialogue": [
@@ -1599,8 +1599,8 @@
                 " "
             ]
         },
-        "NPC Demo": {
-            "face": "DialogueFace",
+        "NPC 1 53": {
+            "face": "NPC1Face",
             "name": "Rebel",
             "voice": "exampleVoice",
             "dialogue": [

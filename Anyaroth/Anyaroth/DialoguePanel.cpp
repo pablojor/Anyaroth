@@ -8,7 +8,7 @@ DialoguePanel::DialoguePanel(Game* game) : PanelUI(game)
 {
 	//Inicializamos
 	_backgroundImage = new AnimatedImageUI(game, game->getTexture("DialogueBg"), 0, 188);
-	_faceImage = new FramedImageUI(game, game->getTexture("DialogueFace"), _backgroundImage->getX() + 14, _backgroundImage->getY() + 13);
+	_faceImage = new FramedImageUI(game, game->getTexture("NPC1Face"), _backgroundImage->getX() + 14, _backgroundImage->getY() + 13);
 	_indicatorImage = new AnimatedImageUI(game, game->getTexture("DialogueIndicator"), _backgroundImage->getW() - 22, _backgroundImage->getY() + 61);
 	_nameBackground = new AnimatedImageUI(game, game->getTexture("NameBg"), 0, 168);
 	_nameText = new TextUI(game, " ", game->getFont("ARIAL12"), 12, _faceImage->getX(), _faceImage->getY() - 29, { 145, 255, 255, 255 });

@@ -109,7 +109,7 @@
                         {
                          "name":"data",
                          "type":"string",
-                         "value":"Azura 2-1"
+                         "value":"Azura"
                         }],
                  "rotation":0,
                  "type":"",
@@ -127,7 +127,7 @@
                         {
                          "name":"data",
                          "type":"string",
-                         "value":"NPC 1 2-1"
+                         "value":"NPC 1"
                         }],
                  "rotation":0,
                  "type":"",
@@ -145,7 +145,7 @@
                         {
                          "name":"data",
                          "type":"string",
-                         "value":"NPC 2 2-1"
+                         "value":"NPC 2"
                         }],
                  "rotation":0,
                  "type":"",
@@ -163,7 +163,7 @@
                         {
                          "name":"data",
                          "type":"string",
-                         "value":"NPC 3 2-1"
+                         "value":"NPC 3"
                         }],
                  "rotation":0,
                  "type":"",

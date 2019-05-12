@@ -5,6 +5,7 @@
 #include <algorithm>
 #include "Game.h"
 #include "WeaponManager.h"
+#include "GameManager.h"
 
 
 DepotPanel::DepotPanel(Game* game) : PanelUI(game)
@@ -285,7 +286,7 @@ void DepotPanel::reorderDepot()
 			auto item = *it;
 			auto info = item->getItemInfo();
 
-			if (/*info._sold &&*/ !info._equiped)
+			if (info._zone <= GameManager::getInstance()->getCurrentLevel() && !info._equiped)
 			{
 				item->setVisible(true);
 				visibleMelee.push_back(item);

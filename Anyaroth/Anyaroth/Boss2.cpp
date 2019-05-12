@@ -3,7 +3,7 @@
 #include "ImprovedShotgun.h"
 #include "CutScene.h"
 
-Boss2::Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, player, pos, pool, g->getTexture("Azura")), Enemy(g, player, pos, g->getTexture("Azura"))
+Boss2::Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, player, pos, pool, g->getTexture("AzuraBoss")), Enemy(g, player, pos, g->getTexture("AzuraBoss"))
 {
 	_life = 250;
 	_life1 = _life2 = _life3 = _life;

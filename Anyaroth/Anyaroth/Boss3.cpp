@@ -83,23 +83,24 @@ Boss3::~Boss3()
 
 void Boss3::update(const double & deltaTime)
 {
-	DistanceEnemy::update(deltaTime);
-	if (!isDead())
+	if (_game->getCurrentState()->getCutScene() == nullptr)
 	{
-		movement(deltaTime);
+		DistanceEnemy::update(deltaTime);
 
-		if (_actualFase == Fase1)
-			fase1(deltaTime);
-		else if (_actualFase == Fase2)
-			fase2(deltaTime);
-		else if (_actualFase == Fase3)
-			fase3(deltaTime);
-		else
-			beetwenFases(deltaTime);
+		if (!isDead())
+		{
+			movement(deltaTime);
+
+			if (_actualFase == Fase1)
+				fase1(deltaTime);
+			else if (_actualFase == Fase2)
+				fase2(deltaTime);
+			else if (_actualFase == Fase3)
+				fase3(deltaTime);
+			else
+				beetwenFases(deltaTime);
+		}
 	}
-
-	if (isDead() || _player->isDead())
-		_boss3Panel->setVisible(false);
 }
 
 void Boss3::movement(const double& deltaTime)

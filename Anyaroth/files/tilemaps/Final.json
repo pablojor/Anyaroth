@@ -51,7 +51,7 @@
                  "type":"",
                  "visible":true,
                  "width":16,
-                 "x":240,
+                 "x":656,
                  "y":400
                 }],
          "opacity":1,
@@ -62,20 +62,44 @@
         }, 
         {
          "draworder":"topdown",
-         "id":11,
-         "name":"Boss3",
+         "id":31,
+         "name":"NPC",
          "objects":[
                 {
-                 "gid":68,
+                 "gid":4,
                  "height":16,
-                 "id":37,
+                 "id":45,
                  "name":"",
+                 "properties":[
+                        {
+                         "name":"data",
+                         "type":"string",
+                         "value":"Kheismani"
+                        }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":16,
-                 "x":512,
-                 "y":352
+                 "x":496,
+                 "y":400
+                }, 
+                {
+                 "gid":4,
+                 "height":16,
+                 "id":46,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"data",
+                         "type":"string",
+                         "value":"Kartya"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":768,
+                 "y":400
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -85,44 +109,20 @@
         }, 
         {
          "draworder":"topdown",
-         "id":19,
-         "name":"FloatingHead",
+         "id":32,
+         "name":"GoodCredits",
          "objects":[
                 {
-                 "gid":4,
+                 "gid":79,
                  "height":16,
-                 "id":38,
+                 "id":47,
                  "name":"",
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":16,
-                 "x":320,
-                 "y":208
-                }, 
-                {
-                 "gid":4,
-                 "height":16,
-                 "id":39,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16,
-                 "x":512,
-                 "y":128
-                }, 
-                {
-                 "gid":4,
-                 "height":16,
-                 "id":40,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16,
-                 "x":720,
-                 "y":208
+                 "x":816,
+                 "y":400
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -132,80 +132,20 @@
         }, 
         {
          "draworder":"topdown",
-         "id":18,
-         "name":"SpawnerBoss",
+         "id":33,
+         "name":"BadCredits",
          "objects":[
                 {
-                 "gid":4,
+                 "gid":79,
                  "height":16,
-                 "id":42,
+                 "id":48,
                  "name":"",
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":16,
-                 "x":1024,
-                 "y":96
-                }, 
-                {
-                 "gid":4,
-                 "height":16,
-                 "id":31,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16,
-                 "x":65.3333333333333,
-                 "y":80.6666666666667
-                }, 
-                {
-                 "gid":4,
-                 "height":30,
-                 "id":43,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16,
-                 "x":1024,
-                 "y":190
-                }, 
-                {
-                 "gid":4,
-                 "height":31.3333333333333,
-                 "id":32,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16,
-                 "x":48,
-                 "y":192
-                }, 
-                {
-                 "gid":4,
-                 "height":29.3333333333333,
-                 "id":44,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16,
-                 "x":960,
-                 "y":269.333333333333
-                }, 
-                {
-                 "gid":4,
-                 "height":31.3333,
-                 "id":35,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16,
-                 "x":112,
-                 "y":272
+                 "x":544,
+                 "y":400
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -213,8 +153,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":31,
- "nextobjectid":45,
+ "nextlayerid":34,
+ "nextobjectid":49,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.2.1",

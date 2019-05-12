@@ -97,7 +97,7 @@
                         {
                          "name":"data",
                          "type":"string",
-                         "value":"Kartya 1-3"
+                         "value":"Kartya"
                         }],
                  "rotation":0,
                  "type":"",
@@ -115,7 +115,7 @@
                         {
                          "name":"data",
                          "type":"string",
-                         "value":"NPC 1 1-3"
+                         "value":"NPC 1"
                         }],
                  "rotation":0,
                  "type":"",

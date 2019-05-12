@@ -2,8 +2,14 @@
   "textures": [
     [ "Box", "box.png", 1, 1 ],
     [ "GunCursor", "gunCursor.png", 1, 1 ],
+    [ "Tutorial Signpost", "box.png", 1, 1 ],
 
-    [ "NPC", "npc_idle.png", 1, 8 ],
+    [ "Azura", "azura_idle.png", 1, 8 ],
+    [ "Kartya", "kartya_idle.png", 1, 12 ],
+    [ "Kheismani", "kheismani_idle.png", 1, 8 ],
+    [ "NPC 1", "npc1_idle.png", 1, 8 ],
+    [ "NPC 2", "npc2_idle.png", 1, 8 ],
+    [ "NPC 3", "npc3_idle.png", 1, 8 ],
 
     [ "Mk", "mk_spritesheet.png", 15, 35 ],
     [ "Arm", "mk_arm.png", 1, 1 ],
@@ -59,7 +65,7 @@
     [ "MissileTurret", "missileturret_spritesheet.png", 4, 12 ],
     [ "Missile", "spenta_misil_spritesheet.png", 2, 6 ],
 
-    [ "Azura", "azura_spritesheet.png", 22, 23 ],
+    [ "AzuraBoss", "azura_spritesheet.png", 22, 23 ],
 
 	  [ "Angra", "angra_spritesheet.png", 7, 34 ],
 
@@ -67,10 +73,12 @@
     [ "Tileset1", "zona1_tileset.png", 21, 10 ],
     [ "TilesetSafe1", "safe1_tileset.png", 30, 35 ],
     [ "TilesetBoss1", "boss1_tileset.png", 13, 16 ],
-    [ "TilesetBoss3", "boss3_tileset3.png", 12, 11 ],
     [ "Tileset2", "zona2_tileset.png", 17, 6 ],
     [ "TilesetSafe2", "safe2_tileset.png", 30, 31 ],
     [ "TilesetBoss2", "boss2_tileset.png", 13, 16 ],
+    [ "Tileset3", "zona3_tileset.png", 12, 12 ],
+    [ "TilesetSafe3", "safe3_tileset.png", 30, 37 ],
+    [ "TilesetBoss3", "boss3_tileset.png", 12, 11 ],
 
     [ "BgControls", "controlsBG.png", 1, 1 ],
     [ "BgMenu", "bg_menu.png", 1, 1 ],
@@ -117,7 +125,12 @@
 
     [ "DialogueBg", "dialogueBg.png", 3, 10 ],
     [ "NameBg", "nameBg.png", 3, 7 ],
-    [ "DialogueFace", "dialogueFaces_npc.png", 1, 1 ],
+    [ "AzuraFace", "dialogueFaces_azura.png", 1, 1 ],
+    [ "KartyaFace", "dialogueFaces_kartya.png", 1, 1 ],
+    [ "KheismaniFace", "dialogueFaces_kheismani.png", 1, 1 ],
+    [ "NPC1Face", "dialogueFaces_npc1.png", 1, 1 ],
+    [ "NPC2Face", "dialogueFaces_npc2.png", 1, 1 ],
+    [ "NPC3Face", "dialogueFaces_npc3.png", 1, 1 ],
     [ "DialogueIndicator", "dialogueIndicator.png", 1, 7 ],
     [ "InteractIndicator", "interactIndicator.png", 1, 5 ],
     [ "InteractIndicatorController", "interactIndicatorController.png", 1, 5 ],
@@ -137,7 +150,7 @@
     [ "ReturnButton", "return_button.png", 1, 2 ],
 
     [ "PowerIcon", "power_icon.png", 1, 1 ],
-    [ "CadenceIcon", "_cadence_icon.png", 1, 1 ],
+    [ "CadenceIcon", "cadence_icon.png", 1, 1 ],
     [ "ClipIcon", "clip_icon.png", 1, 1 ],
     [ "PropertiesBar", "properties_bar.png", 1, 1 ],
 

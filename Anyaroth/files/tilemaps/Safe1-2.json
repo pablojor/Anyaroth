@@ -103,7 +103,7 @@
                  "type":"",
                  "visible":true,
                  "width":16,
-                 "x":448,
+                 "x":480,
                  "y":384
                 }, 
                 {
@@ -121,7 +121,7 @@
                  "type":"",
                  "visible":true,
                  "width":16,
-                 "x":640,
+                 "x":608,
                  "y":384
                 }],
          "opacity":1,
@@ -144,7 +144,7 @@
                         {
                          "name":"data",
                          "type":"string",
-                         "value":"Kartya 1-2"
+                         "value":"Kartya"
                         }],
                  "rotation":0,
                  "type":"",
@@ -162,7 +162,7 @@
                         {
                          "name":"data",
                          "type":"string",
-                         "value":"NPC 1 1-2"
+                         "value":"NPC 1"
                         }],
                  "rotation":0,
                  "type":"",
@@ -178,9 +178,9 @@
                  "name":"",
                  "properties":[
                         {
-                         "name":"NPC 2 1-2",
+                         "name":"data",
                          "type":"string",
-                         "value":""
+                         "value":"NPC 2"
                         }],
                  "rotation":0,
                  "type":"",
@@ -196,9 +196,9 @@
                  "name":"",
                  "properties":[
                         {
-                         "name":"NPC 3 1-2",
+                         "name":"data",
                          "type":"string",
-                         "value":""
+                         "value":"NPC 3"
                         }],
                  "rotation":0,
                  "type":"",

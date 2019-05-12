@@ -95,9 +95,9 @@
                  "name":"",
                  "properties":[
                         {
-                         "name":"Data",
+                         "name":"data",
                          "type":"string",
-                         "value":"Jose Maria 1"
+                         "value":"NPC1"
                         }],
                  "rotation":0,
                  "type":"",

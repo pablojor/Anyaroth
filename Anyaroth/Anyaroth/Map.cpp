@@ -15,17 +15,18 @@
 #include "Player.h"
 #include "NPC.h"
 #include "Shop.h"
-#include "MissileTurret.h"
 #include "TutorialBullsEye.h"
 #include "TutorialTurret.h"
 #include "TutorialBuddy.h"
 #include "AmmoPackage.h"
 #include "AidKit.h"
 #include "DialogueTrigger.h"
-#include "SpawnerBoss.h"
+#include "MissileTurret.h"
 #include "FloatingHead.h"
+#include "SpawnerBoss.h"
 #include "GoodCredits.h"
 #include "BadCredits.h"
+#include "GameManager.h"
 #include <json.hpp>
 
 using namespace nlohmann;
@@ -103,22 +104,6 @@ void Map::createObjects()
 			{
 				_player->setPlayerPosition(Vector2D(pos.getX() / M_TO_PIXEL, (pos.getY() - TILES_SIZE * 2) / M_TO_PIXEL));
 			}
-			else if (name == "Melee")
-			{
-				_objects->addChild(new MeleeEnemy(_game, _player, Vector2D(pos.getX() - TILES_SIZE, pos.getY() - TILES_SIZE * 2)));
-			}
-			else if (name == "Martyr")
-			{
-				_objects->addChild(new MartyrEnemy(_game, _player, Vector2D(pos.getX(), pos.getY() - TILES_SIZE * 2)));
-			}
-			else if (name == "DistanceStatic")
-			{
-				_objects->addChild(new DistanceStaticEnemy(_game, _player, Vector2D(pos.getX(), pos.getY() - TILES_SIZE * 2), _bulletPool));
-			}
-			else if (name == "FlyingDistance")
-			{
-				_objects->addChild(new StaticFlyingEnemy(_game, _player, Vector2D(pos.getX() - TILES_SIZE, pos.getY() - TILES_SIZE * 2), _bulletPool));
-			}
 			else if (name == "Bullseye")
 			{
 				_objects->addChild(new TutorialBullsEye(_game, _player, Vector2D(pos.getX() - TILES_SIZE, pos.getY() - TILES_SIZE * 2)));
@@ -142,6 +127,22 @@ void Map::createObjects()
 			else if (name == "Trigger")
 			{
 				_objects->addChild(new DialogueTrigger(_game, data, _player, pos.getX(), pos.getY() - TILES_SIZE * 2));
+			}
+			else if (name == "Melee")
+			{
+				_objects->addChild(new MeleeEnemy(_game, _player, Vector2D(pos.getX() - TILES_SIZE, pos.getY() - TILES_SIZE * 2)));
+			}
+			else if (name == "Martyr")
+			{
+				_objects->addChild(new MartyrEnemy(_game, _player, Vector2D(pos.getX(), pos.getY() - TILES_SIZE * 2)));
+			}
+			else if (name == "DistanceStatic")
+			{
+				_objects->addChild(new DistanceStaticEnemy(_game, _player, Vector2D(pos.getX(), pos.getY() - TILES_SIZE * 2), _bulletPool));
+			}
+			else if (name == "FlyingDistance")
+			{
+				_objects->addChild(new StaticFlyingEnemy(_game, _player, Vector2D(pos.getX() - TILES_SIZE, pos.getY() - TILES_SIZE * 2), _bulletPool));
 			}
 			else if (name == "DistanceDynamic")
 			{
@@ -185,17 +186,6 @@ void Map::createObjects()
 			{
 				_objects->addChild(new MissileTurret(_game, spenta, Vector2D(pos.getX() - TILES_SIZE, pos.getY() - TILES_SIZE * 2.8), stoi(data)));
 			}
-			else if (name == "NPC")
-			{
-				NPC* npc = new NPC(_game, Vector2D(pos.getX() - TILES_SIZE, pos.getY() - TILES_SIZE * 2), _game->getDialogue(data));
-				npc->setDialoguePanel(_game->getCurrentState()->getPlayHUD()->getDialoguePanel());
-				_objects->addChild(npc);
-			}
-			else if (name == "Shop")
-			{
-				Shop* tienda = new Shop(_game, Vector2D(pos.getX(), pos.getY() - TILES_SIZE * 2.6), _game->getCurrentState()->getPlayHUD()->getShop());
-				_objects->addChild(tienda);
-			}
 			else if (name == "FloatingHead")
 			{
 				FloatingHead* head = new FloatingHead(_game, _player, Vector2D(pos.getX() - TILES_SIZE * 2, pos.getY() - TILES_SIZE * 2), _bulletPool, angra);
@@ -208,11 +198,22 @@ void Map::createObjects()
 			}
 			else if (name == "SpawnerBoss")
 			{
-				SpawnerBoss* spawner= new SpawnerBoss(_game, _player, _game->getTexture("MissileTurret"), Vector2D(pos.getX() - TILES_SIZE * 2, pos.getY() - TILES_SIZE * 2), _spawnType, _bulletPool);
+				SpawnerBoss* spawner = new SpawnerBoss(_game, _player, _game->getTexture("MissileTurret"), Vector2D(pos.getX() - TILES_SIZE * 2, pos.getY() - TILES_SIZE * 2), _spawnType, _bulletPool);
 
 				angra->addChild(spawner);
 				angra->push_backSpawner(spawner);
 				_spawnType++;
+			}
+			else if (name == "NPC")
+			{
+				NPC* npc = new NPC(_game, _game->getTexture(data), Vector2D(pos.getX() - TILES_SIZE, pos.getY() - TILES_SIZE * 2), _game->getDialogue(data + " " + to_string(GameManager::getInstance()->getCurrentLevel())));
+				npc->setDialoguePanel(_game->getCurrentState()->getPlayHUD()->getDialoguePanel());
+				_objects->addChild(npc);
+			}
+			else if (name == "Shop")
+			{
+				Shop* tienda = new Shop(_game, Vector2D(pos.getX(), pos.getY() - TILES_SIZE * 2.6), _game->getCurrentState()->getPlayHUD()->getShop());
+				_objects->addChild(tienda);
 			}
 			else if (name == "GoodCredits")
 			{
