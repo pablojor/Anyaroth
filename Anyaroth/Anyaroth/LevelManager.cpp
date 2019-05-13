@@ -72,6 +72,7 @@ void LevelManager::setLevel(int l)
 	case LevelManager::Boss2:
 		_currentMap = new Map(TILEMAP_PATH + "Nivel2-3.json", _game, _player, _game->getTexture("TilesetBoss2"), _enemyBulletPool);
 		_game->getSoundManager()->playMusic("boss2Battle", -1);
+		setBackgroundBoss2();
 		break;
 	case LevelManager::Safe3_1:
 		//_currentSafeZone = ...
@@ -213,4 +214,9 @@ void LevelManager::setBackgroundBoss1()
 {
 	BackGround* backgroundBoss1 = new BackGround(_game->getTexture("BgBoss1"), _camera);
 	_camera->setBackGround(backgroundBoss1);
+}
+void LevelManager::setBackgroundBoss2()
+{
+	BackGround* backgroundBoss2 = new BackGround(_game->getTexture("BgBoss2"), _camera);
+	_camera->setBackGround(backgroundBoss2);
 }

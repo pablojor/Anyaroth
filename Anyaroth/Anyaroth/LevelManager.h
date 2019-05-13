@@ -18,6 +18,7 @@ private:
 	void setControlsBackground();
 	void setParallaxZone1();
 	void setBackgroundBoss1();
+	void setBackgroundBoss2();
 
 public:
 	LevelManager() {}
