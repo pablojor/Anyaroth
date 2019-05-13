@@ -13,7 +13,7 @@ class BossCorpse : public GameObject
 private:
 	SpriteComponent* _sprite = nullptr;
 public:
-	BossCorpse(Game* g, Vector2D pos, Texture* texture , bool flip);
+	BossCorpse(Game* g, Vector2D pos, Texture* texture);
 };
 
 class Boss3 : public Boss
@@ -103,4 +103,5 @@ class Boss3 : public Boss
 		void push_backHead(FloatingHead* head) { _heads.push_back(head); }
 
 		void setAnimThrone(AnimatedSpriteComponent* throneAnim) { _throneAnim = throneAnim; };
+		void setAnimCorpse(BossCorpse* corp) { _corpse = corp; };
 };

@@ -392,14 +392,14 @@ void Boss3::beetwenFases(const double& deltaTime)
 			double pos = _body->getBody()->GetPosition().x* M_TO_PIXEL;
 			_dir = Vector2D((pos >= _playerPos.getX()) ? -1 : 1, _dir.getY());
 
+			_corpse->setActive(true);
 			bool flip;
 			if (_dir.getX() == 1)
-				flip = false;
+				_corpse->getComponent<SpriteComponent>()->unFlip();
 			else
-				flip = true;
+				_corpse->getComponent<SpriteComponent>()->flip();
 
-			_corpse = new BossCorpse(_game, _transform->getPosition(), _game->getTexture("angraCorpse"), flip);
-			addChild(_corpse);
+			_corpse->getComponent<TransformComponent>()->setPosition(_transform->getPosition());
 			AngraSoldierSpawn();
 		}
 	}
@@ -741,7 +741,7 @@ void Boss3::die()
 	_arm->setActive(false);
 }
 
-BossCorpse::BossCorpse(Game * g, Vector2D pos, Texture* texture, bool flip): GameObject(g)
+BossCorpse::BossCorpse(Game * g, Vector2D pos, Texture* texture): GameObject(g)
 {
 	TransformComponent* t = addComponent<TransformComponent>();
 	t->setPosition(pos);
