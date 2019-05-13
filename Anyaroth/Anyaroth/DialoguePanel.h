@@ -26,6 +26,7 @@ private:
 	AnimatedImageUI* _nameBackground = nullptr;
 	FramedImageUI* _faceImage = nullptr;
 	AnimatedImageUI* _indicatorImage = nullptr;
+	TextUI* _indicatorText = nullptr;
 	TextUI* _nameText = nullptr;
 
 	//Constantes

@@ -13,6 +13,10 @@ DialoguePanel::DialoguePanel(Game* game) : PanelUI(game)
 	_nameBackground = new AnimatedImageUI(game, game->getTexture("NameBg"), 0, 168);
 	_nameText = new TextUI(game, " ", game->getFont("ARIAL12"), 12, _faceImage->getX(), _faceImage->getY() - 29, { 145, 255, 255, 255 });
 
+	_indicatorText = new TextUI(game, "Press E", game->getFont("ARIAL12"), 12, 0, 0, { 255,255,255,255 });
+	_indicatorText->setScale(0.5);
+	_indicatorText->setPosition(_indicatorImage->getX() + _indicatorImage->getW() / 2 - _indicatorText->getW() / 2, _indicatorImage->getY() - _indicatorImage->getH());
+
 	for (int i = 0; i < _lines; i++)
 	{
 		_dialogueTexts.push_back(new DialogueTextUI(game, " ", game->getFont("ARIAL12"), 12, _faceImage->getW() + 25, _faceImage->getY() - 3 + _gap * i, { 255, 255, 255, 255 }));
@@ -37,6 +41,7 @@ DialoguePanel::DialoguePanel(Game* game) : PanelUI(game)
 	//Ponemos invisible todo inicialmente
 	//_nameBackground->setVisible(false);
 	_indicatorImage->setVisible(false);
+	_indicatorText->setVisible(false);
 	_faceImage->setVisible(false);
 	_nameText->setVisible(false);
 
@@ -51,6 +56,7 @@ DialoguePanel::DialoguePanel(Game* game) : PanelUI(game)
 	addChild(_backgroundImage);
 	addChild(_faceImage);
 	addChild(_indicatorImage);
+	addChild(_indicatorText);
 	addChild(_nameBackground);
 	addChild(_nameText);
 
@@ -128,6 +134,7 @@ void DialoguePanel::endDialogue()
 
 		//ponemos invisible todo y reseteamos lo que había
 		_indicatorImage->setVisible(false);
+		_indicatorText->setVisible(false);
 		_faceImage->setVisible(false);
 		_nameText->setVisible(false);
 
@@ -166,6 +173,7 @@ void DialoguePanel::nextText()
 	{
 		_currentText++;
 		_indicatorImage->setVisible(false);
+		_indicatorText->setVisible(false);
 		_linesTyped = 0;
 
 		for (int i = 0; i < _lines; i++)
@@ -306,7 +314,10 @@ void DialoguePanel::update(const double& deltaTime)
 			if (_isConversating && !_indicatorImage->isVisible())
 			{
 				if (!_keepLastLine || (_keepLastLine && _currentText != _dialogue.conversation.size() - 1))
+				{
 					_indicatorImage->setVisible(true);
+					_indicatorText->setVisible(true);
+				}
 			}
 
 		}//Si se ha terminado de escribir una linea, se escribe la siguiente
@@ -315,6 +326,18 @@ void DialoguePanel::update(const double& deltaTime)
 			_linesTyped++;
 			if (_linesTyped != _lines)
 				_dialogueTexts[_linesTyped]->type(_segments[_linesTyped]);
+		}
+
+		//Cambio de texto dependiendo de los controles
+		if (_game->isJoystick()) {
+			_indicatorText->setText("Press A");
+			_indicatorText->setScale(0.5);
+			_indicatorText->setPosition(_indicatorImage->getX() + _indicatorImage->getW() / 2 - _indicatorText->getW() / 2, _indicatorImage->getY() - _indicatorImage->getH());
+		}
+		else {
+			_indicatorText->setText("Press E");
+			_indicatorText->setScale(0.5);
+			_indicatorText->setPosition(_indicatorImage->getX() + _indicatorImage->getW() / 2 - _indicatorText->getW() / 2, _indicatorImage->getY() - _indicatorImage->getH());
 		}
 	}
 }
