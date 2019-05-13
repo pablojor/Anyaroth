@@ -96,6 +96,29 @@
         }, 
         {
          "draworder":"topdown",
+         "id":32,
+         "name":"AngraCorpse",
+         "objects":[
+                {
+                 "gid":51,
+                 "height":16,
+                 "id":47,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":778,
+                 "y":112
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
          "id":19,
          "name":"FloatingHead",
          "objects":[
@@ -224,8 +247,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":32,
- "nextobjectid":47,
+ "nextlayerid":33,
+ "nextobjectid":48,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.2.1",
@@ -234,7 +257,7 @@
         {
          "columns":11,
          "firstgid":1,
-         "image":"..\/..\/assets\/sprites\/boss3_tileset3.png",
+         "image":"..\/..\/assets\/sprites\/boss3_tileset.png",
          "imageheight":192,
          "imagewidth":176,
          "margin":0,
