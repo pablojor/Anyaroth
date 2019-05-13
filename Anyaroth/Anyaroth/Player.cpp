@@ -7,6 +7,7 @@
 #include "GunType_def.h"
 #include "WeaponManager.h"
 #include "ParticleManager.h"
+#include "OrbShotgun.h"
 
 
 Player::Player(Game* game) : GameObject(game, "Player")
@@ -62,8 +63,8 @@ Player::Player(Game* game) : GameObject(game, "Player")
 	_playerArm = new PlayerArm(game, this, { 28, 15 });
 	addChild(_playerArm);
 	
-	_currentGun = WeaponManager::getInstance()->getWeapon(game, PlasmaSniper_Weapon);
-	_otherGun = WeaponManager::getInstance()->getWeapon(game, BHCannon_Weapon);
+	_currentGun = WeaponManager::getInstance()->getWeapon(game, ImprovedRifle_Weapon);
+	_otherGun = WeaponManager::getInstance()->getWeapon(game, PlasmaSniper_Weapon);
 
 	_playerArm->setTexture(_currentGun->getArmTexture());
 	_playerArm->setAnimations(_currentGun->getAnimType());
@@ -796,31 +797,33 @@ void Player::melee()
 
 void Player::shoot()
 {
-	if (_currentGun->canShoot() && !isReloading())
+	if (!_stunned)
 	{
-		_playerArm->shoot();
-		_currentGun->shoot(_playerBulletPool, _playerArm->getPosition(), !_anim->isFlipped() ? _playerArm->getAngle() : _playerArm->getAngle() + 180, "Bullet");
-		_playerPanel->updateAmmoViewer(_currentGun->getClip(), _currentGun->getMagazine());
+		if (_currentGun->canShoot() && !isReloading())
+		{
+			_playerArm->shoot();
+			_currentGun->shoot(_playerBulletPool, _playerArm->getPosition(), !_anim->isFlipped() ? _playerArm->getAngle() : _playerArm->getAngle() + 180, "Bullet");
+			_playerPanel->updateAmmoViewer(_currentGun->getClip(), _currentGun->getMagazine());
 
-		if (!_currentGun->isAutomatic())
+			if (!_currentGun->isAutomatic())
+				_isShooting = false;
+		}
+		else if (_currentGun->hasBullets())
+		{
+			_playerArm->shoot();
+			_game->getSoundManager()->playSFX("emptyGun");
 			_isShooting = false;
-	}
-	else if (_currentGun->hasBullets())
-	{
-		_playerArm->shoot();
-		_game->getSoundManager()->playSFX("emptyGun");
-		_isShooting = false;
-	}
-	else if (!_currentGun->canShoot() && !_currentGun->isAutomatic())
-	{
-		_playerArm->shoot();
-		_isShooting = false;
-	}
+		}
+		else if (!_currentGun->canShoot() && !_currentGun->isAutomatic())
+		{
+			_playerArm->shoot();
+			_isShooting = false;
+		}
 
 
-	if (_currentGun->hasToBeReloaded())	
-		_hasToReload = true;
-	
+		if (_currentGun->hasToBeReloaded())
+			_hasToReload = true;
+	}
 }
 
 bool Player::canReload()

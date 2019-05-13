@@ -1,8 +1,9 @@
 #include "Boss.h"
 #include "GravityBombCannon.h"
-#include "BounceOrbCannon.h"
+#include "OrbShotgun.h"
 #include "BossSensor.h"
 #include "Boss3Panel.h"
+#include "SpriteObject.h"
 
 class FloatingHead;
 class SpawnerBoss;
@@ -12,7 +13,7 @@ class BossCorpse : public GameObject
 private:
 	SpriteComponent* _sprite = nullptr;
 public:
-	BossCorpse(Game* g, Vector2D pos, Texture* texture);
+	BossCorpse(Game* g, Vector2D pos, Texture* texture , bool flip);
 };
 
 class Boss3 : public Boss
@@ -25,16 +26,19 @@ class Boss3 : public Boss
 
 		Boss3Panel* _boss3Panel = nullptr;
 
+		void handleAnimations(double time);
 		//Cosas del disparo circular
-		int _num = 0, _timeOnShooting = 0, _timeBeetwenBullets = 0, _timeBeetwenCircularShoot = 1000;
-		int _numBullets = 40, _actualBullet = 0;
+		int _num = 0, _timeOnShooting = 0, _timeBeetwenBullets = 500, _timeBeetwenCircularShoot = 500;
+		int _numBullets = 60, _actualBullet = 0;
 		double _angleIncrease = 360/ _numBullets, _angle = 180;
+		bool _needToFinishAnim = false;
 
 		void shoot();
 		void shootBullet(int numBullets, double angleIncrease);
 		void circularShoot(const double& deltaTime);
 
 		//Cosas de la fase soldado
+		void AngraSoldierSpawn();
 		BossCorpse* _corpse  = nullptr;
 		Gun* _otherGun = nullptr;
 		void changeGun();
@@ -58,18 +62,24 @@ class Boss3 : public Boss
 		//Cosas del disparo de agujeros negros
 		GravityBombCannon* _gravGun = nullptr;
 		void shootGrav();
+		int _timeToShoot = 900, _timeWaiting = 0;
+		bool _alreadyShoot = false;
 
 		//Cosas del ataque Portal
 		int timeToReapear = 2000, timeToShowPortal = 1000, _timeOut = 0;
-		int _explosionRange = 60, _impulse = 15, _explosionDamage = 15;
+		int _explosionRange = 100, _impulse = 15, _explosionDamage = 15;
 		void portalAttack(const double& deltaTime);
 		bool portalVisible = false;
+		bool realGone = false;
 
 		// Cosas de la primera fase
 		vector<SpawnerBoss*> _spawners;
 		vector<FloatingHead*>_heads;
 
-		bool _headTurn = false, _initSpawn = true;
+		bool _headTurn = false, _initSpawn = true, _alreadyDead = false;
+
+		//Trono
+		AnimatedSpriteComponent* _throneAnim = nullptr;
 
 	public:
 		Boss3(Game* g, Player* player, Vector2D pos, BulletPool* pool);
@@ -87,9 +97,10 @@ class Boss3 : public Boss
 		virtual void fase3(const double& deltaTime);
 		virtual void beetwenFases(const double& deltaTime);
 		void subLife(int damage);
+		virtual void die();
 
 		void push_backSpawner(SpawnerBoss* spawner) { _spawners.push_back(spawner); }
 		void push_backHead(FloatingHead* head) { _heads.push_back(head); }
+
+		void setAnimThrone(AnimatedSpriteComponent* throneAnim) { _throneAnim = throneAnim; };
 };
-
-

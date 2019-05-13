@@ -460,6 +460,9 @@
     <ClCompile Include="SpawnerBoss.cpp">
       <Filter>Archivos de código fuente\Objects\Enemies\SpawnerEnemies</Filter>
     </ClCompile>
+    <ClCompile Include="OrbShotgun.cpp">
+      <Filter>Archivos de código fuente\Objects\Guns</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -956,6 +959,9 @@
     </ClInclude>
     <ClInclude Include="SpawnerBoss.h">
       <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="OrbShotgun.h">
+      <Filter>Archivos de encabezado\Guns</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

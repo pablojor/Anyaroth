@@ -46,7 +46,21 @@ public:
 		AzuraCannon1, AzuraCannon2, AzuraCannon3, AzuraJump, AzuraSpinStart1, AzuraSpinStart2, AzuraSpinStart3,
 		AzuraScream1to2, AzuraScream2to3, AzuraDie
 	};
-
+	enum LaserContainer { LaserClosed, LaserClosing, LaserOpened, LaserOpening };
+	enum Laser { LaserShooting, LaserWarning };
+	enum Angra {
+		AngraIdle, AngraWalk, AngraBH, AngraAppear, AngraDisappear, AngraRing, AngraDie
+	};
+	enum AngraSoldier {
+		AngraSoldierIdle, AngraSoldierWalk, AngraSoldierWalkBack, AngraSoldierBeforeJump, AngraSoldierJump, AngraSoldierStartFalling, AngraSoldierFalling,
+		AngraSoldierDash, AngraSoldierDashDown, AngraSoldierDashBack, AngraSoldierDie
+	};
+	enum FloatingHead {
+		HeadIdle, HeadAttackStart, HeadAttackLoop, HeadAttackEnd, HeadDie
+	};
+	enum Throne {
+		ThroneIdle, ThroneEnd
+	};
 	AnimatedSpriteComponent(GameObject* obj) : SpriteComponent(obj), PhysicsComponent(obj), RenderComponent(obj), Component(), _obj(obj) {}
 	virtual ~AnimatedSpriteComponent() {}
 

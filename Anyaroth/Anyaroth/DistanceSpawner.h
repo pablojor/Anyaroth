@@ -29,5 +29,6 @@ void DistanceSpawner<Spawned>::dropCapsule(const double& deltaTime)
 	{
 		_game->getCurrentState()->addObject(new CapsuleDistance<Spawned>(_game, _player, Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL - 40, _body->getBody()->GetPosition().y * M_TO_PIXEL), this, _spawnedPool));
 		_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
+		_game->getSoundManager()->playSFX("spawnerSpawn");
 	}
 }

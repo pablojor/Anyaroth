@@ -1,7 +1,7 @@
 #include "StaticSpawnerEnemy.h"
 #include "FlyingEnemy.h"
 
-StaticSpawnerEnemy::StaticSpawnerEnemy(Game * g, Player * player, Vector2D pos) : Enemy(g, player, pos, g->getTexture("Hive"))
+StaticSpawnerEnemy::StaticSpawnerEnemy(Game * g, Player * player, Vector2D pos) : Enemy(g, player, pos, g->getTexture("Hive"),"staticSpawnerDeath", "martyrHit", "martyrMeleeHit")
 {
 	_vision = 500;
 	_life = 30;
@@ -37,6 +37,7 @@ void StaticSpawnerEnemy::update(const double& deltaTime)
 		{
 			addChild(new FlyingEnemy(_game, _player, Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL - TILES_SIZE * 2, _body->getBody()->GetPosition().y * M_TO_PIXEL - TILES_SIZE * 2)));
 			_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
+			_game->getSoundManager()->playSFX("staticSpawnerSpawn");
 		}
 	}
 	else if (isDead())

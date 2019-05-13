@@ -24,7 +24,7 @@ Capsule::Capsule(Game* g, Player* player, Vector2D pos, Enemy* father) : GameObj
 
 	//Sensor del suelo
 	b2PolygonShape shape;
-	shape.SetAsBox(5 / M_TO_PIXEL, 2 / M_TO_PIXEL, b2Vec2(0, 2.25), 0);
+	shape.SetAsBox(8 / M_TO_PIXEL, 2 / M_TO_PIXEL, b2Vec2(0, 2.25), 0);
 	b2FixtureDef fDef;
 	fDef.shape = &shape;
 	fDef.filter.categoryBits = ENEMIES;
@@ -51,5 +51,6 @@ void Capsule::beginCollision(GameObject * other, b2Contact* contact)
 	{
 		_spawning = true;
 		_anim->playAnim(AnimatedSpriteComponent::CapsuleSpawn);
+		_game->getSoundManager()->playSFX("capsuleOpen");
 	}
 }
