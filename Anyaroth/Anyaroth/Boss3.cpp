@@ -749,7 +749,4 @@ BossCorpse::BossCorpse(Game * g, Vector2D pos, Texture* texture): GameObject(g)
 	addComponent<Texture>(texture);
 
 	_sprite = addComponent<SpriteComponent>();
-
-	if (flip)
-		_sprite->flip();
 }
