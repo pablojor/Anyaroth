@@ -82,7 +82,7 @@ Boss2::~Boss2()
 void Boss2::Jump()
 {
 	_damage = 20;
-	_body->getBody()->ApplyLinearImpulseToCenter(b2Vec2(_dir * 5000, -5500), true);
+	_body->getBody()->ApplyLinearImpulseToCenter(b2Vec2(_dir * 3000, -3500), true);
 
 	b2PolygonShape shape;
 	shape.SetAsBox(35 / M_TO_PIXEL, 25 / M_TO_PIXEL, b2Vec2(0, 5), 0);
