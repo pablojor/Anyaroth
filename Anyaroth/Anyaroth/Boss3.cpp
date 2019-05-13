@@ -3,24 +3,9 @@
 #include "SpawnerBoss.h"
 #include "FloatingHead.h"
 
-void Boss3::handleAnimations(double time)
-{
-	if (_actualFase == Fase3)
-	{
-		auto vel = _body->getBody()->GetLinearVelocity();
-
-		if (vel.y > 2)
-			_anim->playAnim(AnimatedSpriteComponent::AngraSoldierFalling);
-		else if (vel.y < 2 && vel.y > -2)
-			_anim->playAnim(AnimatedSpriteComponent::AngraSoldierStartFalling);
-		else if (vel.y < -2)
-			_anim->playAnim(AnimatedSpriteComponent::AngraSoldierJump);
-	}
-}
-
 Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(g, player, pos, pool, g->getTexture("Angra")), Enemy(g, player, pos, g->getTexture("Angra"),"die2", "boss1Hit", "meleeEnemyHit")
 {
-	_life = 10; // Demo Guerrilla
+	_life = 300; // Demo Guerrilla
 	_life1 = _life;
 
 	_name = "Angra Manyu";
@@ -35,7 +20,7 @@ Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(
 	_gravGun->setMaxCadence(0);
 
 	_otherGun = new OrbShotgun(g);
-	_otherGun->setMaxCadence(500);
+	_otherGun->setMaxCadence(1000);
 	_otherGun->setBulletSpeed(8);
 	_otherGun->setDamage(10);
 
@@ -89,6 +74,36 @@ Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(
 	addSensors();
 }
 
+void Boss3::handleAnimations(double time)
+{
+	if (_actualFase == Fase3)
+	{
+		if (_actualState != Dashing)
+		{
+			if (_actualState != Moving)
+			{
+				auto vel = _body->getBody()->GetLinearVelocity();
+
+				if (vel.y > 2)
+					_anim->playAnim(AnimatedSpriteComponent::AngraSoldierFalling);
+				else if (vel.y < 2 && vel.y > -2)
+					_anim->playAnim(AnimatedSpriteComponent::AngraSoldierStartFalling);
+				else if (vel.y < -2)
+					_anim->playAnim(AnimatedSpriteComponent::AngraSoldierJump);
+			}
+
+			_playerPos = Vector2D(_playerBody->getBody()->GetPosition().x * M_TO_PIXEL, _playerBody->getBody()->GetPosition().y * M_TO_PIXEL);
+			double pos = _body->getBody()->GetPosition().x* M_TO_PIXEL;
+			_dir = Vector2D((pos >= _playerPos.getX()) ? -1 : 1, _dir.getY());
+
+			if (_dir.getX() == 1)
+				_anim->unFlip();
+			else
+				_anim->flip();
+		}
+		
+	}
+}
 void Boss3::setBoss3Panel(Boss3Panel * b)
 {
 	_boss3Panel = b;
@@ -120,6 +135,8 @@ void Boss3::update(const double & deltaTime)
 			fase3(deltaTime);
 		else
 			beetwenFases(deltaTime);
+
+		handleAnimations(deltaTime);
 	}
 
 	if (isDead() || _player->isDead())
@@ -338,8 +355,6 @@ void Boss3::fase3(const double & deltaTime)
 
 void Boss3::beetwenFases(const double& deltaTime)
 {
-	//if (_anim->animationFinished())
-	//{
 	if (_lastFase == Fase1)
 	{
 		if (_throneAnim->animationFinished())
@@ -356,32 +371,44 @@ void Boss3::beetwenFases(const double& deltaTime)
 	}
 	else if (_lastFase == Fase2)
 	{
-		changeFase(Fase3);
-		_sensor = new BossSensor(_game, this, { 100, 100 }, { 30, 30 });
-		addChild(_sensor);
-		_velocity = 100;
-		_myGun->setMaxCadence(_rifleCadence);
+		if (_anim->animationFinished())
+		{
+			changeFase(Fase3);
+			_sensor = new BossSensor(_game, this, { 100, 100 }, { 30, 30 });
+			addChild(_sensor);
+			_velocity = 100;
+			_myGun->setMaxCadence(_rifleCadence);
 
-		_life.setMaxLife(350);
-		_life.resetLife();
-		_life1.setMaxLife(350);
-		_life1.resetLife();
+			_life.setMaxLife(350);
+			_life.resetLife();
+			_life1.setMaxLife(350);
+			_life1.resetLife();
 
-		_boss3Panel->resetLifeBar(_life1.getLife(), _life.getLife());
-		_name = "Angra Soldier";
-		_boss3Panel->updateBossName(_name);//Provisional
-		_actualState = Moving;
-		_anim->playAnim(AnimatedSpriteComponent::AngraDie);
-		_corpse = new BossCorpse(_game, _transform->getPosition(), _game->getTexture("PistolIcon"));
-		addChild(_corpse);
-		AngraSoldierSpawn();
+			_boss3Panel->resetLifeBar(_life1.getLife(), _life.getLife());
+			_name = "Angra Soldier";
+			_boss3Panel->updateBossName(_name);//Provisional
+			_actualState = Jumping;
+
+			double pos = _body->getBody()->GetPosition().x* M_TO_PIXEL;
+			_dir = Vector2D((pos >= _playerPos.getX()) ? -1 : 1, _dir.getY());
+
+			bool flip;
+			if (_dir.getX() == 1)
+				flip = false;
+			else
+				flip = true;
+
+			_corpse = new BossCorpse(_game, _transform->getPosition(), _game->getTexture("angraCorpse"), flip);
+			addChild(_corpse);
+			AngraSoldierSpawn();
+		}
 	}
 	else
 	{
 		die();
 	}
 	_boss3Panel->updateLifeBar(_life1.getLife(), _life.getLife());
-	//}
+	
 }
 
 void Boss3::subLife(int damage)
@@ -394,6 +421,11 @@ void Boss3::subLife(int damage)
 			{
 				manageLife(_life1, damage);
 				_boss3Panel->updateLifeBar(_life1.getLife(), _life.getLife());
+			}
+			if (_life1.getLife() <= 0 && _lastFase == Fase2)
+			{
+				_anim->playAnim(AnimatedSpriteComponent::AngraDie);
+				_actualState = -1;
 			}
 		}
 		_spawnParticles = true;
@@ -514,15 +546,16 @@ void Boss3::AngraSoldierSpawn()
 	_anim->addAnim(AnimatedSpriteComponent::AngraSoldierIdle, 16, true);
 	_anim->addAnim(AnimatedSpriteComponent::AngraSoldierWalk, 10, true);
 	_anim->addAnim(AnimatedSpriteComponent::AngraSoldierWalkBack, 10, true);
-	_anim->addAnim(AnimatedSpriteComponent::AngraSoldierBeforeJump, 1, true);
+	_anim->addAnim(AnimatedSpriteComponent::AngraSoldierBeforeJump, 1, false);
 	_anim->addAnim(AnimatedSpriteComponent::AngraSoldierJump, 4, true);
-	_anim->addAnim(AnimatedSpriteComponent::AngraSoldierStartFalling, 2, true);
+	_anim->addAnim(AnimatedSpriteComponent::AngraSoldierStartFalling, 2, false);
 	_anim->addAnim(AnimatedSpriteComponent::AngraSoldierFalling, 2, true);
 	_anim->addAnim(AnimatedSpriteComponent::AngraSoldierDash, 5, true);
 	_anim->addAnim(AnimatedSpriteComponent::AngraSoldierDashDown, 3, true);
 	_anim->addAnim(AnimatedSpriteComponent::AngraSoldierDashBack, 5, true);
-	_anim->addAnim(AnimatedSpriteComponent::AngraSoldierDie, 35, true);
+	_anim->addAnim(AnimatedSpriteComponent::AngraSoldierDie, 35, false);
 	
+	b2Vec2 lastPos = _body->getBody()->GetPosition();
 	_body->deleteBody();
 	deleteComponent<BodyComponent>(_body);
 
@@ -540,6 +573,7 @@ void Boss3::AngraSoldierSpawn()
 	_body->addCricleShape(b2Vec2(0, 1.1), 0.7, PLAYER, FLOOR | PLATFORMS);
 	_body->getBody()->SetFixedRotation(true);
 
+	_body->getBody()->SetTransform( lastPos, 0);
 
 	b2PolygonShape shape;
 	shape.SetAsBox(5 / M_TO_PIXEL, 3 / M_TO_PIXEL, b2Vec2(0, 3), 0);
@@ -572,9 +606,9 @@ void Boss3::dash()
 
 	//Si la direccion en la que se mueve es iguall a la direccion en la que hace el dash, es hacia el delante
 	if (dir *_dir.getX() == 1)
-		_anim->playAnim(AnimatedSpriteComponent::AngraSoldierDash);
-	else
 		_anim->playAnim(AnimatedSpriteComponent::AngraSoldierDashBack);
+	else
+		_anim->playAnim(AnimatedSpriteComponent::AngraSoldierDash);
 
 
 	_invulnerable = true;
@@ -593,9 +627,13 @@ void Boss3::checkDash(double deltaTime)
 		{
 			_invulnerable = false;
 			_dashTimer = _dashTime;
-			_actualState = Moving;
 			_body->getBody()->SetGravityScale(_gravity);
 			_body->getBody()->SetLinearDamping(_damping);
+
+			if (_onFloor == 0)
+				_actualState = Jumping;
+			else
+				_actualState = Moving;
 		}
 	}
 }
@@ -668,6 +706,7 @@ void Boss3::beginCollision(GameObject * other, b2Contact* contact)
 		{
 			_actualState = Moving;
 			_body->getBody()->SetLinearVelocity(b2Vec2(_velocity * _dir.getX() / M_TO_PIXEL, 0));
+			_anim->playAnim(AnimatedSpriteComponent::AngraSoldierIdle);
 		}
 		if (fA->GetFriction() == 26 || fB->GetFriction() == 26)
 		{
@@ -691,7 +730,18 @@ void Boss3::endCollision(GameObject * other, b2Contact* contact)
 		_onFloor--;
 }
 
-BossCorpse::BossCorpse(Game * g, Vector2D pos, Texture* texture): GameObject(g)
+void Boss3::die()
+{
+	_anim->die();
+	_anim->playAnim(AnimatedSpriteComponent::AngraSoldierDie);
+	setDead(true);
+	_body->filterCollisions(DEAD_ENEMIES, FLOOR | PLATFORMS);
+
+	_game->getSoundManager()->playSFX(_deathSound);
+	_arm->setActive(false);
+}
+
+BossCorpse::BossCorpse(Game * g, Vector2D pos, Texture* texture, bool flip): GameObject(g)
 {
 	TransformComponent* t = addComponent<TransformComponent>();
 	t->setPosition(pos);
@@ -699,4 +749,7 @@ BossCorpse::BossCorpse(Game * g, Vector2D pos, Texture* texture): GameObject(g)
 	addComponent<Texture>(texture);
 
 	_sprite = addComponent<SpriteComponent>();
+
+	if (flip)
+		_sprite->flip();
 }

@@ -13,7 +13,7 @@ class BossCorpse : public GameObject
 private:
 	SpriteComponent* _sprite = nullptr;
 public:
-	BossCorpse(Game* g, Vector2D pos, Texture* texture);
+	BossCorpse(Game* g, Vector2D pos, Texture* texture , bool flip);
 };
 
 class Boss3 : public Boss
@@ -26,6 +26,7 @@ class Boss3 : public Boss
 
 		Boss3Panel* _boss3Panel = nullptr;
 
+		void handleAnimations(double time);
 		//Cosas del disparo circular
 		int _num = 0, _timeOnShooting = 0, _timeBeetwenBullets = 500, _timeBeetwenCircularShoot = 500;
 		int _numBullets = 60, _actualBullet = 0;
@@ -96,6 +97,7 @@ class Boss3 : public Boss
 		virtual void fase3(const double& deltaTime);
 		virtual void beetwenFases(const double& deltaTime);
 		void subLife(int damage);
+		virtual void die();
 
 		void push_backSpawner(SpawnerBoss* spawner) { _spawners.push_back(spawner); }
 		void push_backHead(FloatingHead* head) { _heads.push_back(head); }
