@@ -188,7 +188,6 @@
     <ClCompile Include="LaserContainer.cpp" />
     <ClCompile Include="LaserHandler.cpp" />
     <ClCompile Include="OrbShotgun.cpp" />
-    <ClCompile Include="PoleAxe.cpp" />
     <ClCompile Include="SpawnerBoss.cpp" />
     <ClCompile Include="Sword.cpp" />
     <ClCompile Include="BackGround.cpp" />
@@ -353,13 +352,12 @@
     <ClInclude Include="Knife.h" />
     <ClInclude Include="PlayMusicEvent.h" />
     <ClInclude Include="PlaySoundEvent.h" />
-    <ClInclude Include="PoleAxe.h" />
+    <ClInclude Include="Poleaxe.h" />
     <ClInclude Include="PopUpEvent.h" />
     <ClInclude Include="Laser.h" />
     <ClInclude Include="LaserContainer.h" />
     <ClInclude Include="LaserHandler.h" />
     <ClInclude Include="OrbShotgun.h" />
-    <ClInclude Include="PoleAxe.h" />
     <ClInclude Include="SpawnerBoss.h" />
     <ClInclude Include="Sword.h" />
     <ClInclude Include="BackGround.h" />

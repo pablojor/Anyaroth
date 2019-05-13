@@ -44,9 +44,9 @@
     [ "BounceCannonIcon", "bounceCannonIcon.png", 1, 1 ],
     [ "BHCannonIcon", "bHCannonIcon.png", 1, 1 ],
     [ "SniperIcon", "sniperIcon.png", 1, 1 ],
-	  [ "KnifeIcon", "knifeIcon.png", 1, 1 ],
-	  [ "SwordIcon", "swordIcon.png", 1, 1 ],
-	  [ "HalberdIcon", "halberdIcon.png", 1, 1 ],
+    [ "KnifeIcon", "knifeIcon.png", 1, 1 ],
+    [ "SwordIcon", "swordIcon.png", 1, 1 ],
+    [ "HalberdIcon", "halberdIcon.png", 1, 1 ],
 
     [ "TutorialBullseye", "tutorial_bullseye.png", 4, 4 ],
     [ "TutorialBuddy", "tutorial_buddy.png", 4, 9 ],
@@ -76,11 +76,11 @@
 
     [ "Angra", "angra_spritesheet.png", 7, 34 ],
     [ "AngraSoldier", "angrasoldier_spritesheet.png", 11, 35 ],
+    [ "AngraCorpse", "angra_corpse.png", 1, 1 ],
     [ "FlyingHead", "flyinghead_spritesheet.png", 5, 18 ],
     [ "AngraArmBounceCannon", "angra_bouncecannon_spritesheet.png", 4, 12 ],
     [ "AngraArmImprovedRifle", "angra_arm_improvedsubfusil_spritesheet.png", 4, 12 ],
     [ "Throne", "throne_spritesheet.png", 2, 27 ],
-    [ "AngraCorpse", "angra_corpse.png", 1, 1 ],
 
     [ "TilesetTutorial", "tutorial_tileset.png", 22, 26 ],
     [ "Tileset1", "zona1_tileset.png", 21, 10 ],
@@ -99,10 +99,10 @@
     [ "BgOptionsMenu", "bg_optionsmenu.png", 1, 1 ],
 
     [ "BgShop", "shop_background.png", 1, 6 ],
-    [ "BgBoss1", "bg_boss1.png", 1, 1 ],
     [ "BgZ1L1", "bg_z1_l1.png", 1, 1 ],
     [ "BgZ1L2", "bg_z1_l2.png", 1, 1 ],
     [ "BgZ1L3", "bg_z1_l3.png", 1, 1 ],
+    [ "BgBoss1", "bg_boss1.png", 1, 1 ],
     [ "BgZ2L1", "bg_z2_l1.png", 1, 1 ],
     [ "BgZ2L2", "bg_z2_l2.png", 1, 1 ],
     [ "BgZ2L3", "bg_z2_l3.png", 1, 1 ],
@@ -147,12 +147,12 @@
     [ "NPC2Face", "dialogueFaces_npc2.png", 1, 1 ],
     [ "NPC3Face", "dialogueFaces_npc3.png", 1, 1 ],
 
-    [ "DialogueFaceAngra", "dialogueFaces_angra.png", 1, 1 ],
-	[ "DialogueFaceAngraSoldier", "dialogueFaces_angrasoldier.png", 1, 1 ],
-    [ "DialogueFaceSpenta", "dialogueFaces_spenta.png", 1, 1 ],
-    [ "DialogueFaceAzura", "dialogueFaces_azura.png", 1, 1 ],
-    [ "DialogueFaceHelmet", "dialogueFaces_helmet.png", 1, 1 ],
-    
+    [ "HelmetFace", "dialogueFaces_helmet.png", 1, 1 ],
+    [ "SpentaFace", "dialogueFaces_spenta.png", 1, 1 ],
+    [ "AzuraBossFace", "dialogueFaces_azuraBoss.png", 1, 1 ],
+    [ "AngraFace", "dialogueFaces_angra.png", 1, 1 ],
+    [ "AngraSoldierFace", "dialogueFaces_angrasoldier.png", 1, 1 ],
+
     [ "DialogueIndicator", "dialogueIndicator.png", 1, 7 ],
     [ "InteractIndicator", "interactIndicator.png", 1, 5 ],
     [ "InteractIndicatorController", "interactIndicatorController.png", 1, 5 ],
@@ -209,7 +209,7 @@
     [ "AnyarothLogo", "anyaroth_logo.png", 1, 1 ],
     [ "Credits", "credits.png", 1, 1 ],
     [ "YggdraSeedLogo", "yggdraSeed_logo.png", 1, 1 ],
-    
+
     [ "VoidIcon", "void_icon.png", 1, 1 ]
   ],
   "fonts": [

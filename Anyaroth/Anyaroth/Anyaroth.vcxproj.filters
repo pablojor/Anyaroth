@@ -412,9 +412,6 @@
     <ClCompile Include="Knife.cpp">
       <Filter>Archivos de código fuente\Objects\Melee</Filter>
     </ClCompile>
-    <ClCompile Include="PoleAxe.cpp">
-      <Filter>Archivos de código fuente\Objects\Melee</Filter>
-    </ClCompile>
     <ClCompile Include="Sword.cpp">
       <Filter>Archivos de código fuente\Objects\Melee</Filter>
     </ClCompile>
@@ -484,14 +481,23 @@
     <ClCompile Include="TutorialBullsEye.cpp">
       <Filter>Archivos de código fuente\Objects\Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="Trigger.cpp">
-      <Filter>Archivos de código fuente\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="DialogueTrigger.cpp" />
-    <ClCompile Include="GoodCredits.cpp" />
-    <ClCompile Include="BadCredits.cpp" />
     <ClCompile Include="OrbShotgun.cpp">
       <Filter>Archivos de código fuente\Objects\Guns</Filter>
+    </ClCompile>
+    <ClCompile Include="PoleAxe.cpp">
+      <Filter>Archivos de código fuente\Objects\Melee</Filter>
+    </ClCompile>
+    <ClCompile Include="BadCredits.cpp">
+      <Filter>Archivos de código fuente\Objects\Interactables</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogueTrigger.cpp">
+      <Filter>Archivos de código fuente\Objects\Interactables</Filter>
+    </ClCompile>
+    <ClCompile Include="GoodCredits.cpp">
+      <Filter>Archivos de código fuente\Objects\Interactables</Filter>
+    </ClCompile>
+    <ClCompile Include="Trigger.cpp">
+      <Filter>Archivos de código fuente\Objects\Interactables</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -942,9 +948,6 @@
     <ClInclude Include="Knife.h">
       <Filter>Archivos de encabezado\Objects\Melee</Filter>
     </ClInclude>
-    <ClInclude Include="PoleAxe.h">
-      <Filter>Archivos de encabezado\Objects\Melee</Filter>
-    </ClInclude>
     <ClInclude Include="Sword.h">
       <Filter>Archivos de encabezado\Objects\Melee</Filter>
     </ClInclude>
@@ -996,9 +999,6 @@
     <ClInclude Include="PopUpEvent.h">
       <Filter>Archivos de encabezado\Events</Filter>
     </ClInclude>
-    <ClInclude Include="Trigger.h">
-      <Filter>Archivos de encabezado\Objects</Filter>
-    </ClInclude>
     <ClInclude Include="MeleeEnemy.h">
       <Filter>Archivos de encabezado\Objects\Enemies\GroundEnemies</Filter>
     </ClInclude>
@@ -1017,11 +1017,23 @@
     <ClInclude Include="TutorialBuddy.h">
       <Filter>Archivos de encabezado\Objects\Enemies\GroundEnemies</Filter>
     </ClInclude>
-    <ClInclude Include="DialogueTrigger.h" />
-    <ClInclude Include="GoodCredits.h" />
-    <ClInclude Include="BadCredits.h" />
     <ClInclude Include="OrbShotgun.h">
       <Filter>Archivos de encabezado\Guns</Filter>
+    </ClInclude>
+    <ClInclude Include="Poleaxe.h">
+      <Filter>Archivos de encabezado\Objects\Melee</Filter>
+    </ClInclude>
+    <ClInclude Include="BadCredits.h">
+      <Filter>Archivos de encabezado\Objects\Interactables</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogueTrigger.h">
+      <Filter>Archivos de encabezado\Objects\Interactables</Filter>
+    </ClInclude>
+    <ClInclude Include="GoodCredits.h">
+      <Filter>Archivos de encabezado\Objects\Interactables</Filter>
+    </ClInclude>
+    <ClInclude Include="Trigger.h">
+      <Filter>Archivos de encabezado\Objects\Interactables</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

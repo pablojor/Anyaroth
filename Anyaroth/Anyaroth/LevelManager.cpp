@@ -85,7 +85,7 @@ void LevelManager::setLevel(int l)
 		break;
 	case LevelManager::Boss1:
 		_currentMap = new Map(TILEMAP_PATH + "Nivel1-3.json", _game, _player, _game->getTexture("TilesetBoss1"), _enemyBulletPool);
-		setBackgroundBoss1();
+		setBackgroundBoss("BgBoss1");
 
 		cutscene = new CutScene(_player);
 
@@ -132,7 +132,7 @@ void LevelManager::setLevel(int l)
 		break;
 	case LevelManager::Boss2:
 		_currentMap = new Map(TILEMAP_PATH + "Nivel2-3.json", _game, _player, _game->getTexture("TilesetBoss2"), _enemyBulletPool);
-		setParallaxZone2();
+		setBackgroundBoss("BgBoss2");
 
 		cutscene = new CutScene(_player);
 
@@ -182,7 +182,7 @@ void LevelManager::setLevel(int l)
 		break;
 	case LevelManager::Boss3:
 		_currentMap = new Map(TILEMAP_PATH + "Nivel3-3.json", _game, _player, _game->getTexture("TilesetBoss3"), _enemyBulletPool);
-		setParallaxZone3();
+		setBackgroundBoss("BgBoss3");
 		//_game->getSoundManager()->playMusic("") m�sica boss 3
 
 		cutscene = new CutScene(_player);
@@ -254,7 +254,7 @@ void LevelManager::setLevel(int l)
 		break;
 	case LevelManager::BossDemo:
 		_currentMap = new Map(TILEMAP_PATH + "Nivel1-3.json", _game, _player, _game->getTexture("TilesetBoss1"), _enemyBulletPool);
-		setBackgroundBoss1();
+		setBackgroundBoss("BgBoss1");
 		_game->getSoundManager()->playMusic("boss1Battle", -1);
 
 		cutscene = new CutScene(_player);

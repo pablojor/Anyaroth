@@ -142,19 +142,18 @@ void Boss3::update(const double & deltaTime)
 		handleAnimations(deltaTime);
 	}
 
-		if (!isDead())
-		{
-			movement(deltaTime);
+	if (!isDead())
+	{
+		movement(deltaTime);
 
-			if (_actualFase == Fase1)
-				fase1(deltaTime);
-			else if (_actualFase == Fase2)
-				fase2(deltaTime);
-			else if (_actualFase == Fase3)
-				fase3(deltaTime);
-			else
-				beetwenFases(deltaTime);
-		}
+		if (_actualFase == Fase1)
+			fase1(deltaTime);
+		else if (_actualFase == Fase2)
+			fase2(deltaTime);
+		else if (_actualFase == Fase3)
+			fase3(deltaTime);
+		else
+			beetwenFases(deltaTime);
 	}
 }
 
@@ -764,7 +763,4 @@ BossCorpse::BossCorpse(Game * g, Vector2D pos, Texture* texture): GameObject(g)
 	addComponent<Texture>(texture);
 
 	_sprite = addComponent<SpriteComponent>();
-
-	if (flip)
-		_sprite->flip();
 }

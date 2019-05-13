@@ -244,7 +244,7 @@ void Map::createObjects()
 			}
 			else if (name == "AngraCorpse")
 			{
-				BossCorpse* _corpse = new BossCorpse(_game, Vector2D(0,0), _game->getTexture("angraCorpse"));
+				BossCorpse* _corpse = new BossCorpse(_game, Vector2D(0,0), _game->getTexture("AngraCorpse"));
 				_corpse->setActive(false);
 				angra->setAnimCorpse(_corpse);
 				_objects->addChildFront(_corpse);
