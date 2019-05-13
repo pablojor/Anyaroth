@@ -49,7 +49,7 @@ public:
 	enum LaserContainer { LaserClosed, LaserClosing, LaserOpened, LaserOpening };
 	enum Laser { LaserShooting, LaserWarning };
 	enum Angra {
-		AngraIdle, AngraWalk, AngraBH, AngraAppear, AngraDisappear, AngraRing, AngraDie
+		AngraIdle, AngraWalk, AngraBH, AngraAppear, AngraDisappear, AngraRing, AngraDie1, AngraDie2
 	};
 	enum AngraSoldier {
 		AngraSoldierIdle, AngraSoldierWalk, AngraSoldierWalkBack, AngraSoldierBeforeJump, AngraSoldierJump, AngraSoldierStartFalling, AngraSoldierFalling,
@@ -59,7 +59,7 @@ public:
 		HeadIdle, HeadAttackStart, HeadAttackLoop, HeadAttackEnd, HeadDie
 	};
 	enum Throne {
-		ThroneIdle, ThroneEnd
+		ThroneIdle, ThroneEnd1, ThroneEnd2
 	};
 	AnimatedSpriteComponent(GameObject* obj) : SpriteComponent(obj), PhysicsComponent(obj), RenderComponent(obj), Component(), _obj(obj) {}
 	virtual ~AnimatedSpriteComponent() {}

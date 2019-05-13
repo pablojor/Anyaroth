@@ -73,29 +73,6 @@
         }, 
         {
          "draworder":"topdown",
-         "id":31,
-         "name":"Throne",
-         "objects":[
-                {
-                 "gid":82,
-                 "height":16,
-                 "id":46,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":16,
-                 "x":360,
-                 "y":130
-                }],
-         "opacity":1,
-         "type":"objectgroup",
-         "visible":true,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "draworder":"topdown",
          "id":32,
          "name":"AngraCorpse",
          "objects":[
@@ -110,6 +87,29 @@
                  "width":16,
                  "x":778,
                  "y":112
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":31,
+         "name":"Throne",
+         "objects":[
+                {
+                 "gid":82,
+                 "height":16,
+                 "id":46,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":360,
+                 "y":130
                 }],
          "opacity":1,
          "type":"objectgroup",
