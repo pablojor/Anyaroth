@@ -185,7 +185,7 @@ void Map::createObjects()
 			}
 			else if (name == "Lasers")
 			{
-				LaserHandler* l = new LaserHandler(_game, _game->getTexture("LaserContainer"), _game->getTexture("Laser"), _player, 8, stoi(data), pos + Vector2D{0, 0});
+				LaserHandler* l = new LaserHandler(_game, _game->getTexture("LaserContainer"), _game->getTexture("Laser"), _player, 8, stoi(data), pos + Vector2D{ 0, 0 });
 				addChildFront(l);
 				azura->setLasers(l);
 			}
@@ -244,7 +244,7 @@ void Map::createObjects()
 			}
 			else if (name == "AngraCorpse")
 			{
-				BossCorpse* _corpse = new BossCorpse(_game, Vector2D(0,0), _game->getTexture("AngraCorpse"));
+				BossCorpse* _corpse = new BossCorpse(_game, Vector2D(0, 0), _game->getTexture("AngraCorpse"));
 				_corpse->setActive(false);
 				angra->setAnimCorpse(_corpse);
 				_objects->addChildFront(_corpse);

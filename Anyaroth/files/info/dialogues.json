@@ -1,7 +1,7 @@
 {
     "dialogues": {
         "Helmet 1": {
-            "face": "nullptr",
+            "face": "HelmetFace",
             "name": "Helmet",
             "voice": "exampleVoice",
             "dialogue": [
@@ -21,7 +21,7 @@
             ]
         },
         "Helmet 2": {
-            "face": "nullptr",
+            "face": "HelmetFace",
             "name": "Helmet",
             "voice": "exampleVoice",
             "dialogue": [
@@ -42,7 +42,7 @@
             ]
         },
         "Helmet 3": {
-            "face": "nullptr",
+            "face": "HelmetFace",
             "name": "Helmet",
             "voice": "exampleVoice",
             "dialogue": [
@@ -81,7 +81,7 @@
                 " "
             ]
         },
-        "Kartya 3": {
+        "Kartya 1-2": {
             "face": "KartyaFace",
             "name": "???",
             "voice": "exampleVoice",
@@ -91,6 +91,25 @@
                 "Okay, listen, I don't have time for you. And I don't like rookies.",
                 "You'll find Zornn at the shop inside this building.",
                 "He'll tell you what to do. We needed some soldiers, so don't fuck up and you may earn a living here. See you."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Kartya 3": {
+            "face": "KartyaFace",
+            "name": "???",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "You'll find Zornn at the shop inside this building."
             ],
             "faces": [
                 0,
@@ -413,7 +432,26 @@
                 " "
             ]
         },
-        "Azura 7": {
+        "Spenta Manyu": {
+            "face": "SpentaFace",
+            "name": "Spenta Manyu",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Another one of my soldiers has been fooled by the rebellion… You have made a big mistake. I will end your silly adventures once and for all!"
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Azura 2-1": {
             "face": "AzuraFace",
             "name": "Azura",
             "voice": "exampleVoice",
@@ -427,6 +465,25 @@
                 "I'm not sure if I will survive, but there's no other way...",
                 "And that is why I need you, Avestas! I don't want my rebellion to die with me.",
                 "I don't do this because of personal revenge, I do this for the future of Anyaroth and all the anyas!",
+                "I hope we will meet again soon. But if we don't, I hope you can end what I started. Farewell, Avestas!"
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Azura 7": {
+            "face": "AzuraFace",
+            "name": "Azura",
+            "voice": "exampleVoice",
+            "dialogue": [
                 "I hope we will meet again soon. But if we don't, I hope you can end what I started. Farewell, Avestas!"
             ],
             "faces": [
@@ -873,7 +930,7 @@
             ]
         },
         "Azura Manyu 1": {
-            "face": "nullptr",
+            "face": "AzuraBossFace",
             "name": "Azura Manyu",
             "voice": "exampleVoice",
             "dialogue": [
@@ -895,7 +952,7 @@
             ]
         },
         "Azura Manyu 2": {
-            "face": "nullptr",
+            "face": "AzuraBossFace",
             "name": "Azura Manyu",
             "voice": "exampleVoice",
             "dialogue": [
@@ -914,7 +971,7 @@
                 " "
             ]
         },
-        "Kheismani 13": {
+        "Kheismani 3-1": {
             "face": "KheismaniFace",
             "name": "Kheismani",
             "voice": "exampleVoice",
@@ -925,6 +982,25 @@
                 "I'm starting to believe she is some kind of goddess.",
                 "The rebellion has died with Azura. Everyone is feeling miserable and absolutely shattered.",
                 "But you... You were able to defeat Spenta Manyu as well as Azura himself.",
+                "Azura once told me that if he died, someone stronger would replace him. I hope he was right."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Kheismani 13": {
+            "face": "KheismaniFace",
+            "name": "Kheismani",
+            "voice": "exampleVoice",
+            "dialogue": [
                 "Azura once told me that if he died, someone stronger would replace him. I hope he was right."
             ],
             "faces": [
@@ -1381,7 +1457,7 @@
             ]
         },
         "Angra Manyu 1": {
-            "face": "nullptr",
+            "face": "AngraFace",
             "name": "Angra Manyu",
             "voice": "exampleVoice",
             "dialogue": [
@@ -1406,7 +1482,7 @@
             ]
         },
         "Angra Manyu 2": {
-            "face": "nullptr",
+            "face": "AngraSoldierFace",
             "name": "Angra Manyu",
             "voice": "exampleVoice",
             "dialogue": [

@@ -2,8 +2,9 @@
 #include "ImprovedRifle.h"
 #include "SpawnerBoss.h"
 #include "FloatingHead.h"
+#include "CutScene.h"
 
-Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(g, player, pos, pool, g->getTexture("Angra")), Enemy(g, player, pos, g->getTexture("Angra"),"die2", "boss1Hit", "meleeEnemyHit")
+Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(g, player, pos, pool, g->getTexture("Angra")), Enemy(g, player, pos, g->getTexture("Angra"), "die2", "boss1Hit", "meleeEnemyHit")
 {
 	_life = 300; // Demo Guerrilla
 	_life1 = _life;
@@ -15,8 +16,6 @@ Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(
 	_myGun->setMaxCadence(_rifleCadence);
 	_myGun->setBulletSpeed(8);
 	_myGun->setDamage(5);
-	_myGun->setBulletAnimType(BulletAnimType::Default);
-	_myGun->setBulletTexture(g->getTexture("AngraMechaBullet"));
 
 	_gravGun = new GravityBombCannon(g);
 	_gravGun->setMaxCadence(0);
@@ -73,7 +72,6 @@ Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(
 	_body->getBody()->SetActive(false);
 	_armVision = false;
 
-	_hurtParticle = _game->getTexture("Sparks");
 	addSensors();
 }
 
@@ -104,7 +102,7 @@ void Boss3::handleAnimations(double time)
 			else
 				_anim->flip();
 		}
-		
+
 	}
 }
 void Boss3::setBoss3Panel(Boss3Panel * b)
@@ -128,32 +126,34 @@ void Boss3::update(const double & deltaTime)
 	if (_game->getCurrentState()->getCutScene() == nullptr)
 	{
 		DistanceEnemy::update(deltaTime);
-		movement(deltaTime);
 
-		if (_actualFase == Fase1)
-			fase1(deltaTime);
-		else if (_actualFase == Fase2)
-			fase2(deltaTime);
-		else if (_actualFase == Fase3)
-			fase3(deltaTime);
-		else
-			beetwenFases(deltaTime);
+		if (!isDead())
+		{
+			movement(deltaTime);
 
-		handleAnimations(deltaTime);
-	}
+			if (_actualFase == Fase1)
+				fase1(deltaTime);
+			else if (_actualFase == Fase2)
+				fase2(deltaTime);
+			else if (_actualFase == Fase3)
+				fase3(deltaTime);
+			else
+				beetwenFases(deltaTime);
 
-	if (!isDead())
-	{
-		movement(deltaTime);
+			handleAnimations(deltaTime);
+		}
+		else if (!_finishLevel)
+		{
+			CutScene* cutscene = new CutScene(_player);
+			cutscene->addWaitEvent(1000);
+			cutscene->addDialogueEvent(_game->getCurrentState()->getPlayHUD()->getDialoguePanel(), _game->getDialogue("Angra Manyu 2"));
+			cutscene->addWaitEvent(1000);
+			cutscene->addChangeLevelEvent();
+			_game->getCurrentState()->addCutScene(cutscene);
+			cutscene->play();
 
-		if (_actualFase == Fase1)
-			fase1(deltaTime);
-		else if (_actualFase == Fase2)
-			fase2(deltaTime);
-		else if (_actualFase == Fase3)
-			fase3(deltaTime);
-		else
-			beetwenFases(deltaTime);
+			_finishLevel = true;
+		}
 	}
 }
 
@@ -172,13 +172,13 @@ void Boss3::movement(const double& deltaTime)
 		if (_dir.getX() == 1)
 		{
 			_anim->unFlip();
-			if(_actualFase == Fase2)
+			if (_actualFase == Fase2)
 				_arm->setOffSet(Vector2D(245, 105));
 		}
 		else
 		{
 			_anim->flip();
-			if(_actualFase == Fase2)
+			if (_actualFase == Fase2)
 				_arm->setOffSet(Vector2D(90, 105));
 		}
 
@@ -187,7 +187,7 @@ void Boss3::movement(const double& deltaTime)
 			_body->getBody()->SetLinearVelocity(b2Vec2(_velocity * _dir.getX() / M_TO_PIXEL, _body->getBody()->GetLinearVelocity().y));
 			_anim->playAnim(AnimatedSpriteComponent::AngraWalk);
 		}
-		else if(_actualState != PortalAttack && _actualState != Shooting)
+		else if (_actualState != PortalAttack && _actualState != Shooting)
 		{
 			_anim->playAnim(AnimatedSpriteComponent::AngraIdle);
 		}
@@ -260,7 +260,7 @@ void Boss3::fase2(const double& deltaTime)
 		circularShoot(deltaTime);
 	else if (_actualState == GravAttack)
 	{
-		if(_anim->getCurrentAnim() == AnimatedSpriteComponent::AngraBH && _anim->animationFinished())
+		if (_anim->getCurrentAnim() == AnimatedSpriteComponent::AngraBH && _anim->animationFinished())
 		{
 			if (_game->random(0, 100) > 60)
 			{
@@ -422,7 +422,7 @@ void Boss3::beetwenFases(const double& deltaTime)
 		die();
 	}
 	_boss3Panel->updateLifeBar(_life1.getLife(), _life.getLife());
-	
+
 }
 
 void Boss3::subLife(int damage)
@@ -494,7 +494,7 @@ void Boss3::portalAttack(const double& deltaTime)
 		}
 		else if (_timeOut > timeToShowPortal && !portalVisible)
 		{
-			_body->getBody()->SetTransform(b2Vec2((_playerBody->getBody()->GetPosition().x), _playerBody->getBody()->GetPosition().y - _body->getH()/2 - _playerBody->getH() -5), 0);
+			_body->getBody()->SetTransform(b2Vec2((_playerBody->getBody()->GetPosition().x), _playerBody->getBody()->GetPosition().y - _body->getH() / 2 - _playerBody->getH() - 5), 0);
 			_transform->setPosition(Vector2D(_playerBody->getBody()->GetPosition().x / M_TO_PIXEL, _playerBody->getBody()->GetPosition().y / M_TO_PIXEL));
 			portalVisible = true;
 
@@ -523,7 +523,7 @@ void Boss3::circularShoot(const double& deltaTime)
 		_myGun->setMaxCadence(_rifleCadence);
 		_needToFinishAnim = false;
 	}
-	else if(_num != 3)
+	else if (_num != 3)
 	{
 		if (!_needToFinishAnim)
 		{
@@ -568,7 +568,7 @@ void Boss3::AngraSoldierSpawn()
 	_anim->addAnim(AnimatedSpriteComponent::AngraSoldierDashDown, 3, true);
 	_anim->addAnim(AnimatedSpriteComponent::AngraSoldierDashBack, 5, true);
 	_anim->addAnim(AnimatedSpriteComponent::AngraSoldierDie, 35, false);
-	
+
 	b2Vec2 lastPos = _body->getBody()->GetPosition();
 	_body->deleteBody();
 	deleteComponent<BodyComponent>(_body);
@@ -587,7 +587,7 @@ void Boss3::AngraSoldierSpawn()
 	_body->addCricleShape(b2Vec2(0, 1.1), 0.7, PLAYER, FLOOR | PLATFORMS);
 	_body->getBody()->SetFixedRotation(true);
 
-	_body->getBody()->SetTransform( lastPos, 0);
+	_body->getBody()->SetTransform(lastPos, 0);
 
 	b2PolygonShape shape;
 	shape.SetAsBox(5 / M_TO_PIXEL, 3 / M_TO_PIXEL, b2Vec2(0, 3), 0);
@@ -597,7 +597,7 @@ void Boss3::AngraSoldierSpawn()
 	fDef.filter.maskBits = FLOOR | PLATFORMS;
 	fDef.isSensor = true;
 	_body->addFixture(&fDef, this);
-	
+
 	_myGun->setArmTexture(_game->getTexture("AngraArmImprovedRifle"));
 	_arm->setTexture(_game->getTexture("AngraArmImprovedRifle"));
 	_arm->setActive(true);
@@ -677,7 +677,7 @@ void Boss3::shootBullet(int numBullets, double angleIncrease)
 
 void Boss3::shoot()
 {
-	_myGun->enemyShoot(_myBulletPool,Vector2D( _bodyPos.getX(), _bodyPos.getY() - 10), _angle, "EnemyBullet");
+	_myGun->enemyShoot(_myBulletPool, Vector2D(_bodyPos.getX(), _bodyPos.getY() - 10), _angle, "EnemyBullet");
 }
 
 void Boss3::shootGrav()
@@ -755,7 +755,7 @@ void Boss3::die()
 	_arm->setActive(false);
 }
 
-BossCorpse::BossCorpse(Game * g, Vector2D pos, Texture* texture): GameObject(g)
+BossCorpse::BossCorpse(Game * g, Vector2D pos, Texture* texture) : GameObject(g)
 {
 	TransformComponent* t = addComponent<TransformComponent>();
 	t->setPosition(pos);

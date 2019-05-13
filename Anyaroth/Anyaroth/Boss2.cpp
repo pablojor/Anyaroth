@@ -15,7 +15,7 @@ Boss2::Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, 
 
 	_myGun = new ImprovedShotgun(g);
 	_myGun->setBulletSpeed(60);
-	_myGun->setBulletTexture(g->getTexture("AzuraBullet"));
+	_myGun->setBulletTexture(g->getTexture("AzuraShotgunBullet"));
 	
 
 	_arm->setOffSet(Vector2D(140, 105));
