@@ -134,15 +134,15 @@ void DepotPanel::setPlayer(Player * ply)
 	}
 
 	auto* fInfo = &fItem->getItemInfo(); fInfo->_sold = true; fInfo->_equiped = true;
-//	auto* sInfo = &sItem->getItemInfo(); sInfo->_sold = true; sInfo->_equiped = true;
+	auto* sInfo = &sItem->getItemInfo(); sInfo->_sold = true; sInfo->_equiped = true;
 	auto* mInfo = &mItem->getItemInfo(); mInfo->_sold = true; mInfo->_equiped = true;
 
 	_firstWeaponItem = fItem;
-	//_secondWeaponItem = sItem;
+	_secondWeaponItem = sItem;
 	_meleeWeaponItem = mItem;
 
 	_firstWeaponFrame->setItemInfo(*fInfo);
-	//_secondWeaponFrame->setItemInfo(*sInfo);
+	_secondWeaponFrame->setItemInfo(*sInfo);
 	_meleeWeaponFrame->setItemInfo(*mInfo);
 
 	addChild(_firstWeaponFrame);
