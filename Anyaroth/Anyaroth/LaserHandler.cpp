@@ -1,14 +1,13 @@
 #include "LaserHandler.h"
 #include "Game.h"
 
-LaserHandler::LaserHandler(Game* g, Texture* container, Texture* laser, Player* player, int numLasers) : _numLasers(numLasers), GameObject(g)
+LaserHandler::LaserHandler(Game* g, Texture* container, Texture* laser, Player* player, int numLasers, int span, Vector2D pos) : _numLasers(numLasers), GameObject(g)
 {
-	int pos1 = 65;
-	int spaceBetween = (800 - pos1) / numLasers;
+	int spaceBetween = (span - pos.getX()) / numLasers;
 
 	for (int i = 0; i < numLasers; i++)
 	{
-		LaserContainer* temp = new LaserContainer(g, Vector2D(pos1 + i * spaceBetween, 75), container, laser, player);
+		LaserContainer* temp = new LaserContainer(g, Vector2D(pos.getX() + i * spaceBetween, pos.getY()), container, laser, player);
 
 		_lasers.push_back(temp);
 		addChild(temp);
@@ -49,9 +48,15 @@ void LaserHandler::update(const double& deltaTime)
 			}
 			else
 			{
-				if ((timeBetweenShot - timeToshot) <= 1000)
+				if ((timeBetweenShot - timeToshot) <= 1000 && !_isWarning)
 				{
-					//pones el frame de pre-laser
+					_isWarning = true;
+					_lasers[0]->Warning(_game->random(-30, 0));
+
+					for (int i = 1; i < _numLasers - 1; i++)
+						_lasers[i]->Warning(_game->random(-30, 30));
+
+					_lasers[_numLasers - 1]->Warning(_game->random(0, 30));
 				}
 				timeToshot += deltaTime;
 			}
@@ -61,14 +66,11 @@ void LaserHandler::update(const double& deltaTime)
 
 void LaserHandler::Shoot()
 {
-	_lasers[0]->Shoot(_game->random(60, 100));
-
-	for (int i = 1; i < _numLasers - 1; i++)
+	_isWarning = false;
+	for (auto l : _lasers)
 	{
-		_lasers[i]->Shoot(_game->random(60, 120));
+		l->Shoot();
 	}
-
-	_lasers[_numLasers - 1]->Shoot(_game->random(80, 120));
 }
 void LaserHandler::Stop()
 {

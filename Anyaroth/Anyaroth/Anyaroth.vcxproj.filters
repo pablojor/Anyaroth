@@ -490,6 +490,9 @@
     <ClCompile Include="DialogueTrigger.cpp" />
     <ClCompile Include="GoodCredits.cpp" />
     <ClCompile Include="BadCredits.cpp" />
+    <ClCompile Include="OrbShotgun.cpp">
+      <Filter>Archivos de código fuente\Objects\Guns</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -1017,6 +1020,9 @@
     <ClInclude Include="DialogueTrigger.h" />
     <ClInclude Include="GoodCredits.h" />
     <ClInclude Include="BadCredits.h" />
+    <ClInclude Include="OrbShotgun.h">
+      <Filter>Archivos de encabezado\Guns</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de código fuente">

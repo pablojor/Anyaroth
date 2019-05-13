@@ -183,6 +183,12 @@ void Map::createObjects()
 				_objects->addChild(angra);
 				angra->setBoss3Panel(_game->getCurrentState()->getPlayHUD()->getBoss3Panel());
 			}
+			else if (name == "Lasers")
+			{
+				LaserHandler* l = new LaserHandler(_game, _game->getTexture("LaserContainer"), _game->getTexture("Laser"), _player, 8, stoi(data), pos + Vector2D{0, 0});
+				addChildFront(l);
+				azura->setLasers(l);
+			}
 			else if (name == "Misil")
 			{
 				_objects->addChild(new MissileTurret(_game, spenta, Vector2D(pos.getX() - TILES_SIZE, pos.getY() - TILES_SIZE * 2.8), stoi(data)));
@@ -223,6 +229,25 @@ void Map::createObjects()
 			else if (name == "BadCredits")
 			{
 				_objects->addChild(new BadCredits(_game, Vector2D(pos.getX() - TILES_SIZE, pos.getY() - TILES_SIZE * 2)));
+			}
+			else if (name == "Throne")
+			{
+				SpriteObject* throne = new SpriteObject(_game, _game->getTexture("Throne"), Vector2D(pos.getX() - TILES_SIZE * 2, pos.getY() - TILES_SIZE * 2));
+				AnimatedSpriteComponent* throneAnim = throne->getComponent<AnimatedSpriteComponent>();
+				throneAnim->reset();
+				throneAnim->addAnim(AnimatedSpriteComponent::ThroneIdle, 14, true);
+				throneAnim->addAnim(AnimatedSpriteComponent::ThroneEnd, 27, false);
+
+				throneAnim->playAnim(AnimatedSpriteComponent::ThroneIdle);
+				angra->setAnimThrone(throneAnim);
+				_objects->addChildFront(throne);
+			}
+			else if (name == "AngraCorpse")
+			{
+				BossCorpse* _corpse = new BossCorpse(_game, Vector2D(0,0), _game->getTexture("angraCorpse"));
+				_corpse->setActive(false);
+				angra->setAnimCorpse(_corpse);
+				_objects->addChildFront(_corpse);
 			}
 		}
 	}

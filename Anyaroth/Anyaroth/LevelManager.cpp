@@ -52,6 +52,7 @@ void LevelManager::setLevel(int l)
 		break;
 	case LevelManager::Level1_1:
 		_currentMap = new Map(TILEMAP_PATH + "Nivel1-1.json", _game, _player, _game->getTexture("Tileset1"), _enemyBulletPool);
+		_game->getSoundManager()->playMusic("zona1", -1);
 		setParallaxZone1();
 		//_game->getSoundManager()->playMusic("") m�sica zona 1
 		break;
@@ -73,6 +74,7 @@ void LevelManager::setLevel(int l)
 		break;
 	case LevelManager::Level1_2:
 		_currentMap = new Map(TILEMAP_PATH + "Nivel1-2.json", _game, _player, _game->getTexture("Tileset1"), _enemyBulletPool);
+		_game->getSoundManager()->playMusic("zona1", -1);
 		setParallaxZone1();
 		//_game->getSoundManager()->playMusic("") m�sica zona 1
 		break;
@@ -359,8 +361,8 @@ void LevelManager::setParallaxZone3()
 	_camera->setBackGround(parallaxZone1);
 }
 
-void LevelManager::setBackgroundBoss1()
+void LevelManager::setBackgroundBoss(string txt)
 {
-	BackGround* backgroundBoss1 = new BackGround(_game->getTexture("BgBoss1"), _camera);
-	_camera->setBackGround(backgroundBoss1);
+	BackGround* backgroundBoss = new BackGround(_game->getTexture(txt), _camera);
+	_camera->setBackGround(backgroundBoss);
 }

@@ -6,9 +6,12 @@ Laser::Laser(Game* g, Vector2D pos, Texture* texture, Player* player, double dam
 	addComponent<Texture>(texture);
 
 	_transform = addComponent<TransformComponent>();
+	_transform->setAnchor(-0.5, -0.01);
 	_transform->setPosition(pos.getX(), pos.getY());
 
-	_anim = addComponent<SpriteComponent>();
+	_anim = addComponent<AnimatedSpriteComponent>();
+	_anim->addAnim(AnimatedSpriteComponent::LaserShooting, 1, true);
+	_anim->addAnim(AnimatedSpriteComponent::LaserWarning, 1, true);
 
 	setActive(false);
 }
@@ -29,32 +32,35 @@ void Laser::update(const double& deltaTime)
 	}
 }
 
-void Laser::Shoot(double angle)
+void Laser::Shoot()
 {
-	setActive(true);
+	_anim->playAnim(AnimatedSpriteComponent::LaserShooting);
 
-	_angle = angle;
-	_transform->setRotation(angle);
-
+	b2Vec2 _pos = b2Vec2(_transform->getPosition().getX() / M_TO_PIXEL, _transform->getPosition().getY() / M_TO_PIXEL);
 	if (_body == nullptr)
 	{
 		_body = addComponent<BodyComponent>();
 
 		_body->filterCollisions(LASER, PLAYER);
 		_body->getBody()->SetType(b2_kinematicBody);
-		//Provisional
-		_body->setH(400);
-		_body->setW(3);
 
 		_body->getBody()->GetFixtureList()->SetSensor(true);
 
-		_body->getBody()->SetTransform(_body->getBody()->GetPosition(), (_angle-90) * M_PI/180);
+		_body->getBody()->SetTransform(_pos, _angle*M_PI/180);	
 	}
 	else
 	{
 		_body->getBody()->SetActive(true);
-		_body->getBody()->SetTransform(_body->getBody()->GetPosition(), (_angle-90) * M_PI / 180);
+		_body->getBody()->SetTransform(_pos, _angle * M_PI / 180);
 	}
+}
+
+void Laser::PreShoot(double angle)
+{
+	_anim->playAnim(AnimatedSpriteComponent::LaserWarning); 
+	setActive(true); 
+	_transform->setRotation(angle);
+	_angle = angle;
 }
 
 void Laser::Stop()

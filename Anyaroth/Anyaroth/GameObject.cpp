@@ -136,8 +136,6 @@ Vector2D GameObject::getPositionOnCamera()
 void GameObject::destroy()
 {
 	if (_game->getCurrentState() != nullptr) {
-		if (_parent != nullptr)
-			_parent->_children.remove(this);
 		_game->getCurrentState()->destroyObject(this);
 	}
 }

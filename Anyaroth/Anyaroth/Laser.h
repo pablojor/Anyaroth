@@ -8,13 +8,13 @@ class Player;
 class Laser : public GameObject
 {
 protected:
-	SpriteComponent* _anim;
+	AnimatedSpriteComponent* _anim;
 	TransformComponent* _transform;
 	BodyComponent* _body = nullptr;
 	Vector2D _pos;
 	Player* _player;
 	int _damage, _angle;
-	//Sistema de daño
+	//Sistema de daï¿½o
 	double startedDamaging = 301, timeToDmg = 300;
 	bool colliding = false;
 
@@ -24,7 +24,8 @@ public:
 
 	virtual void update(const double& deltaTime);
 
-	void Shoot(double angle);
+	void Shoot();
+	void PreShoot(double angle);
 	void Stop();
 	virtual void beginCollision(GameObject* other, b2Contact* contact);
 	virtual void endCollision(GameObject* other, b2Contact* contact);

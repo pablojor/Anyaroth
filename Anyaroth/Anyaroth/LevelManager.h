@@ -19,7 +19,7 @@ private:
 	void setParallaxZone1();
 	void setParallaxZone2();
 	void setParallaxZone3();
-	void setBackgroundBoss1();
+	void setBackgroundBoss(string txt);
 
 public:
 	LevelManager() {}
