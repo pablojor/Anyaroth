@@ -123,6 +123,7 @@
     [ "NameBg", "nameBg.png", 3, 7 ],
     [ "DialogueFace", "dialogueFaces_npc.png", 1, 1 ],
     [ "DialogueFaceAngra", "dialogueFaces_angra.png", 1, 1 ],
+	[ "DialogueFaceAngraSoldier", "dialogueFaces_angrasoldier.png", 1, 1 ],
     [ "DialogueFaceSpenta", "dialogueFaces_spenta.png", 1, 1 ],
     [ "DialogueFaceAzura", "dialogueFaces_azura.png", 1, 1 ],
     [ "DialogueFaceHelmet", "dialogueFaces_helmet.png", 1, 1 ],
