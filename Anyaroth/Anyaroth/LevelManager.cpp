@@ -47,7 +47,7 @@ void LevelManager::setLevel(int l)
 	case LevelManager::Boss1:
 		_currentMap = new Map(TILEMAP_PATH + "Nivel1-3.json", _game, _player, _game->getTexture("TilesetBoss1"), _enemyBulletPool);
 		_game->getSoundManager()->playMusic("boss1Battle", -1);
-		setBackgroundBoss1();
+		setBackgroundBoss("BgBoss1");
 		break;
 	case LevelManager::Safe2_1:
 		_currentSafeZone = new Map(TILEMAP_PATH + "SafeZonePrueba.json", _game, _player, _game->getTexture("Tileset1"), _enemyBulletPool);
@@ -72,7 +72,7 @@ void LevelManager::setLevel(int l)
 	case LevelManager::Boss2:
 		_currentMap = new Map(TILEMAP_PATH + "Nivel2-3.json", _game, _player, _game->getTexture("TilesetBoss2"), _enemyBulletPool);
 		_game->getSoundManager()->playMusic("boss2Battle", -1);
-		setBackgroundBoss2();
+		setBackgroundBoss("BgBoss2");
 		break;
 	case LevelManager::Safe3_1:
 		//_currentSafeZone = ...
@@ -97,6 +97,7 @@ void LevelManager::setLevel(int l)
 	case LevelManager::Boss3:
 		_currentMap = new Map(TILEMAP_PATH + "Nivel3-3.json", _game, _player, _game->getTexture("TilesetBoss3"), _enemyBulletPool);
 		_game->getSoundManager()->playMusic("boss3Battle", -1);
+		setBackgroundBoss("BgBoss3");
 		break;
 
 		//Demo Guerrilla Game Festival
@@ -140,7 +141,7 @@ void LevelManager::setLevel(int l)
 	case LevelManager::BossDemo:
 		_currentMap = new Map(TILEMAP_PATH + "Nivel1-3.json", _game, _player, _game->getTexture("TilesetBoss1"), _enemyBulletPool);
 		_game->getSoundManager()->playMusic("boss1Battle", -1);
-		setBackgroundBoss1();
+		setBackgroundBoss("BgBoss1");
 		break;
 	}
 
@@ -210,13 +211,8 @@ void LevelManager::setParallaxZone1()
 	_camera->setBackGround(parallaxZone1);
 }
 
-void LevelManager::setBackgroundBoss1()
+void LevelManager::setBackgroundBoss(string txt)
 {
-	BackGround* backgroundBoss1 = new BackGround(_game->getTexture("BgBoss1"), _camera);
-	_camera->setBackGround(backgroundBoss1);
-}
-void LevelManager::setBackgroundBoss2()
-{
-	BackGround* backgroundBoss2 = new BackGround(_game->getTexture("BgBoss2"), _camera);
-	_camera->setBackGround(backgroundBoss2);
+	BackGround* backgroundBoss = new BackGround(_game->getTexture(txt), _camera);
+	_camera->setBackGround(backgroundBoss);
 }
