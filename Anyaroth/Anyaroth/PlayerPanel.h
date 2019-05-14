@@ -12,7 +12,7 @@ class PlayerPanel : public PanelUI
 	private:
 		ImageUI* _lifeFrame = nullptr;
 		TextUI* _deathText = nullptr;
-
+		TextUI* _lifeText = nullptr;
 		LifeBar* _lifeBar = nullptr;
 		AmmoViewer* _ammoViewer = nullptr;
 		CoinsCounter* _coinsCounter = nullptr;
@@ -24,7 +24,7 @@ class PlayerPanel : public PanelUI
 		PlayerPanel(Game* game);
 		~PlayerPanel() {}
 
-		inline void updateLifeBar(const int& life, const int& maxLife) { _lifeBar->updateLifeBar(life, maxLife); }
+		void updateLifeBar(const int& life, const int& maxLife);
 		inline void updateAmmoViewer(const int& clip, const int& magazine) { _ammoViewer->updateAmmoViewer(clip, magazine); }
 		inline void updateCoinsCounter(const int& cant) { _coinsCounter->updateCoinsCounter(cant); }
 		inline void updateWeaponryViewer(Texture* iconTex) { _weaponryViewer->updateWeaponryViewer(iconTex); }
