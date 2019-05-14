@@ -105,11 +105,32 @@ void GameObject::destroyAllChildren()
 	_children.clear();
 }
 
+inline Camera * GameObject::getCamera() const
+{
+	return _game->getCurrentState()->getMainCamera();
+}
+
+Vector2D GameObject::getPositionOnCamera()
+{
+	auto transform = getComponent<TransformComponent>();
+	auto mainCamera = _game->getCurrentState()->getMainCamera();
+
+	//Cogemos su posicion en el mundo
+	int xPos = transform->getPosition().getX();	int yPos = transform->getPosition().getY();
+
+	//Lo convertimos en su posicion en camara
+	xPos -= mainCamera->getCameraPosition().getX();
+	yPos -= mainCamera->getCameraPosition().getY();
+
+	double x = xPos * (CAMERA_RESOLUTION_X / _game->getCurrentState()->getMainCamera()->getCameraSize().getX());
+	double y = yPos * (CAMERA_RESOLUTION_Y / _game->getCurrentState()->getMainCamera()->getCameraSize().getY());
+
+	return Vector2D(x, y);
+}
+
 void GameObject::destroy()
 {
 	if (_game->getCurrentState() != nullptr) {
-		if (_parent != nullptr)
-			_parent->_children.remove(this);
 		_game->getCurrentState()->destroyObject(this);
 	}
 }

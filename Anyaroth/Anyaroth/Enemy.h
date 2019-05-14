@@ -2,21 +2,18 @@
 #include "GameObject.h"
 #include "TransformComponent.h"
 #include "BodyComponent.h"
-#include "MovingComponent.h"
 #include "CustomAnimatedSpriteComponent.h"
 #include "Player.h"
 #include "Life.h"
+#include "ParticleManager.h"
 
 class Enemy : public GameObject
 {
-private:
-	string _deathSound = "", _hitSound = "", _meleeHit = "";
-	
 protected:
 	TransformComponent* _transform = nullptr;
 	BodyComponent* _body = nullptr;
-	MovingComponent* _movement = nullptr;
 	CustomAnimatedSpriteComponent* _anim = nullptr;
+	Texture* _texture;
 
 	Player* _player = nullptr;
 	Vector2D _playerDistance;
@@ -32,6 +29,8 @@ protected:
 	b2Vec2 _contactPoint = b2Vec2_zero;
 
 	int _coinValue = 10;
+
+	string _deathSound = "", _hitSound = "", _meleeHit = "";
 
 public:
 	Enemy(Game* g, Player* player, Vector2D pos, Texture* texture, string death = "", string hit = "", string meleeHit = "");

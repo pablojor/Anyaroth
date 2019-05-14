@@ -1,6 +1,6 @@
 #include "SpawnerEnemy.h"
 
-SpawnerEnemy::SpawnerEnemy(Game* g, Player* player, Vector2D pos) : Enemy(g, player, pos, g->getTexture("EnemyMartyr"))
+SpawnerEnemy::SpawnerEnemy(Game* g, Player* player, Vector2D pos) : Enemy(g, player, pos, g->getTexture("Spawner"), "spawnerDeath", "spawnerHit", "martyrMeleeHit")
 {
 	_vision = 800;
 	_life = 40;
@@ -8,10 +8,10 @@ SpawnerEnemy::SpawnerEnemy(Game* g, Player* player, Vector2D pos) : Enemy(g, pla
 	_speed = 8;
 	_time = 0;
 
-	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 13, true);
-	_anim->addAnim(AnimatedSpriteComponent::EnemyWalk, 8, true);
-	_anim->addAnim(AnimatedSpriteComponent::EnemyAttack, 11, false);
-	_anim->addAnim(AnimatedSpriteComponent::EnemyDie, 18, false);
+	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 12, true);
+	_anim->addAnim(AnimatedSpriteComponent::EnemyWalk, 1, false);
+	_anim->addAnim(AnimatedSpriteComponent::EnemyAttack, 10, false);
+	_anim->addAnim(AnimatedSpriteComponent::EnemyDie, 13, false);
 
 	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 

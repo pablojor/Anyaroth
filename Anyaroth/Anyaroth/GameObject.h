@@ -11,6 +11,7 @@
 
 #include "FileNotFoundError.h"
 #include "FileFormatError.h"
+#include "Vector2D.h"
 
 using namespace std;
 
@@ -94,6 +95,10 @@ public:
 	virtual void delPhysicsComponent(PhysicsComponent* pc);
 	virtual void delRenderComponent(RenderComponent* rc);
 
+	inline virtual vector<RenderComponent*>  getRenderComponents() const { return _renderComp; }
+	inline virtual vector<InputComponent*>   getInputComponents() const { return _inputComp; }
+	inline virtual vector<PhysicsComponent*>  getPhysicsComponents() const { return _physicsComp; }
+
 	inline b2World* getWorld() const { return _world; }
 	inline void setWorld(b2World* world) { _world = world; }
 
@@ -103,8 +108,10 @@ public:
 	virtual void postCollision(GameObject* other, b2Contact* contact) {}
 
 	inline void addChild(GameObject* obj) { obj->_parent = this; _children.push_back(obj); }
-	inline list<GameObject*>& getChildren() { return _children; }
+	inline void addChildFront(GameObject* obj) { obj->_parent = this; _children.push_front(obj); }
+	inline list<GameObject*>& getChildren()  { return _children; }
 	void destroyAllChildren();
+	inline GameObject* getParent() const { return _parent; }
 
 	inline Game* getGame() const { return _game; }
 
@@ -122,6 +129,10 @@ public:
 
 	virtual int getDamage() const { return 0; }
 	virtual void subLife(int damage) {}
+
+	inline Camera* getCamera() const;
+
+	Vector2D getPositionOnCamera();
 
 	inline virtual int getValue() const { return -1; }
 

@@ -69,4 +69,5 @@ public:
 	inline void setBulletTexture(Texture* texture) { _bulletTexture = texture; }
 	inline void setBulletAnimType(BulletAnimType bType) { _bulletAnimType = bType; }
 	inline void setShotSound(string soundTag) { _shotSoundTag = soundTag; }
+	inline void setArmTexture(Texture* t) { _armTexture = t; }
 };

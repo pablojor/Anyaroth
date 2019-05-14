@@ -430,6 +430,39 @@
     <ClCompile Include="Sword.cpp">
       <Filter>Archivos de código fuente\Objects\Melee</Filter>
     </ClCompile>
+    <ClCompile Include="Boss3.cpp">
+      <Filter>Archivos de código fuente\Objects\Enemies\Bosses</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss2.cpp">
+      <Filter>Archivos de código fuente\Objects\Enemies\Bosses</Filter>
+    </ClCompile>
+    <ClCompile Include="BossSensor.cpp">
+      <Filter>Archivos de código fuente\Objects\Enemies\Bosses</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss3Panel.cpp">
+      <Filter>Archivos de código fuente\HUD\Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyLifePanel.cpp">
+      <Filter>Archivos de código fuente\HUD\Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="FloatingHead.cpp">
+      <Filter>Archivos de código fuente\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Laser.cpp">
+      <Filter>Archivos de código fuente\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="LaserContainer.cpp">
+      <Filter>Archivos de código fuente\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="LaserHandler.cpp">
+      <Filter>Archivos de código fuente\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="SpawnerBoss.cpp">
+      <Filter>Archivos de código fuente\Objects\Enemies\SpawnerEnemies</Filter>
+    </ClCompile>
+    <ClCompile Include="OrbShotgun.cpp">
+      <Filter>Archivos de código fuente\Objects\Guns</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -898,6 +931,39 @@
       <Filter>Archivos de encabezado\Objects\Melee</Filter>
     </ClInclude>
     <ClInclude Include="resource.h" />
+    <ClInclude Include="BossSensor.h">
+      <Filter>Archivos de encabezado\Objects\Enemies\Bosses</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss3.h">
+      <Filter>Archivos de encabezado\Objects\Enemies\Bosses</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss2.h">
+      <Filter>Archivos de encabezado\Objects\Enemies\Bosses</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss3Panel.h">
+      <Filter>Archivos de encabezado\HUD\Panels</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyLifePanel.h">
+      <Filter>Archivos de encabezado\HUD\Panels</Filter>
+    </ClInclude>
+    <ClInclude Include="FloatingHead.h">
+      <Filter>Archivos de encabezado\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="LaserContainer.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Laser.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="LaserHandler.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="SpawnerBoss.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="OrbShotgun.h">
+      <Filter>Archivos de encabezado\Guns</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Archivos de código fuente">

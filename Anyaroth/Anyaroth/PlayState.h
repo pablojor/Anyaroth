@@ -11,7 +11,6 @@ class PlayState : public GameState
 private:
 	Player* _player = nullptr;
 	GameObject* _level = nullptr;
-	Cursor* _cursor = nullptr;
 
 	BulletPool* _playerBulletPool = nullptr;
 	ParticlePool* _particlePool = nullptr;

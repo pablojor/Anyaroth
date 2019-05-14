@@ -10,10 +10,14 @@
 #include "DistanceSpawner.h"
 #include "StaticSpawnerEnemy.h"
 #include "Boss1.h"
+#include "Boss2.h"
+#include "Boss3.h"
 #include "Player.h"
 #include "NPC.h"
 #include "Shop.h"
 #include "MissileTurret.h"
+#include "SpawnerBoss.h"
+#include "FloatingHead.h"
 #include <json.hpp>
 
 using namespace nlohmann;
@@ -74,6 +78,8 @@ Map::~Map()
 void Map::createObjects()
 {
 	Boss1* spenta = nullptr;
+	Boss2* azura = nullptr;
+	Boss3* angra = nullptr;
 
 	for (int i = 0; i < _objectLayers.size(); i++)
 	{
@@ -131,6 +137,24 @@ void Map::createObjects()
 				_objects->addChild(spenta);
 				spenta->setBossPanel(_game->getCurrentState()->getPlayHUD()->getBossPanel());
 			}
+			else if (name == "Boss2")
+			{
+				azura = (new Boss2(_game, _player, Vector2D(pos.getX(), pos.getY() - TILES_SIZE * 2), _bulletPool));
+				_objects->addChild(azura);
+				azura->setBossPanel(_game->getCurrentState()->getPlayHUD()->getBossPanel());
+			}
+			else if (name == "Boss3")
+			{
+				angra = (new Boss3(_game, _player, Vector2D(pos.getX(), pos.getY() - TILES_SIZE * 2), _bulletPool));
+				_objects->addChild(angra);
+				angra->setBoss3Panel(_game->getCurrentState()->getPlayHUD()->getBoss3Panel());
+			}
+			else if (name == "Lasers")
+			{
+				LaserHandler* l = new LaserHandler(_game, _game->getTexture("LaserContainer"), _game->getTexture("Laser"), _player, 8, stoi(data), pos + Vector2D{0, 0});
+				addChildFront(l);
+				azura->setLasers(l);
+			}
 			else if (name == "Misil")
 			{
 				_objects->addChild(new MissileTurret(_game, spenta, Vector2D(pos.getX() - TILES_SIZE, pos.getY() - TILES_SIZE * 2.8), stoi(data)));
@@ -145,6 +169,44 @@ void Map::createObjects()
 			{
 				Shop* tienda = new Shop(_game, Vector2D(pos.getX(), pos.getY() - TILES_SIZE * 2.6), _game->getCurrentState()->getPlayHUD()->getShop());
 				_objects->addChild(tienda);
+			}
+			else if (name == "FloatingHead")
+			{
+				FloatingHead* head = new FloatingHead(_game, _player, Vector2D(pos.getX() - TILES_SIZE * 2, pos.getY() - TILES_SIZE * 2), _bulletPool, angra);
+
+				_game->getCurrentState()->getPlayHUD()->getEnemyLifePanel()->addEnemy(head);
+				head->setLifePanel(_game->getCurrentState()->getPlayHUD()->getEnemyLifePanel());
+
+				angra->addChild(head);
+				angra->push_backHead(head);
+			}
+			else if (name == "SpawnerBoss")
+			{
+				SpawnerBoss* spawner= new SpawnerBoss(_game, _player, _game->getTexture("MissileTurret"), Vector2D(pos.getX() - TILES_SIZE * 2, pos.getY() - TILES_SIZE * 2), _spawnType, _bulletPool);
+
+				angra->addChild(spawner);
+				angra->push_backSpawner(spawner);
+				_spawnType++;
+			}
+			else if (name == "Throne")
+			{
+				SpriteObject* throne = new SpriteObject(_game, _game->getTexture("Throne"), Vector2D(pos.getX() - TILES_SIZE * 2, pos.getY() - TILES_SIZE * 2));
+				AnimatedSpriteComponent* throneAnim = throne->getComponent<AnimatedSpriteComponent>();
+				throneAnim->reset();
+				throneAnim->addAnim(AnimatedSpriteComponent::ThroneIdle, 14, true);
+				throneAnim->addAnim(AnimatedSpriteComponent::ThroneEnd1, 14, false);
+				throneAnim->addAnim(AnimatedSpriteComponent::ThroneEnd2, 13, false);
+
+				throneAnim->playAnim(AnimatedSpriteComponent::ThroneIdle);
+				angra->setAnimThrone(throneAnim);
+				_objects->addChildFront(throne);
+			}
+			else if (name == "AngraCorpse")
+			{
+				BossCorpse* _corpse = new BossCorpse(_game, Vector2D(0,0), _game->getTexture("angraCorpse"));
+				_corpse->setActive(false);
+				angra->setAnimCorpse(_corpse);
+				_objects->addChildFront(_corpse);
 			}
 		}
 	}
