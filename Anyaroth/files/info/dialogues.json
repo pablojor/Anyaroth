@@ -125,7 +125,7 @@
         },
         "NPC 1 3": {
             "face": "NPC1Face",
-            "name": "Rebel 1",
+            "name": "Rebel",
             "voice": "exampleVoice",
             "dialogue": [
                 "The elders say that long ago the Queen was not a monarch, but a commander loyal to another king.",
@@ -145,7 +145,7 @@
         },
         "NPC 2 3": {
             "face": "NPC2Face",
-            "name": "Rebel 2",
+            "name": "Rebel",
             "voice": "exampleVoice",
             "dialogue": [
                 "The Queen won the Ancient War. She killed the four kings, even the one she obeyed.",
@@ -166,7 +166,7 @@
         },
         "NPC 3 3": {
             "face": "NPC3Face",
-            "name": "Rebel 3",
+            "name": "Rebel",
             "voice": "exampleVoice",
             "dialogue": [
                 "Now the Queen lives in a palace in the Core of Anyaroth.",
@@ -220,7 +220,7 @@
         },
         "Shop Catalog 3": {
             "face": "nullptr",
-            "name": "One-eyed Gronn",
+            "name": "Zornn",
             "voice": "exampleVoice",
             "dialogue": [
                 "Howdy, soldier! Wanna check my new weapons?"
@@ -237,7 +237,7 @@
         },
         "Shop Talk 3": {
             "face": "nullptr",
-            "name": "One-eyed Gronn",
+            "name": "Zornn",
             "voice": "exampleVoice",
             "dialogue": [
                 "Oh! So you are new here. Please, forgive Kartya, she is really busy these days.",
@@ -264,7 +264,7 @@
         },
         "Shop Depot 3": {
             "face": "nullptr",
-            "name": "One-eyed Gronn",
+            "name": "Zornn",
             "voice": "exampleVoice",
             "dialogue": [
                 "Take a second, choose your weapons and enjoy the music."
@@ -303,7 +303,7 @@
         },
         "NPC 1 5": {
             "face": "NPC1Face",
-            "name": "Rebel 1",
+            "name": "Rebel",
             "voice": "exampleVoice",
             "dialogue": [
                 "Azura must get to the Core and destroy the Queen. He's our only hope!"
@@ -322,7 +322,7 @@
         },
         "NPC 2 5": {
             "face": "NPC2Face",
-            "name": "Rebel 2",
+            "name": "Rebel",
             "voice": "exampleVoice",
             "dialogue": [
                 "I met general Spenta Manyu when he was a kid.",
@@ -378,7 +378,7 @@
         },
         "Shop Catalog 5": {
             "face": "nullptr",
-            "name": "One-eyed Gronn",
+            "name": "Zornn",
             "voice": "exampleVoice",
             "dialogue": [
                 "Howdy, soldier! Wanna check my new weapons?"
@@ -395,7 +395,7 @@
         },
         "Shop Talk 5": {
             "face": "nullptr",
-            "name": "One-eyed Gronn",
+            "name": "Zornn",
             "voice": "exampleVoice",
             "dialogue": [
                 "There you are! I knew you were going to help me.",
@@ -417,7 +417,7 @@
         },
         "Shop Depot 5": {
             "face": "nullptr",
-            "name": "One-eyed Gronn",
+            "name": "Zornn",
             "voice": "exampleVoice",
             "dialogue": [
                 "Take a second, choose your weapons and enjoy the music."
@@ -500,7 +500,7 @@
         },
         "NPC 1 7": {
             "face": "NPC1Face",
-            "name": "Rebel 1",
+            "name": "Rebel",
             "voice": "exampleVoice",
             "dialogue": [
                 "Azura, Anyaroth is with you! Don't disappoint us!"
@@ -519,7 +519,7 @@
         },
         "NPC 2 7": {
             "face": "NPC2Face",
-            "name": "Rebel 2",
+            "name": "Rebel",
             "voice": "exampleVoice",
             "dialogue": [
                 "Azura is not like the rest of the rebels. He is not a mindless psycho like most of them.",
@@ -539,7 +539,7 @@
         },
         "NPC 3 7": {
             "face": "NPC3Face",
-            "name": "Rebel 3",
+            "name": "Rebel",
             "voice": "exampleVoice",
             "dialogue": [
                 "You are a soldier too. You should go after Azura and keep the Royal Lift open for us.",
@@ -593,7 +593,7 @@
         },
         "Shop Catalog 7": {
             "face": "nullptr",
-            "name": "One-eyed Gronn",
+            "name": "Zornn",
             "voice": "exampleVoice",
             "dialogue": [
                 "Howdy, soldier! Wanna check my new weapons?"
@@ -610,7 +610,7 @@
         },
         "Shop Talk 7": {
             "face": "nullptr",
-            "name": "One-eyed Gronn",
+            "name": "Zornn",
             "voice": "exampleVoice",
             "dialogue": [
                 "The mantle is a hot place full of dangerous mines, with miners working until exhaustion. I should start selling ice cubes instead of weapons!"
@@ -630,7 +630,7 @@
         },
         "Shop Depot 7": {
             "face": "nullptr",
-            "name": "One-eyed Gronn",
+            "name": "Zornn",
             "voice": "exampleVoice",
             "dialogue": [
                 "Take a second, choose your weapons and enjoy the music."
@@ -647,7 +647,7 @@
         },
         "NPC 1 9": {
             "face": "NPC1Face",
-            "name": "Rebel 1",
+            "name": "Rebel",
             "voice": "exampleVoice",
             "dialogue": [
                 "Have you heard it already? Azura has defeated general Yasna Manyu! He might be heading to the Queen's palace right now."
@@ -746,7 +746,7 @@
         },
         "Shop Catalog 9": {
             "face": "nullptr",
-            "name": "One-eyed Gronn",
+            "name": "Zornn",
             "voice": "exampleVoice",
             "dialogue": [
                 "Have you seen my new guns?"
@@ -763,7 +763,7 @@
         },
         "Shop Talk 9": {
             "face": "nullptr",
-            "name": "One-eyed Gronn",
+            "name": "Zornn",
             "voice": "exampleVoice",
             "dialogue": [
                 "I'm thinking about moving the base to the Core now that Azura is going to kill the Queen.",
@@ -786,7 +786,7 @@
         },
         "Shop Depot 9": {
             "face": "nullptr",
-            "name": "One-eyed Gronn",
+            "name": "Zornn",
             "voice": "exampleVoice",
             "dialogue": [
                 "Take a second, choose your weapons and enjoy the music."
@@ -823,7 +823,7 @@
         },
         "NPC 1 11": {
             "face": "NPC1Face",
-            "name": "Rebel 1",
+            "name": "Rebel",
             "voice": "exampleVoice",
             "dialogue": [
                 "Are you going to the Core too? I've heard it is full of laboratories where the Queen's scientists make crazy experiments.",
@@ -877,7 +877,7 @@
         },
         "Shop Catalog 11": {
             "face": "nullptr",
-            "name": "One-eyed Gronn",
+            "name": "Zornn",
             "voice": "exampleVoice",
             "dialogue": [
                 "Avestas! Come here man! Have you seen my new guns?"
@@ -894,7 +894,7 @@
         },
         "Shop Talk 11": {
             "face": "nullptr",
-            "name": "One-eyed Gronn",
+            "name": "Zornn",
             "voice": "exampleVoice",
             "dialogue": [
                 "Azura once bought me a shotgun, and now that's my best selling weapon!"
@@ -914,7 +914,7 @@
         },
         "Shop Depot 11": {
             "face": "nullptr",
-            "name": "One-eyed Gronn",
+            "name": "Zornn",
             "voice": "exampleVoice",
             "dialogue": [
                 "Take a second, choose your weapons and enjoy the music."
@@ -1017,7 +1017,7 @@
         },
         "NPC 1 13": {
             "face": "NPC1Face",
-            "name": "Rebel 1",
+            "name": "Rebel",
             "voice": "exampleVoice",
             "dialogue": [
                 "I can't believe he is dead... What will happen to us now?"
@@ -1036,7 +1036,7 @@
         },
         "NPC 2 13": {
             "face": "NPC2Face",
-            "name": "Rebel 2",
+            "name": "Rebel",
             "voice": "exampleVoice",
             "dialogue": [
                 "I'll go back to the surface and continue working at the factory.",
@@ -1057,7 +1057,7 @@
         },
         "NPC 3 13": {
             "face": "NPC3Face",
-            "name": "Rebel 3",
+            "name": "Rebel",
             "voice": "exampleVoice",
             "dialogue": [
                 "One more disappointment... I'm tired of this."
@@ -1113,7 +1113,7 @@
         },
         "Shop Catalog 13": {
             "face": "nullptr",
-            "name": "One-eyed Gronn",
+            "name": "Zornn",
             "voice": "exampleVoice",
             "dialogue": [
                 "Avestas! Come here man! Have you seen my new guns?"
@@ -1130,7 +1130,7 @@
         },
         "Shop Talk 13": {
             "face": "nullptr",
-            "name": "One-eyed Gronn",
+            "name": "Zornn",
             "voice": "exampleVoice",
             "dialogue": [
                 "Kartya has brought me a new weapon. She says it's a cannon that shoots antimatter, whatever that is.",
@@ -1151,7 +1151,7 @@
         },
         "Shop Depot 13": {
             "face": "nullptr",
-            "name": "One-eyed Gronn",
+            "name": "Zornn",
             "voice": "exampleVoice",
             "dialogue": [
                 "Take a second, choose your weapons and enjoy the music."
@@ -1210,7 +1210,7 @@
         },
         "NPC 1 15": {
             "face": "NPC1Face",
-            "name": "Rebel 1",
+            "name": "Rebel",
             "voice": "exampleVoice",
             "dialogue": [
                 "It's a matter of time before the Queen's army finds us and kills us all.",
@@ -1266,7 +1266,7 @@
         },
         "Shop Catalog 15": {
             "face": "nullptr",
-            "name": "One-eyed Gronn",
+            "name": "Zornn",
             "voice": "exampleVoice",
             "dialogue": [
                 "Avestas! Come here man! Have you seen my new guns?"
@@ -1283,7 +1283,7 @@
         },
         "Shop Talk 15": {
             "face": "nullptr",
-            "name": "One-eyed Gronn",
+            "name": "Zornn",
             "voice": "exampleVoice",
             "dialogue": [
                 "Kheismani has been arguing with Kartya.",
@@ -1306,7 +1306,7 @@
         },
         "Shop Depot 15": {
             "face": "nullptr",
-            "name": "One-eyed Gronn",
+            "name": "Zornn",
             "voice": "exampleVoice",
             "dialogue": [
                 "Take a second, choose your weapons and enjoy the music."
@@ -1398,7 +1398,7 @@
         },
         "Shop Catalog 17": {
             "face": "nullptr",
-            "name": "One-eyed Gronn",
+            "name": "Zornn",
             "voice": "exampleVoice",
             "dialogue": [
                 "Avestas! Come here man! Have you seen my new guns?"
@@ -1415,7 +1415,7 @@
         },
         "Shop Talk 17": {
             "face": "nullptr",
-            "name": "One-eyed Gronn",
+            "name": "Zornn",
             "voice": "exampleVoice",
             "dialogue": [
                 "You know what. When I opened the shop I was angry with the rebellion and its followers.",
@@ -1441,7 +1441,7 @@
         },
         "Shop Depot 17": {
             "face": "nullptr",
-            "name": "One-eyed Gronn",
+            "name": "Zornn",
             "voice": "exampleVoice",
             "dialogue": [
                 "Take a second, choose your weapons and enjoy the music."
@@ -1698,7 +1698,7 @@
         },
         "Demo": {
             "face": "nullptr",
-            "name": "Player",
+            "name": "Avestas",
             "voice": "exampleVoice",
             "dialogue": [
                 "Finally... I reached a rebel base.",
@@ -1719,7 +1719,7 @@
         },
         "Shop 1 53": {
             "face": "nullptr",
-            "name": "One-eyed Gronn",
+            "name": "Zornn",
             "voice": "exampleVoice",
             "dialogue": [
                 "Oh! Welcome to my shop."
@@ -1736,7 +1736,7 @@
         },
         "Shop 2 53": {
             "face": "nullptr",
-            "name": "One-eyed Gronn",
+            "name": "Zornn",
             "voice": "exampleVoice",
             "dialogue": [
                 "Do you want anything else?"
@@ -1753,7 +1753,7 @@
         },
         "Shop Catalog 53": {
             "face": "nullptr",
-            "name": "One-eyed Gronn",
+            "name": "Zornn",
             "voice": "exampleVoice",
             "dialogue": [
                 "Have you seen my beautiful guns yet? In this shop we only have killer prices! Hehehe."
@@ -1770,7 +1770,7 @@
         },
         "Shop Talk 53": {
             "face": "nullptr",
-            "name": "One-eyed Gronn",
+            "name": "Zornn",
             "voice": "exampleVoice",
             "dialogue": [
                 "Be carefull out there, there's a lot of dangerous crap.",
@@ -1793,7 +1793,7 @@
         },
         "Shop Depot 53": {
             "face": "nullptr",
-            "name": "One-eyed Gronn",
+            "name": "Zornn",
             "voice": "exampleVoice",
             "dialogue": [
                 "Take a second, choose your weapons and enjoy the music."
