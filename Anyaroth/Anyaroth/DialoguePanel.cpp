@@ -74,6 +74,7 @@ void DialoguePanel::startDialogue(const Dialogue& dialogue)
 {
 	if (!_isConversating)
 	{
+		_linesTyped = 0;
 		//inicializamos
 		_dialogue = dialogue;
 		_opened = true;
@@ -146,15 +147,14 @@ void DialoguePanel::endDialogue()
 		for (int i = 0; i < _lines; i++)
 		{
 			_dialogueTexts[i]->setVisible(false);
-			_dialogueTexts[i]->setText(" ");
+			_dialogueTexts[i]->type(" ");
+			_dialogueTexts[i]->completeLine();
 			_dialogueTexts[i]->setTextTyped(false);
+			_segments[i] = " ";
 		}
 
-		for (int i = 0; i < _lines; i++)
-			_segments[i] = " ";
-
 		//REPRODUCIR SONIDO ESPECIAL DE FINAL DE DIALOGO
-		if (_dialogue.sounds[_currentText] != " ")
+		if (_currentText < _dialogue.sounds.size() && _dialogue.sounds[_currentText] != " ")
 			_game->getSoundManager()->playSFX(_dialogue.sounds[_currentText]);
 
 		//comenzamos animacion de cerrar diálogo
