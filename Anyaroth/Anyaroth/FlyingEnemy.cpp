@@ -12,6 +12,9 @@ FlyingEnemy::FlyingEnemy(Game* g, Player* player, Vector2D pos) : Enemy(g,  play
 
 	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 
+	_body->setW(8);
+	_body->setH(8);
+
 	_body->filterCollisions(ENEMY_BULLETS, PLAYER);
 	_body->getBody()->SetGravityScale(0);
 	_body->getBody()->GetFixtureList()->SetSensor(true);

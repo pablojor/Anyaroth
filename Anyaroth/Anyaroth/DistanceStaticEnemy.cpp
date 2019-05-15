@@ -31,6 +31,7 @@ DistanceStaticEnemy::DistanceStaticEnemy(Game* g, Player* player, Vector2D pos, 
 
 	_body->setW(20);
 	_body->setH(20);
+
 	_body->moveShape(b2Vec2(0, 0.1));
 	_body->filterCollisions(ENEMIES, FLOOR | PLATFORMS | PLAYER_BULLETS | MELEE);
 

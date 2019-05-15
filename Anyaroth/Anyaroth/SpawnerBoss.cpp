@@ -15,7 +15,6 @@ SpawnerBoss::SpawnerBoss(Game* g,Player* player, Vector2D pos, int typeSpawn,Bul
 	_body = addComponent<BodyComponent>();
 	_body->getBody()->SetType(b2_kinematicBody);
 	_body->filterCollisions(OBJECTS, FLOOR);
-	_body->setW(20);
 	_body->getBody()->GetFixtureList()->SetSensor(true);
 	_body->getBody()->SetFixedRotation(true);
 
