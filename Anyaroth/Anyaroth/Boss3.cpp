@@ -589,7 +589,7 @@ void Boss3::AngraSoldierSpawn()
 	b2Vec2 lastPos = _body->getBody()->GetPosition();
 	_body->deleteBody();
 	deleteComponent<BodyComponent>(_body);
-
+	delete _body;
 
 	_body = addComponent<BodyComponent>();
 
