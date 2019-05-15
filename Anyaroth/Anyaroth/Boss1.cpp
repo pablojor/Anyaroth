@@ -108,7 +108,7 @@ void Boss1::update(const double& deltaTime)
 				_game->getCurrentState()->addCutScene(cutscene);
 				cutscene->play();
 
-				_player->getLife().setMaxLife(_player->getLife().getMaxLife() + 50);
+				_player->setMaxLife(_player->getMaxLife() + 50);
 				_finishLevel = true;
 			}
 		}

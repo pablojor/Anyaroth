@@ -97,15 +97,20 @@ public:
 
 	void die();
 	void revive();
-	void subLife(int damage);
-	inline Life getLife() const { return _life; }
-	inline bool isDead() const { return GameObject::isDead(); }
-	void clearAmmo();
 
+	void subLife(int damage);
+	inline bool isDead() const { return GameObject::isDead(); }
+
+	inline int getMaxLife() const { return _life.getMaxLife(); }
+	inline void setMaxLife(int amount) { _life.setMaxLife(amount); }
+
+	void clearAmmo();
 	void swapGun();
+
 	void changeCurrentGun(Gun* gun);
 	void changeOtherGun(Gun* gun);
 	void changeMelee(Melee* newMelee, int anim);
+
 	inline Melee* getMelee() const { return _melee; }
 	inline int getMeleeAnim() const { return _meleeAnim; }
 
@@ -113,9 +118,10 @@ public:
 	inline Gun* getOtherGun() const { return _otherGun; }
 
 	inline bool spendMoney(int n) { return _money->spend(n); }
+	inline Money* getMoney() const { return _money; }
+
 	inline int getBank() const { return _money->getBank(); }
 	inline void setBank(int amount) { _money->setBank(amount); }
-	inline Money* getMoney() const { return _money; }
 
 	void move(const Vector2D& dir, const double& speed);
 	void dash(const Vector2D& dir);

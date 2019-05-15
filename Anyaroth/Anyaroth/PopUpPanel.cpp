@@ -155,6 +155,7 @@ void PopUpPanel::reset()
 void PopUpPanel::open()
 {
 	setVisible(true);
+	_isFinished = false;
 
 	for (auto c : _children)
 		c->setVisible(true);

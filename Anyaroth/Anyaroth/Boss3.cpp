@@ -31,6 +31,7 @@ Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(
 
 	_body->setW(80);
 	_body->setH(170);
+
 	_body->moveShape(b2Vec2(0, 3));
 	_body->getBody()->SetGravityScale(_gravity);
 	_body->getBody()->SetLinearDamping(_damping);
@@ -39,7 +40,6 @@ Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(
 
 	_body->addCricleShape(b2Vec2(0, 1.1), 0.7, PLAYER, FLOOR | PLATFORMS);
 	_body->getBody()->SetFixedRotation(true);
-
 
 	b2PolygonShape shape;
 	shape.SetAsBox(5 / M_TO_PIXEL, 3 / M_TO_PIXEL, b2Vec2(0, 8), 0);
@@ -89,9 +89,7 @@ void Boss3::handleAnimations(double time)
 	else if(_actualFase == BetweenFase)
 	{
 		if (_anim->getCurrentAnim() == AnimatedSpriteComponent::AngraDie1 && _anim->animationFinished())
-		{
 			_anim->playAnim(AnimatedSpriteComponent::AngraDie2);
-		}
 	}
 	else if (_actualFase == Fase3)
 	{
@@ -118,9 +116,9 @@ void Boss3::handleAnimations(double time)
 			else
 				_anim->flip();
 		}
-
 	}
 }
+
 void Boss3::setBoss3Panel(Boss3Panel * b)
 {
 	_boss3Panel = b;
@@ -133,6 +131,7 @@ void Boss3::setBoss3Panel(Boss3Panel * b)
 
 Boss3::~Boss3()
 {
+	_myBulletPool->stopBullets();
 	delete _gravGun;
 	delete _otherGun;
 }
@@ -170,6 +169,9 @@ void Boss3::update(const double & deltaTime)
 
 			_finishLevel = true;
 		}
+
+		if (isDead() || _player->isDead())
+			_boss3Panel->setVisible(false);
 	}
 }
 
@@ -188,12 +190,14 @@ void Boss3::movement(const double& deltaTime)
 		if (_dir.getX() == 1)
 		{
 			_anim->unFlip();
+
 			if (_actualFase == Fase2)
 				_arm->setOffSet(Vector2D(245, 105));
 		}
 		else
 		{
 			_anim->flip();
+
 			if (_actualFase == Fase2)
 				_arm->setOffSet(Vector2D(90, 105));
 		}
@@ -215,12 +219,12 @@ void Boss3::fase1(const double & deltaTime)
 	_actualState = Idle;
 	int aliveEnemies = 0;
 	bool ok = true, HeadsDead = true;
+
 	if (_initSpawn)
 	{
 		for (int i = 0; i < _spawners.size(); i++)
-		{
 			_spawners.at(i)->spawnEnemy();
-		}
+
 		_initSpawn = false;
 	}
 	else
@@ -228,36 +232,37 @@ void Boss3::fase1(const double & deltaTime)
 		if (!_headTurn)
 		{
 			for (int j = 0; j < _spawners.size(); j++)
-			{
 				aliveEnemies += _spawners.at(j)->aliveEnemies();
-			}
+
 			if (aliveEnemies == 0)
 			{
 				_headTurn = true;
+
 				for (int x = 0; x < _heads.size(); x++)
-				{
 					_heads.at(x)->turnInvincibilityOff();
-				}
 			}
 		}
 		else
 		{
 			for (int x = 0; x < _heads.size(); x++)
 			{
-
 				ok = (_heads.at(x)->isInvincible() && ok);
 				HeadsDead = (_heads.at(x)->isDead() && HeadsDead);
 			}
+
 			if (ok)
 			{
 				_headTurn = false;
 				_initSpawn = true;
+
 				if (HeadsDead)
 				{
 					_invulnerable = false;
 					_initSpawn = false;
 					_headTurn = true;
+
 					beetwenFases(deltaTime);
+
 					if (!_alreadyDead)
 					{
 						_throneAnim->playAnim(AnimatedSpriteComponent::ThroneEnd1);
@@ -311,6 +316,7 @@ void Boss3::fase2(const double& deltaTime)
 		if (_noAction > _doSomething)
 		{
 			int rand = _game->random(0, 100);
+
 			if (rand > 60)
 			{
 				_actualState = Shooting;
@@ -337,6 +343,7 @@ void Boss3::fase2(const double& deltaTime)
 void Boss3::fase3(const double & deltaTime)
 {
 	checkDash(deltaTime);
+
 	if (_actualState != Dashing)
 	{
 		if (_actualState != Shooting)
@@ -344,6 +351,7 @@ void Boss3::fase3(const double & deltaTime)
 			if (_noAction > _doSomething)
 			{
 				int rand = _game->random(0, 100);
+
 				if (rand > 80 && _actualState != Jumping)
 				{
 					changeGun();
@@ -437,7 +445,6 @@ void Boss3::beetwenFases(const double& deltaTime)
 		die();
 	}
 	_boss3Panel->updateLifeBar(_life1.getLife(), _life.getLife());
-
 }
 
 void Boss3::subLife(int damage)
@@ -589,12 +596,14 @@ void Boss3::AngraSoldierSpawn()
 	b2Vec2 lastPos = _body->getBody()->GetPosition();
 	_body->deleteBody();
 	deleteComponent<BodyComponent>(_body);
+	delPhysicsComponent(_body);
 	delete _body;
 
 	_body = addComponent<BodyComponent>();
 
 	_body->setW(12);
 	_body->setH(26);
+
 	_body->filterCollisions(ENEMIES, FLOOR | PLAYER_BULLETS | MELEE);
 	_body->getBody()->SetType(b2_dynamicBody);
 
@@ -640,7 +649,6 @@ void Boss3::dash()
 		_anim->playAnim(AnimatedSpriteComponent::AngraSoldierDashBack);
 	else
 		_anim->playAnim(AnimatedSpriteComponent::AngraSoldierDash);
-
 
 	_invulnerable = true;
 
@@ -765,6 +773,7 @@ void Boss3::die()
 {
 	_anim->die();
 	_anim->playAnim(AnimatedSpriteComponent::AngraSoldierDie);
+
 	setDead(true);
 	_body->filterCollisions(DEAD_ENEMIES, FLOOR | PLATFORMS);
 

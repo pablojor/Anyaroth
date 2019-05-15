@@ -1,6 +1,11 @@
 #include "CutScene.h"
 #include "SoundManager.h"
 
+CutScene::CutScene(Player * player) : _player(player)
+{
+	_player->getComponent<CustomAnimatedSpriteComponent>()->unFlip();
+}
+
 CutScene::~CutScene()
 {
 	while (!_events.empty())

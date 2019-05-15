@@ -47,7 +47,7 @@ void PlayState::start()
 	BulletPool* enemyPool = new BulletPool(_gameptr);
 
 	//Level
-	GameManager::getInstance()->setCurrentLevel(LevelManager::SafeBoss3);
+	GameManager::getInstance()->setCurrentLevel(LevelManager::Tutorial);
 
 	_level = new GameObject(_gameptr);
 	_levelManager = LevelManager(_gameptr, _player, _level, enemyPool);

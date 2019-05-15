@@ -13,11 +13,12 @@ SpawnerEnemy::SpawnerEnemy(Game* g, Player* player, Vector2D pos) : Enemy(g, pla
 
 	_body->moveShape(b2Vec2(0, -1.5));
 	_body->getBody()->SetGravityScale(0);
+	_body->filterCollisions(ENEMIES, FLOOR | PLATFORMS | PLAYER_BULLETS | MELEE);
 
 	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 12, true);
 	_anim->addAnim(AnimatedSpriteComponent::EnemyWalk, 1, false);
 	_anim->addAnim(AnimatedSpriteComponent::EnemyAttack, 10, false);
-	_anim->addAnim(AnimatedSpriteComponent::EnemyDie, 13, false);
+	_anim->addAnim(AnimatedSpriteComponent::EnemyDie, 14, false);
 
 	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 

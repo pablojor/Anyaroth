@@ -29,7 +29,7 @@ private:
 	bool _isPlaying = false;
 
 public:
-	CutScene(Player* player) : _player(player) {}
+	CutScene(Player* player);
 	virtual ~CutScene();
 
 	virtual void update(const double& deltaTime);

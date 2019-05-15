@@ -97,7 +97,7 @@ void Enemy::drop()
 
 	if (rnd < 50 && _dropMelee)
 	{
-		addChild(new AidKit(_game, Vector2D(_body->getBody()->GetPosition().x*M_TO_PIXEL, _body->getBody()->GetPosition().y*M_TO_PIXEL), _player->getLife().getMaxLife() / 4));
+		addChild(new AidKit(_game, Vector2D(_body->getBody()->GetPosition().x*M_TO_PIXEL, _body->getBody()->GetPosition().y*M_TO_PIXEL), _player->getMaxLife() / 4));
 	}
 	else if (rnd < 15)
 	{
