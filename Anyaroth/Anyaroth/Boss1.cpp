@@ -6,7 +6,7 @@
 #include "GameManager.h"
 #include "CutScene.h"
 
-Boss1::Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, player, pos, pool, g->getTexture("Spenta")), Enemy(g, player, pos, g->getTexture("Spenta"), "boss1Die", "boss1Hit")
+Boss1::Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, player, pos, pool, g->getTexture("Spenta")), Enemy(g, player, pos, g->getTexture("Spenta"), "boss1Interfase3", "boss1Hit")
 {
 	//_life = 100;
 	_life = 250; // Demo Guerrilla
@@ -109,6 +109,7 @@ void Boss1::update(const double& deltaTime)
 				cutscene->play();
 
 				_player->setMaxLife(_player->getMaxLife() + 50);
+				_player->setNoDamage(false);
 				_finishLevel = true;
 			}
 		}

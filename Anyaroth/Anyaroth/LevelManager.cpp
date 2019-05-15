@@ -19,7 +19,7 @@ void LevelManager::setLevel(int l)
 	switch (l)
 	{
 	case LevelManager::Tutorial:
-		_currentMap = new Map(TILEMAP_PATH + "Tutorial.json", _game, _player, _game->getTexture("TilesetTutorial"), _enemyBulletPool);
+		_currentMap = new Map(TILEMAPS_PATH + "Tutorial.json", _game, _player, _game->getTexture("TilesetTutorial"), _enemyBulletPool);
 		setParallax();
 
 		_player->clearAmmo();
@@ -50,45 +50,47 @@ void LevelManager::setLevel(int l)
 		
 		break;
 	case LevelManager::Safe1_1:
-		_currentSafeZone = new Map(TILEMAP_PATH + "Safe1-1.json", _game, _player, _game->getTexture("TilesetTutorial"), _enemyBulletPool);
+		_currentSafeZone = new Map(TILEMAPS_PATH + "Safe1-1.json", _game, _player, _game->getTexture("TilesetTutorial"), _enemyBulletPool);
 		setParallax();
 		_game->getSoundManager()->playMusic("alarm", -1);
 		break;
 	case LevelManager::Level1_1:
-		_currentMap = new Map(TILEMAP_PATH + "Nivel1-1.json", _game, _player, _game->getTexture("Tileset1"), _enemyBulletPool);
+		_currentMap = new Map(TILEMAPS_PATH + "Nivel1-1.json", _game, _player, _game->getTexture("Tileset1"), _enemyBulletPool);
 		setParallax();
 		_game->getSoundManager()->playMusic("zona1", -1);
 		break;
 	case LevelManager::Safe1_2:
-		_currentSafeZone = new Map(TILEMAP_PATH + "Safe1-2.json", _game, _player, _game->getTexture("TilesetSafe1"), _enemyBulletPool);
+		_currentSafeZone = new Map(TILEMAPS_PATH + "Safe1-2.json", _game, _player, _game->getTexture("TilesetSafe1"), _enemyBulletPool);
 		setParallax();
 		_game->getSoundManager()->playMusic("safe_zone", -1);
 
 		cutscene = new CutScene(_player);
 
 		cutscene->addWaitEvent(1000);
-		cutscene->addMoveEvent(_player->getComponent<BodyComponent>(), 1, 15, 192 / M_TO_PIXEL);
+		cutscene->addMoveEvent(_player->getComponent<BodyComponent>(), 1, 15, 204 / M_TO_PIXEL);
 		cutscene->addDialogueEvent(dialogue, _game->getDialogue("Kartya 1-2"));
 		cutscene->addWaitEvent(1000);
 		cutscene->addMoveEvent(_player->getComponent<BodyComponent>(), 1, 15, 416 / M_TO_PIXEL);
 		cutscene->addShopEvent(shop);
 		_game->getCurrentState()->addCutScene(cutscene);
 
+		if (!_game->getCurrentState()->gameLoaded())
+			cutscene->play();
+
 		break;
 	case LevelManager::Level1_2:
-		_currentMap = new Map(TILEMAP_PATH + "Nivel1-2.json", _game, _player, _game->getTexture("Tileset1"), _enemyBulletPool);
+		_currentMap = new Map(TILEMAPS_PATH + "Nivel1-2.json", _game, _player, _game->getTexture("Tileset1"), _enemyBulletPool);
 		setParallax();
 		_game->getSoundManager()->playMusic("zona1", -1);
 		break;
 	case LevelManager::SafeBoss1:
-		_currentSafeZone = new Map(TILEMAP_PATH + "Safe1-3.json", _game, _player, _game->getTexture("TilesetSafe1"), _enemyBulletPool);
+		_currentSafeZone = new Map(TILEMAPS_PATH + "Safe1-3.json", _game, _player, _game->getTexture("TilesetSafe1"), _enemyBulletPool);
 		setParallax();
 		_game->getSoundManager()->playMusic("safe_zone", -1);
 		break;
 	case LevelManager::Boss1:
-		_currentMap = new Map(TILEMAP_PATH + "Nivel1-3.json", _game, _player, _game->getTexture("TilesetBoss1"), _enemyBulletPool);
+		_currentMap = new Map(TILEMAPS_PATH + "Nivel1-3.json", _game, _player, _game->getTexture("TilesetBoss1"), _enemyBulletPool);
 		setBackground();
-
 		_game->getSoundManager()->stopMusic();
 
 		cutscene = new CutScene(_player);
@@ -98,102 +100,114 @@ void LevelManager::setLevel(int l)
 		cutscene->addPlaySoundEvent(_game, "flySpenta");
 		cutscene->addWaitEvent(1500);
 		cutscene->addCameraShakeEvent(_camera, 1500, 3);
-		cutscene->addWaitEvent(3500);
 		cutscene->addPlayMusicEvent(_game, "cutScene1");
 		cutscene->addFitCameraEvent(_camera, _currentMap->getWidth(), _currentMap->getHeight());
 		cutscene->addDialogueEvent(dialogue, _game->getDialogue("Spenta Manyu"));
 		cutscene->addPlayMusicEvent(_game, "boss1Battle");
 		_game->getCurrentState()->addCutScene(cutscene);
 
+		cutscene->play();
+
 		break;
 	case LevelManager::Safe2_1:
-		_currentSafeZone = new Map(TILEMAP_PATH + "Safe2-1.json", _game, _player, _game->getTexture("TilesetSafe2"), _enemyBulletPool);
+		_currentSafeZone = new Map(TILEMAPS_PATH + "Safe2-1.json", _game, _player, _game->getTexture("TilesetSafe2"), _enemyBulletPool);
 		setParallax();
 		_game->getSoundManager()->playMusic("safe_zone", -1);
 
 		cutscene = new CutScene(_player);
 
-		cutscene->addMoveEvent(_player->getComponent<BodyComponent>(), 1, 15, 496 / M_TO_PIXEL);
+		cutscene->addMoveEvent(_player->getComponent<BodyComponent>(), 1, 15, 512 / M_TO_PIXEL);
 		cutscene->addDialogueEvent(dialogue, _game->getDialogue("Azura 2-1"));
 		_game->getCurrentState()->addCutScene(cutscene);
 
+		if (!_game->getCurrentState()->gameLoaded())
+			cutscene->play();
+
 		break;
 	case LevelManager::Level2_1:
-		_currentMap = new Map(TILEMAP_PATH + "Nivel2-1.json", _game, _player, _game->getTexture("Tileset2"), _enemyBulletPool);
+		_currentMap = new Map(TILEMAPS_PATH + "Nivel2-1.json", _game, _player, _game->getTexture("Tileset2"), _enemyBulletPool);
 		setParallax();
 		_game->getSoundManager()->playMusic("zona2", -1);
 		break;
 	case LevelManager::Safe2_2:
-		_currentSafeZone = new Map(TILEMAP_PATH + "Safe2-2.json", _game, _player, _game->getTexture("TilesetSafe2"), _enemyBulletPool);
+		_currentSafeZone = new Map(TILEMAPS_PATH + "Safe2-2.json", _game, _player, _game->getTexture("TilesetSafe2"), _enemyBulletPool);
 		setParallax();
 		_game->getSoundManager()->playMusic("safe_zone", -1);
 		break;
 	case LevelManager::Level2_2:
-		_currentMap = new Map(TILEMAP_PATH + "Nivel2-2.json", _game, _player, _game->getTexture("Tileset2"), _enemyBulletPool);
+		_currentMap = new Map(TILEMAPS_PATH + "Nivel2-2.json", _game, _player, _game->getTexture("Tileset2"), _enemyBulletPool);
 		setParallax();
 		_game->getSoundManager()->playMusic("zona2", -1);
 		break;
 	case LevelManager::SafeBoss2:
-		_currentSafeZone = new Map(TILEMAP_PATH + "Safe2-3.json", _game, _player, _game->getTexture("TilesetSafe2"), _enemyBulletPool);
+		_currentSafeZone = new Map(TILEMAPS_PATH + "Safe2-3.json", _game, _player, _game->getTexture("TilesetSafe2"), _enemyBulletPool);
 		setParallax();
 		_game->getSoundManager()->playMusic("safe_zone", -1);
 		break;
 	case LevelManager::Boss2:
-		_currentMap = new Map(TILEMAP_PATH + "Nivel2-3.json", _game, _player, _game->getTexture("TilesetBoss2"), _enemyBulletPool);
+		_currentMap = new Map(TILEMAPS_PATH + "Nivel2-3.json", _game, _player, _game->getTexture("TilesetBoss2"), _enemyBulletPool);
 		setBackground();
-		_game->getSoundManager()->playMusic("cutScene2", -1);
+		_game->getSoundManager()->stopMusic();
 
 		cutscene = new CutScene(_player);
 
 		cutscene->addCameraEvent(_camera, 150, ZoomIn);
 		cutscene->addMoveEvent(_player->getComponent<BodyComponent>(), 1, 15, 192 / M_TO_PIXEL);
-		cutscene->addPlaySoundEvent(_game, "boss2Interfase");
+		cutscene->addPlaySoundEvent(_game, "boss2Die");
+		cutscene->addWaitEvent(1500);
 		cutscene->addCameraShakeEvent(_camera, 1500, 3);
+		_game->getSoundManager()->playMusic("cutScene2", -1);
 		cutscene->addFitCameraEvent(_camera, _currentMap->getWidth(), _currentMap->getHeight());
 		cutscene->addDialogueEvent(dialogue, _game->getDialogue("Azura Manyu 1"));
-		cutscene->addPlaySoundEvent(_game, "boss2Interfase");
+		cutscene->addPlaySoundEvent(_game, "boss2Die");
+		cutscene->addWaitEvent(1500);
 		cutscene->addCameraShakeEvent(_camera, 1500, 3);
 		cutscene->addPlayMusicEvent(_game, "boss2Battle"); 
 		_game->getCurrentState()->addCutScene(cutscene);
 
+		cutscene->play();
+
 		break;
 	case LevelManager::Safe3_1:
-		_currentSafeZone = new Map(TILEMAP_PATH + "Safe3-1.json", _game, _player, _game->getTexture("TilesetSafe3"), _enemyBulletPool);
+		_currentSafeZone = new Map(TILEMAPS_PATH + "Safe3-1.json", _game, _player, _game->getTexture("TilesetSafe3"), _enemyBulletPool);
 		setParallax();
 		_game->getSoundManager()->playMusic("safe_zone", -1);
 
 		cutscene = new CutScene(_player);
 
-		cutscene->addMoveEvent(_player->getComponent<BodyComponent>(), 1, 15, 240 / M_TO_PIXEL);
+		cutscene->addMoveEvent(_player->getComponent<BodyComponent>(), 1, 15, 256 / M_TO_PIXEL);
 		cutscene->addDialogueEvent(dialogue, _game->getDialogue("Kheismani 13"));
 		_game->getCurrentState()->addCutScene(cutscene);
 
+		if (!_game->getCurrentState()->gameLoaded())
+			cutscene->play();
+
 		break;
 	case LevelManager::Level3_1:
-		_currentMap = new Map(TILEMAP_PATH + "Nivel3-1.json", _game, _player, _game->getTexture("Tileset3"), _enemyBulletPool);
+		_currentMap = new Map(TILEMAPS_PATH + "Nivel3-1.json", _game, _player, _game->getTexture("Tileset3"), _enemyBulletPool);
 		setParallax();
 		_game->getSoundManager()->playMusic("zona3");
 		break;
 	case LevelManager::Safe3_2:
-		_currentSafeZone = new Map(TILEMAP_PATH + "Safe3-2.json", _game, _player, _game->getTexture("TilesetSafe3"), _enemyBulletPool);
+		_currentSafeZone = new Map(TILEMAPS_PATH + "Safe3-2.json", _game, _player, _game->getTexture("TilesetSafe3"), _enemyBulletPool);
 		setParallax();
 		_game->getSoundManager()->playMusic("safe_zone", -1);
 		break;
 	case LevelManager::Level3_2:
-		_currentMap = new Map(TILEMAP_PATH + "Nivel3-2.json", _game, _player, _game->getTexture("Tileset3"), _enemyBulletPool);
+		_currentMap = new Map(TILEMAPS_PATH + "Nivel3-2.json", _game, _player, _game->getTexture("Tileset3"), _enemyBulletPool);
 		setParallax();
 		_game->getSoundManager()->playMusic("zona3");
 		break;
 	case LevelManager::SafeBoss3:
-		_currentSafeZone = new Map(TILEMAP_PATH + "Safe3-3.json", _game, _player, _game->getTexture("TilesetSafe3"), _enemyBulletPool);
+		_currentSafeZone = new Map(TILEMAPS_PATH + "Safe3-3.json", _game, _player, _game->getTexture("TilesetSafe3"), _enemyBulletPool);
 		setParallax();
 		_game->getSoundManager()->playMusic("safe_zone", -1);
 		break;
 	case LevelManager::Boss3:
-		_currentMap = new Map(TILEMAP_PATH + "Nivel3-3.json", _game, _player, _game->getTexture("TilesetBoss3"), _enemyBulletPool);
+		_currentMap = new Map(TILEMAPS_PATH + "Nivel3-3.json", _game, _player, _game->getTexture("TilesetBoss3"), _enemyBulletPool);
 		setBackground();
+		_game->getSoundManager()->stopMusic();
 
-		_game->getSoundManager()->playMusic("cutScene1");
 
 		cutscene = new CutScene(_player);
 
@@ -201,16 +215,19 @@ void LevelManager::setLevel(int l)
 		cutscene->addMoveEvent(_player->getComponent<BodyComponent>(), 1, 15, 192 / M_TO_PIXEL);
 		cutscene->addCameraShakeEvent(_camera, 1500, 3);
 		cutscene->addFitCameraEvent(_camera, _currentMap->getWidth(), _currentMap->getHeight());
+		_game->getSoundManager()->playMusic("cutScene1");
 		cutscene->addDialogueEvent(dialogue, _game->getDialogue("Angra Manyu 1"));
 		cutscene->addPlayMusicEvent(_game, "boss3Battle");
 		_game->getCurrentState()->addCutScene(cutscene);
 
+		cutscene->play();
+
 		break;
 	case LevelManager::End:
-		_currentSafeZone = new Map(TILEMAP_PATH + "Final.json", _game, _player, _game->getTexture("TilesetBoss3"), _enemyBulletPool);
+		_currentSafeZone = new Map(TILEMAPS_PATH + "Final.json", _game, _player, _game->getTexture("TilesetBoss3"), _enemyBulletPool);
 		setBackground();
-
 		_game->getSoundManager()->playMusic("endGame");
+
 		cutscene = new CutScene(_player);
 
 		cutscene->addDialogueEvent(dialogue, _game->getDialogue("Kartya 19 1"));
@@ -230,17 +247,17 @@ void LevelManager::setLevel(int l)
 
 		//Demo Guerrilla Game Festival
 	case LevelManager::SafeDemo:
-		_currentSafeZone = new Map(TILEMAP_PATH + "SafeDemo1.json", _game, _player, _game->getTexture("Tileset1"), _enemyBulletPool);
+		_currentSafeZone = new Map(TILEMAPS_PATH + "SafeDemo1.json", _game, _player, _game->getTexture("Tileset1"), _enemyBulletPool);
 		setParallax();
 		_game->getSoundManager()->playMusic("safe_zone", -1);
 		break;
 	case LevelManager::LevelDemo:
-		_currentMap = new Map(TILEMAP_PATH + "NivelDemo.json", _game, _player, _game->getTexture("Tileset1"), _enemyBulletPool);
+		_currentMap = new Map(TILEMAPS_PATH + "NivelDemo.json", _game, _player, _game->getTexture("Tileset1"), _enemyBulletPool);
 		setParallax();
 		_game->getSoundManager()->playMusic("demoLevelMusic", -1);
 		break;
 	case LevelManager::SafeBossDemo:
-		_currentSafeZone = new Map(TILEMAP_PATH + "SafeDemo2.json", _game, _player, _game->getTexture("Tileset1"), _enemyBulletPool);
+		_currentSafeZone = new Map(TILEMAPS_PATH + "SafeDemo2.json", _game, _player, _game->getTexture("Tileset1"), _enemyBulletPool);
 		setParallax();
 		_game->getSoundManager()->playMusic("safe_zone", -1);
 
@@ -262,9 +279,12 @@ void LevelManager::setLevel(int l)
 		cutscene->addShopEvent(shop);
 		_game->getCurrentState()->addCutScene(cutscene);
 
+		if (!_game->getCurrentState()->gameLoaded())
+			cutscene->play();
+
 		break;
 	case LevelManager::BossDemo:
-		_currentMap = new Map(TILEMAP_PATH + "Nivel1-3.json", _game, _player, _game->getTexture("TilesetBoss1"), _enemyBulletPool);
+		_currentMap = new Map(TILEMAPS_PATH + "Nivel1-3.json", _game, _player, _game->getTexture("TilesetBoss1"), _enemyBulletPool);
 		setBackground();
 		_game->getSoundManager()->playMusic("boss1Battle", -1);
 
@@ -275,15 +295,18 @@ void LevelManager::setLevel(int l)
 		cutscene->addPlaySoundEvent(_game, "flySpenta");
 		cutscene->addWaitEvent(1500);
 		cutscene->addCameraShakeEvent(_camera, 1500, 3);
-		cutscene->addWaitEvent(3500);
 		cutscene->addPlayMusicEvent(_game, "cutScene1");
 		cutscene->addFitCameraEvent(_camera, _currentMap->getWidth(), _currentMap->getHeight());
 		cutscene->addDialogueEvent(dialogue, _game->getDialogue("Spenta Manyu"));
 		cutscene->addPlayMusicEvent(_game, "boss1Battle");
 		_game->getCurrentState()->addCutScene(cutscene);
 
+		cutscene->play();
+
 		break;
 	}
+
+	_camera->setZoom(CAMERA_SCALE_FACTOR);
 
 	double xBound, yBound;
 	xBound = getCurrentLevel(GameManager::getInstance()->getCurrentLevel())->getWidth();
@@ -298,8 +321,6 @@ void LevelManager::setLevel(int l)
 
 	if (l == SafeDemo || l == End)
 		_camera->fitCamera({ xBound, yBound }, true);
-	else
-		_camera->setZoom(CAMERA_SCALE_FACTOR);
 
 	if (l != Tutorial)
 		_camera->fadeIn(3000);

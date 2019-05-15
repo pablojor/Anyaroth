@@ -32,6 +32,8 @@ void Boss::update(const double & deltaTime)
 		else
 			beetwenFases(deltaTime);
 	}
+	else
+		_player->setNoDamage(true);
 	
 	if (isDead() || _player->isDead())
 		_bossPanel->setVisible(false);

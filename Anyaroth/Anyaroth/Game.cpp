@@ -25,7 +25,7 @@ void Game::createTextures()
 			fil = j[i][2];
 			col = j[i][3];
 
-			_textures.insert(pair <string, Texture*>(id, new Texture(_renderer, SPRITE_PATH + name, fil, col)));
+			_textures.insert(pair <string, Texture*>(id, new Texture(_renderer, SPRITES_PATH + name, fil, col)));
 		}
 	}
 	else
@@ -178,7 +178,7 @@ Game::Game()
 	SDL_RenderSetLogicalSize(_renderer, GAME_RESOLUTION_X, GAME_RESOLUTION_Y);
 
 	//Icon
-	SDL_Surface* icon = IMG_Load((SPRITE_PATH + "icon.png").c_str());
+	SDL_Surface* icon = IMG_Load((SPRITES_PATH + "icon.png").c_str());
 	SDL_SetWindowIcon(_window, icon);
 
 	//Show cursor

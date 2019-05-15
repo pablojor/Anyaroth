@@ -20,12 +20,10 @@ const int LEVEL_WIDTH = GAME_RESOLUTION_X * 10;
 const int LEVEL_HEIGHT = GAME_RESOLUTION_Y * 3;
 
 const string INFO_PATH = "..\\files\\info\\";
-const string FONTS_PATH = "..\\assets\\fonts\\";
-const string FILES_PATH = "..\\files\\levels\\";
-const string SAVES_PATH = "..\\files\\saves\\";
-const string SPRITE_PATH = "..\\assets\\sprites\\";
-const string TILEMAP_PATH = "..\\files\\tilemaps\\";
+const string TILEMAPS_PATH = "..\\files\\tilemaps\\";
+const string SPRITES_PATH = "..\\assets\\sprites\\";
 const string SOUNDS_PATH = "..\\assets\\sounds\\";
+const string FONTS_PATH = "..\\assets\\fonts\\";
 
 const Uint32 FRAME_RATE = 1000 / 60;
 const int TILES_SIZE = 16;

@@ -47,10 +47,11 @@ void PlayState::start()
 	BulletPool* enemyPool = new BulletPool(_gameptr);
 
 	//Level
-	GameManager::getInstance()->setCurrentLevel(LevelManager::Tutorial);
+	GameManager::getInstance()->setCurrentLevel(LevelManager::Level1_1);
 
 	_level = new GameObject(_gameptr);
 	_levelManager = LevelManager(_gameptr, _player, _level, enemyPool);
+	GameManager::getInstance()->setLevelManager(&_levelManager);
 
 	if (!_gameptr->getCurrentState()->gameLoaded())
 		_levelManager.setLevel(GameManager::getInstance()->getCurrentLevel());
@@ -94,13 +95,14 @@ bool PlayState::handleEvent(const SDL_Event& event)
 void PlayState::saveGame()
 {
 	ofstream output;
-	output.open(SAVES_PATH + "save.json");
+	output.open(INFO_PATH + "save.json");
 
 	if (output.is_open())
 	{
 		json j;
 		j["level"] = GameManager::getInstance()->getCurrentLevel();
 		j["Bank"] = _player->getBank();
+		j["Life"] = _player->getMaxLife();
 		j["currentGun"] = _player->getCurrentGun()->getGunID();
 
 		if (_player->getOtherGun() != nullptr)
@@ -123,21 +125,23 @@ void PlayState::saveGame()
 void PlayState::loadGame()
 {
 	ifstream input;
-	input.open(SAVES_PATH + "save.json");
+	input.open(INFO_PATH + "save.json");
 
 	if (input.is_open())
 	{
 		json j;
 		input >> j;
-		_player->setBank(j["Bank"]);
 		GameManager::getInstance()->setCurrentLevel(j["level"]);
 		_levelManager.setLevel(GameManager::getInstance()->getCurrentLevel());
+		_player->setBank(j["Bank"]);
+		_player->setMaxLife(j["Life"]);
 		_player->changeCurrentGun(WeaponManager::getInstance()->getWeapon(_gameptr, j["currentGun"]));
 
 		if (j["otherGun"] != nullptr)
 			_player->changeOtherGun(WeaponManager::getInstance()->getWeapon(_gameptr, j["otherGun"]));
 
 		_player->changeMelee(WeaponManager::getInstance()->getMelee(_gameptr, j["meleeWeapon"]), j["meleeAnim"]);
+
 		auto items = _playHud->getShop()->getItems();
 		for (ShopItem* i : items)
 		{
@@ -153,15 +157,30 @@ void PlayState::loadGame()
 	}
 }
 
-
 void PlayState::update(const double& deltaTime)
 {
-	if (_player->changeLevel())
-	{
-		GameManager* gameManager = GameManager::getInstance();
-		_player->setChangeLevel(false);
+	GameState::update(deltaTime);
+	ParticleManager::GetParticleManager()->updateManager(deltaTime);
+	GameManager* gameManager = GameManager::getInstance();
 
-		if (!_player->isDead())
+	if (gameManager->getChangeLevel())
+	{
+		gameManager->setChangeLevel(false);
+
+		if (_player->isDead())
+		{
+			_player->setInputFreezed(true);
+			getMainCamera()->fadeOut(1000);
+			getMainCamera()->onFadeComplete([this, gameManager](Game* game)
+			{
+				gameManager->changeLevel(-1);
+				_levelManager.changeLevel(gameManager->getCurrentLevel());
+
+				_player->revive();
+				_player->setInputFreezed(false);
+			});
+		}
+		else
 		{
 			if ((gameManager->getCurrentLevel() + 1) % 2 == 0) //Si el proximo nivel no es una safe zone guarda el juego
 				saveGame();
@@ -172,32 +191,14 @@ void PlayState::update(const double& deltaTime)
 			getMainCamera()->fadeOut(1000);
 			getMainCamera()->onFadeComplete([this, gameManager](Game* game)
 			{
-				gameManager->nextLevel();
+				gameManager->changeLevel(1);
 				_levelManager.changeLevel(gameManager->getCurrentLevel());
 
 				_player->revive();
-				_player->setInputFreezed(false);
 
-				if (_cutScene != nullptr)
-					_cutScene->play();
-			});
-		}
-		else if (!getMainCamera()->isFading())
-		{
-			_player->setInputFreezed(true);
-			getMainCamera()->fadeOut(1000);
-			getMainCamera()->onFadeComplete([this, gameManager](Game* game)
-			{
-				_player->setChangeLevel(false);
-
-				gameManager->previousLevel();
-				_levelManager.changeLevel(gameManager->getCurrentLevel());
-
-				_player->revive();
-				_player->setInputFreezed(false);
+				if (_cutScene == nullptr)
+					_player->setInputFreezed(false);
 			});
 		}
 	}
-	GameState::update(deltaTime);
-	ParticleManager::GetParticleManager()->updateManager(deltaTime);
 }

@@ -103,7 +103,7 @@ void Player::beginCollision(GameObject * other, b2Contact* contact)
 		subLife(damage);
 
 		BodyComponent* otherBody = other->getComponent<BodyComponent>();
-		_contactPoint = otherBody->getBody()->GetPosition()+ b2Vec2(otherBody->getW()/2,otherBody->getH()/2);
+		_contactPoint = otherBody->getBody()->GetPosition() + b2Vec2(otherBody->getW() / 2, otherBody->getH() / 2);
 	}
 	else if (other->getTag() == "Coin")
 	{
@@ -142,7 +142,7 @@ void Player::beginCollision(GameObject * other, b2Contact* contact)
 	}
 	else if (other->getTag() == "Door")
 	{
-		_changeLevel = true;
+		GameManager::getInstance()->setChangeLevel(true);
 	}
 	else if (other->getTag() == "Death")
 	{
@@ -163,6 +163,7 @@ void Player::endCollision(GameObject * other, b2Contact* contact)
 void Player::die()
 {
 	_isShooting = false;
+	_noDamage = true;
 
 	setDead(true);
 	_deathCD = 3000;
@@ -182,6 +183,8 @@ void Player::die()
 
 void Player::revive()
 {
+	_noDamage = false;
+
 	setDead(false);
 	_playerPanel->showDeathText(false);
 	_playerArm->setActive(true);
@@ -199,7 +202,7 @@ void Player::revive()
 
 void Player::subLife(int damage)
 {
-	if (!isDashing())
+	if (!isDashing() && !_noDamage)
 	{
 		_life.subLife(damage);
 
@@ -367,13 +370,13 @@ void Player::update(const double& deltaTime)
 {
 	const Uint8* keyboard = SDL_GetKeyboardState(NULL);
 
-	if(isDead() && !_changeLevel)
+	if(isDead() && !GameManager::getInstance()->getChangeLevel() && _deathCD > 0)
 	{
 		_playerPanel->showDeathText(true);
 		_deathCD -= deltaTime;
 
 		if (_deathCD <= 0)
-			_changeLevel = true;
+			GameManager::getInstance()->setChangeLevel(true);
 	}
 
 	if (_spawnParticles)
@@ -608,6 +611,7 @@ void Player::dashTimer(const double & deltaTime)
 	{
 		if (!_dashDown)
 			_dashTime -= deltaTime;
+
 		_dashParticleTime -= deltaTime;
 		if (_dashTime <= 0 && !_dashDown)
 		{
@@ -624,7 +628,6 @@ void Player::dashTimer(const double & deltaTime)
 					ParticleManager::GetParticleManager()->CreateSimpleParticle(_game->getTexture("DashTrail"), 1, Vector2D((_body->getBody()->GetPosition().x)*M_TO_PIXEL, (_body->getBody()->GetPosition().y)*M_TO_PIXEL), 0, 0, 120);
 				else
 					ParticleManager::GetParticleManager()->CreateSimpleParticle(_game->getTexture("DashTrailFlip"), 1, Vector2D((_body->getBody()->GetPosition().x)*M_TO_PIXEL, (_body->getBody()->GetPosition().y)*M_TO_PIXEL), 0, 0, 120);
-
 			}
 			else if (_anim->getCurrentAnim() == AnimatedSpriteComponent::DashBack)
 			{
@@ -639,8 +642,6 @@ void Player::dashTimer(const double & deltaTime)
 					ParticleManager::GetParticleManager()->CreateSimpleParticle(_game->getTexture("DashDownTrail"), 1, Vector2D((_body->getBody()->GetPosition().x)*M_TO_PIXEL, (_body->getBody()->GetPosition().y)*M_TO_PIXEL), 0, 0, 120);
 				else
 					ParticleManager::GetParticleManager()->CreateSimpleParticle(_game->getTexture("DashDownTrailFlip"), 1, Vector2D((_body->getBody()->GetPosition().x)*M_TO_PIXEL, (_body->getBody()->GetPosition().y)*M_TO_PIXEL), 0, 0, 120);
-
-
 			}
 			_dashParticleTime = 40;
 		}
@@ -650,6 +651,7 @@ void Player::dashTimer(const double & deltaTime)
 void Player::refreshGunCadence(const double& deltaTime)
 {
 	_currentGun->refreshGunCadence(deltaTime);
+
 	if (_otherGun != nullptr)
 		_otherGun->refreshGunCadence(deltaTime);
 }
@@ -659,6 +661,7 @@ void Player::refreshStunTime(const double & deltaTime)
 	if (_stunned)
 	{
 		_stunTime -= deltaTime;
+
 		if (_stunTime <= 0)
 		{
 			_stunTime = 1000;
@@ -705,6 +708,7 @@ void Player::setPlayerPanel(PlayerPanel * p)
 void Player::resetDustParticle()
 {
 	int level = GameManager::getInstance()->getCurrentLevel();
+
 	if (level <= 6)
 	{
 		_dustParticle = "Dust1";

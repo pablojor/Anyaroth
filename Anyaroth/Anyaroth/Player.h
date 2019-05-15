@@ -61,7 +61,7 @@ private:
 	double _stunTime = 1000;
 
 	//Others
-	bool _changeLevel = false, _inputFreezed = false;
+	bool _inputFreezed = false, _noDamage = false;
 
 	//Guns
 	Gun* _currentGun = nullptr;
@@ -99,6 +99,7 @@ public:
 	void revive();
 
 	void subLife(int damage);
+	inline void setNoDamage(bool b) { _noDamage = b; }
 	inline bool isDead() const { return GameObject::isDead(); }
 
 	inline int getMaxLife() const { return _life.getMaxLife(); }
@@ -143,9 +144,6 @@ public:
 	inline void setPlayerPosition(Vector2D pos) {_body->getBody()->SetTransform(b2Vec2(pos.getX(), pos.getY()), 0);}
 	inline void setPlayerBulletPool(BulletPool* pool) { _playerBulletPool = pool; }
 	void resetDustParticle();
-
-	inline bool changeLevel() const { return _changeLevel; }
-	inline void setChangeLevel(bool change) { _changeLevel = change; }
 
 	void stopPlayer();
 	inline void setInputFreezed(bool b) { _inputFreezed = b; if (b) stopPlayer(); }

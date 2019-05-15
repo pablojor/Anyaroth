@@ -1,7 +1,8 @@
 #include "ChangeLevelEvent.h"
+#include "GameManager.h"
 
 void ChangeLevelEvent::play()
 {
-	_player->setChangeLevel(true);
+	GameManager::getInstance()->setChangeLevel(true);
 	_finished = true;
 }

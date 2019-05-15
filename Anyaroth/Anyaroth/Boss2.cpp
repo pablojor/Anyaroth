@@ -90,7 +90,7 @@ void Boss2::update(const double & deltaTime)
 			{
 				CutScene* cutscene = new CutScene(_player);
 				cutscene->addWaitEvent(1000);
-				//cutscene->addPlayMusicEvent(""); m�sica triste
+				_game->getSoundManager()->playMusic("cutScene2", -1);
 				cutscene->addDialogueEvent(_game->getCurrentState()->getPlayHUD()->getDialoguePanel(), _game->getDialogue("Azura Manyu 2"));
 				cutscene->addWaitEvent(1000);
 				cutscene->addPopUpEvent(_game->getCurrentState()->getPlayHUD()->getPopUpPanel());
@@ -99,6 +99,7 @@ void Boss2::update(const double & deltaTime)
 				cutscene->play();
 
 				_player->setMaxLife(_player->getMaxLife() + 50);
+				_player->setNoDamage(false);
 				_finishLevel = true;
 			}
 		}
@@ -451,12 +452,12 @@ void Boss2::beetwenFases(const double& deltaTime)
 		{
 			_lasers->Activate();
 			changeFase(Fase2);
-			_game->getSoundManager()->playSFX("boss2Interfase");
+			_game->getSoundManager()->playSFX("boss2Die");
 		}
 		else if (_lastFase == Fase2)
 		{
 			changeFase(Fase3);
-			_game->getSoundManager()->playSFX("boss2Interfase");
+			_game->getSoundManager()->playSFX("boss2Die");
 		}
 		else
 		{

@@ -161,6 +161,7 @@ void Boss3::update(const double & deltaTime)
 		{
 			CutScene* cutscene = new CutScene(_player);
 			cutscene->addWaitEvent(1000);
+			_game->getSoundManager()->stopMusic();
 			cutscene->addDialogueEvent(_game->getCurrentState()->getPlayHUD()->getDialoguePanel(), _game->getDialogue("Angra Manyu 2"));
 			cutscene->addWaitEvent(1000);
 			cutscene->addChangeLevelEvent();
@@ -168,6 +169,7 @@ void Boss3::update(const double & deltaTime)
 			cutscene->play();
 
 			_finishLevel = true;
+			_player->setNoDamage(false);
 		}
 
 		if (isDead() || _player->isDead())
