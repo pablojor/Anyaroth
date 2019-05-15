@@ -124,7 +124,11 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>Box2D.lib;SDL2.lib;SDL2main.lib;SDL2test.lib;SDL2_ttf.lib;SDL2_mixer.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)SDL2_image-2.0.1\lib\x86;$(SolutionDir)SDL2_mixer-2.0.4\lib\x86;$(SolutionDir)SDL2_ttf-2.0.14\lib\x86;$(SolutionDir)SDL2-2.0.9\lib\x86;$(SolutionDir)Box2D\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
     </Link>
+    <Manifest>
+      <AdditionalManifestFiles>%(AdditionalManifestFiles)</AdditionalManifestFiles>
+    </Manifest>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -358,6 +362,7 @@
     <ClInclude Include="LaserContainer.h" />
     <ClInclude Include="LaserHandler.h" />
     <ClInclude Include="OrbShotgun.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="SpawnerBoss.h" />
     <ClInclude Include="Sword.h" />
     <ClInclude Include="BackGround.h" />
@@ -485,6 +490,12 @@
     <ClInclude Include="WeaponManager.h" />
     <ClInclude Include="WeaponryViewer.h" />
     <ClInclude Include="ZoomInOutEvent.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Anyaroth.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\assets\sprites\icon.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

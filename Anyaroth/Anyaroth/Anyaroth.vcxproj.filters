@@ -951,6 +951,7 @@
     <ClInclude Include="Sword.h">
       <Filter>Archivos de encabezado\Objects\Melee</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h" />
     <ClInclude Include="BossSensor.h">
       <Filter>Archivos de encabezado\Objects\Enemies\Bosses</Filter>
     </ClInclude>
@@ -1202,5 +1203,11 @@
     <Filter Include="Archivos de encabezado\Objects\Enemies\GroundEnemies">
       <UniqueIdentifier>{3b06a041-9e4a-4a3a-ae7d-e4192d3ab76f}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Anyaroth.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\assets\sprites\icon.ico" />
   </ItemGroup>
 </Project>

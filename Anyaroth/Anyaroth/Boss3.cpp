@@ -62,7 +62,8 @@ Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(
 	_anim->addAnim(AnimatedSpriteComponent::AngraAppear, 21, false);
 	_anim->addAnim(AnimatedSpriteComponent::AngraDisappear, 15, false);
 	_anim->addAnim(AnimatedSpriteComponent::AngraRing, 13, false);
-	_anim->addAnim(AnimatedSpriteComponent::AngraDie, 34, false);
+	_anim->addAnim(AnimatedSpriteComponent::AngraDie1, 21, false);
+	_anim->addAnim(AnimatedSpriteComponent::AngraDie2, 13, false);
 
 	_anim->playAnim(AnimatedSpriteComponent::AngraIdle);
 	_anim->setVisible(false);
@@ -77,7 +78,22 @@ Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(
 
 void Boss3::handleAnimations(double time)
 {
-	if (_actualFase == Fase3)
+	if (_actualFase == Fase2)
+	{
+		if (_throneAnim->getCurrentAnim() == AnimatedSpriteComponent::ThroneEnd1 && _throneAnim->animationFinished())
+		{
+			_throneAnim->playAnim(AnimatedSpriteComponent::ThroneEnd2);
+			_alreadyDead = true;
+		}
+	}
+	else if(_actualFase == BetweenFase)
+	{
+		if (_anim->getCurrentAnim() == AnimatedSpriteComponent::AngraDie1 && _anim->animationFinished())
+		{
+			_anim->playAnim(AnimatedSpriteComponent::AngraDie2);
+		}
+	}
+	else if (_actualFase == Fase3)
 	{
 		if (_actualState != Dashing)
 		{
@@ -244,9 +260,8 @@ void Boss3::fase1(const double & deltaTime)
 					beetwenFases(deltaTime);
 					if (!_alreadyDead)
 					{
-						_throneAnim->playAnim(AnimatedSpriteComponent::ThroneEnd);
+						_throneAnim->playAnim(AnimatedSpriteComponent::ThroneEnd1);
 						_game->getSoundManager()->playSFX("boss3Teleport");
-						_alreadyDead = true;
 					}
 				}
 			}
@@ -385,7 +400,7 @@ void Boss3::beetwenFases(const double& deltaTime)
 	}
 	else if (_lastFase == Fase2)
 	{
-		if (_anim->animationFinished())
+		if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::AngraDie2)
 		{
 			changeFase(Fase3);
 			_sensor = new BossSensor(_game, this, { 100, 100 }, { 30, 30 });
@@ -438,9 +453,11 @@ void Boss3::subLife(int damage)
 			}
 			if (_life1.getLife() <= 0 && _lastFase == Fase2)
 			{
-				_anim->playAnim(AnimatedSpriteComponent::AngraDie);
+				_anim->playAnim(AnimatedSpriteComponent::AngraDie1);
 				_actualState = -1;
 			}
+			if (_actualFase == Fase3)
+				_arm->hurt();
 		}
 		_spawnParticles = true;
 		_anim->hurt();

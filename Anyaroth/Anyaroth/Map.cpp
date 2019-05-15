@@ -222,7 +222,8 @@ void Map::createObjects()
 				AnimatedSpriteComponent* throneAnim = throne->getComponent<AnimatedSpriteComponent>();
 				throneAnim->reset();
 				throneAnim->addAnim(AnimatedSpriteComponent::ThroneIdle, 14, true);
-				throneAnim->addAnim(AnimatedSpriteComponent::ThroneEnd, 27, false);
+				throneAnim->addAnim(AnimatedSpriteComponent::ThroneEnd1, 14, false);
+				throneAnim->addAnim(AnimatedSpriteComponent::ThroneEnd2, 13, false);
 
 				throneAnim->playAnim(AnimatedSpriteComponent::ThroneIdle);
 				angra->setAnimThrone(throneAnim);

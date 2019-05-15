@@ -74,13 +74,13 @@
     [ "Laser", "laser.png", 2, 1 ],
     [ "LaserContainer", "laserContainer.png", 4, 4 ],
 
-    [ "Angra", "angra_spritesheet.png", 7, 34 ],
+    [ "Angra", "angra_spritesheet.png", 8, 21 ],
     [ "AngraSoldier", "angrasoldier_spritesheet.png", 11, 35 ],
     [ "AngraCorpse", "angra_corpse.png", 1, 1 ],
     [ "FlyingHead", "flyinghead_spritesheet.png", 5, 18 ],
     [ "AngraArmBounceCannon", "angra_bouncecannon_spritesheet.png", 4, 12 ],
     [ "AngraArmImprovedRifle", "angra_arm_improvedsubfusil_spritesheet.png", 4, 12 ],
-    [ "Throne", "throne_spritesheet.png", 2, 27 ],
+    [ "Throne", "throne_spritesheet.png", 3, 14 ],
     [ "ThroneEmpty", "throne_empty.png", 1, 1 ],
 
     [ "TilesetTutorial", "tutorial_tileset.png", 22, 26 ],
