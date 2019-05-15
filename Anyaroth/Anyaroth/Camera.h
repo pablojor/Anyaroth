@@ -40,7 +40,7 @@ private:
 	float _fadeTime = 0.f;
 	float _fadeMaxTime = 0.f;
 	bool _isFading = false, _fadeIsFinished = false;;
-	Uint8 _cameraAlpha;
+	Uint8 _cameraAlpha = 255;
 
 public:
 	Camera(Game* game) : _game(game) {};
