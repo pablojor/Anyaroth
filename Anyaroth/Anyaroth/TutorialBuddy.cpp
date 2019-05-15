@@ -1,12 +1,7 @@
 #include "TutorialBuddy.h"
 
-
-
 TutorialBuddy::TutorialBuddy(Game* g, Player* player, Vector2D pos) : GroundEnemy(g, player, pos, g->getTexture("EnemyMelee")), Enemy(g, player, pos, g->getTexture("TutorialBuddy"), "meleeDeath", "meleeHit", "meleeEnemyHit")
 {
-	_life = 10;
-
-
 	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 4, true, 200);
 	_anim->addAnim(AnimatedSpriteComponent::EnemyWalk, 1, false);
 	_anim->addAnim(AnimatedSpriteComponent::EnemyAttack, 1, false);
@@ -14,18 +9,12 @@ TutorialBuddy::TutorialBuddy(Game* g, Player* player, Vector2D pos) : GroundEnem
 
 	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 
-	//_body->addCricleShape(b2Vec2(0, _body->getH() - 0.5 + _body->getH() / 20), _body->getW() - _body->getW() / 20, ENEMIES, FLOOR | PLATFORMS);
 	_body->setW(20);
 	_body->setH(30);
+
 	_body->moveShape(b2Vec2(0, 0.1));
 	_body->filterCollisions(ENEMIES, FLOOR | PLATFORMS | PLAYER_BULLETS | MELEE);
 }
-
-
-TutorialBuddy::~TutorialBuddy()
-{
-}
-
 
 void TutorialBuddy::update(const double& deltaTime)
 {
@@ -54,6 +43,4 @@ void TutorialBuddy::beginCollision(GameObject * other, b2Contact* contact)
 		else
 			_game->getSoundManager()->playSFX("buddyHit3");
 	}
-
-	
 }

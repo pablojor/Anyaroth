@@ -472,9 +472,6 @@
     <ClCompile Include="MeleeEnemy.cpp">
       <Filter>Archivos de código fuente\Objects\Enemies\GroundEnemies</Filter>
     </ClCompile>
-    <ClCompile Include="TutorialBuddy.cpp">
-      <Filter>Archivos de código fuente\Objects\Enemies\DistanceEnemies</Filter>
-    </ClCompile>
     <ClCompile Include="TutorialTurret.cpp">
       <Filter>Archivos de código fuente\Objects\Enemies\DistanceEnemies</Filter>
     </ClCompile>
@@ -498,6 +495,9 @@
     </ClCompile>
     <ClCompile Include="Trigger.cpp">
       <Filter>Archivos de código fuente\Objects\Interactables</Filter>
+    </ClCompile>
+    <ClCompile Include="TutorialBuddy.cpp">
+      <Filter>Archivos de código fuente\Objects\Enemies\GroundEnemies</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

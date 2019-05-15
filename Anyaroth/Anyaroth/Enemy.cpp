@@ -5,10 +5,12 @@
 #include "Coin.h"
 #include "AmmoPackage.h"
 #include "AidKit.h"
-
+#include "GameManager.h"
 
 Enemy::Enemy(Game* g, Player* player, Vector2D pos, Texture* texture, string death, string hit, string meleeHit) : GameObject(g, "Enemy"), _player(player), _deathSound(death), _hitSound(hit), _meleeHit(meleeHit)
 {
+	_life = Life(50);
+
 	_texture = texture;
 	addComponent<Texture>(texture);
 
@@ -21,15 +23,12 @@ Enemy::Enemy(Game* g, Player* player, Vector2D pos, Texture* texture, string dea
 	
 	_body->setW(20);
 	_body->setH(30);
+
 	_body->moveShape(b2Vec2(0, 0.6));
 	_body->filterCollisions(ENEMIES, FLOOR | PLATFORMS | PLAYER_BULLETS | MELEE);
-	
 	_body->getBody()->SetFixedRotation(true);
 
 	_anim = addComponent<CustomAnimatedSpriteComponent>();
-
-	_life = Life(50);
-
 	_hurtParticle = _game->getTexture("Blood");
 }
 
@@ -54,6 +53,8 @@ void Enemy::beginCollision(GameObject * other, b2Contact* contact)
 			_game->getSoundManager()->playSFX(_hitSound);
 		}
 	}
+	else if (other->getTag() == "Death")
+		die();
 }
 
 void Enemy::update(const double& deltaTime)
@@ -102,7 +103,7 @@ void Enemy::drop()
 	{
 		addChild(new AmmoPackage(_game, Vector2D(_body->getBody()->GetPosition().x*M_TO_PIXEL, _body->getBody()->GetPosition().y*M_TO_PIXEL), 1));
 	}
-	else if (rnd > 15)
+	else if (rnd > 15 && GameManager::getInstance()->getCurrentLevel() != LevelManager::Boss3)
 	{
 		addChild(new Coin(_game, Vector2D(_body->getBody()->GetPosition().x*M_TO_PIXEL, _body->getBody()->GetPosition().y*M_TO_PIXEL), _coinValue));
 	}

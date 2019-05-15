@@ -4,9 +4,9 @@
 class SpawnerEnemy : public Enemy
 {
 protected:
-	bool _move= false, _bloqueDer = false, _bloqueIzq = false;
-	double _spawnTime = 5000, _maxEnemies = 4, _currentEnemies = 0;
-	Vector2D _dir = Vector2D(1,0);
+	bool _move = false, _bloqueDer = false, _bloqueIzq = false;
+	double _spawnTime = 2500, _maxEnemies = 20, _currentEnemies = 0;
+	Vector2D _dir = Vector2D(1, 0);
 
 public:
 	SpawnerEnemy(Game* g, Player* player, Vector2D pos);

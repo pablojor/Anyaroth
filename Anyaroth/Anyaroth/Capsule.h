@@ -18,6 +18,7 @@ protected:
 public:
 	Capsule(Game* g, Player* player, Vector2D pos, Enemy* father);
 	virtual ~Capsule() {}
+
 	virtual void spawn() {};
 	virtual void update(const double& deltaTime);
 	virtual void beginCollision(GameObject* other, b2Contact* contact);

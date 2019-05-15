@@ -7,8 +7,3 @@ StaticFlyingEnemy::StaticFlyingEnemy(Game* g, Player* player, Vector2D pos, Bull
 	_body->getBody()->SetGravityScale(0);
 	_hurtParticle = g->getTexture("Sparks");
 }
-
-
-StaticFlyingEnemy::~StaticFlyingEnemy()
-{
-}

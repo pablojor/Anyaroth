@@ -8,10 +8,10 @@ BomberEnemy::BomberEnemy(Game* g, Player* player, Vector2D pos, BulletPool* pool
 	_damage = 25;
 
 	_vision = 300;
-	_life = 24;
+	_life = 30;
 	_gun = new BomberGun(g);
 	_attackRangeX = 2;
-	_speed = 8;
+	_speed = 6;
 	_time = 0;
 
 	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 6, true);
@@ -23,8 +23,10 @@ BomberEnemy::BomberEnemy(Game* g, Player* player, Vector2D pos, BulletPool* pool
 
 	_body->setW(30);
 	_body->setH(20);
+
 	_body->getBody()->SetGravityScale(0);
 	_body->filterCollisions(ENEMIES, FLOOR | PLATFORMS | PLAYER_BULLETS | MELEE);
+
 	_hurtParticle = g->getTexture("Sparks");
 }
 
@@ -81,7 +83,7 @@ void BomberEnemy::subLife(int damage)
 	Enemy::subLife(damage);
 
 	if (isDead())
-		_body->getBody()->SetGravityScale(1);
+		_body->getBody()->SetGravityScale(3);
 }
 
 void BomberEnemy::throwBomb(const Vector2D& position)

@@ -1,7 +1,5 @@
 #include "TutorialTurret.h"
 
-
-
 TutorialTurret::TutorialTurret(Game* g, Player* player, Vector2D pos, BulletPool* pool) : DistanceStaticEnemy(g, player, pos, pool), Enemy(g, player, pos, g->getTexture("Turret"), "turretDeath", "turretHit", "turretMeleeHit")
 {
 	_vision = 1010;
@@ -22,12 +20,6 @@ TutorialTurret::TutorialTurret(Game* g, Player* player, Vector2D pos, BulletPool
 	_hurtParticle = g->getTexture("Sparks");
 }
 
-
-TutorialTurret::~TutorialTurret()
-{
-}
-
-
 void TutorialTurret::beginCollision(GameObject * other, b2Contact* contact)
 {
 	if (other->getTag() == "Bullet" || other->getTag() == "Melee")
@@ -46,7 +38,6 @@ void TutorialTurret::beginCollision(GameObject * other, b2Contact* contact)
 	}
 }
 
-
 void TutorialTurret::shoot()
 {
 	if (_playerDistance.getX() < 0) //Izquierda
@@ -57,7 +48,6 @@ void TutorialTurret::shoot()
 	}
 }
 
-
 void TutorialTurret::update(const double& deltaTime)
 {
 	DistanceEnemy::update(deltaTime);
@@ -67,7 +57,6 @@ void TutorialTurret::update(const double& deltaTime)
 
 	if (inVision) //Jugador en el rango
 	{
-		//raycast();
 		shoot();
 	}
 }

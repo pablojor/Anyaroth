@@ -2,11 +2,17 @@
 
 SpawnerEnemy::SpawnerEnemy(Game* g, Player* player, Vector2D pos) : Enemy(g, player, pos, g->getTexture("Spawner"), "spawnerDeath", "spawnerHit", "martyrMeleeHit")
 {
-	_vision = 800;
+	_vision = 300;
 	_life = 40;
 	_attackRangeX = 2;
-	_speed = 8;
+	_speed = 6;
 	_time = 0;
+
+	_body->setW(30);
+	_body->setH(40);
+
+	_body->moveShape(b2Vec2(0, -1.5));
+	_body->getBody()->SetGravityScale(0);
 
 	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 12, true);
 	_anim->addAnim(AnimatedSpriteComponent::EnemyWalk, 1, false);
@@ -15,8 +21,6 @@ SpawnerEnemy::SpawnerEnemy(Game* g, Player* player, Vector2D pos) : Enemy(g, pla
 
 	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 
-	_body->addCricleShape(b2Vec2(0, _body->getH() + _body->getH() / 20), _body->getW() - _body->getW() / 20, ENEMIES, FLOOR | PLATFORMS | PLAYER_BULLETS | MELEE);
-	_body->getBody()->SetGravityScale(0);
 	_hurtParticle = g->getTexture("Sparks");
 }
 

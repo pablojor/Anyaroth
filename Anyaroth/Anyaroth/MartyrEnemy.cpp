@@ -3,15 +3,14 @@
 #include "AnimatedSpriteComponent.h"
 #include "Player.h"
 #include "GameManager.h"
-#include "LevelManager.h"
 #include "BodyComponent.h"
 
 MartyrEnemy::MartyrEnemy(Game* g, Player* player, Vector2D pos) : GroundEnemy(g, player, pos, g->getTexture("EnemyMartyr")), Enemy(g, player, pos, g->getTexture("EnemyMartyr"), "martyrDie","martyrHit", "martyrMeleeHit")
 {
-	_vision = 500;
-	_life = 30;
+	_vision = 300;
+	_life = 25;
 	_damage = 35;
-	_speed = 20;
+	_speed = 12;
 	_attackRangeX = 25; //No se puede poner mas pequeño que la velocidad
 	_attackRangeY = 20;
 	_attackTime = 850;
@@ -28,9 +27,9 @@ MartyrEnemy::MartyrEnemy(Game* g, Player* player, Vector2D pos) : GroundEnemy(g,
 
 	_body->setW(25);
 	_body->setH(15);
+
 	_body->moveShape(b2Vec2(0.3, _body->getH() + 0.1));
 	_body->filterCollisions(ENEMIES, FLOOR | PLATFORMS | PLAYER_BULLETS | MELEE);
-
 	_body->addCricleShape(b2Vec2(0.4, _body->getH() + _body->getH() * 2 / 3), _body->getH() + _body->getH() / 3, ENEMIES, FLOOR | PLATFORMS);
 
 	addSensors();

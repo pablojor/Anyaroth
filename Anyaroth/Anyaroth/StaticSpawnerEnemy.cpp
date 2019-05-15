@@ -4,7 +4,7 @@
 StaticSpawnerEnemy::StaticSpawnerEnemy(Game * g, Player * player, Vector2D pos) : Enemy(g, player, pos, g->getTexture("Hive"),"staticSpawnerDeath", "martyrHit", "martyrMeleeHit")
 {
 	_vision = 500;
-	_life = 30;
+	_life = 40;
 	_time = 0;
 
 	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 9, true);
@@ -12,13 +12,12 @@ StaticSpawnerEnemy::StaticSpawnerEnemy(Game * g, Player * player, Vector2D pos) 
 	_anim->addAnim(AnimatedSpriteComponent::EnemyAttack, 8, false);
 	_anim->addAnim(AnimatedSpriteComponent::EnemyDie, 10, false);
 
-	_body->setW(20);
+	_body->setW(30);
 	_body->setH(20);
+
 	_body->moveShape(b2Vec2(0, 0.6));
 	_body->filterCollisions(ENEMIES, FLOOR | PLATFORMS | PLAYER_BULLETS | MELEE);
-
 	_body->getBody()->SetFixedRotation(true);
-
 
 	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 }
