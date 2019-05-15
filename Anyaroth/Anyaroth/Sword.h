@@ -3,8 +3,8 @@
 
 class Sword : public Melee
 {
-private:
-	double _angle, _iniAngle;
+protected:
+	double _angle, _iniAngle, _speed = -6;
 	int _usedDir = 1;
 
 public:

@@ -8,6 +8,7 @@ BossSword::BossSword(Game * game) : Sword(game)
 	setOffset({ 100, 0 });
 	setCollisionFilters(PLAYER);
 	setDamage(5);
+	_speed = 4;
 	setCollisionSize({ 50, 50 });
 	_id = BossSword_Weapon;
 }
@@ -15,3 +16,5 @@ BossSword::BossSword(Game * game) : Sword(game)
 BossSword::~BossSword()
 {
 }
+
+
