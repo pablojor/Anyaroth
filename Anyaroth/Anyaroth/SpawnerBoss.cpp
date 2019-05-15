@@ -4,18 +4,13 @@
 #include "DistanceDynamicEnemy.h"
 #include "BomberEnemy.h"
 
-
 bool SpawnerBoss::_spawnTurn = false;
 bool SpawnerBoss::_spawnDone = false;
 
-
-SpawnerBoss::SpawnerBoss(Game* g,Player* player, Texture* texture, Vector2D pos, int typeSpawn,BulletPool * pool) :_player(player), _typeSpawn(typeSpawn),_pool(pool), GameObject(g, "Spawn")
+SpawnerBoss::SpawnerBoss(Game* g,Player* player, Vector2D pos, int typeSpawn,BulletPool * pool) :_player(player), _typeSpawn(typeSpawn),_pool(pool), GameObject(g, "Spawn")
 {
-
 	_transform = addComponent<TransformComponent>();
 	_transform->setPosition(pos.getX(), pos.getY());
-
-	addComponent<Texture>(texture);
 
 	_body = addComponent<BodyComponent>();
 	_body->getBody()->SetType(b2_kinematicBody);
@@ -23,14 +18,6 @@ SpawnerBoss::SpawnerBoss(Game* g,Player* player, Texture* texture, Vector2D pos,
 	_body->setW(20);
 	_body->getBody()->GetFixtureList()->SetSensor(true);
 	_body->getBody()->SetFixedRotation(true);
-
-	_anim = addComponent<AnimatedSpriteComponent>();
-	_anim->addAnim(AnimatedSpriteComponent::Deactivated, 1, false);
-	_anim->addAnim(AnimatedSpriteComponent::Activating, 12, false);
-	_anim->addAnim(AnimatedSpriteComponent::Active, 4, true);
-	_anim->addAnim(AnimatedSpriteComponent::Used, 11, false);
-
-	_anim->playAnim(AnimatedSpriteComponent::Deactivated);
 
 	if (typeSpawn == 4|| typeSpawn == 5)
 	{
@@ -40,12 +27,6 @@ SpawnerBoss::SpawnerBoss(Game* g,Player* player, Texture* texture, Vector2D pos,
 	{
 		_spawnTime = 500;
 	}
-
-}
-
-
-SpawnerBoss::~SpawnerBoss()
-{
 }
 
 void SpawnerBoss::update(const double & deltaTime)
@@ -54,7 +35,6 @@ void SpawnerBoss::update(const double & deltaTime)
 
 	if (_startSpawn)
 	{
-		
 		switch (_typeSpawn)
 		{
 		case 5:
@@ -77,7 +57,6 @@ void SpawnerBoss::update(const double & deltaTime)
 			break;
 		}
 	}
-	
 }
 
 void SpawnerBoss::spawnType1(double deltaTime)
@@ -117,7 +96,6 @@ void SpawnerBoss::spawnType2(double deltaTime)
 			_startSpawn = false;
 			_amountSpawned = 0;
 		}
-
 	}
 	else
 		timer += deltaTime;
@@ -129,7 +107,6 @@ void SpawnerBoss::spawnType3(double deltaTime)
 	if (timer >= _spawnTime)
 	{
 		timer = 0;
-
 		if (_amountSpawned < 1 && _lastTurn)
 		{
 			addChild(new BomberEnemy(_game, _player, _transform->getPosition(),_pool));
@@ -140,7 +117,6 @@ void SpawnerBoss::spawnType3(double deltaTime)
 			_startSpawn = false;
 			_amountSpawned = 0;
 		}
-
 	}
 	else
 		timer += deltaTime;
@@ -158,7 +134,8 @@ int SpawnerBoss::aliveEnemies()
 				count++;
 		}
 	}
-	else 
-	count = 100;
+	else
+		count = 100;
+
 	return count;
 }

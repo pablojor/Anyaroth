@@ -19,7 +19,7 @@ GameState::GameState(Game* g) : _gameptr(g)
 
 	//Collisions and debugger
 	_world->SetContactListener(&_colManager);
-	//_world->SetDebugDraw(&_debugger);
+	_world->SetDebugDraw(&_debugger);
 }
 
 GameState::~GameState()

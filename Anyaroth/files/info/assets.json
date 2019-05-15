@@ -81,6 +81,7 @@
     [ "AngraArmBounceCannon", "angra_bouncecannon_spritesheet.png", 4, 12 ],
     [ "AngraArmImprovedRifle", "angra_arm_improvedsubfusil_spritesheet.png", 4, 12 ],
     [ "Throne", "throne_spritesheet.png", 2, 27 ],
+    [ "ThroneEmpty", "throne_empty.png", 1, 1 ],
 
     [ "TilesetTutorial", "tutorial_tileset.png", 22, 26 ],
     [ "Tileset1", "zona1_tileset.png", 21, 10 ],

@@ -107,19 +107,19 @@ void Map::createObjects()
 			}
 			else if (name == "Bullseye")
 			{
-				_objects->addChild(new TutorialBullsEye(_game, _player, Vector2D(pos.getX() - TILES_SIZE, pos.getY() - TILES_SIZE * 2)));
+				_objects->addChild(new TutorialBullsEye(_game, _player, Vector2D(pos.getX(), pos.getY() - TILES_SIZE)));
 			}
 			else if (name == "Ammo")
 			{
-				_objects->addChild(new AmmoPackage(_game, Vector2D(pos.getX() - TILES_SIZE, pos.getY() - TILES_SIZE * 2), 5));
+				_objects->addChild(new AmmoPackage(_game, Vector2D(pos.getX(), pos.getY() - TILES_SIZE), 5));
 			}
 			else if (name == "Aidkit")
 			{
-				_objects->addChild(new AidKit(_game, Vector2D(pos.getX() - TILES_SIZE, pos.getY() - TILES_SIZE * 2), 100));
+				_objects->addChild(new AidKit(_game, Vector2D(pos.getX(), pos.getY() - TILES_SIZE), 100));
 			}
 			else if (name == "TutorialTurret")
 			{
-				_objects->addChild(new TutorialTurret(_game, _player, Vector2D(pos.getX(), pos.getY() - TILES_SIZE * 2), _bulletPool));
+				_objects->addChild(new TutorialTurret(_game, _player, Vector2D(pos.getX(), pos.getY() - TILES_SIZE), _bulletPool));
 			}
 			else if (name == "TutorialBuddy")
 			{
@@ -131,7 +131,7 @@ void Map::createObjects()
 			}
 			else if (name == "Melee")
 			{
-				_objects->addChild(new MeleeEnemy(_game, _player, Vector2D(pos.getX() - TILES_SIZE, pos.getY() - TILES_SIZE * 2)));
+				_objects->addChild(new MeleeEnemy(_game, _player, Vector2D(pos.getX(), pos.getY() - TILES_SIZE * 2)));
 			}
 			else if (name == "Martyr")
 			{
@@ -143,7 +143,7 @@ void Map::createObjects()
 			}
 			else if (name == "FlyingDistance")
 			{
-				_objects->addChild(new StaticFlyingEnemy(_game, _player, Vector2D(pos.getX() - TILES_SIZE, pos.getY() - TILES_SIZE * 2), _bulletPool));
+				_objects->addChild(new StaticFlyingEnemy(_game, _player, Vector2D(pos.getX(), pos.getY() - TILES_SIZE * 2), _bulletPool));
 			}
 			else if (name == "DistanceDynamic")
 			{
@@ -157,9 +157,9 @@ void Map::createObjects()
 			{
 				_objects->addChild(new NormalSpawner<MeleeEnemy>(_game, _player, Vector2D(pos.getX(), pos.getY() - TILES_SIZE * 2)));
 			}
-			else if (name == "DistanceStaticShip")
+			else if (name == "DistanceShip")
 			{
-				_objects->addChild(new DistanceSpawner<DistanceStaticEnemy>(_game, _player, Vector2D(pos.getX(), pos.getY() - TILES_SIZE * 2), _bulletPool));
+				_objects->addChild(new DistanceSpawner<DistanceDynamicEnemy>(_game, _player, Vector2D(pos.getX(), pos.getY() - TILES_SIZE * 2), _bulletPool));
 			}
 			else if (name == "Bomber")
 			{
@@ -171,17 +171,15 @@ void Map::createObjects()
 				_objects->addChild(spenta);
 				spenta->setBossPanel(_game->getCurrentState()->getPlayHUD()->getBossPanel());
 			}
+			else if (name == "Misil")
+			{
+				_objects->addChild(new MissileTurret(_game, spenta, Vector2D(pos.getX() - TILES_SIZE, pos.getY() - TILES_SIZE * 2.8), stoi(data)));
+			}
 			else if (name == "Boss2")
 			{
 				azura = (new Boss2(_game, _player, Vector2D(pos.getX(), pos.getY() - TILES_SIZE * 2), _bulletPool));
 				_objects->addChild(azura);
 				azura->setBossPanel(_game->getCurrentState()->getPlayHUD()->getBossPanel());
-			}
-			else if (name == "Boss3")
-			{
-				angra = (new Boss3(_game, _player, Vector2D(pos.getX(), pos.getY() - TILES_SIZE * 2), _bulletPool));
-				_objects->addChild(angra);
-				angra->setBoss3Panel(_game->getCurrentState()->getPlayHUD()->getBoss3Panel());
 			}
 			else if (name == "Lasers")
 			{
@@ -189,13 +187,15 @@ void Map::createObjects()
 				addChildFront(l);
 				azura->setLasers(l);
 			}
-			else if (name == "Misil")
+			else if (name == "Boss3")
 			{
-				_objects->addChild(new MissileTurret(_game, spenta, Vector2D(pos.getX() - TILES_SIZE, pos.getY() - TILES_SIZE * 2.8), stoi(data)));
+				angra = (new Boss3(_game, _player, Vector2D(pos.getX(), pos.getY() - TILES_SIZE * 2), _bulletPool));
+				_objects->addChild(angra);
+				angra->setBoss3Panel(_game->getCurrentState()->getPlayHUD()->getBoss3Panel());
 			}
 			else if (name == "FloatingHead")
 			{
-				FloatingHead* head = new FloatingHead(_game, _player, Vector2D(pos.getX() - TILES_SIZE * 2, pos.getY() - TILES_SIZE * 2), _bulletPool, angra);
+				FloatingHead* head = new FloatingHead(_game, _player, Vector2D(pos.getX(), pos.getY() - TILES_SIZE), _bulletPool, angra);
 
 				_game->getCurrentState()->getPlayHUD()->getEnemyLifePanel()->addEnemy(head);
 				head->setLifePanel(_game->getCurrentState()->getPlayHUD()->getEnemyLifePanel());
@@ -205,15 +205,51 @@ void Map::createObjects()
 			}
 			else if (name == "SpawnerBoss")
 			{
-				SpawnerBoss* spawner = new SpawnerBoss(_game, _player, _game->getTexture("MissileTurret"), Vector2D(pos.getX() - TILES_SIZE * 2, pos.getY() - TILES_SIZE * 2), _spawnType, _bulletPool);
+				SpawnerBoss* spawner = new SpawnerBoss(_game, _player, Vector2D(pos.getX(), pos.getY() - TILES_SIZE * 2), _spawnType, _bulletPool);
 
 				angra->addChild(spawner);
 				angra->push_backSpawner(spawner);
 				_spawnType++;
 			}
+			else if (name == "Throne")
+			{
+			SpriteObject* throne;
+
+			if (GameManager::getInstance()->getCurrentLevel() == LevelManager::Boss3)
+			{
+				throne = new SpriteObject(_game, _game->getTexture("Throne"), Vector2D(pos.getX(), pos.getY() - TILES_SIZE * 2));
+
+				AnimatedSpriteComponent* throneAnim = throne->getComponent<AnimatedSpriteComponent>();
+				throneAnim->reset();
+				throneAnim->addAnim(AnimatedSpriteComponent::ThroneIdle, 14, true);
+				throneAnim->addAnim(AnimatedSpriteComponent::ThroneEnd, 27, false);
+
+				throneAnim->playAnim(AnimatedSpriteComponent::ThroneIdle);
+				angra->setAnimThrone(throneAnim);
+			}
+			else
+			{
+				throne = new SpriteObject(_game, _game->getTexture("ThroneEmpty"), Vector2D(pos.getX(), pos.getY() - TILES_SIZE * 2));
+
+				AnimatedSpriteComponent* throneAnim = throne->getComponent<AnimatedSpriteComponent>();
+				throneAnim->reset();
+				throneAnim->addAnim(AnimatedSpriteComponent::ThroneIdle, 1, false);
+
+				throneAnim->playAnim(AnimatedSpriteComponent::ThroneIdle);
+			}
+
+			_objects->addChildFront(throne);
+			}
+			else if (name == "AngraCorpse")
+			{
+			BossCorpse* _corpse = new BossCorpse(_game, Vector2D(0, 0), _game->getTexture("AngraCorpse"));
+			_corpse->setActive(false);
+			angra->setAnimCorpse(_corpse);
+			_objects->addChildFront(_corpse);
+			}
 			else if (name == "NPC")
 			{
-				NPC* npc = new NPC(_game, _game->getTexture(data), Vector2D(pos.getX() - TILES_SIZE, pos.getY() - TILES_SIZE * 2), _game->getDialogue(data + " " + to_string(GameManager::getInstance()->getCurrentLevel())));
+				NPC* npc = new NPC(_game, _game->getTexture(data), Vector2D(pos.getX(), pos.getY() - TILES_SIZE * 2), _game->getDialogue(data + " " + to_string(GameManager::getInstance()->getCurrentLevel())));
 				npc->setDialoguePanel(_game->getCurrentState()->getPlayHUD()->getDialoguePanel());
 				_objects->addChild(npc);
 			}
@@ -224,30 +260,11 @@ void Map::createObjects()
 			}
 			else if (name == "GoodCredits")
 			{
-				_objects->addChild(new GoodCredits(_game, Vector2D(pos.getX() - TILES_SIZE, pos.getY() - TILES_SIZE * 2)));
+				_objects->addChild(new GoodCredits(_game, Vector2D(pos.getX(), pos.getY() - TILES_SIZE * 2)));
 			}
 			else if (name == "BadCredits")
 			{
-				_objects->addChild(new BadCredits(_game, Vector2D(pos.getX() - TILES_SIZE, pos.getY() - TILES_SIZE * 2)));
-			}
-			else if (name == "Throne")
-			{
-				SpriteObject* throne = new SpriteObject(_game, _game->getTexture("Throne"), Vector2D(pos.getX() - TILES_SIZE * 2, pos.getY() - TILES_SIZE * 2));
-				AnimatedSpriteComponent* throneAnim = throne->getComponent<AnimatedSpriteComponent>();
-				throneAnim->reset();
-				throneAnim->addAnim(AnimatedSpriteComponent::ThroneIdle, 14, true);
-				throneAnim->addAnim(AnimatedSpriteComponent::ThroneEnd, 27, false);
-
-				throneAnim->playAnim(AnimatedSpriteComponent::ThroneIdle);
-				angra->setAnimThrone(throneAnim);
-				_objects->addChildFront(throne);
-			}
-			else if (name == "AngraCorpse")
-			{
-				BossCorpse* _corpse = new BossCorpse(_game, Vector2D(0, 0), _game->getTexture("AngraCorpse"));
-				_corpse->setActive(false);
-				angra->setAnimCorpse(_corpse);
-				_objects->addChildFront(_corpse);
+				_objects->addChild(new BadCredits(_game, Vector2D(pos.getX(), pos.getY() - TILES_SIZE * 2)));
 			}
 		}
 	}
