@@ -239,7 +239,8 @@ void Boss3::fase1(const double & deltaTime)
 				_headTurn = true;
 
 				for (int x = 0; x < _heads.size(); x++)
-					_heads.at(x)->turnInvincibilityOff();
+					if(!_heads[x]->isDead())
+						_heads.at(x)->turnInvincibilityOff();
 			}
 		}
 		else
