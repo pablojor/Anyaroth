@@ -8,8 +8,7 @@
 
 Boss1::Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, player, pos, pool, g->getTexture("Spenta")), Enemy(g, player, pos, g->getTexture("Spenta"), "boss1Interfase3", "boss1Hit")
 {
-	//_life = 100;
-	_life = 250; // Demo Guerrilla
+	_life = 250;
 	_life1 = _life2 = _life3 = _life;
 
 	_name = "Spenta Manyu";
@@ -17,7 +16,7 @@ Boss1::Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, 
 	delete(_myGun);
 	_myGun = new ImprovedRifle(g);
 	_myGun->setMaxCadence(0);
-	_myGun->setBulletSpeed(8);
+	_myGun->setBulletSpeed(10);
 	_myGun->setDamage(3);
 	_myGun->setBulletAnimType(BulletAnimType::Default);
 	_myGun->setBulletTexture(g->getTexture("SpentaBullet"));
@@ -146,39 +145,6 @@ void Boss1::movement(const double& deltaTime)
 	}
 }
 
-void Boss1::bomberAttack(const double& deltaTime, int t1, int t2)
-{
-	if (_actualFase != BetweenFase)
-	{
-		if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaStartBomb)
-			_anim->playAnim(AnimatedSpriteComponent::SpentaLoopBomb);
-	}
-
-	_timeOnBomberAttack += deltaTime;
-	_armVision = false;
-
-	if (_timeOnBomberAttack >= _bomberAttackTime)
-	{
-		_timeOnBomberAttack = 0;
-		_timeBeetwenBombs = 0;
-		_armVision = true;
-		_doSomething = _game->random(800, 1200);
-
-		if (_actualFase != BetweenFase)
-		{
-			_anim->playAnim(AnimatedSpriteComponent::SpentaEndBomb);
-		}
-	}
-	else
-	{
-		if (_timeOnBomberAttack >= _timeBeetwenBombs)
-		{
-			throwBomb();
-			_timeBeetwenBombs += _game->random(t1, t2);
-		}
-	}
-}
-
 void Boss1::meleeAttack()
 {
 	_game->getSoundManager()->playSFX("spentaSword");
@@ -253,6 +219,39 @@ void Boss1::armShoot(const double& deltaTime)
 	}
 }
 
+void Boss1::bomberAttack(const double& deltaTime, int t1, int t2)
+{
+	if (_actualFase != BetweenFase)
+	{
+		if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaStartBomb)
+			_anim->playAnim(AnimatedSpriteComponent::SpentaLoopBomb);
+	}
+
+	_timeOnBomberAttack += deltaTime;
+	_armVision = false;
+
+	if (_timeOnBomberAttack >= _bomberAttackTime)
+	{
+		_timeOnBomberAttack = 0;
+		_timeBeetwenBombs = 0;
+		_armVision = true;
+		_doSomething = _game->random(800, 1200);
+
+		if (_actualFase != BetweenFase)
+		{
+			_anim->playAnim(AnimatedSpriteComponent::SpentaEndBomb);
+		}
+	}
+	else
+	{
+		if (_timeOnBomberAttack >= _timeBeetwenBombs)
+		{
+			throwBomb();
+			_timeBeetwenBombs += _game->random(t1, t2);
+		}
+	}
+}
+
 void Boss1::orbAttack()
 {
 	if (_anim->animationFinished())
@@ -323,8 +322,9 @@ void Boss1::fase1(const double& deltaTime)
 		{
 			if (_noAction > _doSomething)
 			{
-				int ra = _game->random(0, 100);
-				if (ra >= 40)
+				int random = _game->random(0, 100);
+
+				if (random < 40)
 				{
 					_actualState = Meleeing;
 					_noAction = 0;
@@ -355,8 +355,9 @@ void Boss1::fase2(const double& deltaTime)
 		{
 			if (_actualState != Meleeing)
 			{
-				int ra = _game->random(0, 100);
-				if (ra >= 70)
+				int random = _game->random(0, 100);
+
+				if (random < 20)
 				{
 					if (_noAction > _doSomething)
 					{
@@ -396,8 +397,9 @@ void Boss1::fase3(const double& deltaTime)
 				{
 					if (_noAction > _doSomething)
 					{
-						int ra = _game->random(0, 100);
-						if (ra >= 70)
+						int random = _game->random(0, 100);
+
+						if (random < 30)
 						{
 							_anim->playAnim(AnimatedSpriteComponent::SpentaOrb);//Sera animacion de orbAttackd
 							_actualState = OrbAttacking;
@@ -428,9 +430,7 @@ void Boss1::beetwenFases(const double& deltaTime)
 	checkMelee(deltaTime);
 
 	if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaStartShield)
-	{
 		_anim->playAnim(AnimatedSpriteComponent::SpentaLoopShield);
-	}
 }
 
 void Boss1::changeFase(int nextFase)
@@ -443,7 +443,7 @@ void Boss1::changeFase(int nextFase)
 
 void Boss1::throwBomb()
 {
-	Vector2D helpPos = Vector2D(_game->random(100, 700 /*Futuro tope por la derecha*/), 100);
+	Vector2D helpPos = Vector2D(_game->random(TILES_SIZE * 6, TILES_SIZE * 42), TILES_SIZE * 7);
 	_bombGun->enemyShoot(_myBulletPool, helpPos, 90, "EnemyBullet");
 }
 

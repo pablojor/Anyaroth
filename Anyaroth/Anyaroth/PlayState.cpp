@@ -195,9 +195,10 @@ void PlayState::update(const double& deltaTime)
 				_levelManager.changeLevel(gameManager->getCurrentLevel());
 
 				_player->revive();
+				_player->setInputFreezed(false);
 
-				if (_cutScene == nullptr)
-					_player->setInputFreezed(false);
+				if (_cutScene != nullptr)
+					_cutScene->play();
 			});
 		}
 	}

@@ -5,7 +5,7 @@
 
 Boss2::Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, player, pos, pool, g->getTexture("AzuraBoss")), Enemy(g, player, pos, g->getTexture("AzuraBoss"), "boss2Die", "boss2Hit", "meleeEnemyHit")
 {
-	_life = 250;
+	_life = 450;
 	_life1 = _life2 = _life3 = _life;
 
 	_name = "Azura Manyu";
@@ -14,7 +14,6 @@ Boss2::Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, 
 		delete _myGun;
 
 	_myGun = new ImprovedShotgun(g);
-	_myGun->setBulletSpeed(60);
 	_myGun->setBulletTexture(g->getTexture("AzuraShotgunBullet"));
 	
 
@@ -46,7 +45,7 @@ Boss2::Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, 
 
 	_anim->playAnim(AnimatedSpriteComponent::AzuraIdle1);
 	
-	_body->setW(40);
+	_body->setW(50);
 	_body->setH(100);
 
 	_body->moveShape(b2Vec2(0, 2));
@@ -122,6 +121,32 @@ void Boss2::Jump()
 	_body->addFixture(&fDef, this);
 }
 
+void Boss2::endJump()
+{
+	_jump = false;
+	_body->getBody()->DestroyFixture(_body->getBody()->GetFixtureList());
+	_player->stunPlayer();
+	_doSomething = _game->random(800, 1500);
+	_actualState = Moving;
+}
+
+void Boss2::checkJump(const double& deltaTime)
+{
+	if (!_jump)
+	{
+		if (_timeWaitingJump > _timeToJump)
+		{
+			Jump();
+			_jump = true;
+			_timeWaitingJump = 0;
+		}
+		else
+			_timeWaitingJump += deltaTime;
+	}
+	else if (_anim->getCurrentAnim() == AnimatedSpriteComponent::AzuraJump && _anim->animationFinished())
+		endJump();
+}
+
 void Boss2::movement(const double& deltaTime)
 {
 	if (_actualFase != BetweenFase)
@@ -181,7 +206,6 @@ void Boss2::beginCollision(GameObject * other, b2Contact* contact)
 	//Deteccion del suelo
 	if ((fA->IsSensor() || fB->IsSensor()) && (other->getTag() == "Ground" || other->getTag() == "Platform"))
 	{
-		
 			_onFloor ++;
 			if (_onFloor <= 1)
 			{
@@ -230,15 +254,6 @@ void Boss2::meleeAttack()
 	_velocity = { _velocity.getX() + _speedIncrement, _velocity.getY() };
 
 	_game->getSoundManager()->playSFX("boss2Melee");
-}
-
-void Boss2::endJump()
-{
-	_jump = false;
-	_body->getBody()->DestroyFixture(_body->getBody()->GetFixtureList());
-	_player->stunPlayer();
-	_doSomething = _game->random(800, 1500);
-	_actualState = Moving;
 }
 
 void Boss2::checkMelee(const double& deltaTime)
@@ -301,7 +316,6 @@ void Boss2::fase1(const double& deltaTime)
 					_actualState = Shooting;
 					_noAction = 0;
 				}
-
 				else
 				{
 					meleeAttack();
@@ -322,12 +336,14 @@ void Boss2::fase1(const double& deltaTime)
 		if ((anim == AnimatedSpriteComponent::AzuraCannon1 || anim != AnimatedSpriteComponent::AzuraCannon2 || anim != AnimatedSpriteComponent::AzuraCannon3) && _anim->animationFinished())
 		{
 			_actualState = Moving;
+
 			if (_life1.getLife() > 0)
 				_anim->playAnim(AnimatedSpriteComponent::AzuraIdle1);
 			else if (_life2.getLife() > 0)
 				_anim->playAnim(AnimatedSpriteComponent::AzuraIdle2);
 			else
 				_anim->playAnim(AnimatedSpriteComponent::AzuraIdle3);
+
 			_timeWaiting = 0;
 		}
 		else
@@ -346,7 +362,6 @@ void Boss2::fase1(const double& deltaTime)
 		}
 		else
 			_timeWaiting += deltaTime;
-
 	}
 }
 
@@ -365,8 +380,9 @@ void Boss2::fase3(const double& deltaTime)
 			{
 				if (_noAction > _doSomething)
 				{
-					int ra = _game->random(0, 100);
-					if (ra >= 70)
+					int random = _game->random(0, 100);
+
+					if (random < 35)
 					{
 						_actualState = Jumping;
 						_noAction = 0;
@@ -385,15 +401,18 @@ void Boss2::fase3(const double& deltaTime)
 		else
 		{
 			auto anim = _anim->getCurrentAnim();
+
 			if ((anim == AnimatedSpriteComponent::AzuraCannon1 || anim != AnimatedSpriteComponent::AzuraCannon2 || anim != AnimatedSpriteComponent::AzuraCannon3) && _anim->animationFinished())
 			{
 				_actualState = Moving;
+
 				if (_life1.getLife() > 0)
 					_anim->playAnim(AnimatedSpriteComponent::AzuraIdle1);
 				else if (_life2.getLife() > 0)
 					_anim->playAnim(AnimatedSpriteComponent::AzuraIdle2);
 				else
 					_anim->playAnim(AnimatedSpriteComponent::AzuraIdle3);
+
 				_timeWaiting = 0;
 			}
 			else
@@ -412,34 +431,10 @@ void Boss2::fase3(const double& deltaTime)
 			}
 			else
 				_timeWaiting += deltaTime;
-
 		}
 	}
 	else
-	{
 		checkJump(deltaTime);
-	}
-
-}
-
-void Boss2::checkJump(const double& deltaTime)
-{
-	if (!_jump)
-	{
-		if (_timeWaitingJump > _timeToJump)
-		{
-			Jump();
-			_jump = true;
-			_timeWaitingJump = 0;
-		}
-		else
-			_timeWaitingJump += deltaTime;
-	}
-	else
-	{
-		if (_anim->getCurrentAnim() == AnimatedSpriteComponent::AzuraJump && _anim->animationFinished())
-			endJump();
-	}
 }
 
 void Boss2::beetwenFases(const double& deltaTime)
@@ -448,6 +443,7 @@ void Boss2::beetwenFases(const double& deltaTime)
 	{
 		_originalVelocity = _originalVelocity + Vector2D(30, 0);
 		_velocity = _originalVelocity;
+
 		if (_lastFase == Fase1)
 		{
 			_lasers->Activate();
@@ -464,8 +460,10 @@ void Boss2::beetwenFases(const double& deltaTime)
 			die();
 			_lasers->Deactivate();
 		}
+
 		_bossPanel->updateLifeBar(_life1.getLife(), _life2.getLife(), _life3.getLife(), _life.getLife());
 		_actualState = Moving;
+
 		if (_life1.getLife() > 0)
 			_anim->playAnim(AnimatedSpriteComponent::AzuraIdle1);
 		else if (_life2.getLife() > 0)
@@ -499,6 +497,7 @@ void Boss2::beetwenFases(const double& deltaTime)
 				ParticleManager::GetParticleManager()->CreateSimpleParticle(_game->getTexture("AzuraParticle7"), 1, Vector2D(_bodyPos.getX() + _game->random(-20,20), _bodyPos.getY() + 30), 5, _game->random(0, 360), 2000, 1);
 				ParticleManager::GetParticleManager()->CreateSimpleParticle(_game->getTexture("AzuraParticle8"), 1, Vector2D(_bodyPos.getX() + _game->random(-20,20), _bodyPos.getY() + 30), 5, _game->random(0, 360), 2000, 1);
 			}
+
 			_particles = true;
 		}
 	}
@@ -512,9 +511,9 @@ void Boss2::manageLife(Life& l, int damage)
 		_doSomething = 0;
 		_lastFase = _actualFase;
 		_actualFase = BetweenFase;
+
 		if (_life2.getLife() > 0)
 			_anim->playAnim(AnimatedSpriteComponent::AzuraScream1to2);
-
 		else if(_life3.getLife() > 0)
 			_anim->playAnim(AnimatedSpriteComponent::AzuraScream2to3);
 	}

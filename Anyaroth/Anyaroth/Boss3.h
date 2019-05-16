@@ -12,6 +12,7 @@ class BossCorpse : public GameObject
 {
 private:
 	SpriteComponent* _sprite = nullptr;
+
 public:
 	BossCorpse(Game* g, Vector2D pos, Texture* texture);
 };
@@ -19,14 +20,14 @@ public:
 class Boss3 : public Boss
 {
 private:
-	int _stopRange = 40;
-	int _velocity = 8;
+	int _stopRange = 30;
+	int _velocity = 80;
 	bool _invulnerable = false;
 	Vector2D _dir = Vector2D(1, 0);
-
 	Boss3Panel* _boss3Panel = nullptr;
 
 	void handleAnimations(double time);
+
 	//Cosas del disparo circular
 	int _num = 0, _timeOnShooting = 0, _timeBeetwenBullets = 500, _timeBeetwenCircularShoot = 500;
 	int _numBullets = 60, _actualBullet = 0;
@@ -48,12 +49,12 @@ private:
 
 	//Cosas del Dash
 	double _dashTime = 500, _dashTimer = _dashTime, _gravity = 3, _damping = 3, _force = 40;
+	bool _bulletApproaching = false;
+	BossSensor* _sensor = nullptr;
+
 	void dash();
 	void checkDash(double deltaTime);
 
-
-	bool _bulletApproaching = false;
-	BossSensor* _sensor = nullptr;
 	//Cosas del salto
 	double _jumpForce = 300;
 	int _onFloor = 0;
@@ -67,7 +68,7 @@ private:
 
 	//Cosas del ataque Portal
 	int timeToReapear = 2000, timeToShowPortal = 1000, _timeOut = 0;
-	int _explosionRange = 100, _impulse = 15, _explosionDamage = 15;
+	int _explosionRange = 100, _impulse = 15, _explosionDamage = 25;
 	void portalAttack(const double& deltaTime);
 	bool portalVisible = false;
 	bool realGone = false;

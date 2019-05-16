@@ -1,7 +1,6 @@
 #include "BossSword.h"
 #include "Game.h"
 
-
 BossSword::BossSword(Game * game) : Sword(game)
 {
 	setIniAngle(270);
@@ -13,8 +12,4 @@ BossSword::BossSword(Game * game) : Sword(game)
 	_id = BossSword_Weapon;
 }
 
-BossSword::~BossSword()
-{
-}
-
-
+BossSword::~BossSword() {}

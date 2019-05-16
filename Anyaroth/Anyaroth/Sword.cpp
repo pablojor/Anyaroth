@@ -3,7 +3,7 @@
 #include <math.h>
 
 //Valores del Sword en la constructora de Melee son los del Jugador(por defecto)
-Sword::Sword(Game* game) : Melee(game, { 20, 0 }, ENEMIES, 12, 30, 20, Sword_Weapon) { _iniAngle = 90; }
+Sword::Sword(Game* game) : Melee(game, { 20, 0 }, ENEMIES, 10, 30, 20, Sword_Weapon) { _iniAngle = 90; }
 
 void Sword::meleeAttack(double x, double y, int dir)
 {

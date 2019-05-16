@@ -12,7 +12,7 @@ private:
 
 	bool _invincibility = true, _changeAngle = false, _shooting = false;
 	double _timeBetweenShoots = 1000, _currentTimer = 500, _timeShooting = 0;
-	int _numOfShoots = 12;
+	int _numOfShoots = 15;
 
 public:
 	FloatingHead(Game* g, Player* player, Vector2D pos, BulletPool* pool, Boss3 * boss);

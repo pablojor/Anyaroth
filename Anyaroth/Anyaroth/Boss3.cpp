@@ -6,7 +6,7 @@
 
 Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(g, player, pos, pool, g->getTexture("Angra")), Enemy(g, player, pos, g->getTexture("Angra"), "die2", "boss1Hit", "meleeEnemyHit")
 {
-	_life = 300; // Demo Guerrilla
+	_life = 600;
 	_life1 = _life;
 
 	_name = "Angra Manyu";
@@ -14,16 +14,16 @@ Boss3::Boss3(Game * g, Player * player, Vector2D pos, BulletPool * pool) : Boss(
 	delete(_myGun);
 	_myGun = new ImprovedRifle(g);
 	_myGun->setMaxCadence(_rifleCadence);
-	_myGun->setBulletSpeed(8);
-	_myGun->setDamage(5);
+	_myGun->setBulletSpeed(15);
+	_myGun->setDamage(6);
 
 	_gravGun = new GravityBombCannon(g);
 	_gravGun->setMaxCadence(0);
 
 	_otherGun = new OrbShotgun(g);
 	_otherGun->setMaxCadence(1000);
-	_otherGun->setBulletSpeed(8);
-	_otherGun->setDamage(10);
+	_otherGun->setBulletSpeed(20);
+	_otherGun->setDamage(8);
 
 	_arm->setTexture(_game->getTexture("AngraArmImproveRifle"));
 	_arm->setOffSet(Vector2D(90, 105));
@@ -285,7 +285,7 @@ void Boss3::fase2(const double& deltaTime)
 	{
 		if (_anim->getCurrentAnim() == AnimatedSpriteComponent::AngraBH && _anim->animationFinished())
 		{
-			if (_game->random(0, 100) > 60)
+			if (_game->random(0, 100) < 25)
 			{
 				_actualState = Shooting;
 				_anim->playAnim(AnimatedSpriteComponent::AngraRing);
@@ -296,6 +296,7 @@ void Boss3::fase2(const double& deltaTime)
 				_actualState = PortalAttack;
 				_game->getSoundManager()->playSFX("boss3Teleport");
 			}
+
 			_alreadyShoot = false;
 		}
 		else if (!_alreadyShoot)
@@ -318,14 +319,14 @@ void Boss3::fase2(const double& deltaTime)
 	{
 		if (_noAction > _doSomething)
 		{
-			int rand = _game->random(0, 100);
+			int random = _game->random(0, 100);
 
-			if (rand > 60)
+			if (random < 40)
 			{
 				_actualState = Shooting;
 				_anim->playAnim(AnimatedSpriteComponent::AngraRing);
 			}
-			else if (rand > 40)
+			else if (random < 60)
 			{
 				_actualState = PortalAttack;
 				_anim->playAnim(AnimatedSpriteComponent::AngraDisappear);
@@ -353,14 +354,14 @@ void Boss3::fase3(const double & deltaTime)
 		{
 			if (_noAction > _doSomething)
 			{
-				int rand = _game->random(0, 100);
+				int random = _game->random(0, 100);
 
-				if (rand > 80 && _actualState != Jumping)
+				if (random < 40 && _actualState != Jumping)
 				{
 					changeGun();
 					_doSomething = _game->random(800, 1300);
 				}
-				else if (rand > 60)
+				else if (random < 80)
 				{
 					_actualState = Shooting;
 					_numBulletsRifle = _game->random(4, 8);
@@ -377,13 +378,14 @@ void Boss3::fase3(const double & deltaTime)
 
 		if (_bulletApproaching)
 		{
-			int rand = _game->random(0, 100);
-			if (rand > 90)
+			int random = _game->random(0, 100);
+
+			if (random < 20)
 			{
 				_actualState = Dashing;
 				dash();
 			}
-			else if (rand > 85 && _actualState != Jumping)
+			else if (random < 40 && _actualState != Jumping)
 			{
 				_actualState = Jumping;
 				jump();
@@ -419,9 +421,9 @@ void Boss3::beetwenFases(const double& deltaTime)
 			_velocity = 100;
 			_myGun->setMaxCadence(_rifleCadence);
 
-			_life.setMaxLife(350);
+			_life.setMaxLife(200);
 			_life.resetLife();
-			_life1.setMaxLife(350);
+			_life1.setMaxLife(200);
 			_life1.resetLife();
 
 			_boss3Panel->resetLifeBar(_life1.getLife(), _life.getLife());
@@ -444,9 +446,8 @@ void Boss3::beetwenFases(const double& deltaTime)
 		}
 	}
 	else
-	{
 		die();
-	}
+
 	_boss3Panel->updateLifeBar(_life1.getLife(), _life.getLife());
 }
 
@@ -560,9 +561,7 @@ void Boss3::circularShoot(const double& deltaTime)
 				_needToFinishAnim = true;
 			}
 			else
-			{
 				_timeOnShooting += deltaTime;
-			}
 		}
 		else
 		{

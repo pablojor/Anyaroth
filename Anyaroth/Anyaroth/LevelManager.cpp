@@ -74,9 +74,6 @@ void LevelManager::setLevel(int l)
 		cutscene->addShopEvent(shop);
 		_game->getCurrentState()->addCutScene(cutscene);
 
-		if (!_game->getCurrentState()->gameLoaded())
-			cutscene->play();
-
 		break;
 	case LevelManager::Level1_2:
 		_currentMap = new Map(TILEMAPS_PATH + "Nivel1-2.json", _game, _player, _game->getTexture("Tileset1"), _enemyBulletPool);
@@ -119,9 +116,6 @@ void LevelManager::setLevel(int l)
 		cutscene->addMoveEvent(_player->getComponent<BodyComponent>(), 1, 15, 512 / M_TO_PIXEL);
 		cutscene->addDialogueEvent(dialogue, _game->getDialogue("Azura 2-1"));
 		_game->getCurrentState()->addCutScene(cutscene);
-
-		if (!_game->getCurrentState()->gameLoaded())
-			cutscene->play();
 
 		break;
 	case LevelManager::Level2_1:
@@ -178,9 +172,6 @@ void LevelManager::setLevel(int l)
 		cutscene->addMoveEvent(_player->getComponent<BodyComponent>(), 1, 15, 256 / M_TO_PIXEL);
 		cutscene->addDialogueEvent(dialogue, _game->getDialogue("Kheismani 13"));
 		_game->getCurrentState()->addCutScene(cutscene);
-
-		if (!_game->getCurrentState()->gameLoaded())
-			cutscene->play();
 
 		break;
 	case LevelManager::Level3_1:
@@ -278,9 +269,6 @@ void LevelManager::setLevel(int l)
 		cutscene->addMoveEvent(_player->getComponent<BodyComponent>(), 1, 15, 304 / M_TO_PIXEL);
 		cutscene->addShopEvent(shop);
 		_game->getCurrentState()->addCutScene(cutscene);
-
-		if (!_game->getCurrentState()->gameLoaded())
-			cutscene->play();
 
 		break;
 	case LevelManager::BossDemo:

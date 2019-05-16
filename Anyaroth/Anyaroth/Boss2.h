@@ -6,10 +6,10 @@ class Boss2 : public Boss
 {
 private:
 	LaserHandler* _lasers = nullptr;
-	Vector2D _velocity = { 20,0 }, _originalVelocity = { 20,0 };
+	Vector2D _velocity = { 35,0 }, _originalVelocity = { 35,0 };
 
-	int _dir, _onFloor = 0, _stopRange = 103;
-	double _shootRange = 120, _speedIncrement = 100;
+	int _dir, _onFloor = 0, _stopRange = 105;
+	double _shootRange = 150, _speedIncrement = 100;
 	bool _particles = false;
 
 	Melee* _melee;
