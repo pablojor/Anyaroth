@@ -98,7 +98,6 @@ void Boss2::update(double deltaTime)
 				cutscene->play();
 
 				_player->setMaxLife(_player->getMaxLife() + 50);
-				_player->setNoDamage(false);
 				_finishLevel = true;
 			}
 		}

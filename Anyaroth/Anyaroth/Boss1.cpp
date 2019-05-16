@@ -108,7 +108,6 @@ void Boss1::update(double deltaTime)
 				cutscene->play();
 
 				_player->setMaxLife(_player->getMaxLife() + 50);
-				_player->setNoDamage(false);
 				_finishLevel = true;
 			}
 		}
@@ -278,7 +277,7 @@ void Boss1::beginCollision(GameObject * other, b2Contact * contact)
 {
 	Boss::beginCollision(other, contact);
 
-	if (other->getTag() == "Misil" && isbeetweenFases())
+	if (other->getTag() == "Misil" && isbeetweenFases() && !_player->isDead())
 	{
 		if (_lastFase == Fase1)
 			changeFase(Fase2);
