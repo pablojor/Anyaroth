@@ -14,6 +14,7 @@ Boss2::Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, 
 		delete _myGun;
 
 	_myGun = new ImprovedShotgun(g);
+	_myGun->setDamage(4);
 	_myGun->setBulletTexture(g->getTexture("AzuraShotgunBullet"));
 	
 
