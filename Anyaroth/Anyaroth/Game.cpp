@@ -197,6 +197,7 @@ Game::Game()
 	initialiseJoysticks();
 	//---Create states
 	_stateMachine->pushState(new MenuState(this));
+	toggleFullscreen();
 }
 
 Game::~Game()
