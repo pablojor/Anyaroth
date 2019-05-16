@@ -80,7 +80,7 @@
                  "type":"",
                  "visible":true,
                  "width":16,
-                 "x":640,
+                 "x":672,
                  "y":560
                 }, 
                 {
@@ -98,7 +98,7 @@
                  "type":"",
                  "visible":true,
                  "width":16,
-                 "x":896,
+                 "x":864,
                  "y":560
                 }],
          "opacity":1,
