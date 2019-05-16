@@ -1,47 +1,47 @@
 {
     "Basic":
     {
-      "BasicPistol": 
+      "Pistol": 
       {
         "zone": -1,
 	      "frame": "BasicFrame",
         "icon": "PistolIcon",
         "price": 0,
         "speed": 100,
-        "damage": 1,
+        "damage": 3,
         "range": 1000,
-        "clip": 1,
+        "clip": 12,
         "magazine": 60,
-        "cadence": 1,
+        "cadence": 2,
         "id": 0
       },
 
-      "BasicShotgun":
+      "Shotgun":
       {
         "zone": 3,
         "frame": "BasicFrame",
         "icon": "ShotgunIcon",
         "price": 150,
-        "speed": 100,
-        "damage": 3,
-        "range": 60,
-        "clip": 1,
-        "magazine": 48,
+        "speed": 50,
+        "damage": 5,
+        "range": 50,
+        "clip": 2,
+        "magazine": 60,
         "cadence": 1,
         "id": 1
       },
 
-      "BasicRifle":
+      "Rifle":
       {
         "zone": 3,
         "frame": "BasicFrame",
         "icon": "RifleIcon",
         "price": 150,
         "speed": 100,
-        "damage": 1,
+        "damage": 3,
         "range": 1000,
-        "clip": 4,
-        "magazine": 120,
+        "clip": 5,
+        "magazine": 150,
         "cadence": 4,
         "id": 3
       }
@@ -49,17 +49,17 @@
 
     "Common":
     {
-      "A4X Shotgun":
+      "AX4 Shotgun":
       {
         "zone": 7,
         "frame": "CommonFrame",
         "icon": "ImprovedShotgunIcon",
-        "price": 120,
-        "speed": 100,
-        "damage": 4,
-        "range": 60,
-        "clip": 3,
-        "magazine": 50,
+        "price": 250,
+        "speed": 50,
+        "damage": 5,
+        "range": 50,
+        "clip": 4,
+        "magazine": 80,
         "cadence": 2,
         "id": 2
       },
@@ -69,12 +69,12 @@
         "zone": 7,
         "frame": "CommonFrame",
         "icon": "ImprovedRifleIcon",
-        "price": 120,
+        "price": 250,
         "speed": 100,
-        "damage": 3,
+        "damage": 4,
         "range": 1000,
-        "clip": 6,
-        "magazine": 160,
+        "clip": 5,
+        "magazine": 200,
         "cadence": 6,
         "id": 4
       }
@@ -91,42 +91,42 @@
         "damage": 6,
         "range": 1000,
         "clip": 1,
-        "magazine": 30,
+        "magazine": 35,
         "cadence": 1,
         "id": 5
       },
 
-      "BounceOrbCanon": {
-        "zone": 11,
+      "Bounce Canon": {
+        "zone": 5,
         "frame": "RareFrame",
         "icon": "BounceCannonIcon",
-        "price": 350,
-        "speed": 30,
-        "damage": 5,
+        "price": 300,
+        "speed": 50,
+        "damage": 6,
         "range": 1000,
-        "clip": 2,
-        "magazine": 120,
+        "clip": 5,
+        "magazine": 40,
         "cadence": 2,
         "id": 6
       },
 
-      "GravityCannon": {
+      "Gravity Cannon": {
         "zone": 11,
         "frame": "RareFrame",
         "icon": "BHCannonIcon",
-        "price": 350,
-        "speed": 45,
-        "damage": 5,
+        "price": 300,
+        "speed": 50,
+        "damage": 3,
         "range": 150,
-        "clip": 2,
-        "magazine": 30,
+        "clip": 5,
+        "magazine": 40,
         "cadence": 2,
         "id": 7
       }
     },
     "Melee":
     {
-      "BasicKnife": {
+      "Knife": {
         "zone": -1,
         "frame": "BasicFrame",
         "icon": "KnifeIcon",
@@ -140,7 +140,7 @@
         "id": 1
       },
 
-      "PoleAxe": {
+      "Poleaxe": {
         "zone": 13,
         "frame": "RareFrame",
         "icon": "HalberdIcon",

@@ -175,16 +175,21 @@ void PlayState::update(double deltaTime)
 		}
 		else
 		{
-			if ((gameManager->getCurrentLevel() + 1) % 2 == 0) //Si el proximo nivel no es una safe zone guarda el juego
+			if ((gameManager->getCurrentLevel() + 1) % 2 == 0) //Si sales de una safezone
 				saveGame();
-			else
-				_player->getMoney()->storeWallet();
 
 			_player->setInputFreezed(true);
 			getMainCamera()->fadeOut(1000);
 			getMainCamera()->onFadeComplete([this, gameManager](Game* game)
 			{
 				gameManager->changeLevel(1);
+
+				if (gameManager->getCurrentLevel() % 2 != 0) //Si el nivel al que avanzas es una safezone
+				{
+					saveGame();
+					_player->getMoney()->storeWallet();
+				}
+
 				_levelManager.changeLevel(gameManager->getCurrentLevel());
 
 				_player->revive();
