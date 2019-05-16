@@ -205,6 +205,7 @@
 
 		header.major h2 {
 			font-size: 2.35em;
+			color: #ffffff
 		}
 
 		header.major p {
@@ -407,6 +408,10 @@
 	.formerize-placeholder {
 		color: #949494 !important;
 		opacity: 1.0;
+	}
+
+	h2{
+		color: #000000
 	}
 
 /* Box */
@@ -926,8 +931,7 @@
 		.slider .viewer {
 			position: relative;
 			border-radius: 0.5em;
-			border: solid 1.5em #fff;
-			height: 20em;
+			/* border: solid 1.5em #fff; */
 			margin: 0 auto;
 			overflow: hidden;
 			width: 80%;
@@ -936,7 +940,8 @@
 		.slider .slide img {
 			border-radius: 0.375em;
 			display: block;
-			width: 100%;
+			/* height: 100%; */
+			width : 100%;
 		}
 
 		.slider .nav-next,
@@ -997,7 +1002,7 @@
 	}
 
 		.wrapper.style1 {
-			background: #fff0e9;
+			background: #0a0724;
 		}
 
 			.wrapper.style1 .box {
@@ -1007,6 +1012,9 @@
 
 		.wrapper.style2 {
 			background: #ffffff;
+		}
+		.wrapper.style2 h2{
+			color: #222222;
 		}
 
 		.wrapper.style3 {
@@ -1034,6 +1042,15 @@
 				.wrapper.style3 .button:active {
 					background-color: rgba(255, 255, 255, 0.2);
 				}
+
+		.video{
+			height: 720px;
+		}
+		.video iframe{
+			align-content: center;
+			width: 100%;
+			height: 100%;
+		}
 
 /* Header */
 
@@ -1299,6 +1316,73 @@
 	body.is-loading #banner:after {
 		opacity: 1.0;
 	}
+
+/* BANNER AU */
+#bannerAU {
+	
+		color: #d1d2d4;
+		position: relative;
+		text-align: center;
+}
+
+	#bannerAU::after {
+		-moz-transition: opacity 2s ease-in-out;
+		-webkit-transition: opacity 2s ease-in-out;
+		-o-transition: opacity 2s ease-in-out;
+		-ms-transition: opacity 2s ease-in-out;
+		transition: opacity 2s ease-in-out;
+		background: #3d4045;
+		content: '';
+		height: 100%;
+		left: 0;
+		opacity: 0;
+		position: absolute;
+		top: 0;
+		width: 100%;
+		z-index: 1;
+	}
+
+	#bannerAU :last-child {
+		margin-bottom: 0;
+	}
+
+	#bannerAU h1, #bannerAU h2, #bannerAU h3, #bannerAU h4, #bannerAU h5, #bannerAU h6 {
+		color: #ffffff;
+	}
+
+	#bannerAU .inner {
+		position: relative;
+		z-index: 2;
+	}
+
+	#bannerAU .button {
+		border-color: white !important;
+		color: #ffffff !important;
+	}
+
+		#bannerAU .button:hover {
+			background-color: rgba(255, 255, 255, 0.075);
+		}
+
+		#bannerAU .button:active {
+			background-color: rgba(255, 255, 255, 0.2);
+		}
+
+	#bannerAU h2 {
+		font-size: 3.25em;
+		line-height: 1.25em;
+		margin: 0 0 0.5em 0;
+		padding: 0;
+	}
+
+	#bannerAU p {
+		font-size: 1.5em;
+		margin-bottom: 1.75em;
+	}
+
+body.is-loading #bannerAU:after {
+	opacity: 1.0;
+}
 
 /* One */
 

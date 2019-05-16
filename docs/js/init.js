@@ -57,6 +57,7 @@
 		var $window = $(window),
 			$body = $('body'),
 			$banner = $('#banner'),
+			$bannerAU = $('#bannerAU'),
 			$header = $('#header');
 
 		// Disable animations/transitions until the page has loaded.
@@ -92,11 +93,11 @@
 		// If the header is using "alt" styling and #banner is present, use scrollwatch
 		// to revert it back to normal styling once the user scrolls past the banner.
 			if ($header.hasClass('alt')
-			&&	$banner.length > 0) {
+			&&	$bannerAU.length > 0) {
 
 				$window.on('load', function() {
 
-					$banner.scrollwatch({
+					$bannerAU.scrollwatch({
 						delay:		0,
 						range:		0.98,
 						anchor:		'top',
@@ -107,15 +108,44 @@
 					skel.change(function() {
 						
 						if (skel.isActive('medium'))
-							$banner.scrollwatchSuspend();
+							$bannerAU.scrollwatchSuspend();
 						else
-							$banner.scrollwatchResume();
+							$bannerAU.scrollwatchResume();
 						
 					});
 
 				});
 			
 			}
+
+			// HeaderAU.
+		// If the header is using "alt" styling and #bannerAU is present, use scrollwatch
+		// to revert it back to normal styling once the user scrolls past the bannerAU.
+		if ($header.hasClass('alt')
+		&&	$banner.length > 0) {
+
+			$window.on('load', function() {
+
+				$banner.scrollwatch({
+					delay:		0,
+					range:		0.98,
+					anchor:		'top',
+					on:			function() { $header.addClass('alt reveal'); },
+					off:		function() { $header.removeClass('alt'); }
+				});
+
+				skel.change(function() {
+					
+					if (skel.isActive('medium'))
+						$banner.scrollwatchSuspend();
+					else
+						$banner.scrollwatchResume();
+					
+				});
+
+			});
+		
+		}
 			
 		// Dropdowns.
 			$('#nav > ul').dropotron({
