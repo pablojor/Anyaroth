@@ -18,6 +18,8 @@ FloatingHead::FloatingHead(Game* g, Player* player, Vector2D pos, BulletPool* po
 
 	_anim->playAnim(AnimatedSpriteComponent::HeadIdle);
 	_arm->getComponent<CustomAnimatedSpriteComponent>()->setVisible(false);
+
+	_affectedByExternalForces = false;
 }
 
 void FloatingHead::shooting(double deltaTime)

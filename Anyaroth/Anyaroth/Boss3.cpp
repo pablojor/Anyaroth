@@ -426,7 +426,7 @@ void Boss3::beetwenFases(double deltaTime)
 			_life1.resetLife();
 
 			_boss3Panel->resetLifeBar(_life1.getLife(), _life.getLife());
-			_name = "Angra Soldier";
+			_name = "Angra";
 			_boss3Panel->updateBossName(_name);//Provisional
 			_actualState = Jumping;
 

@@ -184,7 +184,7 @@ void PlayState::update(double deltaTime)
 			{
 				gameManager->changeLevel(1);
 
-				if (gameManager->getCurrentLevel() % 2 != 0) //Si el nivel al que avanzas es una safezone
+				if (gameManager->getCurrentLevel() % 2 != 0 && gameManager->getCurrentLevel() != LevelManager::End) //Si el nivel al que avanzas es una safezone
 				{
 					saveGame();
 					_player->getMoney()->storeWallet();
