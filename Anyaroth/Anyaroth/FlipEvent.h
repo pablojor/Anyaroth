@@ -9,6 +9,7 @@ private:
 
 public:
 	FlipEvent(Player* player) : _player(player) {}
+	virtual ~FlipEvent() {};
 
 	virtual void update(double deltaTime) {}
 	virtual void play();

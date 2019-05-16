@@ -133,6 +133,13 @@ void GameState::destroyObject(GameObject* obj)
 		items_ToDelete.push_back(obj);
 }
 
+void GameState::addCutScene(CutScene * cutScene)
+{
+	if (_cutScene != nullptr) 
+		delete _cutScene; 
+	_cutScene = cutScene;
+}
+
 Vector2D GameState::getMousePositionInWorld() const
 {
 	int winWidth = 0;	int winHeight = 0;

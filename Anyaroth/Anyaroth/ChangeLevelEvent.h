@@ -9,6 +9,7 @@ private:
 
 public:
 	ChangeLevelEvent(Player* player) : _player(player) {}
+	virtual ~ChangeLevelEvent() {};
 
 	virtual void play();
 	virtual void update(double deltaTime) {}

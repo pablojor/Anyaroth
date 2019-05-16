@@ -12,6 +12,7 @@ private:
 
 public:
 	ZoomInOutEvent(Camera* cam, int time, CamEffect type) : _cam(cam), _time(time), _camEffect(type) {}
+	virtual ~ZoomInOutEvent() {};
 
 	virtual void update(double time);
 	virtual void play() {}

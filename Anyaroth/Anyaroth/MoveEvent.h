@@ -10,6 +10,7 @@ private:
 
 public:
 	MoveEvent(BodyComponent* body, int dir, int speed, int xDestination);
+	virtual ~MoveEvent() {};
 
 	virtual void update(double time);
 	void move();

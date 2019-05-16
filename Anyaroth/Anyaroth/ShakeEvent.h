@@ -13,6 +13,7 @@ private:
 
 public:
 	ShakeEvent(Camera* cam, int time, int intesity) : _cam(cam), _time(time), _intensity(intesity) {}
+	virtual ~ShakeEvent() {};
 
 	virtual void update(double time);
 	virtual void play();

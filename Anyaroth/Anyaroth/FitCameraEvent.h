@@ -10,6 +10,7 @@ private:
 
 public:
 	FitCameraEvent(Camera* cam, double x, double y) : _cam(cam), _xBound(x), _yBound(y) {}
+	virtual ~FitCameraEvent() {};
 
 	virtual void update(double deltaTime) {}
 	virtual void play();

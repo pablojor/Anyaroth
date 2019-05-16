@@ -71,7 +71,7 @@ public:
 	inline virtual CutScene* getCutScene() const { return _cutScene; }
 	inline virtual void setCanvas(Canvas* canvas) { _canvas = canvas; }
 
-	inline virtual void addCutScene(CutScene* cutScene) { if (_cutScene != nullptr) delete _cutScene; _cutScene = cutScene; }
+	virtual void addCutScene(CutScene* cutScene);
 
 	Vector2D getMousePositionInWorld() const;
 	Vector2D getMousePositionOnScreen() const;

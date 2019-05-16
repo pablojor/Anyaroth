@@ -8,6 +8,7 @@ private:
 
 public:
 	WaitingEvent(int time) : _time(time) {}
+	virtual ~WaitingEvent() {};
 
 	virtual void update(double time);
 	virtual void play() {}

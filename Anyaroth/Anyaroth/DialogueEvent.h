@@ -10,6 +10,7 @@ private:
 
 public:
 	DialogueEvent(DialoguePanel* dialoguePanel, Dialogue dialogue) : _dialoguePanel(dialoguePanel), _dialogue(dialogue) {}
+	virtual ~DialogueEvent() {};
 
 	virtual void update(double time);
 	virtual void play();

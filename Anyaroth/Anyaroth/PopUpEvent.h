@@ -9,6 +9,7 @@ private:
 
 public:
 	PopUpEvent(PopUpPanel* popUpPanel) : _popUpPanel(popUpPanel) {}
+	virtual ~PopUpEvent() {};
 
 	virtual void update(double time);
 	virtual void play();
