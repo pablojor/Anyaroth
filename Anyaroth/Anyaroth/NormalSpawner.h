@@ -9,11 +9,11 @@ public:
 	NormalSpawner(Game* g, Player* player, Vector2D pos) : SpawnerEnemy(g, player, pos) {};
 	virtual ~NormalSpawner() {}
 
-	void dropCapsule(const double& deltaTime);
+	void dropCapsule(double deltaTime);
 };
 
 template<typename Spawned>
-void NormalSpawner<Spawned>::dropCapsule(const double& deltaTime)
+void NormalSpawner<Spawned>::dropCapsule(double deltaTime)
 {
 	if (_time >= _spawnTime && _currentEnemies < _maxEnemies)
 	{

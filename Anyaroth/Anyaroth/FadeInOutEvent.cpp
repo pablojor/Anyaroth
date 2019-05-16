@@ -1,6 +1,6 @@
 #include "FadeInOutEvent.h"
 
-void FadeInOutEvent::update(const double& time)
+void FadeInOutEvent::update(double time)
 {
 	if (_timeOnEvent > _time)
 		_finished = true;

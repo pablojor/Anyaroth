@@ -36,7 +36,7 @@ private:
 
 	void shoot();
 	void shootBullet(int numBullets, double angleIncrease);
-	void circularShoot(const double& deltaTime);
+	void circularShoot(double deltaTime);
 
 	//Cosas de la fase soldado
 	void AngraSoldierSpawn();
@@ -69,7 +69,7 @@ private:
 	//Cosas del ataque Portal
 	int timeToReapear = 2000, timeToShowPortal = 1000, _timeOut = 0;
 	int _explosionRange = 100, _impulse = 15, _explosionDamage = 25;
-	void portalAttack(const double& deltaTime);
+	void portalAttack(double deltaTime);
 	bool portalVisible = false;
 	bool realGone = false;
 
@@ -87,16 +87,16 @@ public:
 	virtual ~Boss3();
 
 	void setBoss3Panel(Boss3Panel* b);
-	virtual void movement(const double& deltaTime);
+	virtual void movement(double deltaTime);
 	virtual void beginCollision(GameObject* other, b2Contact* contact);
 	virtual void endCollision(GameObject * other, b2Contact* contact);
 
 	inline void setBulletApproaching(bool bA) { _bulletApproaching = bA; }
-	virtual void update(const double& deltaTime);
-	virtual void fase1(const double& deltaTime);
-	virtual void fase2(const double& deltaTime);
-	virtual void fase3(const double& deltaTime);
-	virtual void beetwenFases(const double& deltaTime);
+	virtual void update(double deltaTime);
+	virtual void fase1(double deltaTime);
+	virtual void fase2(double deltaTime);
+	virtual void fase3(double deltaTime);
+	virtual void beetwenFases(double deltaTime);
 	void subLife(int damage);
 	virtual void die();
 

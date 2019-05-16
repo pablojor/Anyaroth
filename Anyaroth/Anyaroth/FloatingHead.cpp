@@ -45,7 +45,7 @@ void FloatingHead::setLifePanel(EnemyLifePanel * lifePanel)
 	_lifePanel->setVisible(true);
 }
 
-void FloatingHead::update(const double & deltaTime)
+void FloatingHead::update(double deltaTime)
 {
 	DistanceEnemy::update(deltaTime);
 

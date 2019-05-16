@@ -20,6 +20,6 @@ public:
 	virtual ~Capsule() {}
 
 	virtual void spawn() {};
-	virtual void update(const double& deltaTime);
+	virtual void update(double deltaTime);
 	virtual void beginCollision(GameObject* other, b2Contact* contact);
 };

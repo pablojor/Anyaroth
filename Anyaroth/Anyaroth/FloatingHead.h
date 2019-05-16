@@ -18,7 +18,7 @@ public:
 	FloatingHead(Game* g, Player* player, Vector2D pos, BulletPool* pool, Boss3 * boss);
 	virtual ~FloatingHead() {}
 
-	virtual void update(const double& deltaTime);
+	virtual void update(double deltaTime);
 	virtual void die();
 
 	void shooting(double deltaTime);

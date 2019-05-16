@@ -256,12 +256,12 @@ void Game::start()
 	}
 }
 
-void Game::updateWorld(const float & timeStep, const int & velocityIterations, const int & positionIterations)
+void Game::updateWorld(float timeStep, int velocityIterations, int positionIterations)
 {
 	_stateMachine->currentState()->updateWorld(timeStep, velocityIterations, positionIterations);
 }
 
-void Game::update(const double& deltaTime)
+void Game::update(double deltaTime)
 {
 	_stateMachine->currentState()->update(deltaTime);
 	_stateMachine->currentState()->post_update();

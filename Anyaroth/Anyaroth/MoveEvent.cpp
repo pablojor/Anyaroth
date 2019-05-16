@@ -5,7 +5,7 @@ MoveEvent::MoveEvent(BodyComponent* body, int dir, int speed, int xDestination):
 	_myBody = body->getBody();
 }
 
-void MoveEvent::update(const double& time)
+void MoveEvent::update(double time)
 {
 	if (_dir > 1)
 	{

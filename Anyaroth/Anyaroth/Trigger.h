@@ -24,7 +24,7 @@ public:
 	Trigger(Game* game, int xPos = 0, int yPos = 0);
 	~Trigger();
 
-	virtual void update(const double& deltaTime);
+	virtual void update(double deltaTime);
 
 	void beginCollision(GameObject* other, b2Contact* contact);
 	void endCollision(GameObject* other, b2Contact* contact);

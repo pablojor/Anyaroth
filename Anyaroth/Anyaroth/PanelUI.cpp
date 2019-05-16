@@ -39,7 +39,7 @@ void PanelUI::render() const
 				e->render();
 }
 
-void PanelUI::update(const double& deltaTime)
+void PanelUI::update(double deltaTime)
 {
 	if (_visible)
 		for (UIElement* e : _children)

@@ -24,7 +24,7 @@ public:
 	CreditsPanel(Game* g, bool goodFinal);
 	virtual ~CreditsPanel();
 
-	virtual void update(const double& deltaTime);
+	virtual void update(double deltaTime);
 	virtual bool handleEvent(const SDL_Event& event);
 };
 

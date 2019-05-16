@@ -22,7 +22,7 @@ public:
 	Laser(Game* g, Vector2D pos, Texture* texture, Player* player, double damage = 5);
 	virtual ~Laser() {}
 
-	virtual void update(const double& deltaTime);
+	virtual void update(double deltaTime);
 
 	void Shoot();
 	void PreShoot(double angle);

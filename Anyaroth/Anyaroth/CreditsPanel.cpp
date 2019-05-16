@@ -76,7 +76,7 @@ CreditsPanel::~CreditsPanel()
 {
 }
 
-void CreditsPanel::update(const double & deltaTime)
+void CreditsPanel::update(double deltaTime)
 {
 	PanelUI::update(deltaTime);
 

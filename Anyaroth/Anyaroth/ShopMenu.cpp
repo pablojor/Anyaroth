@@ -103,7 +103,7 @@ ShopMenu::~ShopMenu()
 }
 
 
-void ShopMenu::update(const double& deltaTime)
+void ShopMenu::update(double deltaTime)
 {
 	PanelUI::update(deltaTime);
 

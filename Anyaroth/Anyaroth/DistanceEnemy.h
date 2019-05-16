@@ -20,7 +20,7 @@ public:
 	inline bool ArmVision() const { return _armVision; }
 	inline Gun* getGun() const { return _myGun; }
 
-	virtual void update(const double& deltaTime);
+	virtual void update(double deltaTime);
 	void raycast();
 	virtual void shoot();
 };

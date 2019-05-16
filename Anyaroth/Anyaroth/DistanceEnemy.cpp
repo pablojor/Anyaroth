@@ -57,7 +57,7 @@ void DistanceEnemy::shoot()
 	}
 }
 
-void DistanceEnemy::update(const double& deltaTime)
+void DistanceEnemy::update(double deltaTime)
 {
 	Enemy::update(deltaTime);
 	_myGun->refreshGunCadence(deltaTime);

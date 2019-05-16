@@ -20,9 +20,9 @@ public:
 	virtual ~BomberEnemy();
 
 	void move();
-	void shoot(const double& deltaTime);
+	void shoot(double deltaTime);
 
 	void throwBomb(const Vector2D& position);
-	virtual void update(const double& deltaTime);
+	virtual void update(double deltaTime);
 	virtual void subLife(int damage);
 };

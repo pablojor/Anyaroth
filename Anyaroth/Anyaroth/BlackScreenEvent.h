@@ -10,6 +10,6 @@ private:
 public:
 	BlackScreenEvent(Camera* cam) : _cam(cam) {}
 
-	virtual void update(const double& deltaTime) {}
+	virtual void update(double deltaTime) {}
 	virtual void play();
 };

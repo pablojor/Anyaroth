@@ -29,7 +29,7 @@ NPC::~NPC()
 {
 }
 
-void NPC::update(const double& time)
+void NPC::update(double time)
 {
 	Interactable::update(time);
 

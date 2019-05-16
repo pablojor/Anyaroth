@@ -15,7 +15,7 @@ BossPoleAxe::BossPoleAxe(Game* game, GameObject* owner) : PoleAxe(game)
 
 BossPoleAxe::~BossPoleAxe() {}
 
-void BossPoleAxe::update(const double & deltaTime)
+void BossPoleAxe::update(double deltaTime)
 {
 	if (isActive())
 	{

@@ -1,6 +1,6 @@
 #include "ZoomInOutEvent.h"
 
-void ZoomInOutEvent::update(const double& time)
+void ZoomInOutEvent::update(double time)
 {
 	if (_timeOnEvent > _time)
 		_finished = true;

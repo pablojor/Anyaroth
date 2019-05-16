@@ -52,7 +52,7 @@ void GameState::render() const
 	_mainCamera->last_render();
 }
 
-void GameState::update(const double& deltaTime)
+void GameState::update(double deltaTime)
 {
 	_mainCamera->update(deltaTime);
 
@@ -115,7 +115,7 @@ bool GameState::pre_handleEvent()
 	return _mainCamera->pre_handleEvent();
 }
 
-void GameState::updateWorld(const float & timestep, const int & velocityIterations, const int & positionIterations)
+void GameState::updateWorld(float timestep, int velocityIterations, int positionIterations)
 {
 	if(_world != nullptr)
 		_world->Step(timestep, velocityIterations, positionIterations);

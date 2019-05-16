@@ -76,7 +76,7 @@ Boss1::~Boss1()
 	delete _orbGun;
 }
 
-void Boss1::update(const double& deltaTime)
+void Boss1::update(double deltaTime)
 {
 	if (_game->getCurrentState()->getCutScene() == nullptr)
 	{
@@ -125,7 +125,7 @@ void Boss1::update(const double& deltaTime)
 	}
 }
 
-void Boss1::movement(const double& deltaTime)
+void Boss1::movement(double deltaTime)
 {
 	if (_actualState == Moving)
 	{
@@ -161,7 +161,7 @@ void Boss1::meleeAttack()
 	_armVision = false;
 }
 
-void Boss1::checkMelee(const double& deltaTime)
+void Boss1::checkMelee(double deltaTime)
 {
 	if (_melee != nullptr && _melee->isActive())
 	{
@@ -183,7 +183,7 @@ void Boss1::checkMelee(const double& deltaTime)
 	}
 }
 
-void Boss1::armShoot(const double& deltaTime)
+void Boss1::armShoot(double deltaTime)
 {
 	_bodyPos = Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL);
 	_dirB = (_bodyPos.getX() >= _playerPos.getX()) ? -1 : 1;
@@ -219,7 +219,7 @@ void Boss1::armShoot(const double& deltaTime)
 	}
 }
 
-void Boss1::bomberAttack(const double& deltaTime, int t1, int t2)
+void Boss1::bomberAttack(double deltaTime, int t1, int t2)
 {
 	if (_actualFase != BetweenFase)
 	{
@@ -314,7 +314,7 @@ void Boss1::manageLife(Life& l, int damage)
 	}
 }
 
-void Boss1::fase1(const double& deltaTime)
+void Boss1::fase1(double deltaTime)
 {
 	if (_actualState != Shooting)
 	{
@@ -347,7 +347,7 @@ void Boss1::fase1(const double& deltaTime)
 		armShoot(deltaTime);
 }
 
-void Boss1::fase2(const double& deltaTime)
+void Boss1::fase2(double deltaTime)
 {
 	if (_actualState != Bombing)
 	{
@@ -385,7 +385,7 @@ void Boss1::fase2(const double& deltaTime)
 		bomberAttack(deltaTime, 100, 200);
 }
 
-void Boss1::fase3(const double& deltaTime)
+void Boss1::fase3(double deltaTime)
 {
 	if (_actualState != Bombing)
 	{
@@ -423,7 +423,7 @@ void Boss1::fase3(const double& deltaTime)
 		bomberAttack(deltaTime, 100, 200);
 }
 
-void Boss1::beetwenFases(const double& deltaTime)
+void Boss1::beetwenFases(double deltaTime)
 {
 	bomberAttack(deltaTime, 200, 600);
 	_actualState = Bombing;

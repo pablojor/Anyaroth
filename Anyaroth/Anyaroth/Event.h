@@ -10,7 +10,7 @@ public:
 	virtual ~Event() {}
 
 	virtual void play() = 0;
-	virtual void update(const double& deltaTime) = 0;
+	virtual void update(double deltaTime) = 0;
 
 	inline bool isFinished() { return _finished; }
 };

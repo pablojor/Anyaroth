@@ -13,7 +13,7 @@ DialogueTextUI::~DialogueTextUI()
 {
 }
 
-void DialogueTextUI::update(const double& deltaTime)
+void DialogueTextUI::update(double deltaTime)
 {
 	if (_visible)
 	{

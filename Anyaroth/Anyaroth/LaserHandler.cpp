@@ -14,7 +14,7 @@ LaserHandler::LaserHandler(Game* g, Texture* container, Texture* laser, Player* 
 	}
 }
 
-void LaserHandler::update(const double& deltaTime)
+void LaserHandler::update(double deltaTime)
 {
 	if (_active)
 	{

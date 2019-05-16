@@ -16,7 +16,7 @@ void Canvas::render() const
 		e->render();
 }
 
-void Canvas::update(const double& deltaTime)
+void Canvas::update(double deltaTime)
 {
 	for (UIElement* e : _elements)
 		e->update(deltaTime);

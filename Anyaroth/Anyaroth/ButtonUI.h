@@ -37,7 +37,7 @@ class ButtonUI : public FramedImageUI
 		ButtonUI(Game* game, Texture* image, const Callback& callback = NULL, Frames frames = { 0, 0, 0, 0 }, int arrayPos = 0);
 		virtual ~ButtonUI() {};
 
-		virtual void update(const double& deltaTime);
+		virtual void update(double deltaTime);
 		virtual bool handleEvent(const SDL_Event& event);
 
 		inline void onUp(const Callback& callback) { _onUpCallback = callback; }

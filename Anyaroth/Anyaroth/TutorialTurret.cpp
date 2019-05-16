@@ -48,7 +48,7 @@ void TutorialTurret::shoot()
 	}
 }
 
-void TutorialTurret::update(const double& deltaTime)
+void TutorialTurret::update(double deltaTime)
 {
 	DistanceEnemy::update(deltaTime);
 	_body->getBody()->SetAwake(true);

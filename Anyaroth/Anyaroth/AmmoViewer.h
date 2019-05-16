@@ -14,5 +14,5 @@ class AmmoViewer : public PanelUI
 		AmmoViewer(Game* game, int xPos, int yPos);
 		~AmmoViewer() {}
 
-		void updateAmmoViewer(const int& ammoClip, const int& ammoMagazine);
+		void updateAmmoViewer(int ammoClip, int ammoMagazine);
 };

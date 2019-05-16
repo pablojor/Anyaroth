@@ -21,7 +21,7 @@ void AnimatedSpriteComponent::render(Camera* c) const
 	}
 }
 
-void AnimatedSpriteComponent::update(const double& deltaTime)
+void AnimatedSpriteComponent::update(double deltaTime)
 {
 	_timer += deltaTime;
 	if (_animations.size() > 0)

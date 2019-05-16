@@ -18,6 +18,6 @@ public:
 	MissileTurret(Game* g, Boss1* Boss, Vector2D pos, int activeFase);
 	virtual ~MissileTurret() {}
 
-	virtual void update(const double& deltaTime);
+	virtual void update(double deltaTime);
 	bool interact();
 };

@@ -23,7 +23,7 @@ FlyingEnemy::FlyingEnemy(Game* g, Player* player, Vector2D pos) : Enemy(g,  play
 	_previousPos = _originalPos;
 }
 
-void FlyingEnemy::sinusoidalMove(const double& deltaTime)
+void FlyingEnemy::sinusoidalMove(double deltaTime)
 {
 	//Onda Sinusoidal vertical 
 	double prevX = _body->getBody()->GetPosition().x * M_TO_PIXEL + _velocity.getX() * _dir.getX();
@@ -39,7 +39,7 @@ void FlyingEnemy::sinusoidalMove(const double& deltaTime)
 	}
 }
 
-void FlyingEnemy::update(const double& deltaTime)
+void FlyingEnemy::update(double deltaTime)
 {
 	Enemy::update(deltaTime);
 

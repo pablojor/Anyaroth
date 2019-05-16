@@ -15,7 +15,7 @@ CutScene::~CutScene()
 	}
 }
 
-void CutScene::update(const double& deltaTime)
+void CutScene::update(double deltaTime)
 {
 	if (_isPlaying && !_events.empty())
 	{

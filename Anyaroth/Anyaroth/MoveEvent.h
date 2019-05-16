@@ -11,7 +11,7 @@ private:
 public:
 	MoveEvent(BodyComponent* body, int dir, int speed, int xDestination);
 
-	virtual void update(const double& time);
+	virtual void update(double time);
 	void move();
 
 	virtual void play() {}

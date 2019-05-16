@@ -7,7 +7,7 @@ PoleAxe::PoleAxe(Game * game) : Melee(game, { 0, 0 }, ENEMIES, 15, 60, 30, PoleA
 
 PoleAxe::~PoleAxe() {}
 
-void PoleAxe::update(const double & deltaTime)
+void PoleAxe::update(double deltaTime)
 {
 	if (isActive())
 	{

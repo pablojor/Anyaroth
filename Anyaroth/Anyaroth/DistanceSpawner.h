@@ -11,11 +11,11 @@ public:
 	DistanceSpawner(Game* g, Player* player, Vector2D pos, BulletPool* bulletPool) : SpawnerEnemy(g, player, pos), _spawnedPool(bulletPool) {};
 	virtual ~DistanceSpawner() {}
 
-	void dropCapsule(const double& deltaTime);
+	void dropCapsule(double deltaTime);
 };
 
 template<typename Spawned>
-void DistanceSpawner<Spawned>::dropCapsule(const double& deltaTime)
+void DistanceSpawner<Spawned>::dropCapsule(double deltaTime)
 {
 	if (_time >= _spawnTime && _currentEnemies < _maxEnemies)
 	{

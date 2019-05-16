@@ -285,7 +285,7 @@ bool Map::handleEvent(const SDL_Event & event)
 	return GameObject::handleEvent(event);
 }
 
-void Map::update(const double& deltaTime)
+void Map::update(double deltaTime)
 {
 	GameObject::update(deltaTime);
 }

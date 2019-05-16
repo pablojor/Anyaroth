@@ -27,14 +27,14 @@ public:
 	void setLevelManager(LevelManager* l) { _levelManager = l; }
 
 	int getCurrentLevel() const { return _currentLevel; }
-	void setCurrentLevel(const int& a) { _currentLevel = a; }
+	void setCurrentLevel(int a) { _currentLevel = a; }
 
 	bool getOnDialogue() const { return _onDialogue; }
-	void setOnDialogue(const bool& b) { _onDialogue = b; }
+	void setOnDialogue(bool b) { _onDialogue = b; }
 
 	bool getOnShop() const { return _onShop; }
-	void setOnShop(const bool& b) { _onShop = b; }
+	void setOnShop(bool b) { _onShop = b; }
 
 	bool getChangeLevel() const { return _changeLevel; }
-	void setChangeLevel(const bool& b) { _changeLevel = b; }
+	void setChangeLevel(bool b) { _changeLevel = b; }
 };

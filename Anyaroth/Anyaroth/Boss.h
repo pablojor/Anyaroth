@@ -39,19 +39,19 @@ public:
 	void setBossPanel(BossPanel* b);
 	virtual void beginCollision(GameObject* other, b2Contact* contact);
 
-	virtual void update(const double& deltaTime);
+	virtual void update(double deltaTime);
 
 	virtual void subLife(int damage);
 	virtual void manageLife(Life& l, int damage);
 	void drop() {}
 
-	virtual void movement(const double& deltaTime) {}
+	virtual void movement(double deltaTime) {}
 
-	virtual void fase1(const double& deltaTime) {}
-	virtual void fase2(const double& deltaTime) {}
-	virtual void fase3(const double& deltaTime) {}
+	virtual void fase1(double deltaTime) {}
+	virtual void fase2(double deltaTime) {}
+	virtual void fase3(double deltaTime) {}
 
-	virtual void beetwenFases(const double& deltaTime) {}
+	virtual void beetwenFases(double deltaTime) {}
 	bool inline const isbeetweenFases() { return _actualFase == BetweenFase; }
 
 	virtual void changeFase(int fase);

@@ -41,7 +41,7 @@ Shop::Shop(Game* g, Vector2D posIni, ShopMenu* shop) : _shop(shop), Interactable
 	addChild(_shopDoor);
 }
 
-void Shop::update(const double& deltaTime)
+void Shop::update(double deltaTime)
 {
 	Interactable::update(deltaTime);
 

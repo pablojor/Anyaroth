@@ -35,7 +35,7 @@ PlayerPanel::PlayerPanel(Game* game) : PanelUI(game)
 	addChild(_deathText);
 }
 
-void PlayerPanel::updateLifeBar(const int & life, const int & maxLife)
+void PlayerPanel::updateLifeBar(int life, int maxLife)
 {
 	_lifeBar->updateLifeBar(life, maxLife);
 

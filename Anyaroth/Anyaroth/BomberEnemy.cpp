@@ -36,7 +36,7 @@ BomberEnemy::~BomberEnemy()
 	_gun = nullptr;
 }
 
-void BomberEnemy::shoot(const double& deltaTime)
+void BomberEnemy::shoot(double deltaTime)
 {
 	if (_time >= _shootTime)
 	{
@@ -52,7 +52,7 @@ void BomberEnemy::move()
 	_body->getBody()->SetLinearVelocity({ _speed*(float32)_dir.getX(), _body->getBody()->GetLinearVelocity().y });
 }
 
-void BomberEnemy::update(const double& deltaTime)
+void BomberEnemy::update(double deltaTime)
 {
 	Enemy::update(deltaTime);
 	_gun->refreshGunCadence(deltaTime);

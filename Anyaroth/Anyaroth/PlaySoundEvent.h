@@ -11,6 +11,6 @@ private:
 public:
 	PlaySoundEvent(Game* game, string sound) : _game(game), _sound(sound) {}
 
-	virtual void update(const double& deltaTime) {}
+	virtual void update(double deltaTime) {}
 	virtual void play();
 };

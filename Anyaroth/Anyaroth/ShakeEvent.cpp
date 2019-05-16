@@ -1,6 +1,6 @@
 #include "ShakeEvent.h"
 
-void ShakeEvent::update(const double& time)
+void ShakeEvent::update(double time)
 {
 	if (_timeOnEvent > _time)
 		_finished = true;

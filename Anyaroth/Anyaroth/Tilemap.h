@@ -42,7 +42,7 @@ public:
 	~Tilemap();
 
 	virtual bool handleEvent(const SDL_Event& event) { return false; }
-	virtual void update(const double& deltaTime) {}
+	virtual void update(double deltaTime) {}
 	virtual void render(Camera* c) const;
 
 	void loadTileMap(const string& filename);

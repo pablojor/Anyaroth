@@ -35,7 +35,7 @@ MartyrEnemy::MartyrEnemy(Game* g, Player* player, Vector2D pos) : GroundEnemy(g,
 	addSensors();
 }
 
-void MartyrEnemy::update(const double& deltaTime)
+void MartyrEnemy::update(double deltaTime)
 {
 	Enemy::update(deltaTime);
 
@@ -73,7 +73,7 @@ void MartyrEnemy::explosionDie()
 	_game->getSoundManager()->playSFX("martyrExplosion");
 }
 
-void MartyrEnemy::attacking(const double& deltaTime)
+void MartyrEnemy::attacking(double deltaTime)
 {
 	bool maxRange = _playerDistance.getX() < _explosionRange && _playerDistance.getX() > -_explosionRange && _playerDistance.getY() < _explosionRange && _playerDistance.getY() > -_explosionRange;
 	bool midleRange = _playerDistance.getX() < _explosionRange / 2 && _playerDistance.getX() > -_explosionRange / 2 && _playerDistance.getY() < _explosionRange / 2 && _playerDistance.getY() > -_explosionRange / 2;

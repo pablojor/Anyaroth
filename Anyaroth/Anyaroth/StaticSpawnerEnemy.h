@@ -11,5 +11,5 @@ public:
 	virtual ~StaticSpawnerEnemy() {}
 
 	int activeEnemies();
-	virtual void update(const double& deltaTime);
+	virtual void update(double deltaTime);
 };

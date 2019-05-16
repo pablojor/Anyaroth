@@ -11,5 +11,5 @@ public:
 	ChangeLevelEvent(Player* player) : _player(player) {}
 
 	virtual void play();
-	virtual void update(const double& deltaTime) {}
+	virtual void update(double deltaTime) {}
 };

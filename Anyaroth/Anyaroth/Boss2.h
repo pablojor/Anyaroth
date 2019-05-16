@@ -23,25 +23,25 @@ public:
 	Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool);
 	~Boss2() {}
 
-	virtual void update(const double& deltaTime);
+	virtual void update(double deltaTime);
 
 	void Jump();
-	void checkJump(const double& deltaTime);
+	void checkJump(double deltaTime);
 
-	virtual void movement(const double& deltaTime);
+	virtual void movement(double deltaTime);
 	virtual void beginCollision(GameObject* other, b2Contact* contact);
 	virtual void endCollision(GameObject * other, b2Contact* contact);
 
 	virtual void meleeAttack();
 	inline void setLasers(LaserHandler* lasers) { _lasers = lasers; }
 	void endJump();
-	virtual void checkMelee(const double& deltaTime);
+	virtual void checkMelee(double deltaTime);
 	virtual int getDamage() const { return _damage; }
 
-	virtual void fase1(const double& deltaTime);
-	virtual void fase2(const double& deltaTime);
-	virtual void fase3(const double& deltaTime);
-	virtual void beetwenFases(const double& deltaTime);
+	virtual void fase1(double deltaTime);
+	virtual void fase2(double deltaTime);
+	virtual void fase3(double deltaTime);
+	virtual void beetwenFases(double deltaTime);
 	virtual void manageLife(Life& l, int damage);
 
 	virtual void die();

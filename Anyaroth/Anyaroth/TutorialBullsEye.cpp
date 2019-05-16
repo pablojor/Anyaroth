@@ -16,7 +16,7 @@ TutorialBullsEye::TutorialBullsEye(Game* g, Player* player, Vector2D pos) : Enem
 	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 }
 
-void TutorialBullsEye::update(const double& deltaTime)
+void TutorialBullsEye::update(double deltaTime)
 {
 	GameObject::update(deltaTime);
 

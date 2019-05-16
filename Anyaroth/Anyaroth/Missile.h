@@ -22,5 +22,5 @@ public:
 	virtual ~Missile() {}
 
 	virtual void beginCollision(GameObject* other, b2Contact* contact);
-	virtual void update(const double& deltaTime);
+	virtual void update(double deltaTime);
 };

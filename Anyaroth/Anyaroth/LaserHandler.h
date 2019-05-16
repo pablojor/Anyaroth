@@ -18,7 +18,7 @@ public:
 	LaserHandler(Game* g, Texture* container, Texture* laser, Player* player, int numLasers, int span, Vector2D pos);
 	virtual ~LaserHandler() {}
 
-	virtual void update(const double& deltaTime);
+	virtual void update(double deltaTime);
 
 	void Shoot();
 	void Stop();

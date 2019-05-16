@@ -43,21 +43,21 @@ public:
 	virtual ~GameState();
 
 	bool hasToStart() const { return _hasToStart; }
-	void setStarted(const bool& b) { _hasToStart = !b; }
+	void setStarted(bool b) { _hasToStart = !b; }
 
 	bool gameLoaded() const { return _gameLoaded; }
-	void setLoaded(const bool& b) { _gameLoaded = b; }
+	void setLoaded(bool b) { _gameLoaded = b; }
 
 	virtual void start() = 0;
 	virtual void render() const;
 
-	virtual void update(const double& deltaTime);
+	virtual void update(double deltaTime);
 	virtual void post_update();
 
 	virtual bool pre_handleEvent();
 	virtual bool handleEvent(const SDL_Event& event);
 
-	virtual void updateWorld(const float& timestep, const int& p_iterations, const int& V_iterations);
+	virtual void updateWorld(float timestep, int p_iterations, int V_iterations);
 	inline b2World* getWorld() const { return _world; }
 
 	virtual void addObject(GameObject* obj);

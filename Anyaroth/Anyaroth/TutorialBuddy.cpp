@@ -16,7 +16,7 @@ TutorialBuddy::TutorialBuddy(Game* g, Player* player, Vector2D pos) : GroundEnem
 	_body->filterCollisions(ENEMIES, FLOOR | PLATFORMS | PLAYER_BULLETS | MELEE);
 }
 
-void TutorialBuddy::update(const double& deltaTime)
+void TutorialBuddy::update(double deltaTime)
 {
 	GameObject::update(deltaTime);
 

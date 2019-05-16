@@ -12,7 +12,7 @@ public:
 	ParallaxBackGround(Camera* camera) : BackGround(nullptr, camera) {}
 	~ParallaxBackGround();
 
-	virtual void update(const double& deltaTime);
+	virtual void update(double deltaTime);
 	virtual void render() const;
 
 	inline void addLayer(ParallaxLayer* layer) { _layers.push_back(layer); }

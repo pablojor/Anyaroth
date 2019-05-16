@@ -157,7 +157,7 @@ void PlayState::loadGame()
 	}
 }
 
-void PlayState::update(const double& deltaTime)
+void PlayState::update(double deltaTime)
 {
 	GameState::update(deltaTime);
 	ParticleManager::GetParticleManager()->updateManager(deltaTime);

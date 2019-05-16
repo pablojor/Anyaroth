@@ -10,6 +10,6 @@ public:
 	BossPoleAxe(Game* game, GameObject* owner);
 	virtual ~BossPoleAxe();
 
-	void update(const double& deltaTime);
+	void update(double deltaTime);
 };
 

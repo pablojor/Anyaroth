@@ -28,7 +28,7 @@ SpawnerBoss::SpawnerBoss(Game* g,Player* player, Vector2D pos, int typeSpawn,Bul
 	}
 }
 
-void SpawnerBoss::update(const double & deltaTime)
+void SpawnerBoss::update(double deltaTime)
 {
 	GameObject::update(deltaTime);
 

@@ -34,23 +34,23 @@ public:
 	Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool);
 	virtual ~Boss1();
 
-	virtual void update(const double& deltaTime);
+	virtual void update(double deltaTime);
 
-	void movement(const double& deltaTime);
-	void bomberAttack(const double& deltaTime, int t1, int t2);
+	void movement(double deltaTime);
+	void bomberAttack(double deltaTime, int t1, int t2);
 	void meleeAttack();
-	void checkMelee(const double& deltaTime);
-	void armShoot(const double& deltaTime);
+	void checkMelee(double deltaTime);
+	void armShoot(double deltaTime);
 
 	void orbAttack();
 
 	virtual void beginCollision(GameObject* other, b2Contact* contact);
 	virtual void manageLife(Life& l, int damage);
 
-	void fase1(const double& deltaTime);
-	void fase2(const double& deltaTime);
-	void fase3(const double& deltaTime);
-	void beetwenFases(const double& deltaTime);
+	void fase1(double deltaTime);
+	void fase2(double deltaTime);
+	void fase3(double deltaTime);
+	void beetwenFases(double deltaTime);
 	void changeFase(int nextFase);
 
 	void throwBomb();

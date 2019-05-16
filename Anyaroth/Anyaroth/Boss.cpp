@@ -15,7 +15,7 @@ void Boss::setBossPanel(BossPanel * b)
 	_bossPanel->setVisible(true);
 }
 
-void Boss::update(const double & deltaTime)
+void Boss::update(double deltaTime)
 {
 	DistanceEnemy::update(deltaTime);
 

@@ -48,8 +48,8 @@ public:
 	void setItemImage(Texture* image) { setImage(image); }
 	void setItemInfo(const ItemInfo& info);
 
-	void setItemSell(const bool& b) { _info._sold = b; }
-	void setItemEquiped(const bool& b) { _info._equiped = b; }
+	void setItemSell(bool b) { _info._sold = b; }
+	void setItemEquiped(bool b) { _info._equiped = b; }
 
 	void setChosen(bool chosen);
 	void setSelected(bool selected) { ButtonUI::setSelected(selected); setChosen(selected); }

@@ -22,7 +22,7 @@ public:
 	SpawnerBoss(Game* g, Player* player, Vector2D pos, int typeSpawn, BulletPool* pool);
 	virtual ~SpawnerBoss() {}
 
-	virtual void update(const double & deltaTime);
+	virtual void update(double deltaTime);
 
 	void spawnType1(double deltaTime);
 	void spawnType2(double deltaTime);

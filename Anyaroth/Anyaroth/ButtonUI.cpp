@@ -121,7 +121,7 @@ bool ButtonUI::handleEvent(const SDL_Event& event)
 	return handle;
 }
 
-void ButtonUI::update(const double& deltaTime)
+void ButtonUI::update(double deltaTime)
 {
 	if (_visible && _inputEnable)
 	{

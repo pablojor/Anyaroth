@@ -16,7 +16,7 @@ Laser::Laser(Game* g, Vector2D pos, Texture* texture, Player* player, double dam
 	setActive(false);
 }
 
-void Laser::update(const double& deltaTime)
+void Laser::update(double deltaTime)
 {
 	if (isActive())
 	{

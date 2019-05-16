@@ -40,7 +40,7 @@ DistanceDynamicEnemy::DistanceDynamicEnemy(Game* g, Player* player, Vector2D pos
 	_affectedByExternalForces = true;
 }
 
-void DistanceDynamicEnemy::update(const double& deltaTime)
+void DistanceDynamicEnemy::update(double deltaTime)
 {
 	DistanceEnemy::update(deltaTime);
 
@@ -78,7 +78,7 @@ void DistanceDynamicEnemy::update(const double& deltaTime)
 	}
 }
 
-void DistanceDynamicEnemy::attacking(const double& deltaTime)
+void DistanceDynamicEnemy::attacking(double deltaTime)
 {
 	bool outRange = _playerDistance.getX() < -_attackRangeX || _playerDistance.getX() > _attackRangeX || _playerDistance.getY() < -_attackRangeY || _playerDistance.getY() > _attackRangeY;
 

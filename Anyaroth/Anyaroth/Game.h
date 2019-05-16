@@ -76,8 +76,8 @@ public:
 
 	void run();
 	void start();
-	void updateWorld(const float& timeStep, const int& velocityIterations, const int& positionIterations);
-	void update(const double& deltaTime);
+	void updateWorld(float timeStep, int velocityIterations, int positionIterations);
+	void update(double deltaTime);
 	void render() const;
 	void handleEvents();
 

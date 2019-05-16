@@ -28,7 +28,7 @@ Particle::~Particle()
 {
 }
 
-void Particle::init(Texture * texture, const Vector2D & position, const double & speed, const double & angle, const double & aliveTime)
+void Particle::init(Texture * texture, const Vector2D & position, double speed, double angle, double aliveTime)
 {
 
 	_iniPos = position;
@@ -58,7 +58,7 @@ void Particle::init(Texture * texture, const Vector2D & position, const double &
 	setActive(true);
 }
 
-void Particle::update(const double & deltaTime)
+void Particle::update(double deltaTime)
 {
 	GameObject::update(deltaTime);
 	if (isActive()) {

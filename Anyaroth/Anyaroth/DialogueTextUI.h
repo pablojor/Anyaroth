@@ -21,7 +21,7 @@ public:
 	DialogueTextUI(Game* game, string text, Font* font, uint fontSize = 12, int xPos = 0, int yPos = 0, SDL_Color color = { 0, 0, 0, 255 });
 	virtual ~DialogueTextUI();
 
-	virtual void update(const double& deltaTime);
+	virtual void update(double deltaTime);
 
 	void type(string text);
 
@@ -29,7 +29,7 @@ public:
 
 	inline bool textTyped() const { return _textTyped; }
 
-	inline void setTextTyped(const bool& b) { _textTyped = b; }
+	inline void setTextTyped(bool b) { _textTyped = b; }
 	void completeLine();
 };
 

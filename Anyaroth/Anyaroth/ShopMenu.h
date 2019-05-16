@@ -44,7 +44,7 @@ class ShopMenu : public PanelUI
 		ShopMenu(Game* game);
 		~ShopMenu();
 
-		virtual void update(const double& deltaTime);
+		virtual void update(double deltaTime);
 		virtual bool handleEvent(const SDL_Event& event);
 
 		void setPlayer(Player* ply);

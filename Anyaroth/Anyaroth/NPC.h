@@ -12,7 +12,7 @@ public:
 	NPC(Game* g, Texture* texture, Vector2D pos, Dialogue dialogue);
 	virtual ~NPC();
 
-	virtual void update(const double& time);
+	virtual void update(double time);
 	virtual bool interact();
 
 	void setDialoguePanel(DialoguePanel* dialoguePanel);

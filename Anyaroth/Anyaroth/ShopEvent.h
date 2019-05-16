@@ -10,6 +10,6 @@ private:
 public:
 	ShopEvent(ShopMenu* shop) : _shop(shop) {}
 
-	virtual void update(const double& time);
+	virtual void update(double time);
 	virtual void play();
 };

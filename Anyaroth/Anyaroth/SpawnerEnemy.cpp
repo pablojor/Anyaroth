@@ -30,7 +30,7 @@ void SpawnerEnemy::move()
 	_body->getBody()->SetLinearVelocity({ _speed*(float32)_dir.getX(), _body->getBody()->GetLinearVelocity().y });
 }
 
-void SpawnerEnemy::update(const double& deltaTime)
+void SpawnerEnemy::update(double deltaTime)
 {
 	Enemy::update(deltaTime);
 

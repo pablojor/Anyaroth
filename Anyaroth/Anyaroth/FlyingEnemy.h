@@ -11,7 +11,7 @@ public:
 	FlyingEnemy(Game* g, Player* player, Vector2D pos);
 	virtual ~FlyingEnemy() {}
 
-	void sinusoidalMove(const double& deltaTime);
-	virtual void update(const double& deltaTime);
+	void sinusoidalMove(double deltaTime);
+	virtual void update(double deltaTime);
 	virtual void beginCollision(GameObject * other, b2Contact* contact);
 };

@@ -32,7 +32,7 @@ public:
 	CutScene(Player* player);
 	virtual ~CutScene();
 
-	virtual void update(const double& deltaTime);
+	virtual void update(double deltaTime);
 
 	void play();
 

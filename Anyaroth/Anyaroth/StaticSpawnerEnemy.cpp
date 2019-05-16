@@ -22,7 +22,7 @@ StaticSpawnerEnemy::StaticSpawnerEnemy(Game * g, Player * player, Vector2D pos) 
 	_anim->playAnim(AnimatedSpriteComponent::EnemyIdle);
 }
 
-void StaticSpawnerEnemy::update(const double& deltaTime)
+void StaticSpawnerEnemy::update(double deltaTime)
 {
 	Enemy::update(deltaTime);
 

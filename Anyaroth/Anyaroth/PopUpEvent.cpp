@@ -2,7 +2,7 @@
 #include "GameManager.h"
 #include "LevelManager.h"
 
-void PopUpEvent::update(const double & time)
+void PopUpEvent::update(double time)
 {
 	if (_popUpPanel->isFinished())
 		_finished = true;

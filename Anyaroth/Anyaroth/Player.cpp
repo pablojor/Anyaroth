@@ -366,7 +366,7 @@ bool Player::handleEvent(const SDL_Event& event)
 	return false;
 }
 
-void Player::update(const double& deltaTime)
+void Player::update(double deltaTime)
 {
 	const Uint8* keyboard = SDL_GetKeyboardState(NULL);
 
@@ -580,7 +580,7 @@ void Player::handleAnimations()
 	}
 }
 
-void Player::refreshCooldowns(const double& deltaTime)
+void Player::refreshCooldowns(double deltaTime)
 {
 	refreshDashCoolDown(deltaTime);
 	refreshGunCadence(deltaTime);
@@ -591,7 +591,7 @@ void Player::refreshCooldowns(const double& deltaTime)
 	_runningSpawnParticle -= deltaTime;
 }
 
-void Player::refreshDashCoolDown(const double& deltaTime)
+void Player::refreshDashCoolDown(double deltaTime)
 {
 	if (!_dashEnabled) 
 	{
@@ -605,7 +605,7 @@ void Player::refreshDashCoolDown(const double& deltaTime)
 	}
 }
 
-void Player::dashTimer(const double & deltaTime)
+void Player::dashTimer(double deltaTime)
 {
 	if (_onDash)
 	{
@@ -648,7 +648,7 @@ void Player::dashTimer(const double & deltaTime)
 	}
 }
 
-void Player::refreshGunCadence(const double& deltaTime)
+void Player::refreshGunCadence(double deltaTime)
 {
 	_currentGun->refreshGunCadence(deltaTime);
 
@@ -656,7 +656,7 @@ void Player::refreshGunCadence(const double& deltaTime)
 		_otherGun->refreshGunCadence(deltaTime);
 }
 
-void Player::refreshStunTime(const double & deltaTime)
+void Player::refreshStunTime(double deltaTime)
 {
 	if (_stunned)
 	{
@@ -671,7 +671,7 @@ void Player::refreshStunTime(const double & deltaTime)
 	}
 }
 
-void Player::move(const Vector2D& dir, const double& speed)
+void Player::move(const Vector2D& dir, double speed)
 {
 	if (abs(_body->getBody()->GetLinearVelocity().x) < speed || dir.getX() == 0)
 		_body->getBody()->ApplyLinearImpulseToCenter(b2Vec2(dir.getX() * speed, 0), true);

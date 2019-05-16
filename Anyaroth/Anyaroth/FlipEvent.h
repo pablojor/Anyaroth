@@ -10,6 +10,6 @@ private:
 public:
 	FlipEvent(Player* player) : _player(player) {}
 
-	virtual void update(const double& deltaTime) {}
+	virtual void update(double deltaTime) {}
 	virtual void play();
 };

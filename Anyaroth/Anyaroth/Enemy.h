@@ -37,7 +37,7 @@ public:
 	virtual ~Enemy() {}
 
 	virtual void beginCollision(GameObject* other, b2Contact* contact);
-	virtual void update(const double& deltaTime);
+	virtual void update(double deltaTime);
 
 	inline void stopAttacking() { _attacking = false; }
 

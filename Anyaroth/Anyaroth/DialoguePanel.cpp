@@ -264,7 +264,7 @@ void DialoguePanel::completeLines()
 	_linesTyped = _lines;
 }
 
-void DialoguePanel::update(const double& deltaTime)
+void DialoguePanel::update(double deltaTime)
 {
 	PanelUI::update(deltaTime);
 

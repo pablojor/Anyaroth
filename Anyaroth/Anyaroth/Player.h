@@ -75,12 +75,12 @@ private:
 
 	void handleAnimations();
 
-	void refreshCooldowns(const double& deltaTime);
-	void refreshDashCoolDown(const double& deltaTime);
+	void refreshCooldowns(double deltaTime);
+	void refreshDashCoolDown(double deltaTime);
 
-	void dashTimer(const double& deltaTime);
+	void dashTimer(double deltaTime);
 
-	void refreshGunCadence(const double& deltaTime);
+	void refreshGunCadence(double deltaTime);
 	bool canReload();
 
 	void checkMelee();
@@ -90,7 +90,7 @@ public:
 	~Player();
 
 	bool handleEvent(const SDL_Event& event);
-	void update(const double& deltaTime);
+	void update(double deltaTime);
 
 	virtual void beginCollision(GameObject* other, b2Contact* contact);
 	virtual void endCollision(GameObject* other, b2Contact* contact);
@@ -124,14 +124,14 @@ public:
 	inline int getBank() const { return _money->getBank(); }
 	inline void setBank(int amount) { _money->setBank(amount); }
 
-	void move(const Vector2D& dir, const double& speed);
+	void move(const Vector2D& dir, double speed);
 	void dash(const Vector2D& dir);
 
 	void dashOff();
 	void jump();
 	void cancelJump();
 	void stunPlayer();
-	void refreshStunTime(const double & deltaTime);
+	void refreshStunTime(double deltaTime);
 	inline bool isGrounded() const { return _floorCount; }
 
 	void melee();
@@ -151,7 +151,7 @@ public:
 
 	inline bool isDashing() const { return _onDash; }
 	inline bool isReloading() const { return _playerArm->isReloading(); }
-	inline void setIsReloading(const bool& b) { _hasToReload = b; }
+	inline void setIsReloading(bool b) { _hasToReload = b; }
 	inline bool isMeleeing() const { return (_anim->getCurrentAnim() == AnimatedSpriteComponent::MeleeKnife || _anim->getCurrentAnim() == AnimatedSpriteComponent::MeleeSword || _anim->getCurrentAnim() == AnimatedSpriteComponent::MeleeHalberd) && !_anim->animationFinished(); }
 	inline bool isJumping() const { return (_anim->getCurrentAnim() == AnimatedSpriteComponent::BeforeJump || _anim->getCurrentAnim() == AnimatedSpriteComponent::Jump) && !_anim->animationFinished(); }
 	inline bool isFalling() const { return (_anim->getCurrentAnim() == AnimatedSpriteComponent::Falling || _anim->getCurrentAnim() == AnimatedSpriteComponent::StartFalling) && !_anim->animationFinished(); }

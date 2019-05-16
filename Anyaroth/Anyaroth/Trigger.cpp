@@ -21,7 +21,7 @@ Trigger::~Trigger()
 	_onTriggerUpdate = nullptr;
 }
 
-void Trigger::update(const double & deltaTime)
+void Trigger::update(double deltaTime)
 {
 	_body->getBody()->SetAwake(true);
 	GameObject::update(deltaTime);

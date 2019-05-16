@@ -14,7 +14,7 @@ public:
 	virtual ~UIElement() {}
 
 	virtual void render() const = 0;
-	virtual void update(const double& deltaTime) = 0;
+	virtual void update(double deltaTime) = 0;
 	virtual bool handleEvent(const SDL_Event& event) = 0;
 
 	inline bool isVisible() const { return _visible; }

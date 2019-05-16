@@ -44,7 +44,7 @@ bool GameObject::handleEvent(const SDL_Event& event)
 	return handled;
 }
 
-void GameObject::update(const double& deltaTime)
+void GameObject::update(double deltaTime)
 {
 	for (PhysicsComponent* pc : _physicsComp)
 		pc->update(deltaTime);

@@ -10,6 +10,6 @@ public:
 	TutorialBullsEye(Game* g, Player* player, Vector2D pos);
 	virtual ~TutorialBullsEye() {}
 
-	virtual void update(const double& deltaTime);
+	virtual void update(double deltaTime);
 	virtual void beginCollision(GameObject* other, b2Contact* contact);
 };

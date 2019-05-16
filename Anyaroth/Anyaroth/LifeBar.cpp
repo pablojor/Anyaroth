@@ -6,7 +6,7 @@ LifeBar::LifeBar(Game* game, string textName, int xPos, int yPos) : ImageUI(game
 	_image->setColor(77, 77, 77);
 }
 
-void LifeBar::updateLifeBar(const int& life, const int& maxLife)
+void LifeBar::updateLifeBar(int life, int maxLife)
 {
 	if (inUse)
 	{

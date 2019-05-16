@@ -33,7 +33,7 @@ class AnimatedImageUI : public FramedImageUI
 		~AnimatedImageUI();
 
 		virtual void render() const;
-		virtual void update(const double& deltaTime);
+		virtual void update(double deltaTime);
 
 		void addAnim(uint name, uint numFrames, bool loop = false, uint lapse = 60);
 		void playAnim(uint name);

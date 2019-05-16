@@ -44,7 +44,7 @@ DistanceStaticEnemy::DistanceStaticEnemy(Game* g, Player* player, Vector2D pos, 
 	_affectedByExternalForces = false;
 }
 
-void DistanceStaticEnemy::update(const double& deltaTime)
+void DistanceStaticEnemy::update(double deltaTime)
 {
 	DistanceEnemy::update(deltaTime);
 	_body->getBody()->SetAwake(true);

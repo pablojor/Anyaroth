@@ -77,7 +77,7 @@ Boss2::Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, 
 	addSensors();
 }
 
-void Boss2::update(const double & deltaTime)
+void Boss2::update(double deltaTime)
 {
 	if (_game->getCurrentState()->getCutScene() == nullptr)
 	{
@@ -130,7 +130,7 @@ void Boss2::endJump()
 	_actualState = Moving;
 }
 
-void Boss2::checkJump(const double& deltaTime)
+void Boss2::checkJump(double deltaTime)
 {
 	if (!_jump)
 	{
@@ -147,7 +147,7 @@ void Boss2::checkJump(const double& deltaTime)
 		endJump();
 }
 
-void Boss2::movement(const double& deltaTime)
+void Boss2::movement(double deltaTime)
 {
 	if (_actualFase != BetweenFase)
 	{
@@ -256,7 +256,7 @@ void Boss2::meleeAttack()
 	_game->getSoundManager()->playSFX("boss2Melee");
 }
 
-void Boss2::checkMelee(const double& deltaTime)
+void Boss2::checkMelee(double deltaTime)
 {
 	if (_melee != nullptr)
 	{
@@ -303,7 +303,7 @@ void Boss2::checkMelee(const double& deltaTime)
 	}
 }
 
-void Boss2::fase1(const double& deltaTime)
+void Boss2::fase1(double deltaTime)
 {
 	if (_actualState != Shooting)
 	{
@@ -365,12 +365,12 @@ void Boss2::fase1(const double& deltaTime)
 	}
 }
 
-void Boss2::fase2(const double& deltaTime)
+void Boss2::fase2(double deltaTime)
 {
 	fase1(deltaTime);
 }
 
-void Boss2::fase3(const double& deltaTime)
+void Boss2::fase3(double deltaTime)
 {
 	if (_actualState != Jumping)
 	{
@@ -437,7 +437,7 @@ void Boss2::fase3(const double& deltaTime)
 		checkJump(deltaTime);
 }
 
-void Boss2::beetwenFases(const double& deltaTime)
+void Boss2::beetwenFases(double deltaTime)
 {
 	if (_anim->animationFinished() || _life3.getLife() == 0)
 	{

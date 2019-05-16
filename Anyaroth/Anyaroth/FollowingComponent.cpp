@@ -12,7 +12,7 @@ FollowingComponent::FollowingComponent(GameObject* obj, GameObject* other) : Phy
 	_offset = {0,0};
 }
 
-void FollowingComponent::update(const double& deltaTime)
+void FollowingComponent::update(double deltaTime)
 {
 	double x = _transformOther->getPosition().getX() + _offset.getX();
 	double y = _transformOther->getPosition().getY() + _offset.getY();

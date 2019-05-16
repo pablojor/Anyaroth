@@ -29,7 +29,7 @@ MeleeEnemy::MeleeEnemy(Game* g, Player* player, Vector2D pos) : GroundEnemy(g, p
 	addSensors();
 }
 
-void MeleeEnemy::update(const double& deltaTime)
+void MeleeEnemy::update(double deltaTime)
 {
 	Enemy::update(deltaTime);
 
@@ -65,7 +65,7 @@ void MeleeEnemy::idle()
 	GroundEnemy::idle();
 }
 
-void MeleeEnemy::attacking(const double& deltaTime)
+void MeleeEnemy::attacking(double deltaTime)
 {
 	bool attackRangeLeft = _playerDistance.getX() < 0 && _playerDistance.getX() > -_attackRangeX;
 	bool attackRangeRight = _playerDistance.getX() > 0 && _playerDistance.getX() < _attackRangeX;

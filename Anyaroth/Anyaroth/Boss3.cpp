@@ -136,7 +136,7 @@ Boss3::~Boss3()
 	delete _otherGun;
 }
 
-void Boss3::update(const double & deltaTime)
+void Boss3::update(double deltaTime)
 {
 	if (_game->getCurrentState()->getCutScene() == nullptr)
 	{
@@ -177,7 +177,7 @@ void Boss3::update(const double & deltaTime)
 	}
 }
 
-void Boss3::movement(const double& deltaTime)
+void Boss3::movement(double deltaTime)
 {
 	if (_actualState == Moving)
 	{
@@ -216,7 +216,7 @@ void Boss3::movement(const double& deltaTime)
 	}
 }
 
-void Boss3::fase1(const double & deltaTime)
+void Boss3::fase1(double deltaTime)
 {
 	_actualState = Idle;
 	int aliveEnemies = 0;
@@ -277,7 +277,7 @@ void Boss3::fase1(const double & deltaTime)
 	}
 }
 
-void Boss3::fase2(const double& deltaTime)
+void Boss3::fase2(double deltaTime)
 {
 	if (_actualState == Shooting)
 		circularShoot(deltaTime);
@@ -344,7 +344,7 @@ void Boss3::fase2(const double& deltaTime)
 	}
 }
 
-void Boss3::fase3(const double & deltaTime)
+void Boss3::fase3(double deltaTime)
 {
 	checkDash(deltaTime);
 
@@ -395,7 +395,7 @@ void Boss3::fase3(const double & deltaTime)
 	}
 }
 
-void Boss3::beetwenFases(const double& deltaTime)
+void Boss3::beetwenFases(double deltaTime)
 {
 	if (_lastFase == Fase1)
 	{
@@ -475,7 +475,7 @@ void Boss3::subLife(int damage)
 	}
 }
 
-void Boss3::portalAttack(const double& deltaTime)
+void Boss3::portalAttack(double deltaTime)
 {
 	if (_anim->getCurrentAnim() == AnimatedSpriteComponent::AngraDisappear && _anim->animationFinished())
 	{
@@ -534,7 +534,7 @@ void Boss3::portalAttack(const double& deltaTime)
 	}
 }
 
-void Boss3::circularShoot(const double& deltaTime)
+void Boss3::circularShoot(double deltaTime)
 {
 	_bodyPos = Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL);
 	_armVision = false;

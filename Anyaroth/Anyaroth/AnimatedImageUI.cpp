@@ -19,7 +19,7 @@ void AnimatedImageUI::render() const
 	}
 }
 
-void AnimatedImageUI::update(const double& deltaTime)
+void AnimatedImageUI::update(double deltaTime)
 {
 	_timer += deltaTime;
 

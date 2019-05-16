@@ -13,10 +13,10 @@ public:
 	virtual ~SpawnerEnemy() {}
 
 	void move();
-	virtual void dropCapsule(const double& deltaTime) {};
+	virtual void dropCapsule(double deltaTime) {};
 
 	int deadEnemies();
-	virtual void update(const double& deltaTime);
+	virtual void update(double deltaTime);
 	virtual void subLife(int damage);
 
 	virtual void beginCollision(GameObject* other, b2Contact* contact);

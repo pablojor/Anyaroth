@@ -1,6 +1,6 @@
 #include "DialogueEvent.h"
 
-void DialogueEvent::update(const double& time)
+void DialogueEvent::update(double time)
 {
 	if (_dialoguePanel->conversationRealEnd())
 		_finished = true;

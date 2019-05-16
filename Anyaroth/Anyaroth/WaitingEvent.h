@@ -9,6 +9,6 @@ private:
 public:
 	WaitingEvent(int time) : _time(time) {}
 
-	virtual void update(const double& time);
+	virtual void update(double time);
 	virtual void play() {}
 };

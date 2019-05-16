@@ -35,7 +35,7 @@ Capsule::Capsule(Game* g, Player* player, Vector2D pos, Enemy* father) : GameObj
 	_body->addFixture(&fDef, this);
 }
 
-void Capsule::update(const double& deltaTime)
+void Capsule::update(double deltaTime)
 {
 	GameObject::update(deltaTime);
 	if (_anim->getCurrentAnim() == AnimatedSpriteComponent::CapsuleSpawn && _anim->animationFinished())

@@ -25,7 +25,7 @@ MissileTurret::MissileTurret(Game* g, Boss1* boss, Vector2D pos, int activeFase)
 	_interactIndicator->getComponent<TransformComponent>()->setPosition(pos.getX() + (missileTexture->getW() / missileTexture->getNumCols()) / 2 - (_indicatorTexture->getW() / _indicatorTexture->getNumCols()) / 2, pos.getY() - 30);
 }
 
-void MissileTurret::update(const double & deltaTime)
+void MissileTurret::update(double deltaTime)
 {
 	Interactable::update(deltaTime);
 

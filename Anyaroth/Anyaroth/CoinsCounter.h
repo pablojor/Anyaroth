@@ -13,5 +13,5 @@ public:
 	CoinsCounter(Game* game, int xPos, int yPos);
 	~CoinsCounter() {}
 
-	void updateCoinsCounter(const int& cant);
+	void updateCoinsCounter(int cant);
 };

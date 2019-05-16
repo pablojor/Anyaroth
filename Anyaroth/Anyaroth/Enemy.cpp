@@ -57,7 +57,7 @@ void Enemy::beginCollision(GameObject * other, b2Contact* contact)
 		die();
 }
 
-void Enemy::update(const double& deltaTime)
+void Enemy::update(double deltaTime)
 {
 	GameObject::update(deltaTime);
 

@@ -24,14 +24,14 @@ class PlayerPanel : public PanelUI
 		PlayerPanel(Game* game);
 		~PlayerPanel() {}
 
-		void updateLifeBar(const int& life, const int& maxLife);
-		inline void updateAmmoViewer(const int& clip, const int& magazine) { _ammoViewer->updateAmmoViewer(clip, magazine); }
-		inline void updateCoinsCounter(const int& cant) { _coinsCounter->updateCoinsCounter(cant); }
+		void updateLifeBar(int life, int maxLife);
+		inline void updateAmmoViewer(int clip, int magazine) { _ammoViewer->updateAmmoViewer(clip, magazine); }
+		inline void updateCoinsCounter(int cant) { _coinsCounter->updateCoinsCounter(cant); }
 		inline void updateWeaponryViewer(Texture* iconTex) { _weaponryViewer->updateWeaponryViewer(iconTex); }
 		inline void updateDashViewer(const uint& n) { _dashViewer->createAnims(n); }
 
 		inline void startAnimDashCD() { _dashViewer->startAnimCD(); }
 		inline void resetDashViewer() { _dashViewer->reset(); }
 
-		inline void showDeathText(const bool& show) { _deathText->setVisible(show); }
+		inline void showDeathText(bool show) { _deathText->setVisible(show); }
 };

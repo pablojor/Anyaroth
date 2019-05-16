@@ -33,7 +33,7 @@ class ShopInfoPanel : public PanelUI
 	public:
 		ShopInfoPanel(Game* game, int xPos, int yPos);
 
-		virtual void update(const double& deltaTime);
+		virtual void update(double deltaTime);
 
 		void openInfoPanel();
 		void closeInfoPanel();

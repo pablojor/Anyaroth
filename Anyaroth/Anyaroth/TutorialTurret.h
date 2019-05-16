@@ -9,5 +9,5 @@ public:
 
 	virtual void beginCollision(GameObject* other, b2Contact* contact);
 	virtual void shoot();
-	virtual void update(const double& deltaTime);
+	virtual void update(double deltaTime);
 };

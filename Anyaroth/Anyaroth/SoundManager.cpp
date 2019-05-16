@@ -65,7 +65,7 @@ void SoundManager::playSFX(const string& name, int channel)
 		cout << "Imposible reproducir, no existe el SFX con nombre: " << name << endl;
 }
 
-void SoundManager::playMusic(const string& name, const bool& loops)
+void SoundManager::playMusic(const string& name, bool loops)
 {
 	if (_music.find(name) != _music.end())
 		Mix_PlayMusic(_music[name], loops ? -1 : 0);
@@ -110,27 +110,27 @@ int SoundManager::getMusicVolume() const
 	return Mix_VolumeMusic(-1);
 }
 
-int SoundManager::getChannelVolume(const int& channel) const
+int SoundManager::getChannelVolume(int channel) const
 {
 	return Mix_Volume(channel, -1);
 }
 
-void SoundManager::setGeneralVolume(const float& volumeRatio)
+void SoundManager::setGeneralVolume(float volumeRatio)
 {
 	Mix_Volume(-1, MIX_MAX_VOLUME * volumeRatio);
 }
 
-void SoundManager::setChannelVolume(const int& channel, const float& volumeRatio)
+void SoundManager::setChannelVolume(int channel, float volumeRatio)
 {
 	Mix_Volume(channel, MIX_MAX_VOLUME * volumeRatio);
 }
 
-void SoundManager::setMusicVolume(const float& volumeRatio)
+void SoundManager::setMusicVolume(float volumeRatio)
 {
 	Mix_VolumeMusic(MIX_MAX_VOLUME * volumeRatio);
 }
 
-void SoundManager::setSFXVolume(const string& name, const float& volumeRatio)
+void SoundManager::setSFXVolume(const string& name, float volumeRatio)
 {
 	Mix_VolumeChunk(_soundFX[name], MIX_MAX_VOLUME * volumeRatio);
 }

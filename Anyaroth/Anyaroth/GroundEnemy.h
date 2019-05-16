@@ -17,7 +17,7 @@ public:
 	virtual void idle();
 	virtual void moving(Vector2D& dir);
 	virtual void attack();
-	virtual void attacking(const double& deltaTime) = 0;
+	virtual void attacking(double deltaTime) = 0;
 
 	inline bool isStopped() const { return _stopped; }
 	inline void setStopped(bool value) { _stopped = value; }
