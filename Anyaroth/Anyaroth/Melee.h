@@ -16,7 +16,7 @@ public:
 	Melee(Game* g, Vector2D offset, Uint16 collidesWith, double damage, double w, double h, MeleeType id);
 	virtual ~Melee() {}
 
-	virtual void update(const double& deltaTime) {}
+	virtual void update(double deltaTime) {}
 	virtual void meleeAttack(double x, double y, int dir);
 
 	inline int getDamage() const { return _damage; }

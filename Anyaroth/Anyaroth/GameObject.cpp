@@ -32,14 +32,19 @@ bool GameObject::handleEvent(const SDL_Event& event)
 		ic->handleEvent(event);
 
 	//Llama al handleEvent de los hijos
-	for (GameObject* child : _children)
-		if (child->isActive())
-			child->handleEvent(event);
+	bool handled = false;
+	auto it = _children.begin();
+	while (!handled && it != _children.end())
+	{
+		if ((*it)->isActive())
+			handled = (*it)->handleEvent(event);
+		if(!handled) it++;
+	}
 
-	return false;
+	return handled;
 }
 
-void GameObject::update(const double& deltaTime)
+void GameObject::update(double deltaTime)
 {
 	for (PhysicsComponent* pc : _physicsComp)
 		pc->update(deltaTime);

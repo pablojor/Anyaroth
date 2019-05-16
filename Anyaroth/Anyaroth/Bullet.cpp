@@ -42,7 +42,7 @@ void Bullet::endCollision(GameObject * other, b2Contact* contact)
 		_effect->endCollision(this, other, contact);
 }
 
-void Bullet::init(Texture* texture, const Vector2D& position, const double& speed, const double& damage, const double& angle, const double& range, const string& tag, EffectInterface* effect, BulletAnimType type)
+void Bullet::init(Texture* texture, const Vector2D& position, double speed, double damage, double angle, double range, const string& tag, EffectInterface* effect, BulletAnimType type)
 {
 	setTag(tag);
 
@@ -72,7 +72,7 @@ void Bullet::init(Texture* texture, const Vector2D& position, const double& spee
 	setActive(true);
 }
 
-void Bullet::update(const double& deltaTime)
+void Bullet::update(double deltaTime)
 {
 	if (isActive() && _effect != nullptr)
 		_effect->update(this, deltaTime);

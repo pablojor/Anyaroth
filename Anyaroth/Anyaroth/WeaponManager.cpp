@@ -50,8 +50,6 @@ void WeaponManager::init()
 		}
 		file.close();
 	}
-	else
-		cout << "Error al cargar " << INFO_PATH << "weapon_info.json" << endl;
 }
 
 WeaponManager * WeaponManager::getInstance()

@@ -27,7 +27,7 @@ BossPanel::BossPanel(Game * game) : PanelUI(game)
 	setVisible(false);
 }
 
-void BossPanel::updateLifeBar(const int& life1, const int& life2, const int& life3, const int& maxLife)
+void BossPanel::updateLifeBar(int life1, int life2, int life3, int maxLife)
 {
 	if (life1 > 0)
 	{

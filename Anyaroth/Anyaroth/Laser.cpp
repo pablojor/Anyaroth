@@ -15,7 +15,8 @@ Laser::Laser(Game* g, Vector2D pos, Texture* texture, Player* player, double dam
 
 	setActive(false);
 }
-void Laser::update(const double& deltaTime)
+
+void Laser::update(double deltaTime)
 {
 	if (isActive())
 	{
@@ -35,8 +36,8 @@ void Laser::update(const double& deltaTime)
 void Laser::Shoot()
 {
 	_anim->playAnim(AnimatedSpriteComponent::LaserShooting);
-
 	b2Vec2 _pos = b2Vec2(_transform->getPosition().getX() / M_TO_PIXEL, _transform->getPosition().getY() / M_TO_PIXEL);
+
 	if (_body == nullptr)
 	{
 		_body = addComponent<BodyComponent>();
@@ -46,7 +47,7 @@ void Laser::Shoot()
 
 		_body->getBody()->GetFixtureList()->SetSensor(true);
 
-		_body->getBody()->SetTransform(_pos, _angle*M_PI/180);	
+		_body->getBody()->SetTransform(_pos, _angle*M_PI / 180);
 	}
 	else
 	{
@@ -59,6 +60,7 @@ void Laser::PreShoot(double angle)
 {
 	_anim->playAnim(AnimatedSpriteComponent::LaserWarning); 
 	setActive(true); 
+
 	_transform->setRotation(angle);
 	_angle = angle;
 }
@@ -66,9 +68,7 @@ void Laser::PreShoot(double angle)
 void Laser::Stop()
 {
 	setActive(false);
-
 	_body->getBody()->SetActive(false);
-	
 }
 
 void Laser::beginCollision(GameObject* other, b2Contact* contact)

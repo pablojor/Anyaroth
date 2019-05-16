@@ -554,6 +554,9 @@ Section Uninstall
   RMDir "$INSTDIR\assets\sprites"
   RMDir "$INSTDIR\assets\sounds"
   RMDir "$INSTDIR\assets\fonts"
+  RMDir "$INSTDIR\assets"
+  RMDir "$INSTDIR\files"
+  RMDir "$INSTDIR"
 
   DeleteRegKey ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}"
   DeleteRegKey HKLM "${PRODUCT_DIR_REGKEY}"

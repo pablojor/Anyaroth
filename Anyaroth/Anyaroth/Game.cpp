@@ -25,7 +25,7 @@ void Game::createTextures()
 			fil = j[i][2];
 			col = j[i][3];
 
-			_textures.insert(pair <string, Texture*>(id, new Texture(_renderer, SPRITE_PATH + name, fil, col)));
+			_textures.insert(pair <string, Texture*>(id, new Texture(_renderer, SPRITES_PATH + name, fil, col)));
 		}
 	}
 	else
@@ -178,7 +178,7 @@ Game::Game()
 	SDL_RenderSetLogicalSize(_renderer, GAME_RESOLUTION_X, GAME_RESOLUTION_Y);
 
 	//Icon
-	SDL_Surface* icon = IMG_Load((SPRITE_PATH + "icon.png").c_str());
+	SDL_Surface* icon = IMG_Load((SPRITES_PATH + "icon.png").c_str());
 	SDL_SetWindowIcon(_window, icon);
 
 	//Show cursor
@@ -197,6 +197,7 @@ Game::Game()
 	initialiseJoysticks();
 	//---Create states
 	_stateMachine->pushState(new MenuState(this));
+	toggleFullscreen();
 }
 
 Game::~Game()
@@ -237,7 +238,7 @@ void Game::run()
 		start();
 		handleEvents();
 
-		while (lag >= FRAME_RATE)
+		while (lag >= FRAME_RATE && !_stateMachine->currentState()->hasToStart())
 		{
 			updateWorld(_timestep, 8, 3);
 			update(FRAME_RATE);
@@ -256,12 +257,12 @@ void Game::start()
 	}
 }
 
-void Game::updateWorld(const float & timeStep, const int & velocityIterations, const int & positionIterations)
+void Game::updateWorld(float timeStep, int velocityIterations, int positionIterations)
 {
 	_stateMachine->currentState()->updateWorld(timeStep, velocityIterations, positionIterations);
 }
 
-void Game::update(const double& deltaTime)
+void Game::update(double deltaTime)
 {
 	_stateMachine->currentState()->update(deltaTime);
 	_stateMachine->currentState()->post_update();
@@ -271,7 +272,7 @@ void Game::render() const
 {
 	SDL_RenderClear(_renderer);
 	_stateMachine->currentState()->render();
-	//_stateMachine->currentState()->getWorld()->DrawDebugData();
+	_stateMachine->currentState()->getWorld()->DrawDebugData();
 	SDL_RenderPresent(_renderer);
 }
 

@@ -14,8 +14,8 @@ class Boss3Panel : public PanelUI
 		Boss3Panel(Game* game);
 		~Boss3Panel() {}
 
-		void updateLifeBar(const int& life, const int& maxLife);
-		void resetLifeBar(const int& life, const int& maxLife);
+		void updateLifeBar(int life, int maxLife);
+		void resetLifeBar(int life, int maxLife);
 		void updateBossName(const string& name);
 };
 

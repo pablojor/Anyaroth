@@ -16,6 +16,6 @@ public:
 	BossPanel(Game* game);
 	~BossPanel() {}
 
-	void updateLifeBar(const int& life1, const int& life2, const int& life3, const int& maxLife);
+	void updateLifeBar(int life1, int life2, int life3, int maxLife);
 	void updateBossName(const string& name);
 };

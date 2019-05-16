@@ -30,7 +30,7 @@ public:
 	void pauseAllSFX();						//en un futuro.
 	void stopAllSFX();*/
 
-	void playMusic(const string& name, const bool& loops = false);
+	void playMusic(const string& name, bool loops = false);
 	void resumeMusic();
 	void pauseMusic();
 	void stopMusic();
@@ -40,9 +40,9 @@ public:
 
 	int getGeneralVolume() const;
 	int getMusicVolume() const;
-	int getChannelVolume(const int& channel) const;
-	void setGeneralVolume(const float& volumeRatio);
-	void setChannelVolume(const int& channel, const float& volumeRatio);
-	void setMusicVolume(const float& volumeRatio);
-	void setSFXVolume(const string& name, const float& volumeRatio);
+	int getChannelVolume(int channel) const;
+	void setGeneralVolume(float volumeRatio);
+	void setChannelVolume(int channel, float volumeRatio);
+	void setMusicVolume(float volumeRatio);
+	void setSFXVolume(const string& name, float volumeRatio);
 };

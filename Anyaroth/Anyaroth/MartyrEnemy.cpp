@@ -2,14 +2,15 @@
 #include "GameObject.h"
 #include "AnimatedSpriteComponent.h"
 #include "Player.h"
+#include "GameManager.h"
 #include "BodyComponent.h"
 
 MartyrEnemy::MartyrEnemy(Game* g, Player* player, Vector2D pos) : GroundEnemy(g, player, pos, g->getTexture("EnemyMartyr")), Enemy(g, player, pos, g->getTexture("EnemyMartyr"), "martyrDie","martyrHit", "martyrMeleeHit")
 {
 	_vision = 300;
-	_life = 30;
+	_life = 25;
 	_damage = 35;
-	_speed = 20;
+	_speed = 12;
 	_attackRangeX = 25; //No se puede poner mas pequeño que la velocidad
 	_attackRangeY = 20;
 	_attackTime = 850;
@@ -26,24 +27,24 @@ MartyrEnemy::MartyrEnemy(Game* g, Player* player, Vector2D pos) : GroundEnemy(g,
 
 	_body->setW(25);
 	_body->setH(15);
+
 	_body->moveShape(b2Vec2(0.3, _body->getH() + 0.1));
 	_body->filterCollisions(ENEMIES, FLOOR | PLATFORMS | PLAYER_BULLETS | MELEE);
-
 	_body->addCricleShape(b2Vec2(0.4, _body->getH() + _body->getH() * 2 / 3), _body->getH() + _body->getH() / 3, ENEMIES, FLOOR | PLATFORMS);
 
 	addSensors();
 }
 
-void MartyrEnemy::update(const double& deltaTime)
+void MartyrEnemy::update(double deltaTime)
 {
 	Enemy::update(deltaTime);
 
-	if (!isStunned() && !isDead() && inCamera())
+	if (!isStunned() && !isDead() && (inCamera() || GameManager::getInstance()->getCurrentLevel() == LevelManager::Boss3))
 	{
 		bool inVision = _playerDistance.getX() < _vision && _playerDistance.getX() > -_vision && _playerDistance.getY() < _vision && _playerDistance.getY() > -_vision;
 		bool sameFloor = _playerDistance.getY() < _attackRangeY && _playerDistance.getY() > -_attackRangeY;
 
-		if (!_attacking && inVision)
+		if (!_attacking && (inVision || GameManager::getInstance()->getCurrentLevel() == LevelManager::Boss3))
 		{
 			if (abs(_playerDistance.getX()) > 0)
 			{
@@ -72,7 +73,7 @@ void MartyrEnemy::explosionDie()
 	_game->getSoundManager()->playSFX("martyrExplosion");
 }
 
-void MartyrEnemy::attacking(const double& deltaTime)
+void MartyrEnemy::attacking(double deltaTime)
 {
 	bool maxRange = _playerDistance.getX() < _explosionRange && _playerDistance.getX() > -_explosionRange && _playerDistance.getY() < _explosionRange && _playerDistance.getY() > -_explosionRange;
 	bool midleRange = _playerDistance.getX() < _explosionRange / 2 && _playerDistance.getX() > -_explosionRange / 2 && _playerDistance.getY() < _explosionRange / 2 && _playerDistance.getY() > -_explosionRange / 2;

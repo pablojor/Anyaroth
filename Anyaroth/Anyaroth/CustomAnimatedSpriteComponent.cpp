@@ -17,7 +17,7 @@ void CustomAnimatedSpriteComponent::render(Camera * c) const
 		_texture->setColor(255, 255, 255);
 }
 
-void CustomAnimatedSpriteComponent::update(const double & deltaTime)
+void CustomAnimatedSpriteComponent::update(double deltaTime)
 {
 	AnimatedSpriteComponent::update(deltaTime);
 	if (state == Hurt) 

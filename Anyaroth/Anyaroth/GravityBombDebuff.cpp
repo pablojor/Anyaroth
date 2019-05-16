@@ -37,7 +37,7 @@ void GravityBombDebuff::stop()
 	}
 }
 
-void GravityBombDebuff::update(const double& deltaTime)
+void GravityBombDebuff::update(double deltaTime)
 {
 	if (_active && _obj->isActive())
 	{

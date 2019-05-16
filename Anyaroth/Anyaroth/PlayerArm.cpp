@@ -8,7 +8,7 @@ PlayerArm::PlayerArm(Game* game, Player* player, Vector2D offset) : Arm(game, pl
 	setTexture(game->getTexture("Arm"));
 }
 
-void PlayerArm::update(const double& deltaTime)
+void PlayerArm::update(double deltaTime)
 {
 	GameObject::update(deltaTime);
 

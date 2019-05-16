@@ -11,7 +11,7 @@ void DashViewer::createAnims(const uint& lapse)
 	playAnim(DashAnimations::Icon);
 }
 
-void DashViewer::update(const double& deltaTime)
+void DashViewer::update(double deltaTime)
 {
 	AnimatedImageUI::update(deltaTime);
 

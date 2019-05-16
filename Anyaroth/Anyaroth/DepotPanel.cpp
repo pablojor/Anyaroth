@@ -5,6 +5,8 @@
 #include <algorithm>
 #include "Game.h"
 #include "WeaponManager.h"
+#include "GameManager.h"
+
 
 DepotPanel::DepotPanel(Game* game) : PanelUI(game)
 {
@@ -44,23 +46,27 @@ DepotPanel::DepotPanel(Game* game) : PanelUI(game)
 	_exitButton = new ButtonUI(game, game->getTexture("ReturnButton"), nullptr, { 0,1,1,1 });
 	_exitButton->setPosition(CAMERA_RESOLUTION_X - _exitButton->getW() - 12, 188 - 1 - _exitButton->getH());
 
+	_voidItem = new ShopItem(game, game->getTexture("VoidIcon"));
+	_voidItem->setItemInfo(_voidItem->getItemInfo());
+	_voidItem->setFrames({ 0, 0, 0, 0, 0 });
+
 		//A�adir como hijo
 	addChild(_exitButton);
 
-	_firstWeaponFrame = new ShopItem(game, game->getTexture("ItemFrame"));
+	_firstWeaponFrame = new ShopItem(game, game->getTexture("VoidIcon"));
 	_firstWeaponFrame->setPosition(_equipmentFrame->getX() + 8,	_equipmentFrame->getY() + 8);
-	_firstWeaponFrame->setItemInfo({ -1, "arma1", 0, 14, 25, 10, GunType::Pistol_Weapon, "Weapon1","CommonFrame",true, true });
+	_firstWeaponFrame->setItemInfo(_firstWeaponFrame->getItemInfo());
 	_firstWeaponFrame->setFrames({ 0, 0, 0, 0, 0 });
 
-	_secondWeaponFrame = new ShopItem(game, game->getTexture("ItemFrame"));
+	_secondWeaponFrame = new ShopItem(game, game->getTexture("VoidIcon"));
 	_secondWeaponFrame->setPosition(_firstWeaponFrame->getX() + _firstWeaponFrame->getW() + 26,	_firstWeaponFrame->getY());
-	_secondWeaponFrame->setItemInfo({ -1, "arma2", 0, 14, 25, 10, GunType::Pistol_Weapon, "Weapon1","CommonFrame",true, true });
+	_secondWeaponFrame->setItemInfo(_secondWeaponFrame->getItemInfo());
 	_secondWeaponFrame->setFrames({ 0, 0, 0, 0, 0 });
 	//----EQUIPAMIENTO----//
 
-	_meleeWeaponFrame = new ShopItem(game, game->getTexture("ItemFrame"));
+	_meleeWeaponFrame = new ShopItem(game, game->getTexture("VoidIcon"));
+	_meleeWeaponFrame->setItemInfo(_meleeWeaponFrame->getItemInfo());
 	_meleeWeaponFrame->setPosition(_equipmentFrame->getX() + _equipmentFrame->getW() / 2 - _meleeWeaponFrame->getW() / 2,	_firstWeaponFrame->getY() + _firstWeaponFrame->getH() + distanceBetweenEquipmentSlots);
-	_meleeWeaponFrame->setItemInfo({ -1, "melee1", 0, 14, 25, 10, GunType::Pistol_Weapon, "Weapon1","CommonFrame",true, true });
 	_meleeWeaponFrame->setFrames({ 0, 0, 0, 0, 0 });
 
 		//Callbacks
@@ -121,9 +127,9 @@ void DepotPanel::setPlayer(Player * ply)
 
 	for (auto i = _weaponItems->begin(); i != _weaponItems->end(); i++)
 	{
-		if ((*i)->getItemInfo()._type == _player->getCurrentGun()->getGunID() && !(*i)->getItemInfo()._isMelee)
+		if (_player->getCurrentGun() != nullptr && (*i)->getItemInfo()._type == _player->getCurrentGun()->getGunID() && !(*i)->getItemInfo()._isMelee)
 			fItem = (*i);
-		else if ((*i)->getItemInfo()._type == _player->getOtherGun()->getGunID() && !(*i)->getItemInfo()._isMelee)
+		else if (_player->getOtherGun() != nullptr && (*i)->getItemInfo()._type == _player->getOtherGun()->getGunID() && !(*i)->getItemInfo()._isMelee)
 			sItem = (*i);
 	}
 
@@ -133,9 +139,18 @@ void DepotPanel::setPlayer(Player * ply)
 			mItem = (*i);
 	}
 
-	auto* fInfo = &fItem->getItemInfo(); fInfo->_sold = true; fInfo->_equiped = true;
-	auto* sInfo = &sItem->getItemInfo(); sInfo->_sold = true; sInfo->_equiped = true;
-	auto* mInfo = &mItem->getItemInfo(); mInfo->_sold = true; mInfo->_equiped = true;
+	ItemInfo* fInfo = nullptr, *sInfo = nullptr, *mInfo = nullptr;
+	if (fItem == nullptr) 
+		fItem = _voidItem;
+	fInfo = &fItem->getItemInfo(); fInfo->_sold = true; fInfo->_equiped = true;
+
+	if (sItem == nullptr) 
+		sItem = _voidItem;
+	sInfo = &sItem->getItemInfo(); sInfo->_sold = true; sInfo->_equiped = true;
+
+	if (mItem == nullptr) 
+		mItem = _voidItem;
+	mInfo = &mItem->getItemInfo(); mInfo->_sold = true; mInfo->_equiped = true;
 
 	_firstWeaponItem = fItem;
 	_secondWeaponItem = sItem;
@@ -178,6 +193,8 @@ void DepotPanel::removeMeleeItems()
 
 void DepotPanel::openDepotPanel()
 {
+	checkPlayer();
+
 	for (auto it : *_weaponItems)
 		it->onDown([this, it](Game* game) {	selectItem(game, it); });
 
@@ -233,7 +250,7 @@ void DepotPanel::reorderDepot()
 			auto item = *it;
 			auto info = item->getItemInfo();
 
-			if (info._sold && !info._equiped)
+			if (info._sold && !info._equiped && info._type != None)
 			{
 				item->setVisible(true);
 				visibleWeapons.push_back(item);
@@ -269,7 +286,7 @@ void DepotPanel::reorderDepot()
 			auto item = *it;
 			auto info = item->getItemInfo();
 
-			if (/*info._sold &&*/ !info._equiped)
+			if (info._zone <= GameManager::getInstance()->getCurrentLevel() && !info._equiped)
 			{
 				item->setVisible(true);
 				visibleMelee.push_back(item);
@@ -340,16 +357,19 @@ void DepotPanel::reorderDepot()
 
 void DepotPanel::changeEquipedGuns(Game* game)
 {
-	_player->swapGun();
+	if (_secondWeaponFrame->getItemInfo()._type != None)
+	{
+		_player->swapGun();
 
-	auto firstWeaponInfo = _firstWeaponFrame->getItemInfo();
-	_firstWeaponFrame->setItemInfo(_secondWeaponFrame->getItemInfo());
+		auto firstWeaponInfo = _firstWeaponFrame->getItemInfo();
+		_firstWeaponFrame->setItemInfo(_secondWeaponFrame->getItemInfo());
 
-	_secondWeaponFrame->setItemInfo(firstWeaponInfo);
+		_secondWeaponFrame->setItemInfo(firstWeaponInfo);
 
-	auto aux = _firstWeaponItem;
-	_firstWeaponItem = _secondWeaponItem;
-	_secondWeaponItem = aux;
+		auto aux = _firstWeaponItem;
+		_firstWeaponItem = _secondWeaponItem;
+		_secondWeaponItem = aux;
+	}
 }
 
 void DepotPanel::selectItem(Game * game, ShopItem* item)
@@ -425,7 +445,10 @@ void DepotPanel::swapDistanceItems(ShopItem* _equiped)
 	else
 		_secondWeaponItem->setItemInfo(infoSelected);
 
-	_selectedItem->setItemInfo(infoEquiped);
+	if (infoEquiped._type != None)
+		_selectedItem->setItemInfo(infoEquiped);
+	else
+		_selectedItem->setItemEquiped(true);
 	_equiped->setItemInfo(infoSelected);
 
 	//Equipo arma
@@ -447,6 +470,28 @@ void DepotPanel::swapMeleeItems(ShopItem* _equiped)
 	_selectedItem->setItemInfo(otherInfo);
 	_equiped->setItemInfo(infoSelected);
 
+	MeleeType type = (MeleeType)_equiped->getItemInfo()._type;
+	Melee* newMelee = WeaponManager::getInstance()->getMelee(_game, type);
 	//FALTA EQUIPAR EL ARMA
-	//_player->changeMelee();
+	int anim = AnimatedSpriteComponent::MeleeKnife;
+	if (type == Sword_Weapon) anim = AnimatedSpriteComponent::MeleeSword;
+	else if (type == PoleAxe_Weapon) anim = AnimatedSpriteComponent::MeleeHalberd;
+
+	_player->changeMelee(newMelee, anim);
+}
+
+
+void DepotPanel::checkPlayer()
+{
+	if (_firstWeaponFrame->getItemInfo()._type != _player->getCurrentGun()->getGunID())
+	{
+		auto firstWeaponInfo = _firstWeaponFrame->getItemInfo();
+		_firstWeaponFrame->setItemInfo(_secondWeaponFrame->getItemInfo());
+
+		_secondWeaponFrame->setItemInfo(firstWeaponInfo);
+
+		auto aux = _firstWeaponItem;
+		_firstWeaponItem = _secondWeaponItem;
+		_secondWeaponItem = aux;
+	}
 }

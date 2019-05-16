@@ -3,7 +3,7 @@
 #include "TransformComponent.h"
 #include "ParallaxBackGround.h"
 
-void Camera::moveCamera(const double& deltaTime)
+void Camera::moveCamera(double deltaTime)
 {
 	SDL_Rect preChange = _cameraRect;
 	smoothMovement(deltaTime);
@@ -29,7 +29,7 @@ void Camera::moveCamera(const double& deltaTime)
 		_cameraStatus.first = false;
 }
 
-void Camera::smoothMovement(const double & deltaTime)
+void Camera::smoothMovement(double deltaTime)
 {
 	if (_followedObject != nullptr)
 	{
@@ -74,7 +74,7 @@ void Camera::smoothCameraZoom()
 	}
 }
 
-void Camera::shakeCamera(const double& deltaTime)
+void Camera::shakeCamera(double deltaTime)
 {
 	if (_shakeIntensity > 0)
 	{
@@ -94,7 +94,7 @@ void Camera::shakeCamera(const double& deltaTime)
 	}
 }
 
-void Camera::fadingControl(const double & deltaTime)
+void Camera::fadingControl(double deltaTime)
 {
 	if (_isFading && !_fadeIsFinished)
 	{
@@ -148,7 +148,7 @@ void Camera::looseFixedObject()
 		_followedObject = nullptr;
 }
 
-void Camera::setZoom(const float& zoomRatio, const bool& smoothZoom)
+void Camera::setZoom(float zoomRatio, bool smoothZoom)
 {
 	_zoomGoal = CAMERA_SCALE_FACTOR * zoomRatio;
 	if (_zoomGoal < 0) _zoomGoal = 0;
@@ -162,7 +162,7 @@ void Camera::setZoom(const float& zoomRatio, const bool& smoothZoom)
 	}
 }
 
-void Camera::setZoom(const int& zoom)
+void Camera::setZoom(int zoom)
 {
 	_zoom = zoom;
 	_zoomGoal = _zoom;
@@ -171,7 +171,7 @@ void Camera::setZoom(const int& zoom)
 		setCameraSize(CAMERA_ASPECT_RATIO_X * _zoom, CAMERA_ASPECT_RATIO_Y * _zoom);
 }
 
-void Camera::fitCamera(const Vector2D & rect, const bool & smoothFit)
+void Camera::fitCamera(const Vector2D & rect, bool smoothFit)
 {
 	float relX = rect.getX() / _cameraRect.w;
 	float relY = rect.getY() / _cameraRect.h;
@@ -183,14 +183,15 @@ void Camera::fitCamera(const Vector2D & rect, const bool & smoothFit)
 	setZoom(zoomRatio, smoothFit);
 }
 
-void Camera::shake(const float& intensity, const float& time)
+void Camera::shake(float intensity, float time)
 {
 	_shakeIntensity = intensity;
 	_shakeTime = time;
 }
 
-void Camera::fadeIn(const float & time)
+void Camera::fadeIn(float time)
 {
+	setCameraAlpha(255);
 	_onFadeComplete = nullptr;
 	_fadeIsFinished = false;
 	_fadeTime = 0;
@@ -198,8 +199,9 @@ void Camera::fadeIn(const float & time)
 	_isFading = true;
 }
 
-void Camera::fadeOut(const float & time)
+void Camera::fadeOut(float time)
 {
+	setCameraAlpha(255);
 	_onFadeComplete = nullptr;
 	_fadeIsFinished = false;
 	_fadeTime = 0;
@@ -207,7 +209,7 @@ void Camera::fadeOut(const float & time)
 	_isFading = true;
 }
 
-void Camera::update(const double& deltaTime)
+void Camera::update(double deltaTime)
 {
 	moveCamera(deltaTime);
 	shakeCamera(deltaTime);
@@ -228,7 +230,15 @@ void Camera::render() const
 
 void Camera::last_render() const 
 {
-	if (_isFading || (_fadeIsFinished && _onFadeComplete != nullptr)) {
+	if (_cameraAlpha < 255)
+	{
+		Texture text = Texture(_game->getRenderer());
+		text.load(_cameraRect.w, _cameraRect.h, 0, 0, 0, 255 - _cameraAlpha);
+		text.render({ 0, 0, GAME_RESOLUTION_X, GAME_RESOLUTION_Y });
+	}
+
+	if (_isFading || (_fadeIsFinished && _onFadeComplete != nullptr))
+	{
 		Texture tex = Texture(_game->getRenderer());
 		Uint8 alpha = (_fadeTime / _fadeMaxTime) * 255;
 		if (alpha > 255) alpha = 255;
@@ -263,7 +273,7 @@ bool Camera::pre_handleEvent()
 	return false;
 }
 
-void Camera::setWorldBounds(const int & xBound, const int & yBound)
+void Camera::setWorldBounds(int xBound, int yBound)
 {
 	xBound > _cameraRect.w ? _xWorldBounds = xBound : _xWorldBounds = _cameraRect.w;
 	yBound > _cameraRect.h ? _yWorldBounds = yBound : _yWorldBounds = _cameraRect.h;

@@ -1,13 +1,6 @@
 #include "FadeInOutEvent.h"
 
-
-
-FadeInOutEvent::FadeInOutEvent(Camera* cam, int time, CamEffect type) : _cam(cam), _time(time), _camEffect(type)
-{
-}
-
-
-void FadeInOutEvent::update(const double& time)
+void FadeInOutEvent::update(double time)
 {
 	if (_timeOnEvent > _time)
 		_finished = true;

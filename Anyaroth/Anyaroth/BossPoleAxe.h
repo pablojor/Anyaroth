@@ -10,9 +10,6 @@ public:
 	BossPoleAxe(Game* game, GameObject* owner);
 	virtual ~BossPoleAxe();
 
-	void update(const double& deltaTime);
-	//void chargeAttack();
-	//void meleeAttack();
-	//void thrustAttack();
+	void update(double deltaTime);
 };
 

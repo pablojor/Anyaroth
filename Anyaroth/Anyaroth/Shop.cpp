@@ -41,7 +41,7 @@ Shop::Shop(Game* g, Vector2D posIni, ShopMenu* shop) : _shop(shop), Interactable
 	addChild(_shopDoor);
 }
 
-void Shop::update(const double& deltaTime)
+void Shop::update(double deltaTime)
 {
 	Interactable::update(deltaTime);
 
@@ -53,7 +53,7 @@ void Shop::update(const double& deltaTime)
 	}
 }
 
-void Shop::interact()
+bool Shop::interact()
 {
 	if (!_shop->isVisible())
 	{
@@ -61,4 +61,5 @@ void Shop::interact()
 		goIn = true;
 		_shopDoorAnim->playAnim(AnimatedSpriteComponent::Opened);
 	}
+	return false;
 }

@@ -1,5 +1,6 @@
 #include "BomberEnemy.h"
 #include "BulletEffect.h"
+#include "GameManager.h"
 
 BomberEnemy::BomberEnemy(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Enemy(g, player, pos, g->getTexture("Bomber"), "bomberDeath", "turretHit", "turretMeleeHit"), _myBulletPool(pool)
 {
@@ -7,10 +8,10 @@ BomberEnemy::BomberEnemy(Game* g, Player* player, Vector2D pos, BulletPool* pool
 	_damage = 25;
 
 	_vision = 300;
-	_life = 24;
+	_life = 30;
 	_gun = new BomberGun(g);
 	_attackRangeX = 2;
-	_speed = 8;
+	_speed = 6;
 	_time = 0;
 
 	_anim->addAnim(AnimatedSpriteComponent::EnemyIdle, 6, true);
@@ -22,8 +23,11 @@ BomberEnemy::BomberEnemy(Game* g, Player* player, Vector2D pos, BulletPool* pool
 
 	_body->setW(30);
 	_body->setH(20);
+
 	_body->getBody()->SetGravityScale(0);
 	_body->filterCollisions(ENEMIES, FLOOR | PLATFORMS | PLAYER_BULLETS | MELEE);
+
+	_hurtParticle = g->getTexture("Sparks");
 }
 
 BomberEnemy::~BomberEnemy()
@@ -32,7 +36,7 @@ BomberEnemy::~BomberEnemy()
 	_gun = nullptr;
 }
 
-void BomberEnemy::shoot(const double& deltaTime)
+void BomberEnemy::shoot(double deltaTime)
 {
 	if (_time >= _shootTime)
 	{
@@ -48,14 +52,14 @@ void BomberEnemy::move()
 	_body->getBody()->SetLinearVelocity({ _speed*(float32)_dir.getX(), _body->getBody()->GetLinearVelocity().y });
 }
 
-void BomberEnemy::update(const double& deltaTime)
+void BomberEnemy::update(double deltaTime)
 {
 	Enemy::update(deltaTime);
 	_gun->refreshGunCadence(deltaTime);
 
 	bool inVision = _playerDistance.getX() < _vision && _playerDistance.getX() > -_vision && _playerDistance.getY() < _vision && _playerDistance.getY() > -_vision;
 
-	if (!isDead() && inVision)
+	if (!isDead() && (inVision || GameManager::getInstance()->getCurrentLevel() == LevelManager::Boss3))
 	{
 		if (_playerDistance.getX() > _attackRangeX)
 			_dir = Vector2D(1, 0);
@@ -79,7 +83,7 @@ void BomberEnemy::subLife(int damage)
 	Enemy::subLife(damage);
 
 	if (isDead())
-		_body->getBody()->SetGravityScale(1);
+		_body->getBody()->SetGravityScale(3);
 }
 
 void BomberEnemy::throwBomb(const Vector2D& position)

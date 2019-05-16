@@ -1,6 +1,5 @@
 #include "LaserContainer.h"
 
-
 LaserContainer::LaserContainer(Game* g, Vector2D pos, Texture* container, Texture* laser, Player* player) : GameObject(g)
 {
 	addComponent<Texture>(container);
@@ -16,7 +15,7 @@ LaserContainer::LaserContainer(Game* g, Vector2D pos, Texture* container, Textur
 	_anim->addAnim(AnimatedSpriteComponent::LaserOpening, 4, false, 150);
 	_anim->playAnim(AnimatedSpriteComponent::LaserClosed);
 
-	_laser = new Laser(g, pos, laser, player, 5);
+	_laser = new Laser(g, pos, laser, player, 4);
 
 	addChild(_laser);
 }

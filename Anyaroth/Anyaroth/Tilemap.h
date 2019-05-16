@@ -23,7 +23,18 @@ private:
 		int yIndex = 0;
 	};
 
-	map<int, Tile> _grid;
+	struct GridBox : GameObject
+	{
+		GridBox() : GameObject(nullptr) {}
+		std::vector<Tile> _tiles;
+		bool _hasCollider = false;
+
+		std::vector<Tile>& getTiles() { return _tiles; }
+		void setHasCollider(bool b) { _hasCollider = b; }
+		bool hasCollider() const { return _hasCollider; }
+	};
+
+	map<int, GridBox> _grid;
 	vector<b2Body*> _colliders;
 
 public:
@@ -31,7 +42,7 @@ public:
 	~Tilemap();
 
 	virtual bool handleEvent(const SDL_Event& event) { return false; }
-	virtual void update(const double& deltaTime) {}
+	virtual void update(double deltaTime) {}
 	virtual void render(Camera* c) const;
 
 	void loadTileMap(const string& filename);

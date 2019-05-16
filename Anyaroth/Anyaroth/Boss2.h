@@ -6,46 +6,43 @@ class Boss2 : public Boss
 {
 private:
 	LaserHandler* _lasers = nullptr;
-	Vector2D _velocity = { 20,0 }, _originalVelocity = { 20,0 };
+	Vector2D _velocity = { 35,0 }, _originalVelocity = { 35,0 };
 
-
-	int _dir, _onFloor = 0, _stopRange = 103;
-	double _shootRange = 120, _speedIncrement = 100;
+	int _dir, _onFloor = 0, _stopRange = 105;
+	double _shootRange = 150, _speedIncrement = 100;
 	bool _particles = false;
 
 	Melee* _melee;
+
 	int _timeStartMelee = 400, _timeOnMelee = 0;
-
 	int _timeToShoot = 700, _timeWaiting = 0;
-
 	int _timeToJump = 100, _timeWaitingJump = 0;
-	bool _jump = false, _realMelee = false;;
+	bool _jump = false, _realMelee = false, fired = false;;
+
 public:
 	Boss2(Game* g, Player* player, Vector2D pos, BulletPool* pool);
-	~Boss2();
+	~Boss2() {}
+
+	virtual void update(double deltaTime);
 
 	void Jump();
-	void checkJump(const double& deltaTime);
+	void checkJump(double deltaTime);
 
-	virtual void movement(const double& deltaTime);
+	virtual void movement(double deltaTime);
 	virtual void beginCollision(GameObject* other, b2Contact* contact);
 	virtual void endCollision(GameObject * other, b2Contact* contact);
 
 	virtual void meleeAttack();
 	inline void setLasers(LaserHandler* lasers) { _lasers = lasers; }
 	void endJump();
-	virtual void checkMelee(const double& deltaTime);
-	virtual int getDamage() const
-	{
-		return _damage;
-	}
+	virtual void checkMelee(double deltaTime);
+	virtual int getDamage() const { return _damage; }
 
-	virtual void fase1(const double& deltaTime);
-	virtual void fase2(const double& deltaTime);
-	virtual void fase3(const double& deltaTime);
-	virtual void beetwenFases(const double& deltaTime);
+	virtual void fase1(double deltaTime);
+	virtual void fase2(double deltaTime);
+	virtual void fase3(double deltaTime);
+	virtual void beetwenFases(double deltaTime);
 	virtual void manageLife(Life& l, int damage);
 
 	virtual void die();
 };
-

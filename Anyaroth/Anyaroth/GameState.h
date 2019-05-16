@@ -43,21 +43,21 @@ public:
 	virtual ~GameState();
 
 	bool hasToStart() const { return _hasToStart; }
-	void setStarted(const bool& b) { _hasToStart = !b; }
+	void setStarted(bool b) { _hasToStart = !b; }
 
 	bool gameLoaded() const { return _gameLoaded; }
-	void setLoaded(const bool& b) { _gameLoaded = b; }
+	void setLoaded(bool b) { _gameLoaded = b; }
 
 	virtual void start() = 0;
 	virtual void render() const;
 
-	virtual void update(const double& deltaTime);
+	virtual void update(double deltaTime);
 	virtual void post_update();
 
 	virtual bool pre_handleEvent();
 	virtual bool handleEvent(const SDL_Event& event);
 
-	virtual void updateWorld(const float& timestep, const int& p_iterations, const int& V_iterations);
+	virtual void updateWorld(float timestep, int p_iterations, int V_iterations);
 	inline b2World* getWorld() const { return _world; }
 
 	virtual void addObject(GameObject* obj);
@@ -68,9 +68,10 @@ public:
 	inline virtual PlayStateHUD* getPlayHUD() const { return _playHud; }
 	inline virtual MenuStateHUD* getMenuHUD() const { return _menuHud; }
 	inline virtual PauseStateHUD* getPauseHUD() const { return _pauseHud; }
+	inline virtual CutScene* getCutScene() const { return _cutScene; }
 	inline virtual void setCanvas(Canvas* canvas) { _canvas = canvas; }
 
-	inline virtual void addCutScene(CutScene* cutScene) { if (_cutScene != nullptr) delete _cutScene; _cutScene = cutScene; }
+	virtual void addCutScene(CutScene* cutScene);
 
 	Vector2D getMousePositionInWorld() const;
 	Vector2D getMousePositionOnScreen() const;

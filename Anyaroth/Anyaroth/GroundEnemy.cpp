@@ -1,6 +1,10 @@
 #include "GroundEnemy.h"
 
-GroundEnemy::GroundEnemy(Game* g, Player* player, Vector2D pos, Texture* texture) : Enemy(g, player, pos, texture) { _affectedByExternalForces = true; }
+GroundEnemy::GroundEnemy(Game* g, Player* player, Vector2D pos, Texture* texture) : Enemy(g, player, pos, texture)
+{
+	_body->getBody()->SetGravityScale(3);
+	_affectedByExternalForces = true;
+}
 
 void GroundEnemy::idle()
 {
@@ -36,7 +40,6 @@ void GroundEnemy::attack()
 		_attacking = true;
 	}
 }
-
 
 void GroundEnemy::addSensors()
 {

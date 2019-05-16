@@ -26,6 +26,7 @@ private:
 	AnimatedImageUI* _nameBackground = nullptr;
 	FramedImageUI* _faceImage = nullptr;
 	AnimatedImageUI* _indicatorImage = nullptr;
+	TextUI* _indicatorText = nullptr;
 	TextUI* _nameText = nullptr;
 
 	//Constantes
@@ -45,6 +46,7 @@ private:
 	int _linesTyped = 0;
 
 	bool _isConversating = false;
+	bool _opened = false;
 	bool _keepLastLine = false;
 
 public:
@@ -52,10 +54,11 @@ public:
 	DialoguePanel(Game* game);
 	~DialoguePanel();
 
-	virtual void update(const double& deltaTime);
+	virtual void update(double deltaTime);
 	virtual bool handleEvent(const SDL_Event& event);
 
 	inline bool isConversating() const { return _isConversating; }
+	inline bool isOpened() const { return _opened; }
 	inline bool conversationEnd() const { return _currentText == _dialogue.conversation.size() - 1; }
 	inline bool conversationRealEnd() const { return _currentText == _dialogue.conversation.size(); }
 
@@ -65,4 +68,5 @@ public:
 	void endDialogue();
 	void nextText();
 	void chopTextIfNecesary(string text);
+	void completeLines();
 };

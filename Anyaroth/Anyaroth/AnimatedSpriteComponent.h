@@ -65,13 +65,14 @@ public:
 	virtual ~AnimatedSpriteComponent() {}
 
 	virtual void render(Camera* c) const;
-	virtual void update(const double& deltaTime);
+	virtual void update(double deltaTime);
 
 	void addAnim(uint name, uint numFrames, bool loop, uint lapse = 60);
 	void playAnim(uint name);
 
 	inline bool animationFinished() { return _animations[_currentAnim].animationFinished; }
 	inline uint getCurrentAnim() const { return _currentAnim; }
+	inline uint getCurrentFrame() const { return _frame; }
 	inline bool isLooping() { return _animations[_currentAnim].loop; }
 
 	void reset();

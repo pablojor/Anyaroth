@@ -74,7 +74,7 @@ double Vector2D::distance(Vector2D p)
 	return sqrt(pow(_x - p.getX(), 2) + pow(_y - p.getY(), 2));
 }
 
-Vector2D Vector2D::Lerp(const Vector2D& start, const Vector2D& end, const float& t)
+Vector2D Vector2D::Lerp(const Vector2D& start, const Vector2D& end, float t)
 {
 	float ratio = t;
 	if (ratio < 0) ratio = 0;

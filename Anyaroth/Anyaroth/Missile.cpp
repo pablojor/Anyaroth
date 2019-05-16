@@ -52,7 +52,7 @@ void Missile::beginCollision(GameObject * other, b2Contact * contact)
 	_game->getSoundManager()->playSFX("martyrExplosion");
 }
 
-void Missile::update(const double& deltaTime)
+void Missile::update(double deltaTime)
 {
 	GameObject::update(deltaTime);
 

@@ -40,10 +40,10 @@ public:
 	Bullet(Game* game);
 	virtual ~Bullet();
 
-	inline void setSpeed(const double& speed) { _speed = speed; }
+	inline void setSpeed(double speed) { _speed = speed; }
 	inline double getSpeed() const { return _speed; }
 
-	inline void setDamage(const double& damage) { _damage = damage; }
+	inline void setDamage(double damage) { _damage = damage; }
 	inline int getDamage() const { return _damage; }
 
 	inline BodyComponent* getBody() { return _body; }
@@ -79,8 +79,8 @@ public:
 	inline int getExplosionTime() const { return _explosionTime; }
 	inline void setExplosionTime(int value) { _explosionTime = value; }
 
-	virtual void init(Texture* texture, const Vector2D& position, const double& speed, const double& damage, const double& angle, const double& range, const string& tag, EffectInterface* effect, BulletAnimType type);
-	virtual void update(const double& deltaTime);
+	virtual void init(Texture* texture, const Vector2D& position, double speed, double damage, double angle, double range, const string& tag, EffectInterface* effect, BulletAnimType type);
+	virtual void update(double deltaTime);
 	virtual void beginCollision(GameObject* other, b2Contact* contact);
 	virtual void endCollision(GameObject * other, b2Contact* contact);
 

@@ -31,10 +31,11 @@ class DepotPanel : public PanelUI
 		ShopItem* _secondWeaponFrame;
 		ShopItem* _meleeWeaponFrame;
 
-
 		ShopItem* _firstWeaponItem;
 		ShopItem* _secondWeaponItem;
 		ShopItem* _meleeWeaponItem;
+
+		ShopItem* _voidItem;
 
 		list<ShopItem*>* _weaponItems;
 		list<ShopItem*>* _meleeItems;
@@ -45,9 +46,11 @@ class DepotPanel : public PanelUI
 			itemsPerCol = 4, 
 			distanceBetweenEquipmentSlots = 10;
 
+		void checkPlayer();
+
 	public:
 		DepotPanel(Game* game);
-		virtual ~DepotPanel() {};
+		virtual ~DepotPanel() { delete _voidItem; };
 
 		virtual bool handleEvent(const SDL_Event& event);
 

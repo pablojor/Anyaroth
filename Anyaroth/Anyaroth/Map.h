@@ -28,7 +28,7 @@ public:
 	void restartLevel();
 
 	virtual bool handleEvent(const SDL_Event& event);
-	virtual void update(const double& deltaTime);
+	virtual void update(double deltaTime);
 	virtual void render(Camera* c) const;
 
 	inline double getHeight() const { return _height; }

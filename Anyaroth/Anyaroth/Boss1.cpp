@@ -4,11 +4,11 @@
 #include "ImprovedRifle.h"
 #include "CreditsState.h"
 #include "GameManager.h"
+#include "CutScene.h"
 
-Boss1::Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, player, pos, pool, g->getTexture("Spenta")), Enemy(g, player, pos, g->getTexture("Spenta"), "boss1Die", "boss1Hit")
+Boss1::Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, player, pos, pool, g->getTexture("Spenta")), Enemy(g, player, pos, g->getTexture("Spenta"), "boss1Interfase3", "boss1Hit")
 {
-	//_life = 100;
-	_life = 250; // Demo Guerrilla
+	_life = 250;
 	_life1 = _life2 = _life3 = _life;
 
 	_name = "Spenta Manyu";
@@ -16,8 +16,10 @@ Boss1::Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, 
 	delete(_myGun);
 	_myGun = new ImprovedRifle(g);
 	_myGun->setMaxCadence(0);
-	_myGun->setBulletSpeed(8);
+	_myGun->setBulletSpeed(10);
 	_myGun->setDamage(3);
+	_myGun->setBulletAnimType(BulletAnimType::Default);
+	_myGun->setBulletTexture(g->getTexture("SpentaBullet"));
 
 	_bombGun = new BomberGun(g);
 	_bombGun->setMaxCadence(0);
@@ -65,7 +67,7 @@ Boss1::Boss1(Game* g, Player* player, Vector2D pos, BulletPool* pool) : Boss(g, 
 
 	_playerBody = _player->getComponent<BodyComponent>();
 
-	_hurtParticle = _game->getTexture("Smoke");
+	_hurtParticle = _game->getTexture("Blood");
 }
 
 Boss1::~Boss1()
@@ -74,35 +76,45 @@ Boss1::~Boss1()
 	delete _orbGun;
 }
 
-void Boss1::update(const double& deltaTime)
+void Boss1::update(double deltaTime)
 {
-
-	Boss::update(deltaTime);
-
-	if (isDead())
+	if (_game->getCurrentState()->getCutScene() == nullptr)
 	{
-		if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaEndShield)
-		{
-			_anim->playAnim(AnimatedSpriteComponent::SpentaDie);
+		Boss::update(deltaTime);
 
-			if (GameManager::getInstance()->getCurrentLevel() == LevelManager::BossDemo)
+		if (isDead())
+		{
+			if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaEndShield)
 			{
-				_game->getCurrentState()->getMainCamera()->fadeOut(3000);
-				_game->getCurrentState()->getMainCamera()->onFadeComplete([this](Game* game)
+				_anim->playAnim(AnimatedSpriteComponent::SpentaDie);
+
+				if (GameManager::getInstance()->getCurrentLevel() == LevelManager::BossDemo)
 				{
-					game->popState();
-					game->changeState(new CreditsState(game));
-				});
+					_game->getCurrentState()->getMainCamera()->fadeOut(3000);
+					_game->getCurrentState()->getMainCamera()->onFadeComplete([this](Game* game)
+					{
+						game->popState();
+						game->changeState(new CreditsState(game));
+					});
+				}
 			}
-			else
-				popUpMessage();
+
+			if (!_finishLevel)
+			{
+				CutScene* cutscene = new CutScene(_player);
+				cutscene->addPopUpEvent(_game->getCurrentState()->getPlayHUD()->getPopUpPanel());
+				cutscene->addChangeLevelEvent();
+				_game->getCurrentState()->addCutScene(cutscene);
+				cutscene->play();
+
+				_player->setMaxLife(_player->getMaxLife() + 50);
+				_finishLevel = true;
+			}
 		}
 
-		if (_game->getCurrentState()->getPlayHUD()->getPopUpPanel()->isFinished() && !_finishLevel)
+		if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaEndShield)
 		{
-			_player->getLife().setMaxLife(_player->getLife().getMaxLife() + 50);
-			_player->setChangeLevel(true);
-			_finishLevel = true;
+			_actualState = Moving;
 		}
 	}
 
@@ -112,16 +124,7 @@ void Boss1::update(const double& deltaTime)
 	}
 }
 
-void Boss1::popUpMessage()
-{
-	_message = _game->getCurrentState()->getPlayHUD()->getPopUpPanel();
-
-	_message->addMessage({ "Notification:", "After this great battle, your resistance improves a lot. Your lifebar has now 50 extra points." });
-	_message->addMessage({ "Notification:", "And... there's more. That cool sword, Spenta's, is now yours. You can equip it in the next shop." });
-	_message->open();
-}
-
-void Boss1::movement(const double& deltaTime)
+void Boss1::movement(double deltaTime)
 {
 	if (_actualState == Moving)
 	{
@@ -141,39 +144,6 @@ void Boss1::movement(const double& deltaTime)
 	}
 }
 
-void Boss1::bomberAttack(const double& deltaTime, int t1, int t2)
-{
-	if (_actualFase != BetweenFase)
-	{
-		if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaStartBomb)
-			_anim->playAnim(AnimatedSpriteComponent::SpentaLoopBomb);
-	}
-
-	_timeOnBomberAttack += deltaTime;
-	_armVision = false;
-
-	if (_timeOnBomberAttack >= _bomberAttackTime)
-	{
-		_timeOnBomberAttack = 0;
-		_timeBeetwenBombs = 0;
-		_armVision = true;
-		_doSomething = _game->random(800, 1200);
-
-		if (_actualFase != BetweenFase)
-		{
-			_anim->playAnim(AnimatedSpriteComponent::SpentaEndBomb);
-		}
-	}
-	else
-	{
-		if (_timeOnBomberAttack >= _timeBeetwenBombs)
-		{
-			throwBomb();
-			_timeBeetwenBombs += _game->random(t1, t2);
-		}
-	}
-}
-
 void Boss1::meleeAttack()
 {
 	_game->getSoundManager()->playSFX("spentaSword");
@@ -190,7 +160,7 @@ void Boss1::meleeAttack()
 	_armVision = false;
 }
 
-void Boss1::checkMelee(const double& deltaTime)
+void Boss1::checkMelee(double deltaTime)
 {
 	if (_melee != nullptr && _melee->isActive())
 	{
@@ -212,7 +182,7 @@ void Boss1::checkMelee(const double& deltaTime)
 	}
 }
 
-void Boss1::armShoot(const double& deltaTime)
+void Boss1::armShoot(double deltaTime)
 {
 	_bodyPos = Vector2D(_body->getBody()->GetPosition().x * M_TO_PIXEL, _body->getBody()->GetPosition().y * M_TO_PIXEL);
 	_dirB = (_bodyPos.getX() >= _playerPos.getX()) ? -1 : 1;
@@ -248,6 +218,39 @@ void Boss1::armShoot(const double& deltaTime)
 	}
 }
 
+void Boss1::bomberAttack(double deltaTime, int t1, int t2)
+{
+	if (_actualFase != BetweenFase)
+	{
+		if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaStartBomb)
+			_anim->playAnim(AnimatedSpriteComponent::SpentaLoopBomb);
+	}
+
+	_timeOnBomberAttack += deltaTime;
+	_armVision = false;
+
+	if (_timeOnBomberAttack >= _bomberAttackTime)
+	{
+		_timeOnBomberAttack = 0;
+		_timeBeetwenBombs = 0;
+		_armVision = true;
+		_doSomething = _game->random(800, 1200);
+
+		if (_actualFase != BetweenFase)
+		{
+			_anim->playAnim(AnimatedSpriteComponent::SpentaEndBomb);
+		}
+	}
+	else
+	{
+		if (_timeOnBomberAttack >= _timeBeetwenBombs)
+		{
+			throwBomb();
+			_timeBeetwenBombs += _game->random(t1, t2);
+		}
+	}
+}
+
 void Boss1::orbAttack()
 {
 	if (_anim->animationFinished())
@@ -274,7 +277,7 @@ void Boss1::beginCollision(GameObject * other, b2Contact * contact)
 {
 	Boss::beginCollision(other, contact);
 
-	if (other->getTag() == "Misil" && isbeetweenFases())
+	if (other->getTag() == "Misil" && isbeetweenFases() && !_player->isDead())
 	{
 		if (_lastFase == Fase1)
 			changeFase(Fase2);
@@ -310,7 +313,7 @@ void Boss1::manageLife(Life& l, int damage)
 	}
 }
 
-void Boss1::fase1(const double& deltaTime)
+void Boss1::fase1(double deltaTime)
 {
 	if (_actualState != Shooting)
 	{
@@ -318,8 +321,9 @@ void Boss1::fase1(const double& deltaTime)
 		{
 			if (_noAction > _doSomething)
 			{
-				int ra = _game->random(0, 100);
-				if (ra >= 40)
+				int random = _game->random(0, 100);
+
+				if (random < 40)
 				{
 					_actualState = Meleeing;
 					_noAction = 0;
@@ -342,7 +346,7 @@ void Boss1::fase1(const double& deltaTime)
 		armShoot(deltaTime);
 }
 
-void Boss1::fase2(const double& deltaTime)
+void Boss1::fase2(double deltaTime)
 {
 	if (_actualState != Bombing)
 	{
@@ -350,8 +354,9 @@ void Boss1::fase2(const double& deltaTime)
 		{
 			if (_actualState != Meleeing)
 			{
-				int ra = _game->random(0, 100);
-				if (ra >= 70)
+				int random = _game->random(0, 100);
+
+				if (random < 20)
 				{
 					if (_noAction > _doSomething)
 					{
@@ -379,7 +384,7 @@ void Boss1::fase2(const double& deltaTime)
 		bomberAttack(deltaTime, 100, 200);
 }
 
-void Boss1::fase3(const double& deltaTime)
+void Boss1::fase3(double deltaTime)
 {
 	if (_actualState != Bombing)
 	{
@@ -391,8 +396,9 @@ void Boss1::fase3(const double& deltaTime)
 				{
 					if (_noAction > _doSomething)
 					{
-						int ra = _game->random(0, 100);
-						if (ra >= 70)
+						int random = _game->random(0, 100);
+
+						if (random < 30)
 						{
 							_anim->playAnim(AnimatedSpriteComponent::SpentaOrb);//Sera animacion de orbAttackd
 							_actualState = OrbAttacking;
@@ -416,16 +422,14 @@ void Boss1::fase3(const double& deltaTime)
 		bomberAttack(deltaTime, 100, 200);
 }
 
-void Boss1::beetwenFases(const double& deltaTime)
+void Boss1::beetwenFases(double deltaTime)
 {
 	bomberAttack(deltaTime, 200, 600);
 	_actualState = Bombing;
 	checkMelee(deltaTime);
 
 	if (_anim->animationFinished() && _anim->getCurrentAnim() == AnimatedSpriteComponent::SpentaStartShield)
-	{
 		_anim->playAnim(AnimatedSpriteComponent::SpentaLoopShield);
-	}
 }
 
 void Boss1::changeFase(int nextFase)
@@ -438,7 +442,7 @@ void Boss1::changeFase(int nextFase)
 
 void Boss1::throwBomb()
 {
-	Vector2D helpPos = Vector2D(_game->random(100, 700 /*Futuro tope por la derecha*/), 100);
+	Vector2D helpPos = Vector2D(_game->random(TILES_SIZE * 6, TILES_SIZE * 42), TILES_SIZE * 7);
 	_bombGun->enemyShoot(_myBulletPool, helpPos, 90, "EnemyBullet");
 }
 

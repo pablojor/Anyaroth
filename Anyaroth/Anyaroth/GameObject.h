@@ -44,8 +44,6 @@ private:
 			_components[name] = c;
 			return c;
 		}
-		else
-			std::cout << "Se ha intentado anyadir un componente ya existente" << endl;
 
 		return nullptr;
 	}
@@ -60,8 +58,6 @@ private:
 			_components[name] = c;
 			return c;
 		}
-		else
-			std::cout << "Se ha intentado anyadir un componente ya existente" << endl;
 
 		return nullptr;
 	}
@@ -79,12 +75,14 @@ protected:
 	Game* _game = nullptr; //puntero a game
 	bool _affectedByExternalForces = false;
 
+	bool _isPlayer = false;
+
 public:
 	GameObject(Game* game, string tag = "");
 	virtual ~GameObject();
 
 	virtual bool handleEvent(const SDL_Event& event);
-	virtual void update(const double& deltaTime);
+	virtual void update(double deltaTime);
 	virtual void render(Camera* c) const;
 
 	virtual void addInputComponent(InputComponent* ic);
@@ -119,6 +117,7 @@ public:
 	inline void setTag(string  const &tag) { _tag = tag; }
 
 	inline bool isActive() const { return _active; }
+	inline bool isPlayer() const { return _isPlayer; }
 	inline void setActive(bool active) { _active = active; }
 	virtual inline void setStopped(bool value) {}
 	virtual inline void setStunned(bool value) {}

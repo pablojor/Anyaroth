@@ -11,7 +11,7 @@ CoinsCounter::CoinsCounter(Game* game, int xPos, int yPos) : PanelUI(game)
 	addChild(_coinImage);
 }
 
-void CoinsCounter::updateCoinsCounter(const int& cant)
+void CoinsCounter::updateCoinsCounter(int cant)
 {
 	int x = _coinText->getX();
 	int w = _coinText->getW();

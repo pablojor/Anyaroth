@@ -26,7 +26,7 @@ Boss3Panel::Boss3Panel(Game* game) : PanelUI(game)
 	setVisible(false);
 }
 
-void Boss3Panel::updateLifeBar(const int& life, const int& maxLife)
+void Boss3Panel::updateLifeBar(int life, int maxLife)
 {
 	if (life > 0)
 		_lifeBar->updateLifeBar(life, maxLife);
@@ -34,7 +34,7 @@ void Boss3Panel::updateLifeBar(const int& life, const int& maxLife)
 		_lifeBar->setVisible(false);
 }
 
-void Boss3Panel::resetLifeBar(const int& life, const int& maxLife)
+void Boss3Panel::resetLifeBar(int life, int maxLife)
 {
 	_lifeBar->setVisible(true);
 

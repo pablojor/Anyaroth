@@ -15,7 +15,7 @@ void Boss::setBossPanel(BossPanel * b)
 	_bossPanel->setVisible(true);
 }
 
-void Boss::update(const double & deltaTime)
+void Boss::update(double deltaTime)
 {
 	DistanceEnemy::update(deltaTime);
 
@@ -32,6 +32,8 @@ void Boss::update(const double & deltaTime)
 		else
 			beetwenFases(deltaTime);
 	}
+	else
+		_player->setNoDamage(true);
 	
 	if (isDead() || _player->isDead())
 		_bossPanel->setVisible(false);

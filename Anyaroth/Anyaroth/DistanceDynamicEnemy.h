@@ -10,8 +10,8 @@ private:
 public:
 	DistanceDynamicEnemy(Game* g, Player* player, Vector2D pos, BulletPool* pool = nullptr);
 
-	virtual void update(const double& deltaTime);
-	virtual void attacking(const double& deltaTime);
+	virtual void update(double deltaTime);
+	virtual void attacking(double deltaTime);
 	virtual void die();
 	void addSensors();
 };

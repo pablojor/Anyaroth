@@ -25,5 +25,5 @@ public:
 	Vector2D rotateAroundPoint(double angle, Vector2D center);
 	double distance(Vector2D p);
 
-	static Vector2D Lerp(const Vector2D& start, const Vector2D& end, const float& t);
+	static Vector2D Lerp(const Vector2D& start, const Vector2D& end, float t);
 };
