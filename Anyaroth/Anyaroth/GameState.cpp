@@ -128,8 +128,9 @@ void GameState::addObject(GameObject* n)
 
 void GameState::destroyObject(GameObject* obj)
 {
-	items_ToDelete.push_back(obj);
-
+	auto it = std::find(items_ToDelete.begin(), items_ToDelete.end(), obj);
+	if(it == items_ToDelete.end())
+		items_ToDelete.push_back(obj);
 }
 
 Vector2D GameState::getMousePositionInWorld() const

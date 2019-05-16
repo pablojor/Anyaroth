@@ -445,7 +445,10 @@ void DepotPanel::swapDistanceItems(ShopItem* _equiped)
 	else
 		_secondWeaponItem->setItemInfo(infoSelected);
 
-	_selectedItem->setItemInfo(infoEquiped);
+	if (infoEquiped._type != None)
+		_selectedItem->setItemInfo(infoEquiped);
+	else
+		_selectedItem->setItemEquiped(true);
 	_equiped->setItemInfo(infoSelected);
 
 	//Equipo arma
