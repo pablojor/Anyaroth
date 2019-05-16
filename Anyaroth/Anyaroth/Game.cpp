@@ -272,7 +272,7 @@ void Game::render() const
 {
 	SDL_RenderClear(_renderer);
 	_stateMachine->currentState()->render();
-	_stateMachine->currentState()->getWorld()->DrawDebugData();
+	//_stateMachine->currentState()->getWorld()->DrawDebugData();
 	SDL_RenderPresent(_renderer);
 }
 
