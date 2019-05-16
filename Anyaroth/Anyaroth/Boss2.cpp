@@ -343,7 +343,7 @@ void Boss2::fase1(double deltaTime)
 				_anim->playAnim(AnimatedSpriteComponent::AzuraIdle2);
 			else
 				_anim->playAnim(AnimatedSpriteComponent::AzuraIdle3);
-
+			fired = false;
 			_timeWaiting = 0;
 		}
 		else
@@ -355,10 +355,11 @@ void Boss2::fase1(double deltaTime)
 			else
 				_anim->playAnim(AnimatedSpriteComponent::AzuraCannon3);
 		}
-		if (_timeWaiting > _timeToShoot)
+		if (_timeWaiting > _timeToShoot && !fired)
 		{
 			shoot();
 			_timeWaiting = 0;
+			fired = true;
 		}
 		else
 			_timeWaiting += deltaTime;
