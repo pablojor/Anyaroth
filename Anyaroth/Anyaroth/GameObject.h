@@ -44,8 +44,6 @@ private:
 			_components[name] = c;
 			return c;
 		}
-		else
-			std::cout << "Se ha intentado anyadir un componente ya existente" << endl;
 
 		return nullptr;
 	}
@@ -60,8 +58,6 @@ private:
 			_components[name] = c;
 			return c;
 		}
-		else
-			std::cout << "Se ha intentado anyadir un componente ya existente" << endl;
 
 		return nullptr;
 	}

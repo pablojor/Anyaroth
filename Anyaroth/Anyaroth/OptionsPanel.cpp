@@ -32,7 +32,7 @@ OptionsPanel::OptionsPanel(Game* g, bool mainMenu) : _menu(mainMenu), PanelUI(g)
 
 	//Volver menu
 	_backButton = new ButtonUI(g, g->getTexture("MenuReturnButton"), [this](Game* game) { back(game); }, { 0, 1, 2, 2, 2 }, 7);
-	_backButton->setPosition(CAMERA_RESOLUTION_X / 2 + 150 - _backButton->getW(), CAMERA_RESOLUTION_Y - 34);
+	_backButton->setPosition(CAMERA_RESOLUTION_X / 2 + 150 - _backButton->getW(), CAMERA_RESOLUTION_Y - _backButton->getH() - 20);
 
 	//Pantalla completa
 	_screenButton = new ButtonUI(g, g->getTexture("MenuFullScreenButton"), [this](Game* game) { fullScreen(game); }, { 0, 1, 2, 2, 2 }, 6);

@@ -24,8 +24,6 @@ void SoundManager::addSFX(const string& name, const string& fileName)
 	Mix_Chunk* fx = Mix_LoadWAV(fileName.c_str());
 	if (fx != nullptr)
 		_soundFX[name] = fx;
-	else
-		cout << "No se ha podido cargar el archivo " << fileName << " desde el SoundManager." << endl;
 }
 
 void SoundManager::removeSFX(const string& name)
@@ -43,8 +41,6 @@ void SoundManager::addMusic(const string& name, const string& fileName)
 	Mix_Music* mus = Mix_LoadMUS(fileName.c_str());
 	if (mus != nullptr)
 		_music[name] = mus;
-	else
-		cout << "No se ha podido cargar el archivo " << fileName << " desde el SoundManager." << endl;
 }
 
 void SoundManager::removeMusic(const string& name)
@@ -61,16 +57,12 @@ void SoundManager::playSFX(const string& name, int channel)
 {
 	if (_soundFX.find(name) != _soundFX.end())
 		Mix_PlayChannel(channel, _soundFX[name], 0);
-	else
-		cout << "Imposible reproducir, no existe el SFX con nombre: " << name << endl;
 }
 
 void SoundManager::playMusic(const string& name, bool loops)
 {
 	if (_music.find(name) != _music.end())
 		Mix_PlayMusic(_music[name], loops ? -1 : 0);
-	else
-		cout << "Imposible reproducir, no existe la musica con nombre: " << name << endl;
 }
 
 void SoundManager::resumeMusic()

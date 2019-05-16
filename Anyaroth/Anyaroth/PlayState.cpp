@@ -81,13 +81,6 @@ bool PlayState::handleEvent(const SDL_Event& event)
 		_gameptr->pushState(new PauseState(_gameptr));
 		handled = true;
 	}
-	else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_0) //Boton de prueba para reiniciar el nivel
-		_levelManager.resetLevel();
-	else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_1) //Boton de prueba para reiniciar la municion
-	{
-		_player->getCurrentGun()->resetAmmo();
-		_playHud->getPlayerPanel()->updateAmmoViewer(_player->getCurrentGun()->getClip(), _player->getCurrentGun()->getMagazine());
-	}
 
 	return handled;
 }
