@@ -169,7 +169,6 @@ void Boss3::update(double deltaTime)
 			cutscene->play();
 
 			_finishLevel = true;
-			_player->setNoDamage(false);
 		}
 
 		if (isDead() || _player->isDead())
