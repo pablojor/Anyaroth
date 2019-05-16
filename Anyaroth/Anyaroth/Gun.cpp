@@ -19,7 +19,7 @@ Gun::Gun(Game* game, Texture* armTexture, Texture* bulletTexture, string shotSou
 	_bulletAnimType = bType;
 }
 
-void Gun::shoot(BulletPool* bulletPool, const Vector2D& position, const double& angle, const string& tag)
+void Gun::shoot(BulletPool* bulletPool, const Vector2D& position, double angle, const string& tag)
 {
 	if (_clip > 0 && _cadence <= 0)
 	{	
@@ -52,7 +52,7 @@ void Gun::shoot(BulletPool* bulletPool, const Vector2D& position, const double& 
 	}
 }
 
-void Gun::enemyShoot(BulletPool* bulletPool, const Vector2D& position, const double& angle, const string& tag)
+void Gun::enemyShoot(BulletPool* bulletPool, const Vector2D& position, double angle, const string& tag)
 {
 	if (_cadence <= 0)
 	{
@@ -119,7 +119,13 @@ void Gun::resetAmmo()
 	_clip = _maxClip;
 }
 
-Vector2D Gun::prepareBulletPosition(const Vector2D & position, const double & angle)
+void Gun::clearAmmo()
+{
+	_magazine = 0;
+	_clip = 0;
+}
+
+Vector2D Gun::prepareBulletPosition(const Vector2D & position, double angle)
 {
 	return (position + _offset).rotateAroundPoint(angle, position);
 }

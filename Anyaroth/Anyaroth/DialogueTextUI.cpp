@@ -13,7 +13,7 @@ DialogueTextUI::~DialogueTextUI()
 {
 }
 
-void DialogueTextUI::update(const double& deltaTime)
+void DialogueTextUI::update(double deltaTime)
 {
 	if (_visible)
 	{
@@ -59,4 +59,17 @@ void DialogueTextUI::type(string text)
 	_character = 0;
 	_textToType = text;
 	_textTyped = false;
+}
+
+void DialogueTextUI::completeLine()
+{
+	_textTyped = true;
+
+	while (_character < _textToType.size())
+	{
+		_dialogueTexts.push_back(_textToType[_character]);
+		_character++;
+	}
+	string s(_dialogueTexts.begin(), _dialogueTexts.end());
+	setText(s);
 }

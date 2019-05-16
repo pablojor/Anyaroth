@@ -21,8 +21,8 @@ public:
 	Particle(Game* game);
 	~Particle();
 
-	virtual void init(Texture* texture, const Vector2D& position, const double& speed, const double& angle,const double & aliveTime);
-	virtual void update(const double& deltaTime);
+	virtual void init(Texture* texture, const Vector2D& position, double speed, double angle,double aliveTime);
+	virtual void update(double deltaTime);
 	inline void setGravScale(float grav) { _gravScale = grav; _body->getBody()->SetGravityScale(grav); }
 	/*virtual void beginCollision(GameObject* other, b2Contact* contact);
 	virtual void endCollision(GameObject * other, b2Contact* contact);

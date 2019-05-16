@@ -5,15 +5,15 @@
 
 class ZoomInOutEvent : public Event
 {
-	private:
-		int _time, _timeOnEvent = 0;
-		Camera* _cam;
-		CamEffect _camEffect;
+private:
+	int _time, _timeOnEvent = 0;
+	Camera* _cam;
+	CamEffect _camEffect;
 
-	public:
-		ZoomInOutEvent(Camera* cam, int time, CamEffect type);
+public:
+	ZoomInOutEvent(Camera* cam, int time, CamEffect type) : _cam(cam), _time(time), _camEffect(type) {}
+	virtual ~ZoomInOutEvent() {};
 
-		virtual void update(const double& time);
-		virtual void play() {};
+	virtual void update(double time);
+	virtual void play() {}
 };
-

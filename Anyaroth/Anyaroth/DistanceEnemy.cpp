@@ -15,6 +15,12 @@ DistanceEnemy::DistanceEnemy(Game* g, Player* player, Vector2D pos, Texture* tex
 	_affectedByExternalForces = true;
 }
 
+DistanceEnemy::~DistanceEnemy()
+{
+	if (_myBulletPool != nullptr) _myBulletPool->stopBullets();
+	delete _myGun;
+}
+
 void DistanceEnemy::raycast()
 {
 	b2Vec2 enemyPos = _body->getBody()->GetPosition();
@@ -32,7 +38,7 @@ void DistanceEnemy::raycast()
 
 	for (b2Body* b = getWorld()->GetBodyList(); b && _armVision; b = b->GetNext())
 		for (b2Fixture* f = b->GetFixtureList(); f && _armVision; f = f->GetNext())
-			if (/*b->GetType() == b2_staticBody*/ (((GameObject*)(b->GetUserData()))->getTag() == "Ground" || ((GameObject*)(b->GetUserData()))->getTag() == "Platform" ||
+			if ((((GameObject*)(b->GetUserData()))->getTag() == "Ground" || ((GameObject*)(b->GetUserData()))->getTag() == "Platform" ||
 				((GameObject*)(b->GetUserData()))->getTag() == "Door") && f->RayCast(&rayOutput, rayInput, 0))
 				_armVision = false;
 }
@@ -51,7 +57,7 @@ void DistanceEnemy::shoot()
 	}
 }
 
-void DistanceEnemy::update(const double& deltaTime)
+void DistanceEnemy::update(double deltaTime)
 {
 	Enemy::update(deltaTime);
 	_myGun->refreshGunCadence(deltaTime);

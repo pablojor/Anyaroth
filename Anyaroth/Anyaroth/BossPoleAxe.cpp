@@ -1,18 +1,21 @@
 #include "BossPoleAxe.h"
 #include "Game.h"
 
-
 BossPoleAxe::BossPoleAxe(Game* game, GameObject* owner) : PoleAxe(game)
 {
 	_owner = owner->getComponent<BodyComponent>();
+	setCollisionFilters(PLAYER);
+	setCollisionSize({ 40, 75 });
+	setOffset({ 115,15 });
+	setDamage(7);
+	setVelocity({ 18,0 });
+
 	_id = BossPoleAxe_Weapon;
 }
 
-BossPoleAxe::~BossPoleAxe()
-{
-}
+BossPoleAxe::~BossPoleAxe() {}
 
-void BossPoleAxe::update(const double & deltaTime)
+void BossPoleAxe::update(double deltaTime)
 {
 	if (isActive())
 	{

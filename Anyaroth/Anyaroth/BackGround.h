@@ -15,7 +15,7 @@ public:
 	virtual ~BackGround() {}
 
 	virtual void render() const;
-	virtual void update(const double& deltaTime) {}
+	virtual void update(double deltaTime) {}
 
 	virtual bool checkCameraStatus(pair<bool, int> status) { return false; }
 };

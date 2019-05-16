@@ -1,5 +1,4 @@
 #pragma once
-
 #include "Event.h"
 #include "BodyComponent.h"
 
@@ -11,10 +10,10 @@ private:
 
 public:
 	MoveEvent(BodyComponent* body, int dir, int speed, int xDestination);
+	virtual ~MoveEvent() {};
 
-	virtual void update(const double& time);
+	virtual void update(double time);
 	void move();
 
-	virtual void play() {};
+	virtual void play() {}
 };
-

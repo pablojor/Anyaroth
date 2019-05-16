@@ -1,14 +1,12 @@
 {
     "dialogues": {
-        "Jose Maria 1": {
-            "face": "DialogueFace",
-            "name": "Jose Maria",
+        "Helmet 1": {
+            "face": "HelmetFace",
+            "name": "Helmet",
             "voice": "exampleVoice",
             "dialogue": [
-                "*Bzzt... Bip, bip...* Hey, que tal?",
-                "Hmm, con que programando... ya veo...",
-                "Pues sigue en ello, chaval! Deja de jugar tanto al Sekiro y ponte a estudiar de una maldita vez, escoria!",
-                "Adios! *Bip*"
+                "Starting up Helmet OS... WARNING. Data is corrupted, serious brain damage detected.",
+                "Initializing hippocampus analysis. This may take a while."
             ],
             "faces": [
                 0,
@@ -22,9 +20,1664 @@
                 " "
             ]
         },
-        "Demo dude": {
-            "face": "DialogueFace",
-            "name": "Insurgent",
+        "Helmet 2": {
+            "face": "HelmetFace",
+            "name": "Helmet",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Successfully recovered user's data. Please, check if the data shown below is correct:",
+                "User's name: Avestas. Profession: Soldier. ...",
+                "WARNING. FATAL ERROR OCCURRED. Your helmet might be hacked or damaged. Please, report to the nearest..."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Helmet 3": {
+            "face": "HelmetFace",
+            "name": "Helmet",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Helmet OS has been Successfully hacked. Welcome to freedom.",
+                "As your virtual assistant, I will guide you towards the nearest rebel base.",
+                "But first, allow me to fix your nervous system's issues. Let's start with the basics:"
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Tutorial Signpost 0": {
+            "face": "nullptr",
+            "name": "",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "WARNING. RESTRICTED AREA. Entry without authorization from the commander is prohibited."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Kartya 1-2": {
+            "face": "KartyaFace",
+            "name": "???",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Hey, you! What are you doing here? Why are you wearing the Queen's army military uniform?",
+                "What? Oh... So your helmet has just been hacked...",
+                "Okay, listen, I don't have time for you. And I don't like rookies.",
+                "You'll find Zornn at the shop inside this building.",
+                "He'll tell you what to do. We needed some soldiers, so don't fuck up and you may earn a living here. See you."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Kartya 3": {
+            "face": "KartyaFace",
+            "name": "???",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "You'll find Zornn at the shop inside this building."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "NPC 1 3": {
+            "face": "NPC1Face",
+            "name": "Rebel",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "The elders say that long ago the Queen was not a monarch, but a commander loyal to another king.",
+                "I don't care what she was, I just want my family to be free!"
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "NPC 2 3": {
+            "face": "NPC2Face",
+            "name": "Rebel",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "The Queen won the Ancient War. She killed the four kings, even the one she obeyed.",
+                "Rumours say that she uses their corpses as servants. It may be true.",
+                "With those helmets she can make a servantout of anything..."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "NPC 3 3": {
+            "face": "NPC3Face",
+            "name": "Rebel",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Now the Queen lives in a palace in the Core of Anyaroth.",
+                "I hope the whole planet collapses so she gets buried to death!"
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Shop 1 3": {
+            "face": "nullptr",
+            "name": "Zornn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Wait a second, I don't remember your face... I mean, your helmet."
+            ],
+            "faces": [
+                2
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Shop 2 3": {
+            "face": "nullptr",
+            "name": "Zornn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Howdy, soldier! Wanna check my new weapons?"
+            ],
+            "faces": [
+                2
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Shop Catalog 3": {
+            "face": "nullptr",
+            "name": "Zornn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Howdy, soldier! Wanna check my new weapons?"
+            ],
+            "faces": [
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Shop Talk 3": {
+            "face": "nullptr",
+            "name": "Zornn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Oh! So you are new here. Please, forgive Kartya, she is really busy these days.",
+                "I'm glad you are here, it's getting hard to recruit new soldiers. The rebellion gets a new fighter... and I get a new customer!",
+                "Pay attention: in the rebellion there are no leaders, an Kartya will behead you with an axe if you act as one.",
+                "However, there is this soldier, Azura, who wants to go to the Core, where the Queen lives, and kill her.",
+                "He's made it into the Mantle already, where a lot of rebel soldiers are joining him.",
+                "Think about it, they need your strength and my weapons, and I need their money!",
+                "But the nearest lift to the Mantle is inside general Spenta Manyu's base, and I can't get there without your help. What do you say?",
+                "I'll meet you in the next rebel base, to the east. But you'd better buy me a weapon. You won't last long with that junk."
+            ],
+            "faces": [
+                2,
+                1,
+                2,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Shop Depot 3": {
+            "face": "nullptr",
+            "name": "Zornn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Take a second, choose your weapons and enjoy the music."
+            ],
+            "faces": [
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Kartya 5": {
+            "face": "KartyaFace",
+            "name": "Kartya",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "So Zornn has convinced you to face Spenta Manyu at his hangar.",
+                "You must be stupid if you think that you stand a chance against him.",
+                "I have bet with Zornn that you will lose your head in the battle.",
+                "He said you will only lose some limb."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "NPC 1 5": {
+            "face": "NPC1Face",
+            "name": "Rebel",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Azura must get to the Core and destroy the Queen. He's our only hope!"
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "NPC 2 5": {
+            "face": "NPC2Face",
+            "name": "Rebel",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "I met general Spenta Manyu when he was a kid.",
+                "He came from a humble family, but he was always dreaming of becoming a pilot of the Queen's army.",
+                "He created prosthetic wings that allowed him to fly, and the army ended up hiring him as an engineer.",
+                "Now he is general of the Queen's Air Force, and one of the Queen's most dangerous supporters."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Shop 1 5": {
+            "face": "nullptr",
+            "name": "Zornn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Remember, the rebels need you at the Mantle, and I need their money!"
+            ],
+            "faces": [
+                2
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Shop 2 5": {
+            "face": "nullptr",
+            "name": "Zornn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Howdy, soldier! Wanna check my new weapons?"
+            ],
+            "faces": [
+                2
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Shop Catalog 5": {
+            "face": "nullptr",
+            "name": "Zornn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Howdy, soldier! Wanna check my new weapons?"
+            ],
+            "faces": [
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Shop Talk 5": {
+            "face": "nullptr",
+            "name": "Zornn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "There you are! I knew you were going to help me.",
+                "If you've made it so far on your own you might be able to survive to Spenta Manyu.",
+                "But if I were you I would buy a weapon first. You don't know what could go wrong at his hangar."
+            ],
+            "faces": [
+                2,
+                1,
+                2,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Shop Depot 5": {
+            "face": "nullptr",
+            "name": "Zornn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Take a second, choose your weapons and enjoy the music."
+            ],
+            "faces": [
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Spenta Manyu": {
+            "face": "SpentaFace",
+            "name": "Spenta Manyu",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Another one of my soldiers has been fooled by the rebellion... You have made a big mistake. I will end your silly adventures once and for all!"
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Azura 2-1": {
+            "face": "AzuraFace",
+            "name": "Azura",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "You must be the new soldier, the one who defeated Spenta Manyu. I am pleased to meet you.",
+                "My name is Azura, and I plan to challenge the Queen at her own palace.",
+                "When I was freed from the Queen's mental control, I became a rebel soldier like you, but I became fed up with carrying out attacks to the Queen's army that led us nowhere.",
+                "Instead, I decided to start a real revolution on my own.",
+                "And soon, I'll reach the Royal Lift, which will take me to the Core, where the Queen lives.",
+                "It won't be easy, though. General Yasna Manyu is defending the lift from intruders, and some say he is the toughest anya alive.",
+                "I'm not sure if I will survive, but there's no other way...",
+                "And that is why I need you, Avestas! I don't want my rebellion to die with me.",
+                "I don't do this because of personal revenge, I do this for the future of Anyaroth and all the anyas!",
+                "I hope we will meet again soon. But if we don't, I hope you can end what I started. Farewell, Avestas!"
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Azura 7": {
+            "face": "AzuraFace",
+            "name": "Azura",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "I hope we will meet again soon. But if we don't, I hope you can end what I started. Farewell, Avestas!"
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "NPC 1 7": {
+            "face": "NPC1Face",
+            "name": "Rebel",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Azura, Anyaroth is with you! Don't disappoint us!"
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "NPC 2 7": {
+            "face": "NPC2Face",
+            "name": "Rebel",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Azura is not like the rest of the rebels. He is not a mindless psycho like most of them.",
+                "He is like those knights from my grandmother's tales, except he is real and is going to save us all."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "NPC 3 7": {
+            "face": "NPC3Face",
+            "name": "Rebel",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "You are a soldier too. You should go after Azura and keep the Royal Lift open for us.",
+                "If all the rebels enter the Core, the army won't stand a chance against us!"
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Shop 1 7": {
+            "face": "nullptr",
+            "name": "Zornn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Here you are, my favourite customer! You've not only allowed me to enter a whole new marketplace in the Mantle, but I also won a bet with Kartya thanks to you!"
+            ],
+            "faces": [
+                2
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Shop 2 7": {
+            "face": "nullptr",
+            "name": "Zornn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Howdy, soldier! Wanna check my new weapons?"
+            ],
+            "faces": [
+                2
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Shop Catalog 7": {
+            "face": "nullptr",
+            "name": "Zornn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Howdy, soldier! Wanna check my new weapons?"
+            ],
+            "faces": [
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Shop Talk 7": {
+            "face": "nullptr",
+            "name": "Zornn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "The mantle is a hot place full of dangerous mines, with miners working until exhaustion. I should start selling ice cubes instead of weapons!"
+            ],
+            "faces": [
+                2,
+                1,
+                2,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Shop Depot 7": {
+            "face": "nullptr",
+            "name": "Zornn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Take a second, choose your weapons and enjoy the music."
+            ],
+            "faces": [
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "NPC 1 9": {
+            "face": "NPC1Face",
+            "name": "Rebel",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Have you heard it already? Azura has defeated general Yasna Manyu! He might be heading to the Queen's palace right now."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Kartya 9": {
+            "face": "KartyaFace",
+            "name": "Kartya",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "I admit it, you're a tough nut to crack. I never thought that you could kill Spenta Manyu and let us into the Mantle.",
+                "I even like you more than Azura, to be honest.",
+                "That guy... He thinks he's some kind of hero. He acts like a gentleman and likes to speak about justice, but I wonder...",
+                "What will he do after the Queen is dead and no one is sitting on her throne?",
+                "We are rebels, and we'll always be, no matter who is wearing the crown."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Kheismani 9": {
+            "face": "KheismaniFace",
+            "name": "Kheismani",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "You... I've heard about you. My name is Kheismani. I'm a hacker, one of the few still in existence.",
+                "You know, it's a dangerous task...",
+                "We go here and there, hacking the workers' helmets in order to free them from the mental control of the Queen, and asking them to join the rebellion.",
+                "When you are done freeing miners and farmers, someone asks you to go to a military camp to free some soldiers, but a lot of hackers die in this missions.",
+                "I hacked Azura's helmet. It was years ago. We almost died trying to escape the camp. I hope he's doing okay, wherever he is..."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Shop 1 9": {
+            "face": "nullptr",
+            "name": "Zornn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Avestas! Come here man!"
+            ],
+            "faces": [
+                2
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Shop 2 9": {
+            "face": "nullptr",
+            "name": "Zornn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Have you seen my new guns?"
+            ],
+            "faces": [
+                2
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Shop Catalog 9": {
+            "face": "nullptr",
+            "name": "Zornn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Have you seen my new guns?"
+            ],
+            "faces": [
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Shop Talk 9": {
+            "face": "nullptr",
+            "name": "Zornn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "I'm thinking about moving the base to the Core now that Azura is going to kill the Queen.",
+                "I've heard a lot of scientists live there, creating gadgets and robotic monsters to protect the Queen.",
+                "They may be interested in my weapons, what do you think?",
+                "Just kidding! Hahaha."
+            ],
+            "faces": [
+                2,
+                1,
+                2,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Shop Depot 9": {
+            "face": "nullptr",
+            "name": "Zornn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Take a second, choose your weapons and enjoy the music."
+            ],
+            "faces": [
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Kheismani 11": {
+            "face": "KheismaniFace",
+            "name": "Kheismani",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "This tunnel leads to the Royal Lift, the only way into the Core.",
+                "Azura killed the general that was defending it, so you shouldn't have any problems to get there."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "NPC 1 11": {
+            "face": "NPC1Face",
+            "name": "Rebel",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Are you going to the Core too? I've heard it is full of laboratories where the Queen's scientists make crazy experiments.",
+                "I've also heard there is a lot of lava. I'm sick and tired of sweating here in the Mantle, there's no way I'm going to a hotter place."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Shop 1 11": {
+            "face": "nullptr",
+            "name": "Zornn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "If you're going to the Core you'll need some rest... and some new weapons!"
+            ],
+            "faces": [
+                2
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Shop 2 11": {
+            "face": "nullptr",
+            "name": "Zornn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Avestas! Come here man! Have you seen my new guns?"
+            ],
+            "faces": [
+                2
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Shop Catalog 11": {
+            "face": "nullptr",
+            "name": "Zornn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Avestas! Come here man! Have you seen my new guns?"
+            ],
+            "faces": [
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Shop Talk 11": {
+            "face": "nullptr",
+            "name": "Zornn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Azura once bought me a shotgun, and now that's my best selling weapon!"
+            ],
+            "faces": [
+                2,
+                1,
+                2,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Shop Depot 11": {
+            "face": "nullptr",
+            "name": "Zornn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Take a second, choose your weapons and enjoy the music."
+            ],
+            "faces": [
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Azura Manyu 1": {
+            "face": "AzuraBossFace",
+            "name": "Azura Manyu",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "A... Avestas... I'm Azura...",
+                "The Queen... She's too powerful...",
+                "They turned me into this horrible thing... I've lost control over myself, I'm one of her generals now.",
+                "Please, stop me. I m-must... kill you..."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Azura Manyu 2": {
+            "face": "AzuraBossFace",
+            "name": "Azura Manyu",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Avestas... I failed... You are our last hope...",
+                "Anyaroth... needs... you..."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Kheismani 3-1": {
+            "face": "KheismaniFace",
+            "name": "Kheismani",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "So it is true. Azura has been defeated. It is frankly incredible...",
+                "Just a few days ago we thought that this rebellion was over, we thought that we had already won.",
+                "But Azura was just another anya, a strong one, but an anya after all. And the Queen...",
+                "I'm starting to believe she is some kind of goddess.",
+                "The rebellion has died with Azura. Everyone is feeling miserable and absolutely shattered.",
+                "But you... You were able to defeat Spenta Manyu as well as Azura himself.",
+                "Azura once told me that if he died, someone stronger would replace him. I hope he was right."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Kheismani 13": {
+            "face": "KheismaniFace",
+            "name": "Kheismani",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Azura once told me that if he died, someone stronger would replace him. I hope he was right."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "NPC 1 13": {
+            "face": "NPC1Face",
+            "name": "Rebel",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "I can't believe he is dead... What will happen to us now?"
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "NPC 2 13": {
+            "face": "NPC2Face",
+            "name": "Rebel",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "I'll go back to the surface and continue working at the factory.",
+                "I won't let the Queen kill my family because of my rebellious adventures.",
+                "You should do it too. Everyone at the Core will be killed by the Queen's army sooner or later."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "NPC 3 13": {
+            "face": "NPC3Face",
+            "name": "Rebel",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "One more disappointment... I'm tired of this."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Shop 1 13": {
+            "face": "nullptr",
+            "name": "Zornn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Hey boy, I've heard the news about Azura. It's a bummer, really.",
+                "I was even starting to believe in the rebellion.",
+                "But I still believe in you, boy.",
+                "Some of the rebels have started speaking about “the one who defeated Azura”. They think you might be our last hope."
+            ],
+            "faces": [
+                2
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Shop 2 13": {
+            "face": "nullptr",
+            "name": "Zornn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Avestas! Come here man! Have you seen my new guns?"
+            ],
+            "faces": [
+                2
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Shop Catalog 13": {
+            "face": "nullptr",
+            "name": "Zornn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Avestas! Come here man! Have you seen my new guns?"
+            ],
+            "faces": [
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Shop Talk 13": {
+            "face": "nullptr",
+            "name": "Zornn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Kartya has brought me a new weapon. She says it's a cannon that shoots antimatter, whatever that is.",
+                "I can give it to you, but at a relatively high price. After all, I have to pay that petty thief."
+            ],
+            "faces": [
+                2,
+                1,
+                2,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Shop Depot 13": {
+            "face": "nullptr",
+            "name": "Zornn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Take a second, choose your weapons and enjoy the music."
+            ],
+            "faces": [
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Kartya 15": {
+            "face": "KartyaFace",
+            "name": "Kartya",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Azura was a great soldier, but he wasn't the only one willing to fight.",
+                "It doesn't matter how many of us die, we are closer to the Queen than ever.",
+                "We must continue with the rebellion until the end."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Kheismani 15": {
+            "face": "KheismaniFace",
+            "name": "Kheismani",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Thanks to a scientist's helmet that Kartya brought here, I've had access to some reports about the technology developed under the supervision of the Queen.",
+                "The reports say that our Queen has a special interest in worm holes and antimatter.",
+                "I'll continue my research, it may be useful for your final battle."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "NPC 1 15": {
+            "face": "NPC1Face",
+            "name": "Rebel",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "It's a matter of time before the Queen's army finds us and kills us all.",
+                "You are Avestas, the one who defeated Azura.",
+                "You are the only one capable of challenging the Queen!"
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Shop 1 15": {
+            "face": "nullptr",
+            "name": "Zornn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Welcome back! You are doing a great job against the Queen's soldiers.",
+                "Those fuckers keep coming thick and fast, it's like the whole army was here at the Core, waiting for us."
+            ],
+            "faces": [
+                2
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Shop 2 15": {
+            "face": "nullptr",
+            "name": "Zornn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Avestas! Come here man! Have you seen my new guns?"
+            ],
+            "faces": [
+                2
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Shop Catalog 15": {
+            "face": "nullptr",
+            "name": "Zornn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Avestas! Come here man! Have you seen my new guns?"
+            ],
+            "faces": [
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Shop Talk 15": {
+            "face": "nullptr",
+            "name": "Zornn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Kheismani has been arguing with Kartya.",
+                "He thinks that, once the Queen is dead and the helmets destroyed, someone must take her place and make sure that peace will prevail in Anyaroth.",
+                "Kartya says that we don't need neither a queen nor a king to rule us.",
+                "I don't know who's right or wrong, but I wouldn't argue about it until the Queen's reign is over."
+            ],
+            "faces": [
+                2,
+                1,
+                2,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Shop Depot 15": {
+            "face": "nullptr",
+            "name": "Zornn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Take a second, choose your weapons and enjoy the music."
+            ],
+            "faces": [
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Kartya 17": {
+            "face": "KartyaFace",
+            "name": "Kartya",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "There are only a few of us left now, soldier, we've had a great number of casualties.",
+                "If you fail...  The rebellion will be at its worst situation ever."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Kheismani 17": {
+            "face": "KheismaniFace",
+            "name": "Kheismani",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "I've discovered something very interesting hacking into that scientist's helmet.",
+                "The Queen must be plugged into some supercomputer in order to apply her mind-control power over the helmets.",
+                "The Queen's palace is right there. You better prepare yourself. Farewell, Avestas."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Shop 1 17": {
+            "face": "nullptr",
+            "name": "Zornn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Here we are, next to the Queen's palace at last. The time has come for you to prove yourself, boy."
+            ],
+            "faces": [
+                2
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Shop 2 17": {
+            "face": "nullptr",
+            "name": "Zornn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Avestas! Come here man! Have you seen my new guns?"
+            ],
+            "faces": [
+                2
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Shop Catalog 17": {
+            "face": "nullptr",
+            "name": "Zornn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Avestas! Come here man! Have you seen my new guns?"
+            ],
+            "faces": [
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Shop Talk 17": {
+            "face": "nullptr",
+            "name": "Zornn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "You know what. When I opened the shop I was angry with the rebellion and its followers.",
+                "I fought for years and even lost my eye, but we achieved nothing.",
+                "That's why I decided to open this shop, and make a profit of their willingness to fight.",
+                "I was old and tired of fighting by myself.",
+                "But now that this is coming to an end, I feel a bit nostalgic.",
+                "I've made friends with Kartya, Kheismani, and you Avestas!",
+                "Good luck, my friend."
+            ],
+            "faces": [
+                2,
+                1,
+                2,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Shop Depot 17": {
+            "face": "nullptr",
+            "name": "Zornn",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Take a second, choose your weapons and enjoy the music."
+            ],
+            "faces": [
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Angra Manyu 1": {
+            "face": "AngraFace",
+            "name": "Angra Manyu",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Finally, I'll have the pleasure to meet Avestas, the renowned warrior.",
+                "I've been keeping an eye on you since you killed my general, Spenta Manyu.",
+                "You've come a long way and risked your life a lot, and for what purpose?",
+                "Since you were freed, have you made any choices on your own?",
+                "Or perhaps you've been following orders all this time?",
+                "You were born a slave, you continued as a slave at the orders of your rebel friends, and you will die today as a slave!",
+                "So hear me, slave! Hear my last command: FIGHT ME!"
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Angra Manyu 2": {
+            "face": "AngraSoldierFace",
+            "name": "Angra Manyu",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Idiot... Anyaroth had always been at war, until I took control over the entire population.",
+                "What will happen now that all anyas are free?",
+                "You... You will be known as the anya that brought back war and death to this planet...",
+                "See you in hell... Avestas the warrior..."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Kartya 19 1": {
+            "face": "KartyaFace",
+            "name": "Kartya",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "You made it! You destroyed the Queen! Everyone has been freed from their helmets."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Kheismani 19 1": {
+            "face": "KheismaniFace",
+            "name": "Kheismani",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "It seems like the Queen's throne was the supercomputer that she used to control us through the helmets."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Kartya 19 2": {
+            "face": "KartyaFace",
+            "name": "Kartya",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Now that she's not connected we can be free. A new era of freedom awaits for Anyaroth!"
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Kheismani 19 2": {
+            "face": "KheismaniFace",
+            "name": "Kheismani",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "That sounds good, perhaps too good to be true. Chaos may rule the planet if no one has any rules to follow."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Kartya 19 3": {
+            "face": "KartyaFace",
+            "name": "Kartya",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "What are you suggesting?"
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Kheismani 19 3": {
+            "face": "KheismaniFace",
+            "name": "Kheismani",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "This throne... If we leave it in good hands, we might be able to continue living at peace, but without being oppressed by an evil ruler like the Queen.",
+                "I suggest that Avestas replaces the Queen and becomes our new ruler!"
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Kartya 19 4": {
+            "face": "KartyaFace",
+            "name": "Kartya",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Have you gone mad!? We've just deposed the Queen and you want to enslave us again?"
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Kheismani 19": {
+            "face": "KheismaniFace",
+            "name": "Kheismani",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Sit on the throne, Avestas! It's the only way to maintain peace in the future."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Kartya 19": {
+            "face": "KartyaFace",
+            "name": "Kartya",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Don't listen to him! Let's get out of this palace. We'll build a new society together, a society without rulers of any kind!"
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "NPC 1 53": {
+            "face": "NPC1Face",
+            "name": "Rebel",
             "voice": "exampleVoice",
             "dialogue": [
                 "Oh! A new comrade, and it looks like a tough one.",
@@ -43,9 +1696,9 @@
                 " "
             ]
         },
-        "First safezone": {
+        "Demo": {
             "face": "nullptr",
-            "name": "Player",
+            "name": "Avestas",
             "voice": "exampleVoice",
             "dialogue": [
                 "Finally... I reached a rebel base.",
@@ -66,7 +1719,7 @@
         },
         "Shop 1 53": {
             "face": "nullptr",
-            "name": "One-eyed Gronn",
+            "name": "Zornn",
             "voice": "exampleVoice",
             "dialogue": [
                 "Oh! Welcome to my shop."
@@ -83,7 +1736,7 @@
         },
         "Shop 2 53": {
             "face": "nullptr",
-            "name": "One-eyed Gronn",
+            "name": "Zornn",
             "voice": "exampleVoice",
             "dialogue": [
                 "Do you want anything else?"
@@ -100,7 +1753,7 @@
         },
         "Shop Catalog 53": {
             "face": "nullptr",
-            "name": "One-eyed Gronn",
+            "name": "Zornn",
             "voice": "exampleVoice",
             "dialogue": [
                 "Have you seen my beautiful guns yet? In this shop we only have killer prices! Hehehe."
@@ -117,10 +1770,10 @@
         },
         "Shop Talk 53": {
             "face": "nullptr",
-            "name": "One-eyed Gronn",
+            "name": "Zornn",
             "voice": "exampleVoice",
             "dialogue": [
-                "Be carefull out there, there is a lot of dangerous crap.",
+                "Be carefull out there, there's a lot of dangerous crap.",
                 "You should buy my stuff to survive.",
                 "I mean... It's not like I worry about you but...",
                 "I worry about your money! Hahahaha!"
@@ -140,12 +1793,353 @@
         },
         "Shop Depot 53": {
             "face": "nullptr",
-            "name": "One-eyed Gronn",
+            "name": "Zornn",
             "voice": "exampleVoice",
             "dialogue": [
-                "Take a second, choose your prefered weapon and enjoy the music."
+                "Take a second, choose your weapons and enjoy the music."
             ],
             "faces": [
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Tutorial1": {
+            "face": "nullptr",
+            "name": "",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Press <A / D> to move left / right."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Tutorial1PAD": {
+            "face": "nullptr",
+            "name": "",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Use <Left Thumbstick> to move left / right."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Tutorial2": {
+            "face": "nullptr",
+            "name": "",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Tap <SPACEBAR> to jump. Hold <SPACEBAR> to jump higher."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },"Tutorial2PAD": {
+            "face": "nullptr",
+            "name": "",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Tap <A button> to jump. Hold <A button> to jump higher."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Tutorial3": {
+            "face": "nullptr",
+            "name": "",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Press <SHIFT> while moving in a direction to dash. Use it in the air to reach distant places."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Tutorial3PAD": {
+            "face": "nullptr",
+            "name": "",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Press <LEFT TRIGGER> while moving in a direction to dash. Use it in the air to reach distant places."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Tutorial4": {
+            "face": "nullptr",
+            "name": "",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "There is no ammo left in your pistol. Touch that ammo package to pick it up."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Tutorial4PAD": {
+            "face": "nullptr",
+            "name": "",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "There is no ammo left in your pistol. Touch that ammo package to pick it up."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Tutorial5": {
+            "face": "nullptr",
+            "name": "",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Try to hit those targets. You can shoot with <LEFT CLICK> and reload with <R>. Use <MOUSE> to aim."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Tutorial5PAD": {
+            "face": "nullptr",
+            "name": "",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Try to hit those targets. You can shoot with <RIGHT TRIGGER> and reload with <X button>. Use <RIGHT THUMBSTICK> to aim."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Tutorial6": {
+            "face": "nullptr",
+            "name": "",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Use your dagger by pressing <RIGHT CLICK>. You can receive medkits if you kill with your dagger."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Tutorial6PAD": {
+            "face": "nullptr",
+            "name": "",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "Use your dagger by pressing the <RIGHT THUMBSTICK>. You can receive medkits if you kill with your dagger."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Tutorial7": {
+            "face": "nullptr",
+            "name": "",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "You can ignore damage while dashing. Use your dash (press <SHIFT>) to avoid being hit by the shots from the turret."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Tutorial7PAD": {
+            "face": "nullptr",
+            "name": "",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "You can ignore damage while dashing. Use your dash (press <LEFT TRIGGER>) to avoid being hit by the shots from the turret."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Tutorial8": {
+            "face": "nullptr",
+            "name": "",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "You can heal by picking up medkits like this one."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Tutorial8PAD": {
+            "face": "nullptr",
+            "name": "",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "You can heal by picking up medkits like this one."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Tutorial9": {
+            "face": "nullptr",
+            "name": "",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "If you have two weapons equipped, you can change weapon pressing <Q>."
+            ],
+            "faces": [
+                0,
+                0,
+                0
+            ],
+            "sounds": [
+                " ",
+                " ",
+                " ",
+                " "
+            ]
+        },
+        "Tutorial9PAD": {
+            "face": "nullptr",
+            "name": "",
+            "voice": "exampleVoice",
+            "dialogue": [
+                "If you have two weapons equipped, you can change weapon pressing <Y button>."
+            ],
+            "faces": [
+                0,
+                0,
                 0
             ],
             "sounds": [

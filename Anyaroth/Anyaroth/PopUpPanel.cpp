@@ -13,6 +13,9 @@ PopUpPanel::PopUpPanel(Game* game) : PanelUI(game)
 
 	_nextButton = new ButtonUI(game, game->getTexture("MenuButtons"), [this](Game* game) { nextMessage(game); }, { 0, 1, 2, 1 });
 	_nextButtonText = new TextUI(game, "Next", game->getFont("ARIAL12"), 12, 0, 0, { 0, 0, 0, 255 });
+	
+	_selectedButton = _nextButton;
+	_selectedButton->setSelected(true);
 
 	addChild(_frame);
 	addChild(_title);
@@ -155,6 +158,7 @@ void PopUpPanel::reset()
 void PopUpPanel::open()
 {
 	setVisible(true);
+	_isFinished = false;
 
 	for (auto c : _children)
 		c->setVisible(true);

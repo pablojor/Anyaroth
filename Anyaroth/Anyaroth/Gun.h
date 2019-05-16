@@ -30,8 +30,8 @@ public:
 	Gun(Game* game, Texture* armTexture, Texture* bulletTexture, string shotSoundTag, double speed, double damage, double range, int maxClip, int maxMagazine, int maxCadence, EffectInterface* effect, GunType id, Texture* iconTexture, bool automatic = false, BulletAnimType bType = BulletAnimType::Default);
 	virtual ~Gun() {}
 
-	virtual void shoot(BulletPool* bulletPool, const Vector2D& position, const double& angle, const string& tag);
-	virtual void enemyShoot(BulletPool* bulletPool, const Vector2D& position, const double& angle, const string& tag);
+	virtual void shoot(BulletPool* bulletPool, const Vector2D& position, double angle, const string& tag);
+	virtual void enemyShoot(BulletPool* bulletPool, const Vector2D& position, double angle, const string& tag);
 
 	virtual void reload();
 
@@ -41,6 +41,7 @@ public:
 
 	void addAmmo(int ammoAdded);
 	void resetAmmo();
+	void clearAmmo();
 
 	inline int getMagazine() const { return _magazine; }
 	inline int getClip() const { return _clip; }
@@ -53,7 +54,7 @@ public:
 	inline bool hasToBeReloaded() const { return _clip == 0 && _magazine > 0; }
 	inline bool isAutomatic() const { return _isAutomatic; }
 
-	Vector2D prepareBulletPosition(const Vector2D& position, const double& angle);
+	Vector2D prepareBulletPosition(const Vector2D& position, double angle);
 
 	inline void refreshGunCadence(const Uint32& deltaTime) { _cadence > 0 ? _cadence -= deltaTime : _cadence = 0; }
 
@@ -69,4 +70,5 @@ public:
 	inline void setBulletTexture(Texture* texture) { _bulletTexture = texture; }
 	inline void setBulletAnimType(BulletAnimType bType) { _bulletAnimType = bType; }
 	inline void setShotSound(string soundTag) { _shotSoundTag = soundTag; }
+	inline void setArmTexture(Texture* t) { _armTexture = t; }
 };

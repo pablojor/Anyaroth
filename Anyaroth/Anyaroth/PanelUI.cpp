@@ -39,7 +39,7 @@ void PanelUI::render() const
 				e->render();
 }
 
-void PanelUI::update(const double& deltaTime)
+void PanelUI::update(double deltaTime)
 {
 	if (_visible)
 		for (UIElement* e : _children)
@@ -50,7 +50,7 @@ void PanelUI::update(const double& deltaTime)
 bool PanelUI::handleEvent(const SDL_Event & event)
 {
 	bool handled = false;
-	if (_visible)
+	if (_visible && _inputEnabled)
 	{
 		checkControlMode(event);
 

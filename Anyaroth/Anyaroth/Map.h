@@ -18,7 +18,7 @@ private:
 	GameObject* _objects = nullptr;
 	vector <ObjectLayer*> _objectLayers;
 
-	double _height = 0, _width = 0;
+	double _height = 0, _width = 0, _spawnType = 0;
 
 public:
 	Map(string filename, Game* game, Player* player, Texture* tileset, BulletPool* bulletPool);
@@ -28,7 +28,7 @@ public:
 	void restartLevel();
 
 	virtual bool handleEvent(const SDL_Event& event);
-	virtual void update(const double& deltaTime);
+	virtual void update(double deltaTime);
 	virtual void render(Camera* c) const;
 
 	inline double getHeight() const { return _height; }

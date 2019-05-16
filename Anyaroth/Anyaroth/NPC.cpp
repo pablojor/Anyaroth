@@ -1,11 +1,11 @@
 #include "NPC.h"
 #include "Game.h"
 
-NPC::NPC(Game* g, Vector2D posIni, Dialogue dialogue) : Interactable(g, posIni)
+NPC::NPC(Game* g, Texture* texture, Vector2D pos, Dialogue dialogue) : Interactable(g, pos)
 {
 	_dialogue = dialogue;
 
-	addComponent<Texture>(g->getTexture("NPC"));
+	addComponent<Texture>(texture);
 
 	auto _texture = getComponent<Texture>();
 	auto _indicatorTexture = _interactIndicator->getComponent<Texture>();
@@ -18,24 +18,24 @@ NPC::NPC(Game* g, Vector2D posIni, Dialogue dialogue) : Interactable(g, posIni)
 	_body->filterCollisions(OBJECTS, PLAYER);
 
 	_anim = addComponent<AnimatedSpriteComponent>();
-	_anim->addAnim(AnimatedSpriteComponent::Main, 8, true);
+	_anim->addAnim(AnimatedSpriteComponent::Main, _anim->getTexture()->getNumCols(), true);
 
 	_anim->playAnim(AnimatedSpriteComponent::Main);
 
-	_interactIndicator->getComponent<TransformComponent>()->setPosition(posIni.getX() + (_texture->getW() / _texture->getNumCols()) / 2 - (_indicatorTexture->getW() / _indicatorTexture->getNumCols()) / 2 /*50*/, posIni.getY() - 30 /*180*/);
+	_interactIndicator->getComponent<TransformComponent>()->setPosition(pos.getX() + (_texture->getW() / _texture->getNumCols()) / 2 - (_indicatorTexture->getW() / _indicatorTexture->getNumCols()) / 2, pos.getY() - 30);
 }
 
 NPC::~NPC()
 {
 }
 
-void NPC::update(const double& time)
+void NPC::update(double time)
 {
 	Interactable::update(time);
 
 	if (_canInteract)
 	{
-		if (_dialoguePanel->isConversating())
+		if (_dialoguePanel->isOpened())
 		{
 			_interactIndicator->setActive(false);
 			if (_other != nullptr)
@@ -63,10 +63,14 @@ void NPC::update(const double& time)
 	}
 }
 
-void NPC::interact()
+bool NPC::interact()
 {
-	_dialoguePanel->startDialogue(_dialogue);
-	_other->setInputFreezed(true);
+	if(!_dialoguePanel->isOpened())
+	{
+		_dialoguePanel->startDialogue(_dialogue);
+		_other->setInputFreezed(true);
+	}
+	return false;
 }
 
 void NPC::setDialoguePanel(DialoguePanel* dialoguePanel)

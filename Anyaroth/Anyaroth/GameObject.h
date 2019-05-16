@@ -11,6 +11,7 @@
 
 #include "FileNotFoundError.h"
 #include "FileFormatError.h"
+#include "Vector2D.h"
 
 using namespace std;
 
@@ -43,8 +44,6 @@ private:
 			_components[name] = c;
 			return c;
 		}
-		else
-			std::cout << "Se ha intentado anyadir un componente ya existente" << endl;
 
 		return nullptr;
 	}
@@ -59,8 +58,6 @@ private:
 			_components[name] = c;
 			return c;
 		}
-		else
-			std::cout << "Se ha intentado anyadir un componente ya existente" << endl;
 
 		return nullptr;
 	}
@@ -78,12 +75,14 @@ protected:
 	Game* _game = nullptr; //puntero a game
 	bool _affectedByExternalForces = false;
 
+	bool _isPlayer = false;
+
 public:
 	GameObject(Game* game, string tag = "");
 	virtual ~GameObject();
 
 	virtual bool handleEvent(const SDL_Event& event);
-	virtual void update(const double& deltaTime);
+	virtual void update(double deltaTime);
 	virtual void render(Camera* c) const;
 
 	virtual void addInputComponent(InputComponent* ic);
@@ -94,6 +93,10 @@ public:
 	virtual void delPhysicsComponent(PhysicsComponent* pc);
 	virtual void delRenderComponent(RenderComponent* rc);
 
+	inline virtual vector<RenderComponent*>  getRenderComponents() const { return _renderComp; }
+	inline virtual vector<InputComponent*>   getInputComponents() const { return _inputComp; }
+	inline virtual vector<PhysicsComponent*>  getPhysicsComponents() const { return _physicsComp; }
+
 	inline b2World* getWorld() const { return _world; }
 	inline void setWorld(b2World* world) { _world = world; }
 
@@ -103,8 +106,10 @@ public:
 	virtual void postCollision(GameObject* other, b2Contact* contact) {}
 
 	inline void addChild(GameObject* obj) { obj->_parent = this; _children.push_back(obj); }
-	inline list<GameObject*>& getChildren() { return _children; }
+	inline void addChildFront(GameObject* obj) { obj->_parent = this; _children.push_front(obj); }
+	inline list<GameObject*>& getChildren()  { return _children; }
 	void destroyAllChildren();
+	inline GameObject* getParent() const { return _parent; }
 
 	inline Game* getGame() const { return _game; }
 
@@ -112,6 +117,7 @@ public:
 	inline void setTag(string  const &tag) { _tag = tag; }
 
 	inline bool isActive() const { return _active; }
+	inline bool isPlayer() const { return _isPlayer; }
 	inline void setActive(bool active) { _active = active; }
 	virtual inline void setStopped(bool value) {}
 	virtual inline void setStunned(bool value) {}
@@ -122,6 +128,10 @@ public:
 
 	virtual int getDamage() const { return 0; }
 	virtual void subLife(int damage) {}
+
+	inline Camera* getCamera() const;
+
+	Vector2D getPositionOnCamera();
 
 	inline virtual int getValue() const { return -1; }
 

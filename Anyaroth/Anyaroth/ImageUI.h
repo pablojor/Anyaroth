@@ -15,7 +15,7 @@ public:
 	~ImageUI() {}
 
 	virtual void render() const;
-	virtual void update(const double& deltaTime) {}
+	virtual void update(double deltaTime) {}
 	virtual bool handleEvent(const SDL_Event& event) { return false; }
 
 	inline void setImage(Texture* image) { _image = image; }
@@ -25,6 +25,7 @@ public:
 	virtual void setPosition(int x, int y);
 	virtual void setSize(int w, int h);
 	void setClippingAreaSize(float w, float h);		//Solo el alto y ancho porque la posicion tiene que ser la misma (Valor de 0 a 1)
+	void setScale(float s);
 
 	inline int getW() const { return _destRect.w; }
 	inline int getH() const { return _destRect.h; }

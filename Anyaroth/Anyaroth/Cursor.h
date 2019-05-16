@@ -9,5 +9,5 @@ public:
 	Cursor(Game* game);
 	~Cursor() {}
 
-	void update(const double& deltaTime);
+	void update(double deltaTime);
 };

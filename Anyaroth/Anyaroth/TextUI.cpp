@@ -55,7 +55,7 @@ void TextUI::setSize(int w, int h)
 	_destRect.h = h;
 }
 
-void TextUI::setScale(const float & ratio)
+void TextUI::setScale(float ratio)
 {
 	_destRect.w *= ratio;
 	_destRect.h *= ratio;

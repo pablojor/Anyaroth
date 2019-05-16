@@ -52,7 +52,7 @@ void GameState::render() const
 	_mainCamera->last_render();
 }
 
-void GameState::update(const double& deltaTime)
+void GameState::update(double deltaTime)
 {
 	_mainCamera->update(deltaTime);
 
@@ -80,6 +80,10 @@ void GameState::post_update()
 	int i = items_ToDelete.size() - 1;
 	while (i >= 0)
 	{
+		GameObject* parent = items_ToDelete[i]->getParent();
+		if (parent != nullptr)
+			parent->getChildren().remove(items_ToDelete[i]);
+
 		delete items_ToDelete[i];
 		_stages.remove(items_ToDelete[i]);
 		items_ToDelete.pop_back();
@@ -111,7 +115,7 @@ bool GameState::pre_handleEvent()
 	return _mainCamera->pre_handleEvent();
 }
 
-void GameState::updateWorld(const float & timestep, const int & velocityIterations, const int & positionIterations)
+void GameState::updateWorld(float timestep, int velocityIterations, int positionIterations)
 {
 	if(_world != nullptr)
 		_world->Step(timestep, velocityIterations, positionIterations);
@@ -124,7 +128,16 @@ void GameState::addObject(GameObject* n)
 
 void GameState::destroyObject(GameObject* obj)
 {
-	items_ToDelete.push_back(obj);
+	auto it = std::find(items_ToDelete.begin(), items_ToDelete.end(), obj);
+	if(it == items_ToDelete.end())
+		items_ToDelete.push_back(obj);
+}
+
+void GameState::addCutScene(CutScene * cutScene)
+{
+	if (_cutScene != nullptr) 
+		delete _cutScene; 
+	_cutScene = cutScene;
 }
 
 Vector2D GameState::getMousePositionInWorld() const

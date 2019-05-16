@@ -24,7 +24,7 @@ public:
 	GravityBombDebuff(GameObject* obj, GameObject* gravityZone);
 	virtual ~GravityBombDebuff();
 
-	virtual void update(const double& deltaTime);
+	virtual void update(double deltaTime);
 	void absorb();
 	void stop();
 	void setZone(GameObject* zone) { _gravityZone = zone; }

@@ -1,11 +1,5 @@
 #include "FlipEvent.h"
 
-
-
-FlipEvent::FlipEvent(Player* player) : Event(), _player(player)
-{
-}
-
 void FlipEvent::play()
 {
 	if (!_player->getComponent<CustomAnimatedSpriteComponent>()->isFlipped())

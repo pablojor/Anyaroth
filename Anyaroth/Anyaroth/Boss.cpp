@@ -10,12 +10,12 @@ void Boss::setBossPanel(BossPanel * b)
 	_bossPanel = b;
 
 	//Actualizamos de primeras el aspecto del Panel del Jugador
-	_bossPanel->updateBossName("Spenta Manyu");
+	_bossPanel->updateBossName(_name);
 	_bossPanel->updateLifeBar(_life1.getLife(), _life2.getLife(), _life3.getLife(), _life.getLife());
 	_bossPanel->setVisible(true);
 }
 
-void Boss::update(const double & deltaTime)
+void Boss::update(double deltaTime)
 {
 	DistanceEnemy::update(deltaTime);
 
@@ -32,6 +32,8 @@ void Boss::update(const double & deltaTime)
 		else
 			beetwenFases(deltaTime);
 	}
+	else
+		_player->setNoDamage(true);
 	
 	if (isDead() || _player->isDead())
 		_bossPanel->setVisible(false);
@@ -94,4 +96,27 @@ void Boss::changeFase(int fase)
 {
 	_actualFase = fase;
 	_armVision = true;
+}
+
+void Boss::addSensors()
+{
+	b2PolygonShape shape;
+	shape.SetAsBox(5 / M_TO_PIXEL, 2 / M_TO_PIXEL, b2Vec2(-2, 2), 0);
+	b2FixtureDef fDef;
+	fDef.shape = &shape;
+	fDef.filter.categoryBits = ENEMIES;
+	fDef.filter.maskBits = FLOOR | PLATFORMS;
+	fDef.isSensor = true;
+	fDef.friction = -26;
+	_body->addFixture(&fDef, this);
+
+	shape;
+	shape.SetAsBox(5 / M_TO_PIXEL, 2 / M_TO_PIXEL, b2Vec2(2, 2), 0);
+	fDef;
+	fDef.shape = &shape;
+	fDef.filter.categoryBits = ENEMIES;
+	fDef.filter.maskBits = FLOOR | PLATFORMS;
+	fDef.isSensor = true;
+	fDef.friction = 26;
+	_body->addFixture(&fDef, this);
 }

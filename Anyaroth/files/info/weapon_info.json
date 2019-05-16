@@ -1,145 +1,149 @@
 {
     "Basic":
     {
-      "BasicPistol": 
+      "Pistol": 
       {
         "zone": -1,
 	      "frame": "BasicFrame",
         "icon": "PistolIcon",
         "price": 0,
         "speed": 100,
-        "damage": 10,
+        "damage": 3,
         "range": 1000,
         "clip": 12,
         "magazine": 60,
-        "cadence": 270,
+        "cadence": 2,
         "id": 0
       },
 
-      "BasicRifle": {
-        "zone": -1,
+      "Shotgun":
+      {
+        "zone": 3,
+        "frame": "BasicFrame",
+        "icon": "ShotgunIcon",
+        "price": 150,
+        "speed": 50,
+        "damage": 5,
+        "range": 50,
+        "clip": 2,
+        "magazine": 60,
+        "cadence": 1,
+        "id": 1
+      },
+
+      "Rifle":
+      {
+        "zone": 3,
         "frame": "BasicFrame",
         "icon": "RifleIcon",
         "price": 150,
         "speed": 100,
-        "damage": 15,
+        "damage": 3,
         "range": 1000,
-        "clip": 30,
-        "magazine": 120,
-        "cadence": 170,
+        "clip": 5,
+        "magazine": 150,
+        "cadence": 4,
         "id": 3
-      },
-
-      "BasicShotgun": {
-        "zone": -1,
-        "frame": "BasicFrame",
-        "icon": "ShotgunIcon",
-        "price": 150,
-        "speed": 100,
-        "damage": 7,
-        "range": 60,
-        "clip": 3,
-        "magazine": 48,
-        "cadence": 800,
-        "id": 1
       }
     },
 
     "Common":
     {
-      "Gamma Blaster": {
-        "zone": 53,
-        "frame": "CommonFrame",
-        "icon": "ImprovedRifleIcon",
-        "price": 120,
-        "speed": 100,
-        "damage": 3,
-        "range": 1000,
-        "clip": 6,
-        "magazine": 160,
-        "cadence": 6,
-        "id": 4
-      },
-
-      "A4X Shotgun": {
-        "zone": 53,
+      "AX4 Shotgun":
+      {
+        "zone": 7,
         "frame": "CommonFrame",
         "icon": "ImprovedShotgunIcon",
-        "price": 120,
-        "speed": 100,
-        "damage": 4,
-        "range": 60,
-        "clip": 3,
-        "magazine": 50,
+        "price": 250,
+        "speed": 50,
+        "damage": 5,
+        "range": 50,
+        "clip": 4,
+        "magazine": 80,
         "cadence": 2,
         "id": 2
+      },
+
+      "Gamma Blaster":
+      {
+        "zone": 7,
+        "frame": "CommonFrame",
+        "icon": "ImprovedRifleIcon",
+        "price": 250,
+        "speed": 100,
+        "damage": 4,
+        "range": 1000,
+        "clip": 5,
+        "magazine": 200,
+        "cadence": 6,
+        "id": 4
       }
     },
 
     "Rare" :
     {
       "Plasma Sniper": {
-        "zone": 53,
+        "zone": 15,
         "frame": "RareFrame",
         "icon": "SniperIcon",
-        "price": 180,
+        "price": 400,
         "speed": 100,
         "damage": 6,
         "range": 1000,
         "clip": 1,
-        "magazine": 30,
+        "magazine": 35,
         "cadence": 1,
         "id": 5
       },
 
-      "BounceOrbCanon": {
-        "zone": 53,
+      "Bounce Canon": {
+        "zone": 5,
         "frame": "RareFrame",
         "icon": "BounceCannonIcon",
-        "price": 1000,
-        "speed": 30,
-        "damage": 15,
+        "price": 300,
+        "speed": 50,
+        "damage": 6,
         "range": 1000,
-        "clip": 30,
-        "magazine": 120,
-        "cadence": 200,
+        "clip": 5,
+        "magazine": 40,
+        "cadence": 2,
         "id": 6
       },
 
-      "GravityCannon": {
-        "zone": 53,
+      "Gravity Cannon": {
+        "zone": 11,
         "frame": "RareFrame",
         "icon": "BHCannonIcon",
-        "price": 1000,
-        "speed": 45,
-        "damage": 5,
+        "price": 300,
+        "speed": 50,
+        "damage": 3,
         "range": 150,
-        "clip": 3,
-        "magazine": 30,
-        "cadence": 400,
+        "clip": 5,
+        "magazine": 40,
+        "cadence": 2,
         "id": 7
       }
     },
     "Melee":
     {
-      "BasicKnife": {
+      "Knife": {
         "zone": -1,
         "frame": "BasicFrame",
-        "icon": "SniperIcon",
+        "icon": "KnifeIcon",
         "id": 0
       },
 
       "Sword": {
-        "zone": 53,
+        "zone": 7,
         "frame": "CommonFrame",
-        "icon": "SniperIcon",
+        "icon": "SwordIcon",
         "id": 1
       },
 
-      "PoleAxe": {
-        "zone": 53,
+      "Poleaxe": {
+        "zone": 13,
         "frame": "RareFrame",
-        "icon": "SniperIcon",
+        "icon": "HalberdIcon",
         "id": 2
       }
     }

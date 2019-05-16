@@ -31,6 +31,7 @@ DistanceStaticEnemy::DistanceStaticEnemy(Game* g, Player* player, Vector2D pos, 
 
 	_body->setW(20);
 	_body->setH(20);
+
 	_body->moveShape(b2Vec2(0, 0.1));
 	_body->filterCollisions(ENEMIES, FLOOR | PLATFORMS | PLAYER_BULLETS | MELEE);
 
@@ -39,11 +40,11 @@ DistanceStaticEnemy::DistanceStaticEnemy(Game* g, Player* player, Vector2D pos, 
 	_myGun->setMaxCadence(700);
 	_myGun->setBulletSpeed(30);
 	_myGun->setShotSound("turretShot");
-
+	_hurtParticle = g->getTexture("Sparks");
 	_affectedByExternalForces = false;
 }
 
-void DistanceStaticEnemy::update(const double& deltaTime)
+void DistanceStaticEnemy::update(double deltaTime)
 {
 	DistanceEnemy::update(deltaTime);
 	_body->getBody()->SetAwake(true);

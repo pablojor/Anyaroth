@@ -30,7 +30,11 @@ private:
 	Money* _money = nullptr;
 	PlayerPanel* _playerPanel = nullptr;
 
+	string _dustParticle = "Dust1";
+
 	double _speed = 15, _gravScale = 8, _damping = 3;
+
+	int _meleeAnim = AnimatedSpriteComponent::MeleeKnife;
 
 	//Jump
 	int _floorCount = 0;
@@ -53,10 +57,11 @@ private:
 	bool _spawnParticles = false;
 
 	//Actions
-	bool _hasToReload = false, _isShooting = false, _isMeleeing = false;
+	bool _hasToReload = false, _isShooting = false, _isMeleeing = false, _stunned =false;
+	double _stunTime = 1000;
 
 	//Others
-	bool _changeLevel = false, _inputFreezed = false;
+	bool _inputFreezed = false, _noDamage = false;
 
 	//Guns
 	Gun* _currentGun = nullptr;
@@ -70,12 +75,12 @@ private:
 
 	void handleAnimations();
 
-	void refreshCooldowns(const double& deltaTime);
-	void refreshDashCoolDown(const double& deltaTime);
+	void refreshCooldowns(double deltaTime);
+	void refreshDashCoolDown(double deltaTime);
 
-	void dashTimer(const double& deltaTime);
+	void dashTimer(double deltaTime);
 
-	void refreshGunCadence(const double& deltaTime);
+	void refreshGunCadence(double deltaTime);
 	bool canReload();
 
 	void checkMelee();
@@ -85,37 +90,48 @@ public:
 	~Player();
 
 	bool handleEvent(const SDL_Event& event);
-	void update(const double& deltaTime);
+	void update(double deltaTime);
 
 	virtual void beginCollision(GameObject* other, b2Contact* contact);
 	virtual void endCollision(GameObject* other, b2Contact* contact);
 
 	void die();
 	void revive();
+
 	void subLife(int damage);
-	inline Life getLife() const { return _life; }
+	inline void setNoDamage(bool b) { _noDamage = b; }
 	inline bool isDead() const { return GameObject::isDead(); }
 
+	inline int getMaxLife() const { return _life.getMaxLife(); }
+	inline void setMaxLife(int amount) { _life.setMaxLife(amount); }
+
+	void clearAmmo();
 	void swapGun();
+
 	void changeCurrentGun(Gun* gun);
 	void changeOtherGun(Gun* gun);
-	void changeMelee(Melee* newMelee);
+	void changeMelee(Melee* newMelee, int anim);
+
 	inline Melee* getMelee() const { return _melee; }
+	inline int getMeleeAnim() const { return _meleeAnim; }
 
 	inline Gun* getCurrentGun() const { return _currentGun; }
 	inline Gun* getOtherGun() const { return _otherGun; }
 
 	inline bool spendMoney(int n) { return _money->spend(n); }
-	inline int getBank() const { return _money->getBank(); }
-	inline void setBank(int amount) { _money->setBank(amount); }
 	inline Money* getMoney() const { return _money; }
 
-	void move(const Vector2D& dir, const double& speed);
+	inline int getBank() const { return _money->getBank(); }
+	inline void setBank(int amount) { _money->setBank(amount); }
+
+	void move(const Vector2D& dir, double speed);
 	void dash(const Vector2D& dir);
 
 	void dashOff();
 	void jump();
 	void cancelJump();
+	void stunPlayer();
+	void refreshStunTime(double deltaTime);
 	inline bool isGrounded() const { return _floorCount; }
 
 	void melee();
@@ -125,11 +141,9 @@ public:
 	void setPlayerPanel(PlayerPanel* p);
 	inline PlayerPanel* getPlayerPanel() const { return _playerPanel; };
 
-	inline void setPlayerPosition(Vector2D pos) { _body->getBody()->SetTransform(b2Vec2(pos.getX(), pos.getY()), 0); }
+	inline void setPlayerPosition(Vector2D pos) {_body->getBody()->SetTransform(b2Vec2(pos.getX(), pos.getY()), 0);}
 	inline void setPlayerBulletPool(BulletPool* pool) { _playerBulletPool = pool; }
-
-	inline bool changeLevel() const { return _changeLevel; }
-	inline void setChangeLevel(bool change) { _changeLevel = change; }
+	void resetDustParticle();
 
 	void stopPlayer();
 	inline void setInputFreezed(bool b) { _inputFreezed = b; if (b) stopPlayer(); }
@@ -137,8 +151,8 @@ public:
 
 	inline bool isDashing() const { return _onDash; }
 	inline bool isReloading() const { return _playerArm->isReloading(); }
-	inline void setIsReloading(const bool& b) { _hasToReload = b; }
-	inline bool isMeleeing() const { return _anim->getCurrentAnim() == AnimatedSpriteComponent::MeleeKnife && !_anim->animationFinished(); }
+	inline void setIsReloading(bool b) { _hasToReload = b; }
+	inline bool isMeleeing() const { return (_anim->getCurrentAnim() == AnimatedSpriteComponent::MeleeKnife || _anim->getCurrentAnim() == AnimatedSpriteComponent::MeleeSword || _anim->getCurrentAnim() == AnimatedSpriteComponent::MeleeHalberd) && !_anim->animationFinished(); }
 	inline bool isJumping() const { return (_anim->getCurrentAnim() == AnimatedSpriteComponent::BeforeJump || _anim->getCurrentAnim() == AnimatedSpriteComponent::Jump) && !_anim->animationFinished(); }
 	inline bool isFalling() const { return (_anim->getCurrentAnim() == AnimatedSpriteComponent::Falling || _anim->getCurrentAnim() == AnimatedSpriteComponent::StartFalling) && !_anim->animationFinished(); }
 };

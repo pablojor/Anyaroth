@@ -22,10 +22,9 @@ public:
 	Interactable(Game* g, Vector2D posIni);
 	virtual ~Interactable();
 
-	virtual void update(const double& time);
 	virtual bool handleEvent(const SDL_Event& event);
 
-	virtual void interact() {};
+	virtual bool interact() { return false; };
 
 	void beginCollision(GameObject * other, b2Contact* contact);
 	void endCollision(GameObject * other, b2Contact* contact);

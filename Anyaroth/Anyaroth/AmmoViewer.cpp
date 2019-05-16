@@ -14,7 +14,7 @@ AmmoViewer::AmmoViewer(Game* game, int xPos, int yPos) : PanelUI(game)
 	addChild(_ammoImage);
 }
 
-void AmmoViewer::updateAmmoViewer(const int& ammoClip, const int& ammoMagazine)
+void AmmoViewer::updateAmmoViewer(int ammoClip, int ammoMagazine)
 {
 	int x = _clipText->getX();
 	int w = _clipText->getW();

@@ -12,7 +12,7 @@ private:
 
 public:
 	EnemyArm(Game* g, GameObject* owner, GameObject* target, DistanceEnemy* enemy, Vector2D offset = { 0,0 });
-	void update(const double& deltaTime);
+	void update(double deltaTime);
 	void shoot();
 
 	inline double getAngle() const { return _transform->getRotation(); }

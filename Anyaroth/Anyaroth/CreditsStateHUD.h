@@ -10,7 +10,7 @@ class CreditsStateHUD :	public Canvas
 private:
 	CreditsPanel* _creditsPanel;
 public:
-	CreditsStateHUD(Game* game);
+	CreditsStateHUD(Game* game, bool goodFinal);
 	~CreditsStateHUD();
 };
 

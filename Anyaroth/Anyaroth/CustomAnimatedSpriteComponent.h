@@ -16,7 +16,7 @@ public:
 	virtual ~CustomAnimatedSpriteComponent() {};
 
 	virtual void render(Camera* c) const;
-	virtual void update(const double& deltaTime);
+	virtual void update(double deltaTime);
 
 	void hurt() { state = Hurt; }
 	void die() { state = Dead; }

@@ -77,7 +77,7 @@ ShopInfoPanel::ShopInfoPanel(Game* game, int xPos, int yPos) : PanelUI(game)
 	addChild(_priceIcon);
 }
 
-void ShopInfoPanel::update(const double& deltaTime)
+void ShopInfoPanel::update(double deltaTime)
 {
 	PanelUI::update(deltaTime);
 

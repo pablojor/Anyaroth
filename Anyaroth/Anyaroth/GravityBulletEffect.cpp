@@ -1,7 +1,6 @@
 #include "GravityBulletEffect.h"
 #include "Bullet.h"
 #include "Game.h"
-#include "MovingComponent.h"
 #include "SpriteObject.h"
 
 GravityBulletEffect::GravityBulletEffect(int maxAbsorbTime) : _maxAbsorbingTime(maxAbsorbTime)

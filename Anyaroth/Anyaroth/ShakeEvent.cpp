@@ -1,11 +1,6 @@
 #include "ShakeEvent.h"
 
-
-ShakeEvent::ShakeEvent(Camera* cam, int time, int intesity) : _cam(cam), _time (time), _intensity(intesity)
-{
-}
-
-void ShakeEvent::update(const double& time)
+void ShakeEvent::update(double time)
 {
 	if (_timeOnEvent > _time)
 		_finished = true;

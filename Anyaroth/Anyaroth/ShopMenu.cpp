@@ -103,7 +103,7 @@ ShopMenu::~ShopMenu()
 }
 
 
-void ShopMenu::update(const double& deltaTime)
+void ShopMenu::update(double deltaTime)
 {
 	PanelUI::update(deltaTime);
 
@@ -136,7 +136,7 @@ bool ShopMenu::handleEvent(const SDL_Event& event)
 
 		while (!handled && it != _children.end())
 		{
-			if ((*it)->handleEvent(event))
+			if ((*it) != _dialoguePanel && (*it)->handleEvent(event))
 				handled = true;
 			else
 				it++;
@@ -197,6 +197,7 @@ void ShopMenu::setPlayer(Player* ply)
 
 void ShopMenu::openShop()
 {
+	_player->setInputFreezed(true);
 	GameManager::getInstance()->setOnShop(true);
 	_player->getPlayerPanel()->updateCoinsCounter(_player->getMoney()->getWallet());
 	_game->getCurrentState()->getMainCamera()->fadeIn(500);
@@ -217,6 +218,7 @@ void ShopMenu::openShop()
 
 void ShopMenu::closeShop()
 {
+	_player->setInputFreezed(false);
 	GameManager::getInstance()->setOnShop(false);
 	_closed = true;
 	_dialoguePanel->endDialogue();

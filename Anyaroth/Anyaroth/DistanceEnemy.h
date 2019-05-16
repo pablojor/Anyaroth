@@ -15,12 +15,12 @@ protected:
 
 public:
 	DistanceEnemy(Game* g, Player* player, Vector2D pos, Texture* texture, BulletPool* pool, Vector2D offset = { 10, 12 });
-	virtual ~DistanceEnemy() { delete _myGun; }
+	virtual ~DistanceEnemy();
 
 	inline bool ArmVision() const { return _armVision; }
 	inline Gun* getGun() const { return _myGun; }
 
-	virtual void update(const double& deltaTime);
+	virtual void update(double deltaTime);
 	void raycast();
-	void shoot();
+	virtual void shoot();
 };

@@ -1,16 +1,13 @@
 #include "PoleAxe.h"
 #include "Game.h"
 
-
-PoleAxe::PoleAxe(Game * game) : Melee(game, { 20, 0 }, ENEMIES, 20, 30, 30, PoleAxe_Weapon)
+PoleAxe::PoleAxe(Game * game) : Melee(game, { 0, 0 }, ENEMIES, 15, 60, 30, PoleAxe_Weapon)
 {
 }
 
-PoleAxe::~PoleAxe()
-{
-}
+PoleAxe::~PoleAxe() {}
 
-void PoleAxe::update(const double & deltaTime)
+void PoleAxe::update(double deltaTime)
 {
 	if (isActive())
 	{

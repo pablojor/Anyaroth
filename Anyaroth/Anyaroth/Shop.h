@@ -16,8 +16,8 @@ class Shop : public Interactable
 		Shop(Game* g, Vector2D posIni, ShopMenu* shop);
 		virtual ~Shop() {};
 
-		virtual void update(const double& deltaTime);
+		virtual void update(double deltaTime);
 
-		virtual void interact();
+		virtual bool interact();
 };
 

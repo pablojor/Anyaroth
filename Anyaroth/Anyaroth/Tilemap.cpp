@@ -43,17 +43,22 @@ void Tilemap::render(Camera * c) const
 			while (beginOfFil != endOfFil)
 			{
 				//Fila y columna de la textura
-				Tile t = (*beginOfFil).second;
-				int row = (t.tilesetIndex - 1) / _tileSet->getNumCols();
-				int col = (t.tilesetIndex - 1) % _tileSet->getNumCols();
+				auto aux = (*beginOfFil).second;
+				std::vector<Tile> casilla = aux.getTiles();
+				for (int i = 0; i < casilla.size(); i++)
+				{
+					Tile t = casilla[i];;
+					int row = (t.tilesetIndex - 1) / _tileSet->getNumCols();
+					int col = (t.tilesetIndex - 1) % _tileSet->getNumCols();
 
-				SDL_Rect destRect = { t.xIndex * _tileSize - c->getCameraPosition().getX(), t.yIndex * _tileSize - c->getCameraPosition().getY(), _tileSize, _tileSize };
+					SDL_Rect destRect = { t.xIndex * _tileSize - c->getCameraPosition().getX(), t.yIndex * _tileSize - c->getCameraPosition().getY(), _tileSize, _tileSize };
 
-				SDL_Rect winRect = { destRect.x * GAME_RESOLUTION_X / c->getCameraSize().getX(), destRect.y * GAME_RESOLUTION_Y / c->getCameraSize().getY(),
-					destRect.w * GAME_RESOLUTION_X / c->getCameraSize().getX() + 1, destRect.h * GAME_RESOLUTION_Y / c->getCameraSize().getY() + 1 }; //+1 para el tema del Zoom
+					SDL_Rect winRect = { destRect.x * GAME_RESOLUTION_X / c->getCameraSize().getX(), destRect.y * GAME_RESOLUTION_Y / c->getCameraSize().getY(),
+						destRect.w * GAME_RESOLUTION_X / c->getCameraSize().getX() + 1, destRect.h * GAME_RESOLUTION_Y / c->getCameraSize().getY() + 1 }; //+1 para el tema del Zoom
 
-				_tileSet->renderFrame(winRect, row, col);
-				beginOfFil++;
+					_tileSet->renderFrame(winRect, row, col);
+				}		
+				beginOfFil++;		
 			}
 		}
 
@@ -113,9 +118,9 @@ void Tilemap::loadTileMap(const string & filename)
 						int y = i / _maxCols;
 						int x = i % _maxCols;
 
-						_grid[i + 1] = Tile(layer[i], x ,y);
+						_grid[i + 1].getTiles().push_back(Tile(layer[i], x, y));
 
-						if (name == "Ground" || name == "Platform" || name == "Door" || name == "Death")
+						if ((name == "Ground" || name == "Platform" || name == "Door" || name == "Death") && !_grid[i + 1].hasCollider())
 						{
 							_grid[i + 1].setTag(name);
 
@@ -141,6 +146,7 @@ void Tilemap::loadTileMap(const string & filename)
 							body->SetFixedRotation(true);
 
 							_colliders.push_back(body);
+							_grid[i + 1].setHasCollider(true);
 						}
 					}
 				}

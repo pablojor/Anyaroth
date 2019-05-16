@@ -25,7 +25,7 @@ void Game::createTextures()
 			fil = j[i][2];
 			col = j[i][3];
 
-			_textures.insert(pair <string, Texture*>(id, new Texture(_renderer, SPRITE_PATH + name, fil, col)));
+			_textures.insert(pair <string, Texture*>(id, new Texture(_renderer, SPRITES_PATH + name, fil, col)));
 		}
 	}
 	else
@@ -63,78 +63,37 @@ void Game::createFonts()
 
 void Game::createSounds()
 {
-	//Music
-	_soundManager->addMusic("bgMusic", SOUNDS_PATH + "bgMusic.wav");
-	_soundManager->addMusic("shop", SOUNDS_PATH + "shop.ogg");
-	_soundManager->addMusic("safe_zone", SOUNDS_PATH + "safe_zone.ogg");
-	_soundManager->addMusic("boss1Battle", SOUNDS_PATH + "boss1Battle.ogg");
-	_soundManager->addMusic("demoLevelMusic", SOUNDS_PATH + "demoLevelMusic.ogg");
-	_soundManager->addSFX("example1", SOUNDS_PATH + "example1.wav");
+	ifstream input;
+	input.open(INFO_PATH + "assets.json");
+	if (input.is_open())
+	{
+		json j, aux;
+		input >> j;
+		aux = j["sounds"];
+		int numSounds = aux.size();
+		string id, name;
+		for (int i = 0; i < numSounds; i++)
+		{
+			id = aux[i][0].get<string>();
+			name = aux[i][1].get<string>();
 
-	//UI Sounds
-	_soundManager->addSFX("boton", SOUNDS_PATH + "boton.wav");
-	_soundManager->addSFX("openDialogue", SOUNDS_PATH + "openDialogue.wav");
-	_soundManager->addSFX("closeDialogue", SOUNDS_PATH + "closeDialogue.wav");
+			_soundManager->addSFX(id, SOUNDS_PATH + name);
+		}
 
-	//Voices
-	_soundManager->addSFX("exampleVoice", SOUNDS_PATH + "exampleVoice.wav");
-	_soundManager->addSFX("bossVoice", SOUNDS_PATH + "bossVoice.wav");
+		aux = j["music"];
+		int numMusic = aux.size();
+		for (int i = 0; i < numMusic; i++)
+		{
+			id = aux[i][0].get<string>();
+			name = aux[i][1].get<string>();
 
-	//Sounds
-	_soundManager->addSFX("pick1", SOUNDS_PATH + "itempick1.wav");
+			_soundManager->addMusic(id, SOUNDS_PATH + name);
+		}
+	}
+	else
+		throw AnyarothError("No se ha encontrado el archivo introducido");
 
-	_soundManager->addSFX("doorOpen", SOUNDS_PATH + "doorOpen.wav");
-	_soundManager->addSFX("doorClose", SOUNDS_PATH + "doorClose.wav");
-	_soundManager->addSFX("turretShot", SOUNDS_PATH + "turretShot.wav");
-	_soundManager->addSFX("spentaSword", SOUNDS_PATH + "spentaSword.wav");
-	_soundManager->addSFX("step", SOUNDS_PATH + "step.wav");
-	_soundManager->addSFX("jump", SOUNDS_PATH + "jump.wav");
-	_soundManager->addSFX("dash", SOUNDS_PATH + "dash.wav");
-	_soundManager->addSFX("die1", SOUNDS_PATH + "die1.wav");
-	_soundManager->addSFX("die2", SOUNDS_PATH + "die2.wav");
-	_soundManager->addSFX("pain1", SOUNDS_PATH + "pain1.wav");
-	_soundManager->addSFX("pain2", SOUNDS_PATH + "pain2.wav");
-	_soundManager->addSFX("pain3", SOUNDS_PATH + "pain3.wav");
-	_soundManager->addSFX("pain4", SOUNDS_PATH + "pain4.wav");
-	_soundManager->addSFX("pain5", SOUNDS_PATH + "pain5.wav");
-	_soundManager->addSFX("pain6", SOUNDS_PATH + "pain6.wav");
-
-	_soundManager->addSFX("pistolShot", SOUNDS_PATH + "pistolShot.wav");
-	_soundManager->addSFX("bulletGround", SOUNDS_PATH + "bulletGround.wav");
-	_soundManager->addSFX("melee", SOUNDS_PATH + "melee.wav");
-	_soundManager->addSFX("reload", SOUNDS_PATH + "reload.wav");
-	_soundManager->addSFX("emptyGun", SOUNDS_PATH + "emptyGun.wav");
-	_soundManager->addSFX("shotgun1", SOUNDS_PATH + "shotgun1.wav");
-	_soundManager->addSFX("shotgun2", SOUNDS_PATH + "shotgun2.wav");
-	_soundManager->addSFX("rifle1", SOUNDS_PATH + "rifle1.wav");
-	_soundManager->addSFX("rifle2", SOUNDS_PATH + "rifle2.wav");
-	_soundManager->addSFX("plasmaSniper", SOUNDS_PATH + "plasmaSniper.wav");
-	_soundManager->addSFX("blackHole", SOUNDS_PATH + "blackHole.wav");
-	_soundManager->addSFX("duringBH", SOUNDS_PATH + "duringBH.wav");
-	_soundManager->addSFX("orb", SOUNDS_PATH + "orb.wav");
-	_soundManager->addSFX("orbBounce", SOUNDS_PATH + "orbBounce.wav");
-	_soundManager->addSFX("bombThrow", SOUNDS_PATH + "bombthrow.wav");
-	_soundManager->addSFX("bombExplosion", SOUNDS_PATH + "bombexplosion.wav");
-
-	_soundManager->addSFX("turretMeleeHit", SOUNDS_PATH + "turretMeleeHit.wav");
-	_soundManager->addSFX("turretHit", SOUNDS_PATH + "turretHit.wav");
-	_soundManager->addSFX("turretDeath", SOUNDS_PATH + "turretDeath.wav");
-	_soundManager->addSFX("bomberDeath", SOUNDS_PATH + "bomberDeath.wav");
-	_soundManager->addSFX("martyrHit", SOUNDS_PATH + "martyrHit.wav");
-	_soundManager->addSFX("martyrMeleeHit", SOUNDS_PATH + "martyrMeleeHit.wav");
-	_soundManager->addSFX("martyrDie", SOUNDS_PATH + "martyrDie.wav");
-	_soundManager->addSFX("martyrExplosion", SOUNDS_PATH + "martyrExplosion.wav");
-	_soundManager->addSFX("meleeEnemyHit", SOUNDS_PATH + "meleeEnemyHit.wav");
-	_soundManager->addSFX("meleeDeath", SOUNDS_PATH + "meleeDeath.wav");
-	_soundManager->addSFX("meleeHit", SOUNDS_PATH + "meleeHit.wav");
-	_soundManager->addSFX("meleeEnemyAttack", SOUNDS_PATH + "meleeEnemyAttack.wav");
-	_soundManager->addSFX("rocketLuncherUp", SOUNDS_PATH + "rocketLuncherUp.wav");
-	_soundManager->addSFX("rocketLaunch", SOUNDS_PATH + "rocketLaunch.wav");
-	_soundManager->addSFX("boss1Hit", SOUNDS_PATH + "boss1Hit.wav");
-	_soundManager->addSFX("boss1Die", SOUNDS_PATH + "boss1Die.wav");
-	_soundManager->addSFX("boss1Interfase1", SOUNDS_PATH + "boss1Interfase1.wav");
-	_soundManager->addSFX("boss1Interfase2", SOUNDS_PATH + "boss1Interfase2.wav");
-	_soundManager->addSFX("boss1Interfase3", SOUNDS_PATH + "boss1Interfase3.wav");
+	input.close();
 }
 
 void Game::createDialogues()
@@ -219,7 +178,7 @@ Game::Game()
 	SDL_RenderSetLogicalSize(_renderer, GAME_RESOLUTION_X, GAME_RESOLUTION_Y);
 
 	//Icon
-	SDL_Surface* icon = IMG_Load((SPRITE_PATH + "icon.png").c_str());
+	SDL_Surface* icon = IMG_Load((SPRITES_PATH + "icon.png").c_str());
 	SDL_SetWindowIcon(_window, icon);
 
 	//Show cursor
@@ -238,6 +197,7 @@ Game::Game()
 	initialiseJoysticks();
 	//---Create states
 	_stateMachine->pushState(new MenuState(this));
+	toggleFullscreen();
 }
 
 Game::~Game()
@@ -278,7 +238,7 @@ void Game::run()
 		start();
 		handleEvents();
 
-		while (lag >= FRAME_RATE)
+		while (lag >= FRAME_RATE && !_stateMachine->currentState()->hasToStart())
 		{
 			updateWorld(_timestep, 8, 3);
 			update(FRAME_RATE);
@@ -297,12 +257,12 @@ void Game::start()
 	}
 }
 
-void Game::updateWorld(const float & timeStep, const int & velocityIterations, const int & positionIterations)
+void Game::updateWorld(float timeStep, int velocityIterations, int positionIterations)
 {
 	_stateMachine->currentState()->updateWorld(timeStep, velocityIterations, positionIterations);
 }
 
-void Game::update(const double& deltaTime)
+void Game::update(double deltaTime)
 {
 	_stateMachine->currentState()->update(deltaTime);
 	_stateMachine->currentState()->post_update();

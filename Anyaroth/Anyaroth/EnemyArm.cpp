@@ -10,7 +10,7 @@ EnemyArm::EnemyArm(Game* g, GameObject* owner, GameObject* target, DistanceEnemy
 	_myEnemy = enemy;
 }
 
-void EnemyArm::update(const double& deltaTime)
+void EnemyArm::update(double deltaTime)
 {
 	GameObject::update(deltaTime);
 

@@ -7,4 +7,3 @@ public:
 	Knife(Game* game);
 	~Knife();
 };
-

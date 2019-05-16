@@ -12,6 +12,10 @@ BouncingBulletEffect::~BouncingBulletEffect()
 
 void BouncingBulletEffect::init(Bullet* bullet)
 {
+	b2MassData* m = new b2MassData();
+	m->mass = 0.000001;
+	bullet->getBody()->getBody()->SetMassData(m);
+
 	bullet->getBody()->getBody()->SetGravityScale(0);
 	bullet->getBody()->getBody()->GetFixtureList()->SetRestitution(1.0f);
 	bullet->getBody()->getBody()->SetLinearVelocity(b2Vec2(bullet->getSpeed() * cos((bullet->getTransform()->getRotation())* M_PI / 180.0), bullet->getSpeed() * sin((bullet->getTransform()->getRotation())* M_PI / 180.0)));
